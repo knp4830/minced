@@ -291,6 +291,8 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-09-16 | `git show main:supabase/seed.sql > seed_old.sql` | Get the pre-rename seed to test against | `git show BRANCH:PATH` prints a file as it exists on another branch, without switching to it |
 | 2026-09-16 | `docker run -d --name minced-seedtest postgres:16-alpine` | Throwaway DB to test the seed fix | **Failed.** Docker Desktop wasn't running (`cannot find dockerDesktopLinuxEngine`). After starting it, it returned **500** errors: `wsl -l -v` showed no WSL distributions, so the Linux engine never started. Test not run |
 | 2026-09-16 | `pnpm lint` / `pnpm build` (Windows) | Verify the rename didn't break anything | **Failed: `pnpm: command not found`.** First session on the Windows machine: no pnpm, no `node_modules`. The project was only ever installed on the Mac. Setup (`corepack enable`, `pnpm install`) still to do |
+| 2026-09-16 | `gh auth status` | Check the GitHub CLI can open a PR | **Not logged in** on the Windows machine. `gh` keeps its own login, separate from git's. Fix: `gh auth login` (interactive, opens a browser) |
+| 2026-09-16 | `git push -u origin chore/rename-to-minced` | Publish the branch | Worked anyway — **git** uses Windows Credential Manager, not `gh`. `-u` sets the upstream so later plain `git push`/`git pull` know where to go |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*
