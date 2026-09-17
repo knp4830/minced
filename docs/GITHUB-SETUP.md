@@ -20,10 +20,10 @@ The fourth reason is the one you actually asked about: this **is** the big-tech 
 ## Step 1 — Create the repo
 
 ```bash
-mkdir ~/code/mise && cd ~/code/mise
+mkdir ~/code/minced && cd ~/code/minced
 git init -b main
 
-gh repo create mise \
+gh repo create minced \
   --private \
   --source=. \
   --description "Recipe app for people who want the recipe, not the essay" \
@@ -34,7 +34,7 @@ gh repo create mise \
 
 ```bash
 # first commit so the branch exists on GitHub
-printf "# Mise\n\nRecipe app. See docs/BUILD-PLAN.md\n" > README.md
+printf "# Minced\n\nRecipe app. See docs/BUILD-PLAN.md\n" > README.md
 git add -A && git commit -m "chore: initial commit"
 git push -u origin main
 ```
@@ -108,14 +108,14 @@ gh api repos/{owner}/{repo}/milestones --jq '.[].title'
 Board creation is one command; the custom fields are genuinely easier in the web UI, so do that part by clicking.
 
 ```bash
-gh project create --owner @me --title "Mise"
+gh project create --owner @me --title "Minced"
 # note the project number it prints — you'll need it below
 ```
 
 **Projects are owned by an account, not a repository.** A new project won't appear on your repo's Projects tab until you link it — and `link` won't accept `@me`, unlike `create` and `list`. Spell the owner out:
 
 ```bash
-gh project link <number> --owner <your-username> --repo <your-username>/mise
+gh project link <number> --owner <your-username> --repo <your-username>/minced
 ```
 
 ### Fields vs. views — get this straight first
@@ -188,7 +188,7 @@ new "M1.2 Supabase project and initial migration" "$P1" "type:feature,area:db,P0
 new "M1.3 Row Level Security policies + test plan" "$P1" "type:feature,area:db,P0" \
     "Security-critical. Must personally verify an unauthorized query fails."
 new "M1.4 Seed script with the six mockup recipes" "$P1" "type:chore,area:db,P0" \
-    "Source data is the RECIPES array in Mise.dc.html. Must be idempotent."
+    "Source data is the RECIPES array in Minced.dc.html. Must be idempotent."
 new "M1.5 Typed Supabase clients (server + browser)" "$P1" "type:feature,area:db,P0" ""
 
 P15="Phase 1.5 — Catalog fill"
@@ -200,7 +200,7 @@ new "M1.5.3 USDA MyPlate Kitchen bulk import (~1072 recipes)" "$P15" "type:featu
     "Public domain. This is the primary catalog source. Reject on unresolved ingredients."
 new "M1.5.4 USDA FoodData Central nutrition pipeline" "$P15" "type:feature,area:db,P1" \
     "For recipes without nutrition. Needs a volume-to-grams table."
-new "M1.5.5 Recipe generation pipeline (Tier 2, Mise voice)" "$P15" "type:feature,area:db,P1" \
+new "M1.5.5 Recipe generation pipeline (Tier 2, Minced voice)" "$P15" "type:feature,area:db,P1" \
     "Fills what MyPlate is bad at: interesting cuisines and bold flavors."
 new "M1.5.6 Admin review queue at /admin/review" "$P15" "type:feature,area:ui,P1" \
     "Keyboard-driven. This is the quality bar and it cannot be automated."
@@ -208,7 +208,7 @@ new "M1.5.7 Fill to 500+ and close pantry coverage gaps" "$P15" "type:chore,P0" 
     "20 realistic test pantries must each return 10+ strong matches."
 
 P2="Phase 2 — Design system"
-new "M2.1 Extract Mise design tokens into globals.css" "$P2" "type:feature,area:ui,P0" ""
+new "M2.1 Extract Minced design tokens into globals.css" "$P2" "type:feature,area:ui,P0" ""
 new "M2.2 Build UI primitives + /kitchen-sink route" "$P2" "type:feature,area:ui,P0" \
     "Button, Card, Chip, Input, Select, Textarea, SpiceDots, MetaRow."
 new "M2.3 App shell: header, nav, footer, responsive" "$P2" "type:feature,area:ui,P0" ""

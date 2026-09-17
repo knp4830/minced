@@ -1,6 +1,6 @@
--- Mise — seed data (M1.4)
+-- Minced — seed data (M1.4)
 --
--- The six recipes from the RECIPES array in design/Mise.dc.html.
+-- The six recipes from the RECIPES array in design/Minced.dc.html.
 --
 -- IDEMPOTENT: safe to run repeatedly. Ingredients and aliases upsert by natural
 -- key; each recipe upserts by slug and has its children deleted and rebuilt, so
@@ -125,7 +125,7 @@ insert into recipes (
 select
   x.slug, x.title, c.id, 'published', x.prep, x.cook, x.servings,
   x.spice, x.cost, x.cal, x.protein, x.carbs, x.fat, x.sodium, x.fiber,
-  x.notes, 'Mise design mockup (design/Mise.dc.html)',
+  x.notes, 'Minced design mockup (design/Minced.dc.html)',
   'Original work authored for this project'
 from (values
   ('gochujang-glazed-salmon','Gochujang-Glazed Salmon','Korean',
@@ -157,14 +157,17 @@ on conflict (slug) do update set
   calories = excluded.calories, protein_g = excluded.protein_g,
   carbs_g = excluded.carbs_g, fat_g = excluded.fat_g,
   sodium_mg = excluded.sodium_mg, fiber_g = excluded.fiber_g,
-  notes = excluded.notes;
+  notes = excluded.notes,
+  -- Rewritten on every run: the deletes below key on this prefix, so rows
+  -- seeded under the old "Mise" name must be renamed before they run.
+  source_name = excluded.source_name;
 
 -- Children are rebuilt rather than upserted: simpler, and it means removing a
 -- line from this file actually removes it from the database.
-delete from recipe_ingredients where recipe_id in (select id from recipes where source_name like 'Mise design mockup%');
-delete from recipe_steps       where recipe_id in (select id from recipes where source_name like 'Mise design mockup%');
-delete from recipe_diets       where recipe_id in (select id from recipes where source_name like 'Mise design mockup%');
-delete from recipe_cookware    where recipe_id in (select id from recipes where source_name like 'Mise design mockup%');
+delete from recipe_ingredients where recipe_id in (select id from recipes where source_name like 'Minced design mockup%');
+delete from recipe_steps       where recipe_id in (select id from recipes where source_name like 'Minced design mockup%');
+delete from recipe_diets       where recipe_id in (select id from recipes where source_name like 'Minced design mockup%');
+delete from recipe_cookware    where recipe_id in (select id from recipes where source_name like 'Minced design mockup%');
 
 insert into recipe_ingredients (recipe_id, ingredient_id, quantity, unit_id, prep_note, is_optional, sort_order)
 select r.id, i.id, x.qty, u.id, nullif(x.prep,''), x.optional, x.ord

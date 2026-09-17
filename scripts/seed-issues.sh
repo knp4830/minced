@@ -32,10 +32,10 @@ M1.5.1 Canonical ingredients + alias table|Phase 1.5 — Catalog fill|type:featu
 M1.5.2 Ingredient parser (ingredient-parser-nlp)|Phase 1.5 — Catalog fill|type:feature,area:db,P0
 M1.5.3 USDA MyPlate Kitchen bulk import|Phase 1.5 — Catalog fill|type:feature,area:db,P0
 M1.5.4 USDA FoodData Central nutrition pipeline|Phase 1.5 — Catalog fill|type:feature,area:db,P1
-M1.5.5 Recipe generation pipeline (Tier 2, Mise voice)|Phase 1.5 — Catalog fill|type:feature,area:db,P1
+M1.5.5 Recipe generation pipeline (Tier 2, Minced voice)|Phase 1.5 — Catalog fill|type:feature,area:db,P1
 M1.5.6 Admin review queue at /admin/review|Phase 1.5 — Catalog fill|type:feature,area:ui,P1
 M1.5.7 Fill to 500+ and close pantry coverage gaps|Phase 1.5 — Catalog fill|type:chore,P0
-M2.1 Extract Mise design tokens into globals.css|Phase 2 — Design system|type:feature,area:ui,P0
+M2.1 Extract Minced design tokens into globals.css|Phase 2 — Design system|type:feature,area:ui,P0
 M2.2 Build UI primitives + /kitchen-sink route|Phase 2 — Design system|type:feature,area:ui,P0
 M2.3 App shell: header, nav, footer, responsive|Phase 2 — Design system|type:feature,area:ui,P0
 M3.1 Browse page with cursor-paginated recipe grid|Phase 3 — Core loop|type:feature,area:ui,P0

@@ -1,4 +1,4 @@
-# Mise — Learning Log
+# Minced — Learning Log
 
 > **What this file is:** the "why" companion to the codebase. `BUILD-PLAN.md` says what to build; this says what each piece is and why it's shaped that way.
 > **Rule:** every milestone gets an entry, appended when the PR merges. Written for you-in-three-months, who will not remember any of this.
@@ -35,7 +35,7 @@ Your build guide recommended React + Vite, which is a good default. Recipe apps 
 
 **What Vite gives you** is a *single-page application*. The browser downloads one nearly-empty HTML file plus a bundle of JavaScript, and JavaScript builds the entire page in the browser after arriving.
 
-**Two problems that creates for Mise:**
+**Two problems that creates for Minced:**
 
 **Problem 1 — Google can't see your recipes.** Search crawlers do run JavaScript now, but slowly, inconsistently, and with lower priority. For most apps that's survivable. For a recipe site it's fatal, because search *is* the distribution channel. Nobody opens a recipe app and browses; they type "quick vegan dinner no nuts" into Google. If your recipe pages aren't in that index, the app might as well not exist.
 
@@ -94,7 +94,7 @@ It costs you some friction early — errors that feel pedantic. Nearly all of th
 
 ### 3. Postgres (via Supabase) instead of Firebase or MongoDB
 
-Mise's data is deeply **relational**. A recipe has many ingredients; each ingredient appears in many recipes; each pairing has its own quantity and unit. That's a textbook many-to-many relationship, and it's exactly what SQL databases were built for.
+Minced's data is deeply **relational**. A recipe has many ingredients; each ingredient appears in many recipes; each pairing has its own quantity and unit. That's a textbook many-to-many relationship, and it's exactly what SQL databases were built for.
 
 Every filter you want is a SQL query that Postgres answers efficiently:
 
@@ -122,9 +122,9 @@ In Firebase (a document database) that query is either impossible or requires yo
 
 Tailwind is utility classes — `className="flex items-center gap-3 rounded-lg"` — instead of writing separate CSS files.
 
-The pragmatic reason here: **your Mise mockup is already written in inline styles.** Translating `style="display:flex;align-items:center;gap:10px"` into `className="flex items-center gap-2.5"` is nearly mechanical. Rebuilding it as hand-written CSS would be a translation, not a transcription.
+The pragmatic reason here: **your Minced mockup is already written in inline styles.** Translating `style="display:flex;align-items:center;gap:10px"` into `className="flex items-center gap-2.5"` is nearly mechanical. Rebuilding it as hand-written CSS would be a translation, not a transcription.
 
-The structural reason: Tailwind's design tokens are defined in one place. When we put the Mise palette into `globals.css`, `bg-brand` means `#2F4B3C` everywhere, forever, and changing it in one file changes it app-wide. Consistency stops depending on you remembering the hex code.
+The structural reason: Tailwind's design tokens are defined in one place. When we put the Minced palette into `globals.css`, `bg-brand` means `#2F4B3C` everywhere, forever, and changing it in one file changes it app-wide. Consistency stops depending on you remembering the hex code.
 
 **shadcn/ui** is unusual and worth understanding: it is *not* a package you install and import from. It's a CLI that **copies component source files into your repo**. You own them. You edit them. There's no library version to fight with when you want a button to look slightly different. For a project where the design is already decided and specific, that ownership matters.
 
@@ -190,7 +190,7 @@ tools: Read, Grep, Glob
 model: sonnet
 ---
 
-You are a database reviewer for Mise, a Next.js + Supabase recipe app.
+You are a database reviewer for Minced, a Next.js + Supabase recipe app.
 
 When given a migration, check exactly these things and report on each:
 
@@ -226,7 +226,7 @@ Three things that separate a good agent file from a useless one:
 |---|---|---|
 | `code-explainer` | 0 | Reads a merged diff, writes the LEARNING-LOG entry in this file's format. **This is the one that makes this project a learning project instead of a code-generation project.** |
 | `schema-guardian` | 1 | The migration reviewer above. |
-| `design-checker` | 2 | Diffs new UI against `Mise.dc.html` and the token list. Flags raw hex codes, off-scale spacing, wrong fonts. |
+| `design-checker` | 2 | Diffs new UI against `Minced.dc.html` and the token list. Flags raw hex codes, off-scale spacing, wrong fonts. |
 | `perf-auditor` | 6 | Finds N+1 queries, missing indexes, unnecessary `"use client"`, oversized bundles. |
 
 We write each one when its phase arrives. Writing an agent before you understand the problem it solves means you can't tell whether its output is good — and an agent whose output you can't evaluate is worse than no agent.
@@ -305,7 +305,7 @@ Commercial recipe APIs don't own most of their content — they aggregate and in
 
 ### The way through
 
-Here's the part that's genuinely interesting, and it's specific to what Mise is.
+Here's the part that's genuinely interesting, and it's specific to what Minced is.
 
 **Under US copyright law, a list of ingredients isn't copyrightable.** It's a statement of fact, and facts can't be owned. The leading case is *Publications International v. Meredith Corp.* (7th Cir., 1996), where the court held that "the identification of ingredients necessary for the preparation of each dish is a statement of facts... there is no expressive element deserving copyright protection."
 
@@ -313,7 +313,7 @@ What copyright *does* protect in a cookbook is the creative expression layered o
 
 Which is exactly the material your product exists to remove.
 
-So the path forward isn't importing someone's recipes — it's **authoring our own at scale**, with an LLM drafting to a strict schema and you reviewing every one. Ingredients and techniques come from general culinary knowledge, which nobody owns. Steps get written fresh in Mise's flat, functional voice. Nutrition is computed from USDA public-domain data.
+So the path forward isn't importing someone's recipes — it's **authoring our own at scale**, with an LLM drafting to a strict schema and you reviewing every one. Ingredients and techniques come from general culinary knowledge, which nobody owns. Steps get written fresh in Minced's flat, functional voice. Nutrition is computed from USDA public-domain data.
 
 The result is a catalog we fully own, with no attribution obligations, no vendor who can revoke it, consistent voice across all 500, and every structured field our filters need — which imported data wouldn't have had anyway, since no source tracks cookware or spice level reliably.
 
@@ -329,11 +329,11 @@ The constraint produced a better answer than the original plan. That happens mor
 
 ### The reframe — and a correction to it
 
-You clarified that Mise's center of gravity is *"what can I make with this?"* — people arriving with chicken, half an onion, and no plan.
+You clarified that Minced's center of gravity is *"what can I make with this?"* — people arriving with chicken, half an onion, and no plan.
 
 **I then over-corrected, and you caught it.** From "the landing page doesn't need a food search box" I concluded search was a secondary, returning-user feature and demoted it to P1. Wrong. You meant search shouldn't be the *only* door, not that it should be weak — and a recipe app that can't find a named recipe is simply broken.
 
-The corrected framing, now in the build plan: **two doors, one catalog.** The pantry matcher is what makes Mise worth choosing; search is what makes it worth keeping. Both P0.
+The corrected framing, now in the build plan: **two doors, one catalog.** The pantry matcher is what makes Minced worth choosing; search is what makes it worth keeping. Both P0.
 
 The debugging lesson generalizes past this project: **when someone tells you what they don't need, that's a statement about one thing, not a license to downgrade a whole category.** "No search box on the landing page" is a layout decision. I turned it into a priority decision about a core feature. When a constraint arrives, check how far its blast radius actually extends before you let it move things.
 
@@ -395,7 +395,7 @@ That's your 500+ floor cleared, legally airtight, before writing a single scrape
 
 The honest tradeoff: these are federal nutrition-program recipes. Budget-conscious, family-sized, plain. No gochujang. For a *pantry-matching* app that hurts less than it would for a browse-driven one — breadth of everyday ingredients is exactly what makes matching work — but Tier 1 alone gives you a functional catalog with no personality.
 
-**Tier 2 — original authored recipes.** LLM-drafted to a strict schema, in Mise's voice, reviewed by you. This is where the interesting cooking comes from. Unambiguously yours because you made it.
+**Tier 2 — original authored recipes.** LLM-drafted to a strict schema, in Minced's voice, reviewed by you. This is where the interesting cooking comes from. Unambiguously yours because you made it.
 
 **Tier 3 — scrape-and-rewrite, only if you outgrow the first two.** `recipe-scrapers` (MIT) reads the schema.org Recipe markup that 739+ sites already publish for Google. Extract the *facts* (ingredients, quantities, times — not copyrightable), rewrite the *prose* (which is). Note that site terms of service are a **separate legal question from copyright** — a site can contractually forbid scraping even where copyright wouldn't stop you. Check each one.
 
@@ -743,7 +743,7 @@ Loaded counts: 6 recipes, 37 recipe_ingredients, 25 steps, 9 diet tags, 8 cookwa
 
 ### How it works
 
-The recipes were **extracted from `design/Mise.dc.html` by evaluating its `RECIPES` array**, not retyped. Retyping 34 ingredient lines by hand is a guaranteed source of silent transcription errors in exactly the data everything else depends on.
+The recipes were **extracted from `design/Minced.dc.html` by evaluating its `RECIPES` array**, not retyped. Retyping 34 ingredient lines by hand is a guaranteed source of silent transcription errors in exactly the data everything else depends on.
 
 Idempotency has two halves. Ingredients and aliases upsert on their natural key. Recipes upsert on `slug`, then their children are **deleted and rebuilt**. Rebuilding rather than upserting children means deleting a line from `seed.sql` actually removes it from the database — an upsert-only seed can add and change but never remove, so the file and the database silently drift apart.
 
@@ -827,6 +827,32 @@ error TS2322: Type 'SelectQueryError<"column 'cook_time_minutes' does not exist 
 That error is the evidence. Same pattern as the RLS test plan and the Vercel login wall — verify the failure, not just the success.
 
 **`search_vector` generates as `unknown`.** `tsvector` has no TypeScript equivalent. That's correct: you query *through* it with `.textSearch()`, never read it.
+
+---
+
+## Interlude — Mise becomes Minced
+
+**Milestone:** none (chore, between M1.6 and M1.5.1) · **Date:** 2026-09-16
+
+### What we did
+
+Renamed the project from **Mise** to **Minced** everywhere a name is *current*: the page `<title>` in `src/app/layout.tsx` (which still said "Create Next App"), `package.json`, `supabase/config.toml`, the README, CLAUDE.md, the build plan, this log, the mockup's wordmark, and the mockup file itself (`design/Mise.dc.html` → `design/Minced.dc.html`).
+
+### What we deliberately did *not* rename
+
+- **Migration files.** They still open with `-- Mise — …`. CLAUDE.md forbids editing an applied migration; a comment isn't worth breaking that rule. A migration is a record of what was run.
+- **TERMINAL-LOG history.** `mkdir ~/code/mise` is what was actually typed. Rewriting a log makes it a lie.
+- **The Vercel URL** `mise-mise14.vercel.app`. It's the real address. Changing text in the repo doesn't change it — that's a Vercel dashboard action.
+- **GitHub issue titles** #13 and #16 still say "Mise". They live on GitHub, not in the repo.
+- **The mockup's "mise en place" tagline** under the wordmark. It's a culinary phrase, not the brand — but it now explains a name we no longer use. A design decision for M2.1.
+
+### Gotcha — a rename that would have broken the seed
+
+`supabase/seed.sql` uses the source name as a **key**, not just a label: it finds the rows to rebuild with `where source_name like 'Mise design mockup%'`. A blind find-and-replace changed that to `'Minced …'` — but the six rows already in the live database still say `'Mise …'`, and the upsert didn't touch `source_name`. The next `pnpm db:seed` would have deleted nothing, then tried to re-insert every ingredient line on top of the old ones.
+
+The fix: the upsert now also sets `source_name = excluded.source_name`. It runs *before* the deletes, so the old rows get renamed first and the deletes find them.
+
+The lesson generalises: **before renaming a string, ask whether anything looks it up by value.** A label can change freely. A key needs a migration path.
 
 ---
 

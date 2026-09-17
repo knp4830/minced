@@ -1,4 +1,4 @@
-# Mise — Build Plan
+# Minced — Build Plan
 
 > **What this file is:** the single source of truth for what gets built, in what order, and what "done" means for each piece.
 > **How to use it:** work top to bottom. One milestone = one branch = one pull request = one Claude Code session. Check the box only when the Definition of Done is actually true.
@@ -22,10 +22,10 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #10 | **M1.5.2** Ingredient parser (ingredient-parser-nlp) | ☐ |
 | #11 | **M1.5.3** USDA MyPlate Kitchen bulk import | ☐ |
 | #12 | **M1.5.4** USDA FoodData Central nutrition pipeline | ☐ |
-| #13 | **M1.5.5** Recipe generation pipeline (Tier 2, Mise voice) | ☐ |
+| #13 | **M1.5.5** Recipe generation pipeline (Tier 2, Minced voice) | ☐ |
 | #14 | **M1.5.6** Admin review queue at /admin/review | ☐ |
 | #15 | **M1.5.7** Fill to 500+ and close pantry coverage gaps | ☐ |
-| #16 | **M2.1** Extract Mise design tokens into globals.css | ☐ |
+| #16 | **M2.1** Extract Minced design tokens into globals.css | ☐ |
 | #17 | **M2.2** Build UI primitives + /kitchen-sink route | ☐ |
 | #18 | **M2.3** App shell: header, nav, footer, responsive | ☐ |
 | #19 | **M3.1** Browse page with cursor-paginated recipe grid | ☐ |
@@ -93,13 +93,13 @@ These are labels on the GitHub issues, so `gh issue list --label P0` answers "wh
 
 ## The one-liner
 
-**Mise tells you what to cook with what you already have.** You don't arrive knowing what you want — you arrive with chicken, half an onion, and no plan. Tell Mise what's in your kitchen and it shows you what you can actually make, ranked by how little you're missing. Every recipe is ingredients, amounts, and numbered steps. No essay.
+**Minced tells you what to cook with what you already have.** You don't arrive knowing what you want — you arrive with chicken, half an onion, and no plan. Tell Minced what's in your kitchen and it shows you what you can actually make, ranked by how little you're missing. Every recipe is ingredients, amounts, and numbered steps. No essay.
 
-*(Mise en place — everything in its place, prepped before you start.)*
+*(Renamed from "Mise" — as in* mise en place *— in September 2026.)*
 
 ## Two doors, one catalog
 
-People show up in one of two states, and Mise has to serve both:
+People show up in one of two states, and Minced has to serve both:
 
 | | **Door 1 — "I don't know what to make"** | **Door 2 — "I want cacio e pepe"** |
 |---|---|---|
@@ -108,7 +108,7 @@ People show up in one of two states, and Mise has to serve both:
 | Query shape | Set coverage — rank by what's missing | Text match — find the thing |
 | Why it matters | **The differentiator.** Nobody else does this well | **Table stakes.** A recipe app that can't find a named recipe is broken |
 
-**The pantry matcher is what makes Mise worth choosing. Search is what makes it worth keeping.** Both are P0. They share the same catalog, the same filters, and the same recipe pages — they're two entrances to one building, not two products.
+**The pantry matcher is what makes Minced worth choosing. Search is what makes it worth keeping.** Both are P0. They share the same catalog, the same filters, and the same recipe pages — they're two entrances to one building, not two products.
 
 The one place the distinction bites is the **landing page**: it leads with the pantry input, because that's the door nobody else offers, with search right beside it rather than buried. Someone who knows they want shakshuka can type it immediately; someone staring at a fridge gets the thing they actually needed.
 
@@ -183,8 +183,8 @@ Explicitly cut from v1. Writing these down is what lets us ship.
 |---|---|---|
 | Framework | **Next.js 15, App Router** | Recipe pages need to be indexed by Google; filtering needs to run server-side |
 | Language | **TypeScript** | Catches the class of bug that wastes the most beginner hours |
-| Styling | **Tailwind CSS v4** | The Mise mockup is already inline-styled; Tailwind is a direct translation |
-| Components | **shadcn/ui** | Copy-paste, you own the code, restyle to Mise tokens |
+| Styling | **Tailwind CSS v4** | The Minced mockup is already inline-styled; Tailwind is a direct translation |
+| Components | **shadcn/ui** | Copy-paste, you own the code, restyle to Minced tokens |
 | Database | **Postgres via Supabase** | Relational data (a recipe *has many* ingredients) and free tier |
 | Auth | **Supabase Auth** | Same vendor as the DB, so row-level security "just works" |
 | Hosting | **Vercel** | Made by the Next.js team; git-connected, zero config |
@@ -198,7 +198,7 @@ Explicitly cut from v1. Writing these down is what lets us ship.
 
 ---
 
-## Design system — extracted from `Mise.dc.html`
+## Design system — extracted from `Minced.dc.html`
 
 The mockup is the spec. These tokens go into `tailwind.config` / `globals.css` in Milestone 2.1 and nothing in the app uses a hex code outside that file.
 
@@ -305,7 +305,7 @@ Before writing SQL, answer these. Write the answers into `docs/SCHEMA-NOTES.md`.
 
 **Claude Code prompt:**
 ```
-I'm designing the Postgres schema for Mise. Read docs/BUILD-PLAN.md for context.
+I'm designing the Postgres schema for Minced. Read docs/BUILD-PLAN.md for context.
 Don't write SQL yet. Instead, walk me through the entity-relationship design as a
 discussion: what tables, what columns, what relationships, and for each non-obvious
 decision give me the two options and the tradeoff. Ask me questions where my answer
@@ -353,7 +353,7 @@ The mockup already contains six complete, well-structured recipes: Gochujang-Gla
 
 **Claude Code prompt:**
 ```
-Read the RECIPES array in Mise.dc.html (the design mockup). Write a seed script at
+Read the RECIPES array in Minced.dc.html (the design mockup). Write a seed script at
 supabase/seed.sql (or a TypeScript script, whichever you'd recommend and why) that
 inserts all six recipes with their ingredients, quantities, units, nutrition rows,
 cookware, diet tags, and allergens into our schema. Make it idempotent — I should be
@@ -381,7 +381,7 @@ wrong one.
 
 # PHASE 1.5 — Filling the catalog
 
-> **Time:** ~1 week of build + ongoing review. **Goal:** get from 6 recipes to 500+, legally and in Mise's voice.
+> **Time:** ~1 week of build + ongoing review. **Goal:** get from 6 recipes to 500+, legally and in Minced's voice.
 
 This phase exists because 500 recipes is a *content* problem, not a code problem, and it is the single most likely thing to stall this project. A recipe with ingredients, quantities, units, steps, nutrition, cookware, allergens, and diet tags is roughly 15–20 minutes of careful entry by hand. 500 × 18 minutes ≈ **150 hours.**
 
@@ -401,11 +401,11 @@ This alone clears your 500+ floor with no licensing ambiguity whatsoever.
 | **Public Domain Recipes** ([publicdomainrecipes.com](https://publicdomainrecipes.com/)) | Low hundreds | Released under the Unlicense — contributors explicitly waive all ownership | Terse prose recipes, needs ingredient parsing |
 | **USDA SNAP-Ed Recipe Finder** | Few hundred | US government work | PDF recipe cards, manual extraction required |
 
-**Honest caveat on MyPlate:** these are federal nutrition-program recipes. They skew budget-conscious, family-sized, and plain — you will not find a gochujang glaze in there. For a pantry-matching tool that's *less* of a problem than it sounds, because breadth of everyday ingredients is what makes matching work. But it means Tier 1 alone gives you a functional catalog with a bland personality. Tiers 2 and 3 are where Mise gets a voice.
+**Honest caveat on MyPlate:** these are federal nutrition-program recipes. They skew budget-conscious, family-sized, and plain — you will not find a gochujang glaze in there. For a pantry-matching tool that's *less* of a problem than it sounds, because breadth of everyday ingredients is what makes matching work. But it means Tier 1 alone gives you a functional catalog with a bland personality. Tiers 2 and 3 are where Minced gets a voice.
 
 ### Tier 2 — Original authored recipes (fills the personality gap)
 
-LLM-drafted to a strict schema, in Mise's voice, reviewed by you. Nobody owns a technique or an ingredient list, so content you draft originally is unambiguously yours. This is where the cuisines and the interesting cooking come from.
+LLM-drafted to a strict schema, in Minced's voice, reviewed by you. Nobody owns a technique or an ingredient list, so content you draft originally is unambiguously yours. This is where the cuisines and the interesting cooking come from.
 
 ### Tier 3 — Scrape-and-rewrite (scale beyond ~2,000)
 
@@ -499,7 +499,7 @@ Explain where this will be inaccurate and how much that matters.
 
 **DoD:** running it on the six seed recipes produces numbers within ~10% of the mockup's hand-written values.
 
-### ☐ M1.5.5 — Recipe generation pipeline (Tier 2 — Mise's own voice)
+### ☐ M1.5.5 — Recipe generation pipeline (Tier 2 — Minced's own voice)
 
 A script that drafts structured recipes to a strict JSON schema — never free text — so output drops straight into the database.
 
@@ -537,13 +537,13 @@ Tier 1 gets you to roughly 1,300. Tier 2 fills what Tier 1 is bad at: interestin
 
 # PHASE 2 — Design system
 
-> **Time:** 2–3 days. **Goal:** the Mise look, as reusable pieces. No pages yet.
+> **Time:** 2–3 days. **Goal:** the Minced look, as reusable pieces. No pages yet.
 
 ### ☐ M2.1 — Tokens
 
 **Claude Code prompt:**
 ```
-Read Mise.dc.html and extract the design system into Tailwind v4 CSS variables in
+Read Minced.dc.html and extract the design system into Tailwind v4 CSS variables in
 src/app/globals.css: the color tokens, the three Google Fonts (Fraunces, Public Sans,
 IBM Plex Mono) loaded via next/font, border radii, and shadow values.
 Rule going forward: no raw hex codes anywhere except globals.css.
@@ -564,7 +564,7 @@ Build these, in this order, each with a small demo on a `/kitchen-sink` route yo
 **Claude Code prompt:**
 ```
 Install shadcn/ui and restyle Button, Card, Input, Select, and Textarea to match the
-Mise tokens. Then build SpiceDots, Chip, and MetaRow as custom components matching the
+Minced tokens. Then build SpiceDots, Chip, and MetaRow as custom components matching the
 mockup exactly. Put a demo of every variant on /kitchen-sink.
 For each component, explain the prop design choices — especially why variants are
 better as a prop than as separate components.
@@ -593,7 +593,7 @@ Header, nav, footer, mobile breakpoints. Matches the mockup's landing nav.
 
 ### ☐ M3.3 — **The pantry matcher** ← this is the product
 
-Everything else in this plan is table stakes. This is the reason Mise exists, so it gets the most care and the most iteration.
+Everything else in this plan is table stakes. This is the reason Minced exists, so it gets the most care and the most iteration.
 
 **The query.** Given a set of ingredient ids the user has, rank recipes by coverage. This is a set-containment problem and it belongs in a Postgres function (RPC), not in application code — the ranking math has to happen next to the data.
 
@@ -618,7 +618,7 @@ order by (have::float / nullif(needed,0)) desc, r.prep_time asc;
 
 **Claude Code prompt:**
 ```
-Build the pantry matcher — the core feature of Mise. Read the sketch in
+Build the pantry matcher — the core feature of Minced. Read the sketch in
 docs/BUILD-PLAN.md M3.3 first, then improve on it; it's a starting point, not a spec.
 
 Requirements:
@@ -663,7 +663,7 @@ A recipe app that can't find a recipe by name is broken. This ships with the MVP
 
 **Claude Code prompt:**
 ```
-Build search for Mise using Postgres full-text search.
+Build search for Minced using Postgres full-text search.
 - A generated tsvector column on recipes combining title (weight A), canonical
   ingredient names (weight B), and cuisine + diet tags (weight C), with a GIN index
 - Rank with ts_rank so title matches beat ingredient matches
@@ -780,7 +780,7 @@ Already designed in the mockup. `shopping_list_items` table, "Add all ingredient
 `weight_logs` and `food_logs` tables. TDEE calculator (Mifflin-St Jeor). Daily macro targets vs. actuals. **This one has a real dependency:** it needs per-ingredient nutrition data, which means the USDA FoodData Central integration — build that first, and it retroactively improves recipe nutrition accuracy too.
 
 ### v1.3 — API-assisted recipe import
-Admin-only tool that pulls from a recipe API, normalizes it into the Mise schema, and puts it in a review queue you approve by hand. Check the licensing terms of whichever API before storing anything.
+Admin-only tool that pulls from a recipe API, normalizes it into the Minced schema, and puts it in a review queue you approve by hand. Check the licensing terms of whichever API before storing anything.
 
 ### v1.4 — Weekly meal planner **(the ambitious one)**
 
@@ -826,7 +826,7 @@ Genuinely a second product: `exercises`, `workout_plans`, `plan_days`, `plan_exe
 Create this in the repo root at M0.4. Keep it under one page — it's read at the start of every session, and a long one dilutes the important parts.
 
 ```markdown
-# Mise
+# Minced
 
 ## What this is
 A recipe web app for people who want the recipe, not the essay. Ingredients,
@@ -909,7 +909,7 @@ Agents we'll create, and when:
 |---|---|---|---|
 | `code-explainer` | Phase 0 | Reads a diff and writes the LEARNING-LOG entry. The agent that makes this project a learning project. | Read, Grep, Glob, Write |
 | `schema-guardian` | Phase 1 | Reviews any DB migration for missing indexes, absent RLS, unsafe defaults, and destructive operations. | Read, Grep, Bash (read-only) |
-| `design-checker` | Phase 2 | Diffs new UI against the Mise mockup and the token list. Flags raw hex codes and off-scale spacing. | Read, Grep, Glob |
+| `design-checker` | Phase 2 | Diffs new UI against the Minced mockup and the token list. Flags raw hex codes and off-scale spacing. | Read, Grep, Glob |
 | `perf-auditor` | Phase 6 | Hunts N+1 queries, missing indexes, oversized client bundles, unnecessary `"use client"`. | Read, Grep, Bash |
 
 We write these when the phase that needs them arrives — an agent written before you understand the problem it solves is an agent you can't evaluate.
