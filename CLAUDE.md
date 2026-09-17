@@ -1,12 +1,12 @@
-# Mise
+# Minced
 
 ## What this is
 
-**Mise tells you what to cook — whether or not you already know.** Every recipe is ingredients, amounts, and numbered steps. No headnotes, no anecdotes, no essay.
+**Minced tells you what to cook — whether or not you already know.** Every recipe is ingredients, amounts, and numbered steps. No headnotes, no anecdotes, no essay.
 
 **Two doors into one catalog, both P0:**
 
-1. **Pantry matcher** — the user enters what's in their kitchen; Mise ranks recipes by how little they're missing. This is the differentiator.
+1. **Pantry matcher** — the user enters what's in their kitchen; Minced ranks recipes by how little they're missing. This is the differentiator.
 2. **Search** — the user knows they want cacio e pepe and types it. This is table stakes; a recipe app that can't find a named recipe is broken.
 
 They share the same catalog, the same filters, and the same recipe pages. Never build a feature that works for one door and not the other.
@@ -27,7 +27,7 @@ Target catalog: 500+ recipes (aiming for ~1,500).
 
 <!-- Fill this in at M0.3 with the real output of: tree -L 3 -I node_modules -->
 ```
-mise/
+minced/
 ├── src/
 │   └── app/              # App Router — folders are URL segments
 │       ├── layout.tsx    # root layout (renders <html>/<body>)
@@ -36,7 +36,7 @@ mise/
 │       └── favicon.ico
 ├── public/               # served verbatim at site root (/file.svg)
 ├── docs/                 # BUILD-PLAN, LEARNING-LOG, GITHUB-SETUP, TERMINAL-LOG
-├── design/               # Mise.dc.html — the visual spec + its runtime
+├── design/               # Minced.dc.html — the visual spec + its runtime
 ├── scripts/              # repo tooling (seed-issues.sh)
 ├── eslint.config.mjs
 ├── next.config.ts
@@ -112,7 +112,7 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 - `docs/LEARNING-LOG.md` — why the code is the way it is.
 - `docs/GITHUB-SETUP.md` — repo, board, and PR workflow.
 - `docs/TERMINAL-LOG.md` — terminal and git command reference.
-- `design/Mise.dc.html` — the design mockup: 7 screens, real tokens, and 6 complete seed recipes in its `RECIPES` array. **This is the visual spec.** Read it before building any UI. (`design/support.js` is its runtime — open the HTML in a browser to view it.)
+- `design/Minced.dc.html` — the design mockup: 7 screens, real tokens, and 6 complete seed recipes in its `RECIPES` array. **This is the visual spec.** Read it before building any UI. (`design/support.js` is its runtime — open the HTML in a browser to view it.)
 
 ## Current status
 
@@ -127,6 +127,7 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 - Database live with three migrations applied and **RLS enforced**. Six recipes seeded; `pnpm db:seed` is idempotent.
 - `docs/SCHEMA-NOTES.md` is the schema's rationale — read it before changing the database.
 - Typed clients in `src/lib/supabase/`; generated types in `src/types/database.ts`.
+- **Renamed Mise → Minced** (2026-09-16). Migration comments, TERMINAL-LOG history and the `mise-mise14` Vercel URL still say "Mise" on purpose — see LEARNING-LOG "Interlude".
 
 ### Next up: Phase 1.5, M1.5.1 — canonical ingredients and aliases (issue #9)
 

@@ -285,6 +285,14 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-08-27 | `gh api -X PUT repos/OWNER/REPO/branches/main/protection --input -` | Require PRs on main | `--input -` reads the JSON body from stdin, which is how you pass a heredoc to `gh api` |
 | 2026-08-27 | `gh api -X POST repos/OWNER/REPO/branches/main/protection/enforce_admins` | Apply protection to yourself too | **The one that mattered.** Protection defaults to exempting admins — on a solo repo that protects nobody |
 | 2026-08-27 | `git commit --allow-empty -m "test" && git push origin main` | Actually test the DoD | `--allow-empty` makes a commit with no file changes — perfect for testing a push rule. Got `GH006 ... protected branch hook declined`, then `git reset --hard origin/main` to discard it |
+| 2026-09-16 | `git checkout -b chore/rename-to-minced` | Branch for the rename | `-b` creates the branch and switches to it in one step. `main` is protected, so even a rename needs its own branch |
+| 2026-09-16 | `git mv design/Mise.dc.html design/Minced.dc.html` | Rename the mockup file | `git mv` is a plain move plus `git add`. Git doesn't store renames — it infers them from matching content when you look at the diff |
+| 2026-09-16 | `sed -i 's/\bMise\b/Minced/g' FILES` | Rename across docs | `\b` is a word boundary, so `Promise` and `Minimise` are left alone. **Still too blunt:** it turned *Mise en place* into "Minced en place" and changed a string the seed script uses as a lookup key. Always read the diff after a bulk replace |
+| 2026-09-16 | `git show main:supabase/seed.sql > seed_old.sql` | Get the pre-rename seed to test against | `git show BRANCH:PATH` prints a file as it exists on another branch, without switching to it |
+| 2026-09-16 | `docker run -d --name minced-seedtest postgres:16-alpine` | Throwaway DB to test the seed fix | **Failed.** Docker Desktop wasn't running (`cannot find dockerDesktopLinuxEngine`). After starting it, it returned **500** errors: `wsl -l -v` showed no WSL distributions, so the Linux engine never started. Test not run |
+| 2026-09-16 | `pnpm lint` / `pnpm build` (Windows) | Verify the rename didn't break anything | **Failed: `pnpm: command not found`.** First session on the Windows machine: no pnpm, no `node_modules`. The project was only ever installed on the Mac. Setup (`corepack enable`, `pnpm install`) still to do |
+| 2026-09-16 | `gh auth status` | Check the GitHub CLI can open a PR | **Not logged in** on the Windows machine. `gh` keeps its own login, separate from git's. Fix: `gh auth login` (interactive, opens a browser) |
+| 2026-09-16 | `git push -u origin chore/rename-to-minced` | Publish the branch | Worked anyway — **git** uses Windows Credential Manager, not `gh`. `-u` sets the upstream so later plain `git push`/`git pull` know where to go |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

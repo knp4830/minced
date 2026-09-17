@@ -1,4 +1,4 @@
-# Mise — Schema Notes
+# Minced — Schema Notes
 
 > **What this file is:** the schema designed on paper, before any SQL. `BUILD-PLAN.md` M1.1 requires it, M1.2 implements it.
 > **Why it exists separately from the migration:** a migration tells you *what* the tables are. This tells you *why*, and what we rejected. Once there's data in the database, changing shape is expensive — so the argument gets written down before the code.
@@ -135,7 +135,7 @@ Column choices worth defending:
 - **Nutrition as six columns, per serving.** Rejected a 1:1 `recipe_nutrition` table and a key/value `recipe_nutrients` table. Every macro filter in M3.4 is a range scan on the hot path; columns keep it a plain `WHERE` with no join and no pivot. The cost is that adding a seventh nutrient is a migration — acceptable, because the six here (calories, protein, carbs, fat, sodium, fibre) are exactly what the mockup displays and what the filters offer. If v1.2 nutrition tracking needs arbitrary micronutrients, add the EAV table *then*, for that purpose.
 - **`spice_level smallint CHECK (0..4)`** — the mockup's `spiceDots` renders 4 dots.
 - **`status`** as an enum `draft | in_review | published`. `in_review` exists now because M1.5.6 needs an admin review queue; adding an enum value later is a migration, and this one is free today.
-- **`author_id` nullable.** NULL means imported (USDA, or Mise-authored via the generation pipeline). This is load-bearing for RLS — see *Decision 5*.
+- **`author_id` nullable.** NULL means imported (USDA, or Minced-authored via the generation pipeline). This is load-bearing for RLS — see *Decision 5*.
 - **`source_name`, `source_url`, `source_license`.** CLAUDE.md forbids importing from any source without a confirmed commercial-storage licence. Recording provenance *per recipe* is what makes that auditable — and what lets us delete exactly the affected rows if a licence turns out to be wrong. A rule you can't verify after the fact isn't a rule.
 - **`search_vector`** — maintained by trigger, not `GENERATED`. See *Gotcha 2*.
 
