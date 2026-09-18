@@ -124,22 +124,37 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 **Phase 0 and Phase 1: complete.** M0.1–M0.5 and M1.1–M1.6 all closed.
 
 - Live at **https://mise-mise14.vercel.app**. Repo public, `main` protected — every change goes through a PR.
-- Database live with three migrations applied and **RLS enforced**. Six recipes seeded; `pnpm db:seed` is idempotent.
+- Database live with **four** migrations applied and **RLS enforced**. `pnpm db:seed` is idempotent and seeds the ingredient vocabulary before the six mockup recipes.
 - `docs/SCHEMA-NOTES.md` is the schema's rationale — read it before changing the database.
 - Typed clients in `src/lib/supabase/`; generated types in `src/types/database.ts`.
 - **Renamed Mise → Minced** (2026-09-16). Migration comments, TERMINAL-LOG history and the `mise-mise14` Vercel URL still say "Mise" on purpose — see LEARNING-LOG "Interlude".
 
-### Next up: Phase 1.5, M1.5.1 — canonical ingredients and aliases (issue #9)
+### Phase 1.5 progress
 
-The plan orders Phase 1.5 before Phase 2, deliberately: M2 and M3 are far easier to judge against 500 real recipes than against 6, and the pantry matcher is meaningless at the current catalog size.
+**M1.5.1 — canonical ingredients and aliases: complete (2026-09-17).**
 
-The tables (`ingredients`, `ingredient_aliases`, `ingredient_allergens`) already exist from M1.2. M1.5.1 is about **populating** them at a scale where hand-checking stops working. Today's 30 ingredients were eyeballed in minutes; the target is a vocabulary that survives ~1,000 USDA recipes.
+- **409 canonical ingredients, 273 aliases**, seeded by `supabase/seed-ingredients.sql` (runs before `seed.sql`; `pnpm db:seed` runs both).
+- `resolve_ingredient(raw_name, min_similarity default 0.45)` — exact → alias → trigram fuzzy, **returns zero rows when unresolved**. Callers must reject, not warn.
+- `ingredient_coverage(raw_names[])` + `pnpm ingredients:coverage <file>` — the coverage metric, and the import gate.
+- Query layer: `src/lib/queries/ingredients.ts`.
 
-**Two decisions to make before writing code:**
+**Vocabulary rules — read before adding ingredients:**
 
-1. **`ingredient-parser-nlp` is Python** (M1.5.2), but the stack is TypeScript on Vercel. Options: a local-only Python step in the import pipeline, a small hosted service, or a JS alternative. Affects how M1.5.3 is built.
-2. **How aliases get built** — hand-curated (slow, exact) vs. derived from USDA naming (fast, noisy), probably a hybrid. This sets the catalog's quality floor.
+- `canonical_name` is what a **cook** types. USDA FoodData Central phrasings (`"Peppers, sweet, red"`) are **aliases**, never canonical. USDA supplies coverage; curation supplies names.
+- **Do not seed simple plurals as aliases** — `singularize_ingredient_name()` handles them. Aliases are for regional synonyms, USDA phrasings, shorthand, and *irregular* plurals only.
+- Herbs sold both ways are split (`fresh thyme` / `dried thyme`); the bare word is an alias pointing at the form a recipe writing it bare usually means.
+- A row earns its own canonical entry only when a cook shops for it separately **and** swapping it changes the dish.
 
-**The thing to build alongside the vocabulary: a coverage metric.** Unresolved ingredients do not error — they silently shrink the match rate. Without a way to measure "what fraction of recipe lines resolved, and which ones didn't," there is no way to know whether M1.5.1 actually worked. Per CLAUDE.md's import rule, unresolved ingredients reject the recipe rather than warn, so the metric is also the import gate.
+### Next up: Phase 1.5, M1.5.2 — ingredient parser service (issue #10)
+
+**The Python question is already settled** (decided in M1.5.1, reasoning in LEARNING-LOG Entry 13): `ingredient-parser-nlp` runs as an **offline script**, not a hosted service. It parses at *import* time, once per recipe, on your machine — nothing in the live product ever calls it. The live path is `resolve_ingredient()` in Postgres, which is already built.
+
+Build it as a **file contract**: a JSON array of raw ingredient lines in, a JSON array of `{quantity, unit, name, prep, comment, confidence}` out. That keeps whatever runs the Python later — your laptop, a Vercel Python function, a service — from changing the importer.
+
+`pnpm install` of a Python package is not a thing; this needs a `pip install` in a virtualenv the repo ignores. **Ask before adding either dependency.**
+
+**Known gap to close in M3.3, not before:** `resolve_ingredient` returns one answer, but the pantry autocomplete needs the top *N* — `"chicken"` resolves to `chicken broth` at 0.57, which is right for an import gate and wrong for a dropdown. That is a `suggest_ingredients(prefix, limit)` sibling, and it belongs in M3.3.
 
 **Open question deferred from M1.4:** should an *optional* ingredient contribute its allergens to the recipe? Miso Mushroom Ramen derives `Egg` from its optional soft-boiled egg. Decide in M3.4 when the allergen filter is built; the data supports either.
+
+**Operational note:** the Supabase project pauses after inactivity (it did on 2026-09-17). Restore it, then **wait for `ACTIVE_HEALTHY`** — a restoring database answers SQL while its tables are still missing, which looks exactly like data loss and isn't. Never push a migration mid-restore.

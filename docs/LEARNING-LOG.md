@@ -856,4 +856,94 @@ The lesson generalises: **before renaming a string, ask whether anything looks i
 
 ---
 
-## Entry 13 — [next entry goes here after M1.5.1]
+## Entry 13 — Resolving free text to a canonical ingredient
+
+**Milestone:** M1.5.1 · **Date:** 2026-09-17
+
+### What we built
+
+The thing that turns *whatever somebody typed* into *an ingredient id*. Three parts:
+
+1. **`resolve_ingredient(raw_name)`** — a Postgres function: exact → alias → fuzzy, returning zero rows when nothing is good enough.
+2. **A 409-ingredient vocabulary** with 273 aliases, seeded from `supabase/seed-ingredients.sql`.
+3. **A coverage metric** — `ingredient_coverage()` plus `scripts/ingredient-coverage.sh` — that answers "what fraction resolved, and which ones didn't."
+
+### Key files
+
+| File | What it holds |
+|---|---|
+| `supabase/migrations/20260918013819_resolve_ingredient.sql` | `normalize_ingredient_name`, `singularize_ingredient_name`, `resolve_ingredient`, `ingredient_coverage` |
+| `supabase/seed-ingredients.sql` | The vocabulary: 409 canonical ingredients, 273 aliases, self-checking |
+| `src/lib/queries/ingredients.ts` | `resolveIngredient`, `getIngredientCoverage`, `getUnresolvedIngredientNames` |
+| `scripts/ingredient-coverage.sh` | The report, and the import gate |
+
+**The tables already existed.** `ingredients`, `ingredient_aliases` and *both trigram indexes* were built back in M1.2 — the build plan's prompt for this milestone assumed otherwise. Worth checking what exists before writing a migration that recreates it.
+
+### How it works
+
+`resolve_ingredient` runs four passes and returns on the first hit:
+
+| Pass | Matches against | Confidence |
+|---|---|---|
+| 1 | normalised `canonical_name` | 1.0 |
+| 2 | normalised **+ singularised** `canonical_name` | 1.0 |
+| 3 | the same two probes against `ingredient_aliases` | 1.0 |
+| 4 | best trigram similarity across both tables | the actual score |
+
+Normalising means lowercase, punctuation to spaces, whitespace collapsed — applied to *both sides*, so the rules only need to be consistent, not clever.
+
+**What a trigram is.** `pg_trgm` chops a string into overlapping three-character runs:
+
+```
+"scallion" -> {"  s", " sc", "sca", "cal", "all", "lli", "lio", "ion", "on "}
+```
+
+Similarity is how much two strings' trigram sets overlap, 0.0 to 1.0. This is why it survives typos and transposed letters: a wrong character damages three trigrams, not the whole word. The GIN index stores the trigrams, so Postgres never scores rows that share none.
+
+**Why this is in Postgres and not TypeScript.** Fuzzy matching in JS means `SELECT` every ingredient, ship 400 rows over the wire, and score them in Node — per keystroke, per user. pg_trgm scores them against an index sitting next to the data and returns one row. This is exactly CLAUDE.md's "never fetch all rows and filter in JavaScript."
+
+### Why this way (and what we rejected)
+
+**Zero rows, not an error, not a fallback.** An unresolved name returns no row. Rejected returning a "best guess anyway" — a silently wrong ingredient is worse than a loud rejection, because it *looks* like the catalog is working.
+
+**USDA supplies coverage; curation supplies names.** This was the decision behind the whole vocabulary. USDA FoodData Central names things `"Onions, raw"` and `"Peppers, sweet, red"`. Those are useless as something a cook types, so they became **aliases**, and the canonical names are the cook's words. That gives USDA's breadth without USDA's phrasing leaking into the pantry autocomplete — and it pre-wires the `fdc_id` join M1.5.4 needs.
+
+**Simple plurals are NOT alias rows.** `singularize_ingredient_name` handles "tomatoes" → "tomato". Rejected seeding 400 plural aliases: it is maintenance forever, and it buries the real synonyms in noise. Aliases earn their place only as regional synonyms (aubergine), USDA phrasings, shorthand (evoo), or *irregular* plurals.
+
+**Fresh vs dried herbs got split.** `fresh thyme` (Produce) and `dried thyme` (Spices) are separate rows, and the bare word is an alias pointing at whichever a recipe writing it bare almost always means — fresh for soft bunch herbs (parsley, cilantro, basil, mint, dill), dried for the woody jar herbs (oregano, thyme, rosemary, sage). Rejected one row per herb: a pantry holding dried thyme would match a recipe wanting fresh, and the user gets told to use dust where the dish needs a sprig.
+
+**The Python question (M1.5.2) resolved to "offline script."** The reason belongs here because it is easy to re-litigate later: `ingredient-parser-nlp` runs at **import** time, once per recipe, on your machine. Nothing in the live product calls it. A hosted service would be a server kept warm for a job that runs a dozen times in the project's life. The boundary is a **file contract** — JSON lines in, JSON objects out — so whatever runs that Python later doesn't change the importer.
+
+### New concepts
+
+**`IMMUTABLE` is not decoration.** Postgres only allows an expression index on a function that promises the same input always yields the same output. `normalize_ingredient_name` is marked `IMMUTABLE` precisely so `create index ... on ingredients (normalize_ingredient_name(canonical_name))` is legal. Without it the normalised exact-match pass would scan every row.
+
+**`LEFT JOIN LATERAL` is what keeps the misses.** `ingredient_coverage` uses it so an unresolved name comes back as a row with NULLs rather than vanishing. A plain join would drop it — and a coverage metric that silently discards its failures reports 100% forever. That is the single most load-bearing line in the migration.
+
+**A seed can check itself.** The alias block stages into a temp table, then `RAISE EXCEPTION`s if any alias names a canonical ingredient that doesn't exist, or shadows one. See the gotcha below for why.
+
+### Gotchas
+
+**A seed that joins to look up ids fails silently.** The alias insert is `... from (values ...) join ingredients on canonical_name = ...`. A typo in a canonical name doesn't error — the join just matches nothing and that alias never exists. No error, no row, and a missing synonym you find out about months later as a slightly worse match rate.
+
+This bit immediately: renaming the herb rows to `fresh cilantro` orphaned `('cilantro', 'chinese parsley')`, and the first run inserted 270 aliases instead of 271 **without complaining**. The fix is the guard block — it now fails the whole seed and names the offending ingredient. Same family as CLAUDE.md's "it didn't error is not it did something."
+
+**Tighter singularising was safe because both forms are probed.** `eggs` initially fell through to a 0.50 fuzzy match, because the length guard skipped 4-letter words. Lowering the guard from 5 to 4 is safe *only* because every exact pass tests `in (probe, probe_s)` — a bad fold like "peas" → "pea" simply matches nothing while the raw probe still matches. Worth remembering: aggressive normalisation is cheap when you keep the original as a candidate.
+
+**The fuzzy tier needs a human, and the report is how you find them.** The first coverage run surfaced `banana leaves` → **bay leaf** at 0.60. Confidently wrong, and invisible without the report. Every fuzzy match is either a missing alias to add or a wrong match to block — which is why the script lists them separately from the unresolved ones instead of counting them as a win.
+
+**A restoring database answers SQL before its data is back — and lies to you while it does.** Supabase pauses free-tier projects after inactivity. The pooler reports a paused project as `FATAL: tenant/user ... not found`, which reads like a credentials problem and isn't.
+
+The trap is what happens *after* you trigger the restore. The instance accepted connections and answered queries while `public` still had **zero tables**, `supabase_migrations` didn't exist, and even `pg_trgm` and `citext` were missing. Every signal said the database had come back empty and the catalog was gone. It hadn't — the status was still `COMING_UP`, then moved to `RESTORING`, and everything returned intact: 6 recipes, 30 ingredients, 3 migrations.
+
+Two rules out of this. **Wait for `ACTIVE_HEALTHY` before believing anything you read**, because a responsive database is not a restored one. And **never push a migration into a database that is mid-restore** — the schema you are diffing against is not the schema you will get.
+
+**`.env.local` was overriding an exported `DATABASE_URL`.** `set -a && . ./.env.local` clobbers variables already in the environment, so pointing a script at a test container was impossible without editing the env file. Both `db-seed.sh` and `ingredient-coverage.sh` now load it only when the variable is unset. Explicit should always beat ambient.
+
+### Known gap, deliberately not built
+
+`resolve_ingredient` returns **one** answer. The pantry autocomplete (M3.3) needs the top *N* — "chicken" currently resolves to `chicken broth` at 0.57, which is fine for an import gate that flags low confidence and wrong for a dropdown. A `suggest_ingredients(prefix, limit)` sibling belongs in M3.3, not here.
+
+---
+
+## Entry 14 — [next entry goes here after M1.5.2]

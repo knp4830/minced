@@ -10,7 +10,8 @@
     "db:push": "supabase db push",
     "db:diff": "supabase db diff",
     "db:types": "supabase gen types typescript --linked > src/types/database.ts",
-    "db:seed": "bash scripts/db-seed.sh"
+    "db:seed": "bash scripts/db-seed.sh",
+    "ingredients:coverage": "bash scripts/ingredient-coverage.sh"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.5",
