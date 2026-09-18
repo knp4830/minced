@@ -946,4 +946,79 @@ Two rules out of this. **Wait for `ACTIVE_HEALTHY` before believing anything you
 
 ---
 
-## Entry 14 — [next entry goes here after M1.5.2]
+## Entry 14 — Parsing an ingredient line, and why a model beats a regex
+
+**Milestone:** M1.5.2 · **Date:** 2026-09-17
+
+### What we built
+
+The other half of the import pipeline. M1.5.1 answered "what ingredient is this *name*?"; this answers "what are the parts of this *line*?"
+
+```
+"2 cloves garlic, minced"
+   -> {quantity: 2, unit: "cloves", name: "garlic", prep: "minced", confidence: 0.998}
+```
+
+### Key files
+
+| File | What it does |
+|---|---|
+| `scripts/parser/parse_ingredients.py` | The parser. JSON array of lines on stdin → JSON array of parsed objects on stdout |
+| `scripts/parser/setup.sh` | Builds the venv from pinned requirements |
+| `scripts/parser/run.sh` | Runs the parser without needing to know where the venv is |
+| `scripts/parser/fixtures/ingredient-lines.txt` | 40 realistic lines, MyPlate-flavoured |
+| `scripts/parse-and-resolve.sh` | **The seam**: parse → resolve → report |
+
+The Python lives in a gitignored venv (76 MB) and is **not** a Node dependency, not in `package.json`, and never deployed.
+
+### How it works
+
+**What a sequence-labelling model is.** A regex asks "does this string match this shape?" A sequence-labelling model walks the sentence token by token and assigns each token a tag — QTY, UNIT, NAME, PREP, COMMENT — choosing the highest-probability *sequence of tags*, not the best tag for each word in isolation.
+
+That distinction is the whole game. In `"1 lb chicken breast, cut into 1-inch pieces"` there are two `1`s. The first is a quantity, the second is part of a preparation. Nothing about the character `1` distinguishes them — only the tokens around them do, and only a model that scores whole sequences can use that. A regex has no notion of "more likely"; every new phrasing is another branch, and the branches eventually contradict each other.
+
+The practical payoff: **every field arrives with a confidence score**, which is what makes a review queue possible at all. You cannot build "flag the uncertain ones" on top of a regex, because a regex is never uncertain — it is only ever right or silently wrong.
+
+**Confidence is the weakest field, not the average.** A line is only as trustworthy as its least certain part. Averaging would let a confident quantity (1.0) mask a coin-flip on the ingredient *name*, which is the field that actually matters.
+
+### Why this way (and what we rejected)
+
+**Offline script, not a FastAPI service.** The build plan asked to be argued out of "offline" and could not be. Parsing happens at *import* time — once per recipe, ever, on a developer machine. Nothing in the live product calls it; the live path is `resolve_ingredient()` in Postgres. A service would be a server kept warm for a job that runs a handful of times in this project's life.
+
+**But the boundary is a file contract, not a function call.** stdio JSON in, JSON out. If this ever must run elsewhere — a Vercel Python function, a container — only the transport changes and the importer keeps reading the same objects. That is what makes "offline" a cheap decision rather than a bet.
+
+**The first amount wins.** `"1 (14.5 ounce) can diced tomatoes"` parses to *two* amounts: 1 can, and 14.5 ounces. The first is the one a cook acts on, so it becomes the quantity; the rest are kept in `other_amounts` for the importer to look at rather than thrown away.
+
+**A bad line never kills the batch.** Every parse is wrapped: a failure becomes a flagged row with the error in `review_reasons`. One malformed line in a 1,000-recipe import must not lose the other 999.
+
+### New concepts
+
+**The parser ships USDA FoodData Central linkage — for free.** `parse_ingredient(..., foundation_foods=True)` returns a real `fdc_id`:
+
+```
+"2 cloves garlic, minced" -> fdc_id 1104647, "Garlic, raw", Vegetables and Vegetable Products
+```
+
+This was not expected and it substantially de-risks M1.5.4, which assumed a separate matching pass against USDA. The parser output now carries it — and **nothing consumes it yet**, on purpose. Writing `ingredients.fdc_id` is M1.5.4's milestone; capturing a field the parser already returns is this one's.
+
+It is also the honest correction to a claim made during M1.5.1: the USDA-style aliases seeded there were written from knowledge of USDA's conventions, *not* fetched from USDA. This is the first real USDA data in the project.
+
+### Gotchas
+
+**The library prints warnings to STDOUT.** `"Warning: parsing empty text"` goes to standard output, lands in the middle of the JSON array, and makes the whole document unparseable — silently, and only for the inputs that trigger it. It was found by piping the output through `jq` on a deliberately nasty input; the happy path never shows it.
+
+The fix is `contextlib.redirect_stdout(sys.stderr)` around the parse loop, so only our JSON reaches stdout. **The general lesson: when a tool's output is a contract, test it with input designed to break it.** A parser that works on good data and corrupts its own output format on bad data is worse than one that just fails.
+
+**A hardcoded summary line becomes a lie.** `db-seed.sh` ended with `echo "Seeded. 409 ingredients, 273 aliases, 6 recipes."` — accurate the day it was written, wrong the moment ten aliases were added. It now queries the counts. Same family as the stale-types problem: **anything that restates a fact stored elsewhere will eventually disagree with it.**
+
+**Coverage went 97.5% → 100% by reading the report.** The first end-to-end run left `nonfat milk` unresolved and four names resolving *correctly but fuzzily* (`low-sodium chicken broth` → `chicken broth` at 0.56). Fuzzy-but-right is still a warning: it happened to work through trigram overlap, not because anything asserted the equivalence. Ten aliases later the fixture resolves 100% with zero fuzzy matches.
+
+**The real pattern underneath is modifiers, and it is not solved.** `low-sodium X`, `fresh X`, `nonfat X`, `X threads` are a *shape*, not four synonyms, and 1,000 MyPlate recipes will produce dozens more. Ten aliases fixed this fixture; they will not fix the corpus. Stripping known modifiers before resolving is the systematic answer — a change to `resolve_ingredient`, deliberately not made here.
+
+### Handoff to M1.5.3
+
+The unit gap is now **measured rather than discovered mid-import**. The parser emits `cloves`, `ounce`, `pinch`, `pound`, `tablespoon`, `teaspoon`; `units` stores `clove`, `oz`, `lb`, `tbsp`, `tsp`, and has no `pinch` at all. Six mappings plus a decision about `pinch`. `scripts/parse-and-resolve.sh` prints this as section 3 on every run, so it stays visible.
+
+---
+
+## Entry 15 — [next entry goes here after M1.5.3]

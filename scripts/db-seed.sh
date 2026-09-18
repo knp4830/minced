@@ -46,4 +46,13 @@ for seed in $SEEDS; do
   fi
 done
 
-echo "Seeded. 409 ingredients, 273 aliases, 6 recipes."
+# Report what is actually in the database, not a hardcoded sentence that goes
+# stale the first time someone adds an ingredient. A summary line that lies is
+# worse than no summary line.
+SUMMARY_SQL="select 'Seeded. ' || (select count(*) from ingredients) || ' ingredients, ' || (select count(*) from ingredient_aliases) || ' aliases, ' || (select count(*) from recipes) || ' recipes.'"
+
+if command -v psql >/dev/null 2>&1; then
+  psql "$DATABASE_URL" -tAq -c "$SUMMARY_SQL"
+else
+  docker run --rm -i postgres:16-alpine psql "$DATABASE_URL" -tAq -c "$SUMMARY_SQL"
+fi

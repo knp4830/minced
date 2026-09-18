@@ -133,7 +133,7 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 
 **M1.5.1 — canonical ingredients and aliases: complete (2026-09-17).**
 
-- **409 canonical ingredients, 273 aliases**, seeded by `supabase/seed-ingredients.sql` (runs before `seed.sql`; `pnpm db:seed` runs both).
+- **409 canonical ingredients, 283 aliases**, seeded by `supabase/seed-ingredients.sql` (runs before `seed.sql`; `pnpm db:seed` runs both).
 - `resolve_ingredient(raw_name, min_similarity default 0.45)` — exact → alias → trigram fuzzy, **returns zero rows when unresolved**. Callers must reject, not warn.
 - `ingredient_coverage(raw_names[])` + `pnpm ingredients:coverage <file>` — the coverage metric, and the import gate.
 - Query layer: `src/lib/queries/ingredients.ts`.
@@ -145,15 +145,35 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 - Herbs sold both ways are split (`fresh thyme` / `dried thyme`); the bare word is an alias pointing at the form a recipe writing it bare usually means.
 - A row earns its own canonical entry only when a cook shops for it separately **and** swapping it changes the dish.
 
-### Next up: Phase 1.5, M1.5.2 — ingredient parser service (issue #10)
+**M1.5.2 — ingredient parser: complete (2026-09-17).**
 
-**The Python question is already settled** (decided in M1.5.1, reasoning in LEARNING-LOG Entry 13): `ingredient-parser-nlp` runs as an **offline script**, not a hosted service. It parses at *import* time, once per recipe, on your machine — nothing in the live product ever calls it. The live path is `resolve_ingredient()` in Postgres, which is already built.
+- `scripts/parser/` holds an **offline Python parser** (`ingredient-parser-nlp`, gitignored venv, pinned `requirements.txt`). Set up with `bash scripts/parser/setup.sh`, run with `bash scripts/parser/run.sh`.
+- **It is not a Node dependency and is never deployed.** It runs at import time on your machine; the live product's path is `resolve_ingredient()` in Postgres.
+- Contract: JSON array of raw lines on stdin → JSON array of `{raw, names[], quantity, unit, prep, comment, confidence, needs_review, review_reasons, usda}` on stdout. **stdout is JSON and nothing else** — the library's own warnings are redirected to stderr, and breaking that corrupts every downstream consumer.
+- `bash scripts/parse-and-resolve.sh <file>` is the seam between M1.5.2 and M1.5.1: parse → resolve → report. Three sections, because three things fail silently: parse confidence, name coverage, unit coverage.
 
-Build it as a **file contract**: a JSON array of raw ingredient lines in, a JSON array of `{quantity, unit, name, prep, comment, confidence}` out. That keeps whatever runs the Python later — your laptop, a Vercel Python function, a service — from changing the importer.
+**The parser returns USDA `fdc_id`s.** `foundation_foods=True` gives real FoodData Central ids (`garlic → 1104647, "Garlic, raw"`). The output carries it; **nothing writes it to the database yet** — that is M1.5.4, and doing it early would be building an unstarted milestone.
 
-`pnpm install` of a Python package is not a thing; this needs a `pip install` in a virtualenv the repo ignores. **Ask before adding either dependency.**
+### Next up: Phase 1.5, M1.5.3 — USDA MyPlate Kitchen bulk import (issue #11)
 
-**Known gap to close in M3.3, not before:** `resolve_ingredient` returns one answer, but the pantry autocomplete needs the top *N* — `"chicken"` resolves to `chicken broth` at 0.57, which is right for an import gate and wrong for a dropdown. That is a `suggest_ingredients(prefix, limit)` sibling, and it belongs in M3.3.
+This is the milestone that makes Minced a real catalog: ~1,072 public-domain recipes, which takes the pantry matcher from meaningless (6 recipes) to testable.
+
+**Both halves of the pipeline now exist.** The importer's job is to join them:
+
+```
+raw line -> scripts/parser/run.sh -> name -> resolve_ingredient() -> ingredient_id
+                                  -> unit -> ??? -> unit_id          <- THE GAP
+```
+
+**Start with the unit mapping — it is the only unsolved piece, and it is small.** The parser emits `cloves`, `ounce`, `pinch`, `pound`, `tablespoon`, `teaspoon`; `units` stores `clove`, `oz`, `lb`, `tbsp`, `tsp` and has **no `pinch`**. Six mappings plus a decision on `pinch` (add the row, or treat it as "to taste" with a NULL quantity). `scripts/parse-and-resolve.sh` reports the gap on every run — re-run it against real MyPlate data before writing the importer, because the real corpus will have more.
+
+**Per CLAUDE.md's import rule, the importer REJECTS a recipe with any unresolved ingredient — it does not warn.** `getUnresolvedIngredientNames()` in `src/lib/queries/ingredients.ts` is that gate.
+
+**A line can yield more than one ingredient.** `"salt and pepper to taste"` parses to two names, and `recipe_ingredients` stores one ingredient per row. The parser flags these rather than guessing; the importer must split them or queue them.
+
+**Known vocabulary weakness, likely to bite at 1,000 recipes:** modifiers. `low-sodium X`, `fresh X`, `nonfat X` are a *shape*, not individual synonyms. Ten aliases fixed the 40-line fixture and will not fix the corpus. If coverage sags during the import, the fix is stripping known modifiers in `resolve_ingredient` — not another hundred alias rows.
+
+**Known gap to close in M3.3, not before:** `resolve_ingredient` returns one answer, but the pantry autocomplete needs the top *N* — `"chicken"` resolves to `chicken broth` at 0.57, right for an import gate and wrong for a dropdown. That is `suggest_ingredients(prefix, limit)`, and it belongs in M3.3.
 
 **Open question deferred from M1.4:** should an *optional* ingredient contribute its allergens to the recipe? Miso Mushroom Ramen derives `Egg` from its optional soft-boiled egg. Decide in M3.4 when the allergen filter is built; the data supports either.
 
