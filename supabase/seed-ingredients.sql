@@ -644,7 +644,35 @@ insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple)
   ('bread dough',          'bread-dough',          'Other',   false),
   ('italian bread',        'italian-bread',        'Other',   false),
   ('crescent rolls',       'crescent-rolls',       'Other',   false),
-  ('dinner rolls',         'dinner-rolls',         'Other',   false)
+  ('dinner rolls',         'dinner-rolls',         'Other',   false),
+  -- Second pass, chosen by frequency from the full 1,119-recipe rejection
+  -- queue rather than guessed. "pasta" alone blocked 14 recipes: the catalog
+  -- had spaghetti and penne and macaroni but no word for pasta in general.
+  ('pasta',                'pasta',                'Pantry',  false),
+  ('chicken',              'chicken',              'Protein', false),
+  ('white beans',          'white-beans',          'Pantry',  false),
+  ('lima beans',           'lima-beans',           'Pantry',  false),
+  ('tomato juice',         'tomato-juice',         'Pantry',  false),
+  ('marinara sauce',       'marinara-sauce',       'Pantry',  false),
+  ('taco sauce',           'taco-sauce',           'Pantry',  false),
+  ('matzo meal',           'matzo-meal',           'Pantry',  false),
+  ('cereal',               'cereal',               'Pantry',  false),
+  ('bran cereal',          'bran-cereal',          'Pantry',  false),
+  ('pretzels',             'pretzels',             'Pantry',  false),
+  ('water chestnuts',      'water-chestnuts',      'Pantry',  false),
+  ('poppy seeds',          'poppy-seeds',          'Spices',  false),
+  ('dried fruit',          'dried-fruit',          'Pantry',  false),
+  ('dried figs',           'dried-figs',           'Pantry',  false),
+  ('figs',                 'figs',                 'Produce', false),
+  ('summer squash',        'summer-squash',        'Produce', false),
+  ('winter squash',        'winter-squash',        'Produce', false),
+  ('chili peppers',        'chili-peppers',        'Produce', false),
+  ('strawberry yogurt',    'strawberry-yogurt',    'Dairy',   false),
+  ('shredded cheese',      'shredded-cheese',      'Dairy',   false),
+  ('walleye',              'walleye',              'Protein', false),
+  ('catfish',              'catfish',              'Protein', false),
+  ('pollock',              'pollock',              'Protein', false),
+  ('spaghetti sauce',      'spaghetti-sauce',      'Pantry',  false)
 on conflict (canonical_name) do update
   set aisle_category   = excluded.aisle_category,
       is_pantry_staple = excluded.is_pantry_staple;
@@ -1047,7 +1075,45 @@ insert into _alias_seed (canonical, alias) values
   ('orange',              'orange zest'),
   ('barley',              'pearl barley'),
   ('chicken bouillon',    'bouillon'),
-  ('chicken bouillon',    'bouillon cubes')
+  ('chicken bouillon',    'bouillon cubes'),
+
+  -- Second pass aliases, same source: the full-corpus rejection queue.
+  ('pasta',               'pasta shells'),
+  ('pasta',               'whole wheat pasta'),
+  ('pasta',               'noodles'),
+  ('chicken',             'chicken pieces'),
+  ('chicken',             'chicken parts'),
+  ('white beans',         'great northern white beans'),
+  ('water',               'ice'),
+  ('kiwi',                'kiwifruit'),
+  ('kiwi',                'kiwi fruit'),
+  ('canned tuna',         'water packed tuna'),
+  ('canned tuna',         'light tuna'),
+  ('canned tuna',         'chunk light tuna'),
+  ('flour tortillas',     'whole wheat tortilla'),
+  ('flour tortillas',     'tortilla'),
+  ('pita bread',          'pita pockets'),
+  ('pita bread',          'whole wheat pita'),
+  ('flaxseed',            'flax seeds'),
+  ('orange juice',        'orange juice concentrate'),
+  ('dried sage',          'ground sage'),
+  ('ricotta',             'ricotta cheese'),
+  ('blue cheese',         'gorgonzola cheese'),
+  ('blue cheese',         'gorgonzola'),
+  ('italian seasoning',   'italian herbs'),
+  ('italian seasoning',   'italian herb mix'),
+  ('italian seasoning',   'italian herb blend'),
+  ('active dry yeast',    'rapid rise yeast'),
+  ('active dry yeast',    'dry yeast'),
+  ('yellow mustard',      'spicy brown mustard'),
+  ('yellow mustard',      'brown mustard'),
+  ('spaghetti sauce',     'pasta sauce'),
+  ('shredded cheese',     'cheese'),
+  ('raisins',             'california raisins'),
+  ('pear',                'danjou pears'),
+  ('kale',                'italian kale'),
+  ('walleye',             'walleye fillets'),
+  ('salt',                'seasoned salt')
 ;
 
 do $guard$

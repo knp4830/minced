@@ -1117,9 +1117,27 @@ The fix is `translate()`, not `unaccent()`. The `unaccent` extension is the obvi
 | First run, M1.5.1 vocabulary only | 27% |
 | + modifier stripping, + MyPlate vocabulary | 57% |
 | + splitting multi-ingredient lines | 69% |
-| + second vocabulary pass from the queue | 82% |
+| + second vocabulary pass from the queue | 82% (sample) |
+| Full corpus, 1,119 recipes | 67% → **78%** after a frequency-ranked third pass |
 
 Every one of those steps was chosen by reading the rejection queue, not by guessing. That queue is the reason M1.5.1 insisted on building the coverage metric before anything used it.
+
+The third pass is the clearest example of why frequency ranking matters: at full corpus size the top unresolved name was **`pasta`, blocking 14 recipes on its own**. The vocabulary had spaghetti, penne, macaroni, linguine and fettuccine — and no word for pasta in general. A hand-curated list would never have found that; the queue found it immediately.
+
+### Final numbers
+
+| | |
+|---|---|
+| Recipe slugs in the Wayback index | 1,201 |
+| Pages successfully fetched | 1,119 (82 never archived or forbidden) |
+| **Recipes imported** | **872** |
+| Rejected into the manual-fix queue | 247 (209 unresolved, 38 structurally incomplete) |
+| Ingredient lines parsed | 8,945 |
+| Unresolved lines | 265 (3.0%) |
+| Live catalog | **878 recipes**, 7,083 ingredient rows, 5,250 steps |
+| Vocabulary | 512 ingredients, 385 aliases, 372 actually used |
+
+The 247 rejections are not a failure of the importer; they are its job. 38 of them are pages that genuinely have no ingredients or directions — MyPlate's collection includes a few craft activities for children, which ask for popsicle sticks and paper straws. A recipe requiring paper straws is correctly not in a cooking catalog.
 
 ---
 

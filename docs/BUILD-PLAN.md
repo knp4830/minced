@@ -20,7 +20,7 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #8 | **M1.6** Typed Supabase clients (server + browser) | ☑ |
 | #9 | **M1.5.1** Canonical ingredients + alias table | ☑ |
 | #10 | **M1.5.2** Ingredient parser (ingredient-parser-nlp) | ☑ |
-| #11 | **M1.5.3** USDA MyPlate Kitchen bulk import | ☐ |
+| #11 | **M1.5.3** USDA MyPlate Kitchen bulk import | ☑ |
 | #12 | **M1.5.4** USDA FoodData Central nutrition pipeline | ☐ |
 | #13 | **M1.5.5** Recipe generation pipeline (Tier 2, Minced voice) | ☐ |
 | #14 | **M1.5.6** Admin review queue at /admin/review | ☐ |
@@ -476,7 +476,7 @@ of a regex.
 
 **Handoff to M1.5.3 — the unit gap is now measured.** The parser emits `cloves`, `ounce`, `pinch`, `pound`, `tablespoon`, `teaspoon`; the `units` table stores `clove`, `oz`, `lb`, `tbsp`, `tsp` and has no `pinch`. Six mappings, plus a decision on `pinch`. `scripts/parse-and-resolve.sh` reports this as section 3 on every run.
 
-### ☐ M1.5.3 — USDA MyPlate Kitchen bulk import **(this is your "large list of ready-to-make recipes")**
+### ☑ M1.5.3 — USDA MyPlate Kitchen bulk import **(this is your "large list of ready-to-make recipes")**
 
 **Claude Code prompt:**
 ```
@@ -496,6 +496,16 @@ Make it resumable: interrupting it must not lose progress or duplicate rows.
 ```
 
 **DoD:** 800+ recipes imported with fully resolved canonical ingredients. Unresolved lines are in a queue with counts, so you can see which aliases to add next.
+
+**Done 2026-09-18. 872 recipes imported; the live catalog is 878.** Every imported recipe's ingredients resolve to canonical ids — enforced by a foreign key, not by hope. Unresolved names are in `scripts/myplate/artifacts/unresolved-ingredients.csv` with occurrence and recipe counts; rejected recipes with reasons are in `rejected-recipes.csv`.
+
+**The access route changed, because the source did.** USDA retired myplate.gov on **2026-01-07** — there is no API and nothing on data.gov. The surviving third-party mirror's terms forbid replicating the catalog into another database without a license, so the importer reads the **Internet Archive's capture of the original public-domain pages** instead. The recipes are US federal works and carry no copyright; the mirror's restriction is a contract on *their service*, not a claim on the content. Same copyright-versus-site-terms distinction this plan already applies to Tier 3.
+
+**Import rate climbed 27% → 78%**, each step chosen by reading the rejection queue: modifier stripping, then splitting multi-ingredient lines, then two frequency-ranked vocabulary passes. At full corpus the top unresolved name was `pasta`, blocking 14 recipes on its own.
+
+**Three migrations came out of this:** `unit_aliases` + `resolve_unit()` (units are a conversion system, so the parser's "tablespoon" maps onto "tbsp" rather than becoming a second row), `ingredient_modifiers` + progressive stripping (runs last, so M1.5.1's deliberate dried/fresh splits are never undone), and accent folding in the normaliser (`jalapeño` was becoming `jalape o`).
+
+**Not done, deliberately:** 247 recipes remain rejected. 38 have no ingredients or directions at all — MyPlate includes a few children's craft activities that call for popsicle sticks. The other 209 are a long tail of one-off names. Closing that tail is M1.5.7's job, and the queue is sorted by frequency so it can be worked top-down.
 
 ### ☐ M1.5.4 — USDA FoodData Central nutrition pipeline
 
