@@ -34,3 +34,8 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Python -- the ingredient parser (M1.5.2). Import-time only, never deployed.
+scripts/parser/.venv/
+__pycache__/
+*.pyc

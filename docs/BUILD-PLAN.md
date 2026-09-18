@@ -19,7 +19,7 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #7 | **M1.4** Seed script with the six mockup recipes | ☑ |
 | #8 | **M1.6** Typed Supabase clients (server + browser) | ☑ |
 | #9 | **M1.5.1** Canonical ingredients + alias table | ☑ |
-| #10 | **M1.5.2** Ingredient parser (ingredient-parser-nlp) | ☐ |
+| #10 | **M1.5.2** Ingredient parser (ingredient-parser-nlp) | ☑ |
 | #11 | **M1.5.3** USDA MyPlate Kitchen bulk import | ☐ |
 | #12 | **M1.5.4** USDA FoodData Central nutrition pipeline | ☐ |
 | #13 | **M1.5.5** Recipe generation pipeline (Tier 2, Minced voice) | ☐ |
@@ -447,7 +447,7 @@ Explain pg_trgm and why fuzzy matching belongs in Postgres rather than in JS.
 
 Note for whoever reads this next: steps 1's tables *and both trigram indexes* already existed from M1.2 — only the resolver was missing. Two decisions were settled here: **M1.5.2 runs the Python parser offline** (nothing in the request path calls it; the boundary is a JSON file contract), and **aliases are USDA-derived but curated** — USDA supplies coverage, canonical names stay in a cook's words, USDA's own phrasings live as aliases so M1.5.4's `fdc_id` join has something to hang on.
 
-### ☐ M1.5.2 — Ingredient parser service
+### ☑ M1.5.2 — Ingredient parser service
 
 `ingredient-parser-nlp` (Python, MIT, actively maintained, ~95% sentence accuracy) turns `"2 cloves garlic, minced"` into `{qty: 2, unit: "clove", name: "garlic", prep: "minced"}`.
 
@@ -464,6 +464,17 @@ low-confidence lines for manual review.
 Explain what a sequence-labeling model is and why this problem needs one instead
 of a regex.
 ```
+
+**DoD** (this milestone shipped without one — written here so it is checkable):
+`"2 cloves garlic, minced"` parses to `{quantity: 2, unit: "cloves", name: "garlic", prep: "minced"}`, **and** a fixture of real recipe lines runs parse → resolve end-to-end, reporting name coverage with low-confidence lines flagged rather than silently accepted.
+
+**Done 2026-09-17.** Both hold: the example parses at 0.998 confidence, and the 40-line fixture reaches **100% name coverage, 0 fuzzy**, with 1 line correctly flagged (`"salt and pepper to taste"` — two ingredients in one line, which `recipe_ingredients` cannot store as one row).
+
+**Decided: an offline script, not a service.** Parsing happens once per recipe at import time, on a developer machine; the live product never calls it. The contract is stdio JSON in / JSON out, so if it ever must run elsewhere only the transport changes.
+
+**Unexpected find — the parser ships USDA linkage.** `parse_ingredient(..., foundation_foods=True)` returns a real FoodData Central `fdc_id`, name and category (`"2 cloves garlic" → fdc_id 1104647, "Garlic, raw"`). The parser output now carries it, but **nothing consumes it yet** — writing `ingredients.fdc_id` is M1.5.4. This substantially de-risks that milestone: the mapping arrives with the parse rather than needing a separate matching pass.
+
+**Handoff to M1.5.3 — the unit gap is now measured.** The parser emits `cloves`, `ounce`, `pinch`, `pound`, `tablespoon`, `teaspoon`; the `units` table stores `clove`, `oz`, `lb`, `tbsp`, `tsp` and has no `pinch`. Six mappings, plus a decision on `pinch`. `scripts/parse-and-resolve.sh` reports this as section 3 on every run.
 
 ### ☐ M1.5.3 — USDA MyPlate Kitchen bulk import **(this is your "large list of ready-to-make recipes")**
 

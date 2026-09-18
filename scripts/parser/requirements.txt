@@ -1,0 +1,27 @@
+# M1.5.2 -- ingredient parser (offline, import-time only).
+#
+# NOT a Node dependency and NOT deployed. Nothing in the live product imports
+# this; it runs on a developer machine during a catalog import. See
+# scripts/parser/parse_ingredients.py for why it is a script and not a service.
+#
+# Fully pinned, transitive dependencies included, so a rebuilt venv parses
+# identically. A parser that silently changes its mind between runs would make
+# "why did this line get flagged?" unanswerable.
+#
+# The only DIRECT dependency is ingredient_parser_nlp; the rest come with it.
+#
+# Install:  bash scripts/parser/setup.sh
+Pint==0.26.1
+click==8.5.0
+cloudpickle==3.1.2
+defusedxml==0.7.1
+flexcache==0.3
+flexparser==0.4
+ingredient_parser_nlp==2.7.0
+joblib==1.6.0
+nltk==3.10.3
+numpy==2.5.3
+platformdirs==4.11.10
+regex==2026.9.10
+tqdm==4.70.1
+typing_extensions==4.16.0
