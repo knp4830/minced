@@ -563,15 +563,37 @@ export type Database = {
     }
     Functions: {
       can_read_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
+      ingredient_coverage: {
+        Args: { min_similarity?: number; raw_names: string[] }
+        Returns: {
+          canonical_name: string
+          confidence: number
+          ingredient_id: number
+          match_kind: Database["public"]["Enums"]["ingredient_match_kind"]
+          raw_name: string
+        }[]
+      }
+      normalize_ingredient_name: { Args: { raw: string }; Returns: string }
       owns_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
       refresh_recipe_allergens: {
         Args: { p_recipe_id: string }
         Returns: undefined
       }
+      resolve_ingredient: {
+        Args: { min_similarity?: number; raw_name: string }
+        Returns: {
+          canonical_name: string
+          confidence: number
+          ingredient_id: number
+          match_kind: Database["public"]["Enums"]["ingredient_match_kind"]
+        }[]
+      }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      singularize_ingredient_name: { Args: { raw: string }; Returns: string }
     }
     Enums: {
+      ingredient_match_kind: "exact" | "alias" | "fuzzy"
       recipe_status: "draft" | "in_review" | "published"
       unit_kind: "mass" | "volume" | "count"
     }
@@ -589,12 +611,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -618,11 +640,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -643,11 +665,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -668,11 +690,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -685,11 +707,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -704,6 +726,7 @@ export const Constants = {
   },
   public: {
     Enums: {
+      ingredient_match_kind: ["exact", "alias", "fuzzy"],
       recipe_status: ["draft", "in_review", "published"],
       unit_kind: ["mass", "volume", "count"],
     },

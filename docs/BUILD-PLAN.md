@@ -18,7 +18,7 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #6 | **M1.3** Row Level Security policies + test plan | ☑ |
 | #7 | **M1.4** Seed script with the six mockup recipes | ☑ |
 | #8 | **M1.6** Typed Supabase clients (server + browser) | ☑ |
-| #9 | **M1.5.1** Canonical ingredients + alias table | ☐ |
+| #9 | **M1.5.1** Canonical ingredients + alias table | ☑ |
 | #10 | **M1.5.2** Ingredient parser (ingredient-parser-nlp) | ☐ |
 | #11 | **M1.5.3** USDA MyPlate Kitchen bulk import | ☐ |
 | #12 | **M1.5.4** USDA FoodData Central nutrition pipeline | ☐ |
@@ -423,7 +423,7 @@ Defer this until Tiers 1 and 2 are exhausted. It's the highest-effort and highes
 
 > **Not legal advice.** I'm not a lawyer. Tier 1 is genuinely risk-free — it's US government work. Tier 2 is risk-free because you author it. Tier 3 relies on a real and well-established principle that nonetheless has edges, and it carries separate contract-law risk from site terms. Build Tiers 1 and 2 first; revisit Tier 3 with actual legal input if you ever need it.
 
-### ☐ M1.5.1 — Canonical ingredients and aliases **(do this first — everything depends on it)**
+### ☑ M1.5.1 — Canonical ingredients and aliases **(do this first — everything depends on it)**
 
 **Claude Code prompt:**
 ```
@@ -442,6 +442,10 @@ Explain pg_trgm and why fuzzy matching belongs in Postgres rather than in JS.
 ```
 
 **DoD:** `resolve("green onions")`, `resolve("scallion")`, and `resolve("spring onion")` all return the same ingredient id.
+
+**Done 2026-09-17.** All three return `ingredient_id = 12` on the live database, as does `"green oni"` (fuzzy, 0.692 — the M3.3 autocomplete case). Delivered: `resolve_ingredient()` in `20260918013819_resolve_ingredient.sql`, a **409-ingredient / 273-alias** vocabulary in `supabase/seed-ingredients.sql`, the query layer in `src/lib/queries/ingredients.ts`, and the coverage metric (`ingredient_coverage()` + `pnpm ingredients:coverage`), which is also the import gate.
+
+Note for whoever reads this next: steps 1's tables *and both trigram indexes* already existed from M1.2 — only the resolver was missing. Two decisions were settled here: **M1.5.2 runs the Python parser offline** (nothing in the request path calls it; the boundary is a JSON file contract), and **aliases are USDA-derived but curated** — USDA supplies coverage, canonical names stay in a cook's words, USDA's own phrasings live as aliases so M1.5.4's `fdc_id` join has something to hang on.
 
 ### ☐ M1.5.2 — Ingredient parser service
 
