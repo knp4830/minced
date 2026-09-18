@@ -508,6 +508,148 @@ on conflict (canonical_name) do update
       is_pantry_staple = excluded.is_pantry_staple;
 
 -- ---------------------------------------------------------------------------
+-- Modifier vocabulary (M1.5.3)
+--
+-- Words stripped from an ingredient name ONLY when it fails to resolve outright.
+-- Derived from the actual USDA MyPlate rejection queue, not invented.
+--
+-- THE RULE FOR ADDING ONE: a word belongs here only if removing it never
+-- changes what you would put in the basket. "canned" stays (canned corn is
+-- corn); "ground" does NOT (ground beef is not beef); "sweet" does NOT (a sweet
+-- potato is not a potato). When unsure, leave it out -- an unresolved name gets
+-- flagged, a wrongly stripped one gets silently imported.
+-- ---------------------------------------------------------------------------
+insert into ingredient_modifiers (word, position) values
+  -- state and preparation
+  ('fresh','leading'), ('frozen','leading'), ('canned','leading'),
+  ('raw','leading'), ('cooked','leading'), ('uncooked','leading'),
+  ('dried','leading'), ('stewed','leading'), ('instant','leading'),
+  ('quick','leading'), ('cooking','leading'), ('prepared','leading'),
+  ('drained','leading'), ('rinsed','leading'), ('packed','leading'),
+  ('peeled','leading'), ('pitted','leading'), ('seedless','leading'),
+  ('chopped','leading'), ('diced','leading'), ('sliced','leading'),
+  ('shredded','leading'), ('grated','leading'), ('crumbled','leading'),
+  ('crushed','leading'), ('cubed','leading'), ('halved','leading'),
+  ('minced','leading'), ('cut','leading'), ('torn','leading'),
+  -- size and grade
+  ('large','leading'), ('medium','leading'), ('small','leading'),
+  ('baby','leading'), ('mini','leading'), ('jumbo','leading'),
+  ('extra','leading'), ('ripe','leading'), ('lean','leading'),
+  ('boneless','leading'), ('skinless','leading'),
+  -- the nutrition-label vocabulary: this is most of the MyPlate corpus
+  ('low','leading'), ('lower','leading'), ('reduced','leading'),
+  ('no','leading'), ('non','leading'), ('nonfat','leading'),
+  ('free','leading'), ('lite','leading'), ('unsalted','leading'),
+  ('unsweetened','leading'), ('unseasoned','leading'),
+  ('salt','leading'), ('sodium','leading'), ('added','leading'),
+  ('calorie','leading'), ('sugar','leading'), ('light','leading'),
+  -- Colours. These look reckless -- "red onion" and "green beans" and "white
+  -- rice" are all real, distinct ingredients -- but they are safe for the same
+  -- reason everything here is safe: stripping runs LAST. Every one of those
+  -- names matches its own row on the exact pass and never reaches the stripper.
+  -- Only an unrecognised "red apples" gets its adjective removed.
+  ('red','leading'), ('green','leading'), ('yellow','leading'),
+  ('white','leading'), ('golden','leading'), ('purple','leading'),
+  -- forms a food is sold in, which never change what the food IS
+  ('fillets','trailing'),  ('fillet','trailing'),  ('filets','trailing'),
+  ('kernels','trailing'),  ('chunks','trailing'),  ('cubes','trailing'),
+  ('pieces','trailing'),   ('halves','trailing'),  ('slices','trailing'),
+  ('strips','trailing'),   ('wedges','trailing'),  ('spears','trailing'),
+  ('florets','trailing'),  ('leaves','trailing')
+on conflict (word) do update set position = excluded.position;
+
+-- ---------------------------------------------------------------------------
+-- American pantry vocabulary (M1.5.3)
+--
+-- Every row below appeared in the USDA MyPlate unresolved queue. The catalog is
+-- federal nutrition-program cooking: budget, family-sized, and shelf-stable, so
+-- it needs margarine and bouillon in a way the design mockup's six recipes did
+-- not.
+-- ---------------------------------------------------------------------------
+insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple) values
+  ('margarine',            'margarine',            'Dairy',   false),
+  ('shortening',           'shortening',           'Pantry',  false),
+  ('applesauce',           'applesauce',           'Pantry',  false),
+  ('apricot jam',          'apricot-jam',          'Pantry',  false),
+  ('grape jelly',          'grape-jelly',          'Pantry',  false),
+  ('strawberry jam',       'strawberry-jam',       'Pantry',  false),
+  ('chicken bouillon',     'chicken-bouillon',     'Pantry',  false),
+  ('beef bouillon',        'beef-bouillon',        'Pantry',  false),
+  ('cream of tartar',      'cream-of-tartar',      'Pantry',  false),
+  ('hominy',               'hominy',               'Pantry',  false),
+  ('marshmallows',         'marshmallows',         'Pantry',  false),
+  ('pancake mix',          'pancake-mix',          'Pantry',  false),
+  ('biscuit mix',          'biscuit-mix',          'Pantry',  false),
+  ('cake mix',             'cake-mix',             'Pantry',  false),
+  ('pudding mix',          'pudding-mix',          'Pantry',  false),
+  ('whipped topping',      'whipped-topping',      'Dairy',   false),
+  ('pizza sauce',          'pizza-sauce',          'Pantry',  false),
+  ('chili sauce',          'chili-sauce',          'Pantry',  false),
+  ('cream of mushroom soup','cream-of-mushroom-soup','Pantry', false),
+  ('cream of chicken soup','cream-of-chicken-soup','Pantry',  false),
+  ('tomato soup',          'tomato-soup',          'Pantry',  false),
+  ('salad dressing',       'salad-dressing',       'Pantry',  false),
+  ('italian dressing',     'italian-dressing',     'Pantry',  false),
+  ('ranch dressing',       'ranch-dressing',       'Pantry',  false),
+  ('vinaigrette',          'vinaigrette',          'Pantry',  false),
+  ('mixed vegetables',     'mixed-vegetables',     'Produce', false),
+  ('green chiles',         'green-chiles',         'Pantry',  false),
+  ('papaya',               'papaya',               'Produce', false),
+  ('mandarin orange',      'mandarin-orange',      'Produce', false),
+  ('frozen yogurt',        'frozen-yogurt',        'Dairy',   false),
+  ('vanilla yogurt',       'vanilla-yogurt',       'Dairy',   false),
+  ('evaporated skim milk', 'evaporated-skim-milk', 'Pantry',  false),
+  ('dry milk powder',      'dry-milk-powder',      'Pantry',  false),
+  ('vegetable juice',      'vegetable-juice',      'Pantry',  false),
+  ('apple juice',          'apple-juice',          'Pantry',  false),
+  ('orange juice',         'orange-juice',         'Pantry',  false),
+  ('cranberry juice',      'cranberry-juice',      'Pantry',  false),
+  ('grape juice',          'grape-juice',          'Pantry',  false),
+  ('raisin bran',          'raisin-bran',          'Pantry',  false),
+  ('corn flakes',          'corn-flakes',          'Pantry',  false),
+  ('graham crackers',      'graham-crackers',      'Pantry',  false),
+  ('saltine crackers',     'saltine-crackers',     'Pantry',  false),
+  ('tortilla chips',       'tortilla-chips',       'Pantry',  false),
+  ('seasoned breadcrumbs', 'seasoned-breadcrumbs', 'Pantry',  false),
+  ('cornbread mix',        'cornbread-mix',        'Pantry',  false),
+  ('sweet pickle relish',  'sweet-pickle-relish',  'Pantry',  false),
+  ('taco shells',          'taco-shells',          'Other',   false),
+  ('hamburger',            'hamburger',            'Protein', false),
+  ('turkey ham',           'turkey-ham',           'Protein', false),
+  ('imitation crab',       'imitation-crab',       'Protein', false),
+  ('peanut butter chips',  'peanut-butter-chips',  'Pantry',  false),
+  ('butternut squash puree','butternut-squash-puree','Pantry',false),
+  ('pumpkin puree',        'pumpkin-puree',        'Pantry',  false),
+  ('egg substitute',       'egg-substitute',       'Protein', false),
+  ('peas',                 'peas',                 'Produce', false),
+  ('dried apricots',       'dried-apricots',       'Pantry',  false),
+  ('prunes',               'prunes',               'Pantry',  false),
+  ('ham hocks',            'ham-hocks',            'Protein', false),
+  ('deli ham',             'deli-ham',             'Protein', false),
+  ('deli turkey',          'deli-turkey',          'Protein', false),
+  ('cream-style corn',     'cream-style-corn',     'Pantry',  false),
+  ('coffee',               'coffee',               'Pantry',  false),
+  ('popcorn',              'popcorn',              'Pantry',  false),
+  ('granola',              'granola',              'Pantry',  false),
+  ('baking mix',           'baking-mix',           'Pantry',  false),
+  ('apple pie spice',      'apple-pie-spice',      'Spices',  false),
+  ('pumpkin pie spice',    'pumpkin-pie-spice',    'Spices',  false),
+  ('adobo seasoning',      'adobo-seasoning',      'Spices',  false),
+  ('lemon pepper',         'lemon-pepper',         'Spices',  false),
+  ('seasoning mix',        'seasoning-mix',        'Spices',  false),
+  ('fruit juice',          'fruit-juice',          'Pantry',  false),
+  ('fruit cocktail',       'fruit-cocktail',       'Pantry',  false),
+  ('canned peaches',       'canned-peaches',       'Pantry',  false),
+  ('canned pears',         'canned-pears',         'Pantry',  false),
+  ('bread dough',          'bread-dough',          'Other',   false),
+  ('italian bread',        'italian-bread',        'Other',   false),
+  ('crescent rolls',       'crescent-rolls',       'Other',   false),
+  ('dinner rolls',         'dinner-rolls',         'Other',   false)
+on conflict (canonical_name) do update
+  set aisle_category   = excluded.aisle_category,
+      is_pantry_staple = excluded.is_pantry_staple;
+
+-- ---------------------------------------------------------------------------
 -- Aliases
 --
 -- Four kinds of row here, and only four -- anything else is noise:
@@ -782,7 +924,10 @@ insert into _alias_seed (canonical, alias) values
   ('lemon',               'lemon zest'),
   ('lime',                'lime juice'),
   ('lime',                'lime zest'),
-  ('orange',              'orange juice'),
+  -- NOTE: no 'orange juice' alias -- it is its own canonical ingredient.
+  -- lemon juice and lime juice stay aliases on purpose: those appear in
+  -- teaspoon quantities as acid, where the fruit is a fair substitute. Orange
+  -- juice appears by the cup, where it is not.
   ('ginger',              'fresh ginger'),
   ('ginger',              'ginger root'),
   ('strawberries',        'strawberry'),
@@ -830,7 +975,79 @@ insert into _alias_seed (canonical, alias) values
   ('pork shoulder',       'pork butt'),
   ('pork shoulder',       'boston butt'),
   ('rotisserie chicken',  'cooked chicken'),
-  ('rotisserie chicken',  'shredded chicken')
+  ('rotisserie chicken',  'shredded chicken'),
+
+  -- From the USDA MyPlate unresolved queue (M1.5.3). These are the ones
+  -- modifier stripping alone cannot reach, because the remaining words are not
+  -- the canonical name either.
+  ('corn',                'sweet corn'),
+  ('corn',                'whole kernel corn'),
+  ('corn',                'corn kernels'),
+  ('green bell pepper',   'green pepper'),
+  ('red bell pepper',     'red pepper'),
+  ('rolled oats',         'quick cooking oats'),
+  ('rolled oats',         'quick oats'),
+  ('rolled oats',         'oatmeal'),
+  ('apple',               'granny smith apple'),
+  ('apple',               'tart apples'),
+  ('apple',               'cooking apples'),
+  ('chuck roast',         'beef chuck roast'),
+  ('chuck roast',         'beef roast'),
+  ('ground beef',         'hamburger meat'),
+  ('cod',                 'fish fillets'),
+  ('cod',                 'white fish'),
+  ('tilapia',             'tilapia fish'),
+  ('margarine',           'oleo'),
+  ('applesauce',          'apple sauce'),
+  ('dry milk powder',     'nonfat dry milk'),
+  ('dry milk powder',     'powdered milk'),
+  ('whipped topping',     'whipped cream topping'),
+  ('green chiles',        'green chilies'),
+  ('green chiles',        'diced green chilies'),
+  ('mandarin orange',     'mandarin oranges'),
+  ('salad dressing',      'mayonnaise-type dressing'),
+  ('vinaigrette',         'vinaigrette dressing'),
+  ('graham crackers',     'graham cracker crumbs'),
+  ('mixed vegetables',    'frozen mixed vegetables'),
+  ('shredded coconut',    'flaked coconut'),
+  ('pork shoulder',       'lean pork'),
+  ('grapes',              'seedless grapes'),
+  ('couscous',            'whole wheat couscous'),
+  ('pineapple',           'pineapple chunks'),
+  ('beet',                'whole beets'),
+  ('peanuts',             'dry roasted peanuts'),
+  ('vanilla yogurt',      'low fat vanilla yogurt'),
+  ('chicken bouillon',    'chicken bouillon granules'),
+  ('chicken bouillon',    'chicken bouillon cube'),
+  ('beef bouillon',       'beef bouillon granules'),
+  ('cream of mushroom soup','condensed cream of mushroom soup'),
+  ('cream of chicken soup', 'condensed cream of chicken soup'),
+  ('peas',                'frozen peas'),
+  ('peas',                'green peas'),
+  ('peas',                'sweet peas'),
+  ('corn',                'cream style corn'),
+  ('sandwich bread',      'whole wheat bread'),
+  ('sandwich bread',      'wheat bread'),
+  ('egg substitute',      'liquid egg substitute'),
+  ('egg substitute',      'dry egg mix'),
+  ('coffee',              'brewed coffee'),
+  ('coffee',              'instant coffee'),
+  ('maple syrup',         'pancake syrup'),
+  ('mixed greens',        'mesclun'),
+  ('mixed greens',        'baby greens'),
+  ('romaine lettuce',     'lettuce'),
+  ('cheddar cheese',      'colby jack cheese'),
+  ('monterey jack',       'colby monterey jack cheese'),
+  ('water',               'boiling water'),
+  ('water',               'cold water'),
+  ('water',               'warm water'),
+  ('water',               'ice water'),
+  ('water',               'ice cubes'),
+  ('orange',              'orange peel'),
+  ('orange',              'orange zest'),
+  ('barley',              'pearl barley'),
+  ('chicken bouillon',    'bouillon'),
+  ('chicken bouillon',    'bouillon cubes')
 ;
 
 do $guard$

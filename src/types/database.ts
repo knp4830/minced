@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.17"
+    PostgrestVersion: "14.5"
   }
   graphql_public: {
     Tables: {
@@ -199,6 +199,21 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      ingredient_modifiers: {
+        Row: {
+          position: string
+          word: string
+        }
+        Insert: {
+          position?: string
+          word: string
+        }
+        Update: {
+          position?: string
+          word?: string
+        }
+        Relationships: []
       }
       ingredients: {
         Row: {
@@ -536,6 +551,32 @@ export type Database = {
           },
         ]
       }
+      unit_aliases: {
+        Row: {
+          alias: string
+          id: number
+          unit_id: number
+        }
+        Insert: {
+          alias: string
+          id?: never
+          unit_id: number
+        }
+        Update: {
+          alias?: string
+          id?: never
+          unit_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "unit_aliases_unit_id_fkey"
+            columns: ["unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       units: {
         Row: {
           id: number
@@ -588,9 +629,18 @@ export type Database = {
           match_kind: Database["public"]["Enums"]["ingredient_match_kind"]
         }[]
       }
+      resolve_unit: {
+        Args: { raw_unit: string }
+        Returns: {
+          kind: Database["public"]["Enums"]["unit_kind"]
+          unit_id: number
+          unit_name: string
+        }[]
+      }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
       singularize_ingredient_name: { Args: { raw: string }; Returns: string }
+      strip_ingredient_modifiers: { Args: { raw: string }; Returns: string }
     }
     Enums: {
       ingredient_match_kind: "exact" | "alias" | "fuzzy"

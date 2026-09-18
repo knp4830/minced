@@ -1021,4 +1021,106 @@ The unit gap is now **measured rather than discovered mid-import**. The parser e
 
 ---
 
-## Entry 15 — [next entry goes here after M1.5.3]
+## Entry 15 — Importing a catalog, and the day the source disappeared
+
+**Milestone:** M1.5.3 · **Date:** 2026-09-18
+
+### What we built
+
+A four-stage pipeline that turns archived web pages into catalog rows, and the vocabulary work required to make it not reject most of them.
+
+```
+fetch.sh        archived HTML          -> scripts/myplate/cache/
+extract.py      HTML + JSON-LD         -> artifacts/recipes.json
+build_import.py + parsed lines         -> artifacts/import.sql
+psql            resolve + gate + load  -> the database + two CSV queues
+```
+
+### Key files
+
+| File | What it does |
+|---|---|
+| `scripts/myplate/slugs.txt` | 1,201 recipe slugs, from the Wayback CDX index |
+| `scripts/myplate/fetch.sh` | Downloads archived pages. Resumable, parallel, polite |
+| `scripts/myplate/extract.py` | HTML + JSON-LD → normalised recipe JSON |
+| `scripts/myplate/build_import.py` | Parses every ingredient line, emits the import SQL |
+| `scripts/myplate/import.sh` | Runs all of it |
+| `20260918204601_unit_aliases.sql` | `unit_aliases`, `resolve_unit()`, four new units |
+| `20260918205149_modifier_stripping.sql` | `ingredient_modifiers`, progressive stripping |
+| `20260918205657_normalize_accents.sql` | Accent folding in the normaliser |
+
+### The source was gone
+
+The build plan said to import from MyPlate Kitchen's API. **USDA retired myplate.gov on 2026-01-07** and replaced it with RealFood.gov. There is no official bulk download and nothing on data.gov.
+
+What remains:
+
+- **myplate.food**, a third-party preservation of the same recipes, with a free API — whose terms state plainly that "replicating the recipe catalog into your own database or storage requires a license agreement." Minced must store recipes. That is a direct hit on CLAUDE.md's sourcing rule.
+- **The Internet Archive's capture of the original myplate.gov** — 1,201 recipe pages.
+
+**The distinction that decided it:** the recipes are US federal works and carry *no copyright*. Nobody can stop you copying them. myplate.food's restriction is a **contract on their service**, not a claim on the content. Taking the same public-domain pages from the Archive means we are not party to those terms at all. This is the same copyright-versus-site-terms split the build plan already applies to Tier 3.
+
+The lesson that generalises: **when a source says "you may not store this," ask what they actually own.** Sometimes the answer is "the convenience, not the content."
+
+### How it works
+
+**Two sources per page, because neither is complete.** USDA's schema.org JSON-LD carries nutrition, yield, times, description and image — but *omits* `recipeIngredient` and `recipeInstructions` entirely. A JSON-LD-only importer would have produced hundreds of recipes with no ingredients and thrown no error. The ingredients come from the HTML, where Drupal's stable field classes put prep notes in their own `<span class="notes">` — which maps directly onto `prep_note`.
+
+**The gate runs in SQL.** The payload goes to Postgres as one dollar-quoted JSON blob and the accept/reject decision happens there, in the same transaction as the insert, because `resolve_ingredient()` and `resolve_unit()` live there. A gate evaluated anywhere else is a gate that can disagree with the database it protects. Dollar quoting also means no value is ever escaped by hand — the bug class that turns an importer into an injection hole.
+
+**Rejection is per recipe, never per line.** Half a recipe is not a recipe.
+
+### Why this way (and what we rejected)
+
+**Units got the ingredient treatment, not the parser's spelling.** The parser says `cloves`, `pound`, `Tablespoons`; the `units` table says `clove`, `lb`, `tbsp`. Following the parser was tempting and wrong: `units` is a *conversion system* — every row carries `kind` and `to_base_factor`, which is what will let recipes scale by servings and cross volume to mass through `density_g_per_ml`. Storing `tablespoon` beside `tbsp` fragments that for nothing. So: `unit_aliases`, mirroring `ingredient_aliases`.
+
+**`citext` on that table is load-bearing.** The parser's unit normaliser is case-sensitive and fails *silently*:
+
+```
+"2 tablespoons butter"  -> tbsp        (recognised)
+"2 Tablespoons butter"  -> "Tablespoons"  (a bare string)
+"2 TABLESPOONS butter"  -> nothing       (unit lost entirely)
+```
+
+USDA recipe cards capitalise. A case-sensitive mapping would have dropped units across a large slice of the catalog and reported nothing.
+
+**No fuzzy tier on units, deliberately.** `tsp` and `tbsp` are three characters apart and threefold apart in the kitchen. An unknown unit gets flagged; a confidently wrong one ruins the dish.
+
+**We did not alias `t`.** Traditional shorthand is `t` = teaspoon, `T` = tablespoon — and `citext` folds them together. The alias that would make `"2 t"` work would silently turn `"2 T butter"` into a third of the butter. Left unresolved on purpose.
+
+### New concepts
+
+**Modifier stripping, and why the ORDER is the entire safety argument.** The first real import rejected ~75% of recipes. The unresolved queue was not exotic food; it was ordinary food wearing adjectives: `red apples`, `cod fillets`, `canned yellow corn`, `reduced sodium sliced carrots`. These are a *shape*, not a list of synonyms — `low-sodium` and `no salt added` multiply against every ingredient they can modify, so curating them by hand is a treadmill.
+
+Stripping adjectives is dangerous in general: M1.5.1 deliberately split `dried thyme` from `fresh thyme`, and a naive stripper collapses them. **It cannot happen here because stripping runs LAST**, after exact and alias both fail. `dried thyme` matches its own row on pass 1 and never reaches the stripper. Only a name that resolves to *nothing* gets touched.
+
+That ordering is also why the colour words are safe. `red onion`, `green beans`, `white rice` all match exactly; only an unrecognised `red apples` loses its adjective.
+
+**Strip one word at a time, and stop at the first match.** The first version stripped every modifier and *then* looked, which turned `"no salt added diced tomatoes"` into `tomato` — the fresh vegetable, not the can. `diced tomatoes` is its own row and was skipped straight past. Removing one word at a time and testing after each finds it. **The longest name that still matches is the most specific one**, and specificity is the whole point of a canonical vocabulary.
+
+### Gotchas
+
+**Accented characters were being shredded.** `normalize_ingredient_name('Jalapeño Chilies')` returned `'jalape o chilies'` — the normaliser replaced everything outside `[a-z0-9]` with a space, so an accent became a *word break*. The name did not fail to match; it matched a different, nonsense string, and the trigram tier could then resolve it to something confidently wrong.
+
+The fix is `translate()`, not `unaccent()`. The `unaccent` extension is the obvious tool and is `STABLE`, not `IMMUTABLE`, because it reads a rules file — and Postgres refuses to build an expression index on a non-`IMMUTABLE` function. `ingredients_normalized_name_idx` depends on this one.
+
+**And changing that function REQUIRED a reindex.** An expression index holds values computed by the *old* definition. Postgres does not notice and does not rebuild it; lookups would silently miss. `reindex index` is in the migration, and any future change to that function needs the same.
+
+**`total_time_min` is a generated column.** The first import run died on `cannot insert a non-DEFAULT value into column "total_time_min"`. Worth knowing before writing any insert against `recipes`. USDA's own `totalTime` is untrustworthy anyway — it emits `"PT20S"` on a recipe that cooks for twenty minutes, which is why `minutes()` refuses ISO durations and reads the human string instead.
+
+**A gate can be too strict, and the queue tells you.** After the vocabulary work, the single largest rejection cause became `multi-ingredient line` — 37 recipes thrown out because one line said `"salt and pepper to taste"`, mostly over pantry staples that do not affect matching at all. The parser already returns *both* names, so the honest fix was to split the line into two rows rather than discard a good recipe. The quantity is dropped when a line splits: `"1 cup carrots and celery"` gives no way to know how the cup divides, and inventing a split would be exactly the confident wrongness the pipeline exists to prevent.
+
+**Import rate, measured at each step:**
+
+| After | Imported |
+|---|---|
+| First run, M1.5.1 vocabulary only | 27% |
+| + modifier stripping, + MyPlate vocabulary | 57% |
+| + splitting multi-ingredient lines | 69% |
+| + second vocabulary pass from the queue | 82% |
+
+Every one of those steps was chosen by reading the rejection queue, not by guessing. That queue is the reason M1.5.1 insisted on building the coverage metric before anything used it.
+
+---
+
+## Entry 16 — [next entry goes here after M1.5.4]
