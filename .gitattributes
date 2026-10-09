@@ -1,0 +1,7 @@
+# Line endings: the repo is LF everywhere. Without this, Windows checkouts
+# convert to CRLF and bash scripts break with "\r: command not found".
+* text=auto eol=lf
+*.sh text eol=lf
+*.ico binary
+*.png binary
+*.webp binary

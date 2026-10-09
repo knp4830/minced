@@ -78,7 +78,7 @@ Not yet created, but committed to by the conventions below: `src/lib/queries/`,
 
 ## Working agreement
 
-- Work **one milestone at a time**, from `docs/BUILD-PLAN.md`. One milestone = one branch = one PR. Do not start the next milestone until the current one is closed out.
+- Milestones come from `docs/BUILD-PLAN.md`. **Independent milestones may run in parallel** (see "Parallel work" below). A milestone whose dependency hasn't passed its DoD does not start.
 - When I ask you to explain code, assume I'm early in my learning — explain the concept, not just the syntax.
 - Add any new terminal or git command to `docs/TERMINAL-LOG.md`, including the failures.
 
@@ -93,7 +93,18 @@ When the DoD is met, do these four things in order, without being asked:
 3. **Update "Current status"** at the bottom of this file to the next milestone.
 4. **Tell me the PR body to use**, including the line `Closes #<issue number>` — that keyword is what makes GitHub close the issue and move the board card automatically when the PR merges. Issue numbers are mapped in `docs/BUILD-PLAN.md` under "GitHub issue numbers". **Never omit it**: the link cannot be added retroactively once the PR is merged, and a PR that plainly does an issue's work is invisible to GitHub without the keyword.
 
-Then stop. I review the diff and merge. Do not begin the next milestone in the same session.
+Then stop. I review the diff and merge. Do not start the next wave until I have merged this one.
+
+### Parallel work
+
+Several milestones can be built at once by separate agents, as long as they cannot interfere with each other. The rules that make that true:
+
+- **One wave at a time.** A wave is a set of milestones with no dependency between them. Plan it, tell me the milestones and a rough token cost, then run it.
+- **One agent per milestone, each in its own git worktree and branch.** Agents never edit the same checkout.
+- **File ownership.** Each agent touches only the files its milestone needs. Shared files — `CLAUDE.md`, `docs/BUILD-PLAN.md`, `docs/LEARNING-LOG.md`, `docs/TERMINAL-LOG.md`, `src/types/database.ts`, `globals.css` — are edited **only at integration**. Agents write their log notes into their final report instead.
+- **The live database belongs to the integrator.** Lane agents test migrations and data scripts against their own throwaway Docker Postgres and may only *read* the live database. Migrations are applied to live one at a time, in timestamp order, at integration, followed by `pnpm db:types`.
+- **Integration ("congregate").** When every agent in the wave reports done: merge their branches into one integration branch, apply migrations, then a verifier checks each milestone's DoD **observably, on the integrated branch** — not on the agent's word. Milestones that pass get the four close-out steps above; milestones that fail are marked blocked and left unchecked.
+- **One PR per wave**, with a `Closes #N` line for **every** milestone that passed, and none for those that didn't. I merge it.
 
 ### Marking a milestone blocked
 
