@@ -56,6 +56,8 @@
 - 1 | tbsp | soy sauce |
 - 1 | tsp | granulated sugar |
 - 2 | cup | white rice | cooked
+- 0.5 | tsp | salt |
+- 0.25 | tsp | black pepper |
 1. Season chicken with salt and pepper. Dredge in flour, dip in egg, and press into panko.
 2. Heat oil to 350°F in a skillet. Fry the cutlets 3-4 min per side until deep golden and 165°F inside.
 3. Drain on a rack for 3 min, then slice.
@@ -79,7 +81,7 @@
 - 1 | cup | all-purpose flour |
 - 0.75 | cup | dashi |
 - 1 | tsp | baking powder |
-- 3 | | egg |
+- 4 | | egg |
 - 4 | cup | green cabbage | finely chopped
 - 3 | | scallion | sliced
 - 6 | oz | pork belly | sliced thin
@@ -89,7 +91,7 @@
 - 2 | tbsp | aonori |
 - 0.5 | cup | bonito flakes |
 - 2 | tbsp | pickled ginger |
-1. Whisk flour, dashi, and baking powder. Fold in 2 eggs, cabbage, and scallion until just combined.
+1. Whisk flour, dashi, and baking powder. Fold in 4 eggs, cabbage, and scallion until just combined.
 2. Heat oil in a skillet over medium heat. Pour in a quarter of the batter, shaped to 1 inch thick. Lay pork slices on top.
 3. Cook 4-5 min until the underside is golden. Flip and cook 4-5 min more until the pork is crisp and the center is cooked.
 4. Brush with sauce and drizzle mayonnaise. Top with aonori, bonito flakes, and pickled ginger.
