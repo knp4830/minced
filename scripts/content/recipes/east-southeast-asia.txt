@@ -1,0 +1,410 @@
+# Format (see scripts/content/build_original.py)
+#   @ slug | Title | Cuisine | prep_min | cook_min | servings | spice 0-4 | cookware,cookware | note
+#   - qty | unit | canonical ingredient | prep note        (use -? for optional)
+#   1. step text
+# Diets and allergens are derived, never typed here.
+
+@ kimchi-jjigae | Kimchi Jjigae (Kimchi Stew) | Korean | 10 | 30 | 4 | 3 | Pot | Sour, well-fermented kimchi makes the best stew. Fresh kimchi tastes flat.
+- 2 | cup | kimchi | aged, chopped, plus 1/4 cup of its brine
+- 8 | oz | pork belly | sliced 1/4 inch thick
+- 1 | tbsp | toasted sesame oil |
+- 1 | tbsp | gochugaru |
+- 1 | tbsp | gochujang |
+- 3 | clove | garlic | minced
+- 1 | tsp | granulated sugar |
+- 1 | tbsp | soy sauce |
+- 3.5 | cup | water |
+- 14 | oz | firm tofu | cut in 1-inch cubes
+- 0.5 | | yellow onion | sliced
+- 2 | | scallion | sliced
+1. Heat the sesame oil in a pot over medium-high heat. Brown the pork belly 4-5 min until the edges color.
+2. Add kimchi, garlic, gochugaru, and sugar. Stir-fry 3 min until the kimchi turns glossy and slightly translucent.
+3. Stir in gochujang and soy sauce, then pour in the water and kimchi brine. Bring to a boil.
+4. Reduce to a steady simmer and cook 15-18 min, until the pork is tender and the broth is sour and savory.
+5. Add tofu and onion. Simmer 5 min until the tofu is hot through.
+6. Top with scallion and serve with rice.
+
+@ bibimbap | Bibimbap | Korean | 30 | 25 | 4 | 2 | Skillet | Cook each vegetable separately so every color stays distinct.
+- 3 | cup | white rice | cooked short-grain, warm
+- 12 | oz | sirloin steak | thinly sliced
+- 3 | tbsp | soy sauce | divided
+- 2 | tbsp | toasted sesame oil | divided
+- 2 | tsp | brown sugar |
+- 4 | clove | garlic | minced, divided
+- 8 | oz | spinach |
+- 8 | oz | soybean sprouts |
+- 2 | | carrot | cut in matchsticks
+- 1 | | zucchini | cut in matchsticks
+- 4 | oz | shiitake mushrooms | sliced
+- 1 | | cucumber | cut in matchsticks
+- 4 | | egg |
+- 4 | tbsp | gochujang |
+- 1 | tbsp | vegetable oil |
+- 1 | tsp | sesame seeds |
+1. Toss the beef with 1 tbsp soy sauce, 1 tsp sesame oil, the brown sugar, and half the garlic. Marinate 15 min while you prep.
+2. Blanch spinach 30 sec, then soybean sprouts 2 min, in boiling water. Drain, squeeze dry, and toss each with 1 tsp sesame oil, a pinch of garlic, and a splash of soy sauce.
+3. Saute carrot, zucchini, and mushrooms each in a little vegetable oil over medium-high heat, 2-3 min apiece, until just tender. Season with salt.
+4. Sear the beef in a hot skillet 2-3 min until browned. Fry the eggs sunny-side up in the same pan.
+5. Divide rice among four bowls. Arrange the vegetables, beef, and cucumber in sections around the rice and top with an egg.
+6. Stir the gochujang with the remaining sesame oil and a splash of water. Add a spoonful to each bowl, sprinkle with sesame seeds, and mix everything together before eating.
+
+@ japchae | Japchae (Glass Noodle Stir-Fry) | Korean | 25 | 20 | 4 | 0 | Skillet,Pot | Rinse the cooked noodles in cold water so they do not clump.
+- 8 | oz | sweet potato starch noodles |
+- 8 | oz | sirloin steak | thinly sliced
+- 5 | tbsp | soy sauce | divided
+- 3 | tbsp | toasted sesame oil | divided
+- 3 | tbsp | brown sugar | divided
+- 4 | clove | garlic | minced, divided
+- 1 | | carrot | cut in matchsticks
+- 1 | | yellow onion | sliced
+- 4 | oz | shiitake mushrooms | sliced
+- 6 | oz | spinach |
+- 3 | | scallion | cut in 2-inch pieces
+- 1 | tbsp | vegetable oil |
+- 1 | tbsp | sesame seeds | toasted
+1. Marinate the beef in 1 tbsp soy sauce, 1 tsp sesame oil, 1 tsp sugar, and a third of the garlic for 15 min.
+2. Boil the noodles 6-7 min until translucent and chewy. Drain, rinse under cold water, and cut a few times with scissors.
+3. Blanch the spinach 30 sec, squeeze dry, and toss with 1 tsp sesame oil and a pinch of salt.
+4. Stir-fry carrot, onion, and mushrooms separately in vegetable oil over medium-high heat, 2-3 min each, until just tender. Cook the beef 2-3 min until no longer pink.
+5. Toss noodles in the skillet over medium heat with the remaining soy sauce, sugar, sesame oil, and garlic for 2 min until they absorb the sauce and turn glossy.
+6. Fold in the vegetables, beef, and scallion. Sprinkle with sesame seeds and serve warm or at room temperature.
+
+@ tteokbokki | Tteokbokki (Spicy Rice Cakes) | Korean | 10 | 20 | 3 | 3 | Skillet | Soak refrigerated rice cakes in warm water 10 min if they feel hard.
+- 1 | lb | korean rice cakes | cylinder-shaped
+- 2 | cup | water |
+- 3 | tbsp | gochujang |
+- 1 | tbsp | gochugaru |
+- 1 | tbsp | soy sauce |
+- 2 | tbsp | granulated sugar |
+- 2 | clove | garlic | minced
+- 4 | oz | fish cakes | cut in triangles
+- 3 | | scallion | cut in 2-inch pieces
+- 2 | | egg | hard-boiled and peeled
+1. Whisk water, gochujang, gochugaru, soy sauce, sugar, and garlic in a wide skillet. Bring to a boil.
+2. Add the rice cakes and fish cakes. Cook over medium heat 10-12 min, stirring often, until the cakes are soft and chewy.
+3. Add scallion and eggs. Simmer 3-4 min until the sauce thickens enough to coat a spoon.
+4. Serve hot, straight from the pan.
+
+@ bulgogi | Bulgogi (Korean Marinated Beef) | Korean | 15 | 10 | 4 | 0 | Skillet | Partly freezing the beef for 20 minutes makes it easy to slice paper-thin.
+- 1.5 | lb | ribeye | sliced paper-thin against the grain
+- 0.5 | | apple | grated (or Asian pear)
+- 0.5 | | yellow onion | grated
+- 4 | tbsp | soy sauce |
+- 2 | tbsp | brown sugar |
+- 1 | tbsp | toasted sesame oil |
+- 4 | clove | garlic | minced
+- 1 | tsp | black pepper |
+- 2 | | scallion | sliced
+- 1 | tbsp | vegetable oil |
+- 1 | tsp | sesame seeds |
+1. Mix grated apple, onion, soy sauce, sugar, sesame oil, garlic, and pepper in a bowl.
+2. Add the beef and massage the marinade in. Rest 30 min at room temperature or up to 8 hours in the fridge.
+3. Heat vegetable oil in a skillet over high heat. Cook the beef in two batches, 2-3 min per batch, until browned at the edges.
+4. Finish with scallion and sesame seeds. Serve with rice and lettuce leaves for wrapping.
+
+@ gyeran-jjim | Gyeran Jjim (Korean Steamed Egg) | Korean | 5 | 15 | 2 | 0 | Pot | A tight lid keeps the surface smooth. Stir only until the eggs first set.
+- 4 | | egg |
+- 1 | cup | water | or anchovy stock
+- 0.5 | tsp | salt |
+- 1 | tsp | fish sauce |
+- 1 | | scallion | finely sliced
+- 1 | tsp | toasted sesame oil |
+- 1 | tsp | sesame seeds |
+1. Beat the eggs with water, salt, and fish sauce until smooth. Strain into a small heatproof pot or earthenware bowl.
+2. Set over medium-low heat, stirring gently along the bottom for 2-3 min until curds begin to form.
+3. Cover tightly and reduce to the lowest heat. Cook 8-10 min until the egg puffs above the rim and the center is set.
+4. Top with scallion, sesame oil, and sesame seeds. Serve at once while puffed.
+
+@ kongnamul-muchim | Kongnamul Muchim (Seasoned Soybean Sprouts) | Korean | 5 | 10 | 4 | 1 | Pot | Keep the lid closed while cooking so the sprouts do not taste fishy.
+- 12 | oz | soybean sprouts | rinsed
+- 0.25 | cup | water |
+- 2 | clove | garlic | minced
+- 2 | | scallion | finely sliced
+- 1 | tbsp | toasted sesame oil |
+- 1 | tsp | sesame seeds |
+- 1 | tsp | gochugaru | optional for heat
+- 1 | tsp | salt |
+1. Put sprouts, water, and a pinch of salt in a pot. Cover and cook over medium-high heat 5-6 min without lifting the lid.
+2. Drain and spread on a plate to cool 3 min, keeping the cooking liquid out.
+3. Toss with garlic, scallion, sesame oil, sesame seeds, gochugaru, and salt until evenly coated.
+4. Serve cold or at room temperature.
+
+@ pad-thai | Pad Thai | Thai | 20 | 12 | 2 | 1 | Wok | Have everything prepped before the wok gets hot. Cooking takes minutes.
+- 8 | oz | rice noodles | medium flat, soaked in warm water 30 min
+- 3 | tbsp | tamarind paste |
+- 3 | tbsp | fish sauce |
+- 3 | tbsp | palm sugar |
+- 3 | tbsp | vegetable oil | divided
+- 8 | oz | shrimp | peeled
+- 4 | oz | firm tofu | cut in small cubes
+- 2 | clove | garlic | minced
+- 1 | | shallot | sliced
+- 2 | | egg |
+- 2 | cup | bean sprouts | divided
+- 3 | | scallion | cut in 1-inch pieces
+- 0.25 | cup | peanuts | roasted, crushed
+- 1 | | lime | cut in wedges
+1. Stir tamarind paste, fish sauce, and palm sugar with 3 tbsp water over low heat 2 min until the sugar dissolves.
+2. Heat 2 tbsp oil in a wok over high heat. Fry shallot, garlic, and tofu 1-2 min until fragrant and lightly golden.
+3. Add shrimp and cook 1-2 min until pink. Push everything aside, add 1 tbsp oil, and scramble the eggs 30 sec until just set.
+4. Add drained noodles and the sauce. Toss over high heat 2-3 min until the noodles are tender and have absorbed the sauce.
+5. Fold in half the bean sprouts and the scallion for 30 sec.
+6. Plate with the remaining sprouts, crushed peanuts, and lime wedges.
+
+@ thai-green-curry | Thai Green Curry with Chicken (Gaeng Keow Wan) | Thai | 15 | 20 | 4 | 3 | Wok,Pot | Add the basil off the heat so it keeps its aroma.
+- 1 | tbsp | vegetable oil |
+- 3 | tbsp | green curry paste |
+- 2 | can | coconut milk | 13.5 oz each
+- 1.25 | lb | chicken thighs | boneless, sliced thin
+- 2 | tbsp | fish sauce |
+- 1 | tbsp | palm sugar |
+- 1 | cup | thai eggplant | quartered
+- 1 | cup | green beans | cut in 2-inch pieces
+- 4 | | kaffir lime leaves | torn
+- 1 | cup | thai basil | leaves
+- 2 | | thai chile | sliced
+1. Scoop the thick cream from the top of one can into a wok over medium heat. Cook 3-4 min until the oil separates.
+2. Fry the curry paste in the oil 1-2 min until fragrant and darkened slightly.
+3. Add chicken and stir 2 min to coat. Pour in the remaining coconut milk, fish sauce, and palm sugar.
+4. Simmer 8-10 min until the chicken is cooked through. Add eggplant, green beans, and lime leaves and cook 4-5 min until the vegetables are tender but still firm.
+5. Turn off the heat. Stir in basil and chiles. Serve with jasmine rice.
+
+@ tom-yum-goong | Tom Yum Goong (Hot and Sour Shrimp Soup) | Thai | 15 | 20 | 4 | 3 | Pot | Bruise the lemongrass and galangal so they release flavor, and do not eat the pieces.
+- 5 | cup | chicken broth |
+- 3 | | lemongrass | bottom third, bruised and cut in 2-inch pieces
+- 6 | slice | galangal |
+- 5 | | kaffir lime leaves | torn
+- 1 | lb | shrimp | large, shell-on, heads removed
+- 8 | oz | oyster mushrooms | torn
+- 2 | | tomato | cut in wedges
+- 4 | | thai chile | crushed
+- 2 | tbsp | fish sauce |
+- 2 | tbsp | lime juice |
+- 1 | tbsp | nam prik pao | roasted chili paste
+- 0.25 | cup | fresh cilantro | chopped
+1. Bring broth, lemongrass, galangal, and lime leaves to a boil in a pot. Simmer 8 min to infuse.
+2. Add mushrooms, tomato, and chiles. Cook 3 min until the mushrooms soften.
+3. Add shrimp and cook 2-3 min until pink and curled.
+4. Off the heat, stir in fish sauce, lime juice, and nam prik pao. Taste and balance sour, salty, and hot.
+5. Top with cilantro and serve with jasmine rice.
+
+@ som-tam | Som Tam (Green Papaya Salad) | Thai | 20 | 0 | 2 | 3 | | Pound gently so the papaya bruises but stays crisp.
+- 3 | cup | green papaya | shredded
+- 3 | | long beans | cut in 1-inch pieces
+- 2 | clove | garlic |
+- 2 | | thai chile |
+- 8 | | cherry tomato | halved
+- 2 | tbsp | palm sugar |
+- 2 | tbsp | fish sauce |
+- 2 | tbsp | lime juice |
+- 2 | tbsp | peanuts | roasted, coarsely crushed
+- 1 | tbsp | dried shrimp | soaked 10 min and drained
+1. Pound garlic and chiles in a mortar to a rough paste.
+2. Add long beans and half the peanuts. Bruise lightly with the pestle 5-6 times.
+3. Add palm sugar, fish sauce, and lime juice. Stir until the sugar dissolves, then crush in the tomatoes and dried shrimp.
+4. Add papaya and pound and toss about 10 times until the dressing coats every shred.
+5. Taste and adjust sour, sweet, and salty. Top with remaining peanuts and serve right away.
+
+@ pad-kra-pao | Pad Kra Pao (Thai Basil Pork Stir-Fry) | Thai | 10 | 8 | 2 | 4 | Wok | Holy basil is peppery. Sweet basil works but changes the dish.
+- 12 | oz | ground pork |
+- 4 | clove | garlic |
+- 4 | | thai chile |
+- 2 | tbsp | vegetable oil |
+- 1 | tbsp | oyster sauce |
+- 1 | tbsp | fish sauce |
+- 1 | tbsp | soy sauce |
+- 1 | tsp | granulated sugar |
+- 1 | cup | holy basil | leaves
+- 2 | | egg | fried
+1. Pound garlic and chiles into a coarse paste.
+2. Heat oil in a wok over high heat. Fry the paste 20 sec until fragrant.
+3. Add pork and break it up. Stir-fry 3 min until browned with no pink left.
+4. Add oyster sauce, fish sauce, soy sauce, and sugar. Toss 1 min until the sauce clings.
+5. Off the heat, toss in the basil 30 sec until wilted.
+6. Serve over jasmine rice with a fried egg on top.
+
+@ massaman-curry | Chicken Massaman Curry | Thai | 15 | 45 | 4 | 2 | Pot | Toast the peanuts in a dry pan first for a deeper flavor.
+- 1 | can | coconut milk | 13.5 oz, thick cream spooned off
+- 4 | tbsp | massaman curry paste |
+- 1.5 | lb | chicken thighs | bone-in or boneless
+- 1 | can | coconut milk | 13.5 oz
+- 1 | | cinnamon stick |
+- 2 | | bay leaf |
+- 2 | | yukon gold potato | cut in 1.5-inch chunks
+- 1 | | yellow onion | cut in wedges
+- 0.5 | cup | peanuts | roasted
+- 2 | tbsp | tamarind paste |
+- 2 | tbsp | fish sauce |
+- 2 | tbsp | palm sugar |
+1. Heat the thick coconut cream in a pot over medium heat 3-4 min until the oil separates. Fry the curry paste in it 2 min.
+2. Add chicken and cook 3 min, turning, until coated and lightly seared.
+3. Pour in the remaining coconut milk with cinnamon and bay leaves. Simmer gently 20 min.
+4. Add potato, onion, and peanuts. Cook 15-20 min until the potatoes are tender and the chicken falls from the bone.
+5. Stir in tamarind, fish sauce, and palm sugar. Taste and adjust. Serve with jasmine rice.
+
+@ tom-kha-gai | Tom Kha Gai (Coconut Chicken Soup) | Thai | 10 | 20 | 4 | 2 | Pot | Do not boil hard once the coconut milk goes in or it can separate.
+- 2 | cup | chicken broth |
+- 2 | can | coconut milk | 13.5 oz each
+- 2 | | lemongrass | bottom third, bruised and cut in 2-inch pieces
+- 8 | slice | galangal |
+- 6 | | kaffir lime leaves | torn
+- 1 | lb | chicken breast | sliced thin
+- 8 | oz | cremini mushrooms | halved
+- 2 | tbsp | fish sauce |
+- 1 | tbsp | palm sugar |
+- 3 | tbsp | lime juice |
+- 3 | | thai chile | crushed
+- 0.25 | cup | fresh cilantro | chopped
+1. Simmer broth, one can of coconut milk, lemongrass, galangal, and lime leaves in a pot 8 min.
+2. Add chicken and mushrooms. Cook gently 6-8 min until the chicken is cooked through.
+3. Stir in the second can of coconut milk, fish sauce, and palm sugar. Heat 2 min without boiling.
+4. Off the heat, add lime juice and chiles. Taste and balance.
+5. Top with cilantro and serve with jasmine rice.
+
+@ khao-pad | Khao Pad (Thai Fried Rice) | Thai | 10 | 8 | 2 | 1 | Wok | Use cold day-old rice or the grains turn mushy.
+- 3 | cup | jasmine rice | cooked and chilled overnight
+- 2 | tbsp | vegetable oil |
+- 3 | clove | garlic | minced
+- 2 | | thai chile | pounded
+- 0.5 | | yellow onion | sliced
+- 6 | oz | shrimp | peeled
+- 2 | | egg | beaten
+- 1 | tbsp | fish sauce |
+- 1 | tbsp | soy sauce |
+- 1 | tsp | oyster sauce |
+- 0.5 | tsp | granulated sugar |
+- 2 | | scallion | sliced
+- 1 | | tomato | cut in wedges
+- 0.5 | | cucumber | sliced
+- 1 | | lime | cut in wedges
+1. Mix fish sauce, soy sauce, oyster sauce, and sugar in a small bowl.
+2. Heat oil in a wok over high heat. Fry garlic and chiles 10 sec until fragrant, then add onion and shrimp. Cook 2 min until the shrimp turn pink.
+3. Push to one side, pour in the eggs, and scramble 30 sec until just set.
+4. Add rice, break up clumps, and pour the sauce over. Stir-fry 2-3 min until each grain is separate and coated.
+5. Toss in scallion. Serve with tomato, cucumber, and lime wedges.
+
+@ pho-ga | Pho Ga (Vietnamese Chicken Noodle Soup) | Vietnamese | 20 | 80 | 4 | 0 | Pot | Charring the ginger and shallot gives the broth its sweet, smoky backbone.
+- 1 | | whole chicken | about 3.5 lb
+- 1 | piece | ginger | 3-inch, halved lengthwise
+- 3 | | shallot | halved, unpeeled
+- 2 | | star anise |
+- 1 | | cinnamon stick |
+- 1 | tbsp | coriander seeds |
+- 3 | tbsp | fish sauce |
+- 1 | tbsp | granulated sugar |
+- 1 | tbsp | salt |
+- 12 | oz | rice noodles | flat, dried
+- 1 | | white onion | sliced paper-thin
+- 3 | | scallion | sliced
+- 0.5 | cup | fresh cilantro | chopped
+- 2 | | lime | cut in wedges
+- 2 | cup | bean sprouts |
+- 1 | cup | thai basil | leaves
+- 2 | | thai chile | sliced
+1. Char ginger and shallots directly over a flame or under a broiler 5-8 min until blackened in spots. Rinse off the burnt bits.
+2. Toast star anise, cinnamon, and coriander seeds in a dry pot 1-2 min until fragrant.
+3. Add the chicken, charred aromatics, and 4 quarts water. Bring to a boil, skim the foam, then simmer gently 45 min until the chicken is cooked through.
+4. Lift out the chicken, cool 10 min, then shred the meat. Return the bones to the pot and simmer 20 min more.
+5. Strain the broth. Season with fish sauce, sugar, and salt.
+6. Soak the noodles in hot water 8-10 min until tender, then drain. Divide among bowls with chicken and onion.
+7. Ladle in boiling broth. Top with scallion and cilantro. Serve with lime, sprouts, basil, and chiles.
+
+@ bun-cha | Bun Cha (Hanoi Grilled Pork with Noodles) | Vietnamese | 30 | 15 | 4 | 1 | Skillet | Warm dipping sauce is traditional in Hanoi.
+- 1 | lb | ground pork |
+- 8 | oz | pork belly | sliced thin
+- 3 | | shallot | minced, divided
+- 4 | clove | garlic | minced, divided
+- 3 | tbsp | fish sauce | divided
+- 3 | tbsp | granulated sugar | divided
+- 1 | tbsp | vegetable oil |
+- 0.5 | tsp | black pepper |
+- 0.5 | cup | water | warm
+- 3 | tbsp | lime juice |
+- 1 | | carrot | cut in matchsticks
+- 8 | oz | rice vermicelli |
+- 2 | cup | butter lettuce | torn
+- 1 | cup | fresh mint |
+- 1 | cup | fresh cilantro |
+1. Mix ground pork with half the shallot and garlic, 1 tbsp fish sauce, 1 tbsp sugar, and the pepper. Shape into small patties. Toss the pork belly with another 1 tbsp fish sauce and 1 tbsp sugar. Marinate both 30 min.
+2. Stir warm water, remaining sugar, remaining fish sauce, lime juice, and remaining garlic until the sugar dissolves. Add carrot.
+3. Boil the vermicelli 3-4 min, rinse, and drain.
+4. Cook patties and pork belly in a hot oiled skillet or on a grill 4-5 min per side until browned and cooked through.
+5. Put the meat into the dipping sauce. Serve with noodles, lettuce, mint, and cilantro on the side.
+
+@ goi-cuon | Goi Cuon (Fresh Spring Rolls) | Vietnamese | 30 | 10 | 4 | 0 | Pot | Wet each wrapper only until pliable. It keeps softening as you roll.
+- 12 | | rice paper | 8-inch rounds
+- 12 | | shrimp | cooked, peeled, halved lengthwise
+- 8 | oz | pork shoulder | simmered and sliced thin
+- 4 | oz | rice vermicelli | cooked and cooled
+- 1 | | butter lettuce | leaves separated
+- 1 | cup | fresh mint |
+- 1 | cup | thai basil |
+- 1 | | cucumber | cut in matchsticks
+- 2 | tbsp | hoisin sauce |
+- 2 | tbsp | peanut butter |
+- 1 | tbsp | lime juice |
+1. Simmer the pork in salted water 20 min until cooked through. Cool and slice thin.
+2. Dip one wrapper in warm water 5 sec and lay it flat on a damp towel.
+3. Arrange lettuce, noodles, herbs, cucumber, and 2-3 pork slices on the lower third. Fold in the sides and roll once.
+4. Lay 2 shrimp halves, cut side up, then roll tight to the end. Repeat.
+5. Whisk hoisin, peanut butter, lime juice, and 2 tbsp warm water for the dipping sauce. Serve at once.
+
+@ thit-kho-trung | Thit Kho Trung (Caramelized Pork and Eggs) | Vietnamese | 20 | 90 | 4 | 0 | Pot | Make the caramel only to deep amber. Any darker turns bitter.
+- 1.5 | lb | pork belly | cut in 1.5-inch cubes
+- 4 | | egg | hard-boiled and peeled
+- 3 | tbsp | granulated sugar |
+- 3 | | shallot | minced
+- 4 | clove | garlic | minced
+- 3 | tbsp | fish sauce |
+- 2 | cup | coconut water |
+- 0.5 | tsp | black pepper |
+- 2 | | scallion | sliced
+1. Melt the sugar in a heavy pot over medium heat, 4-5 min, swirling until deep amber.
+2. Add shallot, garlic, and pork. Stir 5 min until the pork is coated and lightly browned.
+3. Add fish sauce, coconut water, and pepper, plus water to just cover. Bring to a boil.
+4. Reduce to low, cover partly, and simmer 60 min until the pork is tender.
+5. Add the eggs. Simmer uncovered 20-30 min until the sauce is glossy and thick and the eggs are deep brown.
+6. Top with scallion. Serve with jasmine rice.
+
+@ canh-chua | Canh Chua Ca (Vietnamese Sweet-Sour Fish Soup) | Vietnamese | 15 | 20 | 4 | 1 | Pot | Add the fish last so it stays in large flakes.
+- 5 | cup | water |
+- 3 | tbsp | tamarind paste |
+- 1 | cup | pineapple | cut in chunks
+- 2 | | tomato | cut in wedges
+- 8 | | okra | sliced
+- 1 | lb | catfish | steaks or fillets, cut in chunks
+- 3 | tbsp | fish sauce |
+- 1 | tbsp | granulated sugar |
+- 3 | clove | garlic | minced
+- 1 | tbsp | vegetable oil |
+- 1 | cup | bean sprouts |
+- 0.25 | cup | thai basil | chopped
+- 1 | | thai chile | sliced
+1. Fry garlic in oil in a pot over medium heat 1 min until golden.
+2. Add water, tamarind paste, and pineapple. Bring to a boil and simmer 8 min.
+3. Add tomato and okra and cook 3 min.
+4. Add catfish, fish sauce, and sugar. Simmer gently 5 min until the fish turns opaque.
+5. Taste for sweet, sour, and salty. Add bean sprouts, basil, and chile and serve with rice.
+
+@ banh-mi | Banh Mi (Vietnamese Pork Sandwich) | Vietnamese | 30 | 15 | 4 | 2 | Skillet | Pickle the carrot and daikon first. They need 30 minutes.
+- 1 | | daikon | cut in matchsticks
+- 1 | | carrot | cut in matchsticks
+- 0.5 | cup | rice vinegar |
+- 0.5 | cup | water | warm
+- 3 | tbsp | granulated sugar | divided
+- 1 | lb | pork shoulder | sliced thin
+- 2 | | lemongrass | minced
+- 3 | clove | garlic | minced
+- 2 | tbsp | fish sauce |
+- 1 | tbsp | vegetable oil |
+- 4 | | baguette | 6-inch lengths, split
+- 4 | tbsp | mayonnaise |
+- 4 | oz | liver pate |
+- 1 | | cucumber | sliced lengthwise
+- 1 | | jalapeno | sliced
+- 0.5 | cup | fresh cilantro |
+1. Whisk vinegar, water, and 2 tbsp sugar until dissolved. Pour over daikon and carrot with a pinch of salt and pickle 30 min.
+2. Toss pork with lemongrass, garlic, fish sauce, and remaining sugar. Marinate 20 min.
+3. Sear pork in oil in a hot skillet 3-4 min per side until browned and cooked through.
+4. Toast the baguettes 3 min until the crust crackles.
+5. Spread mayonnaise on one side and pate on the other. Fill with pork, drained pickles, cucumber, jalapeno, and cilantro.
