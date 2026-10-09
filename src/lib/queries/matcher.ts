@@ -85,30 +85,6 @@ type SuggestRpcRow = {
   match_kind: "name" | "alias";
 };
 
-type RpcResponse = { data: unknown; error: Error | null };
-
-/**
- * `src/types/database.ts` is a generated snapshot that predates these two
- * functions, so `supabase.rpc("match_recipes", ...)` does not type-check until
- * `pnpm db:types` runs after the migration is applied. This narrow escape hatch
- * keeps the call sites honest in the meantime: results are cast to the row
- * types above, exactly as `getIngredientCoverage` does.
- *
- * TODO(integration): after `pnpm db:types`, delete this helper and call
- * `supabase.rpc(...)` directly.
- */
-async function rpc(fn: string, args: Record<string, unknown>): Promise<unknown[]> {
-  const supabase = await createClient();
-  const call = supabase.rpc.bind(supabase) as unknown as (
-    fn: string,
-    args: Record<string, unknown>,
-  ) => PromiseLike<RpcResponse>;
-
-  const { data, error } = await call(fn, args);
-  if (error) throw error;
-  return (data ?? []) as unknown[];
-}
-
 // -- cursor -----------------------------------------------------------------
 //
 // Keyset pagination: the cursor is the last row's sort key, not a row number.
@@ -178,7 +154,8 @@ export async function matchRecipes(input: MatchRecipesInput): Promise<MatchRecip
   const cursor = decodeCursor(input.cursor);
 
   // Ask for one extra row: if it comes back, there is a next page.
-  const rows = (await rpc("match_recipes", {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("match_recipes", {
     pantry_ids: pantryIds,
     max_missing: Math.max(Math.trunc(input.maxMissing ?? 3), 0),
     must_use_ids: mustUseIds,
@@ -192,7 +169,9 @@ export async function matchRecipes(input: MatchRecipesInput): Promise<MatchRecip
           cursor_recipe_id: cursor.recipeId,
         }
       : {}),
-  })) as MatchRpcRow[];
+  });
+  if (error) throw error;
+  const rows = (data ?? []) as MatchRpcRow[];
 
   const page = rows.slice(0, pageSize);
   const last = page.at(-1);
@@ -240,10 +219,13 @@ export async function suggestIngredients(
   const text = prefix.trim();
   if (text.length === 0) return [];
 
-  const rows = (await rpc("suggest_ingredients", {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("suggest_ingredients", {
     prefix: text,
     max_results: Math.min(Math.max(Math.trunc(limit), 1), 25),
-  })) as SuggestRpcRow[];
+  });
+  if (error) throw error;
+  const rows = (data ?? []) as SuggestRpcRow[];
 
   return rows.map((row) => ({
     ingredientId: row.ingredient_id,

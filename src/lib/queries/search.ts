@@ -136,21 +136,13 @@ export async function searchRecipes(
   const limit = Math.min(Math.max(options.limit ?? DEFAULT_LIMIT, 1), MAX_LIMIT - 1);
   const supabase = await createClient();
 
-  // TODO(after `pnpm db:types`): drop this cast. `search_recipes` is not in the
-  // generated `Database["public"]["Functions"]` until the types are regenerated
-  // from the migrated database, so the typed `rpc()` would reject the name.
-  const rpc = supabase.rpc.bind(supabase) as unknown as (
-    fn: "search_recipes",
-    args: ReturnType<typeof buildSearchArgs>,
-  ) => PromiseLike<{ data: SearchRpcRow[] | null; error: Error | null }>;
-
-  const { data, error } = await rpc(
+  const { data, error } = await supabase.rpc(
     "search_recipes",
     buildSearchArgs(q, options.filters ?? {}, limit, options.cursor ?? null),
   );
   if (error) throw error;
 
-  const rows = data ?? [];
+  const rows = (data ?? []) as SearchRpcRow[];
   const page = rows.slice(0, limit);
 
   const results: SearchResult[] = page.map((row) => ({
