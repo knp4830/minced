@@ -39,3 +39,8 @@ yarn-error.log*
 scripts/parser/.venv/
 __pycache__/
 *.pyc
+
+# MyPlate import (M1.5.3). Downloaded HTML and intermediate artifacts --
+# reproducible from scripts/myplate/slugs.txt, so not worth committing.
+scripts/myplate/cache/
+scripts/myplate/artifacts/

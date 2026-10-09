@@ -124,7 +124,7 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 **Phase 0 and Phase 1: complete.** M0.1–M0.5 and M1.1–M1.6 all closed.
 
 - Live at **https://mise-mise14.vercel.app**. Repo public, `main` protected — every change goes through a PR.
-- Database live with **four** migrations applied and **RLS enforced**. `pnpm db:seed` is idempotent and seeds the ingredient vocabulary before the six mockup recipes.
+- Database live with **seven** migrations applied and **RLS enforced**. `pnpm db:seed` is idempotent and seeds the ingredient vocabulary before the six mockup recipes; the USDA catalog is loaded separately by `scripts/myplate/import.sh`.
 - `docs/SCHEMA-NOTES.md` is the schema's rationale — read it before changing the database.
 - Typed clients in `src/lib/supabase/`; generated types in `src/types/database.ts`.
 - **Renamed Mise → Minced** (2026-09-16). Migration comments, TERMINAL-LOG history and the `mise-mise14` Vercel URL still say "Mise" on purpose — see LEARNING-LOG "Interlude".
@@ -154,27 +154,37 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 
 **The parser returns USDA `fdc_id`s.** `foundation_foods=True` gives real FoodData Central ids (`garlic → 1104647, "Garlic, raw"`). The output carries it; **nothing writes it to the database yet** — that is M1.5.4, and doing it early would be building an unstarted milestone.
 
-### Next up: Phase 1.5, M1.5.3 — USDA MyPlate Kitchen bulk import (issue #11)
+**M1.5.3 — USDA MyPlate bulk import: complete (2026-09-18).**
 
-This is the milestone that makes Minced a real catalog: ~1,072 public-domain recipes, which takes the pantry matcher from meaningless (6 recipes) to testable.
+- **The catalog is real: 878 published recipes** (872 USDA MyPlate + the 6 mockup originals), 7,083 ingredient rows, 5,250 steps, all with USDA nutrition preserved.
+- **USDA retired myplate.gov on 2026-01-07.** The importer reads the **Internet Archive's** capture of the original public-domain pages. The surviving mirror (myplate.food) forbids replicating its catalog into another database without a license — a contract on their service, not a copyright claim on federal works. **Do not switch the importer to their API.**
+- Pipeline in `scripts/myplate/`: `fetch.sh` → `extract.py` → `build_import.py` → `import.sh`. Each stage writes an artifact you can inspect. Idempotent and resumable; `cache/` and `artifacts/` are gitignored.
+- **`fetch.sh` must stay gentle.** At `JOBS=4` the Internet Archive refused 953 of 1,201 connections. `JOBS=2` with retries is stable. This is a measurement, not an opinion.
+- Queues: `artifacts/rejected-recipes.csv` (recipes not imported, with reasons) and `artifacts/unresolved-ingredients.csv` (names to alias next, ranked by frequency).
 
-**Both halves of the pipeline now exist.** The importer's job is to join them:
+**Resolution now has five passes** — exact, singularised, alias, **modifier-stripped**, fuzzy:
 
-```
-raw line -> scripts/parser/run.sh -> name -> resolve_ingredient() -> ingredient_id
-                                  -> unit -> ??? -> unit_id          <- THE GAP
-```
+- **Stripping runs LAST on purpose.** M1.5.1 deliberately split `dried thyme` from `fresh thyme`; those match on pass 1 and never reach the stripper. Only a name that resolves to *nothing* gets its adjectives removed. Colour words are in the list for the same reason — `red onion` matches exactly, only an unrecognised `red apples` gets stripped.
+- **One word at a time, stopping at the first match.** Stripping everything first turned `no salt added diced tomatoes` into the fresh tomato instead of the can. The longest name that still matches is the most specific.
+- Modifiers live in `ingredient_modifiers` (tuning data, editable in the seed). **Never add a word that changes what you would buy** — `ground` is not there, because ground beef is not beef.
 
-**Start with the unit mapping — it is the only unsolved piece, and it is small.** The parser emits `cloves`, `ounce`, `pinch`, `pound`, `tablespoon`, `teaspoon`; `units` stores `clove`, `oz`, `lb`, `tbsp`, `tsp` and has **no `pinch`**. Six mappings plus a decision on `pinch` (add the row, or treat it as "to taste" with a NULL quantity). `scripts/parse-and-resolve.sh` reports the gap on every run — re-run it against real MyPlate data before writing the importer, because the real corpus will have more.
+**Units resolve like ingredients, not like the parser spells them.** `units` is a conversion system (`kind`, `to_base_factor`), so `unit_aliases` maps `tablespoon`/`Tablespoons` onto `tbsp` rather than adding rows. `citext` is load-bearing: the parser silently loses capitalised units and USDA recipe cards capitalise. **No fuzzy tier on units**, and **`t` is deliberately unaliased** (t=teaspoon but T=tablespoon, and citext folds them). `pinch`/`dash` are not units — they become `quantity NULL`, the schema's "to taste".
 
-**Per CLAUDE.md's import rule, the importer REJECTS a recipe with any unresolved ingredient — it does not warn.** `getUnresolvedIngredientNames()` in `src/lib/queries/ingredients.ts` is that gate.
+**`normalize_ingredient_name` folds accents** via `translate()`, not `unaccent()` (which is not `IMMUTABLE`, and an expression index depends on this function). **If you ever change that function, REINDEX in the same migration** — an expression index keeps values computed by the old body and Postgres will not rebuild it.
 
-**A line can yield more than one ingredient.** `"salt and pepper to taste"` parses to two names, and `recipe_ingredients` stores one ingredient per row. The parser flags these rather than guessing; the importer must split them or queue them.
+### Next up: Phase 1.5, M1.5.4 — USDA FoodData Central nutrition pipeline (issue #12)
 
-**Known vocabulary weakness, likely to bite at 1,000 recipes:** modifiers. `low-sodium X`, `fresh X`, `nonfat X` are a *shape*, not individual synonyms. Ten aliases fixed the 40-line fixture and will not fix the corpus. If coverage sags during the import, the fix is stripping known modifiers in `resolve_ingredient` — not another hundred alias rows.
+**This milestone got much cheaper than the plan assumes.** It was written expecting a matching pass against FoodData Central. The ingredient parser already returns real FDC ids: `parse_ingredient(..., foundation_foods=True)` gives `garlic → fdc_id 1104647, "Garlic, raw"`, with category and source URL. The parser output already carries it; **nothing writes it yet** — populating `ingredients.fdc_id` is this milestone.
 
-**Known gap to close in M3.3, not before:** `resolve_ingredient` returns one answer, but the pantry autocomplete needs the top *N* — `"chicken"` resolves to `chicken broth` at 0.57, right for an import gate and wrong for a dropdown. That is `suggest_ingredients(prefix, limit)`, and it belongs in M3.3.
+Note the plan's other instruction still holds: recipe-level nutrition is **already imported from USDA and must not be recomputed**. M1.5.4 is about *per-ingredient* nutrition, which is what goal-based filtering needs later.
+
+**Known gaps, in priority order:**
+
+1. **247 rejected recipes** (M1.5.7). 209 are unresolved names, sorted by frequency in the queue; 38 are genuinely incomplete pages, including a few children's craft activities calling for popsicle sticks.
+2. **Cuisine is NULL on every imported recipe.** `cuisine_id` was never set — MyPlate does not label cuisine, and guessing would be fabrication. The browse filter in M2 needs a plan for this.
+3. **Only 156 of 1,119 recipes have a cook time.** MyPlate mostly omits it. `total_time_min` is generated from prep + cook, so it is NULL for most of the catalog — a filter on time would silently exclude almost everything.
+4. **`suggest_ingredients(prefix, limit)` for the pantry autocomplete** (M3.3). `resolve_ingredient` returns one answer; a dropdown needs the top N.
 
 **Open question deferred from M1.4:** should an *optional* ingredient contribute its allergens to the recipe? Miso Mushroom Ramen derives `Egg` from its optional soft-boiled egg. Decide in M3.4 when the allergen filter is built; the data supports either.
 
-**Operational note:** the Supabase project pauses after inactivity (it did on 2026-09-17). Restore it, then **wait for `ACTIVE_HEALTHY`** — a restoring database answers SQL while its tables are still missing, which looks exactly like data loss and isn't. Never push a migration mid-restore.
+**Operational note:** the Supabase project pauses after inactivity. Restore it, then **wait for `ACTIVE_HEALTHY`** — a restoring database answers SQL while its tables are still missing, which looks exactly like data loss and isn't. Never push a migration mid-restore.
