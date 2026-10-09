@@ -183,19 +183,23 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 
 **`normalize_ingredient_name` folds accents** via `translate()`, not `unaccent()` (which is not `IMMUTABLE`, and an expression index depends on this function). **If you ever change that function, REINDEX in the same migration** — an expression index keeps values computed by the old body and Postgres will not rebuild it.
 
-### Next up: Phase 1.5, M1.5.4 — USDA FoodData Central nutrition pipeline (issue #12)
+### Wave 1 (2026-10-09) — integrated on `wave1/integration`
 
-**This milestone got much cheaper than the plan assumes.** It was written expecting a matching pass against FoodData Central. The ingredient parser already returns real FDC ids: `parse_ingredient(..., foundation_foods=True)` gives `garlic → fdc_id 1104647, "Garlic, raw"`, with category and source URL. The parser output already carries it; **nothing writes it yet** — populating `ingredients.fdc_id` is this milestone.
+Six lanes merged cleanly; verifiers passed all. **Checked:** M2.1, M2.2, M2.3 (design system and shell). **Built but NOT checked:**
 
-Note the plan's other instruction still holds: recipe-level nutrition is **already imported from USDA and must not be recomputed**. M1.5.4 is about *per-ingredient* nutrition, which is what goal-based filtering needs later.
+- **M3.3 matcher** — `match_recipes` / `suggest_ingredients` backend only; UI is wave 2.
+- **M3.5 search** — `search_recipes` backend only, plus a trigger-bloat fix; UI is wave 2.
+- **M1.5.4 nutrition** — pipeline works, but 6/36 values are within 10% of the mockup. **Waiting on your decision** (fix seed lists / accept computed / relax DoD). Do not apply `scripts/nutrition/artifacts/recipe-nutrition.sql` until then.
+- **M1.5.7 content** — 100 original recipes (978 total), allergens 12 to 195 rows, 32 cuisines. Pantry harness and review still open.
+- **Compliance** — `docs/LEGAL-COMPLIANCE.md` (research, not legal advice).
+- **Photos** — `wave1/photos` was paused mid-run and is **not merged**; it resumes in wave 2. Most MyPlate photos are third-party credited, not public domain.
 
-**Known gaps, in priority order:**
+Database after live steps: **eleven** migrations (7 + 4 new), 978 recipes. `src/types/database.ts` is regenerated. Six packages were added by the design lane (clsx, tailwind-merge, class-variance-authority, lucide-react, tw-animate-css, @radix-ui/react-slot) — confirm in review.
 
-1. **247 rejected recipes** (M1.5.7). 209 are unresolved names, sorted by frequency in the queue; 38 are genuinely incomplete pages, including a few children's craft activities calling for popsicle sticks.
-2. **Cuisine is NULL on every imported recipe.** `cuisine_id` was never set — MyPlate does not label cuisine, and guessing would be fabrication. The browse filter in M2 needs a plan for this.
-3. **Only 156 of 1,119 recipes have a cook time.** MyPlate mostly omits it. `total_time_min` is generated from prep + cook, so it is NULL for most of the catalog — a filter on time would silently exclude almost everything.
-4. **`suggest_ingredients(prefix, limit)` for the pantry autocomplete** (M3.3). `resolve_ingredient` returns one answer; a dropdown needs the top N.
+**Known issues carried forward:** matching is exact-id only (onion vs red onion; needs ingredient families — your call); only 11 pantry staples; 18 duplicate-title recipes; Peanuts folded into Nuts; alias `ancho chile` -> poblano; `sort_order` is 0-based (MyPlate) vs 1-based (hand-authored); header links `/recipes /shopping /login /privacy /terms` 404 until built; delete `/kitchen-sink` before launch.
 
-**Open question deferred from M1.4:** should an *optional* ingredient contribute its allergens to the recipe? Miso Mushroom Ramen derives `Egg` from its optional soft-boiled egg. Decide in M3.4 when the allergen filter is built; the data supports either.
+### Next up: Wave 2
 
-**Operational note:** the Supabase project pauses after inactivity. Restore it, then **wait for `ACTIVE_HEALTHY`** — a restoring database answers SQL while its tables are still missing, which looks exactly like data loss and isn't. Never push a migration mid-restore.
+UI for the two doors, plus the harness: **M3.1** browse grid, **M3.2** recipe detail page, **M3.3 UI** pantry input and "you are missing", **M3.5 UI** `/recipes?q=`, **M3.4** filters (reconcile the matcher and search filter parameter names first; the NULL-passes-range-filter rule must match), **M3.6** landing page, **M1.5.7** 20-pantry test harness, and resume **photos**. Needs your decisions first: ingredient families, staple list, nutrition DoD, and the optional-ingredient allergen question (M3.4).
+
+**Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations. After applying the search migrations to live, run `VACUUM (FULL, ANALYZE) recipes;` (see PR post-merge steps).

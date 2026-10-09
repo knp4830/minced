@@ -7,36 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "14.5"
-  }
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json
-          operationName?: string
-          query?: string
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
       allergens: {
@@ -604,6 +574,10 @@ export type Database = {
     }
     Functions: {
       can_read_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
+      compute_recipe_search_vector: {
+        Args: { p_cuisine_id: number; p_recipe_id: string; p_title: string }
+        Returns: unknown
+      }
       ingredient_coverage: {
         Args: { min_similarity?: number; raw_names: string[] }
         Returns: {
@@ -612,6 +586,35 @@ export type Database = {
           ingredient_id: number
           match_kind: Database["public"]["Enums"]["ingredient_match_kind"]
           raw_name: string
+        }[]
+      }
+      match_recipes: {
+        Args: {
+          cursor_coverage?: number
+          cursor_have?: number
+          cursor_recipe_id?: string
+          cursor_time_key?: number
+          max_missing?: number
+          min_have?: number
+          must_use_ids?: number[]
+          page_size?: number
+          pantry_ids: number[]
+        }
+        Returns: {
+          calories: number
+          coverage: number
+          have_count: number
+          image_url: string
+          missing_count: number
+          missing_ids: number[]
+          missing_names: string[]
+          needed_count: number
+          recipe_id: string
+          servings: number
+          slug: string
+          time_key: number
+          title: string
+          total_time_min: number
         }[]
       }
       normalize_ingredient_name: { Args: { raw: string }; Returns: string }
@@ -637,10 +640,55 @@ export type Database = {
           unit_name: string
         }[]
       }
+      search_fold: { Args: { raw: string }; Returns: string }
+      search_recipes: {
+        Args: {
+          cuisine_slugs?: string[]
+          cursor_id?: string
+          cursor_score?: number
+          diet_slugs?: string[]
+          exclude_allergen_slugs?: string[]
+          max_calories?: number
+          max_carbs_g?: number
+          max_fat_g?: number
+          max_prep_min?: number
+          max_protein_g?: number
+          max_spice?: number
+          max_total_min?: number
+          min_calories?: number
+          min_carbs_g?: number
+          min_fat_g?: number
+          min_protein_g?: number
+          q: string
+          result_limit?: number
+        }
+        Returns: {
+          calories: number
+          id: string
+          image_url: string
+          match_kind: string
+          score: number
+          servings: number
+          slug: string
+          title: string
+          total_time_min: number
+        }[]
+      }
+      search_tsquery: { Args: { q: string }; Returns: unknown }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
       singularize_ingredient_name: { Args: { raw: string }; Returns: string }
       strip_ingredient_modifiers: { Args: { raw: string }; Returns: string }
+      suggest_ingredients: {
+        Args: { max_results?: number; prefix: string }
+        Returns: {
+          canonical_name: string
+          ingredient_id: number
+          match_kind: string
+          matched_text: string
+          score: number
+        }[]
+      }
     }
     Enums: {
       ingredient_match_kind: "exact" | "alias" | "fuzzy"
@@ -661,12 +709,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends (DefaultSchemaTableNameOrOptions extends {
+  TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never) = never,
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -690,11 +738,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends (DefaultSchemaTableNameOrOptions extends {
+  TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never) = never,
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -715,11 +763,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends (DefaultSchemaTableNameOrOptions extends {
+  TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never) = never,
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -740,11 +788,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never) = never,
+    : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -757,11 +805,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never) = never,
+    : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -771,9 +819,6 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       ingredient_match_kind: ["exact", "alias", "fuzzy"],
@@ -782,3 +827,4 @@ export const Constants = {
     },
   },
 } as const
+

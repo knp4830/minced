@@ -1141,4 +1141,206 @@ The 247 rejections are not a failure of the importer; they are its job. 38 of th
 
 ---
 
-## Entry 16 — [next entry goes here after M1.5.4]
+## Entry 16 — The design system: tokens, primitives, shell (M2.1–M2.3)
+
+*Wave 1, design lane. Branch `wave1/design`.*
+
+### What we built
+Tokens extracted from `design/Minced.dc.html` into `@theme` in `src/app/globals.css`. Nine primitives in `src/components/ui` (Button, Card, Chip, Input, Select, Textarea, Label, SpiceDots, MetaRow). A `/kitchen-sink` reference route. An app shell: sticky header with a plain GET search form to `/recipes?q=`, footer, skip-to-content link, placeholder home page. All server components, no client JS.
+
+### How it works
+In Tailwind v4 the theme lives in CSS, not `tailwind.config.js`. Every `--color-*` variable inside `@theme` automatically generates utilities (`bg-canvas`, `text-ink-muted`, `border-line`), so no config file is needed and the "no raw hex outside globals.css" rule is enforceable with a plain grep (verified: zero hits).
+
+Components use `class-variance-authority` (cva): variants are props, not separate components, because they share focus ring, disabled behaviour, sizing and `asChild`, and differ only in colour. `asChild` (Radix `Slot`) puts button styling onto a Next `Link`, so a link looks like a button without nesting interactive elements. `Chip` is a toggle: as a button it sets `aria-pressed`; as a link it sets `aria-current`, because filter state lives in URL params, not `useState`.
+
+### Why this way, and what we rejected
+- **Hand-written shadcn-style components, not the shadcn CLI.** The CLI is interactive and rewrites `globals.css`.
+- **Native `<select>`, not Radix Select.** The OS picker is better on phones, it works without JS and it submits through a plain GET form. Also avoids another package.
+- **No hamburger menu.** At 375px the header is two rows (brand + actions, then full-width search) so search never hides.
+- **Inputs are 16px on phones** so iOS does not zoom on focus. The `pointer-coarse` variant enlarges touch targets only on touch devices.
+- **Light mode only.** The mockup has no dark theme.
+
+### Deliberate deviations from the mockup (accessibility)
+The mockup failed WCAG AA in three places, so tokens were added or darkened and documented in `globals.css` comments: label colour `#8C9A94` is 2.7:1 (added `ink-subtle`, about 5:1; stone kept for icons); input border at 0.18 alpha is about 1.5:1 (raised `--color-field` to 0.42 alpha for 3:1); paprika text is 4.46:1 (small text and the danger button use `paprika-deep`). Revert if you prefer the softer look.
+
+### Gotchas
+- A native select inherited `read-only:bg-sunken` from shared field classes and rendered grey; read-only styling now applies only to Input and Textarea.
+- Component files are camelCase (`spiceDots.tsx`) per CLAUDE.md, not shadcn's kebab-case.
+- Pages must not render their own `<main>`; the root layout already wraps children in `<main id="main">`.
+- Header links to `/recipes`, `/shopping`, `/login`, `/privacy`, `/terms` 404 until later routes land.
+- Six packages were added (clsx, tailwind-merge, class-variance-authority, lucide-react, tw-animate-css, @radix-ui/react-slot). CLAUDE.md says ask first; this is flagged in the PR for you to confirm.
+- Delete `/kitchen-sink` before launch (Phase 6 checklist).
+
+---
+
+## Entry 17 — Nutrition from USDA FoodData Central (M1.5.4, NOT closed)
+
+*Wave 1, nutrition lane. Branch `wave1/nutrition`. The box stays unchecked: the DoD as written is not met.*
+
+### What we built
+An offline Python script (`scripts/nutrition/`), like the M1.5.2 parser and M1.5.3 importer. It runs on your machine and is never deployed; the live app only reads six nutrition columns on `recipes`. Files: `nutrition.py` (pipeline), `fdc.py` (API client + cache), `ingredient-map.json` (curated mapping, 30 ingredients), `test_nutrition.py` (10 offline tests), `cache/fdc-cache.json` (378 KB), `artifacts/recipe-nutrition.sql`, and `supabase/seed-nutrition-fdc.sql`.
+
+### How it works
+Per ingredient line, grams = quantity x grams-per-unit. Nutrients = grams/100 x the food's per-100g values, summed and divided by servings. The grams step is the whole problem, so the rules run in priority order: mass units use `units.to_base_factor`; volume units need a density (curated, else the median g/ml of the food's USDA tsp/tbsp/cup portions); count units (clove, can, fillet, head, no unit = "each") use a curated `unit_g`, else a USDA portion by label. Otherwise the recipe is flagged INCOMPLETE and **not written** — fail closed, mirroring the importer's "reject, don't warn".
+
+### Why a curated map, not auto-match
+The plan said "fuzzy-match against /foods/search". We built it and measured it. Search is a good candidate generator and a poor decision-maker: "rolled oats" returns dinner rolls, "avocado" returns avocado oil, "rice vinegar" returns balsamic. Validated read-only against MyPlate's own stored USDA nutrition: median kcal error 17%, sodium 41%, fiber 43%, and 24 of 40 sampled recipes could not be computed. So search proposes and a human disposes: auto-matches print `WARN AUTO-MATCHED, verify` and mark the recipe REVIEW.
+
+The cache is committed because FDC data is public domain, runs become reproducible and key-free, and 3,600 req/hour is a real budget. The API key is read from the environment and never printed or stored.
+
+### Result against the DoD (honest)
+DoD: within about 10% of the mockup's hand-written values. **Not met:** 6 of 36 values, 0 of 6 recipes. Calories are off -16% to -44%. We did not tune anything to force it. Causes, largest first: (1) seed recipes omit ingredients their own steps use (oil in chana masala and shakshuka, rice for the salmon, broth for the ramen) — a what-if adding the oil moved chana fat from -64% to -3%; (2) the mockup numbers are hand estimates (ramen sodium is +53% because USDA miso is about 3,700 mg/100 g, so the mockup's 980 mg looks too low); (3) proxy foods (gochujang, harissa, fresh ramen) and guessed can sizes.
+
+**Decision needed from you:** (1) fix the seed ingredient lists and re-run, (2) accept computed values as the new truth, or (3) relax the DoD to "within 10% for recipes with complete lists". `recipe-nutrition.sql` would overwrite the hand-written values, so it is not applied by default.
+
+### Where it will be inaccurate
+Missing ingredients (unlisted oil undershoots fat 50-60% and kcal 15-40%) > raw vs cooked and dry vs fresh (dry pasta about 370 kcal/100 g, cooked about 160) > count units ("one onion", "one can" vary about 2x) > absorption and loss (not modelled) > branded/proxy foods (+/-10-30%) > sodium, the worst nutrient (median error about 40%, swings by brand and added salt). Coarse buckets in M3.4 ("under 500 kcal", "high protein") are fine at +/-20%; precise tracking is not. The UI should say "estimated". Allergens are unaffected (they come from ingredient identity).
+
+### New concepts
+Density vs weight (1 cup flour is 125 g, 1 cup honey 340 g); provenance of every number (`-v` shows the rule); ground-truth validation (MyPlate carries USDA's own nutrition, so it is free test data); fail closed; idempotent data files (UPDATE-by-key with a DO-block assertion, because `UPDATE 0` is not an error — proved with an md5 of rows before and after a second apply).
+
+### Gotchas and bugs found
+- USDA Foundation record 2758998 (spaghetti) has only sodium. Counted blindly, cacio e pepe would show 161 kcal instead of 532. A food with no energy value is now a hard error; the map uses SR Legacy 169736.
+- Foundation records often carry only a "RACC" portion and cannot convert volumes.
+- USDA's "fillet" for salmon is a whole 396 g side; a curated 170 g overrides it.
+- Cache keys must include the dataType filter or Branded and SR searches collide.
+- Never print an API URL in an error (urllib includes the key); errors print path and HTTP code only.
+- Windows: pass `encoding='utf-8'` to subprocess or cp1252 crashes.
+- **Latent bug found by the verifier (auto-match path only):** `portion_grams()` for "each" also matches "strip medium", so carrot comes out as 4 g instead of 61 g. REVIEW recipes are still written to the SQL. Do not run auto-match on the 100 original recipes without curating the map first (it covers 25 of 270 distinct ingredients).
+
+---
+
+## Entry 18 — The pantry matcher, backend (M3.3, backend half only)
+
+*Wave 1, matcher lane. Branch `wave1/matcher`. Box stays unchecked: the UI half (pantry input, URL state, "you are missing") is wave 2.*
+
+### What we built
+Migration `20261009110000_pantry_matcher.sql`: `match_recipes` (the ranking) and `suggest_ingredients` (autocomplete), plus typed wrappers in `src/lib/queries/matcher.ts` and a rollback-only regression test `supabase/tests/matcher_test.sql` (27 assertions, mutation-checked: removing the staple filter made it fail).
+
+### Why an RPC
+Per recipe we need "how many of your N things it uses and what is left over". In TypeScript that ships about 7,000 `recipe_ingredients` rows over the network per keystroke. In Postgres the counting happens beside the data, using indexes.
+
+### How `match_recipes` works
+1. `params` CTE: pantry plus must-use ids, de-duplicated.
+2. `candidates` CTE: start from `recipe_ingredients_ingredient_idx` (Bitmap Index Scan) to find only recipes containing at least one pantry ingredient. That index is why we do not aggregate the whole table. With must-use ids, group by recipe and keep groups whose `array_agg` contains all of them (`<@`, "contained by").
+3. `scored` CTE: `COUNT(DISTINCT ...) FILTER (WHERE ...)` gives `needed` (not staple, not optional) and `have` (needed and in pantry) plus the missing ids. DISTINCT matters: 117 recipes list the same ingredient twice.
+4. `ranked` CTE: drop `have < min_have` or `missing > max_missing`; `coverage = round(have/needed, 4)`. Rounding to 4 dp makes the cursor comparison exact.
+5. Outer select: names for missing ids, keyset WHERE, `ORDER BY coverage desc, have desc, time_key, id`.
+
+**Ranking deviation to confirm:** the spec said coverage then prep time. I (the lane) added "more pantry items used" between them, because otherwise a 1-ingredient Lemonade ties a 5-of-5 dinner at 100% and wins. It only reorders ties. Also uses `total_time_min`, not `prep_time_min` (720 of 878 are NULL), and treats 0 as unknown, sorted last.
+
+**Keyset pagination.** The cursor is the last row's sort tuple, and the next page is "rows strictly after that tuple" (an explicit OR-chain because sort directions are mixed). Honest limit: the sort key is computed, so Postgres still aggregates every candidate per page; keyset buys stable pages, not an index seek. Verified: 27 pages of 7 over 184 rows, 0 duplicates.
+
+**`suggest_ingredients`.** `resolve_ingredient` answers "what does this import line mean" (one confident row, reject otherwise). Autocomplete asks "top N plausible candidates for half-typed text", so it is a separate function: tiers exact > prefix > word-prefix > trigram typo (>=0.3), name before alias, shorter first so "chicken" precedes "chicken broth".
+
+### Evidence
+DoD pantry (chicken, rice, onion, garlic, soy sauce; max_missing 3) returned 55 recipes on the snapshot (Cabbage Stir-Fry 3/5 first). An independent plpgsql oracle agreed on every row. Latency per call: 4.3 ms avg / 13 ms worst at 878 recipes, 60 / 171 ms at 8,780 (10x). `EXPLAIN ANALYZE` via `auto_explain` with nested statements (a plain EXPLAIN on a function shows only "Function Scan").
+
+### Rejected
+A denormalised recipe->ingredient array with GIN (faster at huge scale, needs trigger sync); returning only ids (two round trips); ranking by pantry coverage (more product design than asked); ingredient families now (a product decision).
+
+### New concepts
+Set-returning SQL functions; `FILTER` on aggregates; array containment; `SECURITY INVOKER` (RLS still applies); reading `EXPLAIN ANALYZE`; `pg_trgm` similarity; auto_explain.
+
+### Gotchas, and the biggest quality problem
+- **Matching is exact-id only.** The pantry word "onion" resolves to yellow onion, so recipes using red or white onion list "red onion" as missing. Same for rice (white vs brown) and chicken (bare vs breast). Needs a product decision: ingredient families / substitution groups. Not built.
+- Only 11 pantry staples; baking powder, vanilla, cooking spray, dried oregano show as "missing" constantly.
+- The catalog is mostly USDA side dishes, so the demo pantry returns underwhelming dinners.
+- 18 duplicate-title recipes appear as duplicate rows. 140 of 512 ingredients are used by zero recipes yet autocomplete offers them.
+- `CALL` cannot take a subquery in plpgsql; assertions are a void function used with `PERFORM`.
+- The stub snapshot has no GRANTs for anon/authenticated; real Supabase does.
+- Git Bash rewrites `/tmp` paths in `docker exec` unless `MSYS_NO_PATHCONV=1`.
+- Named-argument RPC resolution through real PostgREST was not exercised by this lane; smoke-test after applying to live.
+
+---
+
+## Entry 19 — Search backend, and the table-bloat investigation (M3.5, backend half only)
+
+*Wave 1, search lane. Branch `wave1/search`. Box stays unchecked: `/recipes?q=` UI is wave 2.*
+
+### What we built
+Three migrations plus one query file. (1) `20261009120000` swaps per-row "touch the parent recipe" triggers for statement-level transition-table triggers. (2) `20261009120100` folds accents in the search document, moves the document definition into `compute_recipe_search_vector()`, backfills, and adds a trigram index on the folded title. (3) `20261009120200` adds `search_tsquery()` and `search_recipes()`. `src/lib/queries/search.ts` is the typed wrapper.
+
+### How search works
+A `tsvector` is a sorted list of normalised words (lowercased, stop-words dropped, stemmed: "chickpeas" becomes "chickpea") with positions. A `tsquery` gets the same treatment and `vector @@ query` is the match, so plurals come free. The document has labelled sources: title = A, ingredient names = B, cuisine + diets = C. `ts_rank` weights them 1.0 / 0.4 / 0.2, so title beats ingredient beats tag. Flag 1 divides by log length so a 3-ingredient Chickpea Dip is not buried; flag 32 keeps scores in [0,1) so the cursor behaves. A GIN index is an inverted index, like the index at the back of a book.
+
+Partial words: the last query word becomes a prefix match (`cac:*`), typeahead semantics. The tsquery is built by our own tokeniser from quoted literals because passing user text to `to_tsquery()` raises syntax errors on input like `mac & cheese (` — a 500 waiting to happen.
+
+### Typos, and the tradeoff
+Full-text compares whole stemmed words, so "shakshouka" shares nothing with "shakshuka". `pg_trgm` chops strings into 3-letter chunks, so a wrong letter damages three chunks, not the word. The fallback uses `word_similarity` with threshold 0.4 (default 0.6 was too strict; tuned on real typos). Tradeoff: fuzzy is **title-only** and all-or-nothing, engaging only when no recipe anywhere in the catalog contains the query's words. A correct query never gets look-alike noise. Rejected: a per-word "did you mean" vocabulary table (revisit with real query logs, M6.3). Accent folding uses `translate()` (IMMUTABLE) because `unaccent()` is STABLE and cannot be used in index expressions. Results carry `match_kind` ('text' | 'fuzzy') so a UI can say "showing similar spellings".
+
+### Cursor pagination
+Order by `(score desc, id desc)`; cursor is the last row's `(score, id)` as a row-value comparison. Score has many ties so id is the tiebreak (SCHEMA-NOTES gotcha 4). The wrapper requests limit+1 rows to learn whether another page exists without a count query. Walked 'salad' 7 per page and fuzzy 'chiken' 3 per page: no duplicates, no gaps.
+
+### Filters
+Parameter set intended to be shared with the matcher in M3.4: `max_total_min`, `max_prep_min`, `cuisine_slugs` (any), `diet_slugs` (all), `exclude_allergen_slugs` (none), `max_spice`, min/max for calories, protein, carbs, fat. "Exclude any allergen" is a correlated `NOT EXISTS` (`NOT IN` breaks on NULLs). Cookware is omitted until its semantics are decided. A NULL numeric column fails a range filter, so recipes with unknown spice or time disappear when a bound is set — the matcher must use the same rule or the two doors disagree. `SECURITY INVOKER`, so RLS applies (verified: anon cannot see a draft).
+
+### The bloat investigation (the big lesson)
+Live `recipes` was 32 MB for about 2.3 MB of data. Cause confirmed by reproduction: trigger `recipe_ingredients_touch_recipe` was `FOR EACH ROW` and ran `UPDATE recipes` per ingredient row. **MVCC:** Postgres never edits a row in place; an UPDATE writes a complete new copy (about 2 KB here) and leaves the old one as a dead tuple, kept because older transactions might still need it. VACUUM later marks dead space reusable. OS analogy: copy-on-write — the old page frame is not freed until nobody maps it, and a collector later returns frames to the free list, but the address space (the file) never shrinks. Plain VACUUM is the free list; `VACUUM FULL` is compaction (rewrites the file, needs an ACCESS EXCLUSIVE lock). The importer also ran in ONE transaction, so VACUUM could not reclaim anything until commit (a long transaction pins the horizon). GIN indexes bloat too, because `search_vector` changes on each rewrite, so HOT updates mostly cannot happen.
+
+Measured on an import-shaped workload (200 recipes, 1,697 ingredient rows): old triggers heap 1,984 to 5,040 kB with 1,697 dead tuples; new triggers 1,632 to 2,328 kB with 200 dead tuples. The verifier independently reproduced about 4.8x fewer dead tuples. **Fix:** statement-level triggers with `REFERENCING NEW TABLE / OLD TABLE` (a transition table is the set of rows the whole statement touched). One trigger per event because transition tables cannot be used on multi-event triggers. A 9-ingredient insert now costs one recipe rewrite, not nine.
+
+Rejected: deferred constraint triggers (still fire per row); computing the vector at insert (ingredients arrive after the recipe); a narrow `recipe_search` table (best long-term, about 100-byte rewrites, but moves the GIN index — ask first). Still open: `refresh_recipe_allergens` is also per-row (tiny rows, low priority).
+
+### Gotchas
+- `string_agg` without `ORDER BY` stored plan-dependent word positions: 851 of 878 vectors differed from a recompute. Always order aggregates that feed stored data.
+- The backfill disables the BEFORE trigger for one statement; otherwise every recipe gets `updated_at = now()`.
+- `''::tsquery` leaks a NOTICE to clients; return NULL instead. Stop-word-only queries return zero rows rather than falling to trigram nonsense.
+- Cuisine renames do not re-index existing vectors automatically.
+- The backfill itself rewrites all 878 rows once (about 1.5 MB growth), so run `VACUUM (FULL, ANALYZE) recipes;` after applying to live.
+- Data gaps (other lanes): `ingredient_allergens` had only 12 rows before the content lane; 24 pasta recipes report `total_time_min <= 1` (a PT20S-style parse issue); `total_time_min = 0` means unknown.
+- Weakness: cuisine-word typos are not corrected ("korian" returns junk), and "carbonara" (absent) returns fuzzy noise at score 0.4.
+
+### When Postgres full-text stops being enough
+At 17,560 rows (20x, duplicated data so optimistic) every query took 2-50 ms. A single node is comfortable past 100k recipes. Reach for Typesense/Meilisearch/Elasticsearch when you need typo correction over ingredient/step text, synonyms beyond stemming, faceted counts over millions of documents, learned ranking, or when search load competes with the transactional primary.
+
+---
+
+## Entry 20 — Content: 100 original recipes, allergens, cuisines (toward M1.5.7)
+
+*Wave 1, content lane. Branch `wave1/content`. M1.5.7 stays unchecked: its DoD needs the pantry test harness (wave 2) and 500+ reviewed recipes by you.*
+
+### What we built
+The catalog went from 878 to 978 recipes: 100 original recipes across 16 cuisines. It also fixed three data gaps that would hurt every later milestone: cuisine tags (6 of 878 had one), allergen data (12 `ingredient_allergens` rows) and a vocabulary with almost no non-Western staples.
+
+Key files: `scripts/content/recipes/*.txt` (source of truth, a small text format), `scripts/content/build_original.py` (generates `supabase/seed-original-recipes.sql` and `docs/content/RECIPE-REVIEW.md`), `supabase/seed-ingredients.sql` (+90 ingredients, +170 aliases), `supabase/seed-allergens.sql` (12 to 195 rows), `supabase/seed-cuisines.sql`, `scripts/content/apply.sh`, and `scripts/content/gap-analysis.sql` (reusable read-only report).
+
+### How and why
+- **Legal basis.** Ingredient lists are facts; wording and photos are expression. Every recipe is written from culinary knowledge in Minced's own voice, verified against two independent domains, and the URLs live only in the review doc, never in the database (`source_url` is NULL).
+- **The gate lives in SQL**, like the MyPlate import: Python only parses text; `resolve_ingredient()` and `resolve_unit()` run inside the same transaction as the insert. Stricter than the USDA importer: fuzzy matches are rejected, and any failure aborts the whole file.
+- **Content-hash change detection.** Each recipe gets an md5 fingerprint on both payload and live sides; only differing recipes are written. A re-run touched nothing (no `updated_at` churn, no identity burn). Same idea as git comparing hashes, not timestamps.
+- **Diet tags are derived, never typed.** Allergens say what is IN an ingredient but not whether it is animal-derived, so SQL combines the allergen table with an explicit meat classification, with a guard that raises if a meat-like ingredient is unclassified. Result: Gluten-free 62, Vegetarian 37, Vegan 20, Pescatarian 12 of the 100.
+- **Allergen map is conservative.** A false "contains" costs a user a recipe; a false "safe" costs a hospital visit. The existing fan-out triggers lifted recipes with any allergen from 168 to 687 of 978, correcting the 872 USDA recipes too.
+- **Cuisine tagging** fills only NULL `cuisine_id` so it never overwrites a later human choice. 130 of 872 USDA recipes tagged; 742 deliberately left NULL ("Spanish Rice" is not Spanish).
+
+### Results (snapshot before to after)
+Cuisine tagging 6/878 to 236/978; cuisines 7 to 32; ingredients used by at least one recipe 372 to 505. Verifier: re-ran all four files, every table fingerprint identical, 100 `Minced original` recipes all published; 15 hand-read recipes were plausible and original in wording.
+
+### Rejected
+Hand-typing diet tags (the first derivation put dried shrimp and fish cakes in "meat" because they sit in the Protein aisle; a regex-free eyeball of the per-recipe listing caught it); a separate Peanuts allergen (peanuts share "Nuts" for now — decide before M3.4); folding Tex-Mex into Mexican; writing source URLs into the DB.
+
+### Gotchas
+- `sort_order` is 0-based for MyPlate rows and 1-based for hand-authored recipes. Sort by it; never display it.
+- The units table has no "sprig" or "pinch"; use no unit with a prep note, or a NULL quantity.
+- Existing alias `ancho chile` -> `poblano pepper` resolves dried as fresh. Left alone; flagged.
+- `spice_level` is NULL on all 872 USDA recipes and `cost_per_serving` on all but the 6 mockup recipes, so those filters will be empty for most of the catalog.
+- Verification was by web search across 8-10 sites per dish, not each page opened end to end; `RECIPE-REVIEW.md` says so. Review it in the PR.
+- Nutrition, cost and photos are NULL on the 100 new recipes by design.
+
+---
+
+## Entry 21 — Legal and compliance research (docs only)
+
+*Wave 1, compliance lane. Branch `wave1/compliance`. One file: `docs/LEGAL-COMPLIANCE.md`. Research, not legal advice.*
+
+It separates what blocks launch from what belongs to M4/M5/Phase 6, and lists pages and components to build without building them. Sections: recipe copyright and the blog-URL import idea, images, USDA attribution, privacy/cookies/deletion/COPPA, ToS/DMCA, nutrition and allergen disclaimers, AI disclosure (EU AI Act Art. 50 and others), accessibility, Vercel Hobby and Google OAuth requirements, trademark search, a 25-item checklist mapped to milestones, and open owner questions (section 13 — read it before merging).
+
+The verifier spot-checked 10 links; all matched. Weak spots: two `myplate-prod.azureedge.us` links no longer resolve (MyPlate was retired 2026-01-07), the COPPA compliance date could not be confirmed (bot-wall), the USDA photography claim returned 403, and the CalOPPA do-not-track row is slightly oversimplified. Spot-check the trademark, MyPlate public-domain and AI-label findings before relying on them.
+
+Key takeaways to remember: the Vercel Hobby plan is non-commercial only, so launch with ads/affiliate/payments means Pro; Google OAuth needs a real homepage and privacy policy; the doc recommends labelling AI-assisted recipes even where not clearly required.
+
+Process lesson: a parallel wave can dispatch to the wrong worktree. When a branch already exists, check `git worktree list` and `git log` before recreating it.
+
+---
+
+## Entry 22 — [next entry goes here after wave 2]
