@@ -1,26 +1,211 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
+/*
+ * Minced design tokens — extracted from design/Minced.dc.html.
+ *
+ * This is the ONLY file in the repo allowed to contain colour literals.
+ * Everything else uses the utilities these tokens generate (bg-canvas,
+ * text-ink-muted, border-line, ...) or var(--color-*).
+ *
+ * Palette idea: a kitchen at 6 a.m. Sage-grey surfaces (stainless, linen),
+ * deep herb green as the one action colour, paprika for heat and warnings,
+ * saffron for the single "this matters" accent (price, focus on dark, active tab).
+ */
+
+@theme {
+  /* ── Surfaces (lightest → deepest) ─────────────────────────── */
+  --color-surface: #fbfbf8; /* cards, inputs: the brightest thing on the page */
+  --color-panel: #f6f7f3; /* feature tiles sitting on a band */
+  --color-canvas: #f1f3ee; /* the page */
+  --color-band: #eaede6; /* full-width section band */
+  --color-sunken: #e7eae3; /* search fields: pressed into the page */
+  --color-stripe-a: #e4e7e0; /* photo placeholder hatch */
+  --color-stripe-b: #dce0d8;
+  --color-track: #d8dcd4; /* slider / progress rail */
+  --color-stage: #dfe2db; /* backdrop behind a framed mockup */
+
+  /* ── Ink ───────────────────────────────────────────────────── */
+  --color-ink: #1c2420;
+  --color-ink-deep: #26302a; /* long-form display copy */
+  --color-ink-soft: #42504a;
+  --color-ink-muted: #4c5a53; /* secondary text */
+  --color-ink-subtle: #5b6962; /* labels. 4.9:1 on canvas; the mockup's #8C9A94 is 2.7:1 */
+  --color-stone: #8c9a94; /* icons, decorative marks. NOT for text */
+  --color-stone-line: #c7cec7; /* separators dots, empty spice dot */
+
+  /* ── Brand ─────────────────────────────────────────────────── */
+  --color-herb: #2f4b3c; /* action */
+  --color-herb-deep: #25402f; /* action, hover/pressed */
+  --color-on-herb: #f1f3ee;
+  --color-paprika: #c1481e; /* heat, allergens, destructive */
+  --color-paprika-deep: #8a3416;
+  --color-saffron: #e4b73f; /* accent on dark, stars, active marks */
+  --color-saffron-tint: #f4e4b6; /* cost chip fill */
+  --color-saffron-ink: #7a5c10; /* text on saffron-tint */
+
+  /* ── Lines (ink at low alpha so they sit on any surface) ──── */
+  --color-line: rgb(28 36 32 / 0.09); /* hairlines */
+  --color-line-strong: rgb(28 36 32 / 0.16); /* chip outlines */
+  --color-field: rgb(28 36 32 / 0.42); /* input borders: 3:1 (WCAG 1.4.11); the mockup's 0.18 is 1.5:1 */
+  --color-outline: rgb(28 36 32 / 0.25); /* secondary button outline, 3:1 */
+  --color-scrim: rgb(28 36 32 / 0.4);
+
+  /* ── State ─────────────────────────────────────────────────── */
+  --color-ring: var(--color-herb);
+
+  /* ── Type ──────────────────────────────────────────────────── */
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* ── Radii ─────────────────────────────────────────────────── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px; /* compact buttons, dense inputs */
+  --radius-lg: 10px; /* buttons */
+  --radius-field: 9px; /* inputs */
+  --radius-xl: 12px; /* cards */
+  --radius-sheet: 16px; /* bottom sheets, pills */
+
+  /* ── Shadows ───────────────────────────────────────────────── */
+  --shadow-press: 0 2px 0 rgb(28 36 32 / 0.15); /* primary button's lip */
+  --shadow-lift: 0 10px 24px -12px rgb(28 36 32 / 0.35); /* card hover */
+  --shadow-sheet: 0 -12px 40px -12px rgb(28 36 32 / 0.35);
+  --shadow-frame: 0 24px 60px -24px rgb(28 36 32 / 0.4);
+
+  /* ── Motion ────────────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Spacing is Tailwind's default 4px scale; the layout rhythm lives in these. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gutter: 1rem; /* page side padding on phones */
+  --measure: 68ch;
+  --header-h: 3.75rem;
+  color-scheme: light;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@media (min-width: 48rem) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --gutter: 1.625rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    caret-color: var(--color-herb);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Browser surfaces: selection, focus, scrollbars, form controls. */
+  ::selection {
+    background: var(--color-herb);
+    color: var(--color-on-herb);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  /* On dark herb surfaces the ring flips to saffron. */
+  .on-herb :focus-visible {
+    outline-color: var(--color-saffron);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-ink-subtle);
+    opacity: 0.85;
+  }
+
+  /* Inputs set their own focus ring; avoid a double outline. */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
+  }
+
+  /* Numbers in data line up. */
+  .tnum,
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-stone-line) transparent;
+  }
+
+  button,
+  [role="button"],
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* The photo placeholder hatch used until real images land. */
+  .bg-hatch {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--color-stripe-a),
+      var(--color-stripe-a) 9px,
+      var(--color-stripe-b) 9px,
+      var(--color-stripe-b) 18px
+    );
+  }
+
+  /* Small-caps mono label used above filter groups and form sections. */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-subtle);
+  }
+
+  /* Visually hidden, still announced. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
