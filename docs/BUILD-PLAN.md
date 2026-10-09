@@ -25,9 +25,9 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #13 | **M1.5.5** Recipe generation pipeline (Tier 2, Minced voice) | ☐ |
 | #14 | **M1.5.6** Admin review queue at /admin/review | ☐ |
 | #15 | **M1.5.7** Fill to 500+ and close pantry coverage gaps | ☐ |
-| #16 | **M2.1** Extract Minced design tokens into globals.css | ☐ |
-| #17 | **M2.2** Build UI primitives + /kitchen-sink route | ☐ |
-| #18 | **M2.3** App shell: header, nav, footer, responsive | ☐ |
+| #16 | **M2.1** Extract Minced design tokens into globals.css | ☑ |
+| #17 | **M2.2** Build UI primitives + /kitchen-sink route | ☑ |
+| #18 | **M2.3** App shell: header, nav, footer, responsive | ☑ |
 | #19 | **M3.1** Browse page with cursor-paginated recipe grid | ☐ |
 | #20 | **M3.2** Recipe detail page with servings scaler | ☐ |
 | #21 | **M3.3** PANTRY MATCHER — match_recipes RPC + autocomplete | ☐ |
@@ -509,6 +509,8 @@ Make it resumable: interrupting it must not lose progress or duplicate rows.
 
 ### ☐ M1.5.4 — USDA FoodData Central nutrition pipeline
 
+> **Wave 1 status (2026-10-09): built, NOT closed.** `scripts/nutrition/` computes per-serving nutrition from a curated FDC map; 6 of 36 values are within 10% of the mockup (0 of 6 recipes). Causes: seed ingredient lists omit oil/rice/broth their steps use, and the mockup numbers are hand estimates. **Needs a decision:** fix the seed lists, accept computed values, or relax the DoD. See LEARNING-LOG Entry 17.
+
 **Claude Code prompt:**
 ```
 Build nutrition computation using the USDA FoodData Central API (free key, 1000
@@ -552,6 +554,8 @@ Everything lands in `pending_review` — imports included. Reviewing is ~1–2 m
 
 ### ☐ M1.5.7 — Fill to 500+ and close coverage gaps
 
+> **Wave 1 status:** content lane added 100 original recipes (978 total), allergen data (12 to 195 rows), 25 cuisines and +90 ingredients. Still open: the 20-pantry test harness, 500+ reviewed recipes, ingredient families and the staple list (see LEARNING-LOG Entry 18 and 20). **Photos** (`wave1/photos`, not merged) resumes in wave 2: most MyPlate photos turned out to be third-party credited, not public domain, so do not assume they are reusable.
+
 Tier 1 gets you to roughly 1,300. Tier 2 fills what Tier 1 is bad at: interesting cuisines, bold flavors, anything a federal nutrition program wouldn't publish. Generate in themed batches of ~25 (weeknight pasta, sheet-pan dinners, Korean, vegan high-protein, 15-minute breakfasts, one-pot).
 
 **Coverage for a pantry-matching app means something different than for a search app.** You're not asking "do I have enough Thai recipes." You're asking: *given a realistic pantry, does the app return something good?* Build a test harness of 20 plausible pantries — the broke-student pantry, the chicken-rice-broccoli pantry, the vegetarian pantry, the nearly-empty fridge — and assert every one returns at least 10 strong matches. Empty results on a realistic pantry is the bug that kills this product.
@@ -564,7 +568,7 @@ Tier 1 gets you to roughly 1,300. Tier 2 fills what Tier 1 is bad at: interestin
 
 > **Time:** 2–3 days. **Goal:** the Minced look, as reusable pieces. No pages yet.
 
-### ☐ M2.1 — Tokens
+### ☑ M2.1 — Tokens
 
 **Claude Code prompt:**
 ```
@@ -575,7 +579,7 @@ Rule going forward: no raw hex codes anywhere except globals.css.
 Explain how Tailwind v4's @theme directive differs from the v3 config file.
 ```
 
-### ☐ M2.2 — Primitives
+### ☑ M2.2 — Primitives
 
 Build these, in this order, each with a small demo on a `/kitchen-sink` route you delete before launch:
 
@@ -595,7 +599,7 @@ For each component, explain the prop design choices — especially why variants 
 better as a prop than as separate components.
 ```
 
-### ☐ M2.3 — App shell
+### ☑ M2.3 — App shell
 
 Header, nav, footer, mobile breakpoints. Matches the mockup's landing nav.
 
@@ -617,6 +621,8 @@ Header, nav, footer, mobile breakpoints. Matches the mockup's landing nav.
 `/recipes/[slug]` — ingredients grouped by category, numbered steps, nutrition table, notes. Plus the **servings scaler** (the mockup has one — quantities recompute live). Generate static params so recipe pages are prerendered.
 
 ### ☐ M3.3 — **The pantry matcher** ← this is the product
+
+> **Wave 1 status: backend only.** `match_recipes` and `suggest_ingredients` are built and verified (migration `20261009110000`). The UI half (pantry input, URL state, localStorage, "you are missing") is wave 2, so this box stays unchecked. See LEARNING-LOG Entry 18.
 
 Everything else in this plan is table stakes. This is the reason Minced exists, so it gets the most care and the most iteration.
 
@@ -683,6 +689,8 @@ correlated subquery and it's the one people get wrong.
 ```
 
 ### ☐ M3.5 — Search **(P0 — Door 2)**
+
+> **Wave 1 status: backend only.** `search_recipes` plus the trigger bloat fix are built and verified (migrations `20261009120000`-`120200`). The `/recipes?q=` UI is wave 2, so this box stays unchecked. See LEARNING-LOG Entry 19.
 
 A recipe app that can't find a recipe by name is broken. This ships with the MVP.
 
@@ -788,6 +796,7 @@ Same form, prefilled. Delete with a confirm dialog.
 - [ ] Lighthouse ≥ 90 on performance and accessibility
 - [ ] Every env var set in Vercel production, not just `.env.local`
 - [ ] `/kitchen-sink` route deleted
+- [ ] **Compliance** (see `docs/LEGAL-COMPLIANCE.md` section 11, the "Blocks launch" list): privacy policy and terms pages (header links already point at `/privacy` and `/terms`); USDA/FDC attribution; nutrition and allergen disclaimers ("estimated"); AI-assisted recipe label and `/about/how-recipes-are-made`; Vercel Pro if any monetisation (Hobby is non-commercial only); Google OAuth consent screen needs a real homepage and privacy link; account deletion path (M4.3); accessibility pass
 - [ ] Custom domain
 - [ ] Tested on a real phone, not just devtools
 - [ ] 3 real people used it while you watched silently
@@ -797,6 +806,12 @@ Same form, prefilled. Delete with a confirm dialog.
 # PHASE 7+ — Post-launch (the features you listed)
 
 Do not start these until real users have used the MVP. Order is deliberate.
+
+### Ideas (added 2026-10-09 — not milestones, not started)
+
+- **Fridge.** A personal ingredient inventory with purchase and expiration dates. It feeds the pantry matcher, adds a "use it up" sort by soonest expiry, highlights owned ingredients on recipe pages, and subtracts owned items from the shopping list. Needs M4 accounts. (The matcher's `must_use_ids` parameter is the seed of this.)
+- **Paste a blog URL, get a clean No-BS recipe.** A user-facing import: extract the recipe (schema.org `Recipe` JSON-LD first), parse and resolve ingredients through the existing pipeline, rewrite the steps in Minced voice, and keep the result private to that user with source attribution. Legal constraints are in `docs/LEGAL-COMPLIANCE.md` section 1.4; read it before designing.
+- **Fitness section** stays v2 as already planned (see "v2 — Workout plans" below).
 
 ### v1.1 — Shopping list
 Already designed in the mockup. `shopping_list_items` table, "Add all ingredients" button on the recipe page, merge duplicates across recipes (2 cloves garlic + 3 cloves garlic = 5), group by aisle category.
