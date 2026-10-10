@@ -51,8 +51,11 @@ export default function AboutPage() {
       <Section id="ai" title="Minced originals: drafted with AI, reviewed by Minced">
         <p>
           Some recipes are marked <span className="whitespace-nowrap font-mono text-[0.8125rem]">Drafted with AI, reviewed by Minced</span>.
-          An AI model wrote the first draft; a person then checked the
-          ingredients, amounts, steps and cook times and fixed what was wrong.
+          An AI model wrote the draft. Each dish was checked against several
+          independent recipes to confirm it is a real, traditional dish with a
+          standard ingredient list, and Minced reviewed the result for ingredient
+          matching. Amounts, cook times and steps are our own and have not all
+          been checked by a cook.
         </p>
         <p>
           That is not the same as cooked and tested in a kitchen. If a time or
@@ -65,8 +68,9 @@ export default function AboutPage() {
       <Section id="photos" title="Photos">
         <p>
           A photo appears only when we can use it honestly: public-domain photos
-          from U.S. federal sources, or Wikimedia Commons files licensed CC0,
-          CC BY or CC BY-SA, with the author credited on the image. Where a
+          (USDA MyPlate photographs and Wikimedia Commons files marked public
+          domain), or Wikimedia Commons files licensed CC0, CC BY or CC BY-SA,
+          with the author credited on the image where the licence asks for it. Where a
           photo is not free to use, or isn&apos;t a real picture of that dish, the
           card shows a plain striped block instead. We never show an AI-generated
           image as the finished dish.
@@ -76,7 +80,9 @@ export default function AboutPage() {
       <Section id="nutrition" title="Nutrition is an estimate">
         <p>
           Calories and nutrients are estimated from USDA FoodData Central, which
-          is public domain. Brands, trimming, cooking method and how you measure
+          is public domain. Recipes adapted from MyPlate Kitchen carry USDA&apos;s
+          own published values; for the rest, Minced adds up the USDA values of
+          each ingredient. Brands, trimming, cooking method and how you measure
           all move the real numbers. Treat them as a guide, not a label.
         </p>
         <p>
@@ -103,7 +109,8 @@ export default function AboutPage() {
           thing. Salt, pepper, oil, butter, sugar, flour and water are assumed to
           be in your kitchen and never count as missing, and optional ingredients
           are not counted either. Your pantry stays in your browser and in the
-          link you share. There are no accounts yet.
+          link you share. Minced does not save anything to an account yet, so
+          log in and shopping-list pages are not available.
         </p>
       </Section>
 
