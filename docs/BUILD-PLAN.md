@@ -21,19 +21,19 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #9 | **M1.5.1** Canonical ingredients + alias table | ☑ |
 | #10 | **M1.5.2** Ingredient parser (ingredient-parser-nlp) | ☑ |
 | #11 | **M1.5.3** USDA MyPlate Kitchen bulk import | ☑ |
-| #12 | **M1.5.4** USDA FoodData Central nutrition pipeline | ☐ |
+| #12 | **M1.5.4** USDA FoodData Central nutrition pipeline | ☑ |
 | #13 | **M1.5.5** Recipe generation pipeline (Tier 2, Minced voice) | ☐ |
 | #14 | **M1.5.6** Admin review queue at /admin/review | ☐ |
 | #15 | **M1.5.7** Fill to 500+ and close pantry coverage gaps | ☐ |
 | #16 | **M2.1** Extract Minced design tokens into globals.css | ☑ |
 | #17 | **M2.2** Build UI primitives + /kitchen-sink route | ☑ |
 | #18 | **M2.3** App shell: header, nav, footer, responsive | ☑ |
-| #19 | **M3.1** Browse page with cursor-paginated recipe grid | ☐ |
-| #20 | **M3.2** Recipe detail page with servings scaler | ☐ |
-| #21 | **M3.3** PANTRY MATCHER — match_recipes RPC + autocomplete | ☐ |
-| #22 | **M3.4** Conventional filters layered into match_recipes | ☐ |
-| #23 | **M3.5** Postgres full-text search | ☐ |
-| #24 | **M3.6** Landing page (pantry input above the fold) | ☐ |
+| #19 | **M3.1** Browse page with cursor-paginated recipe grid | ☑ |
+| #20 | **M3.2** Recipe detail page with servings scaler | ☑ |
+| #21 | **M3.3** PANTRY MATCHER — match_recipes RPC + autocomplete | ☑ |
+| #22 | **M3.4** Conventional filters layered into match_recipes | ☑ |
+| #23 | **M3.5** Postgres full-text search | ☑ |
+| #24 | **M3.6** Landing page (pantry input above the fold) | ☑ |
 | #25 | **M3.7** Programmatic /what-can-i-make/[combo] SEO pages | ☐ |
 | #26 | **M4.1** Supabase Auth: email + Google, middleware, login/signup | ☐ |
 | #27 | **M4.2** Favorites with optimistic updates | ☐ |
@@ -507,7 +507,9 @@ Make it resumable: interrupting it must not lose progress or duplicate rows.
 
 **Not done, deliberately:** 247 recipes remain rejected. 38 have no ingredients or directions at all — MyPlate includes a few children's craft activities that call for popsicle sticks. The other 209 are a long tail of one-off names. Closing that tail is M1.5.7's job, and the queue is sorted by frequency so it can be worked top-down.
 
-### ☐ M1.5.4 — USDA FoodData Central nutrition pipeline
+### ☑ M1.5.4 — USDA FoodData Central nutrition pipeline
+
+> **Closed 2026-10-09 (wave 2) under a reframed DoD, approved by the user.** The original DoD ("within 10% of the mockup numbers") compared against hand-written estimates, not ground truth. New DoD: seed recipes list every ingredient their steps use, and computed values match an independent hand calculation from USDA records within 10%. Verified: 4 recipes hand-computed, all within 10%; 100 AI-drafted recipes got computed nutrition (0 null calories of 978); MyPlate rows untouched (md5 identical); pipeline idempotent and reproducible. Live apply is a post-merge step. See LEARNING-LOG Entry 23.
 
 > **Wave 1 status (2026-10-09): built, NOT closed.** `scripts/nutrition/` computes per-serving nutrition from a curated FDC map; 6 of 36 values are within 10% of the mockup (0 of 6 recipes). Causes: seed ingredient lists omit oil/rice/broth their steps use, and the mockup numbers are hand estimates. **Needs a decision:** fix the seed lists, accept computed values, or relax the DoD. See LEARNING-LOG Entry 17.
 
@@ -553,6 +555,8 @@ Everything lands in `pending_review` — imports included. Reviewing is ~1–2 m
 `/admin/review` — one recipe per screen, keyboard-driven: `J`/`K` to move, `A` to approve, `E` to edit inline, `X` to reject. Batch approve. Admin-gated by RLS. Show the resolved canonical ingredients prominently, since a bad resolve is the failure mode that actually hurts matching.
 
 ### ☐ M1.5.7 — Fill to 500+ and close coverage gaps
+
+> **Wave 2 status:** the 20-pantry harness is built and passes (20/20; fewest matches 54-56, slowest under 50 ms) and 18 duplicate-title groups have a merge script (not yet run on live). **Stays unchecked:** the 500+ reviewed recipes and the 247 rejected-recipe queue need your personal review. See Entry 26.
 
 > **Wave 1 status:** content lane added 100 original recipes (978 total), allergen data (12 to 195 rows), 25 cuisines and +90 ingredients. Still open: the 20-pantry test harness, 500+ reviewed recipes, ingredient families and the staple list (see LEARNING-LOG Entry 18 and 20). **Photos** (`wave1/photos`, not merged) resumes in wave 2: most MyPlate photos turned out to be third-party credited, not public domain, so do not assume they are reusable.
 
@@ -612,15 +616,21 @@ Header, nav, footer, mobile breakpoints. Matches the mockup's landing nav.
 > **Time:** 2–3 weeks. **Goal:** the six-step user flow, working, ugly edge cases and all.
 > This is the spine. Everything before was setup; everything after is addition. M3.3 is the single most important milestone in this document.
 
-### ☐ M3.1 — Browse page (server-rendered grid, paginated)
+### ☑ M3.1 — Browse page (server-rendered grid, paginated)
+
+> **Closed 2026-10-09 (wave 2).** `/recipes` walked by cursor links: 978 cards, 978 unique, 41 pages of 24. See LEARNING-LOG Entry 24.
 `/recipes` — fetch recipes on the server, render `RecipeCard` grid. No filters yet.
 
 **Paginate from day one.** 24 per page, cursor-based (`?cursor=`), not offset-based. Offset pagination (`LIMIT 24 OFFSET 480`) makes Postgres scan and discard 480 rows to reach page 21; cursor pagination (`WHERE created_at < $cursor`) uses the index and stays fast at any depth. Retrofitting this later means changing the query, the URL shape, and the UI at once.
 
-### ☐ M3.2 — Recipe detail page
+### ☑ M3.2 — Recipe detail page
+
+> **Closed 2026-10-09 (wave 2).** All 978 recipe pages render with ingredient and step counts equal to the database; scaling hand-checked. ISR (revalidate 3600), not build-time static params. See Entry 24.
 `/recipes/[slug]` — ingredients grouped by category, numbered steps, nutrition table, notes. Plus the **servings scaler** (the mockup has one — quantities recompute live). Generate static params so recipe pages are prerendered.
 
-### ☐ M3.3 — **The pantry matcher** ← this is the product
+### ☑ M3.3 — **The pantry matcher** ← this is the product
+
+> **Closed 2026-10-09 (wave 2).** UI plus backend verified end to end. Latency: the DB function is about 22 ms as superuser but 130-165 ms as the `anon` role (RLS cost per row); p50 is under 200 ms with thin headroom, so re-measure on Vercel and see the RLS note in Entry 25. See Entry 25.
 
 > **Wave 1 status: backend only.** `match_recipes` and `suggest_ingredients` are built and verified (migration `20261009110000`). The UI half (pantry input, URL state, localStorage, "you are missing") is wave 2, so this box stays unchecked. See LEARNING-LOG Entry 18.
 
@@ -675,7 +685,9 @@ which indexes are doing the work.
 
 **DoD:** enter chicken, rice, onion, garlic, soy sauce → get sensible recipes ranked by coverage, in under 200ms, with an accurate "you're missing: scallion, sesame oil."
 
-### ☐ M3.4 — Conventional filters, layered on top
+### ☑ M3.4 — Conventional filters, layered on top
+
+> **Closed 2026-10-09 (wave 2).** Filters live inside `match_recipes` and `search_recipes`; ingredient families added; verified against an independent oracle. See Entry 26.
 Time, macros, cookware, spice, diet, allergens. Same URL-state pattern, applied as additional `WHERE` clauses inside the same RPC — not as a second query.
 
 **Claude Code prompt:**
@@ -688,7 +700,9 @@ Explain the "exclude recipes containing any of these allergens" case — it's a 
 correlated subquery and it's the one people get wrong.
 ```
 
-### ☐ M3.5 — Search **(P0 — Door 2)**
+### ☑ M3.5 — Search **(P0 — Door 2)**
+
+> **Closed 2026-10-09 (wave 2).** `/recipes?q=` works for cacio, shakshuka, chickpea, korean and typos; backend 1-16 ms. See Entry 24.
 
 > **Wave 1 status: backend only.** `search_recipes` plus the trigger bloat fix are built and verified (migrations `20261009120000`-`120200`). The `/recipes?q=` UI is wave 2, so this box stays unchecked. See LEARNING-LOG Entry 19.
 
@@ -714,7 +728,9 @@ type here, and at what catalog size Postgres full-text would stop being enough.
 
 **DoD:** searching "cacio", "shakshuka", "chickpea", and "korean" each return sensible ranked results in under 100ms. A typo still finds the dish.
 
-### ☐ M3.6 — Landing page
+### ☑ M3.6 — Landing page
+
+> **Closed 2026-10-09 (wave 2).** Landing has both doors above the fold at 375px and 1280px; `/about` written. See Entry 25.
 
 Build it last — it's marketing for the thing, and you can't market a thing that doesn't exist yet.
 
@@ -742,7 +758,8 @@ Explain generateStaticParams, ISR, and how to keep build times sane if this grow
 to thousands of pages.
 ```
 
-**DoD for Phase 3 — both doors work:**
+**DoD for Phase 3 — both doors work: PASSED 2026-10-09 (wave 2).** A verifier acted as a stranger at 375px, logged out: four fridge items to a ranked list to a cookable recipe, and "shakshuka" to its page. Remaining caveat: pantry match latency is 130-165 ms against a 200 ms budget; re-measure on Vercel.
+
 
 1. A stranger types four things from their fridge, gets recipes ranked by what they're missing, opens one, and cooks it.
 2. A stranger types "shakshuka", finds it, opens it, and cooks it.

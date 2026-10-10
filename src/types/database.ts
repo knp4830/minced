@@ -117,16 +117,19 @@ export type Database = {
       ingredient_aliases: {
         Row: {
           alias: string
+          alias_norm: string | null
           id: number
           ingredient_id: number
         }
         Insert: {
           alias: string
+          alias_norm?: string | null
           id?: never
           ingredient_id: number
         }
         Update: {
           alias?: string
+          alias_norm?: string | null
           id?: never
           ingredient_id?: number
         }
@@ -191,9 +194,11 @@ export type Database = {
           canonical_name: string
           created_at: string
           density_g_per_ml: number | null
+          family_id: number | null
           fdc_id: number | null
           id: number
           is_pantry_staple: boolean
+          name_norm: string | null
           slug: string
         }
         Insert: {
@@ -201,9 +206,11 @@ export type Database = {
           canonical_name: string
           created_at?: string
           density_g_per_ml?: number | null
+          family_id?: number | null
           fdc_id?: number | null
           id?: never
           is_pantry_staple?: boolean
+          name_norm?: string | null
           slug: string
         }
         Update: {
@@ -211,12 +218,22 @@ export type Database = {
           canonical_name?: string
           created_at?: string
           density_g_per_ml?: number | null
+          family_id?: number | null
           fdc_id?: number | null
           id?: never
           is_pantry_staple?: boolean
+          name_norm?: string | null
           slug?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "ingredients_family_id_fkey"
+            columns: ["family_id"]
+            isOneToOne: false
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -380,6 +397,62 @@ export type Database = {
             columns: ["unit_id"]
             isOneToOne: false
             referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipe_photos: {
+        Row: {
+          alt_text: string | null
+          attribution_url: string
+          created_at: string
+          credit: string | null
+          height: number
+          license: string
+          license_url: string | null
+          recipe_id: string
+          source: string
+          source_image_url: string | null
+          storage_path: string
+          thumb_path: string | null
+          width: number
+        }
+        Insert: {
+          alt_text?: string | null
+          attribution_url: string
+          created_at?: string
+          credit?: string | null
+          height: number
+          license: string
+          license_url?: string | null
+          recipe_id: string
+          source: string
+          source_image_url?: string | null
+          storage_path: string
+          thumb_path?: string | null
+          width: number
+        }
+        Update: {
+          alt_text?: string | null
+          attribution_url?: string
+          created_at?: string
+          credit?: string | null
+          height?: number
+          license?: string
+          license_url?: string | null
+          recipe_id?: string
+          source?: string
+          source_image_url?: string | null
+          storage_path?: string
+          thumb_path?: string | null
+          width?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_photos_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: true
+            referencedRelation: "recipes"
             referencedColumns: ["id"]
           },
         ]
@@ -578,6 +651,7 @@ export type Database = {
         Args: { p_cuisine_id: number; p_recipe_id: string; p_title: string }
         Returns: unknown
       }
+      expand_ingredient_family: { Args: { ids: number[] }; Returns: number[] }
       ingredient_coverage: {
         Args: { min_similarity?: number; raw_names: string[] }
         Returns: {
@@ -590,12 +664,20 @@ export type Database = {
       }
       match_recipes: {
         Args: {
+          cuisine_slugs?: string[]
           cursor_coverage?: number
           cursor_have?: number
           cursor_recipe_id?: string
           cursor_time_key?: number
+          diet_slugs?: string[]
+          exclude_allergen_slugs?: string[]
+          max_calories?: number
           max_missing?: number
+          max_spice?: number
+          max_total_min?: number
+          min_calories?: number
           min_have?: number
+          min_protein_g?: number
           must_use_ids?: number[]
           page_size?: number
           pantry_ids: number[]
