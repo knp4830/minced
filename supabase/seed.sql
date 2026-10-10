@@ -6,6 +6,11 @@
 -- key; each recipe upserts by slug and has its children deleted and rebuilt, so
 -- re-running never duplicates and always converges on this file's contents.
 --
+-- Nutrition is NOT inserted either. calories..fiber_g are computed from USDA
+-- FoodData Central by scripts/nutrition/nutrition.py and written by its generated
+-- scripts/nutrition/artifacts/recipe-nutrition.sql (run it after this file). The
+-- mockup's hand-written numbers were estimates and are deliberately gone.
+--
 -- Allergens are NOT inserted. recipe_allergens is a derived cache, rebuilt by
 -- trigger from ingredient_allergens. Writing it by hand is exactly the mistake
 -- SCHEMA-NOTES.md Decision 2 exists to prevent.
@@ -114,49 +119,45 @@ on conflict do nothing;
 --
 -- author_id stays NULL: these are imported from the design mockup, not authored
 -- by a user. RLS then makes them uneditable through the API by construction.
--- Nutrition is PER SERVING, matching the mockup's own numbers.
+-- Every ingredient a recipe's own steps use is listed here (cooking oil, the
+-- rice the salmon is served over, the broth the ramen simmers in): the nutrition
+-- pipeline can only count what the recipe lists.
 -- ---------------------------------------------------------------------------
 
 insert into recipes (
   slug, title, cuisine_id, status, prep_time_min, cook_time_min, servings,
-  spice_level, cost_per_serving, calories, protein_g, carbs_g, fat_g,
-  sodium_mg, fiber_g, notes, source_name, source_license
+  spice_level, cost_per_serving, notes, source_name, source_license
 )
 select
   x.slug, x.title, c.id, 'published', x.prep, x.cook, x.servings,
-  x.spice, x.cost, x.cal, x.protein, x.carbs, x.fat, x.sodium, x.fiber,
-  x.notes, 'Minced design mockup (design/Minced.dc.html)',
+  x.spice, x.cost, x.notes, 'Minced design mockup (design/Minced.dc.html)',
   'Original work authored for this project'
 from (values
   ('gochujang-glazed-salmon','Gochujang-Glazed Salmon','Korean',
-   10,14,4,3,4.60, 520,38,22,30,680,2,
+   10,14,4,3,4.60,
    'Broil the last 90 seconds for a darker, stickier crust. Halibut works too.'),
   ('chana-masala','Chana Masala','Indian',
-   10,25,4,3,1.90, 390,16,58,11,540,14,
+   10,25,4,3,1.90,
    'Better the next day. Serve with rice or warm flatbread.'),
   ('cacio-e-pepe','Cacio e Pepe','Italian',
-   5,13,2,1,2.10, 640,24,82,24,590,3,
+   5,13,2,1,2.10,
    'Pull the pan off the heat before the cheese goes in, or it seizes.'),
   ('shakshuka','Shakshuka','North African',
-   10,20,3,2,2.40, 340,18,24,20,620,6,
+   10,20,3,2,2.40,
    'Make wells for the eggs and cover the pan so the tops set.'),
   ('miso-mushroom-ramen','Miso Mushroom Ramen','Japanese',
-   8,20,2,2,3.50, 560,22,74,20,980,5,
+   8,20,2,2,3.50,
    'Never boil miso -- it goes flat. Stir it in off the heat.'),
   ('harissa-roast-cauliflower','Harissa Roast Cauliflower','Tunisian',
-   10,30,4,3,2.20, 300,9,28,18,470,9,
+   10,30,4,3,2.20,
    'Crowding steams instead of roasting -- use two pans if needed.')
-) as x(slug,title,cuisine,prep,cook,servings,spice,cost,
-       cal,protein,carbs,fat,sodium,fiber,notes)
+) as x(slug,title,cuisine,prep,cook,servings,spice,cost,notes)
 join cuisines c on c.name = x.cuisine
 on conflict (slug) do update set
   title = excluded.title, cuisine_id = excluded.cuisine_id,
   status = excluded.status, prep_time_min = excluded.prep_time_min,
   cook_time_min = excluded.cook_time_min, servings = excluded.servings,
   spice_level = excluded.spice_level, cost_per_serving = excluded.cost_per_serving,
-  calories = excluded.calories, protein_g = excluded.protein_g,
-  carbs_g = excluded.carbs_g, fat_g = excluded.fat_g,
-  sodium_mg = excluded.sodium_mg, fiber_g = excluded.fiber_g,
   notes = excluded.notes,
   -- Rewritten on every run: the deletes below key on this prefix, so rows
   -- seeded under the old "Mise" name must be renamed before they run.
@@ -181,6 +182,7 @@ from (values
   ('gochujang-glazed-salmon','garlic',            2,   'clove', 'grated',   false,6),
   ('gochujang-glazed-salmon','scallion',          3,   'stalk', 'sliced',   false,7),
   ('gochujang-glazed-salmon','sesame seeds',      1,   'tsp',   'toasted',  false,8),
+  ('gochujang-glazed-salmon','white rice',        3,   'cup',   'cooked, to serve', false,9),
   -- Chana Masala
   ('chana-masala','chickpeas',        2,   'can',  'drained', false,1),
   ('chana-masala','crushed tomatoes', 1,   'can',  '',        false,2),
@@ -190,10 +192,14 @@ from (values
   ('chana-masala','garam masala',     2,   'tsp',  '',        false,6),
   ('chana-masala','ground cumin',     1,   'tsp',  '',        false,7),
   ('chana-masala','cayenne',          0.5, 'tsp',  '',        false,8),
+  ('chana-masala','vegetable oil',    2,   'tbsp', '',        false,9),
+  ('chana-masala','lemon',            2,   'tbsp', 'juice, to finish', false,10),
+  ('chana-masala','salt',             null,null,   'to taste', false,11),
   -- Cacio e Pepe
   ('cacio-e-pepe','spaghetti',       200, 'g',   'or tonnarelli', false,1),
   ('cacio-e-pepe','pecorino romano',  80, 'g',   'grated',        false,2),
   ('cacio-e-pepe','black pepper',      2, 'tsp', 'coarse',        false,3),
+  ('cacio-e-pepe','salt',            null, null,  'for the pasta water', false,4),
   -- Shakshuka
   ('shakshuka','egg',             5, null,  '',       false,1),
   ('shakshuka','whole tomatoes',  1, 'can', '',       false,2),
@@ -201,6 +207,7 @@ from (values
   ('shakshuka','yellow onion',    1, null,  'sliced', false,4),
   ('shakshuka','smoked paprika',  1, 'tsp', '',       false,5),
   ('shakshuka','ground cumin',    1, 'tsp', '',       false,6),
+  ('shakshuka','olive oil',       2, 'tbsp','',       false,7),
   -- Miso Mushroom Ramen
   ('miso-mushroom-ramen','ramen noodles',2,  'portion','fresh',       false,1),
   ('miso-mushroom-ramen','white miso',   3,  'tbsp',   '',            false,2),
@@ -208,13 +215,15 @@ from (values
   ('miso-mushroom-ramen','garlic',       2,  'clove',  '',            false,4),
   ('miso-mushroom-ramen','soy sauce',    1,  'tbsp',   '',            false,5),
   ('miso-mushroom-ramen','egg',          2,  null,     'soft-boiled', true, 6),
+  ('miso-mushroom-ramen','vegetable broth',700,'ml',     '',            false,7),
   -- Harissa Roast Cauliflower
   ('harissa-roast-cauliflower','cauliflower',     1,'head','in florets',false,1),
   ('harissa-roast-cauliflower','harissa paste',   2,'tbsp','',          false,2),
   ('harissa-roast-cauliflower','olive oil',       3,'tbsp','',          false,3),
   ('harissa-roast-cauliflower','chickpeas',       1,'can', 'drained',   false,4),
   ('harissa-roast-cauliflower','lemon',           1,null,  '',          false,5),
-  ('harissa-roast-cauliflower','ground coriander',1,'tsp', '',          false,6)
+  ('harissa-roast-cauliflower','ground coriander',1,'tsp', '',          false,6),
+  ('harissa-roast-cauliflower','fresh parsley',   0.25,'cup','chopped, to finish', true,7)
 ) as x(recipe, ingredient, qty, unit, prep, optional, ord)
 join recipes     r on r.slug           = x.recipe
 join ingredients i on i.canonical_name = x.ingredient
@@ -237,17 +246,17 @@ from (values
   ('cacio-e-pepe',3,'Off heat, toss pasta with pecorino and water until glossy.'),
   ('cacio-e-pepe',4,'Loosen with more pasta water as needed; serve immediately.'),
   ('shakshuka',1,'Soften onion and pepper in oil, 8–10 min.'),
-  ('shakshuka',2,'Add spices, then crushed tomatoes; simmer 10 min.'),
+  ('shakshuka',2,'Add spices, then the tomatoes, crushing them with a spoon; simmer 10 min.'),
   ('shakshuka',3,'Make wells and crack in the eggs.'),
   ('shakshuka',4,'Cover and cook 6–8 min until whites set but yolks stay soft.'),
   ('miso-mushroom-ramen',1,'Sear mushrooms in a dry pot until browned, then add garlic.'),
-  ('miso-mushroom-ramen',2,'Add 700 ml water and soy sauce; simmer 10 min.'),
+  ('miso-mushroom-ramen',2,'Add the vegetable broth and soy sauce; simmer 10 min.'),
   ('miso-mushroom-ramen',3,'Cook noodles separately so the broth stays clear.'),
   ('miso-mushroom-ramen',4,'Off heat, whisk in miso. Never boil it. Ladle over noodles.'),
   ('harissa-roast-cauliflower',1,'Heat oven to 450°F.'),
   ('harissa-roast-cauliflower',2,'Toss cauliflower and chickpeas with harissa, oil, and coriander.'),
   ('harissa-roast-cauliflower',3,'Roast 28–32 min, turning once, until charred at the edges.'),
-  ('harissa-roast-cauliflower',4,'Finish with lemon and herbs; great over yogurt or grains.')
+  ('harissa-roast-cauliflower',4,'Finish with lemon and parsley; great over yogurt or grains.')
 ) as x(recipe, ord, instruction)
 join recipes r on r.slug = x.recipe;
 
