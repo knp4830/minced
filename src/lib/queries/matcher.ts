@@ -1,3 +1,4 @@
+import type { RecipeFilters } from "@/lib/filters";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -29,21 +30,6 @@ export type PantryMatch = {
   missingIngredientIds: number[];
   /** Canonical names, alphabetical -- ready for "you're missing: ...". */
   missingNames: string[];
-};
-
-export type MatchRecipesInput = {
-  /** Ingredient ids the user has. Staples in here are harmless. */
-  pantryIds: number[];
-  /** Show recipes missing at most this many ingredients. Default 3. */
-  maxMissing?: number;
-  /** "Use it up": every id here must appear in the recipe. Implicitly in the pantry. */
-  mustUseIds?: number[];
-  /** Require at least this many pantry ingredients in the recipe. Default 1. */
-  minHave?: number;
-  /** 1..99. Default 24. */
-  pageSize?: number;
-  /** The `nextCursor` of the previous page. */
-  cursor?: string | null;
 };
 
 export type MatchRecipesResult = {
@@ -143,23 +129,30 @@ function cleanIds(ids: number[] | undefined): number[] {
  * An empty pantry returns nothing rather than the whole catalog: "what can I
  * make with nothing" has no useful answer, and the browse page is for that.
  */
-export async function matchRecipes(input: MatchRecipesInput): Promise<MatchRecipesResult> {
-  const pantryIds = cleanIds(input.pantryIds);
-  const mustUseIds = cleanIds(input.mustUseIds);
+export async function matchRecipes(
+  filters: RecipeFilters,
+  options: { pageSize?: number; minHave?: number } = {},
+): Promise<MatchRecipesResult> {
+  const pantryIds = cleanIds(filters.pantry);
+  const mustUseIds = cleanIds(filters.use);
   if (pantryIds.length === 0 && mustUseIds.length === 0) {
     return { matches: [], nextCursor: null };
   }
 
-  const pageSize = Math.min(Math.max(Math.trunc(input.pageSize ?? 24), 1), 99);
-  const cursor = decodeCursor(input.cursor);
+  const pageSize = Math.min(Math.max(Math.trunc(options.pageSize ?? 24), 1), 99);
+  const cursor = decodeCursor(filters.cursor);
 
   // Ask for one extra row: if it comes back, there is a next page.
+  // TODO(matcher-quality): once match_recipes accepts them, pass maxTime ->
+  // max_total_min, cuisine -> cuisine_slugs, diet -> diet_slugs, exclude ->
+  // exclude_allergen_slugs, spiceMax -> max_spice, calMin/calMax ->
+  // min_calories/max_calories, proteinMin -> min_protein_g (see lib/filters.ts).
   const supabase = await createClient();
   const { data, error } = await supabase.rpc("match_recipes", {
     pantry_ids: pantryIds,
-    max_missing: Math.max(Math.trunc(input.maxMissing ?? 3), 0),
+    max_missing: Math.max(Math.trunc(filters.maxMissing ?? 3), 0),
     must_use_ids: mustUseIds,
-    min_have: Math.max(Math.trunc(input.minHave ?? 1), 1),
+    min_have: Math.max(Math.trunc(options.minHave ?? 1), 1),
     page_size: pageSize + 1,
     ...(cursor
       ? {
