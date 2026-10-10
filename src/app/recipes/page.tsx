@@ -75,6 +75,17 @@ export default async function RecipesPage({ searchParams }: Props) {
   const nextHref = page.nextCursor
     ? `/recipes${filtersToQuery({ ...filters, cursor: page.nextCursor })}`
     : null;
+  const unknown = [
+    filters.maxTime !== undefined && "a time",
+    filters.spiceMax !== undefined && "a spice level",
+    (filters.calMin !== undefined ||
+      filters.calMax !== undefined ||
+      filters.proteinMin !== undefined) &&
+      "nutrition data",
+  ].filter(Boolean);
+  const unknownNote = unknown.length
+    ? `Recipes with no listed ${unknown.join(" or ")} are included${filters.q ? ", after the ones that fit" : ""}.`
+    : null;
   const count = countLabel(page.total, page.totalIsLowerBound, !!filters.q);
   const activeCount = activeFilterCount(filters);
 
@@ -145,6 +156,12 @@ export default async function RecipesPage({ searchParams }: Props) {
           {page.fuzzy && (
             <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">
               No recipe has those exact words. Showing similar spellings.
+            </p>
+          )}
+
+          {unknownNote && page.recipes.length > 0 && (
+            <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">
+              {unknownNote}
             </p>
           )}
 
