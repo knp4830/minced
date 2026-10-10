@@ -1,34 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 
+import type { RecipeFilters } from "@/lib/filters";
 import type { RecipeCard } from "@/lib/queries/recipes";
-
-/**
- * Filters shared with the pantry matcher (M3.4). Names mirror the Postgres
- * parameters of `search_recipes` one-to-one (camelCase here, snake_case there)
- * so the two features can take the same URL params.
- *
- * Every field is optional and means "no constraint" when absent.
- */
-export type RecipeFilters = {
-  /** `total_time_min <=`. Recipes with unknown time are excluded when set. */
-  maxTotalMin?: number;
-  maxPrepMin?: number;
-  /** Cuisine slugs; a recipe matches if it is ANY of them. */
-  cuisineSlugs?: string[];
-  /** Diet slugs; a recipe must carry ALL of them. */
-  dietSlugs?: string[];
-  /** Allergen slugs; a recipe must carry NONE of them. */
-  excludeAllergenSlugs?: string[];
-  maxSpice?: number;
-  minCalories?: number;
-  maxCalories?: number;
-  minProteinG?: number;
-  maxProteinG?: number;
-  minCarbsG?: number;
-  maxCarbsG?: number;
-  minFatG?: number;
-  maxFatG?: number;
-};
 
 /**
  * `text`  — the query's words were found (stemmed, ranked by weight).
@@ -49,7 +22,8 @@ export type SearchCursor = { score: number; id: string };
 export type SearchPage = {
   results: SearchResult[];
   /** `null` when this is the last page. */
-  nextCursor: SearchCursor | null;
+  /** Ready for `?cursor=` (see `withFilters`); `null` on the last page. */
+  nextCursor: string | null;
 };
 
 type SearchRpcRow = {
@@ -84,29 +58,22 @@ export function decodeSearchCursor(raw: string | null | undefined): SearchCursor
   return { score, id };
 }
 
-/** Maps camelCase filters to the RPC's argument names. Exported for testing. */
+/** Maps the shared RecipeFilters to `search_recipes` arguments. Exported for testing. */
 export function buildSearchArgs(
-  q: string,
   filters: RecipeFilters,
   limit: number,
   cursor: SearchCursor | null,
 ) {
   return {
-    q,
-    max_total_min: filters.maxTotalMin,
-    max_prep_min: filters.maxPrepMin,
-    cuisine_slugs: filters.cuisineSlugs,
-    diet_slugs: filters.dietSlugs,
-    exclude_allergen_slugs: filters.excludeAllergenSlugs,
-    max_spice: filters.maxSpice,
-    min_calories: filters.minCalories,
-    max_calories: filters.maxCalories,
-    min_protein_g: filters.minProteinG,
-    max_protein_g: filters.maxProteinG,
-    min_carbs_g: filters.minCarbsG,
-    max_carbs_g: filters.maxCarbsG,
-    min_fat_g: filters.minFatG,
-    max_fat_g: filters.maxFatG,
+    q: filters.q ?? "",
+    max_total_min: filters.maxTime,
+    cuisine_slugs: filters.cuisine,
+    diet_slugs: filters.diet,
+    exclude_allergen_slugs: filters.exclude,
+    max_spice: filters.spiceMax,
+    min_calories: filters.calMin,
+    max_calories: filters.calMax,
+    min_protein_g: filters.proteinMin,
     // One extra row tells us whether another page exists without a count query.
     result_limit: limit + 1,
     cursor_score: cursor?.score,
@@ -126,19 +93,15 @@ export function buildSearchArgs(
  * their own drafts), same as every other query in this folder.
  */
 export async function searchRecipes(
-  q: string,
-  options: {
-    filters?: RecipeFilters;
-    limit?: number;
-    cursor?: SearchCursor | null;
-  } = {},
+  filters: RecipeFilters,
+  options: { limit?: number } = {},
 ): Promise<SearchPage> {
   const limit = Math.min(Math.max(options.limit ?? DEFAULT_LIMIT, 1), MAX_LIMIT - 1);
   const supabase = await createClient();
 
   const { data, error } = await supabase.rpc(
     "search_recipes",
-    buildSearchArgs(q, options.filters ?? {}, limit, options.cursor ?? null),
+    buildSearchArgs(filters, limit, decodeSearchCursor(filters.cursor)),
   );
   if (error) throw error;
 
@@ -161,6 +124,8 @@ export async function searchRecipes(
   return {
     results,
     nextCursor:
-      rows.length > limit && last ? { score: last.score, id: last.id } : null,
+      rows.length > limit && last
+        ? encodeSearchCursor({ score: last.score, id: last.id })
+        : null,
   };
 }
