@@ -118,3 +118,29 @@ export async function getUnresolvedIngredientNames(
   const coverage = await getIngredientCoverage(rawNames, minSimilarity);
   return coverage.filter((row) => row.resolved === null).map((row) => row.rawName);
 }
+
+/** An ingredient id with the name a cook would type. */
+export type IngredientName = { id: number; name: string };
+
+/**
+ * Names for a set of ids -- the pantry URL carries ids (`?pantry=12,40`), the
+ * chips need words. One query, returned in the order the ids were given so the
+ * chips keep the order the cook added them in. Unknown ids are dropped.
+ */
+export async function getIngredientNames(ids: number[]): Promise<IngredientName[]> {
+  const unique = [...new Set(ids.filter((n) => Number.isInteger(n) && n > 0))];
+  if (unique.length === 0) return [];
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("ingredients")
+    .select("id, canonical_name")
+    .in("id", unique);
+  if (error) throw error;
+
+  const byId = new Map((data ?? []).map((r) => [r.id, r.canonical_name]));
+  return unique.flatMap((id) => {
+    const name = byId.get(id);
+    return name ? [{ id, name }] : [];
+  });
+}

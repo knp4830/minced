@@ -3,7 +3,9 @@ import { Wordmark } from "@/components/shell/wordmark";
 
 const links = [
   { href: "/recipes", label: "Recipes" },
+  { href: "/pantry", label: "Pantry" },
   { href: "/shopping", label: "Shopping list" },
+  { href: "/about", label: "How recipes are made" },
   { href: "/login", label: "Log in" },
 ] as const;
 
