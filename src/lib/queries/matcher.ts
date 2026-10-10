@@ -1,5 +1,6 @@
 import type { RecipeFilters } from "@/lib/filters";
 import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/types/database";
 
 /**
  * Pantry matcher (M3.3) -- typed wrappers over two Postgres functions.
@@ -115,6 +116,48 @@ function decodeCursor(raw: string | null | undefined): Cursor | null {
   }
 }
 
+/**
+ * Maps the shared RecipeFilters to `match_recipes` arguments (the M3.4 filters
+ * are the trailing parameters; names mirror `search_recipes`). Unset filters are
+ * omitted, never sent as null, so PostgREST applies the SQL defaults. Exported
+ * for testing.
+ */
+export function buildMatchArgs(
+  filters: RecipeFilters,
+  input: {
+    pantryIds: number[];
+    mustUseIds: number[];
+    pageSize: number;
+    minHave?: number;
+    cursor: Cursor | null;
+  },
+) {
+  const { cursor } = input;
+  return {
+    pantry_ids: input.pantryIds,
+    max_missing: Math.max(Math.trunc(filters.maxMissing ?? 3), 0),
+    must_use_ids: input.mustUseIds,
+    min_have: Math.max(Math.trunc(input.minHave ?? 1), 1),
+    page_size: input.pageSize,
+    ...(cursor
+      ? {
+          cursor_coverage: cursor.coverage,
+          cursor_have: cursor.have,
+          cursor_time_key: cursor.timeKey,
+          cursor_recipe_id: cursor.recipeId,
+        }
+      : {}),
+    ...(filters.maxTime !== undefined ? { max_total_min: filters.maxTime } : {}),
+    ...(filters.cuisine?.length ? { cuisine_slugs: filters.cuisine } : {}),
+    ...(filters.diet?.length ? { diet_slugs: filters.diet } : {}),
+    ...(filters.exclude?.length ? { exclude_allergen_slugs: filters.exclude } : {}),
+    ...(filters.spiceMax !== undefined ? { max_spice: filters.spiceMax } : {}),
+    ...(filters.calMin !== undefined ? { min_calories: filters.calMin } : {}),
+    ...(filters.calMax !== undefined ? { max_calories: filters.calMax } : {}),
+    ...(filters.proteinMin !== undefined ? { min_protein_g: filters.proteinMin } : {}),
+  };
+}
+
 function cleanIds(ids: number[] | undefined): number[] {
   return [...new Set((ids ?? []).filter((n) => Number.isInteger(n) && n > 0))];
 }
@@ -125,6 +168,12 @@ function cleanIds(ids: number[] | undefined): number[] {
  * Staples (salt, oil, butter...) and optional ingredients never count as
  * missing -- that rule lives in the SQL, once. Order is coverage, then more
  * pantry ingredients used, then shorter total time.
+ *
+ * Ingredient families apply in SQL: a parent in the pantry ("onion") covers its
+ * variants ("yellow onion") and a variant covers a recipe that names the parent;
+ * a sibling does not. The M3.4 filters (time, cuisine, diet, allergens, spice,
+ * calories, protein) are ANDed in the same query; unknown time/spice/calories/
+ * protein pass range filters.
  *
  * An empty pantry returns nothing rather than the whole catalog: "what can I
  * make with nothing" has no useful answer, and the browse page is for that.
@@ -143,26 +192,20 @@ export async function matchRecipes(
   const cursor = decodeCursor(filters.cursor);
 
   // Ask for one extra row: if it comes back, there is a next page.
-  // TODO(matcher-quality): once match_recipes accepts them, pass maxTime ->
-  // max_total_min, cuisine -> cuisine_slugs, diet -> diet_slugs, exclude ->
-  // exclude_allergen_slugs, spiceMax -> max_spice, calMin/calMax ->
-  // min_calories/max_calories, proteinMin -> min_protein_g (see lib/filters.ts).
-  const supabase = await createClient();
-  const { data, error } = await supabase.rpc("match_recipes", {
-    pantry_ids: pantryIds,
-    max_missing: Math.max(Math.trunc(filters.maxMissing ?? 3), 0),
-    must_use_ids: mustUseIds,
-    min_have: Math.max(Math.trunc(options.minHave ?? 1), 1),
-    page_size: pageSize + 1,
-    ...(cursor
-      ? {
-          cursor_coverage: cursor.coverage,
-          cursor_have: cursor.have,
-          cursor_time_key: cursor.timeKey,
-          cursor_recipe_id: cursor.recipeId,
-        }
-      : {}),
+  const args = buildMatchArgs(filters, {
+    pantryIds,
+    mustUseIds,
+    pageSize: pageSize + 1,
+    minHave: options.minHave,
+    cursor,
   });
+  const supabase = await createClient();
+  // The generated Database type predates the M3.4 parameters; `pnpm db:types`
+  // at integration adds them, after which this cast can go.
+  const { data, error } = await supabase.rpc(
+    "match_recipes",
+    args as unknown as Database["public"]["Functions"]["match_recipes"]["Args"],
+  );
   if (error) throw error;
   const rows = (data ?? []) as MatchRpcRow[];
 
