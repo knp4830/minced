@@ -256,6 +256,22 @@ export async function searchCards(
   };
 }
 
+/**
+ * Card extras for recipes found by another door (the pantry matcher): photo,
+ * credit, cuisine, spice, allergens and the AI-draft flag, keyed by recipe id.
+ * Keeps the pantry cards identical to browse/search cards.
+ */
+export async function getCardExtras(ids: string[]): Promise<Map<string, RecipeCardProps>> {
+  const out = new Map<string, RecipeCardProps>();
+  if (ids.length === 0) return out;
+  const sb = (await createClient()) as unknown as SupabaseClient;
+  const { data, error } = await sb.from("recipes").select(CARD_COLUMNS).in("id", ids);
+  if (error) throw error;
+  const photos = await loadPhotos(sb, ids);
+  for (const row of (data ?? []) as unknown as CardRow[]) out.set(row.id, toCard(row, photos));
+  return out;
+}
+
 /** One entry point for the page: search when there is a query, browse otherwise. */
 export async function getRecipePage(filters: RecipeFilters): Promise<RecipePage> {
   return filters.q ? searchCards(filters) : browseRecipes(filters);

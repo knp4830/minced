@@ -1,6 +1,5 @@
 import type { RecipeFilters } from "@/lib/filters";
 import { createClient } from "@/lib/supabase/server";
-import type { Database } from "@/types/database";
 
 /**
  * Pantry matcher (M3.3) -- typed wrappers over two Postgres functions.
@@ -200,11 +199,9 @@ export async function matchRecipes(
     cursor,
   });
   const supabase = await createClient();
-  // The generated Database type predates the M3.4 parameters; `pnpm db:types`
-  // at integration adds them, after which this cast can go.
   const { data, error } = await supabase.rpc(
     "match_recipes",
-    args as unknown as Database["public"]["Functions"]["match_recipes"]["Args"],
+    args,
   );
   if (error) throw error;
   const rows = (data ?? []) as MatchRpcRow[];

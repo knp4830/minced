@@ -3,7 +3,9 @@ import { PantryInput } from "@/components/pantry/pantryInput";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { filtersToQuery, parseFilters, type SearchParamsInput } from "@/lib/filters";
 import { getIngredientNames } from "@/lib/queries/ingredients";
+import { getCardExtras } from "@/lib/queries/browse";
 import { matchRecipes } from "@/lib/queries/matcher";
+import { usableImageUrl } from "@/lib/photos";
 
 export const metadata: Metadata = {
   title: "What you can make",
@@ -28,10 +30,12 @@ export default async function PantryPage({
   const maxMissing = filters.maxMissing ?? 3;
   const hasPantry = names.length > 0;
 
+  const extras = await getCardExtras(result.matches.map((m) => m.recipeId));
   const recipes = result.matches.map((m) => ({
+    ...extras.get(m.recipeId),
     slug: m.slug,
     title: m.title,
-    imageUrl: m.imageUrl,
+    imageUrl: extras.get(m.recipeId)?.imageUrl ?? usableImageUrl(m.imageUrl),
     totalTimeMin: m.totalTimeMin,
     servings: m.servings,
     calories: m.calories,

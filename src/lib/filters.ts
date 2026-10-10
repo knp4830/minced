@@ -34,9 +34,8 @@
  *   min_calories numeric, max_calories numeric, min_protein_g numeric
  *
  * `search_recipes` gains no new parameters (all of the above already exist);
- * it only changes to the NULL semantics below. Until the DB has them,
- * `matchRecipes` omits them from the RPC call
- * (TODO(matcher-quality): pass them through in buildMatchArgs).
+ * it only changes to the NULL semantics below. `matchRecipes` passes them
+ * through in buildMatchArgs.
  *
  * -- NULL SEMANTICS (both RPCs, every range filter) -----------------------------
  * Most of the catalog is USDA MyPlate, which publishes no cook time, often no
