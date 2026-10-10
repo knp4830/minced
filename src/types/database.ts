@@ -117,16 +117,19 @@ export type Database = {
       ingredient_aliases: {
         Row: {
           alias: string
+          alias_norm: string | null
           id: number
           ingredient_id: number
         }
         Insert: {
           alias: string
+          alias_norm?: string | null
           id?: never
           ingredient_id: number
         }
         Update: {
           alias?: string
+          alias_norm?: string | null
           id?: never
           ingredient_id?: number
         }
@@ -195,6 +198,7 @@ export type Database = {
           fdc_id: number | null
           id: number
           is_pantry_staple: boolean
+          name_norm: string | null
           slug: string
         }
         Insert: {
@@ -206,6 +210,7 @@ export type Database = {
           fdc_id?: number | null
           id?: never
           is_pantry_staple?: boolean
+          name_norm?: string | null
           slug: string
         }
         Update: {
@@ -217,6 +222,7 @@ export type Database = {
           fdc_id?: number | null
           id?: never
           is_pantry_staple?: boolean
+          name_norm?: string | null
           slug?: string
         }
         Relationships: [

@@ -76,8 +76,8 @@ export default async function RecipesPage({ searchParams }: Props) {
     ? `/recipes${filtersToQuery({ ...filters, cursor: page.nextCursor })}`
     : null;
   const unknown = [
-    filters.maxTime !== undefined && "a time",
-    filters.spiceMax !== undefined && "a spice level",
+    filters.maxTime !== undefined && "time",
+    filters.spiceMax !== undefined && "spice level",
     (filters.calMin !== undefined ||
       filters.calMax !== undefined ||
       filters.proteinMin !== undefined) &&
