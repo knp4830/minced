@@ -1,3 +1,4 @@
+import type { RecipeFilters } from "@/lib/filters";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -29,21 +30,6 @@ export type PantryMatch = {
   missingIngredientIds: number[];
   /** Canonical names, alphabetical -- ready for "you're missing: ...". */
   missingNames: string[];
-};
-
-export type MatchRecipesInput = {
-  /** Ingredient ids the user has. Staples in here are harmless. */
-  pantryIds: number[];
-  /** Show recipes missing at most this many ingredients. Default 3. */
-  maxMissing?: number;
-  /** "Use it up": every id here must appear in the recipe. Implicitly in the pantry. */
-  mustUseIds?: number[];
-  /** Require at least this many pantry ingredients in the recipe. Default 1. */
-  minHave?: number;
-  /** 1..99. Default 24. */
-  pageSize?: number;
-  /** The `nextCursor` of the previous page. */
-  cursor?: string | null;
 };
 
 export type MatchRecipesResult = {
@@ -129,6 +115,48 @@ function decodeCursor(raw: string | null | undefined): Cursor | null {
   }
 }
 
+/**
+ * Maps the shared RecipeFilters to `match_recipes` arguments (the M3.4 filters
+ * are the trailing parameters; names mirror `search_recipes`). Unset filters are
+ * omitted, never sent as null, so PostgREST applies the SQL defaults. Exported
+ * for testing.
+ */
+export function buildMatchArgs(
+  filters: RecipeFilters,
+  input: {
+    pantryIds: number[];
+    mustUseIds: number[];
+    pageSize: number;
+    minHave?: number;
+    cursor: Cursor | null;
+  },
+) {
+  const { cursor } = input;
+  return {
+    pantry_ids: input.pantryIds,
+    max_missing: Math.max(Math.trunc(filters.maxMissing ?? 3), 0),
+    must_use_ids: input.mustUseIds,
+    min_have: Math.max(Math.trunc(input.minHave ?? 1), 1),
+    page_size: input.pageSize,
+    ...(cursor
+      ? {
+          cursor_coverage: cursor.coverage,
+          cursor_have: cursor.have,
+          cursor_time_key: cursor.timeKey,
+          cursor_recipe_id: cursor.recipeId,
+        }
+      : {}),
+    ...(filters.maxTime !== undefined ? { max_total_min: filters.maxTime } : {}),
+    ...(filters.cuisine?.length ? { cuisine_slugs: filters.cuisine } : {}),
+    ...(filters.diet?.length ? { diet_slugs: filters.diet } : {}),
+    ...(filters.exclude?.length ? { exclude_allergen_slugs: filters.exclude } : {}),
+    ...(filters.spiceMax !== undefined ? { max_spice: filters.spiceMax } : {}),
+    ...(filters.calMin !== undefined ? { min_calories: filters.calMin } : {}),
+    ...(filters.calMax !== undefined ? { max_calories: filters.calMax } : {}),
+    ...(filters.proteinMin !== undefined ? { min_protein_g: filters.proteinMin } : {}),
+  };
+}
+
 function cleanIds(ids: number[] | undefined): number[] {
   return [...new Set((ids ?? []).filter((n) => Number.isInteger(n) && n > 0))];
 }
@@ -140,36 +168,41 @@ function cleanIds(ids: number[] | undefined): number[] {
  * missing -- that rule lives in the SQL, once. Order is coverage, then more
  * pantry ingredients used, then shorter total time.
  *
+ * Ingredient families apply in SQL: a parent in the pantry ("onion") covers its
+ * variants ("yellow onion") and a variant covers a recipe that names the parent;
+ * a sibling does not. The M3.4 filters (time, cuisine, diet, allergens, spice,
+ * calories, protein) are ANDed in the same query; unknown time/spice/calories/
+ * protein pass range filters.
+ *
  * An empty pantry returns nothing rather than the whole catalog: "what can I
  * make with nothing" has no useful answer, and the browse page is for that.
  */
-export async function matchRecipes(input: MatchRecipesInput): Promise<MatchRecipesResult> {
-  const pantryIds = cleanIds(input.pantryIds);
-  const mustUseIds = cleanIds(input.mustUseIds);
+export async function matchRecipes(
+  filters: RecipeFilters,
+  options: { pageSize?: number; minHave?: number } = {},
+): Promise<MatchRecipesResult> {
+  const pantryIds = cleanIds(filters.pantry);
+  const mustUseIds = cleanIds(filters.use);
   if (pantryIds.length === 0 && mustUseIds.length === 0) {
     return { matches: [], nextCursor: null };
   }
 
-  const pageSize = Math.min(Math.max(Math.trunc(input.pageSize ?? 24), 1), 99);
-  const cursor = decodeCursor(input.cursor);
+  const pageSize = Math.min(Math.max(Math.trunc(options.pageSize ?? 24), 1), 99);
+  const cursor = decodeCursor(filters.cursor);
 
   // Ask for one extra row: if it comes back, there is a next page.
-  const supabase = await createClient();
-  const { data, error } = await supabase.rpc("match_recipes", {
-    pantry_ids: pantryIds,
-    max_missing: Math.max(Math.trunc(input.maxMissing ?? 3), 0),
-    must_use_ids: mustUseIds,
-    min_have: Math.max(Math.trunc(input.minHave ?? 1), 1),
-    page_size: pageSize + 1,
-    ...(cursor
-      ? {
-          cursor_coverage: cursor.coverage,
-          cursor_have: cursor.have,
-          cursor_time_key: cursor.timeKey,
-          cursor_recipe_id: cursor.recipeId,
-        }
-      : {}),
+  const args = buildMatchArgs(filters, {
+    pantryIds,
+    mustUseIds,
+    pageSize: pageSize + 1,
+    minHave: options.minHave,
+    cursor,
   });
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc(
+    "match_recipes",
+    args,
+  );
   if (error) throw error;
   const rows = (data ?? []) as MatchRpcRow[];
 

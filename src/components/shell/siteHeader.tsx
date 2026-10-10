@@ -1,4 +1,4 @@
-import { Search, ShoppingBasket } from "lucide-react";
+import { CookingPot, Search } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/shell/wordmark";
@@ -40,18 +40,17 @@ export function SiteHeader() {
           aria-label="Primary"
           className="ml-auto flex items-center gap-1.5 sm:gap-3"
         >
+          {/* Shopping list and Log in / Sign up return with accounts (wave 3). */}
           <Link
-            href="/shopping"
-            className="inline-flex min-h-11 items-center gap-2 rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
+            href="/recipes"
+            className="inline-flex min-h-11 items-center rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
           >
-            <ShoppingBasket aria-hidden className="size-[1.125rem] sm:hidden" />
-            <span className="max-sm:sr-only">Shopping list</span>
+            Recipes
           </Link>
           <Button asChild size="sm">
-            <Link href="/login">
-              <span>
-                Log in<span className="max-sm:hidden"> / Sign up</span>
-              </span>
+            <Link href="/pantry">
+              <CookingPot aria-hidden className="size-4" />
+              <span>What can I make?</span>
             </Link>
           </Button>
         </nav>

@@ -9,7 +9,15 @@ For each selected recipe:
 and write an idempotent SQL file that fills recipes.calories/protein_g/....
 
     python scripts/nutrition/nutrition.py [--source LIKE] [--slugs a,b] [--ids uuid,..]
-        [--compare-mockup] [--exclude-optional] [--offline] [--out DIR] [--emit-mapping]
+        [--compare-mockup] [--exclude-optional] [--offline] [--out DIR] [--emit-mapping PATH]
+        [--accept-review]
+
+Status per recipe: OK (written), REVIEW (an auto-matched ingredient or a missing
+macro: held back unless --accept-review), INCOMPLETE (unmatched / unconvertible
+ingredient: never written). Any held-back recipe makes the run exit 2.
+Lines whose prep note says cooked / dried / roasted use the "<name> [form]" entry
+of ingredient-map.json when there is one. Frying-bath oil is counted at its
+absorbed share (see fry_retained).
 
 Reads the database through psql (NUTRITION_PSQL, else psql "$DATABASE_URL", else
 dockerised psql). It only ever SELECTs. Recipes sourced from USDA MyPlate already
@@ -40,6 +48,7 @@ COLS = [
     ("sodium_mg", "sodium_mg", "Sodium", 0),
     ("fiber_g", "fiber_g", "Fiber", 1),
 ]
+CORE_KEYS = ("kcal", "protein_g", "carbs_g", "fat_g")
 MYPLATE_COUNT = 872  # only used to space the validation sample
 
 
@@ -80,6 +89,7 @@ def fetch(args):
     sql = f"""
 select json_build_object(
   'units', (select json_object_agg(name, to_base_factor) from units),
+  'unit_kinds', (select json_object_agg(name, kind) from units),
   'refused_usda', (select count(*) from recipes where source_name ilike '%myplate%'),
   'recipes', coalesce((select json_agg(x order by x.slug) from (
     select r.id, r.slug, r.title, r.servings, r.source_name,
@@ -114,6 +124,17 @@ def volume_density(food, factors):
     return statistics.median(ds) if ds else None
 
 
+# A USDA portion label that names a PART of the item, never the whole thing:
+# 'strip medium' (bacon), 'slice, medium', 'wedge', 'leaf, large', 'floret'.
+# 'each' (a recipe line with no unit, "1 onion") must never pick one of these.
+PART_WORDS = re.compile(
+    r"\b(strips?|slices?|pieces?|wedges?|leaf|leaves|sprigs?|rings?|halves|half|quarters?|florets?|"
+    r"stalks?|cloves?|sticks?|spears?|segments?|sections?|sheets?|links?|patt(?:y|ies)|"
+    r"cup|cups|can|cans|pods?|fillets?|chunks?|cubes?|rib|ribs|bulb|sliced|chopped|diced|shredded|grated|mashed|crumbled)\b"
+)
+EACH_WORDS = ("medium", "large", "whole", "fruit", "each", "head")
+
+
 def portion_grams(food, unit):
     """Grams for ONE `unit` (a count word, or 'each') from USDA portions."""
     cands = []
@@ -126,7 +147,9 @@ def portion_grams(food, unit):
             if re.search(r"\b%ss?\b" % re.escape(unit), lab):
                 cands.append((0, per_one))
         else:
-            for rank, word in enumerate(("medium", "large", "whole", "fruit", "each", "head")):
+            if PART_WORDS.search(lab):
+                continue
+            for rank, word in enumerate(EACH_WORDS):
                 if word in lab:
                     cands.append((rank, per_one))
                     break
@@ -163,6 +186,19 @@ def score_candidate(name, desc):
     if segs and segs[0] and segs[0][0] not in q and head not in segs[0]:
         sc -= 1  # leading category word unrelated to the query (e.g. 'Oil, avocado' for 'avocado')
     return sc
+
+
+# A recipe line's prep note can say the weight is of a different FORM than the
+# base ingredient: "3 cups white rice, cooked" is ~3x lighter in kcal than 3 cups
+# of raw rice. If ingredient-map.json has a "<name> [<form>]" entry, it is used.
+FORM_WORDS = ("cooked", "dried", "roasted")
+
+
+def form_key(name, prep, cmap):
+    for word in FORM_WORDS:
+        if re.search(r"\b%s\b" % word, (prep or "").lower()) and f"{name} [{word}]" in cmap:
+            return f"{name} [{word}]"
+    return name
 
 
 def build_profile(name, cmap, fdc):
@@ -208,6 +244,25 @@ def to_grams(line, prof, factors):
     return None, f"no weight for '{key}'"
 
 
+FRY_BATH_G = 200  # an oil line this heavy (about a cup) with no other signal is a frying bath
+
+
+def fry_retained(line, prof, grams):
+    """Fraction of a frying-bath oil line that ends up in the food, else None.
+
+    A recipe that says "2 cups vegetable oil, for frying potatoes" does not feed
+    anyone 2 cups of oil: the food keeps roughly 8-25% of a deep-fry bath. Only
+    oils opted in with `fry_retained` in ingredient-map.json are touched, and only
+    when the line says so ('frying' in the note) or is >= ~1 cup. Everything else
+    (a shallow 2 tbsp sauté) is counted in full."""
+    frac = prof.entry.get("fry_retained")
+    if not frac or grams is None:
+        return None
+    if "fry" in (line.get("prep") or "").lower() or grams >= FRY_BATH_G:
+        return frac
+    return None
+
+
 # ------------------------------------------------------------------- compute
 def compute(recipe, cmap, fdc, factors, exclude_optional):
     rows, flags = [], []
@@ -217,7 +272,7 @@ def compute(recipe, cmap, fdc, factors, exclude_optional):
         if line["optional"] and exclude_optional:
             flags.append(("info", f"{line['name']}: optional, excluded"))
             continue
-        prof = build_profile(line["name"], cmap, fdc)
+        prof = build_profile(form_key(line["name"], line.get("prep"), cmap), cmap, fdc)
         if prof.food is None:
             flags.append(("error", f"{line['name']}: no USDA match"))
             blocking = True
@@ -232,6 +287,11 @@ def compute(recipe, cmap, fdc, factors, exclude_optional):
             flags.append(("error", f"{line['name']}: cannot convert {line['quantity']:g} {line['unit'] or 'each'} to grams ({how})"))
             blocking = True
             continue
+        retained = fry_retained(line, prof, grams)
+        if retained is not None:
+            flags.append(("note", f"{line['name']}: {grams:.0f} g is a frying bath; counting {retained:.0%} as absorbed ({grams * retained:.0f} g)"))
+            grams *= retained
+            how += f", frying bath x{retained:g}"
         if "kcal" not in prof.food["per100g"]:
             # Some Foundation records are partial (sodium only). Counting that as
             # 0 kcal would be a silent wrong answer, so it blocks the recipe.
@@ -239,8 +299,14 @@ def compute(recipe, cmap, fdc, factors, exclude_optional):
             blocking = True
             continue
         missing = [k for k in KEYS if k not in prof.food["per100g"]]
-        if missing:
-            flags.append(("warn", f"{line['name']}: USDA reports no {', '.join(missing)}; counted as 0"))
+        core = [k for k in missing if k in CORE_KEYS]
+        if core:
+            # An unreported macro counted as 0 understates the recipe: gate it.
+            flags.append(("warn", f"{line['name']}: USDA reports no {', '.join(core)}; counted as 0"))
+        if set(missing) - set(CORE_KEYS):
+            # Sodium/fibre are often absent for foods that have none (oils, sugar).
+            # Shown, but not a reason to hold the recipe back.
+            flags.append(("note", f"{line['name']}: USDA reports no {', '.join(sorted(set(missing) - set(CORE_KEYS)))}; counted as 0"))
         for k in KEYS:
             total[k] += grams / 100.0 * prof.food["per100g"].get(k, 0.0)
         rows.append((line["name"], line["quantity"], line["unit"] or "", grams, how, prof.food["description"], prof.food["fdc_id"]))
@@ -290,13 +356,18 @@ def compare(results, mock):
 
 
 def inject_extras(data, extras, factors):
+    kinds = data.get("unit_kinds") or {}
     for spec in extras:
         slug, name, qty, unit = spec.split(":")
+        # Count units (clove, can, ...) have no to_base_factor; only mass/volume do.
+        # An empty unit means "each".
+        kind = kinds.get(unit) if unit else "count"
+        if unit and kind is None:
+            sys.exit(f"--extra {spec}: unknown unit '{unit}'")
         for r in data["recipes"]:
             if r["slug"] == slug:
-                kind = "mass" if unit in ("g", "kg", "oz", "lb") else "volume"
-                r["ingredients"].append({"ingredient_id": None, "name": name, "quantity": float(qty), "unit": unit,
-                                         "kind": kind, "factor": factors[unit], "optional": False, "prep": "what-if"})
+                r["ingredients"].append({"ingredient_id": None, "name": name, "quantity": float(qty), "unit": unit or None,
+                                         "kind": kind, "factor": factors.get(unit), "optional": False, "prep": "what-if"})
 
 
 def report_validation(errs, n, n_blocked):
@@ -327,15 +398,18 @@ def q(s):
     return "'" + s.replace("'", "''") + "'"
 
 
-def write_sql(results, out_dir, cmap_path):
+def write_sql(results, out_dir, cmap_path, review_written=()):
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "recipe-nutrition.sql")
     lines = [
         "-- Generated by scripts/nutrition/nutrition.py (M1.5.4). Idempotent: safe to re-run.",
         "-- Per-serving nutrition computed from USDA FoodData Central. The WHERE clause",
         "-- refuses USDA MyPlate rows, which already carry USDA's own numbers.",
-        "begin;",
     ]
+    if review_written:
+        lines.append("-- WARNING: written with --accept-review; these used an UNVERIFIED auto-matched ingredient:")
+        lines.append("--   " + ", ".join(sorted(review_written)))
+    lines.append("begin;")
     for slug, per in sorted(results.items()):
         sets = ", ".join(f"{col} = {round(per[k], dec):g}" for k, col, _, dec in COLS)
         lines.append(f"update recipes set {sets} where slug = {q(slug)} and source_name not ilike '%myplate%';")
@@ -351,13 +425,15 @@ def write_mapping_sql(cmap, path):
         "-- Central id (and a curated density where one was needed) onto canonical ingredients.",
         "begin;",
     ]
-    for name in sorted(k for k in cmap if not k.startswith("_")):
+    # "<name> [cooked]" style entries are pipeline-only forms, not ingredient rows.
+    base = sorted(k for k in cmap if not k.startswith("_") and " [" not in k)
+    for name in base:
         e = cmap[name]
         sets = f"fdc_id = {e['fdc_id']}"
         if e.get("density_g_per_ml"):
             sets += f", density_g_per_ml = {e['density_g_per_ml']}"
         lines.append(f"update ingredients set {sets} where canonical_name = {q(name)};")
-    names = sorted(k for k in cmap if not k.startswith("_"))
+    names = base
     # An UPDATE that matches no row succeeds silently ("UPDATE 0"), so assert it.
     lines.append("do $$ begin")
     lines.append(
@@ -377,10 +453,12 @@ def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--source", default="Minced design mockup%", help="source_name LIKE pattern")
+    ap.add_argument("--source", default="Minced%", help="source_name LIKE pattern (mockup + AI-drafted originals)")
     ap.add_argument("--slugs")
     ap.add_argument("--ids")
     ap.add_argument("--exclude-optional", action="store_true")
+    ap.add_argument("--accept-review", action="store_true",
+                    help="also write REVIEW-status recipes (auto-matched ingredients); they are marked in the SQL")
     ap.add_argument("--compare-mockup", action="store_true")
     ap.add_argument("--offline", action="store_true", help="cache only; never call USDA")
     ap.add_argument("--out", default=os.path.join(HERE, "artifacts"))
@@ -402,7 +480,8 @@ def main():
     factors = {k: float(v) for k, v in data["units"].items() if v is not None}
     fdc = Fdc(offline=args.offline)
     inject_extras(data, args.extra, factors)
-    results, blocked, errs = {}, {}, []
+    results, blocked, review, errs = {}, {}, {}, []
+    review_written = []
     print(f"# Nutrition run: {len(data['recipes'])} recipe(s)\n")
     for r in data["recipes"]:
         per, rows, flags, blocking = compute(r, cmap, fdc, factors, args.exclude_optional)
@@ -417,7 +496,14 @@ def main():
                 print(f"  {sev.upper()}: {msg}")
         if blocking:
             blocked[r["slug"]] = flags
+        elif status == "REVIEW" and not (args.accept_review or args.validate_usda):
+            # Held back, not written: an auto-matched or partly-counted recipe is a guess.
+            # Curate the ingredient in ingredient-map.json (or pass --accept-review to
+            # write it anyway, which stamps the SQL so the guess is visible in the diff).
+            review[r["slug"]] = flags
         else:
+            if status == "REVIEW":
+                review_written.append(r["slug"])
             results[r["slug"]] = per
             if args.validate_usda:
                 errs.append((r["slug"], {k: (per[k] - r["stored"][k]) / r["stored"][k] * 100 for k in KEYS if r["stored"].get(k)}, status))
@@ -432,10 +518,14 @@ def main():
     if args.compare_mockup:
         compare(results, read_mockup())
     if results:
-        print(f"\nwrote {write_sql(results, args.out, MAP_PATH)}  ({len(results)} recipes)")
+        print(f"\nwrote {write_sql(results, args.out, MAP_PATH, review_written)}  ({len(results)} recipes)")
+    if review:
+        print(f"NOT written (REVIEW: unverified match or partly-counted nutrients; curate them): {', '.join(review)}")
     if blocked:
         print(f"NOT written (incomplete, fix by hand): {', '.join(blocked)}")
     print(f"USDA requests this run: {fdc.requests} (everything else came from the cache)")
+    if review or blocked:
+        sys.exit(2)  # held-back recipes are a failure of the run, not a footnote
 
 
 if __name__ == "__main__":

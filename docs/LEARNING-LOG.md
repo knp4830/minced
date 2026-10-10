@@ -1343,4 +1343,119 @@ Process lesson: a parallel wave can dispatch to the wrong worktree. When a branc
 
 ---
 
-## Entry 22 — [next entry goes here after wave 2]
+## Entry 22 — Wave 2 foundation: one filter contract, one card
+
+*Branch `wave2/foundation`. Files: `src/lib/filters.ts`, `src/components/recipe/recipeCard.tsx`, `recipeList.tsx`, `src/lib/queries/search.ts`, `matcher.ts`.*
+
+**What we built.** `RecipeFilters` is one TypeScript type and one URL contract for both doors. URL param names equal the field names (`maxTime`, `cuisine`, `diet`, `exclude`, `spiceMax`, `calMin`, `calMax`, `proteinMin`, `pantry`, `use`, `maxMissing`, `cursor`). Lists are comma-separated. `parseFilters` is total: bad input is clamped or dropped, never thrown. `RecipeCard` and `RecipeList` render every result grid in the app.
+
+**Why this way.** CLAUDE.md says filter state lives in URL search params and that a feature must work for both doors. If pantry and search each invented their own params, the filter panel would need two code paths. Making the names identical also let the SQL parameter names mirror them.
+
+**Concept: URL as state.** The URL is the single source of truth. A link is a filter, the back button undoes it, and a result page can be shared. `useState` would lose all three. The cost is that every control must be a link or a form.
+
+**Concept: "unknown passes".** Most MyPlate recipes have no cook time, so a strict `time <= 30` filter would hide about 70% of the catalog. The agreed rule: unknown time, spice, calories and protein pass range filters and sort after known fits. Cuisine is categorical and stays strict.
+
+**Gotcha.** `total_time_min = 0` means unknown, not instant.
+
+---
+
+## Entry 23 — Nutrition: from hand estimates to computed USDA values (M1.5.4)
+
+*Branch `wave2/nutrition`. Files: `scripts/nutrition/` (`nutrition.py`, `ingredient-map.json`, `reference_check.py`, `test_nutrition.py`), `supabase/seed-nutrition-fdc.sql`, `scripts/nutrition/artifacts/recipe-nutrition.sql`, `supabase/seed.sql`.*
+
+**What happened.** The plan assumed the work was "write `fdc_id`". Wave 1 showed the real problem: the six mockup nutrition numbers were hand-written guesses, and the computed values sat 11-27% away. You chose to trust the computed USDA values, so the DoD became an independent hand calculation. Four recipes were hand-checked and all fall within 10%.
+
+**How it works.** `ingredient-map.json` maps 275 canonical ingredients to curated FDC ids with gram weights or densities. `nutrition.py` converts each recipe line to grams, sums, divides by servings, and writes SQL keyed by recipe slug. MyPlate recipes are never touched (they carry USDA's own numbers; an md5 before and after proved it). The seed recipes were fixed so their ingredient lists include what their steps use (oil, salt, rice, broth).
+
+**Decisions and what we rejected.**
+- Cooked versus dry is a map entry (`white rice [cooked]`), not a second canonical ingredient. Separate rows would break "I have rice".
+- A frying-bath rule counts only 15% of deep-fry oil as eaten. Without it one recipe computed at 1,892 kcal per serving. The share is one field, `fry_retained`.
+- Honesty over guessing: an unmatched ingredient marks the recipe INCOMPLETE, writes nothing, and exits 2.
+
+**Gotchas.** A non-raw Python string turns `\b` into a backspace, so regexes silently never matched; write regexes as `r''`. A USDA record can exist and still lack macros. SR Legacy and branded records for the same food differ by 10-25%, so about 10% is the noise floor. Braised and stock recipes list the whole cut, so per-serving figures run high (about 950-1,050 kcal). Re-run the pipeline for any recipe added after the generated SQL.
+
+---
+
+## Entry 24 — Browse, recipe page and search UI (M3.1, M3.2, M3.5)
+
+*Branch `wave2/recipes`. Files: `src/app/recipes/page.tsx`, `src/app/recipes/[slug]/page.tsx`, `src/components/recipe/filterPanel.tsx`, `servingsScaler.tsx`, `src/lib/queries/browse.ts`, `recipeDetail.ts`, `src/lib/scaling.ts`, `photos.ts`, `src/lib/supabase/static.ts`, `scripts/test-scaling.mts`.*
+
+**Cursor pagination, explained.** Offset paging (`OFFSET 480`) makes Postgres read and throw away 480 rows. A cursor says "give me rows after this one": `WHERE (title, id) > (last_title, last_id)`, which uses the index and costs the same on page 40 as on page 1. Browse sorts A-Z by `(title, id)`; the cursor is base64url of `[title,id]`. `id` is the tie-breaker so equal titles never repeat or vanish. "Show more" is a plain link, so paging works without JS. The crawl returned 978 cards, 978 unique.
+
+**ISR (incremental static regeneration), explained.** A page can be built once and served as a file instead of being rendered per request. Fully static would mean about 1,000 database reads at every deploy, and a build that fails when Supabase is paused. Instead `revalidate = 3600` with `generateStaticParams` returning `[]`: each recipe renders on its first visit, is cached for an hour, then refreshes in the background. This only works because the page uses a cookie-free client (`supabase/static.ts`). Using `cookies()` or `searchParams` anywhere in the page tree silently turns it back into per-request rendering. The plan said "generate static params"; this is the deliberate variation.
+
+**Search cursor bug.** The search cursor carries a float score. The REST layer prints float8 with 15 digits, so a rounded cursor could land above the stored value and tied rows reappeared (156 cards, 154 distinct). The scores are float4 widened to float8, so `Math.fround(score)` restores the exact value.
+
+**Browse is PostgREST joins, not an RPC.** Repeated `or=` params AND together; aliased inner embeds give "ALL these diets"; a left embed filtered with `is.null` gives "NONE of these allergens". If browse ever needs ranking, move it into a `browse_recipes()` Postgres function.
+
+**Scaling** always recomputes from the stored quantity and base servings, never from the displayed value, so stepping up and back returns the original text exactly. Units promote (tsp to tbsp to cup).
+
+**Gotchas.** Unitless counts are not pluralised ("5 egg"). The header search box does not retain the query. All 872 USDA `image_url` values point at a dead host, so `photos.ts` treats that host as "no photo". The `details/summary` filter sheet gives a JS-free mobile panel.
+
+---
+
+## Entry 25 — Pantry door and landing page (M3.3 UI, M3.6)
+
+*Branch `wave2/pantry`. Files: `src/components/pantry/pantryInput.tsx`, `src/app/pantry/page.tsx`, `src/app/page.tsx`, `src/app/about/page.tsx`, `src/app/api/ingredients/suggest/route.ts`.*
+
+**State.** On `/pantry` the URL is the truth, and `router.push` makes the back button step through edits. `localStorage` (`minced.pantry.v1`) is only a mirror that fills an *empty* URL. The URL always wins, so a shared link shows the sender's pantry. The client component derives chips from server props with the set-state-during-render pattern, so back/forward re-seeds without an effect.
+
+**Autocomplete** goes through a thin Route Handler, because CLAUDE.md forbids Supabase calls in components. It is debounced, abortable, cached per session, and a proper ARIA combobox.
+
+**Decisions.** Tap a chip to toggle "use it up" (an explicit button per chip made every chip a full row at 375px). The landing page reads `window.location.search` at click time rather than `useSearchParams`, which would need Suspense and de-static the page.
+
+**Latency, honestly.** `match_recipes` is about 22 ms as a superuser but 130-165 ms as the `anon` role the app uses. Cause: the `recipe_ingredients` SELECT policy calls `can_read_recipe()` per row, about 85% of the time. Fix without weakening RLS later: an inlinable policy, or a SECURITY DEFINER function with an explicit `status = 'published'` filter. At 1,500 recipes expect about 210 ms; this is the first thing to revisit. Laptop-to-Supabase adds about 250 ms per REST round trip, so quote the 200 ms DoD against the database and re-measure on Vercel.
+
+**Open.** `/pantry?pantry=99999999999` returns 500 (ids above int4 reach Postgres); clamp in `cleanIds`. The pages list seven assumed staples; the database flags 22.
+
+---
+
+## Entry 26 — Matcher quality: families, filters, staples, dedupe (M3.4, toward M1.5.7)
+
+*Branch `wave2/matcher`. Migrations `20261010100000` (families), `...100100` (match filters), `...100200` (search NULL semantics). Also `scripts/dedupe-recipes.sql`, `supabase/tests/matcher_quality_test.sql`, `pantry_harness.sql`.*
+
+**Ingredient families, explained.** `ingredients.family_id` points at a parent, one level deep. `expand_ingredient_family(ids)` returns the ids, their parents and their children, **one hop, not transitive**. So a pantry `onion` covers `red onion`; a pantry `red onion` covers a recipe that says plain `onion`; but `red onion` does not cover `yellow onion`. A CHECK constraint cannot see other rows, so the one-level rule is a trigger. Eight parents were created (onion, rice, bell pepper, potato, lettuce, cabbage, ground meat, white fish) plus seven reused generic rows; 57 children. Deliberately not families: cheeses, canned versus fresh tomato, fresh versus dried herbs, tofu textures, plant milks. Parents inherit their children's allergens, or a new `white fish` import would slip past "exclude fish".
+
+**Gotcha: aliases shadow parents.** Once `onion` is a real ingredient the old alias `onion` is dead but misleading; the seed deleted seven such aliases (the integration run caught the seed aborting on the shadow guard).
+
+**Allergen filter uses `NOT EXISTS`.** "Exclude dairy" is a correlated `NOT EXISTS (select 1 from recipe_allergens ...)` rather than `allergen_id <> X` in a join. A join-and-inequality keeps a recipe if *any* row passes, so a recipe with one dairy and one non-dairy ingredient would sneak through. `NOT EXISTS` asks whether *no* matching row exists. Diet is the opposite: all-of.
+
+**Function signature trap.** Adding trailing params with `CREATE OR REPLACE` creates an overload, and PostgREST then fails with "could not choose the best candidate function". The migration drops the old signature.
+
+**NULL semantics in search.** Unknown values pass and get `score - 1`, sorting after every known fit. Relevance is in [0,1), so the `(score, id)` cursor still works.
+
+**Staples.** 11 added (baking powder and soda, vanilla extract, cooking spray, garlic and onion powder, dried oregano, ground cinnamon, peppercorns, white vinegar, margarine); the seed flags were updated too, because `seed-ingredients.sql` upserts `is_pantry_staple` and would silently revert migration-only changes. Margarine (66 recipes) and white vinegar are judgement calls; revert with a one-line UPDATE.
+
+**Dedupe.** `dedupe-recipes.sql` merges 18 duplicate-title groups (978 to 959), repoints favorites, supports `-v dry_run=1`, and is idempotent. Copies are not always identical (Baked Fish, Picadillo, Red Beans and Rice differ); the survivor is the most complete one. Read the dry-run table first. Deleted slugs 404; there is no redirect table.
+
+**Performance.** 440 search runs: median 0.7 ms, max 10.5 ms. `match_recipes` 160 runs, worst 164 ms as anon. The 20-pantry harness passes 20/20 (weakest: plant-based and seafood; the catalog is thin there). Under a stricter lens (at least 2 have, at most 2 missing) four pantries fall under 10 results.
+
+---
+
+## Entry 27 — Photos (public domain and attributed only)
+
+*Branch `wave2/photos` (squashed so no personal email reaches GitHub). Files: `scripts/photos/`, `supabase/migrations/20261009140000_recipe_photos.sql`, `supabase/seed-photos.sql`.*
+
+**Rule.** A MyPlate photo is used only when the page's Source is a federal body and nothing names a stock agency or photographer. EXIF is stripped upstream, so this rests on provenance. Wikimedia photos need an allowlisted licence (PD, CC0, CC BY, CC BY-SA) plus author and licence URL. Everything else shows the colour-block placeholder.
+
+**Result.** 99 photos: 1 federal, 98 Commons. 879 of 978 recipes use the placeholder. 66 more federal-eligible recipes wait because archive.org returned 429 before their images were fetched.
+
+**Mechanics.** `recipe_photos` has a single SELECT policy (`can_read_recipe`) and no write policy, so only the secret key writes. Object paths carry a content hash, making upload idempotent. Post-merge order matters: migration, then `upload_photos.py --apply`, then `seed-photos.sql`. If the seed runs first, rows point at 404 images. `seed-photos.sql` also nulls the 872 dead `image_url` values.
+
+**Open.** The detail-page caption links the licence name to the Commons file page, not the licence URL, and shows credit only for CC BY and BY-SA. Both are acceptable but worth tightening.
+
+---
+
+## Entry 28 — Wave 2 integration and verification
+
+*Branch `wave2/integration`.* Six lanes merged with no git conflicts. Semantic conflicts: the stale parent-name aliases (above); the pantry cards had no cuisine, allergens or AI badge, fixed with `getCardExtras()` in `browse.ts`; the temporary RPC cast was removed after `pnpm db:types`.
+
+**Verdicts.** All of M3.1-M3.6 and the reframed M1.5.4 passed on a fresh live-data snapshot, as did Phase 3's DoD run as a logged-out stranger on a phone. M1.5.7 stays open.
+
+**Non-blocking findings to fix later:** `/shopping /login /privacy /terms` 404; the recipe page has no "you have / missing" context from the pantry; touch targets under 44px on the max-missing chips; mockup recipes are not disclosed on `/about`; `ingredient-map.json` notes have appended duplicate text; the salmon and ramen now show rice and broth as missing.
+
+**Process lessons.** Verify on a snapshot, never live. Worktree agents are refused compound shell commands, so use single commands and the Write tool.
+
+---
+
+## Entry 29 — [next entry goes here after wave 3]

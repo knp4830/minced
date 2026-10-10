@@ -1,0 +1,8 @@
+[
+  {"slug": "gochujang-glazed-salmon", "title": "Gochujang-Glazed Salmon", "queries": ["gochujang glazed salmon", "gochujang salmon"]},
+  {"slug": "chana-masala", "title": "Chana Masala", "queries": ["chana masala", "chole chickpea curry"]},
+  {"slug": "cacio-e-pepe", "title": "Cacio e Pepe", "queries": ["cacio e pepe"]},
+  {"slug": "shakshuka", "title": "Shakshuka", "queries": ["shakshuka"]},
+  {"slug": "miso-mushroom-ramen", "title": "Miso Mushroom Ramen", "queries": ["miso ramen mushroom", "miso ramen"]},
+  {"slug": "harissa-roast-cauliflower", "title": "Harissa Roast Cauliflower", "queries": ["harissa roasted cauliflower", "roasted cauliflower"]}
+]

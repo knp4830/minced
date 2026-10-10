@@ -353,6 +353,31 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-09 | `docker exec -i <c> psql -U postgres < scripts/content/gap-analysis.sql` | Run the read-only catalog gap report | Re-run after any bulk import to see whether cuisine, diet, allergen and ingredient gaps moved |
 | 2026-10-09 | worktree-agent Bash refusals (FAILED): functions, `$(...)` assignments, heredocs piped to python, and command text containing the word git (e.g. `cat .gitattributes`) were refused as "too complex to verify" | Tooling constraint in an isolated worktree | Split into plain single commands, write helper scripts with the Write tool, and avoid the literal word git in shell text unless it is a real git command |
 | 2026-10-09 | `git switch -c wave1/compliance` (FAILED) | Create the lane branch | The branch already existed from an earlier run checked out in a sibling worktree. Run `git worktree list` before creating lane branches |
+| 2026-10-09 | `pg_dump "$DATABASE_URL" -Fc -f backup.dump` | Back up the live database before wave 1 changes | Always before anything destructive |
+| 2026-10-09 | `pnpm exec supabase db push --db-url "$DATABASE_URL" --dry-run`, then again without `--dry-run` | Apply migrations to live | Works without `supabase link`; the dry run lists exactly which migrations will run |
+| 2026-10-09 | `VACUUM (FULL, ANALYZE) recipes;` | Reclaim trigger bloat on `recipes` | 32 MB to 2.1 MB. FAILED once: a check query used double quotes around a string; in SQL double quotes mean identifiers, single quotes mean values |
+| 2026-10-09 | re-run the content apply script | Prove idempotency | Second run wrote 0 rows |
+| 2026-10-09 | `curl "$SUPABASE_URL/rest/v1/rpc/match_recipes" -H "apikey: $PUBLISHABLE_KEY"` (and `search_recipes`, `suggest_ingredients`) | Smoke-test RPCs the way the browser will reach them | Tests RLS and grants as `anon`, which `psql` as postgres does not |
+| 2026-10-09 | `git switch -c wave2/foundation` then `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build` | Wave 2 foundation lane | All pass. FAILED: worktree agents' compound Bash commands (heredoc plus chaining) were refused; split into single commands or use Write/Edit. CRLF warnings on `matcher.ts` and `search.ts` are harmless |
+| 2026-10-09 | `bash .snapshot/restore.sh <name>` | Restore the live-data snapshot into a throwaway Postgres container; prints the URL | Remove with `docker rm -f <name>` |
+| 2026-10-09 | `docker exec -i <c> psql -U postgres -v ON_ERROR_STOP=1 < file.sql` | Apply a migration or test file to a snapshot without a host psql | |
+| 2026-10-09 | `psql "$URL" -v ON_ERROR_STOP=1 -v dry_run=1 -f scripts/dedupe-recipes.sql` | Report the duplicate-merge plan and ROLLBACK | Drop `dry_run` to commit. Destructive on live: back up first |
+| 2026-10-09 | `psql "$URL" -v ON_ERROR_STOP=1 -f supabase/tests/pantry_harness.sql` | 20-pantry harness | Read-only; exits non-zero if any pantry returns fewer than 10 matches |
+| 2026-10-09 | `psql "$URL" -v ON_ERROR_STOP=1 -f supabase/tests/matcher_quality_test.sql` | Families, filters and search NULL semantics (80 assertions) | Rolls back, but run on a snapshot only |
+| 2026-10-09 | `pnpm exec next dev -p 3201` | Dev server on a lane port | Stop it before `pnpm build` |
+| 2026-10-09 | `node --experimental-strip-types scripts/test-scaling.mts` | Scaling assertions without a test runner | 24 pass |
+| 2026-10-09 | `pnpm dev -p 3202` (pantry lane) | Dev server on the lane port | FAILED: writing the background log outside the worktree put a file in the main checkout. Also the sandbox refuses `. ./.env.local`; use `process.loadEnvFile` in a node script. A bad `react-hooks/set-state-in-effect` disable comment failed lint (rule not in this config) |
+| 2026-10-09 | `NUTRITION_PSQL="docker exec -i nut-w2 psql -U postgres" python scripts/nutrition/nutrition.py --source "Minced original" -v` | Compute nutrition for the AI-drafted recipes | First run: 92 OK, 7 INCOMPLETE (missing cup densities), 1 REVIEW; fixed in `ingredient-map.json` |
+| 2026-10-09 | `python scripts/nutrition/nutrition.py --compare-mockup` | Compare computed seed values with the old mockup numbers | Informational now |
+| 2026-10-09 | `python scripts/nutrition/reference_check.py --test` | Independent by-hand reference | 13/16 within 10%; pinned tolerances carry reasons |
+| 2026-10-09 | `python scripts/nutrition/nutrition.py --slugs cacio-e-pepe --extra cacio-e-pepe:zzqxunobtainium:1:g` | Show an unmatched ingredient is flagged | INCOMPLETE, not written, exit 2 |
+| 2026-10-09 | `python scripts/nutrition/nutrition.py --emit-mapping supabase/seed-nutrition-fdc.sql` | Regenerate the fdc_id mapping SQL | Skips the `[cooked]` style entries |
+| 2026-10-09 | python patch script with `"\b"` in a non-raw string (FAILED) | Add regexes to `nutrition.py` | Python turned `\b` into a backspace so the regexes never matched. Write regexes as `r''` strings |
+| 2026-10-09 | `docker exec -i nut-w2 psql -U postgres -v ON_ERROR_STOP=1 -q < scripts/nutrition/artifacts/recipe-nutrition.sql` (twice) | Check the nutrition SQL is idempotent | MyPlate md5 identical before and after; null calories 100 to 0 |
+| 2026-10-09 | `PYTHONUTF8=1 python scripts/photos/...` | Photo scripts on Windows | Needed to read the manifests |
+| 2026-10-09 | `python scripts/photos/upload_photos.py` (dry run) then `--apply` | Upload photos to the `recipe-photos` bucket | Dry run by default; `--apply` needs the secret key from the environment |
+| 2026-10-09 | `psql -v ON_ERROR_STOP=1 -f supabase/seed-photos.sql` | Seed `recipe_photos` | Idempotent. Run after the upload, not before |
+| 2026-10-09 | `pnpm db:types` | Regenerate `src/types/database.ts` after the wave 2 migrations | Required in the same commit as the migrations |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

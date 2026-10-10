@@ -44,3 +44,8 @@ __pycache__/
 # reproducible from scripts/myplate/slugs.txt, so not worth committing.
 scripts/myplate/cache/
 scripts/myplate/artifacts/
+
+# Recipe photos (wave1/photos). Downloaded originals and resized output -- the
+# manifest (scripts/photos/manifest/) is what we commit, never the binaries.
+scripts/photos/cache/
+scripts/photos/out/

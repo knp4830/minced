@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "apple-cranberry-salad-toss",
+    "recipe_title": "Apple Cranberry Salad Toss",
+    "source": "usda_myplate",
+    "license": "Public domain",
+    "license_url": "https://www.usa.gov/government-works",
+    "credit": "USDA MyPlate Kitchen (U.S. Department of Agriculture)",
+    "attribution_url": "https://www.myplate.gov/recipes/apple-cranberry-salad-toss",
+    "source_image_url": "https://web.archive.org/web/2025im_/https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2021-11/AppleCranberrySaladTossOriginal.jpg?itok=yhOnhvAu",
+    "alt_text": "Apple Cranberry Salad Toss",
+    "sha256": "d8ff74ec7a8bef4c92289532665c1cfce28bc4ed47e57bb02f0b1479b7a3b225",
+    "evidence": "Recipe page Source field: 'Creative Recipes for Less Familiar USDA Commodities Used by Household Programs USDA, Food and Nutrition Service, Food Distribution Service' (federal body). No stock-agency, photographer or copyright credit in the page's recipe section, image alt text or file name. Image shared with no unrelated recipe. Photo metadata is stripped by the site, so authorship is established by provenance, not by embedded credit.",
+    "image_cache": "myplate/images/apple-cranberry-salad-toss.bin"
+  }
+]

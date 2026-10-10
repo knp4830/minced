@@ -3,14 +3,11 @@ import { Wordmark } from "@/components/shell/wordmark";
 
 const links = [
   { href: "/recipes", label: "Recipes" },
-  { href: "/shopping", label: "Shopping list" },
-  { href: "/login", label: "Log in" },
+  { href: "/pantry", label: "Pantry" },
+  { href: "/about", label: "How recipes are made" },
 ] as const;
 
-const legal = [
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
-] as const;
+// Shopping list, Log in, Privacy and Terms return with accounts (wave 3).
 
 const linkClass =
   "inline-flex min-h-11 items-center rounded-md text-sm text-ink-muted underline-offset-4 transition-colors hover:text-herb hover:underline";
@@ -27,18 +24,9 @@ export function SiteFooter() {
           </p>
         </div>
 
-        <nav aria-label="Footer" className="grid gap-x-12 gap-y-0 sm:grid-cols-2">
+        <nav aria-label="Footer">
           <ul className="flex flex-col">
             {links.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className={linkClass}>
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul className="flex flex-col">
-            {legal.map((l) => (
               <li key={l.href}>
                 <Link href={l.href} className={linkClass}>
                   {l.label}
