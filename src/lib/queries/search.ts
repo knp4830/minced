@@ -116,7 +116,14 @@ export async function searchRecipes(
     total_time_min: row.total_time_min,
     calories: row.calories,
     image_url: row.image_url,
-    score: row.score,
+    // ts_rank / word_similarity are float4 widened to float8, but the REST
+    // layer prints float8 with only 15 significant digits. Fed back as
+    // `cursor_score` that rounding can land a hair ABOVE the real value, and the
+    // tied rows on the previous page then satisfy `(score, id) < cursor` and
+    // repeat on the next one (measured: q=chicken showed 156 cards, 154
+    // distinct). Math.fround snaps it back to the exact float4, which is the
+    // exact stored value.
+    score: Math.fround(row.score),
     matchKind: row.match_kind,
   }));
 
