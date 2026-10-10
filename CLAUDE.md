@@ -183,23 +183,23 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 
 **`normalize_ingredient_name` folds accents** via `translate()`, not `unaccent()` (which is not `IMMUTABLE`, and an expression index depends on this function). **If you ever change that function, REINDEX in the same migration** — an expression index keeps values computed by the old body and Postgres will not rebuild it.
 
-### Wave 1 (2026-10-09) — integrated on `wave1/integration`
+### Wave 1 (2026-10-09): applied to live
 
-Six lanes merged cleanly; verifiers passed all. **Checked:** M2.1, M2.2, M2.3 (design system and shell). **Built but NOT checked:**
+Design system and shell (M2.1-M2.3) closed. Live now has **eleven** migrations, **978 recipes** (872 MyPlate, 100 "Minced original" AI-drafted, 6 mockup), allergens, 32 cuisines, and the `match_recipes` / `search_recipes` / `suggest_ingredients` RPCs. The `recipes` bloat was fixed with `VACUUM (FULL, ANALYZE)` (32 MB to 2.1 MB). Six packages were added by the design lane (clsx, tailwind-merge, class-variance-authority, lucide-react, tw-animate-css, @radix-ui/react-slot).
 
-- **M3.3 matcher** — `match_recipes` / `suggest_ingredients` backend only; UI is wave 2.
-- **M3.5 search** — `search_recipes` backend only, plus a trigger-bloat fix; UI is wave 2.
-- **M1.5.4 nutrition** — pipeline works, but 6/36 values are within 10% of the mockup. **Waiting on your decision** (fix seed lists / accept computed / relax DoD). Do not apply `scripts/nutrition/artifacts/recipe-nutrition.sql` until then.
-- **M1.5.7 content** — 100 original recipes (978 total), allergens 12 to 195 rows, 32 cuisines. Pantry harness and review still open.
-- **Compliance** — `docs/LEGAL-COMPLIANCE.md` (research, not legal advice).
-- **Photos** — `wave1/photos` was paused mid-run and is **not merged**; it resumes in wave 2. Most MyPlate photos are third-party credited, not public domain.
+### Wave 2 (2026-10-09): integrated on `wave2/integration`, PR open, NOT yet applied to live
 
-Database after live steps: **eleven** migrations (7 + 4 new), 978 recipes. `src/types/database.ts` is regenerated. Six packages were added by the design lane (clsx, tailwind-merge, class-variance-authority, lucide-react, tw-animate-css, @radix-ui/react-slot) — confirm in review.
+**Checked:** M3.1, M3.2, M3.3, M3.4, M3.5, M3.6, and M1.5.4 (under the user-approved reframed DoD: hand-calculation within 10%). **Phase 3 DoD passed** (a logged-out stranger on a phone finds a recipe through both doors). **M1.5.7 stays open** (500+ reviewed recipes and the 247 rejected recipes need your review).
 
-**Known issues carried forward:** matching is exact-id only (onion vs red onion; needs ingredient families — your call); only 11 pantry staples; 18 duplicate-title recipes; Peanuts folded into Nuts; alias `ancho chile` -> poblano; `sort_order` is 0-based (MyPlate) vs 1-based (hand-authored); header links `/recipes /shopping /login /privacy /terms` 404 until built; delete `/kitchen-sink` before launch.
+- **Routes:** `/`, `/recipes` (browse + `?q=` search + filters), `/recipes/[slug]` (ISR, 3600 s), `/pantry`, `/about`, `/api/ingredients/suggest`. One `RecipeCard`/`RecipeList` and one URL filter contract (`src/lib/filters.ts`) serve both doors.
+- **DB:** 4 new migrations (`20261009140000` photos, `20261010100000` families, `...100100` match filters, `...100200` search NULL semantics). Ingredient families are one hop deep. 11 new pantry staples (22 total). Unknown time, spice, calories and protein pass range filters and sort last.
+- **Nutrition** is computed from USDA for the 106 non-MyPlate recipes (`scripts/nutrition/`). **Photos:** 99 (1 federal, 98 Wikimedia with attribution); the rest use the colour-block placeholder. AI-drafted recipes show a "Drafted with AI, reviewed by Minced" badge linking to `/about`.
+- **Live steps pending** (in the PR body, in order): backup, migrations, `pnpm db:seed`, nutrition, photo upload, `seed-photos.sql`, the destructive duplicate merge (978 to 959), `VACUUM`, smoke tests. The Vercel preview reads the LIVE database, so pages needing new RPC arguments only fully work after those steps.
 
-### Next up: Wave 2
+**Known issues carried forward:** `match_recipes` is 130-165 ms as `anon` (RLS runs `can_read_recipe()` per row) against a 200 ms budget; fix before ~1,500 recipes. `/pantry?pantry=<id above int4>` returns 500 (clamp ids). The pages list seven staples; the database has 22. `/shopping /login /privacy /terms` 404; header "Log in" is a dead link. Cuisine is NULL on about 742 recipes, so the cuisine filter hides them. Salmon and ramen now list non-staple rice and broth. Braised recipes compute high on kcal. Deleted duplicate slugs 404 (no redirects). Delete `/kitchen-sink` before launch.
 
-UI for the two doors, plus the harness: **M3.1** browse grid, **M3.2** recipe detail page, **M3.3 UI** pantry input and "you are missing", **M3.5 UI** `/recipes?q=`, **M3.4** filters (reconcile the matcher and search filter parameter names first; the NULL-passes-range-filter rule must match), **M3.6** landing page, **M1.5.7** 20-pantry test harness, and resume **photos**. Needs your decisions first: ingredient families, staple list, nutrition DoD, and the optional-ingredient allergen question (M3.4).
+### Next up: Wave 3, accounts (M4.1-M4.3) plus privacy and terms pages
 
-**Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations. After applying the search migrations to live, run `VACUUM (FULL, ANALYZE) recipes;` (see PR post-merge steps).
+**Blocked on you: buy a domain first.** Google OAuth will not verify a `vercel.app` host, and it needs a real homepage and privacy policy. Then: M4.1 Supabase Auth, M4.2 favorites, M4.3 account page, and `/privacy` and `/terms` (see `docs/LEGAL-COMPLIANCE.md`; the Vercel Hobby plan is non-commercial only).
+
+**Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations.
