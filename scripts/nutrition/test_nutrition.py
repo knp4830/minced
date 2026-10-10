@@ -77,5 +77,133 @@ class Matching(unittest.TestCase):
         )
 
 
+BACON = {"portions": [portion("strip medium", 8), portion("slice, thin", 5), portion("cup, chopped", 120)], "per100g": {"kcal": 541}}
+LEMON = {"portions": [portion("wedge", 12), portion("fruit (2-1/8\" dia)", 58)], "per100g": {"kcal": 29}}
+
+
+class EachRule(unittest.TestCase):
+    """Verifier bug: 'each' used to match a 'strip medium' portion (8 g) for a whole item."""
+
+    def test_each_never_picks_a_part_of_the_item(self):
+        self.assertIsNone(n.portion_grams(BACON, "each"))
+
+    def test_each_still_finds_the_whole_item(self):
+        self.assertEqual(n.portion_grams(LEMON, "each"), 58)
+
+
+class FakeFdc:
+    """Stands in for the USDA client: knows a few foods, finds nothing else."""
+
+    def __init__(self, foods):
+        self.foods = foods
+
+    def search(self, name, *a, **k):
+        return []
+
+    def food(self, fid):
+        return self.foods[fid]
+
+
+FLOUR_FOOD = {"fdc_id": 1, "description": "Flour", "per100g": {"kcal": 364, "protein_g": 10, "carbs_g": 76, "fat_g": 1}, "portions": [portion("cup", 125)]}
+SALT_NO_ENERGY = {"fdc_id": 2, "description": "Partial", "per100g": {"protein_g": 1}, "portions": []}
+
+
+def recipe(*lines):
+    return {"servings": 2, "ingredients": [dict(optional=False, prep=None, **l) for l in lines]}
+
+
+def ln(name, q, unit="g", kind="mass", factor=1.0):
+    return {"name": name, "quantity": q, "unit": unit, "kind": kind, "factor": factor}
+
+
+class Honesty(unittest.TestCase):
+    """The pipeline flags what it cannot do; it never guesses."""
+
+    FACTORS = {"g": 1.0}
+
+    def test_unmatched_ingredient_blocks_the_recipe(self):
+        per, rows, flags, blocking = n.compute(
+            recipe(ln("flour", 100), ln("unobtainium", 50)),
+            {"flour": {"fdc_id": 1}}, FakeFdc({1: FLOUR_FOOD}), self.FACTORS, False)
+        self.assertTrue(blocking)
+        self.assertIn(("error", "unobtainium: no USDA match"), flags)
+
+    def test_food_without_energy_blocks_the_recipe(self):
+        _, _, flags, blocking = n.compute(recipe(ln("x", 10)), {"x": {"fdc_id": 2}}, FakeFdc({2: SALT_NO_ENERGY}), self.FACTORS, False)
+        self.assertTrue(blocking)
+
+    def test_unconvertible_unit_blocks_the_recipe(self):
+        _, _, flags, blocking = n.compute(recipe(ln("flour", 1, "can", "count", None)), {"flour": {"fdc_id": 1}}, FakeFdc({1: FLOUR_FOOD}), self.FACTORS, False)
+        self.assertTrue(blocking)
+        self.assertTrue(any("cannot convert" in m for _, m in flags))
+
+    def test_clean_recipe_sums_per_serving(self):
+        per, _, flags, blocking = n.compute(recipe(ln("flour", 100)), {"flour": {"fdc_id": 1}}, FakeFdc({1: FLOUR_FOOD}), self.FACTORS, False)
+        self.assertFalse(blocking)
+        self.assertAlmostEqual(per["kcal"], 182)  # 100 g x 3.64 / 2 servings
+
+    def test_missing_sodium_is_a_note_not_a_hold(self):
+        _, _, flags, _ = n.compute(recipe(ln("flour", 100)), {"flour": {"fdc_id": 1}}, FakeFdc({1: FLOUR_FOOD}), self.FACTORS, False)
+        self.assertEqual([f[0] for f in flags], ["note"])  # sodium + fibre absent: shown, but status stays OK
+
+    def test_missing_macro_is_a_warning(self):
+        food = {"fdc_id": 3, "description": "No fat", "per100g": {"kcal": 100, "protein_g": 1, "carbs_g": 1}, "portions": []}
+        _, _, flags, _ = n.compute(recipe(ln("x", 10)), {"x": {"fdc_id": 3}}, FakeFdc({3: food}), self.FACTORS, False)
+        self.assertIn("warn", [f[0] for f in flags])
+
+
+class Forms(unittest.TestCase):
+    CMAP = {"white rice": {"fdc_id": 1}, "white rice [cooked]": {"fdc_id": 2}, "chickpeas": {"fdc_id": 3}, "chickpeas [dried]": {"fdc_id": 4}}
+
+    def test_cooked_prep_selects_the_cooked_record(self):
+        self.assertEqual(n.form_key("white rice", "cooked and cooled", self.CMAP), "white rice [cooked]")
+
+    def test_no_form_word_keeps_the_base_record(self):
+        self.assertEqual(n.form_key("white rice", "rinsed", self.CMAP), "white rice")
+
+    def test_uncooked_is_not_cooked(self):
+        self.assertEqual(n.form_key("white rice", "uncooked", self.CMAP), "white rice")
+
+    def test_form_without_an_entry_falls_back(self):
+        self.assertEqual(n.form_key("garlic", "cooked", self.CMAP), "garlic")
+
+    def test_dried_chickpeas(self):
+        self.assertEqual(n.form_key("chickpeas", "dried, soaked overnight", self.CMAP), "chickpeas [dried]")
+
+
+class FryingBath(unittest.TestCase):
+    OIL = n.Profile("vegetable oil", {"fdc_id": 1, "fry_retained": 0.15}, FLOUR_FOOD, False, None)
+
+    def test_for_frying_note_counts_the_absorbed_share(self):
+        self.assertEqual(n.fry_retained({"prep": "for frying"}, self.OIL, 30), 0.15)
+
+    def test_a_cup_of_oil_is_a_bath_even_without_a_note(self):
+        self.assertEqual(n.fry_retained({"prep": ""}, self.OIL, 218), 0.15)
+
+    def test_two_tablespoons_for_a_saute_is_counted_in_full(self):
+        self.assertIsNone(n.fry_retained({"prep": ""}, self.OIL, 27))
+
+    def test_oils_without_the_flag_are_untouched(self):
+        plain = n.Profile("olive oil", {"fdc_id": 1}, FLOUR_FOOD, False, None)
+        self.assertIsNone(n.fry_retained({"prep": "for frying"}, plain, 500))
+
+
+class Extras(unittest.TestCase):
+    def test_count_unit_extra_does_not_raise_keyerror(self):
+        data = {"unit_kinds": {"clove": "count", "g": "mass"}, "recipes": [{"slug": "r", "ingredients": []}]}
+        n.inject_extras(data, ["r:garlic:2:clove"], {"g": 1.0})
+        self.assertEqual(data["recipes"][0]["ingredients"][0]["kind"], "count")
+        self.assertIsNone(data["recipes"][0]["ingredients"][0]["factor"])
+
+    def test_unitless_extra_is_each(self):
+        data = {"unit_kinds": {}, "recipes": [{"slug": "r", "ingredients": []}]}
+        n.inject_extras(data, ["r:egg:2:"], {})
+        self.assertIsNone(data["recipes"][0]["ingredients"][0]["unit"])
+
+    def test_unknown_unit_is_refused(self):
+        with self.assertRaises(SystemExit):
+            n.inject_extras({"unit_kinds": {}, "recipes": [{"slug": "r", "ingredients": []}]}, ["r:egg:2:bogus"], {})
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
