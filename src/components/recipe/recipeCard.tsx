@@ -37,6 +37,8 @@ export type RecipeCardProps = {
   priority?: boolean;
 };
 
+const MISSING_SHOWN = 4;
+
 /**
  * The one recipe card, used by search, browse and the pantry matcher.
  * The whole card is a link (stretched from the title); the AI badge sits above
@@ -107,14 +109,18 @@ export function RecipeCard({
         {coverage && (
           <p className="mt-2.5 text-[0.8125rem] leading-snug text-ink-muted">
             <span className="font-mono text-xs font-semibold text-herb">
-              {coverage.haveCount}/{coverage.neededCount}
-            </span>{" "}
+              You have {coverage.haveCount} of {coverage.neededCount}
+            </span>
             {missing === 0 ? (
-              "You have everything"
+              " · nothing missing"
             ) : (
               <>
-                missing:{" "}
-                <span className="text-ink">{coverage.missingNames.join(", ")}</span>
+                {" · "}missing:{" "}
+                <span className="text-ink">
+                  {coverage.missingNames.slice(0, MISSING_SHOWN).join(", ")}
+                  {coverage.missingNames.length > MISSING_SHOWN &&
+                    ` +${coverage.missingNames.length - MISSING_SHOWN} more`}
+                </span>
               </>
             )}
           </p>

@@ -128,7 +128,7 @@ export type IngredientName = { id: number; name: string };
  * chips keep the order the cook added them in. Unknown ids are dropped.
  */
 export async function getIngredientNames(ids: number[]): Promise<IngredientName[]> {
-  const unique = [...new Set(ids.filter((n) => Number.isInteger(n) && n > 0))];
+  const unique = [...new Set(ids.filter((n) => Number.isInteger(n) && n > 0 && n <= 2_147_483_647))];
   if (unique.length === 0) return [];
 
   const supabase = await createClient();
