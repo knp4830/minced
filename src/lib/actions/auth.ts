@@ -27,7 +27,7 @@ export type FormState = {
   /** Shown above the form, in words. */
   error?: string;
   /** Per-field problems, keyed by input name. */
-  fieldErrors?: Partial<Record<"email" | "password" | "confirm", string>>;
+  fieldErrors?: Partial<Record<"email" | "password" | "confirm" | "agree", string>>;
   /** Success text; the form swaps itself for it. */
   done?: string;
   /** The email that was submitted, so a failed attempt doesn't clear it. */
@@ -85,6 +85,9 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
   if (emailError) fieldErrors.email = emailError;
   const passwordError = validateNewPassword(password);
   if (passwordError) fieldErrors.password = passwordError;
+  if (form.get("agree") !== "on") {
+    fieldErrors.agree = "Tick the box to agree to the Terms and Privacy Policy.";
+  }
   if (Object.keys(fieldErrors).length) return { email, fieldErrors };
 
   const supabase = await createClient();

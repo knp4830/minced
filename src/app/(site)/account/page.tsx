@@ -122,12 +122,19 @@ export default async function AccountPage({ searchParams }: Props) {
               <div>
                 <h3 className="text-base font-semibold">Your data</h3>
                 <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Minced stores your email and the recipes you save, nothing else.{" "}
+                  Minced stores your email, the recipes you save, and security sign-in logs.{" "}
                   <Link href="/privacy" className="underline underline-offset-4 hover:text-herb">
                     Read the privacy policy
                   </Link>
                   .
                 </p>
+                <a
+                  href="/api/me/export"
+                  download
+                  className="mt-3 inline-flex min-h-11 items-center text-[0.9375rem] font-medium underline underline-offset-4 hover:text-herb"
+                >
+                  Download my data
+                </a>
               </div>
               <div>
                 <h3 className="text-base font-semibold">Delete your account</h3>

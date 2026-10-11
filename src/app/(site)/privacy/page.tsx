@@ -29,14 +29,24 @@ export default function PrivacyPage() {
       </LegalSection>
 
       <LegalSection id="collect" title="What we store">
-        <p>Without an account: nothing about you. Searching and browsing are not recorded against a person.</p>
+        <p>Without an account: nothing about you. Searching and browsing are not recorded against a person. If you use the
+          &ldquo;What&apos;s in my fridge&rdquo; picker, your picks are kept in your
+          own browser storage on your device and are never sent to us.</p>
         <p>With an account:</p>
         <ul>
           <li>Your email address, so you can log in and recover your password.</li>
           <li>A hashed password. We never see or store the password itself.</li>
           <li>The recipes you save (your favourites).</li>
           <li>When the account was created.</li>
+          <li>
+            Sign-in logs (IP address and browser) that Supabase keeps for
+            security, such as when you log in or reset a password.
+          </li>
         </ul>
+        <p>
+          Accounts have a public profile record (an id and an optional display
+          name). It holds no email and no other personal details today.
+        </p>
         <p>
           We do not run analytics, advertising, or tracking scripts, and we do not
           collect your date of birth, location, or payment details. We do not sell
@@ -50,7 +60,7 @@ export default function PrivacyPage() {
           <code className="font-mono text-[0.875em]">sb-</code>). They exist only to
           remember that you are logged in, and are removed when you log out (at the
           latest they expire after about 13 months). Because they are strictly necessary for the login you asked
-          for, there is no cookie banner. Nothing else on Minced sets cookies.
+          for, there is no cookie banner. Nothing else on Minced sets cookies. (Your fridge picks use browser storage on your device, not cookies, and stay there.)
         </p>
       </LegalSection>
 
@@ -76,12 +86,32 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
+      <LegalSection id="basis" title="Why we use it, and transfers">
+        <ul>
+          <li>
+            <strong className="font-semibold text-ink">Running your account</strong>{" "}
+            (email, password hash, saved recipes): needed to provide the account
+            you asked for (contract).
+          </li>
+          <li>
+            <strong className="font-semibold text-ink">Sign-in logs:</strong> our
+            legitimate interest in keeping accounts and the site secure.
+          </li>
+        </ul>
+        <p>
+          Our processors are based in, or may process data in, the United States.
+          Where data moves from the EU, UK or Switzerland, it relies on the
+          processor&apos;s Standard Contractual Clauses and, where they are
+          certified, the EU-US Data Privacy Framework.
+        </p>
+      </LegalSection>
+
       <LegalSection id="keep" title="How long we keep it">
         <p>
           For as long as the account exists. When you delete the account, your
-          email, password hash and saved recipes are removed immediately. Any copy in
-          the host&apos;s routine backups ages out on the host&apos;s own schedule and
-          is never restored for any purpose except recovering the whole site.
+          email, password hash and saved recipes are removed immediately. Security
+          logs (which can include your email and IP address) and routine backups
+          age out on the host&apos;s own schedule, and are never restored for any purpose except recovering the whole site.
         </p>
       </LegalSection>
 
@@ -95,8 +125,9 @@ export default function PrivacyPage() {
           <li>
             <strong className="font-semibold text-ink">See or correct your data:</strong>{" "}
             your email and saved recipes are all there is, and both are visible on
-            your <Link href="/account" className={legalLink}>account page</Link>. To
-            change your email or get a copy, open an issue.
+            your <Link href="/account" className={legalLink}>account page</Link>. You
+            can download a copy from Settings (&ldquo;Download my data&rdquo;). To
+            change your email, open an issue.
           </li>
           <li>
             Whatever your local law gives you (access, deletion, correction,

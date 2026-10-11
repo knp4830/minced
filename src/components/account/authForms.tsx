@@ -224,20 +224,37 @@ export function SignupForm({ next }: { next?: string }) {
           />
         )}
       </Field>
+      <div>
+        <label className="flex min-h-11 items-start gap-3 text-[0.875rem] leading-snug text-ink-muted">
+          <input
+            type="checkbox"
+            name="agree"
+            required
+            aria-invalid={!!fe.agree}
+            aria-describedby={fe.agree ? "agree-err" : undefined}
+            className="mt-0.5 size-5 shrink-0 accent-herb"
+          />
+          <span>
+            I agree to the{" "}
+            <Link href="/terms" className="underline underline-offset-2 hover:text-herb">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" className="underline underline-offset-2 hover:text-herb">
+              Privacy Policy
+            </Link>
+            .
+          </span>
+        </label>
+        {fe.agree && (
+          <p id="agree-err" className="mt-1 text-[0.8125rem] text-paprika-deep">
+            {fe.agree}
+          </p>
+        )}
+      </div>
       <SubmitButton pending={pending} pendingLabel="Creating account…">
         Create account
       </SubmitButton>
-      <p className="text-center text-xs leading-relaxed text-ink-muted">
-        By creating an account you agree to the{" "}
-        <Link href="/terms" className="underline underline-offset-2 hover:text-herb">
-          Terms
-        </Link>{" "}
-        and{" "}
-        <Link href="/privacy" className="underline underline-offset-2 hover:text-herb">
-          Privacy Policy
-        </Link>
-        .
-      </p>
     </form>
   );
 }
