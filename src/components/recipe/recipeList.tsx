@@ -14,7 +14,8 @@ export type RecipeListProps = {
 };
 
 /**
- * Responsive grid of RecipeCards: 1 column on phones, 2 from sm, 3 from lg.
+ * Responsive grid of RecipeCards per design/HANDOFF.md: auto-fill with a 150px
+ * minimum on phones (two columns at 375px), 232px from sm.
  * Pagination is a plain link to `nextHref` (cursor lives in the URL), so it
  * works without JavaScript. Server component.
  */
@@ -32,7 +33,7 @@ export function RecipeList({
     <div data-slot="recipe-list">
       <ul
         aria-label={label}
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-[18px] lg:grid-cols-3"
+        className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(232px,1fr))] sm:gap-[18px]"
       >
         {recipes.map((r, i) => (
           <li key={r.slug} className="min-w-0">
