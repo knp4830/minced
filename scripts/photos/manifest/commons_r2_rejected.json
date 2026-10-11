@@ -25,6 +25,9 @@
   "wave3_fixer_dropped": {
     "tostadas": "photo shows shrimp tostadas; recipe has no shrimp",
     "fish-spinach": "photo reads as egg/frittata gratin, no visible fish",
-    "curried-chickpea-salad": "chickpeas not evident in photo (potato salad)"
+    "curried-chickpea-salad": "chickpeas not evident in photo (potato salad)",
+    "pineapple-rice-bake": "photo shows a savoury chicken casserole; the USDA recipe is a sweet pineapple rice dessert bake",
+    "cheese-and-corn-chowder": "photo dominated by grilled-cheese toast, no visible corn in the soup",
+    "baked-tofu": "photo shows Hawaiian tofu with pineapple, peppers and broccoli; recipe is only soy sauce, garlic, ginger and tofu"
   }
 }

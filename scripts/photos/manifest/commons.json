@@ -1900,25 +1900,6 @@
     "image_cache": "commons/images/applesauce.bin"
   },
   {
-    "slug": "baked-tofu",
-    "recipe_title": "Baked Tofu",
-    "source": "wikimedia_commons",
-    "license": "CC BY 2.0",
-    "license_raw": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "author": "Kari Sullivan from Austin, TX",
-    "credit": "Kari Sullivan from Austin, TX",
-    "alt_text": "Baked Tofu",
-    "credit_line": "Baked Hawaiian Tofu",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Baked_Hawaiian_Tofu_(127091974).jpg",
-    "source_image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Baked_Hawaiian_Tofu_%28127091974%29.jpg/1280px-Baked_Hawaiian_Tofu_%28127091974%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "file": "File:Baked Hawaiian Tofu (127091974).jpg",
-    "description": "Baked Hawaiian Tofu",
-    "sha256": "aa7c6936383cac987e8b968f148caa40fd0fef610449d54786ba0adc21d271c8",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Baked_Hawaiian_Tofu_(127091974).jpg reports licence 'CC BY 2.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/baked-tofu.bin"
-  },
-  {
     "slug": "barley-pilaf",
     "recipe_title": "Barley Pilaf",
     "source": "wikimedia_commons",
@@ -2658,25 +2639,6 @@
     "sha256": "258c7c9bcdf78ccb03c054321b805fa451d1ca588c5356a26256b1dd04c8673d",
     "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Picadillo_and_rice.jpg reports licence 'CC BY-SA 3.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
     "image_cache": "commons/images/picadillo-0.bin"
-  },
-  {
-    "slug": "pineapple-rice-bake",
-    "recipe_title": "Pineapple Rice Bake",
-    "source": "wikimedia_commons",
-    "license": "CC BY 2.0",
-    "license_raw": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "author": "Elsie Hui",
-    "credit": "Elsie Hui",
-    "alt_text": "Pineapple Rice Bake",
-    "credit_line": "Cafe HK - Chicken & Pineapple Rice Bake",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Chicken_%26_Pineapple_Rice_Bake.jpg",
-    "source_image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Chicken_%26_Pineapple_Rice_Bake.jpg/1280px-Chicken_%26_Pineapple_Rice_Bake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "file": "File:Chicken & Pineapple Rice Bake.jpg",
-    "description": "www.elsiehui.com/food/cafe-hk-calgary-alberta/v",
-    "sha256": "7f682b02992540c5b2a9211592bfab667636115a05928504c70ad9905f15a5f2",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Chicken_%26_Pineapple_Rice_Bake.jpg reports licence 'CC BY 2.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/pineapple-rice-bake.bin"
   },
   {
     "slug": "potato-salad",
@@ -4292,25 +4254,6 @@
     "sha256": "72ba1be4f42224ac43e65a48d269a972803fe733a1e1364bad5837f56d4b4080",
     "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:2019-11-28_14_34_38_A_bowl_of_candied_yams_laid_out_for_Thanksgiving_Dinner_in_the_Parkway_Village_section_of_Ewing_Township,_Mercer_County,_New_Jersey.jpg reports licence 'CC BY-SA 4.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
     "image_cache": "commons/images/candied-yams.bin"
-  },
-  {
-    "slug": "cheese-and-corn-chowder",
-    "recipe_title": "Cheese and Corn Chowder",
-    "source": "wikimedia_commons",
-    "license": "CC BY-SA 2.0",
-    "license_raw": "CC BY-SA 2.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
-    "author": "Edsel Little",
-    "credit": "Edsel Little",
-    "alt_text": "Cheese and Corn Chowder",
-    "credit_line": "The Feve Brunch - Grilled Cheese & Soup",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Corn_chowder_and_grilled_cheese_sandwich.jpg",
-    "source_image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Corn_chowder_and_grilled_cheese_sandwich.jpg/1280px-Corn_chowder_and_grilled_cheese_sandwich.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "file": "File:Corn chowder and grilled cheese sandwich.jpg",
-    "description": "Served on old-world bread and filled with cheddar, avocado and bacon Served with a bowl of corn chowder Menu PDF",
-    "sha256": "9cabe8a1f9d818ef9673c7fde13640855a098ca1b9f1bb48d68825b0f7ed6ba0",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Corn_chowder_and_grilled_cheese_sandwich.jpg reports licence 'CC BY-SA 2.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/cheese-and-corn-chowder.bin"
   },
   {
     "slug": "chicken-mole",
