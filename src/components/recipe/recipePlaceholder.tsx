@@ -97,7 +97,7 @@ export function RecipePlaceholder({
         )}
       />
       <div className="absolute inset-0 flex flex-col justify-between p-[7cqw]">
-        <span className="font-mono text-[0.5625rem] tracking-[0.1em] uppercase opacity-75">
+        <span className="font-mono text-[0.5625rem] tracking-[0.1em] uppercase">
           {label}
         </span>
         <p

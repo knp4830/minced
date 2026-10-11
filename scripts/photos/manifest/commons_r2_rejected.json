@@ -21,5 +21,10 @@
   "restaurant_menu_or_branded": {
     "baked-fish-with-tomatoes-peppers-onions": "shop-front menu board",
     "veggie-burgers": "alternate pick was a Burger King tray"
+  },
+  "wave3_fixer_dropped": {
+    "tostadas": "photo shows shrimp tostadas; recipe has no shrimp",
+    "fish-spinach": "photo reads as egg/frittata gratin, no visible fish",
+    "curried-chickpea-salad": "chickpeas not evident in photo (potato salad)"
   }
 }
