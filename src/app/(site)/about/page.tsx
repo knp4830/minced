@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getPhotoCredits } from "@/lib/queries/landing";
 
 export const metadata: Metadata = {
   title: "How recipes are made",
@@ -24,7 +25,10 @@ function Section({ id, title, children }: { id: string; title: string; children:
 const link =
   "font-medium text-ink underline underline-offset-4 hover:text-herb";
 
-export default function AboutPage() {
+export const revalidate = 3600;
+
+export default async function AboutPage() {
+  const credits = await getPhotoCredits();
   return (
     <div className="mx-auto max-w-[44rem] px-(--gutter) py-8 md:py-14">
       <h1 className="text-[2rem] leading-[1.05] md:text-[2.75rem]">How recipes are made</h1>
@@ -75,6 +79,37 @@ export default function AboutPage() {
           card shows a plain striped block instead. We never show an AI-generated
           image as the finished dish.
         </p>
+        {credits.length > 0 && (
+          <details className="rounded-xl border border-line bg-surface">
+            <summary className="flex min-h-11 cursor-pointer items-center px-4 text-[0.9375rem] font-semibold">
+              Photo credits ({credits.length})
+            </summary>
+            <ul className="divide-y divide-line border-t border-line text-sm">
+              {credits.map((c) => (
+                <li key={c.slug} className="px-4 py-2.5">
+                  <Link href={`/recipes/${c.slug}`} className={link}>
+                    {c.title}
+                  </Link>
+                  <span className="text-ink-muted">
+                    {" "}
+                    &mdash;{" "}
+                    <a href={c.attributionUrl} className={link} rel="noopener">
+                      {c.credit ?? "Source"}
+                    </a>
+                    ,{" "}
+                    {c.licenseUrl ? (
+                      <a href={c.licenseUrl} className={link} rel="noopener">
+                        {c.license}
+                      </a>
+                    ) : (
+                      c.license
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
       </Section>
 
       <Section id="nutrition" title="Nutrition is an estimate">

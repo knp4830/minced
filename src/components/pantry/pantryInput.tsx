@@ -32,7 +32,7 @@ type Suggestion = {
 };
 
 export type PantryInputProps = {
-  variant: "landing" | "results";
+  variant: "landing" | "hero" | "results";
   initialItems?: PantryItem[];
   /** Ingredient ids flagged "use up". Subset of the pantry. */
   initialUse?: number[];
@@ -418,15 +418,21 @@ export function PantryInput({
         </div>
       )}
 
-      {variant === "landing" && (
+      {(variant === "landing" || variant === "hero") && (
         <form action="/pantry" method="get" className="mt-4">
           {!empty && <input type="hidden" name="pantry" value={items.map((i) => i.id).join(",")} />}
           {use.length > 0 && <input type="hidden" name="use" value={use.join(",")} />}
-          <Button type="submit" size="lg" className="w-full" disabled={empty}>
-            {empty
-              ? "Add an ingredient to start"
-              : `Find recipes with ${items.length} ingredient${items.length === 1 ? "" : "s"}`}
-          </Button>
+          {variant === "hero" ? (
+            <Button type="submit" size="lg" className="w-full sm:w-auto">
+              Find recipes
+            </Button>
+          ) : (
+            <Button type="submit" size="lg" className="w-full" disabled={empty}>
+              {empty
+                ? "Add an ingredient to start"
+                : `Find recipes with ${items.length} ingredient${items.length === 1 ? "" : "s"}`}
+            </Button>
+          )}
         </form>
       )}
     </div>

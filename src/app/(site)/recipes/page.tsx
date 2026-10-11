@@ -1,4 +1,3 @@
-import { SlidersHorizontal } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import {
   clearFiltersHref,
   FilterControls,
 } from "@/components/recipe/filterPanel";
+import { FilterSheet } from "@/components/recipe/filterSheet";
 import { RecipeList } from "@/components/recipe/recipeList";
 import {
   filtersToQuery,
@@ -91,11 +91,11 @@ export default async function RecipesPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
-      <div className="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10">
+      <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
         {/* Desktop: sticky sidebar */}
         <aside
           aria-label="Filters"
-          className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto lg:pr-2"
+          className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto lg:border-r lg:border-line lg:pr-5"
         >
           <div className="mb-4 flex items-baseline justify-between">
             <h2 className="text-[1.0625rem]">Filters</h2>
@@ -104,7 +104,7 @@ export default async function RecipesPage({ searchParams }: Props) {
           <FilterControls filters={filters} options={options} />
         </aside>
 
-        <section aria-labelledby="results-h" className="min-w-0">
+        <section aria-labelledby="results-h" className="min-w-0 lg:pl-8">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
             <div>
               <h1 id="results-h" className="text-[1.75rem] leading-tight md:text-[2rem]">
@@ -126,32 +126,20 @@ export default async function RecipesPage({ searchParams }: Props) {
             )}
           </div>
 
-          {/* Phone: filters in a disclosure above the list */}
-          <details open={activeCount > 0} className="group mb-5 rounded-xl border border-line bg-surface lg:hidden">
-            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 text-[0.9375rem] font-semibold marker:hidden [&::-webkit-details-marker]:hidden">
-              <span className="inline-flex items-center gap-2">
-                <SlidersHorizontal aria-hidden className="size-4" />
-                Filters
-                {activeCount > 0 && (
-                  <span className="rounded-full bg-herb px-2 py-0.5 font-mono text-[0.6875rem] text-on-herb">
-                    {activeCount}
-                  </span>
-                )}
-              </span>
-              <span aria-hidden className="font-mono text-xs text-ink-subtle group-open:hidden">
-                show
-              </span>
-              <span aria-hidden className="hidden font-mono text-xs text-ink-subtle group-open:inline">
-                hide
-              </span>
-            </summary>
-            <div className="border-t border-line px-4 pt-4 pb-2">
-              <FilterControls filters={filters} options={options} />
-              <div className="-mt-2 mb-2">
-                <ClearFilters filters={filters} />
-              </div>
+          {/* Phone: "Filters" button opening a bottom sheet */}
+          <FilterSheet
+            activeCount={activeCount}
+            showLabel={
+              page.total === null
+                ? "Show recipes"
+                : `Show ${page.totalIsLowerBound ? `${page.total}+` : page.total} ${page.total === 1 && !page.totalIsLowerBound ? "recipe" : "recipes"}`
+            }
+          >
+            <div className="mb-3 flex justify-end">
+              <ClearFilters filters={filters} />
             </div>
-          </details>
+            <FilterControls filters={filters} options={options} />
+          </FilterSheet>
 
           {page.fuzzy && (
             <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">

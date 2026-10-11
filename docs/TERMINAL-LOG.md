@@ -378,6 +378,12 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-09 | `python scripts/photos/upload_photos.py` (dry run) then `--apply` | Upload photos to the `recipe-photos` bucket | Dry run by default; `--apply` needs the secret key from the environment |
 | 2026-10-09 | `psql -v ON_ERROR_STOP=1 -f supabase/seed-photos.sql` | Seed `recipe_photos` | Idempotent. Run after the upload, not before |
 | 2026-10-09 | `pnpm db:types` | Regenerate `src/types/database.ts` after the wave 2 migrations | Required in the same commit as the migrations |
+| 2026-10-10 | `list_project_domains` (Vercel MCP) | Find where production actually lives | The URL in our docs (`mise-mise14.vercel.app`) served a Next.js starter while production deploys were all READY. The project's only domain was `mise-two-xi.vercel.app`. **A green deploy and the URL you're looking at are two different facts** — check the project's domain list |
+| 2026-10-10 | `update_project {name: "minced"}` + `add_project_domain minced-app.vercel.app` | Rename the Vercel project, give it a clean URL | `minced.vercel.app` failed `409 owned-on-other-team` — `*.vercel.app` names are first-come across all of Vercel. Renaming a project does not rename its existing domains |
+| 2026-10-10 | `python process_images.py` → `upload_photos.py` (dry run) → `--apply` → `psql -f supabase/seed-photos.sql` | Put the 99 licensed photos live | 198 objects (md + sm WebP), 8.5 MB. Upload BEFORE the seed, or rows point at files that don't exist. The dry run is the default on purpose |
+| 2026-10-10 | `pnpm exec supabase db push --db-url "$DATABASE_URL" --dry-run` | Apply wave 2 to live | Listed **6** migrations, not the 4 the PR said — fix rounds added two. Always read the dry run instead of trusting the PR body |
+| 2026-10-10 | `psql -v dry_run=1 -f scripts/dedupe-recipes.sql`, then without it | Destructive duplicate merge (978 → 959) | The real run printed `DELETE 941`, which looked alarming — it was the script's own temp planning table. Find every `delete` in a script before panicking or proceeding |
+| 2026-10-10 | `Get-NetTCPConnection -LocalPort 3402 -State Listen` → `Stop-Process` | Free a port held by a "stopped" dev server | Stopping the shell that ran `pnpm start` left the `node` child alive; the new server failed with EADDRINUSE while the OLD build kept answering. A page loading proves nothing about *which* build is serving |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

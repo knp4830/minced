@@ -129,16 +129,16 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 
 **Phase 0 — Foundations: complete.** M0.1–M0.5 all closed.
 
-- Live at **https://mise-mise14.vercel.app**; pushes to `main` redeploy automatically.
+- Live at **https://minced-app.vercel.app**; pushes to `main` redeploy automatically.
 - Repo is **public**, and `main` is protected — every change goes through a PR, including yours.
 
 **Phase 0 and Phase 1: complete.** M0.1–M0.5 and M1.1–M1.6 all closed.
 
-- Live at **https://mise-mise14.vercel.app**. Repo public, `main` protected — every change goes through a PR.
+- Live at **https://minced-app.vercel.app** (Vercel project `minced`, renamed from `mise` on 2026-10-10; `mise-two-xi.vercel.app` still aliases it). **`mise-mise14.vercel.app` was never this project** — older docs and LEARNING-LOG entries that call it the live URL are wrong; it serves a Next.js starter. Repo public, `main` protected — every change goes through a PR.
 - Database live with **seven** migrations applied and **RLS enforced**. `pnpm db:seed` is idempotent and seeds the ingredient vocabulary before the six mockup recipes; the USDA catalog is loaded separately by `scripts/myplate/import.sh`.
 - `docs/SCHEMA-NOTES.md` is the schema's rationale — read it before changing the database.
 - Typed clients in `src/lib/supabase/`; generated types in `src/types/database.ts`.
-- **Renamed Mise → Minced** (2026-09-16). Migration comments, TERMINAL-LOG history and the `mise-mise14` Vercel URL still say "Mise" on purpose — see LEARNING-LOG "Interlude".
+- **Renamed Mise → Minced** (2026-09-16). Migration comments and TERMINAL-LOG history still say "Mise" on purpose — see LEARNING-LOG "Interlude".
 
 ### Phase 1.5 progress
 
