@@ -1,6 +1,7 @@
-import { CookingPot, Search } from "lucide-react";
+import { CookingPot } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { HeaderSearch } from "@/components/shell/headerSearch";
 import { Wordmark } from "@/components/shell/wordmark";
 
 /*
@@ -15,26 +16,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-5 gap-y-2.5 px-(--gutter) py-3 md:flex-nowrap md:py-3.5">
         <Wordmark />
 
-        <form
-          role="search"
-          action="/recipes"
-          method="get"
-          className="order-last flex min-h-11 w-full items-center gap-2 rounded-field border border-line bg-sunken px-3 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20 md:order-none md:max-w-[26rem] md:flex-1"
-        >
-          <Search aria-hidden className="size-4 shrink-0 text-stone" />
-          <label htmlFor="site-search" className="sr-only">
-            Search recipes or ingredients
-          </label>
-          <input
-            id="site-search"
-            name="q"
-            type="search"
-            enterKeyHint="search"
-            autoComplete="off"
-            placeholder="Search recipes or ingredients"
-            className="w-full min-w-0 bg-transparent py-2 text-base outline-none placeholder:text-ink-subtle sm:text-sm"
-          />
-        </form>
+        <HeaderSearch />
 
         <nav
           aria-label="Primary"
@@ -50,7 +32,8 @@ export function SiteHeader() {
           <Button asChild size="sm">
             <Link href="/pantry">
               <CookingPot aria-hidden className="size-4" />
-              <span>What can I make?</span>
+              <span className="hidden min-[420px]:inline">What’s in my fridge?</span>
+              <span className="min-[420px]:hidden">My fridge</span>
             </Link>
           </Button>
         </nav>

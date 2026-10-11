@@ -137,13 +137,15 @@ export default async function AboutPage() {
         </p>
       </Section>
 
-      <Section id="matching" title="How the pantry search works">
+      <Section id="matching" title="How the fridge search works">
         <p>
-          Each recipe ingredient is matched to one standard ingredient, so
+          You tap what you have and Minced lists every recipe that uses at least one
+          of those things, closest match first. Each recipe ingredient is matched to one
+          standard ingredient, so
           &ldquo;scallion&rdquo; and &ldquo;green onion&rdquo; are the same
           thing. Salt, pepper, oil, butter, sugar, flour and water are assumed to
           be in your kitchen and never count as missing, and optional ingredients
-          are not counted either. Your pantry stays in your browser and in the
+          are not counted either. Your fridge stays in your browser and in the
           link you share. Minced does not save anything to an account yet, so
           log in and shopping-list pages are not available.
         </p>

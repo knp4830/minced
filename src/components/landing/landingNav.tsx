@@ -34,7 +34,7 @@ export function LandingNav() {
           <Button asChild size="sm">
             <Link href="/pantry">
               <CookingPot aria-hidden className="size-4" />
-              <span>What can I make?</span>
+              <span>What’s in my fridge?</span>
             </Link>
           </Button>
         </nav>

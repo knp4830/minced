@@ -17,6 +17,12 @@ export type RecipeIngredientLine = {
   name: string;
   prepNote: string | null;
   optional: boolean;
+  /** Canonical ingredient id, for marking have/missing against a fridge. */
+  ingredientId: number | null;
+  /** Family parent ("onion" for "yellow onion"); a parent in the fridge covers it. */
+  familyId: number | null;
+  /** Salt, oil and friends: assumed, never marked missing. */
+  isStaple: boolean;
 };
 
 export type RecipePhotoCredit = {
@@ -85,7 +91,13 @@ type Row = {
     is_optional: boolean;
     sort_order: number;
     units: { name: string } | null;
-    ingredients: { canonical_name: string; aisle_category: string; is_pantry_staple: boolean } | null;
+    ingredients: {
+      id: number;
+      canonical_name: string;
+      aisle_category: string;
+      family_id: number | null;
+      is_pantry_staple: boolean;
+    } | null;
   }[];
   recipe_steps: { sort_order: number; instruction: string }[];
   recipe_diets: { diets: { slug: string; name: string } | null }[];
@@ -98,7 +110,7 @@ const SELECT = `
   spice_level, image_url, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
   source_name, source_url, source_license,
   cuisines(name),
-  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name), ingredients(canonical_name, aisle_category, is_pantry_staple)),
+  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name), ingredients(id, canonical_name, aisle_category, family_id, is_pantry_staple)),
   recipe_steps(sort_order, instruction),
   recipe_diets(diets(slug, name)),
   recipe_allergens(allergens(name)),
@@ -170,6 +182,9 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeDetail | null
         name: i.ingredients?.canonical_name ?? "",
         prepNote: i.prep_note,
         optional: i.is_optional,
+        ingredientId: i.ingredients?.id ?? null,
+        familyId: i.ingredients?.family_id ?? null,
+        isStaple: i.ingredients?.is_pantry_staple ?? false,
       })),
     steps: [...r.recipe_steps]
       .sort((a, b) => a.sort_order - b.sort_order)

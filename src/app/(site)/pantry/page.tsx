@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
-import { PantryInput } from "@/components/pantry/pantryInput";
+import { FridgePicker } from "@/components/pantry/fridgePicker";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { filtersToQuery, parseFilters, type SearchParamsInput } from "@/lib/filters";
-import { getIngredientNames } from "@/lib/queries/ingredients";
 import { getCardExtras } from "@/lib/queries/browse";
+import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
+import { getIngredientNames } from "@/lib/queries/ingredients";
 import { matchRecipes } from "@/lib/queries/matcher";
 import { usableImageUrl } from "@/lib/photos";
 
 export const metadata: Metadata = {
-  title: "What you can make",
-  description: "Recipes ranked by how little your kitchen is missing.",
+  title: "What's in my fridge",
+  description: "Every recipe that uses what you have, closest match first.",
 };
+
+/**
+ * One tap on a fridge item is enough, so the matcher is asked for everything
+ * that uses at least one picked ingredient: no cap on how much a recipe may be
+ * missing. Ranking (coverage, then more items used) does the sorting. `?maxMissing=`
+ * in the URL still narrows it for anyone who wants that.
+ */
+const NO_MISSING_CAP = 1000;
 
 export default async function PantryPage({
   searchParams,
@@ -20,21 +29,23 @@ export default async function PantryPage({
   const filters = parseFilters(await searchParams);
   const wanted = [...new Set([...(filters.pantry ?? []), ...(filters.use ?? [])])];
 
-  // "use" ids are implicitly in the pantry (match_recipes unions them), so show
-  // them as chips even if the URL only listed them under `use`.
-  const [names, result] = await Promise.all([
+  const [catalog, names, result] = await Promise.all([
+    getIngredientCatalog(),
     getIngredientNames(wanted),
-    matchRecipes(filters, { pageSize: 24 }),
+    matchRecipes(
+      { ...filters, maxMissing: filters.maxMissing ?? NO_MISSING_CAP },
+      { pageSize: 24, minHave: 1 },
+    ),
   ]);
-  const useIds = new Set(filters.use ?? []);
-  const maxMissing = filters.maxMissing ?? 3;
-  const hasPantry = names.length > 0;
+  const hasFridge = names.length > 0;
+  const fridgeParam = names.map((n) => n.id).join(",");
 
   const extras = await getCardExtras(result.matches.map((m) => m.recipeId));
   const recipes = result.matches.map((m) => ({
     ...extras.get(m.recipeId),
     slug: m.slug,
     title: m.title,
+    href: `/recipes/${m.slug}?pantry=${fridgeParam}`,
     imageUrl: extras.get(m.recipeId)?.imageUrl ?? usableImageUrl(m.imageUrl),
     totalTimeMin: m.totalTimeMin,
     servings: m.servings,
@@ -52,43 +63,36 @@ export default async function PantryPage({
 
   return (
     <div className="mx-auto max-w-[1180px] px-(--gutter) py-8 md:py-12">
-      <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What you can make</h1>
+      <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What&apos;s in my fridge</h1>
       <p className="mt-2 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-        Salt, pepper, oil, butter, sugar, flour and water are assumed, so you
-        don&apos;t need to list them.
+        Tap what you have and see every recipe that uses any of it, closest match first. Salt,
+        pepper, oil, butter, sugar, flour and water are assumed.
       </p>
 
-      <PantryInput
-        variant="results"
-        className="mt-6 max-w-[40rem]"
-        initialItems={names}
-        initialUse={names.filter((n) => useIds.has(n.id)).map((n) => n.id)}
-        initialMaxMissing={maxMissing}
-      />
+      <FridgePicker className="mt-6 max-w-[40rem]" variant="page" catalog={catalog} initial={names} />
 
       <section aria-labelledby="results-heading" className="mt-10">
-        {hasPantry && (
+        {hasFridge && (
           <h2 id="results-heading" className="mb-4 text-lg md:text-xl">
             {recipes.length === 0
-              ? "Nothing close yet"
+              ? "No recipe uses these yet"
               : `Closest first${nextHref ? "" : ` · ${recipes.length} recipe${recipes.length === 1 ? "" : "s"}`}`}
           </h2>
         )}
         <RecipeList
-          label="Recipes ranked by what you have"
+          label="Recipes that use what you have"
           recipes={recipes}
           nextHref={nextHref}
           empty={
-            hasPantry ? (
+            hasFridge ? (
               <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-                No recipe is within {maxMissing === 0 ? "nothing" : maxMissing} missing
-                ingredient{maxMissing === 1 ? "" : "s"} of this pantry. Allow a
-                couple more missing, or add what else is in the kitchen.
+                None of the recipes fit these filters. Try adding something else from the
+                fridge.
               </p>
             ) : (
               <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-                Add three or four things you have and the closest recipes show up
-                here, with exactly what each one is missing.
+                Pick one thing or ten. Each recipe shows how many of its ingredients you have
+                and exactly what&apos;s missing.
               </p>
             )
           }
