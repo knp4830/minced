@@ -2299,25 +2299,6 @@
     "image_cache": "commons/images/cranberry-pumpkin-muffins.bin"
   },
   {
-    "slug": "cucumber-salad",
-    "recipe_title": "Cucumber Salad",
-    "source": "wikimedia_commons",
-    "license": "CC BY-SA 2.0",
-    "license_raw": "CC BY-SA 2.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
-    "author": "Charles Haynes",
-    "credit": "Charles Haynes",
-    "alt_text": "Cucumber Salad",
-    "credit_line": "Cucumber Salad",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Cucumber_Salad_(8644241005).jpg",
-    "source_image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Cucumber_Salad_%288644241005%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-    "file": "File:Cucumber Salad (8644241005).jpg",
-    "description": "Cucumber Salad",
-    "sha256": "d5184e454fd8c9096115bc71ba73ce6302521b3d685221e951af600daeb372c8",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Cucumber_Salad_(8644241005).jpg reports licence 'CC BY-SA 2.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/cucumber-salad.bin"
-  },
-  {
     "slug": "curried-chickpea-salad",
     "recipe_title": "Curried Chickpea Salad",
     "source": "wikimedia_commons",
@@ -4824,25 +4805,6 @@
     "sha256": "81f13e5785dc8ae652551bf45527dfa6cb67bbeac1c797581c4ac310581fd52b",
     "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Roasted_Brussel_Sprouts_(4070526401).jpg reports licence 'CC BY 2.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
     "image_cache": "commons/images/roasted-brussels-sprouts.bin"
-  },
-  {
-    "slug": "roasted-potatoes",
-    "recipe_title": "Roasted Potatoes",
-    "source": "wikimedia_commons",
-    "license": "CC BY-SA 4.0",
-    "license_raw": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-    "author": "Kgbo",
-    "credit": "Kgbo",
-    "alt_text": "Roasted Potatoes",
-    "credit_line": "Own work",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Roasted_potatoes,_carrots_and_sweet_potatoes,_home_cooking_in_Brisbane,_2020.jpg",
-    "source_image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Roasted_potatoes%2C_carrots_and_sweet_potatoes%2C_home_cooking_in_Brisbane%2C_2020.jpg/1280px-Roasted_potatoes%2C_carrots_and_sweet_potatoes%2C_home_cooking_in_Brisbane%2C_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "file": "File:Roasted potatoes, carrots and sweet potatoes, home cooking in Brisbane, 2020.jpg",
-    "description": "Roasted potatoes, carrots and sweet potatoes, home cooking in Brisbane, 2020",
-    "sha256": "bd0a88439baf6b15f56d8980e3fc2ea6432191f623bb346a67239840d029e72c",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Roasted_potatoes,_carrots_and_sweet_potatoes,_home_cooking_in_Brisbane,_2020.jpg reports licence 'CC BY-SA 4.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/roasted-potatoes.bin"
   },
   {
     "slug": "salmon-patties",
