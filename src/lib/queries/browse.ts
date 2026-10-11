@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 
 import type { RecipeFilters } from "@/lib/filters";
 import { needsAttribution, photoPublicUrl, usableImageUrl } from "@/lib/photos";
+import { primaryAisle } from "@/lib/placeholderTone";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
 import { encodeSearchCursor, searchRecipes } from "@/lib/queries/search";
@@ -48,10 +49,16 @@ type CardRow = {
   source_name: string | null;
   cuisines: { name: string } | null;
   recipe_allergens: { allergens: { name: string } | null }[];
+  has_photo: boolean;
+  recipe_ingredients: {
+    sort_order: number;
+    is_optional: boolean;
+    ingredients: { aisle_category: string; is_pantry_staple: boolean } | null;
+  }[];
 };
 
 const CARD_COLUMNS =
-  "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(allergens(name))";
+  "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(allergens(name)), has_photo, recipe_ingredients(sort_order, is_optional, ingredients(aisle_category, is_pantry_staple))";
 
 export const AI_SOURCE_NAME = "Minced original";
 
@@ -63,6 +70,7 @@ function toCard(row: CardRow, photos: Map<string, CardPhoto>): RecipeCardProps {
     slug: row.slug,
     title: row.title,
     cuisine: row.cuisines?.name ?? null,
+    aisle: primaryAisle(row.recipe_ingredients),
     imageUrl: photo?.url ?? usableImageUrl(row.image_url),
     photoCredit: photo?.credit ?? null,
     totalTimeMin: row.total_time_min,
@@ -110,20 +118,29 @@ function quoteValue(v: string): string {
   return `"${v.replaceAll("\\", "\\\\").replaceAll('"', '\\"')}"`;
 }
 
-function encodeBrowseCursor(title: string, id: string): string {
-  return Buffer.from(JSON.stringify([title, id]), "utf8").toString("base64url");
+/** Browse order is (photo first, title, id); the cursor carries all three keys. */
+function encodeBrowseCursor(hasPhoto: boolean, title: string, id: string): string {
+  return Buffer.from(JSON.stringify([hasPhoto, title, id]), "utf8").toString("base64url");
 }
 
-function decodeBrowseCursor(raw: string | undefined): { title: string; id: string } | null {
+function decodeBrowseCursor(
+  raw: string | undefined,
+): { hasPhoto: boolean; title: string; id: string } | null {
   if (!raw) return null;
   try {
     const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8"));
     const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    if (Array.isArray(v) && typeof v[0] === "string" && typeof v[1] === "string" && uuid.test(v[1])) {
-      return { title: v[0], id: v[1] };
+    if (
+      Array.isArray(v) &&
+      typeof v[0] === "boolean" &&
+      typeof v[1] === "string" &&
+      typeof v[2] === "string" &&
+      uuid.test(v[2])
+    ) {
+      return { hasPhoto: v[0], title: v[1], id: v[2] };
     }
   } catch {
-    /* fall through: a mangled cursor means page one */
+    /* fall through: a mangled (or pre-photos-first) cursor means page one */
   }
   return null;
 }
@@ -164,7 +181,7 @@ function selectFor(f: RecipeFilters): string {
   return parts.join(", ");
 }
 
-/** Browse: every recipe, A-Z, filtered, keyset-paged on (title, id). */
+/** Browse: every recipe, photo first then A-Z, filtered, keyset-paged on (has_photo, title, id). */
 export async function browseRecipes(
   filters: RecipeFilters,
   limit = PAGE_SIZE,
@@ -178,9 +195,14 @@ export async function browseRecipes(
   query = applyFilters(query, filters);
   if (cursor) {
     const t = quoteValue(cursor.title);
-    query = query.or(`title.gt.${t},and(title.eq.${t},id.gt.${cursor.id})`);
+    const hp = cursor.hasPhoto;
+    // has_photo sorts DESC (true first), so "after" means a lower flag, or the same flag and a later (title, id).
+    query = query.or(
+      `has_photo.lt.${hp},and(has_photo.eq.${hp},title.gt.${t}),and(has_photo.eq.${hp},title.eq.${t},id.gt.${cursor.id})`,
+    );
   }
   const { data, error, count } = await query
+    .order("has_photo", { ascending: false })
     .order("title", { ascending: true })
     .order("id", { ascending: true })
     .limit(limit + 1);
@@ -193,7 +215,7 @@ export async function browseRecipes(
 
   return {
     recipes: page.map((r) => toCard(r, photos)),
-    nextCursor: rows.length > limit && last ? encodeBrowseCursor(last.title, last.id) : null,
+    nextCursor: rows.length > limit && last ? encodeBrowseCursor(last.has_photo, last.title, last.id) : null,
     total: cursor ? null : (count ?? page.length),
     totalIsLowerBound: false,
     fuzzy: false,

@@ -25,6 +25,22 @@
   --color-track: #d8dcd4; /* slider / progress rail */
   --color-stage: #dfe2db; /* backdrop behind a framed mockup */
 
+  /* ── Photo-less recipe tiles (RecipePlaceholder) ───────────────
+     Six soft tints of the brand palette, each with an ink that passes 4.5:1 on
+     it (measured 5.8-8.6). Chosen per recipe by src/lib/placeholderTone.ts. */
+  --color-ph-herb: #d9e4d6;
+  --color-ph-herb-ink: #25402f;
+  --color-ph-paprika: #f0dacd;
+  --color-ph-paprika-ink: #7d3014;
+  --color-ph-saffron: #f1e2b0;
+  --color-ph-saffron-ink: #6b500d;
+  --color-ph-clay: #e8d9c6;
+  --color-ph-clay-ink: #5e4128;
+  --color-ph-sage: #dde3da;
+  --color-ph-sage-ink: #33433b;
+  --color-ph-slate: #d3e0de;
+  --color-ph-slate-ink: #24443f;
+
   /* ── Ink ───────────────────────────────────────────────────── */
   --color-ink: #1c2420;
   --color-ink-deep: #26302a; /* long-form display copy */

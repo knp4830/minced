@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+import { primaryAisle } from "@/lib/placeholderTone";
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createStaticClient } from "@/lib/supabase/static";
 
@@ -32,6 +33,8 @@ export type RecipeDetail = {
   title: string;
   servings: number;
   cuisine: string | null;
+  /** Aisle of the main ingredient; tints the photo-less hero tile. */
+  aisle: string | null;
   totalTimeMin: number | null;
   prepTimeMin: number | null;
   cookTimeMin: number | null;
@@ -82,7 +85,7 @@ type Row = {
     is_optional: boolean;
     sort_order: number;
     units: { name: string } | null;
-    ingredients: { canonical_name: string } | null;
+    ingredients: { canonical_name: string; aisle_category: string; is_pantry_staple: boolean } | null;
   }[];
   recipe_steps: { sort_order: number; instruction: string }[];
   recipe_diets: { diets: { slug: string; name: string } | null }[];
@@ -95,7 +98,7 @@ const SELECT = `
   spice_level, image_url, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
   source_name, source_url, source_license,
   cuisines(name),
-  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name), ingredients(canonical_name)),
+  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name), ingredients(canonical_name, aisle_category, is_pantry_staple)),
   recipe_steps(sort_order, instruction),
   recipe_diets(diets(slug, name)),
   recipe_allergens(allergens(name)),
@@ -144,6 +147,7 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeDetail | null
     title: r.title,
     servings: r.servings,
     cuisine: r.cuisines?.name ?? null,
+    aisle: primaryAisle(r.recipe_ingredients),
     totalTimeMin: r.total_time_min || null,
     prepTimeMin: r.prep_time_min || null,
     cookTimeMin: r.cook_time_min || null,
