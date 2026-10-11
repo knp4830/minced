@@ -29,9 +29,12 @@ export default function PrivacyPage() {
       </LegalSection>
 
       <LegalSection id="collect" title="What we store">
-        <p>Without an account: nothing about you. Searching and browsing are not recorded against a person. If you use the
-          &ldquo;What&apos;s in my fridge&rdquo; picker, your picks are kept in your
-          own browser storage on your device and are never sent to us.</p>
+        <p>Without an account, we do not keep a profile of you, and searching and browsing are not recorded against a person. If you use the
+          &ldquo;What&apos;s in my fridge&rdquo; picker, your picks are saved in your
+          own browser storage on your device. They are also sent in the page address
+          (<code className="font-mono text-[0.875em]">/pantry?pantry=&hellip;</code>) each time you tap
+          &ldquo;show recipes&rdquo;, so our server can find matching recipes. They are not tied to an account, but
+          they may appear in our hosting provider&apos;s request logs alongside your IP address.</p>
         <p>With an account:</p>
         <ul>
           <li>Your email address, so you can log in and recover your password.</li>
@@ -60,7 +63,7 @@ export default function PrivacyPage() {
           <code className="font-mono text-[0.875em]">sb-</code>). They exist only to
           remember that you are logged in, and are removed when you log out (at the
           latest they expire after about 13 months). Because they are strictly necessary for the login you asked
-          for, there is no cookie banner. Nothing else on Minced sets cookies. (Your fridge picks use browser storage on your device, not cookies, and stay there.)
+          for, there is no cookie banner. Nothing else on Minced sets cookies. (Your fridge picks are saved in browser storage on your device, not in cookies.)
         </p>
       </LegalSection>
 

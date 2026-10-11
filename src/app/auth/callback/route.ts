@@ -1,4 +1,5 @@
 import type { EmailOtpType } from "@supabase/supabase-js";
+import { headers } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { safeNext } from "@/lib/auth/validate";
@@ -17,8 +18,19 @@ const OTP_TYPES = ["signup", "recovery", "email", "email_change", "invite", "mag
  *
  * Failure sends the person to /login with a message, never to a blank error.
  */
+async function publicOrigin(request: NextRequest): Promise<string> {
+  const fixed = process.env.NEXT_PUBLIC_SITE_URL;
+  if (fixed) return fixed.replace(/\/$/, "");
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  if (!host) return request.nextUrl.origin;
+  const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") || host.startsWith("127.") ? "http" : "https");
+  return `${proto}://${host}`;
+}
+
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = request.nextUrl;
+  const { searchParams } = request.nextUrl;
+  const origin = await publicOrigin(request);
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const rawType = searchParams.get("type");
