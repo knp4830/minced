@@ -188,6 +188,16 @@ rollback;
 
 ---
 
+## Test 8b — favorites cannot be edited, and account deletion is self-only (wave 3)
+
+Run against a LOCAL stack only (`supabase/tests/accounts_rls_test.sh` automates 11 cases; with email confirmations ON, first mark user B confirmed via SQL). Never against live.
+
+- `favorites` has select, insert and delete policies and **no update policy**: an `UPDATE` as the owner returns `UPDATE 0`.
+- Bob can neither read, patch nor delete Alice's favorites; `anon` is denied.
+- `delete_my_account()` is callable by `authenticated` only (`anon` gets `42501`) and deletes only `auth.uid()`; afterwards the user's `auth.users`, `profiles` and `favorites` rows are gone and other users are untouched. Verify by counting.
+
+---
+
 ## Test 9 — reference data is readable but not writable
 
 ```sql
