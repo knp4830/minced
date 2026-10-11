@@ -1,0 +1,25 @@
+{
+  "_note": "Candidates looked at and rejected in wave 3 round 2. Not exhaustive: about 690 recipes had no usable Commons match (generic USDA titles, or no file that shows that dish).",
+  "duplicate_of_better_pick": {
+    "yogurt-fruit-salad": "same photo as fruit-salad-yogurt",
+    "pretzel-shapes": "same photo as soft-pretzels; the USDA recipe is dough shapes, not a finished pretzel",
+    "vegetarian-chili": "same photo as two-bean-chili"
+  },
+  "unsure_it_is_the_dish": {
+    "zucchini-au-gratin": "Sandal sefasi.jpg: could not confirm it shows a zucchini gratin"
+  },
+  "wrong_dish_or_not_a_dish": {
+    "zucchini-stir-fry": "shrimp stir fry; the recipe has none",
+    "masoor-dal-red-lentils-onion": "Masoor Daal with shrimp",
+    "scalloped-potatoes": "close crop with salsa",
+    "green-beans-tomatoes-basil": "minestrone",
+    "tuna-melt-burger": "sushi / yakiniku plates",
+    "fig-bars": "gymnastics photos",
+    "salsa": "music notation / diagram",
+    "apple-sandwiches": "lunchbox with animal-face sandwiches"
+  },
+  "restaurant_menu_or_branded": {
+    "baked-fish-with-tomatoes-peppers-onions": "shop-front menu board",
+    "veggie-burgers": "alternate pick was a Burger King tray"
+  }
+}

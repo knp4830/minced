@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Chip } from "@/components/ui/chip";
 import { MetaRow } from "@/components/ui/metaRow";
+import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
 import { AI_SOURCE_NAME } from "@/lib/queries/browse";
 import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
@@ -129,9 +130,13 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
                 className="absolute inset-0 size-full object-cover"
               />
             ) : (
-              <span className="absolute bottom-3 left-3 rounded-xs bg-canvas px-1.5 py-0.5 font-mono text-[0.625rem] text-ink-subtle">
-                photo · {recipe.title.toLowerCase()}
-              </span>
+              <RecipePlaceholder
+                slug={recipe.slug}
+                title={recipe.title}
+                cuisine={recipe.cuisine}
+                aisle={recipe.aisle}
+                size="hero"
+              />
             )}
           </div>
           {recipe.photo && needsAttribution(recipe.photo.license) && (
