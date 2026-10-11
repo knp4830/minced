@@ -1,11 +1,11 @@
 import { CookingPot } from "lucide-react";
 import Link from "next/link";
+import { HeaderAccount } from "@/components/account/headerAccount";
 import { Button } from "@/components/ui/button";
 
 /*
  * Landing nav, per the handoff: logo with the mono "mise en place" eyebrow,
- * a text link to browse, one primary action. No auth controls until accounts
- * exist. On phones the eyebrow and the text link drop away so the button fits.
+ * a text link to browse, one primary action, then the auth control. On phones the eyebrow and the text link drop away so the button fits.
  */
 export function LandingNav() {
   return (
@@ -37,6 +37,7 @@ export function LandingNav() {
               <span>What’s in my fridge?</span>
             </Link>
           </Button>
+          <HeaderAccount />
         </nav>
       </div>
     </header>

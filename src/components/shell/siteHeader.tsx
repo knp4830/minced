@@ -1,5 +1,6 @@
 import { CookingPot } from "lucide-react";
 import Link from "next/link";
+import { HeaderAccount } from "@/components/account/headerAccount";
 import { Button } from "@/components/ui/button";
 import { HeaderSearch } from "@/components/shell/headerSearch";
 import { Wordmark } from "@/components/shell/wordmark";
@@ -22,7 +23,7 @@ export function SiteHeader() {
           aria-label="Primary"
           className="ml-auto flex items-center gap-1.5 sm:gap-3"
         >
-          {/* Shopping list and Log in / Sign up return with accounts (wave 3). */}
+          {/* Shopping list returns with M6. */}
           <Link
             href="/recipes"
             className="inline-flex min-h-11 items-center rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
@@ -36,6 +37,7 @@ export function SiteHeader() {
               <span className="min-[420px]:hidden">My fridge</span>
             </Link>
           </Button>
+          <HeaderAccount />
         </nav>
       </div>
     </header>
