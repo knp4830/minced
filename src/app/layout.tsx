@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Mono, Public_Sans } from "next/font/google";
-import { SiteFooter } from "@/components/shell/siteFooter";
-import { SiteHeader } from "@/components/shell/siteHeader";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -50,11 +48,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <SiteHeader />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter />
+        {children}
       </body>
     </html>
   );

@@ -1,47 +1,29 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/shell/wordmark";
+import { cn } from "@/lib/utils";
 
-const links = [
-  { href: "/recipes", label: "Recipes" },
-  { href: "/pantry", label: "Pantry" },
-  { href: "/about", label: "How recipes are made" },
-] as const;
-
-// Shopping list, Log in, Privacy and Terms return with accounts (wave 3).
-
-const linkClass =
-  "inline-flex min-h-11 items-center rounded-md text-sm text-ink-muted underline-offset-4 transition-colors hover:text-herb hover:underline";
-
-export function SiteFooter() {
+/*
+ * One slim line: brand, attribution, one link. Deliberately not a link list,
+ * so it can't read as a navbar at the bottom of the page. On phones the parts
+ * stack. `flush` drops the top margin where a coloured band sits above.
+ */
+export function SiteFooter({ flush = false }: { flush?: boolean }) {
   return (
-    <footer className="mt-16 border-t border-line bg-band">
-      <div className="mx-auto grid max-w-[1400px] gap-8 px-(--gutter) py-10 md:grid-cols-[1fr_auto] md:items-start">
-        <div className="max-w-md">
-          <Wordmark />
-          <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-            What to cook with what you have. Ingredients, amounts, numbered
-            steps — nothing else.
-          </p>
-        </div>
-
-        <nav aria-label="Footer">
-          <ul className="flex flex-col">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className={linkClass}>
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-
-      <div className="border-t border-line">
-        <p className="mx-auto max-w-[1400px] px-(--gutter) py-4 font-mono text-[0.6875rem] leading-relaxed text-ink-subtle">
-          Recipes: USDA MyPlate Kitchen &middot; Nutrition: USDA FoodData
-          Central
+    <footer className={cn("border-t border-line bg-band", !flush && "mt-16")}>
+      <div className="mx-auto flex max-w-[1400px] flex-col gap-x-5 gap-y-1 px-(--gutter) py-3 md:flex-row md:items-center md:py-4">
+        <Wordmark className="inline-flex min-h-11 items-center self-start text-[1.0625rem]" />
+        <span aria-hidden className="hidden text-stone-line md:inline">
+          ·
+        </span>
+        <p className="font-mono text-[0.6875rem] leading-relaxed text-ink-subtle">
+          Recipes: USDA MyPlate Kitchen &middot; Nutrition: USDA FoodData Central
         </p>
+        <Link
+          href="/about"
+          className="inline-flex min-h-11 items-center self-start text-[0.8125rem] text-ink-muted underline underline-offset-4 hover:text-herb md:ml-auto"
+        >
+          How recipes are made
+        </Link>
       </div>
     </footer>
   );
