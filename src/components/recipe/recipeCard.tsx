@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FavoriteButton } from "@/components/account/favoriteButton";
 import { Card, CardBody, CardMedia, CardTitle } from "@/components/ui/card";
 import { MetaRow } from "@/components/ui/metaRow";
 
@@ -78,6 +79,7 @@ export function RecipeCard({
             photo · {title.toLowerCase()}
           </span>
         )}
+        <FavoriteButton slug={slug} title={title} className="absolute top-2 right-2" />
         {imageUrl && photoCredit && (
           <span className="relative rounded-xs bg-canvas/90 px-1.5 py-0.5 font-mono text-[0.5625rem] text-ink-muted">
             {photoCredit}
