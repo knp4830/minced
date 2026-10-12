@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -30,8 +31,13 @@ function fail(error: { message: string; code?: string }): ActionResult {
 function refresh(slugs: string[]) {
   // Recipe pages are ISR-cached for an hour: without this a rejected recipe
   // would stay publicly visible until the cache expires.
-  for (const s of slugs) revalidatePath(`/recipes/${s}`);
-  revalidatePath("/recipes");
+  // Run after the response is sent: revalidating inside the action makes its
+  // response carry a refresh of the admin page, which raced the client's
+  // navigation to the next recipe.
+  after(() => {
+    for (const s of slugs) revalidatePath(`/recipes/${s}`);
+    revalidatePath("/recipes");
+  });
 }
 
 export async function setReview(slugs: string[], state: string, note?: string): Promise<ActionResult> {

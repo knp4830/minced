@@ -20,14 +20,8 @@ export async function middleware(request: NextRequest) {
     return session.redirect(url);
   }
 
-  // Signed-out admins need a way in. Signed-in non-admins reach the layout,
-  // which answers 404.
-  if (pathname.startsWith("/admin") && !session.user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    url.search = `?next=${encodeURIComponent(pathname)}`;
-    return session.redirect(url);
-  }
+  // /admin is deliberately not gated here: its layout answers 404 for signed-out
+  // visitors and non-admins alike, so the route does not advertise itself.
 
   if ((pathname === "/login" || pathname === "/signup") && session.user) {
     const url = request.nextUrl.clone();

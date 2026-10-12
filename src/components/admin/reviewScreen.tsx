@@ -74,8 +74,20 @@ export function ReviewScreen({
   }
 
   const href = useCallback((slug: string | null) => reviewHref("/admin/review", state, source, slug), [state, source]);
+  // A Server Action's response can carry a refresh of the current route, and
+  // that can land after (and cancel) the push below. The watchdog re-issues
+  // the navigation if the URL has not moved, so A / X / U never silently stall.
   const go = useCallback(
-    (slug: string | null) => startTransition(() => router.push(href(slug))),
+    (slug: string | null) => {
+      const target = href(slug);
+      startTransition(() => router.push(target));
+      if (!slug) return;
+      window.setTimeout(() => {
+        if (window.location.pathname + window.location.search !== target) {
+          startTransition(() => router.push(target));
+        }
+      }, 1200);
+    },
     [router, href],
   );
 
@@ -424,7 +436,9 @@ function EditForm({ recipe, onCancel, onSaved }: { recipe: AdminRecipe; onCancel
           ? [
               {
                 id: ing.id,
-                quantity: qty[i],
+                // The field shows a 3-decimal rounding. If it was not edited, send the
+                // stored value untouched so a prep-note edit cannot rewrite 1/3 as 0.333.
+                quantity: qty[i] === fmtQty(ing.quantity) ? (ing.quantity === null ? "" : String(ing.quantity)) : qty[i],
                 prep_note: prep[i],
                 ingredient_name: swap[i],
               },
