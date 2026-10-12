@@ -70,6 +70,7 @@ export function buildSearchArgs(
     cuisine_slugs: filters.cuisine,
     diet_slugs: filters.diet,
     exclude_allergen_slugs: filters.exclude,
+    cookware_slugs: filters.cookware?.length ? filters.cookware : undefined,
     max_spice: filters.spiceMax,
     min_calories: filters.calMin,
     max_calories: filters.calMax,

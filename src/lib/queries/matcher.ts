@@ -150,6 +150,7 @@ export function buildMatchArgs(
     ...(filters.cuisine?.length ? { cuisine_slugs: filters.cuisine } : {}),
     ...(filters.diet?.length ? { diet_slugs: filters.diet } : {}),
     ...(filters.exclude?.length ? { exclude_allergen_slugs: filters.exclude } : {}),
+    ...(filters.cookware?.length ? { cookware_slugs: filters.cookware } : {}),
     ...(filters.spiceMax !== undefined ? { max_spice: filters.spiceMax } : {}),
     ...(filters.calMin !== undefined ? { min_calories: filters.calMin } : {}),
     ...(filters.calMax !== undefined ? { max_calories: filters.calMax } : {}),

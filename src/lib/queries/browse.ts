@@ -171,6 +171,9 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   if (f.exclude?.length) {
     q = q.in("ex.allergens.slug", f.exclude).filter("ex", "is", "null");
   }
+  // Cookware: recipes that USE any of the slugs. The inner join drops recipes with
+  // no recipe_cookware rows, and PostgREST does not duplicate the parent.
+  if (f.cookware?.length) q = q.in("cw.cookware.slug", f.cookware);
   return q as T;
 }
 
@@ -178,6 +181,7 @@ function selectFor(f: RecipeFilters): string {
   const parts = [CARD_COLUMNS.replace("cuisines(name)", f.cuisine?.length ? "cuisines!inner(name)" : "cuisines(name)")];
   (f.diet ?? []).forEach((_, i) => parts.push(`diet${i}:recipe_diets!inner(diets!inner(slug))`));
   if (f.exclude?.length) parts.push("ex:recipe_allergens(allergens!inner(slug))");
+  if (f.cookware?.length) parts.push("cw:recipe_cookware!inner(cookware!inner(slug))");
   return parts.join(", ");
 }
 
