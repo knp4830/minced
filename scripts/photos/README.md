@@ -52,6 +52,18 @@ Not committed: `cache/` (downloads) and `out/` (resized WebP).
 - `manifest/myplate_review_excludes.json`: photos excluded after a human look (survives re-running `audit`).
 - Post-merge order: apply migration 20261009140000 -> `upload_photos.py --apply` -> run seed-photos.sql.
 
+## Wave 4 (legal replacements, coverage, credit cleanup)
+- `commons_w4.py search|sheets|build`: like `commons_r2.py` but with per-recipe custom queries, a looser name+description gate,
+  and venue/brand/person words dropped before download. Picks: `manifest/commons_picks_w4.json`.
+- `remove_photo.py <slug> "reason"`: the ONLY correct way to drop a photo. `process_images.py` rebuilds `photos.json` from
+  `myplate.json` + `commons.json`, so editing `photos.json` alone is undone on the next run. It also records why in
+  `commons_r2_rejected.json` (bucket `wave4_review_2026_10_12`).
+- `credits.py`: cleans `credit` (<= 40 chars, "Author" or "Author / Flickr", no Commons boilerplate). `--check` fails if any
+  credit is long or junk; `commons_r2.py build` calls it for new rows.
+- `apply_manifest.py` now also DELETES `recipe_photos` rows whose recipe is not in the manifest, so a removed photo leaves the
+  live site when `seed-photos.sql` runs. Review rule of thumb: reject visible brand/venue/receipt text, product shots, people as the
+  subject, agency logos (MyPlate.gov), and the same file used for two recipes.
+
 ## Wave 3 (round 2: USDA dishes on Commons)
 - `commons_r2.py search|sheets|build`: searches Commons for every recipe still without a photo, keeps only files whose
   *name* overlaps the dish name, builds numbered review sheets (`cache/commons/sheets2/`) for a human look, and `build`

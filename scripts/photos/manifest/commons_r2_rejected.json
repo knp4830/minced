@@ -31,5 +31,19 @@
     "baked-tofu": "photo shows Hawaiian tofu with pineapple, peppers and broccoli; recipe is only soy sauce, garlic, ginger and tofu"
   },
   "roasted-potatoes": "verifier r3: about half carrots and sweet potatoes; the recipe has neither",
-  "cucumber-salad": "verifier r3: chilli-sauce smashed cucumber; the recipe is a yogurt cucumber salad"
+  "cucumber-salad": "verifier r3: chilli-sauce smashed cucumber; the recipe is a yogurt cucumber salad",
+  "tomato-basil-soup": "manual review 2026-10-12: restaurant logo (Obika Mozzarella Bar) printed large on the placemat; trademark/endorsement risk",
+  "fruit-pizza": "manual review 2026-10-12: knife-company product photo (Rada Cutlery) uploaded by an individual; uploader rights uncertain",
+  "tostadas": "verifier r1: photo shows shrimp tostadas; recipe is bean/cheese",
+  "fish-spinach": "verifier r1: no visible fish",
+  "curried-chickpea-salad": "verifier r1: chickpeas not evident",
+  "wave4_review_2026_10_12": {
+    "arroz-caldo": "File:Arroz Caldo, Grape Custard, Fruits, Virgin Light.jpg: large Virgin Cola can brand visible beside the bowl",
+    "tom-yum-goong": "File:Tom yum goong-01.jpg: Singha beer bottle with label visible and a diner's hand",
+    "baked-trout": "File:Baked Trout with dill.jpg: Leffe beer bottle label legible in the corner",
+    "taco-salad": "File:Flickr jeffk 38941161--Taco salad.jpg: restaurant tablecloth crest and a receipt in frame (venue branding)",
+    "chicken-pozole-soup": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0015).jpg: MyPlate.gov program logo printed in the corner of the photo",
+    "corn-blueberry-and-wild-rice-salad": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0023).jpg: MyPlate.gov program logo printed in the corner of the photo",
+    "garden-pasta-salad": "File:Pasta salad closeup.JPG: same file as pasta-salad (one photo, one recipe; Pasta salad closeup.JPG)"
+  }
 }

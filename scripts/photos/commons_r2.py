@@ -23,6 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import commons as C  # noqa: E402
 from common import CACHE, MANIFEST_DIR, http_get, write_json  # noqa: E402
+from credits import clean_credit  # noqa: E402
 
 STOP = set("a an and with the of in on for to or from your my our style easy quick simple fresh homemade baked roasted sauteed no bake light low fat free".split())
 BAD_NAME = re.compile(
@@ -170,7 +171,7 @@ def cmd_build(picks_file: str, recipes_file: str) -> None:
         pass  # rows that built are kept; errors were printed
     new = json.loads(target.read_text(encoding="utf-8"))
     for r in new:
-        r["credit"] = short_credit(r["author"])   # recipe_photos.credit is shown over the photo corner
+        r["credit"] = clean_credit(r)   # recipe_photos.credit is shown over the photo corner (see credits.py)
     write_json(target, existing + new)
     tmp.unlink(missing_ok=True)
     print(f"manifest/commons.json: {len(existing)} + {len(new)} = {len(existing) + len(new)}", file=sys.stderr)
