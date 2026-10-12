@@ -9,6 +9,29 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admins: {
+        Row: {
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admins_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       allergens: {
         Row: {
           id: number
@@ -457,6 +480,48 @@ export type Database = {
           },
         ]
       }
+      recipe_reviews: {
+        Row: {
+          prior_status: Database["public"]["Enums"]["recipe_status"] | null
+          recipe_id: string
+          review_note: string | null
+          review_status: Database["public"]["Enums"]["review_status"]
+          reviewed_at: string
+          reviewed_by: string | null
+        }
+        Insert: {
+          prior_status?: Database["public"]["Enums"]["recipe_status"] | null
+          recipe_id: string
+          review_note?: string | null
+          review_status: Database["public"]["Enums"]["review_status"]
+          reviewed_at?: string
+          reviewed_by?: string | null
+        }
+        Update: {
+          prior_status?: Database["public"]["Enums"]["recipe_status"] | null
+          recipe_id?: string
+          review_note?: string | null
+          review_status?: Database["public"]["Enums"]["review_status"]
+          reviewed_at?: string
+          reviewed_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_reviews_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: true
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_reviews_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       recipe_steps: {
         Row: {
           id: number
@@ -649,6 +714,54 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_assert: { Args: never; Returns: undefined }
+      admin_recipe_detail: { Args: { p_slug: string }; Returns: Json }
+      admin_review_list: {
+        Args: {
+          p_after?: string
+          p_limit?: number
+          p_source?: string
+          p_state?: string
+        }
+        Returns: {
+          ingredient_count: number
+          reviewed_at: string
+          slug: string
+          source_key: string
+          state: string
+          status: Database["public"]["Enums"]["recipe_status"]
+          title: string
+        }[]
+      }
+      admin_review_neighbors: {
+        Args: { p_slug: string; p_source?: string; p_state?: string }
+        Returns: {
+          next_slug: string
+          prev_slug: string
+          total: number
+        }[]
+      }
+      admin_review_progress: {
+        Args: never
+        Returns: {
+          n: number
+          source_key: string
+          state: string
+        }[]
+      }
+      admin_set_review: {
+        Args: { p_note?: string; p_slugs: string[]; p_state: string }
+        Returns: number
+      }
+      admin_update_recipe: {
+        Args: {
+          p_ingredients?: Json
+          p_slug: string
+          p_steps?: Json
+          p_title?: string
+        }
+        Returns: undefined
+      }
       can_read_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
       compute_recipe_search_vector: {
         Args: { p_cuisine_id: number; p_recipe_id: string; p_title: string }
@@ -666,8 +779,10 @@ export type Database = {
           raw_name: string
         }[]
       }
+      is_admin: { Args: never; Returns: boolean }
       match_recipes: {
         Args: {
+          cookware_slugs?: string[]
           cuisine_slugs?: string[]
           cursor_coverage?: number
           cursor_have?: number
@@ -705,6 +820,7 @@ export type Database = {
       }
       normalize_ingredient_name: { Args: { raw: string }; Returns: string }
       owns_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
+      recipe_source_key: { Args: { p_source_name: string }; Returns: string }
       refresh_recipe_allergens: {
         Args: { p_recipe_id: string }
         Returns: undefined
@@ -729,6 +845,7 @@ export type Database = {
       search_fold: { Args: { raw: string }; Returns: string }
       search_recipes: {
         Args: {
+          cookware_slugs?: string[]
           cuisine_slugs?: string[]
           cursor_id?: string
           cursor_score?: number
@@ -779,6 +896,7 @@ export type Database = {
     Enums: {
       ingredient_match_kind: "exact" | "alias" | "fuzzy"
       recipe_status: "draft" | "in_review" | "published"
+      review_status: "approved" | "rejected"
       unit_kind: "mass" | "volume" | "count"
     }
     CompositeTypes: {
@@ -909,6 +1027,7 @@ export const Constants = {
     Enums: {
       ingredient_match_kind: ["exact", "alias", "fuzzy"],
       recipe_status: ["draft", "in_review", "published"],
+      review_status: ["approved", "rejected"],
       unit_kind: ["mass", "volume", "count"],
     },
   },
