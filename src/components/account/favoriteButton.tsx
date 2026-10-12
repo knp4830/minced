@@ -26,13 +26,17 @@ export function FavoriteButton({
   className?: string;
 }) {
   const { isSaved, toggle } = useAccount();
-  const [failed, setFailed] = useState(false);
+  // The message names the action that failed: removing and saving are not the same thing.
+  const [failed, setFailed] = useState<"save" | "remove" | null>(null);
   const saved = isSaved(slug);
+  const failedText =
+    failed === "remove" ? "Couldn't remove. Try again." : failed === "save" ? "Couldn't save. Try again." : "";
 
   async function onClick() {
-    setFailed(false);
+    const wasSaved = saved;
+    setFailed(null);
     const result = await toggle(slug);
-    if (result === "failed") setFailed(true);
+    if (result === "failed") setFailed(wasSaved ? "remove" : "save");
   }
 
   const icon = (
@@ -58,7 +62,7 @@ export function FavoriteButton({
           {saved ? "Saved" : "Save"}
         </button>
         <span role="status" className="text-[0.8125rem] text-paprika-deep">
-          {failed ? "Couldn't save. Try again." : ""}
+          {failedText}
         </span>
       </div>
     );
@@ -77,7 +81,7 @@ export function FavoriteButton({
       )}
     >
       {icon}
-      {failed && <span className="sr-only">Couldn&apos;t save. Try again.</span>}
+      {failed && <span className="sr-only">{failedText}</span>}
     </button>
   );
 }

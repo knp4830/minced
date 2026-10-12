@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { FridgePicker } from "@/components/pantry/fridgePicker";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { filtersToQuery, parseFilters, type SearchParamsInput } from "@/lib/filters";
-import { getCardExtras } from "@/lib/queries/browse";
+import { CookwareGroup } from "@/components/recipe/filterPanel";
+import { getCardExtras, getFilterOptions } from "@/lib/queries/browse";
 import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import { getIngredientNames } from "@/lib/queries/ingredients";
 import { matchRecipes } from "@/lib/queries/matcher";
@@ -29,8 +30,9 @@ export default async function PantryPage({
   const filters = parseFilters(await searchParams);
   const wanted = [...new Set([...(filters.pantry ?? []), ...(filters.use ?? [])])];
 
-  const [catalog, names, result] = await Promise.all([
+  const [catalog, options, names, result] = await Promise.all([
     getIngredientCatalog(),
+    getFilterOptions(),
     getIngredientNames(wanted),
     matchRecipes(
       { ...filters, maxMissing: filters.maxMissing ?? NO_MISSING_CAP },
@@ -42,11 +44,11 @@ export default async function PantryPage({
 
   const extras = await getCardExtras(result.matches.map((m) => m.recipeId));
   const recipes = result.matches.map((m) => ({
-    ...extras.get(m.recipeId),
+    ...extras[m.recipeId],
     slug: m.slug,
     title: m.title,
     href: `/recipes/${m.slug}?pantry=${fridgeParam}`,
-    imageUrl: extras.get(m.recipeId)?.imageUrl ?? usableImageUrl(m.imageUrl),
+    imageUrl: extras[m.recipeId]?.imageUrl ?? usableImageUrl(m.imageUrl),
     totalTimeMin: m.totalTimeMin,
     servings: m.servings,
     calories: m.calories,
@@ -71,7 +73,13 @@ export default async function PantryPage({
 
       <FridgePicker className="mt-6 max-w-[40rem]" variant="page" catalog={catalog} initial={names} />
 
-      <section aria-labelledby="results-heading" className="mt-10">
+      {hasFridge && options.cookware.length > 0 && (
+        <div className="mt-6 max-w-[40rem]">
+          <CookwareGroup filters={filters} options={options} base="/pantry" />
+        </div>
+      )}
+
+      <section aria-labelledby="results-heading" className="mt-8">
         {hasFridge && (
           <h2 id="results-heading" className="mb-4 text-lg md:text-xl">
             {recipes.length === 0
@@ -87,7 +95,7 @@ export default async function PantryPage({
             hasFridge ? (
               <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
                 None of the recipes fit these filters. Try adding something else from the
-                fridge.
+                fridge{filters.cookware?.length ? ", or clear the cookware" : ""}.
               </p>
             ) : (
               <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">

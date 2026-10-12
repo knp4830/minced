@@ -1,5 +1,6 @@
+import { unstable_cache } from "next/cache";
 import { MAX_INT4, type RecipeFilters } from "@/lib/filters";
-import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 
 /**
  * Pantry matcher (M3.3) -- typed wrappers over two Postgres functions.
@@ -150,6 +151,7 @@ export function buildMatchArgs(
     ...(filters.cuisine?.length ? { cuisine_slugs: filters.cuisine } : {}),
     ...(filters.diet?.length ? { diet_slugs: filters.diet } : {}),
     ...(filters.exclude?.length ? { exclude_allergen_slugs: filters.exclude } : {}),
+    ...(filters.cookware?.length ? { cookware_slugs: filters.cookware } : {}),
     ...(filters.spiceMax !== undefined ? { max_spice: filters.spiceMax } : {}),
     ...(filters.calMin !== undefined ? { min_calories: filters.calMin } : {}),
     ...(filters.calMax !== undefined ? { max_calories: filters.calMax } : {}),
@@ -177,7 +179,7 @@ function cleanIds(ids: number[] | undefined): number[] {
  * An empty pantry returns nothing rather than the whole catalog: "what can I
  * make with nothing" has no useful answer, and the browse page is for that.
  */
-export async function matchRecipes(
+async function loadMatches(
   filters: RecipeFilters,
   options: { pageSize?: number; minHave?: number } = {},
 ): Promise<MatchRecipesResult> {
@@ -198,7 +200,7 @@ export async function matchRecipes(
     minHave: options.minHave,
     cursor,
   });
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase.rpc(
     "match_recipes",
     args,
@@ -238,6 +240,13 @@ export async function matchRecipes(
 }
 
 /**
+ * `loadMatches`, cached 5 minutes per (filters, options): the same fridge gives
+ * every anonymous visitor the same ranking, and match_recipes is the most
+ * expensive call on the site. Cookie-free client, as `unstable_cache` requires.
+ */
+export const matchRecipes = unstable_cache(loadMatches, ["match-recipes"], { revalidate: 300 });
+
+/**
  * Autocomplete for the pantry input: top `limit` ingredients whose name or
  * alias matches what has been typed so far ("green oni" offers scallion,
  * "chicken" offers chicken before chicken broth).
@@ -252,7 +261,7 @@ export async function suggestIngredients(
   const text = prefix.trim();
   if (text.length === 0) return [];
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase.rpc("suggest_ingredients", {
     prefix: text,
     max_results: Math.min(Math.max(Math.trunc(limit), 1), 25),

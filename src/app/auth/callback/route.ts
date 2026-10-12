@@ -18,19 +18,25 @@ const OTP_TYPES = ["signup", "recovery", "email", "email_change", "invite", "mag
  *
  * Failure sends the person to /login with a message, never to a blank error.
  */
-async function publicOrigin(request: NextRequest): Promise<string> {
-  const fixed = process.env.NEXT_PUBLIC_SITE_URL;
-  if (fixed) return fixed.replace(/\/$/, "");
+async function publicOrigin(): Promise<string> {
+  // The session cookie was just set for the host that received this request, so
+  // the redirect must go back to that same host (a preview deployment must not
+  // bounce to production). NEXT_PUBLIC_SITE_URL is only the fallback. Never
+  // `request.nextUrl.origin`: behind the proxy it is the internal address.
   const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host");
-  if (!host) return request.nextUrl.origin;
-  const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") || host.startsWith("127.") ? "http" : "https");
-  return `${proto}://${host}`;
+  if (host) {
+    const local = host.startsWith("localhost") || host.startsWith("127.");
+    const proto = h.get("x-forwarded-proto")?.split(",")[0].trim() ?? (local ? "http" : "https");
+    return `${proto}://${host}`;
+  }
+  const fixed = process.env.NEXT_PUBLIC_SITE_URL;
+  return (fixed ?? "http://localhost:3000").replace(/\/$/, "");
 }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const origin = await publicOrigin(request);
+  const origin = await publicOrigin();
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const rawType = searchParams.get("type");

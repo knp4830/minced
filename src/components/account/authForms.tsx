@@ -193,7 +193,7 @@ export function SignupForm({ next }: { next?: string }) {
 
   if (state.done) {
     return (
-      <DonePanel title="Check your email">
+      <DonePanel title="Almost there">
         <p>{state.done}</p>
         <p className="mt-2">It can take a minute. Check spam if it doesn&apos;t show up.</p>
       </DonePanel>

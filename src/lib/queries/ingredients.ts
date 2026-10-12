@@ -1,4 +1,6 @@
+import { unstable_cache } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 
 /** How `resolve_ingredient` reached its answer. Mirrors the Postgres enum. */
 export type IngredientMatchKind = "exact" | "alias" | "fuzzy";
@@ -127,11 +129,11 @@ export type IngredientName = { id: number; name: string };
  * chips need words. One query, returned in the order the ids were given so the
  * chips keep the order the cook added them in. Unknown ids are dropped.
  */
-export async function getIngredientNames(ids: number[]): Promise<IngredientName[]> {
+async function loadIngredientNames(ids: number[]): Promise<IngredientName[]> {
   const unique = [...new Set(ids.filter((n) => Number.isInteger(n) && n > 0 && n <= 2_147_483_647))];
   if (unique.length === 0) return [];
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("ingredients")
     .select("id, canonical_name")
@@ -144,3 +146,8 @@ export async function getIngredientNames(ids: number[]): Promise<IngredientName[
     return name ? [{ id, name }] : [];
   });
 }
+
+/** Cached for an hour: ingredient names change only on import. Cookie-free client. */
+export const getIngredientNames = unstable_cache(loadIngredientNames, ["ingredient-names"], {
+  revalidate: 3600,
+});

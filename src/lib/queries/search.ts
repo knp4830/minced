@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
 
 import type { RecipeFilters } from "@/lib/filters";
 import type { RecipeCard } from "@/lib/queries/recipes";
@@ -70,6 +70,7 @@ export function buildSearchArgs(
     cuisine_slugs: filters.cuisine,
     diet_slugs: filters.diet,
     exclude_allergen_slugs: filters.exclude,
+    cookware_slugs: filters.cookware,
     max_spice: filters.spiceMax,
     min_calories: filters.calMin,
     max_calories: filters.calMax,
@@ -97,7 +98,7 @@ export async function searchRecipes(
   options: { limit?: number } = {},
 ): Promise<SearchPage> {
   const limit = Math.min(Math.max(options.limit ?? DEFAULT_LIMIT, 1), MAX_LIMIT - 1);
-  const supabase = await createClient();
+  const supabase = createStaticClient();
 
   const { data, error } = await supabase.rpc(
     "search_recipes",
