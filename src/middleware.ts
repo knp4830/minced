@@ -20,6 +20,15 @@ export async function middleware(request: NextRequest) {
     return session.redirect(url);
   }
 
+  // Signed-out admins need a way in. Signed-in non-admins reach the layout,
+  // which answers 404.
+  if (pathname.startsWith("/admin") && !session.user) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    url.search = `?next=${encodeURIComponent(pathname)}`;
+    return session.redirect(url);
+  }
+
   if ((pathname === "/login" || pathname === "/signup") && session.user) {
     const url = request.nextUrl.clone();
     url.pathname = safeNext(request.nextUrl.searchParams.get("next"), "/account");
@@ -31,5 +40,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
+  matcher: ["/account/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
 };
