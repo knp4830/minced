@@ -3,10 +3,15 @@
   "duplicate_of_better_pick": {
     "yogurt-fruit-salad": "same photo as fruit-salad-yogurt",
     "pretzel-shapes": "same photo as soft-pretzels; the USDA recipe is dough shapes, not a finished pretzel",
-    "vegetarian-chili": "same photo as two-bean-chili"
+    "vegetarian-chili": "same photo as two-bean-chili",
+    "quick-chicken-vegetable-soup": "File:Chicken Vegetable Soup (8731954951).jpg: same file as chicken-vegetable-soup-kale; one photo per recipe",
+    "slow-cooker-lentil-soup": "File:Lentil soup done.jpg: same file as lentil-soup; one photo per recipe"
   },
   "unsure_it_is_the_dish": {
-    "zucchini-au-gratin": "Sandal sefasi.jpg: could not confirm it shows a zucchini gratin"
+    "zucchini-au-gratin": "Sandal sefasi.jpg: could not confirm it shows a zucchini gratin",
+    "breakfast-burrito-salsa": "File:Chorizo and egg burrito with salsa.jpg: photo shows a meat-filled chorizo burrito; recipe is meatless",
+    "beef-pot-roast": "File:Seasoned Pot Roast.jpg: unreviewed bot upload, pale pork-like roast",
+    "curried-chickpea-salad": "File:Chickpea Chop Salad (9484308160).jpg: no curry, apple or cranberry visible"
   },
   "wrong_dish_or_not_a_dish": {
     "zucchini-stir-fry": "shrimp stir fry; the recipe has none",
@@ -16,7 +21,9 @@
     "tuna-melt-burger": "sushi / yakiniku plates",
     "fig-bars": "gymnastics photos",
     "salsa": "music notation / diagram",
-    "apple-sandwiches": "lunchbox with animal-face sandwiches"
+    "apple-sandwiches": "lunchbox with animal-face sandwiches",
+    "corn-casserole-0": "File:Cheesy Bean and Corn Casserole.jpg: photo is Cheesy Bean and Corn Casserole (tomato/meat/cheese), recipe is cornmeal + cream-style corn batter",
+    "garden-vegetable-soup": "File:Vegetable soup in Switzerland.jpg: photo is a smooth pale puree; recipe is brothy cabbage/green bean/zucchini/tomato soup"
   },
   "restaurant_menu_or_branded": {
     "baked-fish-with-tomatoes-peppers-onions": "shop-front menu board",
