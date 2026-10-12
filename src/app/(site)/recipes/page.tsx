@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cache, Suspense } from "react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -17,6 +18,7 @@ import {
   type SearchParamsInput,
 } from "@/lib/filters";
 import { getFilterOptions, getRecipePage } from "@/lib/queries/browse";
+import { RecipeGridSkeleton } from "@/components/shell/skeletons";
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
@@ -68,10 +70,32 @@ function EmptyState({ filters }: { filters: RecipeFilters }) {
   );
 }
 
-export default async function RecipesPage({ searchParams }: Props) {
-  const filters = parseFilters((await searchParams) as SearchParamsInput);
-  const [page, options] = await Promise.all([getRecipePage(filters), getFilterOptions()]);
+/** One page fetch per request, shared by the count line, the sheet button and the list. */
+const pageFor = cache((filters: RecipeFilters) => getRecipePage(filters));
 
+function showLabelFor(page: Awaited<ReturnType<typeof getRecipePage>>): string {
+  if (page.total === null) return "Show recipes";
+  const n = page.totalIsLowerBound ? `${page.total}+` : page.total;
+  return `Show ${n} ${page.total === 1 && !page.totalIsLowerBound ? "recipe" : "recipes"}`;
+}
+
+async function ShowLabel({ filters }: { filters: RecipeFilters }) {
+  return showLabelFor(await pageFor(filters));
+}
+
+async function CountLine({ filters }: { filters: RecipeFilters }) {
+  const page = await pageFor(filters);
+  const count = countLabel(page.total, page.totalIsLowerBound, !!filters.q);
+  return count ? (
+    <p className="mt-1 font-mono text-xs text-ink-muted" aria-live="polite">
+      {count}
+    </p>
+  ) : null;
+}
+
+/** Everything that waits on the database. Rendered inside a keyed <Suspense>. */
+async function Results({ filters }: { filters: RecipeFilters }) {
+  const page = await pageFor(filters);
   const nextHref = page.nextCursor
     ? `/recipes${filtersToQuery({ ...filters, cursor: page.nextCursor })}`
     : null;
@@ -86,8 +110,48 @@ export default async function RecipesPage({ searchParams }: Props) {
   const unknownNote = unknown.length
     ? `Recipes with no listed ${unknown.join(" or ")} are included${filters.q ? ", after the ones that fit" : ""}.`
     : null;
-  const count = countLabel(page.total, page.totalIsLowerBound, !!filters.q);
+
+  return (
+    <>
+      {page.fuzzy && (
+        <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">
+          No recipe has those exact words. Showing similar spellings.
+        </p>
+      )}
+
+      {unknownNote && page.recipes.length > 0 && (
+        <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">{unknownNote}</p>
+      )}
+
+      <RecipeList
+        recipes={page.recipes}
+        nextHref={nextHref}
+        label={filters.q ? `Recipes matching ${filters.q}` : "Recipes"}
+        empty={<EmptyState filters={filters} />}
+      />
+
+      {filters.cursor && (
+        <p className="mt-6 text-center">
+          <Link
+            href={`/recipes${filtersToQuery({ ...filters, cursor: undefined })}`}
+            className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4 hover:text-herb"
+          >
+            Back to the first page
+          </Link>
+        </p>
+      )}
+    </>
+  );
+}
+
+export default async function RecipesPage({ searchParams }: Props) {
+  const filters = parseFilters((await searchParams) as SearchParamsInput);
+  const options = await getFilterOptions();
   const activeCount = activeFilterCount(filters);
+  // Same-route navigations (a chip tap) do not trigger loading.tsx; a keyed
+  // Suspense boundary does, so the list shows a skeleton while the chips and
+  // the URL already reflect the tap.
+  const resultsKey = filtersToQuery(filters);
 
   return (
     <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
@@ -110,11 +174,9 @@ export default async function RecipesPage({ searchParams }: Props) {
               <h1 id="results-h" className="text-[1.75rem] leading-tight md:text-[2rem]">
                 {filters.q ? <>Results for “{filters.q}”</> : "Recipes"}
               </h1>
-              {count && (
-                <p className="mt-1 font-mono text-xs text-ink-muted" aria-live="polite">
-                  {count}
-                </p>
-              )}
+              <Suspense key={resultsKey} fallback={<p className="mt-1 h-4" aria-hidden />}>
+                <CountLine filters={filters} />
+              </Suspense>
             </div>
             {filters.q && (
               <Link
@@ -126,13 +188,14 @@ export default async function RecipesPage({ searchParams }: Props) {
             )}
           </div>
 
-          {/* Phone: "Filters" button opening a bottom sheet */}
+          {/* Phone: "Filters" button opening a bottom sheet. Stays mounted across
+              taps so it does not close; only its button label waits for data. */}
           <FilterSheet
             activeCount={activeCount}
             showLabel={
-              page.total === null
-                ? "Show recipes"
-                : `Show ${page.totalIsLowerBound ? `${page.total}+` : page.total} ${page.total === 1 && !page.totalIsLowerBound ? "recipe" : "recipes"}`
+              <Suspense key={resultsKey} fallback="Show recipes">
+                <ShowLabel filters={filters} />
+              </Suspense>
             }
           >
             <div className="mb-3 flex justify-end">
@@ -141,35 +204,9 @@ export default async function RecipesPage({ searchParams }: Props) {
             <FilterControls filters={filters} options={options} />
           </FilterSheet>
 
-          {page.fuzzy && (
-            <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">
-              No recipe has those exact words. Showing similar spellings.
-            </p>
-          )}
-
-          {unknownNote && page.recipes.length > 0 && (
-            <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">
-              {unknownNote}
-            </p>
-          )}
-
-          <RecipeList
-            recipes={page.recipes}
-            nextHref={nextHref}
-            label={filters.q ? `Recipes matching ${filters.q}` : "Recipes"}
-            empty={<EmptyState filters={filters} />}
-          />
-
-          {filters.cursor && (
-            <p className="mt-6 text-center">
-              <Link
-                href={`/recipes${filtersToQuery({ ...filters, cursor: undefined })}`}
-                className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4 hover:text-herb"
-              >
-                Back to the first page
-              </Link>
-            </p>
-          )}
+          <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
+            <Results filters={filters} />
+          </Suspense>
         </section>
       </div>
     </div>
