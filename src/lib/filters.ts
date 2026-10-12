@@ -15,6 +15,7 @@
  *   cuisine    cuisine     slug[]    cuisine_slugs    (both) -- ANY of
  *   diet       diet        slug[]    diet_slugs       (both) -- ALL of
  *   exclude    exclude     slug[]    exclude_allergen_slugs (both) -- NONE of
+ *   cookware   cookware    slug[]    cookware_slugs   (both) -- recipe USES any of
  *   spiceMax   spiceMax    0..4      max_spice        (both)
  *   calMin     calMin      number    min_calories     (both)
  *   calMax     calMax      number    max_calories     (both)
@@ -70,6 +71,8 @@ export type RecipeFilters = {
   diet?: string[];
   /** Allergen slugs; recipe must carry NONE. */
   exclude?: string[];
+  /** Cookware slugs; recipe must USE any of them. No cookware data = no match. */
+  cookware?: string[];
   /** 0..4, upper bound. Unknown spice passes. */
   spiceMax?: number;
   calMin?: number;
@@ -89,6 +92,7 @@ export const FILTER_PARAMS = [
   "cuisine",
   "diet",
   "exclude",
+  "cookware",
   "spiceMax",
   "calMin",
   "calMax",
@@ -167,6 +171,7 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     cuisine: slugList(first(sp, "cuisine")),
     diet: slugList(first(sp, "diet")),
     exclude: slugList(first(sp, "exclude")),
+    cookware: slugList(first(sp, "cookware")),
     spiceMax: int(first(sp, "spiceMax"), 0, 4),
     calMin: num(first(sp, "calMin"), 0, 10000),
     calMax: num(first(sp, "calMax"), 0, 10000),
@@ -216,7 +221,7 @@ export function withFilters(
 /** Toggle one value in a multi-value filter (diet / cuisine / exclude). */
 export function toggleInList(
   f: RecipeFilters,
-  key: "cuisine" | "diet" | "exclude",
+  key: "cuisine" | "diet" | "exclude" | "cookware",
   slug: string,
 ): RecipeFilters {
   const cur = f[key] ?? [];
@@ -234,6 +239,7 @@ export function hasActiveFilters(f: RecipeFilters): boolean {
     f.proteinMin !== undefined ||
     !!f.cuisine?.length ||
     !!f.diet?.length ||
-    !!f.exclude?.length
+    !!f.exclude?.length ||
+    !!f.cookware?.length
   );
 }
