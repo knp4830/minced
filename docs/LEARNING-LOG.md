@@ -1458,4 +1458,48 @@ Process lesson: a parallel wave can dispatch to the wrong worktree. When a branc
 
 ---
 
-## Entry 29 — [next entry goes here after wave 3]
+## Entry 29 - Wave 3, fridge picker (tap instead of type)
+
+*Branch `wave3/fridge`.* **What we built:** a tap-to-pick "What's in my fridge" sheet, and a `/pantry` that lists every recipe using at least one picked item. **Key files:** `src/lib/queries/ingredientCatalog.ts`, `src/components/pantry/fridgePicker.tsx`, `src/lib/fridgeStorage.ts`, `src/app/(site)/pantry/page.tsx`.
+
+**Why:** cooks recognise what they have faster than they recall it, and typing hides names the vocabulary does not know. The catalog is family parents only (about 435 chips), because `match_recipes` already lets a parent cover its variants; staples and never-used ingredients are left out since they would be no-op or dead-end chips. The sheet edits a *draft* that commits only on "Show recipes". Unlimited `max_missing` plus `min_have 1` means a single item lists recipes, and coverage-then-have ordering ranks them. The recipe page stays ISR: have/missing marks read `?pantry=` on the client using id plus family id.
+
+**Rejected:** `useSearchParams` inside a Suspense boundary in the shared header (the fallback never swapped; we read `window.location` on mount), a live count on the button (needs a count RPC), fuzzy alias search in the picker.
+
+**Concepts:** URL as state with localStorage as a mirror (URL wins). **Gotchas:** ids above int4 reached the RPC and caused a 500 (now dropped in parsing); on Windows Python `open()` defaults to cp1252, so write files with `encoding='utf-8'`; the shared Browser pane means tab ids change, so always pass `tabId`. **Known limit:** the find box does not know aliases (`green onion` will not find scallion).
+
+---
+
+## Entry 30 - Wave 3, photos round 2 and photos-first ordering
+
+*Branch `wave3/photos`.* **Built:** 171 new Wikimedia Commons photos for USDA dishes (270 of 959 recipes now), a designed placeholder tile, and photos-first ordering. **Key files:** `scripts/photos/commons_r2.py`, `supabase/migrations/20261011110000_photos_first.sql`, `src/components/recipe/recipePlaceholder.tsx`, `src/lib/placeholderTone.ts`.
+
+**Commons licensing:** every row records author, licence, licence URL and file page; CC BY and CC BY-SA require attribution, so the credit is shown on the photo and on `/about#photos`. Verification re-checked all new photos against the Commons API (licence matches, none NonFree). **Yield:** generic USDA titles ("Baked Fish") rarely have a Commons file showing that dish; a file-name overlap gate cut thousands of hits to 1,214 review tiles and a human accepted about 20 percent. Rejected on sight: logos, menus, branded trays, composites, one photo reused for two recipes. The verifier still found borderline photos (roasted-potatoes, cucumber-salad), so a second review is on the list.
+
+**Keyset tie-break keys:** cursor pagination only works if the ORDER BY is a total order. `has_photo desc, title, id` is one; adding `has_photo` to the matcher key (`coverage, have, has_photo, time_key, id`) must come *after* the score so a photo never outranks a better match. `has_photo` is a denormalised column kept by a trigger because PostgREST cannot ORDER BY existence in another table. The match/search cursors derive the cursor row's `has_photo` from its id so function signatures stay unchanged.
+
+**Placeholders:** Produce is about 60 percent of the catalog, so each aisle owns a small family of tones and the slug hash picks within it. **Gotcha:** `commons.py build` overwrites the manifest; `commons_r2.py build` merges. Do not re-run the old build.
+
+---
+
+## Entry 31 - Wave 3, accounts, favorites, deletion
+
+*Branch `wave3/accounts`.* **Built:** email/password auth, favorites, `/account`, `/privacy`, `/terms`. **Key files:** `src/middleware.ts`, `src/lib/supabase/middleware.ts`, `src/lib/actions/auth.ts`, `src/lib/actions/favorites.ts`, `src/components/account/*`, `supabase/migrations/20261011120000_accounts.sql`.
+
+**Sessions and cookies (`@supabase/ssr`):** after login Supabase stores a session in `sb-*` cookies. Access tokens expire quickly, so middleware calls `getUser()` to refresh and re-set cookies on the response. We limit middleware to `/account` and auth routes: running it on every request would make cached pages uncacheable. Recipe pages are identical for everyone, so the signed-in state loads client-side from `/api/me` (skipped when there is no `sb-` cookie) and the star fills in after load. **PKCE:** the default email link carries `?code=` and only works in the browser that asked for it; `/auth/callback` also accepts `token_hash` for cross-device templates. **Open redirect:** `safeNext()` rejects `//`, backslash paths, absolute URLs and control characters.
+
+**RLS for favorites:** select, insert and delete policies keyed to `auth.uid()`, deliberately no update policy (an update returns `UPDATE 0`, not an error). **Bug caught:** nothing created a `profiles` row for new users, so the first favorite would have broken its foreign key; the `handle_new_user` trigger fixes it. **SECURITY DEFINER for deletion:** `delete_my_account()` runs with the owner's rights, takes no id and deletes `auth.users where id = auth.uid()`, granted to `authenticated` only, so the secret key never appears in app code. **Optimistic UI:** the star flips immediately and reverts with an announced error if the server action fails (verified by delaying and failing it).
+
+**Gotchas:** Supabase honours only exact redirect URLs on the allow-list; otherwise the confirm link silently lands on the Site URL root. Config edits need `supabase stop` then `start`. The migrations cannot run on an empty database (the families migration needs seeded ingredients). Anti-enumeration is only partly achieved: re-registering a confirmed email shows a generic error.
+
+---
+
+## Entry 32 - Wave 3 integration and verification
+
+*Branch `wave3/integration`.* Three lanes merged; one semantic conflict (`recipeDetail.ts` needed both the photos lane's `aisle_category` and the fridge lane's `id`/`family_id`). **Verdicts:** fridge picker end to end, whole-site stranger on a phone, and M4.2/M4.3 passed; the photo check failed its first pass on borderline photos, which a fixer then pruned. **M4.1 stays open** (Google, domain).
+
+**Process lessons:** a live `/recipes` 500 appears if code ships before its migration, so order matters (migration, types, upload, seed). Superuser timings hide RLS cost: measure the matcher as `anon`. A stopped shell can leave `node` running on the port, so check the port.
+
+---
+
+## Entry 33 - [next entry goes here after wave 4]

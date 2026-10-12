@@ -2,8 +2,10 @@ import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FavoriteButton } from "@/components/account/favoriteButton";
 import { Chip } from "@/components/ui/chip";
 import { MetaRow } from "@/components/ui/metaRow";
+import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
 import { AI_SOURCE_NAME } from "@/lib/queries/browse";
 import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
@@ -83,13 +85,17 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
 
   return (
     <article className="mx-auto max-w-[1180px] px-(--gutter) pt-4 pb-6 md:pt-6">
-      <Link
-        href="/recipes"
-        className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-md px-2 text-sm text-ink-muted hover:text-herb"
-      >
-        <ChevronLeft aria-hidden className="size-4" />
-        All recipes
-      </Link>
+      <div className="flex items-center justify-between gap-3">
+        <Link
+          href="/recipes"
+          className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-md px-2 text-sm text-ink-muted hover:text-herb"
+        >
+          <ChevronLeft aria-hidden className="size-4" />
+          All recipes
+        </Link>
+        {/* Client island: keeps this page cacheable; the saved state fills in after load. */}
+        <FavoriteButton slug={recipe.slug} title={recipe.title} variant="detail" />
+      </div>
 
       <header className="mt-1 mb-6">
         {recipe.cuisine && <p className="label-mono mb-2 tracking-[0.1em]">{recipe.cuisine}</p>}
@@ -129,9 +135,13 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
                 className="absolute inset-0 size-full object-cover"
               />
             ) : (
-              <span className="absolute bottom-3 left-3 rounded-xs bg-canvas px-1.5 py-0.5 font-mono text-[0.625rem] text-ink-subtle">
-                photo · {recipe.title.toLowerCase()}
-              </span>
+              <RecipePlaceholder
+                slug={recipe.slug}
+                title={recipe.title}
+                cuisine={recipe.cuisine}
+                aisle={recipe.aisle}
+                size="hero"
+              />
             )}
           </div>
           {recipe.photo && needsAttribution(recipe.photo.license) && (

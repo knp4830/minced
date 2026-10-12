@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Mono, Public_Sans } from "next/font/google";
+import { AccountProvider } from "@/components/account/accountProvider";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -48,7 +49,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {children}
+        <AccountProvider>{children}</AccountProvider>
       </body>
     </html>
   );

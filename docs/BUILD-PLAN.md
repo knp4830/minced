@@ -36,8 +36,8 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #24 | **M3.6** Landing page (pantry input above the fold) | ☑ |
 | #25 | **M3.7** Programmatic /what-can-i-make/[combo] SEO pages | ☐ |
 | #26 | **M4.1** Supabase Auth: email + Google, middleware, login/signup | ☐ |
-| #27 | **M4.2** Favorites with optimistic updates | ☐ |
-| #28 | **M4.3** Account page: Library / My Recipes / Settings | ☐ |
+| #27 | **M4.2** Favorites with optimistic updates | ☑ |
+| #28 | **M4.3** Account page: Library / My Recipes / Settings | ☑ |
 | #29 | **M5.1** Recipe form with dynamic ingredient and step rows | ☐ |
 | #30 | **M5.2** Draft autosave and publish validation | ☐ |
 | #31 | **M5.3** Edit and delete own recipes | ☐ |
@@ -629,6 +629,8 @@ Header, nav, footer, mobile breakpoints. Matches the mockup's landing nav.
 `/recipes/[slug]` — ingredients grouped by category, numbered steps, nutrition table, notes. Plus the **servings scaler** (the mockup has one — quantities recompute live). Generate static params so recipe pages are prerendered.
 
 ### ☑ M3.3 — **The pantry matcher** ← this is the product
+**Wave 3 refinement (user-directed, not a new box):** the typed pantry input was replaced by a tap-to-pick "What's in my fridge" picker (aisle tabs, top ~20 chips, Show all, optional find box). `/pantry` now lists every recipe with at least one picked item, ranked by coverage. Fridge lives in the URL and localStorage.
+
 
 > **Closed 2026-10-09 (wave 2).** UI plus backend verified end to end. Latency: the DB function is about 22 ms as superuser but 130-165 ms as the `anon` role (RLS cost per row); p50 is under 200 ms with thin headroom, so re-measure on Vercel and see the RLS note in Entry 25. See Entry 25.
 
@@ -729,6 +731,8 @@ type here, and at what catalog size Postgres full-text would stop being enough.
 **DoD:** searching "cacio", "shakshuka", "chickpea", and "korean" each return sensible ranked results in under 100ms. A typo still finds the dish.
 
 ### ☑ M3.6 — Landing page
+**Wave 3 refinement (user-directed):** the hero text box is now a recipe search (`/recipes?q=`); the fridge is a button beside it. **Photos round 2:** 270 of 959 recipes now have licensed Commons photos (was 99); the rest get designed placeholder tiles; browse, search and the matcher order photos first as a tie-break (`recipes.has_photo`), never above a better score.
+
 
 > **Closed 2026-10-09 (wave 2).** Landing has both doors above the fold at 375px and 1280px; `/about` written. See Entry 25.
 
@@ -773,12 +777,18 @@ Logged out. On a phone. Under 200ms per query.
 > **Time:** 3–5 days.
 
 ### ☐ M4.1 — Supabase Auth (email/password + Google OAuth)
+**Partly done (wave 3, 2026-10-11): the email/password half works** (sign-up with confirmation, log in, log out, forgot/reset password, middleware on account/auth routes only, open-redirect guard). **Google sign-in is deferred until a domain exists** (user decision), so the box stays unchecked.
+
 Middleware for session refresh, `/login` and `/signup` matching the mockup, protected routes.
 
-### ☐ M4.2 — Favorites
+### ☑ M4.2 — Favorites
+**Done 2026-10-11 (wave 3).** Gold star on cards and recipe detail, optimistic with revert; signed-out tap opens a log-in dialog. Detail pages stay ISR because saved state loads client-side via `/api/me`.
+
 The heart button on cards and detail pages. Use an **optimistic update** — the heart fills instantly, and reverts if the server rejects it.
 
-### ☐ M4.3 — Account page
+### ☑ M4.3 — Account page
+**Done 2026-10-11 (wave 3).** `/account` with Library, My Recipe Book (placeholder until M5), Settings, JSON export and typed-DELETE account deletion via `delete_my_account()`. `/privacy` and `/terms` shipped alongside.
+
 `/account` with the tabs from the mockup: Library (favorites), My Recipes, Settings.
 
 ---

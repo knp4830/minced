@@ -498,6 +498,7 @@ export type Database = {
           description: string | null
           fat_g: number | null
           fiber_g: number | null
+          has_photo: boolean
           id: string
           image_url: string | null
           notes: string | null
@@ -528,6 +529,7 @@ export type Database = {
           description?: string | null
           fat_g?: number | null
           fiber_g?: number | null
+          has_photo?: boolean
           id?: string
           image_url?: string | null
           notes?: string | null
@@ -558,6 +560,7 @@ export type Database = {
           description?: string | null
           fat_g?: number | null
           fiber_g?: number | null
+          has_photo?: boolean
           id?: string
           image_url?: string | null
           notes?: string | null
@@ -651,6 +654,7 @@ export type Database = {
         Args: { p_cuisine_id: number; p_recipe_id: string; p_title: string }
         Returns: unknown
       }
+      delete_my_account: { Args: never; Returns: undefined }
       expand_ingredient_family: { Args: { ids: number[] }; Returns: number[] }
       ingredient_coverage: {
         Args: { min_similarity?: number; raw_names: string[] }

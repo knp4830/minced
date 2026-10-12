@@ -211,15 +211,15 @@ begin
 
   -- Cursor round trip across the known/unknown boundary: 7 rows at a time must
   -- reproduce the single big page exactly (the cursor compares offset scores).
-  select array_agg(id order by score desc, id desc) into page1
-    from search_recipes('soup', 60, result_limit => 100);
+  select array_agg(sq.id order by sq.score desc, sq.has_photo desc, sq.id desc) into page1
+    from (select x.*, r.has_photo from search_recipes('soup', 60, result_limit => 100) x join recipes r on r.id = x.id) sq;
   perform pg_temp.ok(exists (select 1 from search_recipes('soup', 60) where coalesce(total_time_min,0) = 0) and exists (select 1 from search_recipes('soup', 60) where total_time_min > 0), 'test premise: soup has both known and unknown times');
   perform pg_temp.ok(cardinality(page1) < 100, 'test premise: fewer than 100 soup results (single page holds all)');
   page2 := '{}';
   c_score := null; c_id := null;
   for n in 1 .. 40 loop
-    select array_agg(id order by score desc, id desc) into chunk
-      from search_recipes('soup', 60, result_limit => 7, cursor_score => c_score, cursor_id => c_id);
+    select array_agg(sq.id order by sq.score desc, sq.has_photo desc, sq.id desc) into chunk
+      from (select x.*, r.has_photo from search_recipes('soup', 60, result_limit => 7, cursor_score => c_score, cursor_id => c_id) x join recipes r on r.id = x.id) sq;
     exit when chunk is null;
     page2 := page2 || chunk;
     -- the cursor is the LAST row of the chunk (lowest score, then id)

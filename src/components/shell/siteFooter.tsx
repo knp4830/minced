@@ -18,12 +18,24 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
         <p className="font-mono text-[0.6875rem] leading-relaxed text-ink-subtle">
           Recipes: USDA MyPlate Kitchen &middot; Nutrition: USDA FoodData Central
         </p>
-        <Link
-          href="/about"
-          className="inline-flex min-h-11 items-center self-start text-[0.8125rem] text-ink-muted underline underline-offset-4 hover:text-herb md:ml-auto"
+        <nav
+          aria-label="About and legal"
+          className="flex flex-wrap items-center gap-x-5 self-start md:ml-auto"
         >
-          How recipes are made
-        </Link>
+          {[
+            ["/about", "How recipes are made"],
+            ["/privacy", "Privacy"],
+            ["/terms", "Terms"],
+          ].map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              className="inline-flex min-h-11 items-center text-[0.8125rem] text-ink-muted underline underline-offset-4 hover:text-herb"
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </footer>
   );

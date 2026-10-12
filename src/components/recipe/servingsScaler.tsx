@@ -1,7 +1,7 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { Check, Minus, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 import { displayQuantity } from "@/lib/scaling";
 
 export type ScalerIngredient = {
@@ -10,7 +10,19 @@ export type ScalerIngredient = {
   name: string;
   prepNote: string | null;
   optional: boolean;
+  ingredientId?: number | null;
+  familyId?: number | null;
+  isStaple?: boolean;
 };
+
+/** `?pantry=1,2,3` from the fridge results link, read after mount. */
+function readFridgeIds(): number[] {
+  const raw = new URLSearchParams(window.location.search).get("pantry") ?? "";
+  return raw
+    .split(",")
+    .map(Number)
+    .filter((n) => Number.isInteger(n) && n > 0);
+}
 
 const MIN = 1;
 const MAX = 48;
@@ -33,6 +45,25 @@ export function ServingsScaler({
   ingredients: ScalerIngredient[];
 }) {
   const [servings, setServings] = useState(baseServings);
+
+  // Opened from fridge results, the link carries the fridge. The page itself
+  // stays static and cacheable, so the marks are applied here, after mount.
+  const [fridge, setFridge] = useState<ReadonlySet<number> | null>(null);
+  useEffect(() => {
+    const ids = readFridgeIds();
+    if (ids.length > 0) setFridge(new Set(ids));
+  }, []);
+
+  // A parent in the fridge covers its variants (same rule as match_recipes).
+  const marks = ingredients.map((line) => {
+    if (!fridge || line.isStaple) return null;
+    const have =
+      (line.ingredientId != null && fridge.has(line.ingredientId)) ||
+      (line.familyId != null && fridge.has(line.familyId));
+    return have ? "have" : "missing";
+  });
+  const needed = ingredients.filter((l, i) => marks[i] && !l.optional);
+  const haveCount = needed.filter((l) => marks[ingredients.indexOf(l)] === "have").length;
   const changed = servings !== baseServings;
 
   const stepBtn =
@@ -76,6 +107,18 @@ export function ServingsScaler({
         </div>
       </div>
 
+      {fridge && needed.length > 0 && (
+        <p
+          role="status"
+          className="mb-2 rounded-md bg-band px-3 py-2 text-[0.8125rem] text-ink-muted"
+        >
+          <span className="font-mono font-semibold text-herb">
+            You have {haveCount} of {needed.length}
+          </span>{" "}
+          {haveCount === needed.length ? "· nothing missing" : "· the rest are marked below"}
+        </p>
+      )}
+
       <ul className="flex flex-col">
         {ingredients.map((line, i) => {
           const q = displayQuantity(line, baseServings, servings);
@@ -96,6 +139,17 @@ export function ServingsScaler({
                   <span className="text-ink-muted"> (optional)</span>
                 )}
               </span>
+              {marks[i] === "have" && (
+                <span className="ml-auto inline-flex shrink-0 items-center gap-1 font-mono text-[0.6875rem] text-herb">
+                  <Check aria-hidden className="size-3.5" />
+                  have
+                </span>
+              )}
+              {marks[i] === "missing" && (
+                <span className="ml-auto shrink-0 rounded-xs bg-paprika/10 px-1.5 py-0.5 font-mono text-[0.6875rem] text-paprika-deep">
+                  missing
+                </span>
+              )}
             </li>
           );
         })}

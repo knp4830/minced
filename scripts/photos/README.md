@@ -51,3 +51,13 @@ Not committed: `cache/` (downloads) and `out/` (resized WebP).
   `process_images.py`, `upload_photos.py --apply`, `apply_manifest.py > supabase/seed-photos.sql`.
 - `manifest/myplate_review_excludes.json`: photos excluded after a human look (survives re-running `audit`).
 - Post-merge order: apply migration 20261009140000 -> `upload_photos.py --apply` -> run seed-photos.sql.
+
+## Wave 3 (round 2: USDA dishes on Commons)
+- `commons_r2.py search|sheets|build`: searches Commons for every recipe still without a photo, keeps only files whose
+  *name* overlaps the dish name, builds numbered review sheets (`cache/commons/sheets2/`) for a human look, and `build`
+  MERGES into `manifest/commons.json` (the older `commons.py build` replaces it). `credit` is shortened for the on-photo
+  label; the full `author` stays in the manifest.
+- Picks live in `manifest/commons_picks_r2.json`; rejected-but-close candidates are listed in `manifest/commons_r2_rejected.json`
+  with the reason, so the next person does not re-review them.
+- Photo-less recipes show a designed tile (`RecipePlaceholder`), and recipes with a photo sort first on ties
+  (`recipes.has_photo`, migration 20261011110000). Uploading photos and running `seed-photos.sql` flips the flag by trigger.

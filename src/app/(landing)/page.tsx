@@ -1,8 +1,9 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
-import { PantryInput } from "@/components/pantry/pantryInput";
+import { FridgePicker } from "@/components/pantry/fridgePicker";
 import { Button } from "@/components/ui/button";
 import { getFilterOptions } from "@/lib/queries/browse";
+import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import {
   countFilterGroups,
   getLandingPhotos,
@@ -20,7 +21,7 @@ export const revalidate = 3600;
 const FEATURES = [
   {
     title: "Cook from what you have",
-    body: "Add what’s in your kitchen. Minced ranks recipes by how little you’re missing, and never counts salt, oil or water.",
+    body: "Tap what’s in your fridge. Minced shows every recipe that uses it, closest match first, and never counts salt, oil or water.",
     radius: "50%",
   },
   {
@@ -91,10 +92,11 @@ function PhotoGrid({ photos }: { photos: LandingPhoto[] }) {
 }
 
 export default async function Home() {
-  const [recipeCount, options, photos] = await Promise.all([
+  const [recipeCount, options, photos, catalog] = await Promise.all([
     getRecipeCount(),
     getFilterOptions(),
     getLandingPhotos(),
+    getIngredientCatalog(),
   ]);
   const filterCount = countFilterGroups(options);
   const recipes = recipeCount.toLocaleString("en-US");
@@ -116,23 +118,42 @@ export default async function Home() {
             Find the recipe. Skip the life story.
           </h1>
           <p className="mt-4 max-w-[30em] text-base leading-[1.55] text-ink-soft md:mt-5 md:text-[1.0625rem]">
-            Tell Minced what’s in your kitchen and it ranks recipes by how little you’re
-            missing. Ingredients, amounts, numbered steps.
+            Search for a dish, or tap what’s in your fridge and see everything you can make.
+            Ingredients, amounts, numbered steps.
           </p>
 
           <div className="mt-6 max-w-[32rem] md:mt-7">
-            <p className="label-mono mb-2.5">What’s in your kitchen?</p>
-            <PantryInput variant="hero" />
-            <p className="mt-3 text-sm text-ink-muted">
-              or{" "}
+            <form role="search" action="/recipes" method="get" className="flex gap-2">
+              <div className="flex min-h-12 min-w-0 flex-1 items-center gap-2 rounded-field border border-field bg-surface px-3.5 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20">
+                <Search aria-hidden className="size-4 shrink-0 text-stone" />
+                <label htmlFor="hero-search" className="sr-only">
+                  Search recipes
+                </label>
+                <input
+                  id="hero-search"
+                  name="q"
+                  type="search"
+                  enterKeyHint="search"
+                  autoComplete="off"
+                  placeholder="Search recipes"
+                  className="min-h-11 w-full min-w-0 bg-transparent py-2 text-base outline-none placeholder:text-ink-subtle"
+                />
+              </div>
+              <Button type="submit" size="lg">
+                Search
+              </Button>
+            </form>
+
+            <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+              <FridgePicker variant="hero" catalog={catalog} />
               <Link
                 href="/recipes"
-                className="inline-flex min-h-11 items-center gap-1 font-medium text-ink underline underline-offset-4 hover:text-herb"
+                className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-ink underline underline-offset-4 hover:text-herb"
               >
                 Browse all <span className="font-mono">{recipes}</span> recipes
                 <ArrowRight aria-hidden className="size-4" />
               </Link>
-            </p>
+            </div>
           </div>
 
           <p className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-xs text-ink-subtle">
@@ -212,7 +233,7 @@ export default async function Home() {
         </h2>
         <div className="flex flex-wrap justify-center gap-3">
           <Button asChild variant="inverse" size="lg">
-            <Link href="/pantry">What can I make?</Link>
+            <Link href="/pantry">What’s in my fridge?</Link>
           </Button>
           <Button asChild variant="inverse-outline" size="lg">
             <Link href="/recipes">Browse recipes</Link>

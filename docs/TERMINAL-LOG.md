@@ -384,6 +384,24 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-10 | `pnpm exec supabase db push --db-url "$DATABASE_URL" --dry-run` | Apply wave 2 to live | Listed **6** migrations, not the 4 the PR said — fix rounds added two. Always read the dry run instead of trusting the PR body |
 | 2026-10-10 | `psql -v dry_run=1 -f scripts/dedupe-recipes.sql`, then without it | Destructive duplicate merge (978 → 959) | The real run printed `DELETE 941`, which looked alarming — it was the script's own temp planning table. Find every `delete` in a script before panicking or proceeding |
 | 2026-10-10 | `Get-NetTCPConnection -LocalPort 3402 -State Listen` → `Stop-Process` | Free a port held by a "stopped" dev server | Stopping the shell that ran `pnpm start` left the `node` child alive; the new server failed with EADDRINUSE while the OLD build kept answering. A page loading proves nothing about *which* build is serving |
+| 2026-10-11 | `bash .snapshot/restore.sh w3fridge` then `docker rm -f w3fridge` | Snapshot Postgres for fridge data checks | Remove the container afterwards |
+| 2026-10-11 | `pnpm exec next dev -p 3501`, stopped with `Stop-Process` on the listening PID | Lane dev server | Confirm the port is free afterwards |
+| 2026-10-11 | `pnpm exec next build` then `next start -p 3501` | Test the header Suspense issue in production | Stopped afterwards |
+| 2026-10-11 | Python edits via `open()` (FAILED) | Insert non-ASCII text | cp1252 default produced invalid UTF-8 and Next failed with 'stream did not contain valid UTF-8'. Use `encoding='utf-8'` or the Edit/Write tools |
+| 2026-10-11 | `python scripts/photos/commons_r2.py search scripts/photos/cache/r2_N.json --out cand_r2_N.json` | Candidate search in 3 parallel slices over 860 recipes | |
+| 2026-10-11 | `python scripts/photos/commons_r2.py sheets --per 12 --top 2` | 73 contact sheets for human review | |
+| 2026-10-11 | `python scripts/photos/commons_r2.py build scripts/photos/manifest/commons_picks_r2.json scripts/photos/cache/r2_recipes.json` | Merge picks into the manifest (98 + 171) | Merges; the old `commons.py build` overwrites |
+| 2026-10-11 | `python scripts/photos/process_images.py` then `python scripts/photos/apply_manifest.py > supabase/seed-photos.sql` | Produce WebP files and the seed SQL | |
+| 2026-10-11 | `docker exec -i <c> psql -U postgres -v ON_ERROR_STOP=1 < supabase/tests/photos_first_test.sql` | Photos-first regression test | Snapshot only |
+| 2026-10-11 | `docker run postgrest/postgrest:v12.2.3` against the snapshot plus a small node proxy for `/rest/v1` and `/storage` | Run the app against snapshot data with no live writes | FAILED first: snapshot has no anon grants (`permission denied for table recipes`); GRANT on the throwaway DB only |
+| 2026-10-11 | A bash chain containing docker or powershell with command substitution (FAILED) | Worktree guard refused it | Split into plain commands |
+| 2026-10-11 | `pnpm exec supabase start --workdir <scratch> -x studio,imgproxy,edge-runtime,logflare,vector,postgres-meta,realtime,supavisor` | Isolated local Supabase stack for the accounts lane (ports 573xx) | FAILED first: families migration expects seeded ingredients ('expected 57 family members, got 0') |
+| 2026-10-11 | Start with migrations up to 20261009, load `seed-ingredients.sql` and `seed.sql` via `docker exec -i supabase_db_minced-w3acct psql`, then `supabase migration up --local --workdir <scratch>` | Local stack that accepts all migrations | |
+| 2026-10-11 | Edit `config.toml` (site_url, additional_redirect_urls, enable_confirmations, minimum_password_length) | Auth test config | Takes effect only after `supabase stop` then `start`; a script that skipped existing config silently did nothing |
+| 2026-10-11 | `pnpm exec supabase stop --no-backup --workdir <scratch>` | Remove local containers and volumes | |
+| 2026-10-11 | `bash supabase/tests/accounts_rls_test.sh` with `API`, `KEY`, `DB` env vars | Accounts RLS regression (11 cases) | Local only by design; with confirmations ON, mark user B confirmed via SQL first |
+| 2026-10-11 | `pnpm exec next dev -p 3503`; `NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:57321 ... pnpm exec next build` | Accounts lane dev server and build against the local stack | |
+| 2026-10-11 | `Get-NetTCPConnection -LocalPort 3503 \| Stop-Process` | Free the dev port | |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

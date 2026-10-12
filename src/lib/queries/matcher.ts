@@ -1,4 +1,4 @@
-import type { RecipeFilters } from "@/lib/filters";
+import { MAX_INT4, type RecipeFilters } from "@/lib/filters";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -158,7 +158,7 @@ export function buildMatchArgs(
 }
 
 function cleanIds(ids: number[] | undefined): number[] {
-  return [...new Set((ids ?? []).filter((n) => Number.isInteger(n) && n > 0))];
+  return [...new Set((ids ?? []).filter((n) => Number.isInteger(n) && n > 0 && n <= MAX_INT4))];
 }
 
 /**

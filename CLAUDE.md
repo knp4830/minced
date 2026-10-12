@@ -198,8 +198,25 @@ Design system and shell (M2.1-M2.3) closed. Live now has **eleven** migrations, 
 
 **Known issues carried forward:** `match_recipes` is 130-165 ms as `anon` (RLS runs `can_read_recipe()` per row) against a 200 ms budget; fix before ~1,500 recipes. `/pantry?pantry=<id above int4>` returns 500 (clamp ids). The pages list seven staples; the database has 22. `/shopping /login /privacy /terms` 404; header "Log in" is a dead link. Cuisine is NULL on about 742 recipes, so the cuisine filter hides them. Salmon and ramen now list non-staple rice and broth. Braised recipes compute high on kcal. Deleted duplicate slugs 404 (no redirects). Delete `/kitchen-sink` before launch.
 
-### Next up: Wave 3, accounts (M4.1-M4.3) plus privacy and terms pages
+### Wave 3 (2026-10-11): integrated on `wave3/integration`, PR open, NOT yet applied to live
 
-**Blocked on you: buy a domain first.** Google OAuth will not verify a `vercel.app` host, and it needs a real homepage and privacy policy. Then: M4.1 Supabase Auth, M4.2 favorites, M4.3 account page, and `/privacy` and `/terms` (see `docs/LEGAL-COMPLIANCE.md`; the Vercel Hobby plan is non-commercial only).
+**Checked:** M4.2 (favorites) and M4.3 (account page). **M4.1 stays open:** email/password works, Google sign-in waits for a domain (user's choice, last on the list). Fridge picker and photos round 2 are user-directed refinements of M3.3/M3.6, not new boxes.
+
+- **Fridge picker replaces the typed pantry.** Tap-to-pick bottom sheet (aisle tabs, top ~20 chips, Show all, small find box) on the landing hero and `/pantry`; `/pantry` lists every recipe with at least one picked item, ranked by coverage. Fridge lives in the URL, mirrored to localStorage. The hero text box is now a recipe search (`/recipes?q=`). Recipe pages opened with `?pantry=` mark have/missing client-side and stay ISR.
+- **Photos round 2:** 270 of 959 recipes have licensed Commons photos (was 99); the rest get designed placeholder tiles (`RecipePlaceholder`, `--color-ph-*` tokens). `recipes.has_photo` (trigger-maintained) is a tie-break in browse, search and the matcher, never above a better score.
+- **Accounts:** email+password, `/account` (Library, Settings, JSON export, typed-DELETE deletion via `delete_my_account()`), `/privacy`, `/terms`, gold favorite star. Session and favorites load client-side from `/api/me` so cached pages stay cached; middleware runs only on account/auth routes.
+- **DB:** 2 new migrations (`20261011110000_photos_first`, `20261011120000_accounts`); types regenerated from the snapshot.
+- **Live steps pending** (in the PR body, in order): backup, photos migration, accounts migration, `pnpm db:types`, photo upload, `seed-photos.sql`, Supabase Auth URL settings. **Live `/recipes` returns 500 until the photos migration is applied.**
+
+**Known issues carried forward:** the matcher is 125-200 ms as `anon` (RLS runs `can_read_recipe()` per row; superuser timings hide it) - make it cheap or add a security-definer wrapper for published rows. About 690 recipes still show placeholders. Sign-up with an already-registered email shows a generic error (leaks existence; map `user_already_exists` to the "check your email" message). Picker find box matches canonical names only (no aliases) and substrings (`gar` finds sugar). Privacy and terms are not lawyer-reviewed. Built-in Supabase email is rate-limited and team-only until custom SMTP exists (needs a domain).
+
+### Next up (in the user's order of choice)
+
+1. **You review:** M1.5.7 (247 rejected recipes, unresolved-ingredient queue), the four borderline photos (tomato-basil-soup, fruit-pizza, bean-enchiladas, stir-fry-vegetables-and-beef), and a second pass on a few of the 171 new photos.
+2. More photos for the remaining ~690 recipes.
+3. Cookware filter decision (propose, then ask).
+4. Shopping list (v1.1).
+5. Fridge with dates (needs accounts, now possible).
+6. **Domain, then Google sign-in, LAST** (also unblocks custom SMTP and lawyer-reviewed legal pages).
 
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations.

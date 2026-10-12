@@ -103,6 +103,8 @@ export type SearchParamsInput =
 
 const MAX_LIST = 50;
 const MAX_Q = 200;
+/** Postgres int4 ceiling: a larger id would make the RPC throw instead of match nothing. */
+export const MAX_INT4 = 2_147_483_647;
 const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 function first(sp: SearchParamsInput, key: string): string | undefined {
@@ -130,7 +132,7 @@ function idList(raw: string | undefined): number[] | undefined {
       raw
         .split(",")
         .map((s) => Number(s))
-        .filter((n) => Number.isInteger(n) && n > 0),
+        .filter((n) => Number.isInteger(n) && n > 0 && n <= MAX_INT4),
     ),
   ].slice(0, MAX_LIST);
   return ids.length ? ids : undefined;

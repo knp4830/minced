@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { FavoriteButton } from "@/components/account/favoriteButton";
 import { Card, CardBody, CardMedia, CardTitle } from "@/components/ui/card";
 import { MetaRow } from "@/components/ui/metaRow";
+import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 
 /**
  * Pantry-door slot. Present only on matcher results; search results omit it.
@@ -18,6 +20,8 @@ export type RecipeCardProps = {
   /** Cuisine display name. Null for most imported recipes (see CLAUDE.md gaps). */
   cuisine?: string | null;
   imageUrl?: string | null;
+  /** Aisle of the main ingredient; tints the photo-less tile (see primaryAisle). */
+  aisle?: string | null;
   /** Required by CC BY / CC BY-SA photos; shown over the image corner. */
   photoCredit?: string | null;
   /** Unknown (null, undefined or 0) hides the time part, never shows "0m". */
@@ -37,6 +41,8 @@ export type RecipeCardProps = {
   priority?: boolean;
 };
 
+const MISSING_SHOWN = 4;
+
 /**
  * The one recipe card, used by search, browse and the pantry matcher.
  * The whole card is a link (stretched from the title); the AI badge sits above
@@ -47,6 +53,7 @@ export function RecipeCard({
   title,
   cuisine,
   imageUrl,
+  aisle,
   photoCredit,
   totalTimeMin,
   servings,
@@ -74,12 +81,11 @@ export function RecipeCard({
             className="absolute inset-0 size-full object-cover"
           />
         ) : (
-          <span className="rounded-xs bg-canvas px-1.5 py-0.5 font-mono text-[0.5625rem] text-ink-subtle">
-            photo · {title.toLowerCase()}
-          </span>
+          <RecipePlaceholder slug={slug} title={title} cuisine={cuisine} aisle={aisle} />
         )}
+        <FavoriteButton slug={slug} title={title} className="absolute top-2 right-2" />
         {imageUrl && photoCredit && (
-          <span className="relative rounded-xs bg-canvas/90 px-1.5 py-0.5 font-mono text-[0.5625rem] text-ink-muted">
+          <span className="relative max-w-full truncate rounded-xs bg-canvas/90 px-1.5 py-0.5 font-mono text-[0.5625rem] text-ink-muted">
             {photoCredit}
           </span>
         )}
@@ -107,14 +113,18 @@ export function RecipeCard({
         {coverage && (
           <p className="mt-2.5 text-[0.8125rem] leading-snug text-ink-muted">
             <span className="font-mono text-xs font-semibold text-herb">
-              {coverage.haveCount}/{coverage.neededCount}
-            </span>{" "}
+              You have {coverage.haveCount} of {coverage.neededCount}
+            </span>
             {missing === 0 ? (
-              "You have everything"
+              " · nothing missing"
             ) : (
               <>
-                missing:{" "}
-                <span className="text-ink">{coverage.missingNames.join(", ")}</span>
+                {" · "}missing:{" "}
+                <span className="text-ink">
+                  {coverage.missingNames.slice(0, MISSING_SHOWN).join(", ")}
+                  {coverage.missingNames.length > MISSING_SHOWN &&
+                    ` +${coverage.missingNames.length - MISSING_SHOWN} more`}
+                </span>
               </>
             )}
           </p>
