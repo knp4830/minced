@@ -187,36 +187,28 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 
 Design system and shell (M2.1-M2.3) closed. Live now has **eleven** migrations, **978 recipes** (872 MyPlate, 100 "Minced original" AI-drafted, 6 mockup), allergens, 32 cuisines, and the `match_recipes` / `search_recipes` / `suggest_ingredients` RPCs. The `recipes` bloat was fixed with `VACUUM (FULL, ANALYZE)` (32 MB to 2.1 MB). Six packages were added by the design lane (clsx, tailwind-merge, class-variance-authority, lucide-react, tw-animate-css, @radix-ui/react-slot).
 
-### Wave 2 (2026-10-09): integrated on `wave2/integration`, PR open, NOT yet applied to live
+### Waves 1-3 (2026-10-09 to 10-12): live
 
-**Checked:** M3.1, M3.2, M3.3, M3.4, M3.5, M3.6, and M1.5.4 (under the user-approved reframed DoD: hand-calculation within 10%). **Phase 3 DoD passed** (a logged-out stranger on a phone finds a recipe through both doors). **M1.5.7 stays open** (500+ reviewed recipes and the 247 rejected recipes need your review).
+Live at https://minced-app.vercel.app with **19 migrations**, **959 recipes** (duplicates merged), **260 photos**, computed nutrition, ingredient families, 22 pantry staples, and email accounts (sign-up, favorites, `/account`, `/privacy`, `/terms`). Routes: `/`, `/recipes` (browse, `?q=`, filters), `/recipes/[slug]` (ISR), `/pantry` (tap-to-pick fridge), `/account`, `/about`. One `RecipeCard`/`RecipeList` and one URL filter contract (`src/lib/filters.ts`) serve both doors. Google sign-in, a domain and custom SMTP come LAST, by the user's choice.
 
-- **Routes:** `/`, `/recipes` (browse + `?q=` search + filters), `/recipes/[slug]` (ISR, 3600 s), `/pantry`, `/about`, `/api/ingredients/suggest`. One `RecipeCard`/`RecipeList` and one URL filter contract (`src/lib/filters.ts`) serve both doors.
-- **DB:** 4 new migrations (`20261009140000` photos, `20261010100000` families, `...100100` match filters, `...100200` search NULL semantics). Ingredient families are one hop deep. 11 new pantry staples (22 total). Unknown time, spice, calories and protein pass range filters and sort last.
-- **Nutrition** is computed from USDA for the 106 non-MyPlate recipes (`scripts/nutrition/`). **Photos:** 99 (1 federal, 98 Wikimedia with attribution); the rest use the colour-block placeholder. AI-drafted recipes show a "Drafted with AI, reviewed by Minced" badge linking to `/about`.
-- **Live steps pending** (in the PR body, in order): backup, migrations, `pnpm db:seed`, nutrition, photo upload, `seed-photos.sql`, the destructive duplicate merge (978 to 959), `VACUUM`, smoke tests. The Vercel preview reads the LIVE database, so pages needing new RPC arguments only fully work after those steps.
+### Wave 4 (2026-10-12): integrated on `wave4/integration`, PR open, NOT yet applied to live
 
-**Known issues carried forward:** `match_recipes` is 130-165 ms as `anon` (RLS runs `can_read_recipe()` per row) against a 200 ms budget; fix before ~1,500 recipes. `/pantry?pantry=<id above int4>` returns 500 (clamp ids). The pages list seven staples; the database has 22. `/shopping /login /privacy /terms` 404; header "Log in" is a dead link. Cuisine is NULL on about 742 recipes, so the cuisine filter hides them. Salmon and ramen now list non-staple rice and broth. Braised recipes compute high on kcal. Deleted duplicate slugs 404 (no redirects). Delete `/kitchen-sink` before launch.
+Goal: smooth for friends and family. **Four new migrations must be applied BEFORE merging:** `20261012100000_rls_hashed_visibility`, `20261012100100_cookware_filter` (new RPC parameter; the new code 500s on `/pantry?cookware=` without it), `20261012120000_admin_review`, `20261012130000_rpc_jit_off`. Ask Claude to apply them, then merge.
 
-### Wave 3 (2026-10-11): integrated on `wave3/integration`, PR open, NOT yet applied to live
+- **Perf:** matcher 172 to 16.5 ms as `anon` (child-table RLS uses a hashed subquery, equivalence proven); warm LCP at 375px /recipes 328 to 64 ms, /pantry 476 to 56; 5-minute list cache; skeleton `loading.tsx`; recipe page 4 queries to 1.
+- **Cookware filter:** "recipes that use any selected" (`cookware` param, `cookware_slugs` RPC arg). Only about 103 recipes have cookware data, so it hides most of the catalog until backfilled.
+- **UX:** one fridge button on landing; fridge find box matches aliases; neutral sign-up message for existing emails; `/auth/callback` uses the forwarded host.
+- **Photos:** 286 Commons + 1 federal in the manifest (was 260); 6 removed for brand/logo risk, 32 new or replaced, credits cleaned. Needs `upload_photos.py --apply`, then `seed-photos.sql` (which DELETES removed rows).
+- **Admin review (M1.5.6) built, box NOT checked:** `/admin/review`; the `/pantry` revalidate fix was applied after the verdict and is not re-verified. Add your row to `admins` after signing up. M1.5.7 stays open (your review).
 
-**Checked:** M4.2 (favorites) and M4.3 (account page). **M4.1 stays open:** email/password works, Google sign-in waits for a domain (user's choice, last on the list). Fridge picker and photos round 2 are user-directed refinements of M3.3/M3.6, not new boxes.
+**Known issues:** filter sheet has no scroll lock; global 404 has no header/footer; `/recipes/<bad-slug>` returns 200 (soft 404); `/pantry` has no allergen/diet/time filter sheet (breaks "both doors share filters"); `/kitchen-sink` still public; step-text quantities do not scale with servings; "Show more" replaces rather than appends; first visit to a recipe slug is about 1.3 s (ISR cold); `accounts_rls_test.sh`, `admin_review_api_test.sh` and RLS-TEST-PLAN not re-run on a real Supabase stack for the integrated branch (fold `docs/RLS-TEST-PLAN-admin.md` into the plan).
 
-- **Fridge picker replaces the typed pantry.** Tap-to-pick bottom sheet (aisle tabs, top ~20 chips, Show all, small find box) on the landing hero and `/pantry`; `/pantry` lists every recipe with at least one picked item, ranked by coverage. Fridge lives in the URL, mirrored to localStorage. The hero text box is now a recipe search (`/recipes?q=`). Recipe pages opened with `?pantry=` mark have/missing client-side and stay ISR.
-- **Photos round 2:** 270 of 959 recipes have licensed Commons photos (was 99); the rest get designed placeholder tiles (`RecipePlaceholder`, `--color-ph-*` tokens). `recipes.has_photo` (trigger-maintained) is a tie-break in browse, search and the matcher, never above a better score.
-- **Accounts:** email+password, `/account` (Library, Settings, JSON export, typed-DELETE deletion via `delete_my_account()`), `/privacy`, `/terms`, gold favorite star. Session and favorites load client-side from `/api/me` so cached pages stay cached; middleware runs only on account/auth routes.
-- **DB:** 2 new migrations (`20261011110000_photos_first`, `20261011120000_accounts`); types regenerated from the snapshot.
-- **Live steps pending** (in the PR body, in order): backup, photos migration, accounts migration, `pnpm db:types`, photo upload, `seed-photos.sql`, Supabase Auth URL settings. **Live `/recipes` returns 500 until the photos migration is applied.**
+### Next up
 
-**Known issues carried forward:** the matcher is 125-200 ms as `anon` (RLS runs `can_read_recipe()` per row; superuser timings hide it) - make it cheap or add a security-definer wrapper for published rows. About 690 recipes still show placeholders. Sign-up with an already-registered email shows a generic error (leaks existence; map `user_already_exists` to the "check your email" message). Picker find box matches canonical names only (no aliases) and substrings (`gar` finds sugar). Privacy and terms are not lawyer-reviewed. Built-in Supabase email is rate-limited and team-only until custom SMTP exists (needs a domain).
-
-### Next up (in the user's order of choice)
-
-1. **You review:** M1.5.7 (247 rejected recipes, unresolved-ingredient queue), the four borderline photos (tomato-basil-soup, fruit-pizza, bean-enchiladas, stir-fry-vegetables-and-beef), and a second pass on a few of the 171 new photos.
-2. More photos for the remaining ~690 recipes.
-3. Cookware filter decision (propose, then ask).
-4. Shopping list (v1.1).
-5. Fridge with dates (needs accounts, now possible).
-6. **Domain, then Google sign-in, LAST** (also unblocks custom SMTP and lawyer-reviewed legal pages).
+1. Apply wave 4 migrations, merge, run the post-merge steps from the PR.
+2. Re-verify the `/pantry` reject fix, then check M1.5.6; you review recipes (M1.5.7).
+3. Fix the known issues above (404 pages, pantry filter sheet, scroll lock); backfill cookware.
+4. Shopping list, fridge with dates, more photos.
+5. **Domain, then Google sign-in, LAST.**
 
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations.

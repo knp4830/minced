@@ -550,6 +550,8 @@ Include a dedupe check against existing titles and ingredient signatures.
 
 ### ☐ M1.5.6 — Admin review queue
 
+> **Wave 4 status (2026-10-12): built, NOT checked.** `/admin/review` (one recipe per screen, J/K/A/X/E/U, batch list, inline edit through `resolve_ingredient`, reject = draft + reversible) passed the verifier on access, flow, progress, edit and RLS (30 API checks, SQL suite ALL PASS). It failed one DoD line: a rejected recipe stayed on `/pantry` for up to 5 minutes (list cache). The fix (`revalidatePath("/pantry")`) was applied after the verdict and is **not yet re-verified**; check this box once a reject is seen to leave `/pantry` immediately on the integrated build. Needs migration `20261012120000_admin_review` and your row in `admins`. See Entry 33.
+
 Everything lands in `pending_review` — imports included. Reviewing is ~1–2 minutes each rather than 18 minutes of typing, so 1,500 recipes is a few long weekends, not four months.
 
 `/admin/review` — one recipe per screen, keyboard-driven: `J`/`K` to move, `A` to approve, `E` to edit inline, `X` to reject. Batch approve. Admin-gated by RLS. Show the resolved canonical ingredients prominently, since a bad resolve is the failure mode that actually hurts matching.
@@ -688,6 +690,8 @@ which indexes are doing the work.
 **DoD:** enter chicken, rice, onion, garlic, soy sauce → get sensible recipes ranked by coverage, in under 200ms, with an accurate "you're missing: scallion, sesame oil."
 
 ### ☑ M3.4 — Conventional filters, layered on top
+
+> **Wave 4 addition: cookware filter.** Decision (user): "recipes that USE any selected cookware". URL param `cookware` (comma-separated slugs), `cookware_slugs text[] DEFAULT NULL` on `match_recipes` and `search_recipes`, an `EXISTS` over `recipe_cookware`; recipes with no cookware data never match. Only about 103 of 959 recipes have cookware data, so the filter is partial until backfilled. An "only what I own" mode is later, with saved cookware on accounts. **Wave 4 perf:** child-table RLS rewritten to a hashed subquery (matcher 172 to 16.5 ms as `anon`), list caching, skeleton `loading.tsx`. See Entry 33.
 
 > **Closed 2026-10-09 (wave 2).** Filters live inside `match_recipes` and `search_recipes`; ingredient families added; verified against an independent oracle. See Entry 26.
 Time, macros, cookware, spice, diet, allergens. Same URL-state pattern, applied as additional `WHERE` clauses inside the same RPC — not as a second query.

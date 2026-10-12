@@ -402,6 +402,16 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-11 | `bash supabase/tests/accounts_rls_test.sh` with `API`, `KEY`, `DB` env vars | Accounts RLS regression (11 cases) | Local only by design; with confirmations ON, mark user B confirmed via SQL first |
 | 2026-10-11 | `pnpm exec next dev -p 3503`; `NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:57321 ... pnpm exec next build` | Accounts lane dev server and build against the local stack | |
 | 2026-10-11 | `Get-NetTCPConnection -LocalPort 3503 \| Stop-Process` | Free the dev port | |
+| 2026-10-12 | Backup of live before the wave-3 migrations | Safety copy | The PR was merged BEFORE migrating, so live `/recipes` returned 500 until `supabase db push`. A PR cannot enforce merge order: apply additive migrations BEFORE merging |
+| 2026-10-12 | `python scripts/photos/process_images.py` | Rebuild photos.json | It re-added verifier-rejected photos, because removals had been made in photos.json, not commons.json. Use `remove_photo.py` (edits the source) |
+| 2026-10-12 | `bash .snapshot/restore.sh <name>` then grant usage/all on public to anon, authenticated | Throwaway DB for role-based benchmarks | Snapshot lacks Supabase default grants; `MSYS_NO_PATHCONV=1` needed for docker exec paths in Git Bash |
+| 2026-10-12 | `auto_explain.log_nested_statements=on; load 'auto_explain'` then run the RPC | See statements inside a non-inlinable SQL function | EXPLAIN alone shows only Function Scan |
+| 2026-10-12 | `psql -v ON_ERROR_STOP=1 -f supabase/tests/perf_rls_equivalence_test.sql` (and `cookware_filter_test.sql`) | RLS row-set equivalence (42) and cookware filter (18) | Snapshot or local only; rolls back; fails "permission denied" until grants are added |
+| 2026-10-12 | `bash scripts/perf/ttfb.sh <base>`; `MSYS_NO_PATHCONV=1 node scripts/perf/cdp-metrics.mjs <base> /recipes ...` | TTFB and FCP/LCP/CLS at 375px | FAILED without MSYS_NO_PATHCONV: Git Bash rewrote `/recipes` into a Windows path |
+| 2026-10-12 | `node --env-file=.env.local scripts/perf/roundtrips.mjs` | Time each Supabase call (read-only) | |
+| 2026-10-12 | `python scripts/photos/remove_photo.py <slug> "reason"`; `python scripts/photos/credits.py --check`; `python scripts/photos/apply_manifest.py > supabase/seed-photos.sql` | Photo removal, credit check, seed regeneration | credits.py --check misses truncated credits; use OVERRIDES |
+| 2026-10-12 | `pnpm exec supabase start --workdir <scratch>` with the snapshot loaded as supabase_admin | Admin lane local stack | Repo migrations alone fail at 20261010100000 (needs seeded data); dump omits auth-schema triggers, recreate `on_auth_user_created` |
+| 2026-10-12 | Worktree guard refused heredocs, process substitution and compound git commands | Parallel lane shells | Write scripts with the Write tool; run git as separate plain calls |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*
