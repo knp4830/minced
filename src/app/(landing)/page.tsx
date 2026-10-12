@@ -233,7 +233,7 @@ export default async function Home() {
         </h2>
         <div className="flex flex-wrap justify-center gap-3">
           <Button asChild variant="inverse" size="lg">
-            <Link href="/pantry">What’s in my fridge?</Link>
+            <Link href="/signup">Create an account</Link>
           </Button>
           <Button asChild variant="inverse-outline" size="lg">
             <Link href="/recipes">Browse recipes</Link>
