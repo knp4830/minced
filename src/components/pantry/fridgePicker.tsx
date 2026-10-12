@@ -6,7 +6,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
 import { readFridge, writeFridge, type FridgeItem } from "@/lib/fridgeStorage";
-import type { IngredientCatalog } from "@/lib/queries/ingredientCatalog";
+import type { CatalogItem, IngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import { cn } from "@/lib/utils";
 
 /**
@@ -102,14 +102,20 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   const finding = query.trim().toLowerCase();
   const found = useMemo(() => {
     if (!finding) return [];
+    // Rank: name starts with it, name contains it, then a synonym ("green
+    // onion" finds scallion). Within a rank, most-used first.
+    const rank = (i: CatalogItem): number => {
+      const name = i.name.toLowerCase();
+      if (name.startsWith(finding)) return 0;
+      if (name.includes(finding)) return 1;
+      return i.aka?.split("|").some((s) => s.includes(finding)) ? 2 : 3;
+    };
     return catalog.categories
       .flatMap((c) => c.items)
-      .filter((i) => i.name.toLowerCase().includes(finding))
-      .sort((a, b) => {
-        const as = a.name.toLowerCase().startsWith(finding) ? 0 : 1;
-        const bs = b.name.toLowerCase().startsWith(finding) ? 0 : 1;
-        return as - bs || b.uses - a.uses;
-      });
+      .map((i) => ({ i, r: rank(i) }))
+      .filter((x) => x.r < 3)
+      .sort((a, b) => a.r - b.r || b.i.uses - a.i.uses)
+      .map((x) => x.i);
   }, [catalog, finding]);
 
   const activeCategory = catalog.categories.find((c) => c.name === tab) ?? catalog.categories[0];

@@ -46,14 +46,15 @@ export async function getRecipeCount(): Promise<number> {
 
 /**
  * How many filter groups /recipes offers: the four fixed ones (time, spice,
- * calories, protein) plus diet, free-of and cuisine when they have options.
+ * calories, protein) plus diet, free-of, cuisine and cookware when they have options.
  */
 export function countFilterGroups(options: FilterOptions): number {
   return (
     4 +
     (options.diets.length > 0 ? 1 : 0) +
     (options.allergens.length > 0 ? 1 : 0) +
-    (options.cuisines.length > 0 ? 1 : 0)
+    (options.cuisines.length > 0 ? 1 : 0) +
+    (options.cookware.length > 0 ? 1 : 0)
   );
 }
 

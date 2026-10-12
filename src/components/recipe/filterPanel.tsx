@@ -29,8 +29,8 @@ const SPICE_OPTIONS = [
 const CAL_OPTIONS = [400, 600] as const;
 const PROTEIN_OPTIONS = [20, 30] as const;
 
-function href(f: RecipeFilters): string {
-  return `${BASE}${filtersToQuery(f)}`;
+function href(f: RecipeFilters, base: string = BASE): string {
+  return `${base}${filtersToQuery(f)}`;
 }
 
 function Group({
@@ -65,6 +65,37 @@ function Option({
         {children}
       </Link>
     </Chip>
+  );
+}
+
+/**
+ * "Cookware I'm using": recipes that USE any selected piece. Shared by the
+ * browse rail, the phone sheet and the fridge results page (`base="/pantry"`),
+ * so both doors filter the same way. Renders nothing when no recipe has
+ * cookware data.
+ */
+export function CookwareGroup({
+  filters,
+  options,
+  base = BASE,
+}: {
+  filters: RecipeFilters;
+  options: Pick<FilterOptions, "cookware">;
+  base?: string;
+}) {
+  if (options.cookware.length === 0) return null;
+  return (
+    <Group label="Cookware">
+      {options.cookware.map((c) => (
+        <Option
+          key={c.slug}
+          selected={!!filters.cookware?.includes(c.slug)}
+          to={href(toggleInList(filters, "cookware", c.slug), base)}
+        >
+          {c.name}
+        </Option>
+      ))}
+    </Group>
   );
 }
 
@@ -143,6 +174,8 @@ export function FilterControls({
         </details>
       )}
 
+      <CookwareGroup filters={f} options={options} />
+
       <Group label="Max spice">
         {SPICE_OPTIONS.map((s) => (
           <Option
@@ -194,7 +227,8 @@ export function activeFilterCount(f: RecipeFilters): number {
     (f.proteinMin !== undefined ? 1 : 0) +
     (f.cuisine?.length ?? 0) +
     (f.diet?.length ?? 0) +
-    (f.exclude?.length ?? 0)
+    (f.exclude?.length ?? 0) +
+    (f.cookware?.length ?? 0)
   );
 }
 

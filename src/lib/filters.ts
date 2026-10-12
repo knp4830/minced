@@ -16,6 +16,7 @@
  *   diet       diet        slug[]    diet_slugs       (both) -- ALL of
  *   exclude    exclude     slug[]    exclude_allergen_slugs (both) -- NONE of
  *   cookware   cookware    slug[]    cookware_slugs   (both) -- recipe USES any of
+ *                                    (recipes with no cookware data never match)
  *   spiceMax   spiceMax    0..4      max_spice        (both)
  *   calMin     calMin      number    min_calories     (both)
  *   calMax     calMax      number    max_calories     (both)
@@ -218,7 +219,7 @@ export function withFilters(
   return parseFilters(serializeFilters({ ...f, cursor: undefined, ...patch }));
 }
 
-/** Toggle one value in a multi-value filter (diet / cuisine / exclude). */
+/** Toggle one value in a multi-value filter (diet / cuisine / exclude / cookware). */
 export function toggleInList(
   f: RecipeFilters,
   key: "cuisine" | "diet" | "exclude" | "cookware",
