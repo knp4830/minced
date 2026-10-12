@@ -28,6 +28,8 @@ LIMIT = 40
 # Hand fixes where the Commons metadata has no usable name. Keyed by slug; reason in the comment.
 OVERRIDES = {
     # Artist is literally "??? ???" on Commons (Flickr import lost a non-Latin name); the page link carries attribution.
+    "curried-chicken-salad": "Evan Joshua Swigart / Flickr",
+    "canh-chua": "Phương Huy",
     "sinigang-na-baboy": "Flickr user",
     # Artist is "File:Rice and Peas.png : Whispyhistory conversion to jpg: Hike395": the author is Whispyhistory.
     "jamaican-rice-and-peas": "Whispyhistory",

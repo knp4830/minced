@@ -37,6 +37,7 @@ function refresh(slugs: string[]) {
   after(() => {
     for (const s of slugs) revalidatePath(`/recipes/${s}`);
     revalidatePath("/recipes");
+    revalidatePath("/pantry");
   });
 }
 
