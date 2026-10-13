@@ -125,6 +125,8 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 - `docs/TERMINAL-LOG.md` — terminal and git command reference.
 - `docs/ARCHITECTURE.md` — the map: routes, queries, components, migrations (and which file currently defines each RPC), scripts, data flow, caching, and "where do I change X".
 - `docs/LESSONS.md` — every mistake this project has hit and the rule that prevents it. **Read this before starting any work.**
+- `docs/TEST-CHECKLIST.md` — the manual test pass over every shipped feature (desktop first, then ★ items on a phone). Update it whenever a feature ships.
+- `docs/design-prompts/` — prompts for Claude Design (mockups before building). `personal-dashboard.md` is the "Me" page (BUILD-PLAN v1.5).
 - `design/Minced.dc.html` — the design mockup: 7 screens, real tokens, and 6 complete seed recipes in its `RECIPES` array. **This is the visual spec.** Read it before building any UI. (`design/support.js` is its runtime — open the HTML in a browser to view it.)
 
 ## Current status

@@ -861,6 +861,21 @@ Asked for by the user on 2026-10-13. Research first, product second; none of the
 ### ☑ v1.1 — Shopping list (done 2026-10-13, wave 6)
 Already designed in the mockup. `shopping_list_items` table, "Add all ingredients" button on the recipe page, merge duplicates across recipes (2 cloves garlic + 3 cloves garlic = 5), group by aisle category.
 
+**Follow-ups decided 2026-10-13 (next small wave):**
+- **Re-adding a recipe to the shopping list:** if the recipe is already on the list (not cleared), say so and ask whether to keep both (e.g. cooking two batches → quantities add up) or keep just one. Never silently double or silently ignore.
+- **Cookware alternatives count as EITHER, not both.** A step that says "blender or food processor" means the recipe needs one of them. Model alternatives as a group (e.g. `recipe_cookware.alt_group`): "only cookware I own" passes if the user owns any member of each group; the "recipes that use X" filter matches any member. ~38 recipes currently store both halves as required.
+- **Keep adding photos** (Openverse allows ~200 anonymous requests/day; Pexels API keys are paused). Same legal rules; 607 recipes still on placeholders.
+
+### v1.5 — "Me" personal dashboard (user's spec, 2026-10-13) — needs accounts + v1.2
+A signed-in page tying food, training and sleep together. **Design prompt for Claude Design: `docs/design-prompts/personal-dashboard.md`** (mockups first, then build).
+- **Left, top:** front + back muscle figure (our own SVG, not stock art); muscles trained Sun–Sat are highlighted by volume and reset each week (links to v2 workouts).
+- **Left, bottom:** Flo-style monthly calendar in Minced colours; today ringed; per day: dumbbell (trained), plate (nutrition goal hit — proposal: kcal within ±10% and protein ≥ 90% of target; outlined = partial), sleep as "7h".
+- **Right:** MyFitnessPal-style calorie ring + carbs/fat/protein bars + a full nutrient table from the day's meals; meals list with "+ Add".
+- **Getting there:** sign-in required; first visit runs a targets setup (sex for the formula, age, height, weight, activity, goal + pace → Mifflin-St Jeor calories and macros, editable). Logging: one "+ Log" sheet (Workout session type / Food / Sleep), a morning "How did you sleep?" prompt, and tapping a calendar day to edit.
+- **Ideas for the page:** streaks (gold), weekly summary, weight-trend sparkline linking to the weight chart, "recipes that fit what's left today" (protein left → Minced recipes via the existing nutrition data), water intake, rest-day suggestion from the muscle map.
+
+**Workout pages (browse/follow plans by style) move to a later wave than v1.5** (user decision 2026-10-13); see v2 below.
+
 ### v1.2 — Nutrition tracking
 `weight_logs` and `food_logs` tables. TDEE calculator (Mifflin-St Jeor). Daily macro targets vs. actuals. **This one has a real dependency:** it needs per-ingredient nutrition data, which means the USDA FoodData Central integration — build that first, and it retroactively improves recipe nutrition accuracy too.
 
