@@ -1,0 +1,64 @@
+/*
+ * Behaviour CSS that is not a design token: scroll locking for modal sheets and
+ * the navigation-pending state. Kept out of globals.css (the token file) so
+ * parallel lanes do not collide there. Colours still come from the variables
+ * defined in globals.css; no raw hex here.
+ */
+
+/* --- Modal sheets lock the page behind them ---------------------------------
+ * A native <dialog> opened with showModal() makes the page inert but does NOT
+ * stop it scrolling. `:modal` matches only dialogs shown that way, so the
+ * filter sheet, the fridge picker and the log-in prompt all lock the page with
+ * no JS. scrollbar-gutter keeps the page from jumping sideways when the bar
+ * disappears on desktop. */
+html:has(dialog:modal) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+/* --- Navigation progress ----------------------------------------------------
+ * <NavProgress/> sets data-phase on the bar and data-nav-pending on <html>. */
+.nav-progress {
+  background: var(--color-herb);
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0;
+}
+.nav-progress[data-phase="running"] {
+  opacity: 1;
+  /* Eases toward 85% and waits there: it never claims to be finished early. */
+  transform: scaleX(0.85);
+  transition:
+    transform 9s cubic-bezier(0.08, 0.6, 0.2, 1),
+    opacity 80ms linear;
+}
+.nav-progress[data-phase="finishing"] {
+  opacity: 0;
+  transform: scaleX(1);
+  transition:
+    transform 140ms ease-out,
+    opacity 200ms ease-out 100ms;
+}
+
+/* The results area dims while the next screen loads, so a tap is visibly heard
+ * before the skeleton arrives. */
+[data-results] {
+  transition: opacity 150ms ease-out;
+}
+html[data-nav-pending] [data-results] {
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No sweep: a steady bar still says "working". */
+  .nav-progress[data-phase="running"] {
+    transform: scaleX(1);
+    transition: none;
+  }
+  .nav-progress[data-phase="finishing"] {
+    transition: opacity 120ms linear;
+  }
+}

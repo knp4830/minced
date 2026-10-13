@@ -4,6 +4,7 @@ import { Check, Refrigerator, Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { startNavProgress } from "@/components/shell/navProgress";
 import { Chip } from "@/components/ui/chip";
 import { readFridge, writeFridge, type FridgeItem } from "@/lib/fridgeStorage";
 import type { CatalogItem, IngredientCatalog } from "@/lib/queries/ingredientCatalog";
@@ -83,6 +84,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
       const stored = readFridge();
       if (stored.length > 0) {
         setCommitted(stored);
+        startNavProgress();
         router.replace(pantryUrl(stored, true));
       }
       return;
@@ -152,6 +154,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   function commit(items: FridgeItem[]) {
     setCommitted(items);
     writeFridge(items);
+    startNavProgress();
     router.push(pantryUrl(items, variant === "page"), { scroll: variant !== "page" });
   }
 

@@ -1,7 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { unstable_cache } from "next/cache";
 
-import type { RecipeFilters } from "@/lib/filters";
+import { resultFilters, type RecipeFilters } from "@/lib/filters";
 import { needsAttribution, photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { primaryAisle } from "@/lib/placeholderTone";
 import { createStaticClient } from "@/lib/supabase/static";
@@ -163,6 +163,15 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   // when a matching child exists (no duplicates when it has several); recipes
   // with no cookware rows never match, per the shared contract.
   if (f.cookware?.length) q = q.in("cw.cookware.slug", f.cookware);
+  // "Only what I can make with my cookware": the recipe needs NO cookware outside
+  // the owned list. Anti-join, same shape as the allergen filter: embed the rows
+  // that would disqualify it, then keep recipes where there are none. A recipe with
+  // no cookware rows has no disqualifying row, so it passes (needs nothing).
+  if (f.ownedOnly) {
+    const owned = f.ownedCookware ?? [];
+    if (owned.length) q = q.not("nc.cookware.slug", "in", `(${owned.join(",")})`);
+    q = q.filter("nc", "is", "null");
+  }
   return q as T;
 }
 
@@ -171,6 +180,7 @@ function selectFor(f: RecipeFilters): string {
   (f.diet ?? []).forEach((_, i) => parts.push(`diet${i}:recipe_diets!inner(diets!inner(slug))`));
   if (f.exclude?.length) parts.push("ex:recipe_allergens(allergens!inner(slug))");
   if (f.cookware?.length) parts.push("cw:recipe_cookware!inner(cookware!inner(slug))");
+  if (f.ownedOnly) parts.push("nc:recipe_cookware(cookware!inner(slug))");
   return parts.join(", ");
 }
 
@@ -307,7 +317,8 @@ export const getCardExtras = unstable_cache(loadCardExtras, ["card-extras"], {
 
 /** One entry point for the page: search when there is a query, browse otherwise. */
 export async function getRecipePage(filters: RecipeFilters): Promise<RecipePage> {
-  return filters.q ? searchCards(filters) : browseRecipes(filters);
+  const f = resultFilters(filters);
+  return f.q ? searchCards(f) : browseRecipes(f);
 }
 
 export type FilterOptions = {
@@ -316,6 +327,8 @@ export type FilterOptions = {
   allergens: { slug: string; name: string }[];
   /** Only cookware at least one recipe uses; a chip with no results is a dead end. */
   cookware: { slug: string; name: string }[];
+  /** The whole cookware vocabulary: what a cook can say they own, used or not. */
+  allCookware: { slug: string; name: string }[];
 };
 
 /**
@@ -345,6 +358,10 @@ async function loadFilterOptions(): Promise<FilterOptions> {
     cookware: (cookware.data as { slug: string; name: string; recipe_cookware: { count: number }[] }[])
       .filter((c) => (c.recipe_cookware[0]?.count ?? 0) > 0)
       .map(({ slug, name }) => ({ slug, name })),
+    allCookware: (cookware.data as { slug: string; name: string }[]).map(({ slug, name }) => ({
+      slug,
+      name,
+    })),
   };
 }
 
@@ -353,6 +370,6 @@ async function loadFilterOptions(): Promise<FilterOptions> {
  * and the panel renders on every browse/search request. Uses the cookie-free
  * client because unstable_cache cannot read request cookies.
  */
-export const getFilterOptions = unstable_cache(loadFilterOptions, ["filter-options"], {
+export const getFilterOptions = unstable_cache(loadFilterOptions, ["filter-options-v2"], {
   revalidate: 3600,
 });

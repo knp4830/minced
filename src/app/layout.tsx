@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Mono, Public_Sans } from "next/font/google";
 import { AccountProvider } from "@/components/account/accountProvider";
+import { Suspense } from "react";
+import { NavProgress } from "@/components/shell/navProgress";
 import "./globals.css";
+import "./polish.css";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -49,6 +52,10 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        {/* useSearchParams needs a boundary; the bar draws nothing until a link is pressed. */}
+        <Suspense fallback={null}>
+          <NavProgress />
+        </Suspense>
         <AccountProvider>{children}</AccountProvider>
       </body>
     </html>

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { Chip } from "@/components/ui/chip";
+import { MyCookware } from "@/components/recipe/myCookware";
 import {
   filtersToQuery,
   hasActiveFilters,
   toggleInList,
   withFilters,
+  withoutNarrowing,
   type RecipeFilters,
 } from "@/lib/filters";
 import type { FilterOptions } from "@/lib/queries/browse";
@@ -15,7 +17,8 @@ import type { FilterOptions } from "@/lib/queries/browse";
  *   - filter state lives in the URL, as CLAUDE.md requires;
  *   - it works without JavaScript and the back button undoes a filter;
  *   - a filtered view can be shared as a link.
- * Server component; the phone sheet is a <details>, also JS-free.
+ * Server component (except "My cookware", a client island). Both doors use the
+ * same controls: `base` is the page the links point at ("/recipes" or "/pantry").
  */
 
 const BASE = "/recipes";
@@ -29,7 +32,7 @@ const SPICE_OPTIONS = [
 const CAL_OPTIONS = [400, 600] as const;
 const PROTEIN_OPTIONS = [20, 30] as const;
 
-function href(f: RecipeFilters, base: string = BASE): string {
+function hrefTo(f: RecipeFilters, base: string = BASE): string {
   return `${base}${filtersToQuery(f)}`;
 }
 
@@ -85,12 +88,12 @@ export function CookwareGroup({
 }) {
   if (options.cookware.length === 0) return null;
   return (
-    <Group label="Cookware">
+    <Group label="Uses cookware">
       {options.cookware.map((c) => (
         <Option
           key={c.slug}
           selected={!!filters.cookware?.includes(c.slug)}
-          to={href(toggleInList(filters, "cookware", c.slug), base)}
+          to={hrefTo(toggleInList(filters, "cookware", c.slug), base)}
         >
           {c.name}
         </Option>
@@ -102,11 +105,14 @@ export function CookwareGroup({
 export function FilterControls({
   filters,
   options,
+  base = BASE,
 }: {
   filters: RecipeFilters;
   options: FilterOptions;
+  base?: string;
 }) {
   const f = filters;
+  const href = (next: RecipeFilters) => hrefTo(next, base);
   return (
     <div>
       <Group label="Total time">
@@ -174,7 +180,9 @@ export function FilterControls({
         </details>
       )}
 
-      <CookwareGroup filters={f} options={options} />
+      <CookwareGroup filters={f} options={options} base={base} />
+
+      <MyCookware owned={f.ownedCookware ?? []} only={f.ownedOnly === true} all={options.allCookware ?? []} />
 
       <Group label="Max spice">
         {SPICE_OPTIONS.map((s) => (
@@ -228,20 +236,25 @@ export function activeFilterCount(f: RecipeFilters): number {
     (f.cuisine?.length ?? 0) +
     (f.diet?.length ?? 0) +
     (f.exclude?.length ?? 0) +
-    (f.cookware?.length ?? 0)
+    (f.cookware?.length ?? 0) +
+    (f.ownedOnly ? 1 : 0)
   );
 }
 
-/** "Clear all" keeps the search text and nothing else. */
-export function clearFiltersHref(f: RecipeFilters): string {
-  return href({ q: f.q });
+/**
+ * "Clear all" drops every narrowing filter. It keeps what the door is about (the
+ * search text, the fridge) and the cookware LIST, which is a standing preference
+ * like the fridge rather than a filter.
+ */
+export function clearFiltersHref(f: RecipeFilters, base: string = BASE): string {
+  return hrefTo(withoutNarrowing(f), base);
 }
 
-export function ClearFilters({ filters }: { filters: RecipeFilters }) {
+export function ClearFilters({ filters, base = BASE }: { filters: RecipeFilters; base?: string }) {
   if (!hasActiveFilters(filters)) return null;
   return (
     <Link
-      href={clearFiltersHref(filters)}
+      href={clearFiltersHref(filters, base)}
       scroll={false}
       className="inline-flex min-h-11 items-center rounded-md px-1 font-mono text-[0.6875rem] tracking-[0.04em] text-ink-subtle underline-offset-2 hover:text-paprika-deep hover:underline lg:min-h-0"
     >

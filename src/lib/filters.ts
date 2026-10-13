@@ -17,6 +17,10 @@
  *   exclude    exclude     slug[]    exclude_allergen_slugs (both) -- NONE of
  *   cookware   cookware    slug[]    cookware_slugs   (both) -- recipe USES any of
  *                                    (recipes with no cookware data never match)
+ *   ownedCookware ownedCookware slug[]  the cook's own cookware (a LIST, not a filter by itself)
+ *   ownedOnly  ownedOnly   boolean   "1" => owned_cookware_slugs = ownedCookware (both)
+ *                                    -- recipe needs NOTHING outside the list; no cookware
+ *                                    data = needs none = passes. List empty = owns nothing.
  *   spiceMax   spiceMax    0..4      max_spice        (both)
  *   calMin     calMin      number    min_calories     (both)
  *   calMax     calMax      number    max_calories     (both)
@@ -74,6 +78,13 @@ export type RecipeFilters = {
   exclude?: string[];
   /** Cookware slugs; recipe must USE any of them. No cookware data = no match. */
   cookware?: string[];
+  /** Cookware the cook owns (the list; persisted in localStorage / the account). */
+  ownedCookware?: string[];
+  /**
+   * "Only what I can make with my cookware": hide recipes needing any cookware not in
+   * `ownedCookware`. Recipes with no cookware data need none, so they stay.
+   */
+  ownedOnly?: boolean;
   /** 0..4, upper bound. Unknown spice passes. */
   spiceMax?: number;
   calMin?: number;
@@ -94,6 +105,8 @@ export const FILTER_PARAMS = [
   "diet",
   "exclude",
   "cookware",
+  "ownedCookware",
+  "ownedOnly",
   "spiceMax",
   "calMin",
   "calMax",
@@ -173,6 +186,8 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     diet: slugList(first(sp, "diet")),
     exclude: slugList(first(sp, "exclude")),
     cookware: slugList(first(sp, "cookware")),
+    ownedCookware: slugList(first(sp, "ownedCookware")),
+    ownedOnly: first(sp, "ownedOnly") === "1" ? true : undefined,
     spiceMax: int(first(sp, "spiceMax"), 0, 4),
     calMin: num(first(sp, "calMin"), 0, 10000),
     calMax: num(first(sp, "calMax"), 0, 10000),
@@ -191,6 +206,10 @@ export function serializeFilters(f: RecipeFilters): URLSearchParams {
   for (const key of FILTER_PARAMS) {
     const v = f[key];
     if (v === undefined || v === "") continue;
+    if (typeof v === "boolean") {
+      if (v) sp.set(key, "1");
+      continue;
+    }
     if (Array.isArray(v)) {
       if (v.length) sp.set(key, v.join(","));
     } else {
@@ -222,7 +241,7 @@ export function withFilters(
 /** Toggle one value in a multi-value filter (diet / cuisine / exclude / cookware). */
 export function toggleInList(
   f: RecipeFilters,
-  key: "cuisine" | "diet" | "exclude" | "cookware",
+  key: "cuisine" | "diet" | "exclude" | "cookware" | "ownedCookware",
   slug: string,
 ): RecipeFilters {
   const cur = f[key] ?? [];
@@ -241,6 +260,32 @@ export function hasActiveFilters(f: RecipeFilters): boolean {
     !!f.cuisine?.length ||
     !!f.diet?.length ||
     !!f.exclude?.length ||
-    !!f.cookware?.length
+    !!f.cookware?.length ||
+    f.ownedOnly === true
   );
+}
+
+/**
+ * The filters that change WHICH recipes come back. `ownedCookware` alone is only a
+ * remembered list; it narrows nothing until `ownedOnly` is on, so it is dropped here.
+ * Use this for cache keys and Suspense keys so ticking a pan you own does not
+ * refetch (or flash a skeleton for) an identical list.
+ */
+export function resultFilters(f: RecipeFilters): RecipeFilters {
+  if (f.ownedOnly || f.ownedCookware === undefined) return f;
+  const { ownedCookware, ...rest } = f;
+  void ownedCookware;
+  return rest;
+}
+
+/** The query that keeps a fridge / search door's own state while dropping every narrowing filter. */
+export function withoutNarrowing(f: RecipeFilters): RecipeFilters {
+  return {
+    q: f.q,
+    pantry: f.pantry,
+    use: f.use,
+    maxMissing: f.maxMissing,
+    // The cookware LIST is a standing preference like the fridge; only the toggle is a filter.
+    ownedCookware: f.ownedCookware,
+  };
 }

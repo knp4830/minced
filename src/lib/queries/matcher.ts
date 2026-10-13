@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { MAX_INT4, type RecipeFilters } from "@/lib/filters";
+import { MAX_INT4, resultFilters, type RecipeFilters } from "@/lib/filters";
 import { createStaticClient } from "@/lib/supabase/static";
 
 /**
@@ -152,6 +152,8 @@ export function buildMatchArgs(
     ...(filters.diet?.length ? { diet_slugs: filters.diet } : {}),
     ...(filters.exclude?.length ? { exclude_allergen_slugs: filters.exclude } : {}),
     ...(filters.cookware?.length ? { cookware_slugs: filters.cookware } : {}),
+    // "Only what I can make": sent even when the list is empty (= owns nothing).
+    ...(filters.ownedOnly ? { owned_cookware_slugs: filters.ownedCookware ?? [] } : {}),
     ...(filters.spiceMax !== undefined ? { max_spice: filters.spiceMax } : {}),
     ...(filters.calMin !== undefined ? { min_calories: filters.calMin } : {}),
     ...(filters.calMax !== undefined ? { max_calories: filters.calMax } : {}),
@@ -244,7 +246,14 @@ async function loadMatches(
  * every anonymous visitor the same ranking, and match_recipes is the most
  * expensive call on the site. Cookie-free client, as `unstable_cache` requires.
  */
-export const matchRecipes = unstable_cache(loadMatches, ["match-recipes"], { revalidate: 300 });
+const cachedMatches = unstable_cache(loadMatches, ["match-recipes"], { revalidate: 300 });
+
+export function matchRecipes(
+  filters: RecipeFilters,
+  options: { pageSize?: number; minHave?: number } = {},
+): Promise<MatchRecipesResult> {
+  return cachedMatches(resultFilters(filters), options);
+}
 
 /**
  * Autocomplete for the pantry input: top `limit` ingredients whose name or
