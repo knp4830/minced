@@ -19,7 +19,7 @@ MANIFEST_DIR = ROOT / "manifest"
 
 # Wikimedia and the Internet Archive both ask API clients to identify themselves.
 # https://meta.wikimedia.org/wiki/User-Agent_policy
-USER_AGENT = "MincedPhotoBot/1.0 (open-source recipe app image sourcing; https://github.com/knp4830/minced)"
+USER_AGENT = "RecipeImageSourcing/1.0 (non-commercial recipe app; polite, rate-limited)"
 
 
 def http_get(url: str, *, retries: int = 6, pause: float = 4.0, timeout: int = 40) -> tuple[int, bytes, dict]:

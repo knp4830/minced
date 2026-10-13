@@ -39,12 +39,12 @@ except ImportError:  # pragma: no cover
 
 SIZES = {"md": 800, "sm": 400}
 QUALITY = 80
-SOURCE_DIR = {"usda_myplate": "usda", "wikimedia_commons": "commons"}
+SOURCE_DIR = {"usda_myplate": "usda", "wikimedia_commons": "commons", "openverse": "openverse", "pexels": "pexels"}
 
 
 def load_rows() -> list[dict]:
     rows: list[dict] = []
-    for name in ("myplate.json", "commons.json"):
+    for name in ("myplate.json", "commons.json", "openverse.json", "pexels.json"):
         f = MANIFEST_DIR / name
         if f.exists():
             rows += json.loads(f.read_text(encoding="utf-8"))
