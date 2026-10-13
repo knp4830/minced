@@ -21,6 +21,10 @@
  *   calMin     calMin      number    min_calories     (both)
  *   calMax     calMax      number    max_calories     (both)
  *   proteinMin proteinMin  number    min_protein_g    (both)
+ *   sort       sort        "expiry"  pantry page only, signed-in: recipes using the
+ *                                    soonest-expiring fridge items first (wave 6). No
+ *                                    Postgres parameter: match_recipes ranks, then
+ *                                    recipe_expiry_days() reorders one page.
  *   cursor     cursor      string    opaque; search: "score:uuid", matcher: base64url
  *
  * Multi-value params are comma-separated (`diet=vegan,gluten-free`) -- one key,
@@ -79,6 +83,8 @@ export type RecipeFilters = {
   calMin?: number;
   calMax?: number;
   proteinMin?: number;
+  /** Pantry page: "expiry" = soonest-expiring saved-fridge items first (signed-in only). */
+  sort?: "expiry";
   /** Opaque keyset cursor from the previous page's `nextCursor`. */
   cursor?: string;
 };
@@ -98,6 +104,7 @@ export const FILTER_PARAMS = [
   "calMin",
   "calMax",
   "proteinMin",
+  "sort",
   "cursor",
 ] as const satisfies readonly (keyof RecipeFilters)[];
 
@@ -177,6 +184,7 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     calMin: num(first(sp, "calMin"), 0, 10000),
     calMax: num(first(sp, "calMax"), 0, 10000),
     proteinMin: num(first(sp, "proteinMin"), 0, 1000),
+    sort: first(sp, "sort") === "expiry" ? "expiry" : undefined,
     cursor: cursor || undefined,
   };
   // Drop undefined keys so equality checks and spreads behave.
