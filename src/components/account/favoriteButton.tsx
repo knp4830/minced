@@ -73,7 +73,7 @@ export function FavoriteButton({
       type="button"
       onClick={onClick}
       aria-pressed={saved}
-      aria-label={saved ? `Remove ${title} from saved recipes` : `Save ${title}`}
+      aria-label={`Save ${title}`}
       className={cn(
         "relative z-10 flex size-11 items-center justify-center rounded-full bg-canvas/90 shadow-sm backdrop-blur-sm transition-[background-color,transform] hover:bg-canvas active:scale-95",
         failed && "ring-2 ring-paprika",
@@ -81,7 +81,9 @@ export function FavoriteButton({
       )}
     >
       {icon}
-      {failed && <span className="sr-only">{failedText}</span>}
+      <span role="status" className="sr-only">
+        {failed ? failedText : ""}
+      </span>
     </button>
   );
 }

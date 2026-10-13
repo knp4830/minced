@@ -1,3 +1,5 @@
+/* Browser Supabase client. Currently unused by the app (session reads go through /api/me); auth cookies are httpOnly, so it could not read them anyway. */
+
 import { createBrowserClient } from "@supabase/ssr";
 
 import type { Database } from "@/types/database";

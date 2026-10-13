@@ -251,3 +251,21 @@ delete from auth.users where id in (
 ## What was already verified locally
 
 Every test above was run against a throwaway Postgres 16 container with a stubbed `auth` schema and real `anon` / `authenticated` roles before the migration was pushed — 10 read tests and 8 write tests, all passing. That is not a substitute for running it here: the local run proves the *policies* are right, and this run proves they are right **on your actual database**, which is the thing the DoD cares about.
+
+---
+
+## Wave 5+6 additions (2026-10-13): automated suites
+
+These tables and policies are covered by files in `supabase/tests/`, not by hand-run SQL above. SQL suites run on a snapshot or local stack with `psql -v ON_ERROR_STOP=1 -f <file>`; `.sh` suites need a LOCAL Supabase stack and real JWTs and must never be pointed at live. A bare snapshot has no Supabase default grants, so role-based suites need them added (throwaway DB only).
+
+| Table / policy | Suite | Needs |
+|---|---|---|
+| `fridge_items` (owner-only, 150-row cap, unique per ingredient) | `fridge_rls_test.sh` (24 checks) | local stack |
+| `shopping_list_items` (owner-only, column-level UPDATE on `checked`, 500-row cap), `add_recipe_to_shopping_list`, `import_local_shopping_list` | `shopping_list_test.sql` (25 checks), `shopping_list_api_test.sh` (T1-T10) | local stack for the `.sh`; account deletion cascades |
+| `user_cookware` (select/insert/delete own, no UPDATE) | `user_cookware_rls_test.sql` (9) | stack with default grants |
+| Catalog is operator-written: no author INSERT/UPDATE/DELETE on `recipes`, `recipe_steps`, `recipe_ingredients`, `recipe_diets`, `recipe_cookware`; `profiles` owner-only; narrowed grants; pinned trigger functions | `security_hardening_test.sql` (15) | snapshot or stack |
+| Hashed-subquery visibility policies | `perf_rls_equivalence_test.sql` (42; updated to expect author writes denied) | stack with default grants |
+| `recipe_reviews`, `admins`, `admin_*` | `admin_review_test.sql`, `admin_review_api_test.sh` | local stack |
+| Favourites, profiles | `accounts_rls_test.sh` | local stack |
+
+Re-run all of them after any policy or grant change. If author submissions (M5) are built, add cases proving an author cannot set `status = 'published'`, `has_photo`, `image_url` or `source_*`.

@@ -8,12 +8,15 @@ import {
   clearFiltersHref,
   FilterControls,
 } from "@/components/recipe/filterPanel";
+import { RememberList } from "@/components/recipe/rememberList";
+import { CookwareSync } from "@/components/recipe/cookwareSync";
 import { FilterSheet } from "@/components/recipe/filterSheet";
 import { RecipeList } from "@/components/recipe/recipeList";
 import {
   filtersToQuery,
   hasActiveFilters,
   parseFilters,
+  resultFilters,
   type RecipeFilters,
   type SearchParamsInput,
 } from "@/lib/filters";
@@ -27,6 +30,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const filtered = !!f.q || hasActiveFilters(f) || !!f.cursor;
   return {
     title: f.q ? `“${f.q}”` : "Recipes",
+    description:
+      "Every recipe is ingredients, amounts and numbered steps. Filter by time, diet, allergens, spice, calories, protein or the cookware you own.",
     // Search and filter URLs are infinite and thin; only the plain listing is indexable.
     robots: filtered ? { index: false, follow: true } : undefined,
   };
@@ -107,6 +112,9 @@ async function Results({ filters }: { filters: RecipeFilters }) {
       filters.proteinMin !== undefined) &&
       "nutrition data",
   ].filter(Boolean);
+  const cookwareNote = filters.ownedOnly
+    ? "Only recipes that need no cookware beyond yours. Recipes that list no cookware are included."
+    : null;
   const unknownNote = unknown.length
     ? `Recipes with no listed ${unknown.join(" or ")} are included${filters.q ? ", after the ones that fit" : ""}.`
     : null;
@@ -119,8 +127,23 @@ async function Results({ filters }: { filters: RecipeFilters }) {
         </p>
       )}
 
+      {cookwareNote && page.recipes.length > 0 && (
+        <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">{cookwareNote}</p>
+      )}
+
       {unknownNote && page.recipes.length > 0 && (
         <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">{unknownNote}</p>
+      )}
+
+      {filters.cursor && (
+        <p className="mb-3">
+          <Link
+            href={`/recipes${filtersToQuery({ ...filters, cursor: undefined })}`}
+            className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4 hover:text-herb"
+          >
+            Back to the first page
+          </Link>
+        </p>
       )}
 
       <RecipeList
@@ -151,10 +174,14 @@ export default async function RecipesPage({ searchParams }: Props) {
   // Same-route navigations (a chip tap) do not trigger loading.tsx; a keyed
   // Suspense boundary does, so the list shows a skeleton while the chips and
   // the URL already reflect the tap.
-  const resultsKey = filtersToQuery(filters);
+  const resultsKey = filtersToQuery(resultFilters(filters));
 
   return (
     <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
+      <Suspense fallback={null}>
+        <RememberList />
+      </Suspense>
+      <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
       <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
         {/* Desktop: sticky sidebar */}
         <aside
@@ -171,7 +198,7 @@ export default async function RecipesPage({ searchParams }: Props) {
         <section aria-labelledby="results-h" className="min-w-0 lg:pl-8">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
             <div>
-              <h1 id="results-h" className="text-[1.75rem] leading-tight md:text-[2rem]">
+              <h1 id="results-h" className="text-[1.75rem] leading-tight [overflow-wrap:anywhere] md:text-[2rem]">
                 {filters.q ? <>Results for “{filters.q}”</> : "Recipes"}
               </h1>
               <Suspense key={resultsKey} fallback={<p className="mt-1 h-4" aria-hidden />}>
@@ -204,9 +231,11 @@ export default async function RecipesPage({ searchParams }: Props) {
             <FilterControls filters={filters} options={options} />
           </FilterSheet>
 
-          <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
-            <Results filters={filters} />
-          </Suspense>
+          <div data-results>
+            <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
+              <Results filters={filters} />
+            </Suspense>
+          </div>
         </section>
       </div>
     </div>

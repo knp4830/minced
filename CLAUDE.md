@@ -123,6 +123,10 @@ If the DoD can't be met — a dependency is missing, a decision is needed from m
 - `docs/LEARNING-LOG.md` — why the code is the way it is.
 - `docs/GITHUB-SETUP.md` — repo, board, and PR workflow.
 - `docs/TERMINAL-LOG.md` — terminal and git command reference.
+- `docs/ARCHITECTURE.md` — the map: routes, queries, components, migrations (and which file currently defines each RPC), scripts, data flow, caching, and "where do I change X".
+- `docs/LESSONS.md` — every mistake this project has hit and the rule that prevents it. **Read this before starting any work.**
+- `docs/TEST-CHECKLIST.md` — the manual test pass over every shipped feature (desktop first, then ★ items on a phone). Update it whenever a feature ships.
+- `docs/design-prompts/` — prompts for Claude Design (mockups before building). `personal-dashboard.md` is the "Me" page (BUILD-PLAN v1.5).
 - `design/Minced.dc.html` — the design mockup: 7 screens, real tokens, and 6 complete seed recipes in its `RECIPES` array. **This is the visual spec.** Read it before building any UI. (`design/support.js` is its runtime — open the HTML in a browser to view it.)
 
 ## Current status
@@ -191,24 +195,28 @@ Design system and shell (M2.1-M2.3) closed. Live now has **eleven** migrations, 
 
 Live at https://minced-app.vercel.app with **19 migrations**, **959 recipes** (duplicates merged), **260 photos**, computed nutrition, ingredient families, 22 pantry staples, and email accounts (sign-up, favorites, `/account`, `/privacy`, `/terms`). Routes: `/`, `/recipes` (browse, `?q=`, filters), `/recipes/[slug]` (ISR), `/pantry` (tap-to-pick fridge), `/account`, `/about`. One `RecipeCard`/`RecipeList` and one URL filter contract (`src/lib/filters.ts`) serve both doors. Google sign-in, a domain and custom SMTP come LAST, by the user's choice.
 
-### Wave 4 (2026-10-12): integrated on `wave4/integration`, PR open, NOT yet applied to live
+### Waves 1-4 (2026-10-09 to 10-12): live
 
-Goal: smooth for friends and family. **Four new migrations must be applied BEFORE merging:** `20261012100000_rls_hashed_visibility`, `20261012100100_cookware_filter` (new RPC parameter; the new code 500s on `/pantry?cookware=` without it), `20261012120000_admin_review`, `20261012130000_rpc_jit_off`. Ask Claude to apply them, then merge.
+Live at https://minced-app.vercel.app. Wave 4 (perf, cookware filter, admin review at `/admin/review`, `jit=off`) is applied and merged (PR #52). Live has **23 migrations** as of wave 4. Admin review (M1.5.6) is built; M1.5.7 stays open (your review).
 
-- **Perf:** matcher 172 to 16.5 ms as `anon` (child-table RLS uses a hashed subquery, equivalence proven); warm LCP at 375px /recipes 328 to 64 ms, /pantry 476 to 56; 5-minute list cache; skeleton `loading.tsx`; recipe page 4 queries to 1.
-- **Cookware filter:** "recipes that use any selected" (`cookware` param, `cookware_slugs` RPC arg). Only about 103 recipes have cookware data, so it hides most of the catalog until backfilled.
-- **UX:** one fridge button on landing; fridge find box matches aliases; neutral sign-up message for existing emails; `/auth/callback` uses the forwarded host.
-- **Photos:** 286 Commons + 1 federal in the manifest (was 260); 6 removed for brand/logo risk, 32 new or replaced, credits cleaned. Needs `upload_photos.py --apply`, then `seed-photos.sql` (which DELETES removed rows).
-- **Admin review (M1.5.6) built, box NOT checked:** `/admin/review`; the `/pantry` revalidate fix was applied after the verdict and is not re-verified. Add your row to `admins` after signing up. M1.5.7 stays open (your review).
+### Waves 5+6 (2026-10-13): integrated on `wave56/integration`, PR open, NOT yet applied to live
 
-**Known issues:** filter sheet has no scroll lock; global 404 has no header/footer; `/recipes/<bad-slug>` returns 200 (soft 404); `/pantry` has no allergen/diet/time filter sheet (breaks "both doors share filters"); `/kitchen-sink` still public; step-text quantities do not scale with servings; "Show more" replaces rather than appends; first visit to a recipe slug is about 1.3 s (ISR cold); `accounts_rls_test.sh`, `admin_review_api_test.sh` and RLS-TEST-PLAN not re-run on a real Supabase stack for the integrated branch (fold `docs/RLS-TEST-PLAN-admin.md` into the plan).
+**Six lanes:** cookware, synonyms, polish, photos, fridge, shopping, plus a security/quality/system review. **Checked:** shopping list (v1.1), fridge with dates, "only cookware I own", synonym coverage, cookware backfill (recorded as done in the plan's Ideas). **M1.5.7 stays open.** Navigation docs: **`docs/ARCHITECTURE.md`** (map, where to change X) and **`docs/LESSONS.md`** (every mistake and the rule). Read LESSONS first.
+
+- **Six new migrations, apply BEFORE merging, in order:** `20261013100000_cookware_vocabulary`, `110000_photo_sources`, `130000_owned_cookware` (drops and recreates `match_recipes` and `search_recipes`), `140000_fridge`, `150000_shopping_list`, `160000_security_hardening`. Then `pnpm db:types` (already regenerated in this branch), `pnpm db:seed` (155 aliases), `seed-cookware.sql`, photo upload, `seed-photos.sql`. After these there will be **29 migrations on live**.
+- **Catalog:** 959 recipes; cookware on about 762 (was 103); **352 photos** (57 USDA, 285 Commons, 10 Openverse; 607 placeholders); 705 aliases, 610 ingredients.
+- **New:** `/fridge` (dates, "Use these first"), `/shopping` (merged across recipes, aisle groups, signed-out list in localStorage moved to the account on sign-in), "My cookware" with an "only what I can make" switch, `/pantry` filter rail, real 404s, nav progress bar, scroll lock, error pages, security headers and httpOnly auth cookies.
+- **Security review fixed:** signed-in users could write the public catalog through PostgREST; author write policies removed, `profiles` owner-only, grants narrowed, trigger functions pinned.
+- **Open decisions for you:** shopping list (optional ingredients, replace vs double on re-add, button position); "Use these first" (single soonest item vs up to 3); cookware chip labels (Mixer, Microwave, Grill) and showing all 21 chips; paprika for expiry urgency; middleware call per recipe view.
+- **Known issues:** NUL byte in `?q=` crashes `/recipes` and `/api/ingredients/suggest`; a very long unbroken `q` overflows at 375px; "mac and cheese" finds one of four macaroni recipes; `/about` links to retired myplate.gov; `next` 15.5.24 has two ISR advisories (bump to 15.5.27 needs approval); no rate limiting or CAPTCHA; backups cover the public schema only (no `auth.users`, no Storage); migrations cannot rebuild a database from scratch; `next build` fails while Supabase is paused; 15 recipes list both halves of "X or Y" cookware; 31 older recipes carry cookware their steps never name; `/kitchen-sink` still public; fridge `sort=expiry` returns one page of 99.
 
 ### Next up
 
-1. Apply wave 4 migrations, merge, run the post-merge steps from the PR.
-2. Re-verify the `/pantry` reject fix, then check M1.5.6; you review recipes (M1.5.7).
-3. Fix the known issues above (404 pages, pantry filter sheet, scroll lock); backfill cookware.
-4. Shopping list, fridge with dates, more photos.
-5. **Domain, then Google sign-in, LAST.**
+1. **You:** answer the open decisions above; review M1.5.7 (247 rejected recipes, unresolved ingredients) and the photos you flagged.
+2. Apply the wave 5+6 migrations, merge, run the post-merge steps from the PR.
+3. Quick fixes from the bug hunt (NUL byte, long query overflow, `mac` synonym, /about links).
+4. More photos (needs a Pexels key and a time archive.org stops returning 429).
+5. Research ideas recorded 2026-10-13 in BUILD-PLAN (not started): lifting research section, food-science research, preparation-aware nutrition (M5). **Remind the user about the food-science research.**
+6. **Domain, then Google sign-in, LAST** (also unblocks custom SMTP and lawyer-reviewed legal pages).
 
-**Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations.
+**Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

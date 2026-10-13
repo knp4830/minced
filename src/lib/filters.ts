@@ -17,10 +17,18 @@
  *   exclude    exclude     slug[]    exclude_allergen_slugs (both) -- NONE of
  *   cookware   cookware    slug[]    cookware_slugs   (both) -- recipe USES any of
  *                                    (recipes with no cookware data never match)
+ *   ownedCookware ownedCookware slug[]  the cook's own cookware (a LIST, not a filter by itself)
+ *   ownedOnly  ownedOnly   boolean   "1" => owned_cookware_slugs = ownedCookware (both)
+ *                                    -- recipe needs NOTHING outside the list; no cookware
+ *                                    data = needs none = passes. List empty = owns nothing.
  *   spiceMax   spiceMax    0..4      max_spice        (both)
  *   calMin     calMin      number    min_calories     (both)
  *   calMax     calMax      number    max_calories     (both)
  *   proteinMin proteinMin  number    min_protein_g    (both)
+ *   sort       sort        "expiry"  pantry page only, signed-in: recipes using the
+ *                                    soonest-expiring fridge items first (wave 6). No
+ *                                    Postgres parameter: match_recipes ranks, then
+ *                                    recipe_expiry_days() reorders one page.
  *   cursor     cursor      string    opaque; search: "score:uuid", matcher: base64url
  *
  * Multi-value params are comma-separated (`diet=vegan,gluten-free`) -- one key,
@@ -74,11 +82,20 @@ export type RecipeFilters = {
   exclude?: string[];
   /** Cookware slugs; recipe must USE any of them. No cookware data = no match. */
   cookware?: string[];
+  /** Cookware the cook owns (the list; persisted in localStorage / the account). */
+  ownedCookware?: string[];
+  /**
+   * "Only what I can make with my cookware": hide recipes needing any cookware not in
+   * `ownedCookware`. Recipes with no cookware data need none, so they stay.
+   */
+  ownedOnly?: boolean;
   /** 0..4, upper bound. Unknown spice passes. */
   spiceMax?: number;
   calMin?: number;
   calMax?: number;
   proteinMin?: number;
+  /** Pantry page: "expiry" = soonest-expiring saved-fridge items first (signed-in only). */
+  sort?: "expiry";
   /** Opaque keyset cursor from the previous page's `nextCursor`. */
   cursor?: string;
 };
@@ -94,10 +111,13 @@ export const FILTER_PARAMS = [
   "diet",
   "exclude",
   "cookware",
+  "ownedCookware",
+  "ownedOnly",
   "spiceMax",
   "calMin",
   "calMax",
   "proteinMin",
+  "sort",
   "cursor",
 ] as const satisfies readonly (keyof RecipeFilters)[];
 
@@ -160,8 +180,18 @@ function slugList(raw: string | undefined): string[] | undefined {
  * URL -> filters. Total: malformed or out-of-range values are dropped or
  * clamped, never thrown, because the input is user-editable.
  */
+/**
+ * Replace control characters (NUL, tabs, newlines...) with spaces. Postgres text
+ * cannot hold a NUL byte (error 22P05), so `?q=%00` used to crash the search page,
+ * and none of these characters mean anything in a search box.
+ */
+export function stripControlChars(s: string): string {
+  return s.replace(/\p{Cc}/gu, " ");
+}
+
 export function parseFilters(sp: SearchParamsInput): RecipeFilters {
-  const q = first(sp, "q")?.trim().slice(0, MAX_Q);
+  const rawQ = first(sp, "q");
+  const q = rawQ === undefined ? undefined : stripControlChars(rawQ).trim().slice(0, MAX_Q);
   const cursor = first(sp, "cursor")?.slice(0, 512);
   const out: RecipeFilters = {
     q: q || undefined,
@@ -173,10 +203,13 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     diet: slugList(first(sp, "diet")),
     exclude: slugList(first(sp, "exclude")),
     cookware: slugList(first(sp, "cookware")),
+    ownedCookware: slugList(first(sp, "ownedCookware")),
+    ownedOnly: first(sp, "ownedOnly") === "1" ? true : undefined,
     spiceMax: int(first(sp, "spiceMax"), 0, 4),
     calMin: num(first(sp, "calMin"), 0, 10000),
     calMax: num(first(sp, "calMax"), 0, 10000),
     proteinMin: num(first(sp, "proteinMin"), 0, 1000),
+    sort: first(sp, "sort") === "expiry" ? "expiry" : undefined,
     cursor: cursor || undefined,
   };
   // Drop undefined keys so equality checks and spreads behave.
@@ -191,6 +224,10 @@ export function serializeFilters(f: RecipeFilters): URLSearchParams {
   for (const key of FILTER_PARAMS) {
     const v = f[key];
     if (v === undefined || v === "") continue;
+    if (typeof v === "boolean") {
+      if (v) sp.set(key, "1");
+      continue;
+    }
     if (Array.isArray(v)) {
       if (v.length) sp.set(key, v.join(","));
     } else {
@@ -222,7 +259,7 @@ export function withFilters(
 /** Toggle one value in a multi-value filter (diet / cuisine / exclude / cookware). */
 export function toggleInList(
   f: RecipeFilters,
-  key: "cuisine" | "diet" | "exclude" | "cookware",
+  key: "cuisine" | "diet" | "exclude" | "cookware" | "ownedCookware",
   slug: string,
 ): RecipeFilters {
   const cur = f[key] ?? [];
@@ -241,6 +278,32 @@ export function hasActiveFilters(f: RecipeFilters): boolean {
     !!f.cuisine?.length ||
     !!f.diet?.length ||
     !!f.exclude?.length ||
-    !!f.cookware?.length
+    !!f.cookware?.length ||
+    f.ownedOnly === true
   );
+}
+
+/**
+ * The filters that change WHICH recipes come back. `ownedCookware` alone is only a
+ * remembered list; it narrows nothing until `ownedOnly` is on, so it is dropped here.
+ * Use this for cache keys and Suspense keys so ticking a pan you own does not
+ * refetch (or flash a skeleton for) an identical list.
+ */
+export function resultFilters(f: RecipeFilters): RecipeFilters {
+  if (f.ownedOnly || f.ownedCookware === undefined) return f;
+  const { ownedCookware, ...rest } = f;
+  void ownedCookware;
+  return rest;
+}
+
+/** The query that keeps a fridge / search door's own state while dropping every narrowing filter. */
+export function withoutNarrowing(f: RecipeFilters): RecipeFilters {
+  return {
+    q: f.q,
+    pantry: f.pantry,
+    use: f.use,
+    maxMissing: f.maxMissing,
+    // The cookware LIST is a standing preference like the fridge; only the toggle is a filter.
+    ownedCookware: f.ownedCookware,
+  };
 }

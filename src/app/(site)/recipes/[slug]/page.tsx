@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { BackToResults } from "@/components/recipe/backToResults";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -86,13 +86,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   return (
     <article className="mx-auto max-w-[1180px] px-(--gutter) pt-4 pb-6 md:pt-6">
       <div className="flex items-center justify-between gap-3">
-        <Link
-          href="/recipes"
-          className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-md px-2 text-sm text-ink-muted hover:text-herb"
-        >
-          <ChevronLeft aria-hidden className="size-4" />
-          All recipes
-        </Link>
+        <BackToResults />
         {/* Client island: keeps this page cacheable; the saved state fills in after load. */}
         <FavoriteButton slug={recipe.slug} title={recipe.title} variant="detail" />
       </div>
@@ -183,7 +177,11 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
 
         {/* Ingredients (client island: servings scaler) */}
         <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          <ServingsScaler baseServings={recipe.servings} ingredients={recipe.ingredients} />
+          <ServingsScaler
+            baseServings={recipe.servings}
+            ingredients={recipe.ingredients}
+            recipe={{ slug: recipe.slug, title: recipe.title }}
+          />
         </div>
 
         {/* Method */}

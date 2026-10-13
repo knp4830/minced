@@ -1,3 +1,5 @@
+/* Basic published-recipe list and the RecipeCard row type. The browse and search doors use browse.ts / search.ts; some exports here are unused (see docs/ARCHITECTURE.md). */
+
 import { createClient } from "@/lib/supabase/server";
 
 import type { Database } from "@/types/database";

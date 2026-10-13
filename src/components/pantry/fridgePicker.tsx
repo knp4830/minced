@@ -3,8 +3,13 @@
 import { Check, Refrigerator, Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useAccount } from "@/components/account/accountProvider";
 import { Button } from "@/components/ui/button";
+import { startNavProgress } from "@/components/shell/navProgress";
 import { Chip } from "@/components/ui/chip";
+import { saveFridge } from "@/lib/actions/fridge";
+import { FRIDGE_CHANGED, fetchSavedFridge } from "@/lib/fridgeClient";
+import { todayIso } from "@/lib/fridgeDates";
 import { readFridge, writeFridge, type FridgeItem } from "@/lib/fridgeStorage";
 import type { CatalogItem, IngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import { cn } from "@/lib/utils";
@@ -19,6 +24,15 @@ import { cn } from "@/lib/utils";
  *  - "page": /pantry. The URL is the truth (`?pantry=12,40`): the committed
  *    items render as removable chips and every change pushes a new URL.
  *
+ *  - "manage": /fridge. Only the button; the saved fridge is the server-rendered
+ *    list around it, and "Save fridge" writes it without leaving the page.
+ *
+ * Where the fridge lives. Signed out: the URL plus localStorage, as before.
+ * Signed in: the database (fridge_items) is the truth and the URL is the working
+ * view of it. An empty /pantry URL loads the saved fridge; committing a change
+ * saves it. Opening someone's shared link never overwrites the saved fridge --
+ * only an edit made here does.
+ *
  * Inside the sheet the choice is a draft. It becomes the fridge only on
  * "Show recipes", so dismissing the sheet throws the edits away.
  * A native <dialog> gives the focus trap, Escape and inert background; it is a
@@ -30,8 +44,8 @@ const FIND_LIMIT = 60;
 
 export type FridgePickerProps = {
   catalog: IngredientCatalog;
-  variant: "hero" | "page";
-  /** Page variant: the fridge as the URL has it (names resolved server-side). */
+  variant: "hero" | "page" | "manage";
+  /** Page variant: the fridge as the URL has it. Manage variant: the saved fridge. (Names resolved server-side.) */
   initial?: FridgeItem[];
   className?: string;
 };
@@ -53,6 +67,10 @@ function pantryUrl(items: FridgeItem[], keepFilters: boolean): string {
 
 export function FridgePicker({ catalog, variant, initial = [], className }: FridgePickerProps) {
   const router = useRouter();
+  const { status } = useAccount();
+  const signedIn = status === "in";
+  const [saveError, setSaveError] = useState(false);
+  const [confirmEmpty, setConfirmEmpty] = useState(false);
   const uid = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -68,13 +86,37 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   // props without an effect.
   const initialKey = JSON.stringify(initial);
   const [seenKey, setSeenKey] = useState(initialKey);
-  if (variant === "page" && seenKey !== initialKey) {
+  if (variant !== "hero" && seenKey !== initialKey) {
     setSeenKey(initialKey);
     setCommitted(initial);
   }
 
-  // Storage <-> URL, once on mount. URL wins; storage only fills an empty one.
+  // Storage / saved fridge <-> URL. Re-runs when the sign-in state settles.
   useEffect(() => {
+    if (variant === "manage" || status === "loading") return;
+
+    if (status === "in") {
+      // Signed in: the saved fridge fills an EMPTY page URL (and the hero count).
+      let cancelled = false;
+      const load = async () => {
+        const saved = await fetchSavedFridge();
+        if (cancelled || !saved) return;
+        if (variant === "hero") {
+          setCommitted(saved.items);
+        } else if (initial.length === 0 && saved.items.length > 0) {
+          setCommitted(saved.items);
+          router.replace(pantryUrl(saved.items, true));
+        }
+      };
+      void load();
+      window.addEventListener(FRIDGE_CHANGED, load);
+      return () => {
+        cancelled = true;
+        window.removeEventListener(FRIDGE_CHANGED, load);
+      };
+    }
+
+    // Signed out: URL wins; storage only fills an empty one.
     if (variant === "page") {
       if (initial.length > 0) {
         writeFridge(initial);
@@ -83,14 +125,15 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
       const stored = readFridge();
       if (stored.length > 0) {
         setCommitted(stored);
+        startNavProgress();
         router.replace(pantryUrl(stored, true));
       }
       return;
     }
     const stored = readFridge();
     if (stored.length > 0) setCommitted(stored);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount only
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- re-run on sign-in changes only
+  }, [status]);
 
   const catalogIds = useMemo(
     () => new Set(catalog.categories.flatMap((c) => c.items.map((i) => i.id))),
@@ -102,13 +145,22 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   const finding = query.trim().toLowerCase();
   const found = useMemo(() => {
     if (!finding) return [];
+    // A typed plural must still find the singular name or synonym ("courgettes"
+    // finds the alias "courgette", "chicken breasts" finds "chicken breast").
+    // Names and synonyms are stored singular-ish, and substring matching alone
+    // fails the moment the trailing "s" is typed.
+    const stem = finding.replace(/(ies|es|s)$/, "");
+    const needles = stem.length >= 3 && stem !== finding ? [finding, stem] : [finding];
     // Rank: name starts with it, name contains it, then a synonym ("green
     // onion" finds scallion). Within a rank, most-used first.
     const rank = (i: CatalogItem): number => {
       const name = i.name.toLowerCase();
-      if (name.startsWith(finding)) return 0;
-      if (name.includes(finding)) return 1;
-      return i.aka?.split("|").some((s) => s.includes(finding)) ? 2 : 3;
+      if (needles.some((n) => name.startsWith(n))) return 0;
+      // Match at the start of a word, not anywhere: "gar" finds garlic and
+      // "green garlic", not sugar or vinegar.
+      const atWord = (text: string, n: string) => text.startsWith(n) || text.includes(` ${n}`) || text.includes(`-${n}`);
+      if (needles.some((n) => atWord(name, n))) return 1;
+      return i.aka?.split("|").some((s) => needles.some((n) => atWord(s.toLowerCase(), n))) ? 2 : 3;
     };
     return catalog.categories
       .flatMap((c) => c.items)
@@ -143,14 +195,38 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
     );
   }
 
+  /** Signed in: write the saved fridge. A failure leaves the picks in the URL and says so. */
+  async function persist(items: FridgeItem[]): Promise<boolean> {
+    setSaveError(false);
+    try {
+      const r = await saveFridge(
+        items.map((i) => i.id),
+        todayIso(),
+      );
+      if (!r.ok) setSaveError(true);
+      return r.ok;
+    } catch {
+      setSaveError(true);
+      return false;
+    }
+  }
+
   function commit(items: FridgeItem[]) {
     setCommitted(items);
-    writeFridge(items);
+    startNavProgress();
+    if (variant === "manage") {
+      void persist(items).then((ok) => {
+        if (ok) router.refresh();
+      });
+      return;
+    }
+    if (signedIn) void persist(items);
+    else writeFridge(items);
     router.push(pantryUrl(items, variant === "page"), { scroll: variant !== "page" });
   }
 
   function showRecipes() {
-    if (draft.length === 0) return;
+    if (draft.length === 0 && variant !== "manage") return;
     closeSheet();
     commit(draft);
   }
@@ -184,11 +260,26 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
           <Refrigerator aria-hidden className="size-[18px]" />
           What&apos;s in my fridge?
           {count > 0 && (
-            <span className="rounded-full bg-herb px-2 py-0.5 font-mono text-[0.6875rem] text-on-herb">
-              {count}
-            </span>
+            <>
+              <span aria-hidden className="rounded-full bg-herb px-2 py-0.5 font-mono text-[0.6875rem] text-on-herb">
+                {count}
+              </span>
+              <span className="sr-only">, {count} picked</span>
+            </>
           )}
         </Button>
+      ) : variant === "manage" ? (
+        <div>
+          <Button variant="secondary" size="md" aria-haspopup="dialog" onClick={openSheet}>
+            <Refrigerator aria-hidden className="size-4" />
+            Add or remove items
+          </Button>
+          {saveError && (
+            <p role="alert" className="mt-2 text-[0.8125rem] text-paprika-deep">
+              Could not save your fridge just now. Try again.
+            </p>
+          )}
+        </div>
       ) : (
         <div>
           {count > 0 && (
@@ -218,16 +309,39 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
               <Refrigerator aria-hidden className="size-4" />
               {count > 0 ? "Add or change" : "Pick what’s in my fridge"}
             </Button>
-            {count > 0 && (
+            {count > 0 && !confirmEmpty && (
               <button
                 type="button"
-                onClick={() => commit([])}
+                onClick={() => setConfirmEmpty(true)}
                 className="inline-flex min-h-11 items-center text-[0.8125rem] text-ink-muted underline-offset-4 hover:text-herb hover:underline"
               >
                 Empty the fridge
               </button>
             )}
+            {count > 0 && confirmEmpty && (
+              <span role="group" aria-label="Confirm emptying the fridge" className="inline-flex flex-wrap items-center gap-2">
+                <span className="text-[0.875rem] text-ink">Remove all {count}? Saved dates and amounts go too.</span>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => {
+                    setConfirmEmpty(false);
+                    commit([]);
+                  }}
+                >
+                  Yes, empty it
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => setConfirmEmpty(false)}>
+                  Keep it
+                </Button>
+              </span>
+            )}
           </div>
+          {saveError && (
+            <p role="alert" className="mt-2 text-[0.8125rem] text-paprika-deep">
+              Could not save your fridge just now. The link still has it; try again.
+            </p>
+          )}
         </div>
       )}
 
@@ -425,8 +539,16 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
               </>
             )}
           </p>
-          <Button size="lg" onClick={showRecipes} disabled={draft.length === 0}>
-            {draft.length === 0 ? "Pick something" : "Show recipes"}
+          <Button
+            size="lg"
+            onClick={showRecipes}
+            disabled={draft.length === 0 && variant !== "manage"}
+          >
+            {variant === "manage"
+              ? "Save fridge"
+              : draft.length === 0
+                ? "Pick something"
+                : "Show recipes"}
           </Button>
         </div>
       </dialog>

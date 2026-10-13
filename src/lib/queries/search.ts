@@ -1,3 +1,5 @@
+import { unstable_cache } from "next/cache";
+
 import { createStaticClient } from "@/lib/supabase/static";
 
 import type { RecipeFilters } from "@/lib/filters";
@@ -71,6 +73,7 @@ export function buildSearchArgs(
     diet_slugs: filters.diet,
     exclude_allergen_slugs: filters.exclude,
     cookware_slugs: filters.cookware?.length ? filters.cookware : undefined,
+    owned_cookware_slugs: filters.ownedOnly ? (filters.ownedCookware ?? []) : undefined,
     max_spice: filters.spiceMax,
     min_calories: filters.calMin,
     max_calories: filters.calMax,
@@ -98,6 +101,75 @@ export async function searchRecipes(
   options: { limit?: number } = {},
 ): Promise<SearchPage> {
   const limit = Math.min(Math.max(options.limit ?? DEFAULT_LIMIT, 1), MAX_LIMIT - 1);
+  const original = filters.q ?? "";
+
+  // Door parity: the fridge understands "aubergine", so search must too.
+  const rewritten = await rewriteSynonyms(original);
+  let page = await runSearch({ ...filters, q: rewritten }, limit);
+
+  // Nothing found for a single word: it may be a typo of an ingredient
+  // ("chiken"). Retry once with the closest canonical ingredient name.
+  if (page.results.length === 0 && !filters.cursor) {
+    const fixed = await closestIngredientName(original);
+    if (fixed && fixed.toLowerCase() !== rewritten.toLowerCase()) {
+      page = await runSearch({ ...filters, q: fixed }, limit);
+    }
+  }
+  return page;
+}
+
+type ResolveRow = { canonical_name: string; match_kind: string };
+
+async function loadResolved(raw: string): Promise<ResolveRow | null> {
+  const supabase = createStaticClient();
+  const { data, error } = await supabase.rpc("resolve_ingredient", { raw_name: raw }).maybeSingle();
+  if (error) throw error;
+  return (data as ResolveRow | null) ?? null;
+}
+
+/** Ingredient vocabulary changes only on import, so repeat lookups are cached for an hour. */
+const cachedResolve = unstable_cache(loadResolved, ["search-resolve-word"], { revalidate: 3600 });
+
+async function resolveWord(raw: string): Promise<ResolveRow | null> {
+  try {
+    return await cachedResolve(raw.toLowerCase());
+  } catch {
+    return null; // synonym help is best effort: never fail a search over it
+  }
+}
+
+/**
+ * Replaces regional synonyms (aubergine, courgette, capsicum, prawns) with the
+ * canonical ingredient name, using the same `resolve_ingredient` the fridge uses.
+ * Only exact alias hits are rewritten, never fuzzy ones, so "chicken soup"
+ * is left alone.
+ */
+async function rewriteSynonyms(q: string): Promise<string> {
+  const trimmed = q.trim();
+  if (!trimmed) return q;
+  const words = trimmed.split(/\s+/).slice(0, 8);
+
+  const whole = await resolveWord(trimmed);
+  if (whole && whole.match_kind === "alias") return whole.canonical_name;
+  if (words.length === 1 && !whole) return q;
+
+  const resolved = await Promise.all(words.map((w) => (w.length > 2 ? resolveWord(w) : null)));
+  return words
+    .map((w, i) => {
+      const r = resolved[i];
+      return r && r.match_kind === "alias" ? r.canonical_name : w;
+    })
+    .join(" ");
+}
+
+async function closestIngredientName(q: string): Promise<string | null> {
+  const trimmed = q.trim();
+  if (trimmed.length < 4 || /\s/.test(trimmed)) return null;
+  const r = await resolveWord(trimmed);
+  return r ? r.canonical_name : null;
+}
+
+async function runSearch(filters: RecipeFilters, limit: number): Promise<SearchPage> {
   const supabase = createStaticClient();
 
   const { data, error } = await supabase.rpc(

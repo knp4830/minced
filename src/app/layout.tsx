@@ -1,7 +1,11 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Mono, Public_Sans } from "next/font/google";
 import { AccountProvider } from "@/components/account/accountProvider";
+import { Suspense } from "react";
+import { NavProgress } from "@/components/shell/navProgress";
 import "./globals.css";
+import "./polish.css";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -24,12 +28,15 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  openGraph: { siteName: "Minced", type: "website", locale: "en_US" },
+  twitter: { card: "summary" },
   title: {
     default: "Minced",
     template: "%s · Minced",
   },
   description:
-    "Tell Minced what's in your kitchen and it shows you what you can make. Ingredients, amounts, steps — no essay.",
+    "Search for a dish, or tap what's in your fridge and see what you can make. Ingredients, amounts, numbered steps, and a shopping list. No essay.",
 };
 
 export default function RootLayout({
@@ -45,10 +52,14 @@ export default function RootLayout({
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
-          className="sr-only-focusable fixed top-3 left-3 z-[100] rounded-md bg-herb px-4 py-2 text-sm font-semibold text-on-herb"
+          className="sr-only-focusable fixed top-3 left-3 z-[100] rounded-md bg-herb px-4 py-2 text-sm font-semibold text-on-herb focus:inline-flex focus:min-h-11 focus:items-center"
         >
           Skip to content
         </a>
+        {/* useSearchParams needs a boundary; the bar draws nothing until a link is pressed. */}
+        <Suspense fallback={null}>
+          <NavProgress />
+        </Suspense>
         <AccountProvider>{children}</AccountProvider>
       </body>
     </html>

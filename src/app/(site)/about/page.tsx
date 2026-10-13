@@ -72,9 +72,9 @@ export default async function AboutPage() {
       <Section id="photos" title="Photos">
         <p>
           A photo appears only when we can use it honestly: public-domain photos
-          (USDA MyPlate photographs and Wikimedia Commons files marked public
-          domain), or Wikimedia Commons files licensed CC0, CC BY or CC BY-SA,
-          with the author credited on the image where the licence asks for it. Where a
+          (USDA photographs and other files marked public domain), or files
+          from Wikimedia Commons and Openverse (mostly Flickr) licensed CC0,
+          CC BY or CC BY-SA, with the author credited on the image where the licence asks for it. Where a
           photo is not free to use, or isn&apos;t a real picture of that dish, the
           card shows a plain striped block instead. We never show an AI-generated
           image as the finished dish.
@@ -86,19 +86,19 @@ export default async function AboutPage() {
             </summary>
             <ul className="divide-y divide-line border-t border-line text-sm">
               {credits.map((c) => (
-                <li key={c.slug} className="px-4 py-2.5">
-                  <Link href={`/recipes/${c.slug}`} className={link}>
+                <li key={c.slug} className="px-4">
+                  <Link href={`/recipes/${c.slug}`} className={`${link} inline-block py-3.5`}>
                     {c.title}
                   </Link>
                   <span className="text-ink-muted">
                     {" "}
                     &mdash;{" "}
-                    <a href={c.attributionUrl} className={link} rel="noopener">
+                    <a href={c.attributionUrl} className={`${link} inline-block py-3.5`} rel="noopener">
                       {c.credit ?? "Source"}
                     </a>
                     ,{" "}
                     {c.licenseUrl ? (
-                      <a href={c.licenseUrl} className={link} rel="noopener">
+                      <a href={c.licenseUrl} className={`${link} inline-block py-3.5`} rel="noopener">
                         {c.license}
                       </a>
                     ) : (

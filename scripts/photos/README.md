@@ -73,3 +73,35 @@ Not committed: `cache/` (downloads) and `out/` (resized WebP).
   with the reason, so the next person does not re-review them.
 - Photo-less recipes show a designed tile (`RecipePlaceholder`), and recipes with a photo sort first on ties
   (`recipes.has_photo`, migration 20261011110000). Uploading photos and running `seed-photos.sql` flips the flag by trigger.
+
+## Wave 5 (more USDA photos, Openverse, Pexels)
+Sources, in order, one photo per recipe (a recipe that already has a reviewed photo keeps it):
+1. **USDA MyPlate** (`myplate_*.py`). Owner decision: USDA's own photos are fine, **including ones showing the MyPlate/USDA logo**.
+   Still excluded: recipes whose page `Source:` is a university, foundation, network or company, and any stock/photographer credit.
+   Review step added in wave 5: `myplate_sheets.py` shows each photo next to the recipe's ingredients; photos that look like stock
+   photography (rustic props, cut-out on white) or do not show the finished dish go through `remove_photo.py`, which records them in
+   `myplate_review_excludes.json` (the audit then keeps them out for good). `myplate_pending.py cached|missing|need-image` lists slugs so a
+   killed fetch resumes without guessing; feed `cached` back through `myplate_fetch.py --stage pages` to rebuild `found.json`.
+2. **Openverse** (`openverse.py`, api.openverse.org). Only CC0 / PDM / CC BY / CC BY-SA, creator + licence + landing page recorded in
+   `manifest/openverse.json`. **Anonymous budget is 20 requests/min and 200/day** (about 190 recipes per day); one request per recipe,
+   every query logged in `cache/openverse/queried.json` so the next day continues. About a quarter of queries produce a candidate and
+   about one in twenty a photo that really shows the dish: generic USDA titles ("Baked Fish") rarely have an honestly labelled Flickr photo.
+   `--creator USDAgov` restricts a search to the USDA Flickr stream (public-domain federal works, the strongest rights).
+   Flow: `ov_slice.py` (order recipes) -> `openverse.py search` -> `openverse.py sheets` -> look -> `ov_pick.py <tiles>` ->
+   `openverse.py build manifest/openverse_picks.json`. `ov_pick.py 15=other-slug` re-targets a photo to a recipe it fits better.
+3. **Pexels** (`pexels.py`): needs `PEXELS_API_KEY` in `.env.local` (free key: https://www.pexels.com/api/). Without it the command
+   exits and does nothing. Rows go to `manifest/pexels.json` with licence `Pexels License`; credit reads "<name> / Pexels".
+   Not exercised against the live API in wave 5.
+
+Migration `20261013110000_photo_sources.sql` widens `recipe_photos.source` (+ `openverse`, `pexels`) and `license` (+ `Pexels License`).
+Apply it BEFORE `seed-photos.sql`, or the seed fails on the check constraint.
+`export_photoless.py <container>` lists recipes still without a photo (with ingredients) from a restored snapshot.
+
+### Wave 5 final state
+- 352 photos: 56 new USDA MyPlate (own photos; MyPlate logos allowed, third-party credits excluded), 285 Wikimedia Commons, 10 Openverse, 0 Pexels
+  (no PEXELS_API_KEY). 607 of 959 recipes stay on placeholders.
+- archive.org refused (429) the last 49 MyPlate images and 1 page (`myplate_pending.py need-image`); resume later with
+  `myplate_fetch.py cache/need_image.txt --stage images --jobs 1 --delay 2.5`, then `myplate_audit.py audit && build`, `myplate_sheets.py`.
+- Openverse used 185 of its 200 daily anonymous requests; continue tomorrow with `openverse.py search` (queried.json remembers).
+- `apply_manifest.py`'s seed raises if a manifest slug has no recipe: drop such slugs with `remove_photo.py` (done for baked-fish,
+  sweet-potato-casserole-0, removed in the duplicate merge).

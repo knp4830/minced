@@ -48,4 +48,8 @@ assert.equal(formatAmount(2.96), "3");
 assert.equal(scaleQuantity(1, 3, 9), 3);
 assert.ok(Math.abs(scaleQuantity(1, 3, 1) - 1 / 3) < 1e-12);
 
+// The printed amount must stay within 3% of the real one: 4 1/2 tbsp is NOT 1/4 cup.
+assert.equal(show(1.5, "tbsp", 1, 3), "4 1/2 tbsp");
+assert.equal(show(4, "tbsp", 1, 1), "1/4 cup");
+
 console.log("scaling: all assertions passed");

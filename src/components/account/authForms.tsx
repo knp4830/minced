@@ -334,7 +334,9 @@ export function ResetPasswordForm() {
 export function DeleteAccountForm() {
   const [state, action, pending] = useActionState(deleteAccount, initial);
   const [open, setOpen] = useState(false);
+  const [typed, setTyped] = useState("");
   const fe = state.fieldErrors ?? {};
+  const ready = typed.trim() === "DELETE";
 
   if (!open) {
     return (
@@ -357,17 +359,25 @@ export function DeleteAccountForm() {
               autoCapitalize="characters"
               spellCheck={false}
               required
+              value={typed}
+              onChange={(e) => setTyped(e.target.value)}
               aria-invalid={a.invalid || undefined}
               aria-describedby={a.describedBy}
             />
           )}
         </Field>
+        {!ready && typed.length > 0 && (
+          <p className="mt-1.5 text-[0.8125rem] text-ink-muted">Type DELETE in capital letters to enable the button.</p>
+        )}
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
-        <Button type="submit" variant="danger" disabled={pending} aria-disabled={pending}>
+        <Button type="submit" variant="danger" disabled={pending || !ready} aria-disabled={pending || !ready}>
           {pending ? "Deleting…" : "Delete my account"}
         </Button>
-        <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
+        <Button type="button" variant="secondary" onClick={() => {
+            setOpen(false);
+            setTyped("");
+          }}>
           Keep my account
         </Button>
       </div>

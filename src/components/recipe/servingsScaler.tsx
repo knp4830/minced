@@ -1,7 +1,9 @@
 "use client";
 
 import { Check, Minus, Plus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useFridgeIds } from "@/lib/useFridgeIds";
+import { AddToShoppingList } from "@/components/shopping/addToShoppingList";
 import { displayQuantity } from "@/lib/scaling";
 
 export type ScalerIngredient = {
@@ -13,16 +15,11 @@ export type ScalerIngredient = {
   ingredientId?: number | null;
   familyId?: number | null;
   isStaple?: boolean;
+  /** For the shopping list: aisle and how the unit converts. */
+  aisle: string;
+  unitKind: "mass" | "volume" | "count" | null;
+  unitFactor: number | null;
 };
-
-/** `?pantry=1,2,3` from the fridge results link, read after mount. */
-function readFridgeIds(): number[] {
-  const raw = new URLSearchParams(window.location.search).get("pantry") ?? "";
-  return raw
-    .split(",")
-    .map(Number)
-    .filter((n) => Number.isInteger(n) && n > 0);
-}
 
 const MIN = 1;
 const MAX = 48;
@@ -40,19 +37,17 @@ const MAX = 48;
 export function ServingsScaler({
   baseServings,
   ingredients,
+  recipe,
 }: {
   baseServings: number;
   ingredients: ScalerIngredient[];
+  recipe: { slug: string; title: string };
 }) {
   const [servings, setServings] = useState(baseServings);
 
-  // Opened from fridge results, the link carries the fridge. The page itself
-  // stays static and cacheable, so the marks are applied here, after mount.
-  const [fridge, setFridge] = useState<ReadonlySet<number> | null>(null);
-  useEffect(() => {
-    const ids = readFridgeIds();
-    if (ids.length > 0) setFridge(new Set(ids));
-  }, []);
+  // The fridge behind the have/missing marks: link, this browser, or the account (one hook,
+  // shared with the shopping box so both agree).
+  const { ids: fridge, fromSaved } = useFridgeIds();
 
   // A parent in the fridge covers its variants (same rule as match_recipes).
   const marks = ingredients.map((line) => {
@@ -114,7 +109,8 @@ export function ServingsScaler({
         >
           <span className="font-mono font-semibold text-herb">
             You have {haveCount} of {needed.length}
-          </span>{" "}
+          </span>
+          {fromSaved && " from your fridge"}{" "}
           {haveCount === needed.length ? "· nothing missing" : "· the rest are marked below"}
         </p>
       )}
@@ -154,6 +150,14 @@ export function ServingsScaler({
           );
         })}
       </ul>
+
+      <AddToShoppingList
+        slug={recipe.slug}
+        title={recipe.title}
+        baseServings={baseServings}
+        servings={servings}
+        lines={ingredients}
+      />
 
       <p className="mt-3 flex items-center gap-3 font-mono text-[0.6875rem] text-ink-subtle">
         <span>quantities scale with servings</span>

@@ -1,5 +1,6 @@
 import { Bookmark, Plus, Search } from "lucide-react";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -80,6 +81,8 @@ function Specimen({
 }
 
 export default function KitchenSinkPage() {
+  // Dev-only reference page: a 404 in any deployed build.
+  if (process.env.NODE_ENV === "production") notFound();
   return (
     <div className="mx-auto max-w-[1100px] px-(--gutter) py-10 md:py-14">
       <header className="mb-10 max-w-2xl">

@@ -137,6 +137,57 @@ export type Database = {
           },
         ]
       }
+      fridge_items: {
+        Row: {
+          added_on: string
+          created_at: string
+          expires_on: string | null
+          id: string
+          ingredient_id: number
+          notes: string | null
+          purchased_on: string | null
+          quantity: string | null
+          user_id: string
+        }
+        Insert: {
+          added_on?: string
+          created_at?: string
+          expires_on?: string | null
+          id?: string
+          ingredient_id: number
+          notes?: string | null
+          purchased_on?: string | null
+          quantity?: string | null
+          user_id: string
+        }
+        Update: {
+          added_on?: string
+          created_at?: string
+          expires_on?: string | null
+          id?: string
+          ingredient_id?: number
+          notes?: string | null
+          purchased_on?: string | null
+          quantity?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fridge_items_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: false
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fridge_items_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ingredient_aliases: {
         Row: {
           alias: string
@@ -210,6 +261,32 @@ export type Database = {
           word?: string
         }
         Relationships: []
+      }
+      ingredient_shelf_life: {
+        Row: {
+          days: number
+          ingredient_id: number
+          note: string | null
+        }
+        Insert: {
+          days: number
+          ingredient_id: number
+          note?: string | null
+        }
+        Update: {
+          days?: number
+          ingredient_id?: number
+          note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ingredient_shelf_life_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: true
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       ingredients: {
         Row: {
@@ -662,6 +739,86 @@ export type Database = {
           },
         ]
       }
+      shelf_life_defaults: {
+        Row: {
+          aisle_category: string
+          days: number
+          note: string | null
+        }
+        Insert: {
+          aisle_category: string
+          days: number
+          note?: string | null
+        }
+        Update: {
+          aisle_category?: string
+          days?: number
+          note?: string | null
+        }
+        Relationships: []
+      }
+      shopping_list_items: {
+        Row: {
+          checked: boolean
+          created_at: string
+          id: number
+          ingredient_id: number
+          quantity: number | null
+          source_recipe_id: string | null
+          unit_id: number | null
+          user_id: string
+        }
+        Insert: {
+          checked?: boolean
+          created_at?: string
+          id?: never
+          ingredient_id: number
+          quantity?: number | null
+          source_recipe_id?: string | null
+          unit_id?: number | null
+          user_id: string
+        }
+        Update: {
+          checked?: boolean
+          created_at?: string
+          id?: never
+          ingredient_id?: number
+          quantity?: number | null
+          source_recipe_id?: string | null
+          unit_id?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shopping_list_items_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: false
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shopping_list_items_source_recipe_id_fkey"
+            columns: ["source_recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shopping_list_items_unit_id_fkey"
+            columns: ["unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shopping_list_items_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       unit_aliases: {
         Row: {
           alias: string
@@ -709,11 +866,53 @@ export type Database = {
         }
         Relationships: []
       }
+      user_cookware: {
+        Row: {
+          cookware_id: number
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          cookware_id: number
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          cookware_id?: number
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_cookware_cookware_id_fkey"
+            columns: ["cookware_id"]
+            isOneToOne: false
+            referencedRelation: "cookware"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_cookware_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      add_recipe_to_shopping_list: {
+        Args: {
+          p_have_ids?: number[]
+          p_recipe_id: string
+          p_servings: number
+          p_skip_staples?: boolean
+        }
+        Returns: Json
+      }
       admin_assert: { Args: never; Returns: undefined }
       admin_recipe_detail: { Args: { p_slug: string }; Returns: Json }
       admin_review_list: {
@@ -769,6 +968,7 @@ export type Database = {
       }
       delete_my_account: { Args: never; Returns: undefined }
       expand_ingredient_family: { Args: { ids: number[] }; Returns: number[] }
+      import_local_shopping_list: { Args: { p_items: Json }; Returns: number }
       ingredient_coverage: {
         Args: { min_similarity?: number; raw_names: string[] }
         Returns: {
@@ -798,6 +998,7 @@ export type Database = {
           min_have?: number
           min_protein_g?: number
           must_use_ids?: number[]
+          owned_cookware_slugs?: string[]
           page_size?: number
           pantry_ids: number[]
         }
@@ -820,6 +1021,14 @@ export type Database = {
       }
       normalize_ingredient_name: { Args: { raw: string }; Returns: string }
       owns_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
+      recipe_expiry_days: {
+        Args: { item_days: number[]; item_ids: number[]; recipe_ids: string[] }
+        Returns: {
+          days: number
+          items: number
+          recipe_id: string
+        }[]
+      }
       recipe_source_key: { Args: { p_source_name: string }; Returns: string }
       refresh_recipe_allergens: {
         Args: { p_recipe_id: string }
@@ -862,6 +1071,7 @@ export type Database = {
           min_carbs_g?: number
           min_fat_g?: number
           min_protein_g?: number
+          owned_cookware_slugs?: string[]
           q: string
           result_limit?: number
         }
@@ -890,6 +1100,13 @@ export type Database = {
           match_kind: string
           matched_text: string
           score: number
+        }[]
+      }
+      suggested_shelf_life: {
+        Args: { ingredient_ids: number[] }
+        Returns: {
+          days: number
+          ingredient_id: number
         }[]
       }
     }

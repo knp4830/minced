@@ -1,0 +1,260 @@
+# Lessons
+
+Every mistake this project has hit, and the rule that prevents it. **Read this before starting work.** Each item is symptom, cause, rule. Sources: `docs/TERMINAL-LOG.md`, `docs/LEARNING-LOG.md`, the wave 5+6 lane reports and review. Add an item when something new bites; keep the failures.
+
+Map of the codebase: `docs/ARCHITECTURE.md`.
+
+---
+
+## 1. Shipping order and live data
+
+**Merge before migrate broke live `/recipes` (wave 3).**
+- Symptom: after the PR merged, production `/recipes` returned 500 until `supabase db push` ran.
+- Cause: the code called an RPC argument the live database did not have yet. A PR cannot enforce order.
+- Rule: apply additive migrations to live BEFORE merging the code that needs them. Every PR body opens with a MERGE ORDER WARNING. Order: backup, migrations in timestamp order, `pnpm db:types`, data uploads, seeds, then merge. A migration that drops and recreates a function (wave 6 `owned_cookware`) must land before the code, never after.
+
+**Previews read the LIVE database.**
+- Symptom: a Vercel preview 500s or shows old behaviour.
+- Cause: previews use the production Supabase.
+- Rule: a preview is not proof for pages that need new RPC arguments until the migrations are live.
+
+**The live database belongs to the integrator.**
+- Rule: lane agents use the snapshot (`.snapshot/restore.sh <name>`) or a local stack. They may read live, never write live, Storage or Auth.
+
+**Wrong production URL.**
+- Symptom: docs said the live site was `mise-mise14.vercel.app`, which serves a Next.js starter.
+- Rule: production is `https://minced-app.vercel.app` (project `minced`). Check the body of a response, not only the 200 (Vercel Authentication once returned a login page with status 200).
+
+**The Supabase project pauses after inactivity.**
+- Rule: restore it and wait for `ACTIVE_HEALTHY` before pushing migrations. A paused database also fails `next build` (sitemap and landing prerender query it), so restore before a deploy, including a rollback-by-redeploy.
+
+**Superuser timings hide RLS cost.**
+- Rule: measure RPCs as `anon` (`set role anon`), median of several runs. Use `auto_explain.log_nested_statements = on; load 'auto_explain'` to see statements inside a SQL function, because plain `EXPLAIN` shows only a Function Scan.
+
+---
+
+## 2. Migrations and the database
+
+**The snapshot runs as superuser and hid the `pg_trgm` placeholder error (wave 4).**
+- Symptom: `permission denied to set parameter "pg_trgm.word_similarity_threshold"` on live; passed on the snapshot.
+- Cause: `CREATE FUNCTION ... SET pg_trgm.x` before pg_trgm is loaded in the session is a placeholder setting, which needs superuser. Supabase migrations are not superuser.
+- Rule: write migrations to run as a non-superuser. Call a pg_trgm function (`select similarity('a','a');`) at the top before any `SET pg_trgm.*`. No superuser-only statements. Prefer patterns already in applied migrations. Test with `create role mig nosuperuser`, or on a local Supabase stack as the `postgres` role.
+
+**Migrations cannot rebuild the database from scratch.**
+- Symptom: `supabase start` or `db push` on an empty DB fails at `20261010100000` with "expected 57 family members, got 0".
+- Cause: that migration asserts seeded ingredients; the seed needs that migration's parent rows. Circular.
+- Rule: build test environments from the snapshot dump (`.snapshot/live.sql`), loaded as `supabase_admin` (`-d postgres`), then apply newer migrations. Re-grant default privileges to `anon`, `authenticated`, `service_role` and recreate the `on_auth_user_created` trigger. A baseline migration or `docs/REBUILD.md` is still owed.
+
+**Never edit an applied migration.**
+- Rule: new migration only. Comments in old ones may still say "Mise" on purpose.
+
+**Redefining a function from an old body loses later settings.**
+- Symptom: the cookware draft lost photo-first ordering; `jit=off` and the trigram threshold disappeared.
+- Rule: take the body from `pg_get_functiondef` on the live or snapshot database, not from an older migration. A new trailing parameter changes the signature: `DROP` then `CREATE`, or PostgREST reports an ambiguous function.
+
+**Types are a snapshot.**
+- Symptom: TypeScript agreed with a schema that no longer existed; lanes cast with `as unknown as` and the casts outlived the reason.
+- Rule: `pnpm db:types` in the same commit as the migration. Remove the casts once the types exist (about 30 stale ones remain).
+
+**"It didn't error" is not "it did something".**
+- Symptom: an unauthorised `UPDATE` returns `UPDATE 0`; the SQL Editor says "Success. No rows returned" for a `DELETE` that removed nothing; PostgREST returns `[]` with 200 for a denied PATCH.
+- Rule: count rows before and after. Use `.select()` on updates so "no row matched" is reported as failed. In SQL tests, assert the count.
+
+**Postgres three-valued logic dropped rows silently.**
+- Symptom: shopping-list add kept only 2 of 6 lines when one fridge item was owned.
+- Cause: `NOT (ri.ingredient_id = ANY(have) OR i.family_id = ANY(have))`; `family_id` is NULL for most ingredients, so the expression is NULL and the row is filtered out. Same family: `import_local_shopping_list` inserted NULL into a NOT NULL column when a key was absent.
+- Rule: wrap nullable comparisons in `coalesce(..., false)` whenever they are negated or fed to NOT NULL columns. Write the regression test with a mix of NULL and non-NULL values first.
+
+**Unknown time stored as 0.**
+- Rule: `recipes.total_time_min` is generated; 0 means unknown (653 of 959). Every query must special-case `= 0`. Fix by making it NULL when both parts are NULL (owed).
+
+**Changing `normalize_ingredient_name` needs a REINDEX.**
+- Rule: an expression index keeps values from the old body. REINDEX in the same migration. Fold accents with `translate()`, not `unaccent()` (not IMMUTABLE).
+
+**Triggers and bloat.**
+- Symptom: `recipes` grew to 32 MB for 978 rows.
+- Rule: statement-level triggers for search-vector upkeep; `VACUUM (FULL, ANALYZE)` after bulk loads.
+
+**Test migrations before pushing.**
+- Rule: throwaway `postgres:17-alpine` (match the production major), stub `auth.users`, `auth.uid()` and the roles, apply with `-v ON_ERROR_STOP=1` (without it psql prints the error and keeps going with exit 0). A stubbed `auth.uid()` must read both `request.jwt.claim.sub` and the `request.jwt.claims` JSON (PostgREST 12+).
+
+**The snapshot has no Supabase default grants.**
+- Symptom: `permission denied for table recipes` or for schema `auth` in tests; `user_cookware_rls_test` and `perf_rls_equivalence_test` fail on a bare snapshot and on an untouched `main`.
+- Rule: grant on the throwaway DB only, never live. Better, run role tests on a real local Supabase stack.
+
+**Grants were wider than the policies assumed.**
+- Symptom: `anon` held INSERT/UPDATE/DELETE/TRUNCATE on reference tables; any signed-in user could write the public recipe catalog through PostgREST (author policies only checked `author_id`).
+- Rule: for each new table `revoke all from anon, authenticated`, then grant back only what is needed. The catalog is operator-written until a submission feature exists. Never weaken RLS. Add the "cannot publish / cannot set image_url" cases to the plan whenever author writes are reintroduced.
+
+**RLS performance: per-row definer calls.**
+- Symptom: matcher 172 ms as `anon`.
+- Cause: `using (can_read_recipe(recipe_id))` is a non-inlinable SECURITY DEFINER call per row (8,089 calls for one fridge).
+- Rule: use `recipe_id in (select id from recipes)`. Prove equivalence with `perf_rls_equivalence_test.sql`. Use `ALTER POLICY`, not drop and create, so no table is ever unprotected. `FOR ALL` author policies also apply to SELECT, and permissive policies run in name order.
+
+**SECURITY DEFINER hygiene.**
+- Rule: pin `search_path = public, pg_temp`; `revoke execute ... from public, anon, authenticated` on trigger functions; every `admin_*` function starts with `perform admin_assert()`. Roles that need the default grant must be revoked explicitly (default privileges grant anon).
+
+**Admin as a flag on `profiles`.**
+- Rule: `profiles` has an update-own-row policy, so a flag there lets anyone promote themselves. Admin is its own table (`admins`) with select-own-row and no write policy.
+
+---
+
+## 3. Data and pipelines
+
+**Photo removals must be made in the source manifests.**
+- Symptom: a photo the verifier rejected came back after the next build.
+- Cause: `process_images.py` rebuilds `photos.json` from `commons.json` + `myplate.json` (+ openverse).
+- Rule: remove with `scripts/photos/remove_photo.py <slug> "reason"` (it edits the source and `myplate_review_excludes.json`), never by editing `photos.json`. `commons.py build` overwrites; `commons_r2.py build` merges.
+
+**Seeded photos must still match recipes.**
+- Symptom: `seed-photos.sql` raised "manifest slugs with no recipe" after the duplicate merge.
+- Rule: check manifest slugs against the live slug list before generating the seed. `seed-photos.sql` prunes removed rows; run it after the upload, not before.
+
+**Photo credits.**
+- Rule: reject brand, venue or receipt text, product shots, people as the subject, agency logos, files reused for two recipes, and dishes with extras the recipe lacks. Credits read "Author / Flickr", at most about 40 characters. `credits.py --check` misses truncated or "(talk)" credits; use an OVERRIDE. Never cut mid-word.
+
+**archive.org throttles.**
+- Symptom: `JOBS=4` made 953 of 1,201 connections fail; later whole-network 429 for 49 images.
+- Rule: `JOBS=2` with retries; photo image fetches `--jobs 1 --delay 2.5`. When blocked, stop and wait. Do not switch the importer to myplate.food's API (contract forbids replication).
+
+**Resolution order.**
+- Rule: exact, singularised, alias, modifier-stripped, fuzzy; stripping runs last. Strip one word at a time. Never add a modifier that changes what you would buy (`ground`). Unresolved ingredients reject the recipe.
+
+**Fuzzy resolution gives confident wrong answers.**
+- Symptom: `chilli` became chili powder, `jack cheese` cheddar, `sunflower oil` sunflower seeds.
+- Rule: tests assert `match_kind` is not fuzzy and the id equals the expected one. Synonym coverage is test-driven: add the pair to `synonyms_test.sql`, then the alias to the seed. A wrong existing alias needs an explicit idempotent `UPDATE` (the seed uses `on conflict do nothing`). Do not seed simple plurals as aliases. Alias terms with hyphens or apostrophes must appear verbatim, because the picker find box is a substring match.
+
+**Generated sources beat the database.**
+- Rule: the 100 original recipes come from `scripts/content/recipes/*.txt` via `build_original.py`; a DB-only edit is reverted on the next rebuild. Edit the source.
+
+**Cookware means a vessel or appliance you must own.**
+- Rule: not bowl, knife or colander. Never assign both halves of "X or Y" (the owned-cookware filter ANDs them). Resolve a bare "pan" from context. Seed files are strict (unknown slug aborts) and guard step edits on the old text.
+
+**Review resets.**
+- Rule: editing a recipe's steps removes its `recipe_reviews` row (restoring rejected to prior status) only when the edit is actually applied.
+
+**Parser output is JSON and nothing else.**
+- Symptom: `jq: parse error` from a `Warning:` line on stdout.
+- Rule: library warnings go to stderr. Only bad input triggered it, so test bad input.
+
+**Nutrition.**
+- Rule: auto-matching alone gives median kcal error about 17% and sodium 41%; use reviewed mappings and a hand-calculation check (within 10%). Estimates are labelled estimated. Braised recipes compute high on kcal.
+
+**Truncated imports.**
+- Rule: a recipe with only "Preheat oven" steps needs review, not cookware guesses (mock-southern-sweet-potato-pie, picadillo-0, argentinean-grilled-steak-salsa-criolla, barley-jambalaya, chicken-and-dumplings, berry-bread-pudding).
+
+---
+
+## 4. App code
+
+**ISR answers a caught `notFound()` with 200.**
+- Symptom: `/recipes/<bad-slug>` returned 200 with noindex and was cached for an hour.
+- Cause: Next sets 404 only when the error escapes the top-level render. Forcing dynamic inside ISR (`connection()`) gives 500 (`DYNAMIC_SERVER_USAGE`). A layout's `notFound()` is caught by the PARENT boundary.
+- Rule: use the middleware gate (`recipeGate.ts` + rewrite with status 404, fails open). Do not use `dynamicParams = false` (admin publishes without deploys) or `force-dynamic`.
+
+**`unstable_cache` rules.**
+- Rule: cookie-free client only; results must be JSON-serialisable (a `Map` became a `Record`); entries survive deploys, so bump the key when the shape changes (`filter-options-v2`); only correct while lists show published recipes. Any action that changes visibility must `revalidatePath` every cached list (`/recipes`, `/pantry`, the recipe, ideally `/` and the sitemap).
+
+**Per-user state must not break page caching.**
+- Rule: pages stay cached; signed-in state (session, favourites, saved fridge) loads on the client from `no-store` routes (`/api/me`, `/api/fridge`). Middleware runs only on account/auth routes and the slug gate. Never fetch it twice (use `useFridgeIds`).
+
+**Server Actions are public endpoints.**
+- Rule: re-validate every argument (ids int4 and bounded, real dates, slugs by regex, list caps).
+
+**URL is the truth for filters and fridge.**
+- Rule: never `useState` for filter or pantry state. Precedence for restored state: URL, then account, then localStorage. A shared link overwrites localStorage but never the account. `useOptimistic` inside `startTransition` for instant chips. A param that changes only a cache key must not change the Suspense key (it refetched an identical list).
+
+**Pending feedback.**
+- Rule: pressing a link or chip must show feedback at once (`NavProgress`). `requestAnimationFrame` never fires in a hidden tab, so do not await it in test scripts or judge paint in the hidden Browser pane; use headless Chrome over CDP (`scripts/perf/cdp-metrics.mjs`).
+
+**Stale closures lose rapid taps.**
+- Rule: functional `setState`, plus a ref when a rollback needs the latest value.
+
+**Hard-coded duplicates drift.**
+- Examples: the staples sentence (3 places; the DB has 22), slug regexes (7 copies, two lengths), `daysUntil`. Rule: one constant or helper; refactor owed (`src/lib/validate.ts`).
+
+**Native `<dialog>.showModal()` makes the page inert but not unscrollable.**
+- Rule: `html:has(dialog:modal) { overflow: hidden }` in `polish.css`. A 10 px desktop shift remains.
+
+**Next keeps the previous route's DOM in a hidden div.**
+- Rule: tests must check visibility, not presence (`[hidden]` duplicates of `h1` and ids exist).
+
+**Auth.**
+- Rule: Supabase answers a repeat sign-up with success, so the UI must say "check your email" for both (do not leak existence). The callback prefers `x-forwarded-host`; keep `NEXT_PUBLIC_SITE_URL` set in Vercel. Auth cookies are httpOnly (no browser client reads them). Do not `supabase config push` `config.toml` (password minimum 6, confirmations off). Built-in Supabase email is rate-limited and team-only until custom SMTP.
+
+**Dead and public by accident.**
+- Rule: `/kitchen-sink` is publicly routable until deleted; `/api/ingredients/suggest` has no caller; `robots.txt` should not name `/admin`.
+
+**Build and tooling.**
+- Rule: pnpm 11 reads `allowBuilds` from `pnpm-workspace.yaml`, not `package.json`. Pin `create-next-app@15.5.24` (latest is 16). `--frozen-lockfile` on a second machine. ESLint ignores `design/**` and `scripts/**`. `next` 15.5.24 has two ISR cache-poisoning advisories (fixed in 15.5.27; needs approval to bump).
+
+---
+
+## 5. Windows and shell
+
+**Python defaults to cp1252 and CRLF.**
+- Symptom: Next failed with "stream did not contain valid UTF-8"; `UnicodeDecodeError`; garbled degree signs and accents; CRLF in generated SQL.
+- Rule: `open(..., encoding='utf-8')`, write with `newline='\n'`, `PYTHONIOENCODING=utf-8`, `subprocess.run(..., encoding='utf-8')`. Regexes as `r''` strings (`"\b"` became a backspace). CRLF warnings on checked-in files are harmless.
+
+**Python string escapes can write real control characters into source files.**
+- Symptom (2026-10-13): a Python edit meant to insert the JS regex text `[\u0000-\u001f]` wrote actual NUL/control bytes into `filters.ts`; git then showed the file as "Binary" in `git diff --stat`.
+- Rule: edit TypeScript/SQL with the Edit tool, not Python string replacement, whenever the new text contains backslashes. If you must use Python, use raw strings and check `git diff --stat` for "Bin" before committing. In JS prefer `\p{Cc}` with the `u` flag over `\u0000` ranges.
+- Also: `python -I` ignores `PYTHONIOENCODING`; call `sys.stdout.reconfigure(encoding='utf-8')` instead.
+
+**Git Bash rewrites paths.**
+- Symptom: `docker exec ... -f /tmp/x.sql` looked for a Windows path; `node ... /recipes` became `C:/Program Files/Git/recipes`.
+- Rule: `MSYS_NO_PATHCONV=1`, or pipe SQL on stdin (`docker exec -i ... < file`). Python on native Windows sees `C:/Users/<short>/AppData/Local/Temp/`, not bash `/tmp`; use the scratchpad directory.
+
+**Killing a shell leaves node holding the port.**
+- Symptom: a new server fails with EADDRINUSE while the OLD build keeps answering, so "the page loads" proves nothing about which build is serving.
+- Rule: after stopping, `netstat -ano | grep :PORT` and `taskkill //PID <pid> //T //F` (or `Get-NetTCPConnection -LocalPort N | Stop-Process`). Run servers as the background command itself, not `cmd &; sleep`. Use a port outside other lanes' range.
+
+**Docker Desktop does not autostart.**
+- Symptom: `cannot find dockerDesktopLinuxEngine`; `docker version` prints a client but no `Server:` section.
+- Rule: start it (`Start-Process 'C:\Program Files\Docker\Docker\Docker Desktop.exe'`) and wait until `docker info` works. Hypervisor setup is in the memory note `minced-windows-setup`. Docker's own suggestion in the log was wrong; read the backend log.
+
+**`set -a; . ./.env.local` overwrites exported variables.**
+- Symptom: a script pointed at a test container hit LIVE.
+- Rule: load `.env.local` only when `DATABASE_URL` is unset. `host.docker.internal` reaches the host from a container.
+
+**`.env` placeholders.**
+- Symptom: `[YOUR-PASSWORD]` left in a connection string; auth failures that look like network problems.
+- Rule: replace placeholders completely, never print or log secrets, never commit them. Test with a read-only query.
+
+**Personal data in code.**
+- Symptom: a personal email appeared in a User-Agent string for an external API.
+- Rule: no personal email or name in code, User-Agents or test data. Use a neutral project string.
+
+**Worktree sandbox refuses compound commands.**
+- Symptom: heredocs piped into docker or python, `$(...)`, loops composing docker input, variable-named commands, and text containing "git" were refused as too complex.
+- Rule: use the Write tool for files; run plain single commands; `git worktree list` before creating lane branches (a branch can already be checked out in a sibling).
+
+**Parallel agents share one browser, one cookie jar, one Docker.**
+- Symptoms: another lane's dev server navigated my tab; auth cookie `sb-127-auth-token` is shared across ports on `localhost` and logged sessions out; another agent's `supabase stop` removed my stack; PostgREST bulk insert needed identical keys per object.
+- Rule: `tabs_create` your own tab and close it; browse via `http://127.0.0.1:<port>` or a `<name>.localhost` host; give a local stack a unique `project_id` and ports and never stop one you did not start; `supabase stop --no-backup` only your own; remove containers you created.
+
+**Resumed workflows renumber worktrees and collide.**
+- Symptom: after a resume, lane worktrees and branch names pointed at the wrong lane and agents edited each other's checkouts.
+- Rule: after a resume, `git worktree list` and `git branch -vv` first; confirm each lane's branch/HEAD against its report before touching it; never trust a worktree number from an earlier run.
+
+**`gh api ... --silent` hid 8 identical failures.**
+- Rule: never use `--silent` on an unproven command; eight identical failures mean a systemic cause.
+
+---
+
+## 6. Process
+
+**"Done" means the DoD is observable.**
+- Rule: verify on the integrated branch, not on the agent's word. Honest "blocked" beats a falsely checked box. M1.5.7 stays open until the user reviews.
+
+**Do not start unrequested features.**
+- Rule: only the current milestone. Product and design decisions go to the user as options (e.g. optional ingredients on the shopping list, "Use these first" semantics, cookware chip labels).
+
+**Don't judge by status alone.**
+- Rule: check the body (login page returned 200), the right build (port), and the right database (live vs snapshot).
+
+**Lane reports hold the notes.**
+- Rule: lanes do not edit shared docs (`CLAUDE.md`, `BUILD-PLAN`, `LEARNING-LOG`, `TERMINAL-LOG`, `database.ts`, `globals.css`); the integrator writes them from the reports.
+
+**Verifier suites must be runnable.**
+- Rule: a test that depends on grants or seed state the environment lacks proves nothing; say which environment a suite needs (snapshot vs local stack) in `RLS-TEST-PLAN.md`.

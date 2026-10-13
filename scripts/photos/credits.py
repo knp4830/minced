@@ -77,8 +77,11 @@ def clean_credit(row: dict) -> str:
         a = "Unknown"
     a = a.replace("tomatoes and friendstomatoes and friends", "tomatoes and friends")
     suffix = " / Flickr" if flickr and "flickr" not in a.lower() else ""
-    if len(a) + len(suffix) > LIMIT:
-        a = a[: LIMIT - len(suffix) - 1].rstrip() + "…"
+    if len(a) + len(suffix) > LIMIT and len(a) <= LIMIT:
+        suffix = ""                                       # keep the full name rather than cut it
+    if len(a) > LIMIT:                                    # cut at a word boundary, never mid-word
+        cut = a[: LIMIT - 1].rsplit(" ", 1)[0] if " " in a[: LIMIT - 1] else a[: LIMIT - 1]
+        a = cut.rstrip() + "…"
     return a + suffix
 
 
