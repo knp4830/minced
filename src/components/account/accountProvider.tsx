@@ -47,7 +47,7 @@ const AUTH_PATH = /^\/(login|signup|account|reset-password|forgot-password|auth)
 
 const AUTH_COOKIE = /(?:^|;\s*)sb-[^=;]*-auth-token/;
 
-function hasAuthCookie(): boolean {
+export function hasAuthCookie(): boolean {
   try {
     return AUTH_COOKIE.test(document.cookie);
   } catch {

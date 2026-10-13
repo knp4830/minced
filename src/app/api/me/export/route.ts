@@ -1,4 +1,5 @@
 import { getFavoriteSlugs } from "@/lib/queries/favorites";
+import { getMyCookwareSlugs } from "@/lib/queries/userCookware";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -13,12 +14,13 @@ export async function GET() {
   if (!user) {
     return Response.json({ error: "Not signed in" }, { status: 401, headers: { "Cache-Control": "private, no-store" } });
   }
-  const favorites = await getFavoriteSlugs();
+  const [favorites, cookware] = await Promise.all([getFavoriteSlugs(), getMyCookwareSlugs()]);
   const body = {
     exported_at: new Date().toISOString(),
     email: user.email ?? null,
     account_created_at: user.created_at,
     saved_recipes: favorites,
+    owned_cookware: cookware,
   };
   return new Response(JSON.stringify(body, null, 2), {
     headers: {

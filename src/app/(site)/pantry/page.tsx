@@ -5,11 +5,18 @@ import { RecipeList } from "@/components/recipe/recipeList";
 import {
   filtersToQuery,
   parseFilters,
+  resultFilters,
   type RecipeFilters,
   type SearchParamsInput,
 } from "@/lib/filters";
 import { RecipeGridSkeleton } from "@/components/shell/skeletons";
-import { CookwareGroup } from "@/components/recipe/filterPanel";
+import {
+  activeFilterCount,
+  ClearFilters,
+  FilterControls,
+} from "@/components/recipe/filterPanel";
+import { CookwareSync } from "@/components/recipe/cookwareSync";
+import { FilterSheet } from "@/components/recipe/filterSheet";
 import { getCardExtras, getFilterOptions } from "@/lib/queries/browse";
 import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import { getIngredientNames } from "@/lib/queries/ingredients";
@@ -81,7 +88,7 @@ async function Results({
           hasFridge ? (
             <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
               None of the recipes fit these filters. Try adding something else from the
-              fridge{filters.cookware?.length ? ", or clear the cookware" : ""}.
+              fridge, or loosen a filter.
             </p>
           ) : (
             <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
@@ -112,10 +119,11 @@ export default async function PantryPage({
   const fridgeParam = names.map((n) => n.id).join(",");
   // Fridge edits and cookware taps are same-route navigations, which do not
   // trigger loading.tsx; a keyed Suspense boundary shows the skeleton instead.
-  const resultsKey = filtersToQuery(filters);
+  const resultsKey = filtersToQuery(resultFilters(filters));
 
   return (
-    <div className="mx-auto max-w-[1180px] px-(--gutter) py-8 md:py-12">
+    <div className="mx-auto max-w-[1400px] px-(--gutter) py-8 md:py-12">
+      <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
       <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What&apos;s in my fridge</h1>
       <p className="mt-2 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
         Tap what you have and see every recipe that uses any of it, closest match first. Salt,
@@ -124,17 +132,41 @@ export default async function PantryPage({
 
       <FridgePicker className="mt-6 max-w-[40rem]" variant="page" catalog={catalog} initial={names} />
 
-      {hasFridge && options.cookware.length > 0 && (
-        <div className="mt-6 max-w-[40rem]">
-          <CookwareGroup filters={filters} options={options} base="/pantry" />
-        </div>
-      )}
+      <div className="mt-8 lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
+        {/* Same filters as browse: a rail on desktop, a sheet on phones. Nothing to filter until the fridge has something. */}
+        {hasFridge && (
+          <aside
+            aria-label="Filters"
+            className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto lg:border-r lg:border-line lg:pr-5"
+          >
+            <div className="mb-4 flex items-baseline justify-between">
+              <h2 className="text-[1.0625rem]">Filters</h2>
+              <ClearFilters filters={filters} base="/pantry" />
+            </div>
+            <FilterControls filters={filters} options={options} base="/pantry" />
+          </aside>
+        )}
 
-      <section aria-labelledby="results-heading" className="mt-8">
-        <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={6} />}>
-          <Results filters={filters} fridgeParam={fridgeParam} hasFridge={hasFridge} />
-        </Suspense>
-      </section>
+        <section
+          aria-labelledby={hasFridge ? "results-heading" : undefined}
+          aria-label={hasFridge ? undefined : "Recipes"}
+          className={hasFridge ? "min-w-0 lg:pl-8" : "min-w-0"}
+        >
+          {hasFridge && (
+            <FilterSheet activeCount={activeFilterCount(filters)} showLabel="Show recipes">
+              <div className="mb-3 flex justify-end">
+                <ClearFilters filters={filters} base="/pantry" />
+              </div>
+              <FilterControls filters={filters} options={options} base="/pantry" />
+            </FilterSheet>
+          )}
+          <div data-results>
+            <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={6} />}>
+              <Results filters={filters} fridgeParam={fridgeParam} hasFridge={hasFridge} />
+            </Suspense>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

@@ -8,12 +8,14 @@ import {
   clearFiltersHref,
   FilterControls,
 } from "@/components/recipe/filterPanel";
+import { CookwareSync } from "@/components/recipe/cookwareSync";
 import { FilterSheet } from "@/components/recipe/filterSheet";
 import { RecipeList } from "@/components/recipe/recipeList";
 import {
   filtersToQuery,
   hasActiveFilters,
   parseFilters,
+  resultFilters,
   type RecipeFilters,
   type SearchParamsInput,
 } from "@/lib/filters";
@@ -107,6 +109,9 @@ async function Results({ filters }: { filters: RecipeFilters }) {
       filters.proteinMin !== undefined) &&
       "nutrition data",
   ].filter(Boolean);
+  const cookwareNote = filters.ownedOnly
+    ? "Only recipes that need no cookware beyond yours. Recipes that list no cookware are included."
+    : null;
   const unknownNote = unknown.length
     ? `Recipes with no listed ${unknown.join(" or ")} are included${filters.q ? ", after the ones that fit" : ""}.`
     : null;
@@ -117,6 +122,10 @@ async function Results({ filters }: { filters: RecipeFilters }) {
         <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">
           No recipe has those exact words. Showing similar spellings.
         </p>
+      )}
+
+      {cookwareNote && page.recipes.length > 0 && (
+        <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">{cookwareNote}</p>
       )}
 
       {unknownNote && page.recipes.length > 0 && (
@@ -151,10 +160,11 @@ export default async function RecipesPage({ searchParams }: Props) {
   // Same-route navigations (a chip tap) do not trigger loading.tsx; a keyed
   // Suspense boundary does, so the list shows a skeleton while the chips and
   // the URL already reflect the tap.
-  const resultsKey = filtersToQuery(filters);
+  const resultsKey = filtersToQuery(resultFilters(filters));
 
   return (
     <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
+      <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
       <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
         {/* Desktop: sticky sidebar */}
         <aside
@@ -204,9 +214,11 @@ export default async function RecipesPage({ searchParams }: Props) {
             <FilterControls filters={filters} options={options} />
           </FilterSheet>
 
-          <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
-            <Results filters={filters} />
-          </Suspense>
+          <div data-results>
+            <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
+              <Results filters={filters} />
+            </Suspense>
+          </div>
         </section>
       </div>
     </div>

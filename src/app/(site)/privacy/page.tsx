@@ -34,12 +34,15 @@ export default function PrivacyPage() {
           own browser storage on your device. They are also sent in the page address
           (<code className="font-mono text-[0.875em]">/pantry?pantry=&hellip;</code>) each time you tap
           &ldquo;show recipes&rdquo;, so our server can find matching recipes. They are not tied to an account, but
-          they may appear in our hosting provider&apos;s request logs alongside your IP address.</p>
+          they may appear in our hosting provider&apos;s request logs alongside your IP address. The same goes for the
+          cookware you say you own (&ldquo;My cookware&rdquo;): it is kept in your browser storage and sent in the page
+          address (<code className="font-mono text-[0.875em]">ownedCookware=&hellip;</code>).</p>
         <p>With an account:</p>
         <ul>
           <li>Your email address, so you can log in and recover your password.</li>
           <li>A hashed password. We never see or store the password itself.</li>
           <li>The recipes you save (your favourites).</li>
+          <li>The cookware you say you own, if you set &ldquo;My cookware&rdquo; while signed in.</li>
           <li>When the account was created.</li>
           <li>
             Sign-in logs (IP address and browser) that Supabase keeps for
@@ -112,7 +115,7 @@ export default function PrivacyPage() {
       <LegalSection id="keep" title="How long we keep it">
         <p>
           For as long as the account exists. When you delete the account, your
-          email, password hash and saved recipes are removed immediately. Security
+          email, password hash, saved recipes and cookware are removed immediately. Security
           logs (which can include your email and IP address) and routine backups
           age out on the host&apos;s own schedule, and are never restored for any purpose except recovering the whole site.
         </p>
@@ -127,8 +130,9 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="font-semibold text-ink">See or correct your data:</strong>{" "}
-            your email and saved recipes are all there is, and both are visible on
-            your <Link href="/account" className={legalLink}>account page</Link>. You
+            your email, saved recipes and cookware are all there is. Your email and saved recipes are visible on
+            your <Link href="/account" className={legalLink}>account page</Link>, and your cookware in the
+            &ldquo;My cookware&rdquo; filter. You
             can download a copy from Settings (&ldquo;Download my data&rdquo;). To
             change your email, open an issue.
           </li>
