@@ -4,6 +4,7 @@ import { Check, Minus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAccount } from "@/components/account/accountProvider";
 import { fetchSavedFridge } from "@/lib/fridgeClient";
+import { AddToShoppingList } from "@/components/shopping/addToShoppingList";
 import { displayQuantity } from "@/lib/scaling";
 
 export type ScalerIngredient = {
@@ -15,6 +16,10 @@ export type ScalerIngredient = {
   ingredientId?: number | null;
   familyId?: number | null;
   isStaple?: boolean;
+  /** For the shopping list: aisle and how the unit converts. */
+  aisle: string;
+  unitKind: "mass" | "volume" | "count" | null;
+  unitFactor: number | null;
 };
 
 /** `?pantry=1,2,3` from the fridge results link, read after mount. */
@@ -42,9 +47,11 @@ const MAX = 48;
 export function ServingsScaler({
   baseServings,
   ingredients,
+  recipe,
 }: {
   baseServings: number;
   ingredients: ScalerIngredient[];
+  recipe: { slug: string; title: string };
 }) {
   const [servings, setServings] = useState(baseServings);
 
@@ -176,6 +183,14 @@ export function ServingsScaler({
           );
         })}
       </ul>
+
+      <AddToShoppingList
+        slug={recipe.slug}
+        title={recipe.title}
+        baseServings={baseServings}
+        servings={servings}
+        lines={ingredients}
+      />
 
       <p className="mt-3 flex items-center gap-3 font-mono text-[0.6875rem] text-ink-subtle">
         <span>quantities scale with servings</span>

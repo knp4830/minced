@@ -24,6 +24,11 @@ export type RecipeIngredientLine = {
   familyId: number | null;
   /** Salt, oil and friends: assumed, never marked missing. */
   isStaple: boolean;
+  /** Shopping aisle of the canonical ingredient, for the shopping list. */
+  aisle: string;
+  /** How the unit converts (units.kind / to_base_factor); null when there is no unit. */
+  unitKind: "mass" | "volume" | "count" | null;
+  unitFactor: number | null;
 };
 
 export type RecipePhotoCredit = {
@@ -91,7 +96,7 @@ type Row = {
     prep_note: string | null;
     is_optional: boolean;
     sort_order: number;
-    units: { name: string } | null;
+    units: { name: string; kind: "mass" | "volume" | "count"; to_base_factor: number | null } | null;
     ingredients: {
       id: number;
       canonical_name: string;
@@ -120,7 +125,7 @@ const SELECT = `
   spice_level, image_url, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
   source_name, source_url, source_license,
   cuisines(name),
-  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name), ingredients(id, canonical_name, aisle_category, family_id, is_pantry_staple)),
+  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name, kind, to_base_factor), ingredients(id, canonical_name, aisle_category, family_id, is_pantry_staple)),
   recipe_steps(sort_order, instruction),
   recipe_diets(diets(slug, name)),
   recipe_allergens(allergens(name)),
@@ -190,6 +195,9 @@ export const getRecipeBySlug = cache(async function getRecipeBySlug(
         ingredientId: i.ingredients?.id ?? null,
         familyId: i.ingredients?.family_id ?? null,
         isStaple: i.ingredients?.is_pantry_staple ?? false,
+        aisle: i.ingredients?.aisle_category ?? "Other",
+        unitKind: i.units?.kind ?? null,
+        unitFactor: i.units?.to_base_factor ?? null,
       })),
     steps: [...r.recipe_steps]
       .sort((a, b) => a.sort_order - b.sort_order)

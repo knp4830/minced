@@ -1,4 +1,4 @@
-import { CookingPot } from "lucide-react";
+import { CookingPot, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 import { HeaderAccount } from "@/components/account/headerAccount";
 import { Button } from "@/components/ui/button";
@@ -23,12 +23,18 @@ export function SiteHeader() {
           aria-label="Primary"
           className="ml-auto flex items-center gap-1.5 sm:gap-3"
         >
-          {/* Shopping list returns with M6. */}
           <Link
             href="/recipes"
             className="inline-flex min-h-11 items-center rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
           >
             Recipes
+          </Link>
+          <Link
+            href="/shopping"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
+          >
+            <ShoppingBasket aria-hidden className="size-[1.125rem] sm:hidden" />
+            <span className="sr-only sm:not-sr-only">Shopping list</span>
           </Link>
           <Button asChild size="sm">
             <Link href="/pantry">

@@ -139,7 +139,7 @@ const PLURAL_UNITS = new Set([
   "slice",
 ]);
 
-function pluralUnit(unit: string, amountValue: number): string {
+export function pluralUnit(unit: string, amountValue: number): string {
   if (amountValue > 1 && PLURAL_UNITS.has(unit)) return `${unit}s`;
   return unit;
 }
