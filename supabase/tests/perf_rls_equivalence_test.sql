@@ -97,22 +97,30 @@ begin
     update t_n set n = n + 1;
   end;
 
+  -- since 20261013160000 even the author cannot write catalog tables through the API
   perform set_config('request.jwt.claim.sub', author::text, true);
   perform set_config('request.jwt.claims', json_build_object('sub', author::text, 'role', 'authenticated')::text, true);
   set local role authenticated;
-  insert into recipe_steps (recipe_id, sort_order, instruction) values (pub_id, 9, 'zz own step');
-  reset role;
-  update t_n set n = n + 1;
+  begin
+    insert into recipe_steps (recipe_id, sort_order, instruction) values (pub_id, 9, 'zz own step');
+    reset role;
+    raise exception 'FAILED: an author wrote a step through the API';
+  exception when insufficient_privilege then
+    reset role;
+    update t_n set n = n + 1;
+  end;
 
-  -- the non-author cannot read-then-edit the author's existing child rows
   perform set_config('request.jwt.claim.sub', other::text, true);
   perform set_config('request.jwt.claims', json_build_object('sub', other::text, 'role', 'authenticated')::text, true);
   set local role authenticated;
-  update recipe_steps set instruction = 'zz tampered' where recipe_id = pub_id;
-  get diagnostics cnt = row_count;
-  reset role;
-  assert cnt = 0, 'a non-author must not be able to UPDATE another author''s step (UPDATE 0)';
-  update t_n set n = n + 1;
+  begin
+    update recipe_steps set instruction = 'zz tampered' where recipe_id = pub_id;
+    reset role;
+    raise exception 'FAILED: a non-author updated a step';
+  exception when insufficient_privilege then
+    reset role;
+    update t_n set n = n + 1;
+  end;
 end $$;
 
 select 'rls equivalence tests passed: ' || n || ' assertions' as result from t_n;
