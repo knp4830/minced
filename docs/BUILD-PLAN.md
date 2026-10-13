@@ -844,6 +844,12 @@ Do not start these until real users have used the MVP. Order is deliberate.
 - **Paste a blog URL, get a clean No-BS recipe.** A user-facing import: extract the recipe (schema.org `Recipe` JSON-LD first), parse and resolve ingredients through the existing pipeline, rewrite the steps in Minced voice, and keep the result private to that user with source attribution. Legal constraints are in `docs/LEGAL-COMPLIANCE.md` section 1.4; read it before designing.
 - **Fitness section** stays v2 as already planned (see "v2 — Workout plans" below).
 
+### Ideas (added 2026-10-12 — not milestones, not started)
+
+- **Cooking-technique links.** Technique words inside recipe steps ("dice", "julienne", "fold", "sear", "deglaze", "blanch") are highlighted and link to a short Minced technique page (what it is, why, a few photos or a licensed/embedded video, the knife or tool it needs). Needs: a `techniques` table (slug, name, aliases[], body, media), a matcher that marks technique words in step text at render time (whole-word, alias-aware, first occurrence per step), and licensing care for any video (embed from the creator's platform rather than re-host). Pairs naturally with the cookware data, since many techniques imply a tool.
+- **"Only cookware I own".** The second cookware mode the user asked for (2026-10-12): pick the cookware you own once (stored like the fridge — URL + browser storage now, the account later) and a toggle hides recipes that need anything else. Distinct from the existing "recipes that use X" filter (M3.4). Depends on every recipe having cookware data (backfill queued for wave 5).
+- **Synonym coverage beyond aliases.** The fridge find box and search should understand everyday synonyms (green onion/scallion, garbanzo/chickpea, coriander/cilantro, aubergine/eggplant, courgette/zucchini, capsicum/bell pepper…) everywhere a user types an ingredient. The alias table is the mechanism; this is a data-coverage pass, measured by a list of common synonym pairs that must all resolve.
+
 ### v1.1 — Shopping list
 Already designed in the mockup. `shopping_list_items` table, "Add all ingredients" button on the recipe page, merge duplicates across recipes (2 cloves garlic + 3 cloves garlic = 5), group by aisle category.
 
@@ -889,6 +895,13 @@ The price data is the real blocker, and it is a *data acquisition* problem, not 
 
 ### v2 — Workout plans
 Genuinely a second product: `exercises`, `workout_plans`, `plan_days`, `plan_exercises`, equipment-based substitution. Scope it as its own build plan when you get there. Don't let it creep into v1.
+
+**Fitness scope the user listed (2026-10-12), so the v2 plan starts from it:**
+- **Workout styles** — browse and follow plans by style (strength, hypertrophy, powerlifting, calisthenics, running/cardio, HIIT, mobility), with equipment-based substitution.
+- **Weight tracking chart** — log body weight over time and see a trend line (moving average, so daily noise doesn't mislead). Shares `weight_logs` with v1.2.
+- **Calorie and macro calculator** — TDEE from Mifflin-St Jeor plus activity level and goal (cut / maintain / bulk) → daily calorie and protein/carb/fat targets. This is v1.2's calculator; v2 links it to the training plan, and recipes can then be filtered or suggested by the day's remaining macros (the recipe catalog already carries per-serving nutrition).
+- **Gym attendance calendar** — a calendar/heatmap of days trained (logged workouts or a simple check-in), with streaks and sessions per week/month.
+All of these need accounts (M4) and are per-user private data, so they inherit the RLS patterns from favorites.
 
 ---
 
