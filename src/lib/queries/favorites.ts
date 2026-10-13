@@ -33,7 +33,7 @@ export async function getFavoriteCards(): Promise<RecipeCardProps[]> {
   const rows = await listFavorites();
   const extras = await getCardExtras(rows.map((r) => r.id));
   return rows.flatMap((r) => {
-    const card = extras.get(r.id);
+    const card = extras[r.id];
     return card ? [card] : [];
   });
 }

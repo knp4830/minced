@@ -42,6 +42,9 @@ type AccountContext = {
 
 const Ctx = createContext<AccountContext | null>(null);
 
+/** Pages where signing in, out or deleting an account happens; navigating to or from one means "ask again". */
+const AUTH_PATH = /^\/(login|signup|account|reset-password|forgot-password|auth)(\/|$)/;
+
 const AUTH_COOKIE = /(?:^|;\s*)sb-[^=;]*-auth-token/;
 
 function hasAuthCookie(): boolean {
@@ -70,6 +73,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
   const pending = useRef(new Set<string>());
   const statusRef = useRef<Status>("out");
   statusRef.current = status;
+  const lastPath = useRef<string | null>(null);
 
   const apply = useCallback((s: Status, who: Me | null, slugs: string[]) => {
     setStatus(s);
@@ -84,11 +88,24 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  // Re-check on every navigation: logging in, out or deleting the account all
-  // end in a redirect, and the provider outlives the page it was rendered for.
+  // Re-check when it can have changed: on first load, and whenever a navigation
+  // touches the sign-in / account pages (logging in, out or deleting the account
+  // all end in a redirect, and the provider outlives the page it was rendered
+  // for). Browsing between recipes while already signed in does not repeat the
+  // request: it cost an auth check plus two queries on every page change.
   useEffect(() => {
+    const previous = lastPath.current;
+    lastPath.current = pathname;
     if (!hasAuthCookie()) {
       apply("out", null, []);
+      return;
+    }
+    if (
+      statusRef.current === "in" &&
+      previous !== null &&
+      !AUTH_PATH.test(previous) &&
+      !AUTH_PATH.test(pathname)
+    ) {
       return;
     }
     let cancelled = false;

@@ -3,10 +3,15 @@
   "duplicate_of_better_pick": {
     "yogurt-fruit-salad": "same photo as fruit-salad-yogurt",
     "pretzel-shapes": "same photo as soft-pretzels; the USDA recipe is dough shapes, not a finished pretzel",
-    "vegetarian-chili": "same photo as two-bean-chili"
+    "vegetarian-chili": "same photo as two-bean-chili",
+    "quick-chicken-vegetable-soup": "File:Chicken Vegetable Soup (8731954951).jpg: same file as chicken-vegetable-soup-kale; one photo per recipe",
+    "slow-cooker-lentil-soup": "File:Lentil soup done.jpg: same file as lentil-soup; one photo per recipe"
   },
   "unsure_it_is_the_dish": {
-    "zucchini-au-gratin": "Sandal sefasi.jpg: could not confirm it shows a zucchini gratin"
+    "zucchini-au-gratin": "Sandal sefasi.jpg: could not confirm it shows a zucchini gratin",
+    "breakfast-burrito-salsa": "File:Chorizo and egg burrito with salsa.jpg: photo shows a meat-filled chorizo burrito; recipe is meatless",
+    "beef-pot-roast": "File:Seasoned Pot Roast.jpg: unreviewed bot upload, pale pork-like roast",
+    "curried-chickpea-salad": "File:Chickpea Chop Salad (9484308160).jpg: no curry, apple or cranberry visible"
   },
   "wrong_dish_or_not_a_dish": {
     "zucchini-stir-fry": "shrimp stir fry; the recipe has none",
@@ -16,7 +21,9 @@
     "tuna-melt-burger": "sushi / yakiniku plates",
     "fig-bars": "gymnastics photos",
     "salsa": "music notation / diagram",
-    "apple-sandwiches": "lunchbox with animal-face sandwiches"
+    "apple-sandwiches": "lunchbox with animal-face sandwiches",
+    "corn-casserole-0": "File:Cheesy Bean and Corn Casserole.jpg: photo is Cheesy Bean and Corn Casserole (tomato/meat/cheese), recipe is cornmeal + cream-style corn batter",
+    "garden-vegetable-soup": "File:Vegetable soup in Switzerland.jpg: photo is a smooth pale puree; recipe is brothy cabbage/green bean/zucchini/tomato soup"
   },
   "restaurant_menu_or_branded": {
     "baked-fish-with-tomatoes-peppers-onions": "shop-front menu board",
@@ -31,5 +38,20 @@
     "baked-tofu": "photo shows Hawaiian tofu with pineapple, peppers and broccoli; recipe is only soy sauce, garlic, ginger and tofu"
   },
   "roasted-potatoes": "verifier r3: about half carrots and sweet potatoes; the recipe has neither",
-  "cucumber-salad": "verifier r3: chilli-sauce smashed cucumber; the recipe is a yogurt cucumber salad"
+  "cucumber-salad": "verifier r3: chilli-sauce smashed cucumber; the recipe is a yogurt cucumber salad",
+  "tomato-basil-soup": "manual review 2026-10-12: restaurant logo (Obika Mozzarella Bar) printed large on the placemat; trademark/endorsement risk",
+  "fruit-pizza": "manual review 2026-10-12: knife-company product photo (Rada Cutlery) uploaded by an individual; uploader rights uncertain",
+  "tostadas": "verifier r1: photo shows shrimp tostadas; recipe is bean/cheese",
+  "fish-spinach": "verifier r1: no visible fish",
+  "curried-chickpea-salad": "verifier r1: chickpeas not evident",
+  "wave4_review_2026_10_12": {
+    "arroz-caldo": "File:Arroz Caldo, Grape Custard, Fruits, Virgin Light.jpg: large Virgin Cola can brand visible beside the bowl",
+    "tom-yum-goong": "File:Tom yum goong-01.jpg: Singha beer bottle with label visible and a diner's hand",
+    "baked-trout": "File:Baked Trout with dill.jpg: Leffe beer bottle label legible in the corner",
+    "taco-salad": "File:Flickr jeffk 38941161--Taco salad.jpg: restaurant tablecloth crest and a receipt in frame (venue branding)",
+    "chicken-pozole-soup": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0015).jpg: MyPlate.gov program logo printed in the corner of the photo",
+    "corn-blueberry-and-wild-rice-salad": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0023).jpg: MyPlate.gov program logo printed in the corner of the photo",
+    "garden-pasta-salad": "File:Pasta salad closeup.JPG: same file as pasta-salad (one photo, one recipe; Pasta salad closeup.JPG)",
+    "stir-fried-beef": "File:Stir Fried Beef @ Congee Time (5611725153).jpg: verifier r2: peppers and pineapple not in recipe"
+  }
 }

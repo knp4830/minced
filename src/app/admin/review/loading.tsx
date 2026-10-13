@@ -1,0 +1,13 @@
+export default function Loading() {
+  return (
+    <div className="mx-auto max-w-[1180px] px-(--gutter) py-6" role="status" aria-live="polite">
+      <span className="sr-only">Loading recipe</span>
+      <div className="h-3 w-48 animate-pulse rounded bg-track" />
+      <div className="mt-6 h-9 w-2/3 animate-pulse rounded bg-track" />
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="h-72 animate-pulse rounded-xl bg-track" />
+        <div className="h-72 animate-pulse rounded-xl bg-track" />
+      </div>
+    </div>
+  );
+}

@@ -550,6 +550,8 @@ Include a dedupe check against existing titles and ingredient signatures.
 
 ### ☐ M1.5.6 — Admin review queue
 
+> **Wave 4 status (2026-10-12): built, NOT checked.** `/admin/review` (one recipe per screen, J/K/A/X/E/U, batch list, inline edit through `resolve_ingredient`, reject = draft + reversible) passed the verifier on access, flow, progress, edit and RLS (30 API checks, SQL suite ALL PASS). It failed one DoD line: a rejected recipe stayed on `/pantry` for up to 5 minutes (list cache). The fix (`revalidatePath("/pantry")`) was applied after the verdict and is **not yet re-verified**; check this box once a reject is seen to leave `/pantry` immediately on the integrated build. Needs migration `20261012120000_admin_review` and your row in `admins`. See Entry 33.
+
 Everything lands in `pending_review` — imports included. Reviewing is ~1–2 minutes each rather than 18 minutes of typing, so 1,500 recipes is a few long weekends, not four months.
 
 `/admin/review` — one recipe per screen, keyboard-driven: `J`/`K` to move, `A` to approve, `E` to edit inline, `X` to reject. Batch approve. Admin-gated by RLS. Show the resolved canonical ingredients prominently, since a bad resolve is the failure mode that actually hurts matching.
@@ -688,6 +690,8 @@ which indexes are doing the work.
 **DoD:** enter chicken, rice, onion, garlic, soy sauce → get sensible recipes ranked by coverage, in under 200ms, with an accurate "you're missing: scallion, sesame oil."
 
 ### ☑ M3.4 — Conventional filters, layered on top
+
+> **Wave 4 addition: cookware filter.** Decision (user): "recipes that USE any selected cookware". URL param `cookware` (comma-separated slugs), `cookware_slugs text[] DEFAULT NULL` on `match_recipes` and `search_recipes`, an `EXISTS` over `recipe_cookware`; recipes with no cookware data never match. Only about 103 of 959 recipes have cookware data, so the filter is partial until backfilled. An "only what I own" mode is later, with saved cookware on accounts. **Wave 4 perf:** child-table RLS rewritten to a hashed subquery (matcher 172 to 16.5 ms as `anon`), list caching, skeleton `loading.tsx`. See Entry 33.
 
 > **Closed 2026-10-09 (wave 2).** Filters live inside `match_recipes` and `search_recipes`; ingredient families added; verified against an independent oracle. See Entry 26.
 Time, macros, cookware, spice, diet, allergens. Same URL-state pattern, applied as additional `WHERE` clauses inside the same RPC — not as a second query.
@@ -840,6 +844,12 @@ Do not start these until real users have used the MVP. Order is deliberate.
 - **Paste a blog URL, get a clean No-BS recipe.** A user-facing import: extract the recipe (schema.org `Recipe` JSON-LD first), parse and resolve ingredients through the existing pipeline, rewrite the steps in Minced voice, and keep the result private to that user with source attribution. Legal constraints are in `docs/LEGAL-COMPLIANCE.md` section 1.4; read it before designing.
 - **Fitness section** stays v2 as already planned (see "v2 — Workout plans" below).
 
+### Ideas (added 2026-10-12 — not milestones, not started)
+
+- **Cooking-technique links.** Technique words inside recipe steps ("dice", "julienne", "fold", "sear", "deglaze", "blanch") are highlighted and link to a short Minced technique page (what it is, why, a few photos or a licensed/embedded video, the knife or tool it needs). Needs: a `techniques` table (slug, name, aliases[], body, media), a matcher that marks technique words in step text at render time (whole-word, alias-aware, first occurrence per step), and licensing care for any video (embed from the creator's platform rather than re-host). Pairs naturally with the cookware data, since many techniques imply a tool.
+- **"Only cookware I own".** The second cookware mode the user asked for (2026-10-12): pick the cookware you own once (stored like the fridge — URL + browser storage now, the account later) and a toggle hides recipes that need anything else. Distinct from the existing "recipes that use X" filter (M3.4). Depends on every recipe having cookware data (backfill queued for wave 5).
+- **Synonym coverage beyond aliases.** The fridge find box and search should understand everyday synonyms (green onion/scallion, garbanzo/chickpea, coriander/cilantro, aubergine/eggplant, courgette/zucchini, capsicum/bell pepper…) everywhere a user types an ingredient. The alias table is the mechanism; this is a data-coverage pass, measured by a list of common synonym pairs that must all resolve.
+
 ### v1.1 — Shopping list
 Already designed in the mockup. `shopping_list_items` table, "Add all ingredients" button on the recipe page, merge duplicates across recipes (2 cloves garlic + 3 cloves garlic = 5), group by aisle category.
 
@@ -885,6 +895,13 @@ The price data is the real blocker, and it is a *data acquisition* problem, not 
 
 ### v2 — Workout plans
 Genuinely a second product: `exercises`, `workout_plans`, `plan_days`, `plan_exercises`, equipment-based substitution. Scope it as its own build plan when you get there. Don't let it creep into v1.
+
+**Fitness scope the user listed (2026-10-12), so the v2 plan starts from it:**
+- **Workout styles** — browse and follow plans by style (strength, hypertrophy, powerlifting, calisthenics, running/cardio, HIIT, mobility), with equipment-based substitution.
+- **Weight tracking chart** — log body weight over time and see a trend line (moving average, so daily noise doesn't mislead). Shares `weight_logs` with v1.2.
+- **Calorie and macro calculator** — TDEE from Mifflin-St Jeor plus activity level and goal (cut / maintain / bulk) → daily calorie and protein/carb/fat targets. This is v1.2's calculator; v2 links it to the training plan, and recipes can then be filtered or suggested by the day's remaining macros (the recipe catalog already carries per-serving nutrition).
+- **Gym attendance calendar** — a calendar/heatmap of days trained (logged workouts or a simple check-in), with streaks and sessions per week/month.
+All of these need accounts (M4) and are per-user private data, so they inherit the RLS patterns from favorites.
 
 ---
 

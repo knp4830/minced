@@ -98,6 +98,12 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
     options: { emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}` },
   });
 
+  // An already-confirmed address: some GoTrue versions answer 422 user_already_exists
+  // instead of a silent success. Show the same neutral screen as a new address.
+  if (error && (error.code === "user_already_exists" || error.code === "email_exists")) {
+    return { email, done: "Check your email to continue." };
+  }
+
   if (error) {
     if (error.code === "weak_password") {
       return { email, fieldErrors: { password: "Pick a stronger password." } };
@@ -111,8 +117,11 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
   // Confirmations off (local dev): a session came back, so the person is signed in.
   if (data.session) redirect(next);
 
-  // Same answer whether or not the address already has an account.
-  return { email, done: `We sent a confirmation link to ${email}. Open it to finish signing up.` };
+  // Same answer whether or not the address already has an account: Supabase
+  // answers a repeat sign-up with success and sends no confirmation, so any
+  // wording that says "we sent a link" would be false for an existing account
+  // and a tell for someone probing which emails are registered.
+  return { email, done: "Check your email to continue." };
 }
 
 export async function requestPasswordReset(

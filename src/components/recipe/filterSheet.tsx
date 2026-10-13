@@ -18,7 +18,7 @@ export function FilterSheet({
 }: {
   activeCount: number;
   /** Label of the closing button, e.g. "Show 959 recipes". */
-  showLabel: string;
+  showLabel: React.ReactNode;
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDialogElement>(null);

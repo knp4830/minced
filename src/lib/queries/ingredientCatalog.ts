@@ -8,6 +8,12 @@ export type CatalogItem = {
   name: string;
   /** Recipes that call for it (family variants folded into the parent). */
   uses: number;
+  /**
+   * Lower-cased synonyms the find box also matches ("green onion" for scallion),
+   * joined with "|" to keep the page payload small. Includes the names and
+   * aliases of family variants folded into this item. Omitted when there are none.
+   */
+  aka?: string;
 };
 
 export type CatalogCategory = { name: string; items: CatalogItem[] };
@@ -26,6 +32,7 @@ type CatalogRow = {
   is_pantry_staple: boolean;
   family_id: number | null;
   recipe_ingredients: { count: number }[];
+  ingredient_aliases: { alias: string }[];
 };
 
 /**
@@ -47,7 +54,7 @@ async function loadIngredientCatalog(): Promise<IngredientCatalog> {
   const { data, error } = await sb
     .from("ingredients")
     .select(
-      "id, canonical_name, aisle_category, is_pantry_staple, family_id, recipe_ingredients(count)",
+      "id, canonical_name, aisle_category, is_pantry_staple, family_id, recipe_ingredients(count), ingredient_aliases(alias)",
     )
     .limit(5000);
   if (error) throw error;
@@ -60,6 +67,17 @@ async function loadIngredientCatalog(): Promise<IngredientCatalog> {
     uses.set(target, (uses.get(target) ?? 0) + own);
   }
 
+  // Synonyms per tappable item: its own aliases, plus the name and aliases of
+  // any family variant folded into it ("yellow onion" finds onion).
+  const synonyms = new Map<number, Set<string>>();
+  for (const r of rows) {
+    const target = r.family_id ?? r.id;
+    const set = synonyms.get(target) ?? new Set<string>();
+    if (r.family_id !== null) set.add(r.canonical_name.toLowerCase());
+    for (const a of r.ingredient_aliases) set.add(a.alias.toLowerCase());
+    synonyms.set(target, set);
+  }
+
   const byCategory = new Map<string, CatalogItem[]>();
   for (const r of rows) {
     if (r.family_id !== null || r.is_pantry_staple) continue;
@@ -69,7 +87,9 @@ async function loadIngredientCatalog(): Promise<IngredientCatalog> {
       ? r.aisle_category
       : "Other";
     const list = byCategory.get(category) ?? [];
-    list.push({ id: r.id, name: r.canonical_name, uses: n });
+    const name = r.canonical_name.toLowerCase();
+    const aka = [...(synonyms.get(r.id) ?? [])].filter((s) => s !== name).sort().join("|");
+    list.push({ id: r.id, name: r.canonical_name, uses: n, ...(aka ? { aka } : {}) });
     byCategory.set(category, list);
   }
 

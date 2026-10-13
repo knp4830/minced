@@ -4,7 +4,6 @@ import { unstable_cache } from "next/cache";
 import type { RecipeFilters } from "@/lib/filters";
 import { needsAttribution, photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { primaryAisle } from "@/lib/placeholderTone";
-import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
 import { encodeSearchCursor, searchRecipes } from "@/lib/queries/search";
 import type { RecipeCardProps } from "@/components/recipe/recipeCard";
@@ -37,6 +36,13 @@ export type RecipePage = {
   fuzzy: boolean;
 };
 
+type PhotoRow = {
+  storage_path: string;
+  thumb_path: string | null;
+  credit: string | null;
+  license: string;
+};
+
 type CardRow = {
   id: string;
   slug: string;
@@ -50,6 +56,8 @@ type CardRow = {
   cuisines: { name: string } | null;
   recipe_allergens: { allergens: { name: string } | null }[];
   has_photo: boolean;
+  /** Embedded one-to-one (recipe_id is the PK); PostgREST returns an object, null when none. */
+  recipe_photos: PhotoRow | PhotoRow[] | null;
   recipe_ingredients: {
     sort_order: number;
     is_optional: boolean;
@@ -58,14 +66,23 @@ type CardRow = {
 };
 
 const CARD_COLUMNS =
-  "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(allergens(name)), has_photo, recipe_ingredients(sort_order, is_optional, ingredients(aisle_category, is_pantry_staple))";
+  "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(allergens(name)), has_photo, recipe_photos(storage_path, thumb_path, credit, license), recipe_ingredients(sort_order, is_optional, ingredients(aisle_category, is_pantry_staple))";
 
 export const AI_SOURCE_NAME = "Minced original";
 
 type CardPhoto = { url: string; credit: string | null };
 
-function toCard(row: CardRow, photos: Map<string, CardPhoto>): RecipeCardProps {
-  const photo = photos.get(row.id);
+function cardPhoto(row: CardRow): CardPhoto | null {
+  const p = Array.isArray(row.recipe_photos) ? row.recipe_photos[0] : row.recipe_photos;
+  if (!p) return null;
+  return {
+    url: photoPublicUrl(p.thumb_path ?? p.storage_path),
+    credit: needsAttribution(p.license) && p.credit ? `${p.credit} · ${p.license}` : null,
+  };
+}
+
+function toCard(row: CardRow): RecipeCardProps {
+  const photo = cardPhoto(row);
   return {
     slug: row.slug,
     title: row.title,
@@ -82,35 +99,6 @@ function toCard(row: CardRow, photos: Map<string, CardPhoto>): RecipeCardProps {
       .filter((n): n is string => !!n),
     aiDrafted: row.source_name === AI_SOURCE_NAME,
   };
-}
-
-/**
- * Card photos keyed by recipe id: the thumbnail URL plus, for licences that
- * require it (CC BY / CC BY-SA), the credit line. The `recipe_photos` table
- * arrives with the photos lane; until it is applied the query errors and this
- * returns an empty map, so cards fall back to the legacy URL or the placeholder.
- */
-async function loadPhotos(sb: SupabaseClient, ids: string[]): Promise<Map<string, CardPhoto>> {
-  const out = new Map<string, CardPhoto>();
-  if (ids.length === 0) return out;
-  const { data, error } = await sb
-    .from("recipe_photos")
-    .select("recipe_id, storage_path, thumb_path, credit, license")
-    .in("recipe_id", ids);
-  if (error || !data) return out;
-  for (const p of data as {
-    recipe_id: string;
-    storage_path: string;
-    thumb_path: string | null;
-    credit: string | null;
-    license: string;
-  }[]) {
-    out.set(p.recipe_id, {
-      url: photoPublicUrl(p.thumb_path ?? p.storage_path),
-      credit: needsAttribution(p.license) && p.credit ? `${p.credit} · ${p.license}` : null,
-    });
-  }
-  return out;
 }
 
 /** PostgREST `or=(...)` values containing commas/quotes/parens must be quoted. */
@@ -171,6 +159,10 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   if (f.exclude?.length) {
     q = q.in("ex.allergens.slug", f.exclude).filter("ex", "is", "null");
   }
+  // Recipes that USE any selected cookware. An inner embed keeps a parent only
+  // when a matching child exists (no duplicates when it has several); recipes
+  // with no cookware rows never match, per the shared contract.
+  if (f.cookware?.length) q = q.in("cw.cookware.slug", f.cookware);
   return q as T;
 }
 
@@ -178,15 +170,16 @@ function selectFor(f: RecipeFilters): string {
   const parts = [CARD_COLUMNS.replace("cuisines(name)", f.cuisine?.length ? "cuisines!inner(name)" : "cuisines(name)")];
   (f.diet ?? []).forEach((_, i) => parts.push(`diet${i}:recipe_diets!inner(diets!inner(slug))`));
   if (f.exclude?.length) parts.push("ex:recipe_allergens(allergens!inner(slug))");
+  if (f.cookware?.length) parts.push("cw:recipe_cookware!inner(cookware!inner(slug))");
   return parts.join(", ");
 }
 
 /** Browse: every recipe, photo first then A-Z, filtered, keyset-paged on (has_photo, title, id). */
-export async function browseRecipes(
+async function loadBrowse(
   filters: RecipeFilters,
   limit = PAGE_SIZE,
 ): Promise<RecipePage> {
-  const sb = (await createClient()) as unknown as SupabaseClient;
+  const sb = createStaticClient() as unknown as SupabaseClient;
   const cursor = decodeBrowseCursor(filters.cursor);
 
   let query = sb
@@ -210,11 +203,10 @@ export async function browseRecipes(
 
   const rows = (data ?? []) as unknown as CardRow[];
   const page = rows.slice(0, limit);
-  const photos = await loadPhotos(sb, page.map((r) => r.id));
   const last = page.at(-1);
 
   return {
-    recipes: page.map((r) => toCard(r, photos)),
+    recipes: page.map(toCard),
     nextCursor: rows.length > limit && last ? encodeBrowseCursor(last.has_photo, last.title, last.id) : null,
     total: cursor ? null : (count ?? page.length),
     totalIsLowerBound: false,
@@ -230,7 +222,7 @@ export async function browseRecipes(
  * "99+ recipes" without a second count query; it still shows 24 and pages from
  * the 24th row's cursor. Later pages ask for exactly one page.
  */
-export async function searchCards(
+async function loadSearch(
   filters: RecipeFilters,
   limit = PAGE_SIZE,
 ): Promise<RecipePage> {
@@ -245,7 +237,7 @@ export async function searchCards(
   const pageCursor =
     hasMore && last ? encodeSearchCursor({ score: last.score, id: last.id }) : null;
 
-  const sb = (await createClient()) as unknown as SupabaseClient;
+  const sb = createStaticClient() as unknown as SupabaseClient;
   const ids = shown.map((r) => r.id);
   const details = new Map<string, CardRow>();
   if (ids.length) {
@@ -253,16 +245,15 @@ export async function searchCards(
     if (error) throw error;
     for (const row of (data ?? []) as unknown as CardRow[]) details.set(row.id, row);
   }
-  const photos = await loadPhotos(sb, ids);
 
   const recipes = shown.map((r) => {
     const d = details.get(r.id);
     return d
-      ? toCard(d, photos)
+      ? toCard(d)
       : ({
           slug: r.slug,
           title: r.title,
-          imageUrl: photos.get(r.id)?.url ?? usableImageUrl(r.image_url),
+          imageUrl: usableImageUrl(r.image_url),
           totalTimeMin: r.total_time_min,
           servings: r.servings,
           calories: r.calories,
@@ -283,16 +274,36 @@ export async function searchCards(
  * credit, cuisine, spice, allergens and the AI-draft flag, keyed by recipe id.
  * Keeps the pantry cards identical to browse/search cards.
  */
-export async function getCardExtras(ids: string[]): Promise<Map<string, RecipeCardProps>> {
-  const out = new Map<string, RecipeCardProps>();
+async function loadCardExtras(ids: string[]): Promise<Record<string, RecipeCardProps>> {
+  const out: Record<string, RecipeCardProps> = {};
   if (ids.length === 0) return out;
-  const sb = (await createClient()) as unknown as SupabaseClient;
+  const sb = createStaticClient() as unknown as SupabaseClient;
   const { data, error } = await sb.from("recipes").select(CARD_COLUMNS).in("id", ids);
   if (error) throw error;
-  const photos = await loadPhotos(sb, ids);
-  for (const row of (data ?? []) as unknown as CardRow[]) out.set(row.id, toCard(row, photos));
+  for (const row of (data ?? []) as unknown as CardRow[]) out[row.id] = toCard(row);
   return out;
 }
+
+/*
+ * Results cache. Every list below is the same for every anonymous visitor, so
+ * a repeat of the same filters/cursor/pantry is served from Next's data cache
+ * (5 min, stale-while-revalidate) instead of a database round trip; a new
+ * recipe or photo shows up within one TTL. They use the cookie-free client:
+ * `unstable_cache` cannot read request cookies, and what the anon role may read
+ * (published recipes) is exactly what these lists show. When signed-in authors
+ * can see their own drafts in lists (M5), those need an uncached, per-user path.
+ */
+const LIST_TTL_SECONDS = 300;
+
+export const browseRecipes = unstable_cache(loadBrowse, ["browse-recipes"], {
+  revalidate: LIST_TTL_SECONDS,
+});
+export const searchCards = unstable_cache(loadSearch, ["search-cards"], {
+  revalidate: LIST_TTL_SECONDS,
+});
+export const getCardExtras = unstable_cache(loadCardExtras, ["card-extras"], {
+  revalidate: LIST_TTL_SECONDS,
+});
 
 /** One entry point for the page: search when there is a query, browse otherwise. */
 export async function getRecipePage(filters: RecipeFilters): Promise<RecipePage> {
@@ -303,6 +314,8 @@ export type FilterOptions = {
   cuisines: { slug: string; name: string; count: number }[];
   diets: { slug: string; name: string }[];
   allergens: { slug: string; name: string }[];
+  /** Only cookware at least one recipe uses; a chip with no results is a dead end. */
+  cookware: { slug: string; name: string }[];
 };
 
 /**
@@ -312,14 +325,16 @@ export type FilterOptions = {
  */
 async function loadFilterOptions(): Promise<FilterOptions> {
   const sb = createStaticClient() as unknown as SupabaseClient;
-  const [cuisines, diets, allergens] = await Promise.all([
+  const [cuisines, diets, allergens, cookware] = await Promise.all([
     sb.from("cuisines").select("slug, name, recipes(count)").order("name"),
     sb.from("diets").select("slug, name").order("name"),
     sb.from("allergens").select("slug, name").order("name"),
+    sb.from("cookware").select("slug, name, recipe_cookware(count)").order("name"),
   ]);
   if (cuisines.error) throw cuisines.error;
   if (diets.error) throw diets.error;
   if (allergens.error) throw allergens.error;
+  if (cookware.error) throw cookware.error;
 
   return {
     cuisines: (cuisines.data as { slug: string; name: string; recipes: { count: number }[] }[])
@@ -327,6 +342,9 @@ async function loadFilterOptions(): Promise<FilterOptions> {
       .filter((c) => c.count > 0),
     diets: diets.data as FilterOptions["diets"],
     allergens: allergens.data as FilterOptions["allergens"],
+    cookware: (cookware.data as { slug: string; name: string; recipe_cookware: { count: number }[] }[])
+      .filter((c) => (c.recipe_cookware[0]?.count ?? 0) > 0)
+      .map(({ slug, name }) => ({ slug, name })),
   };
 }
 

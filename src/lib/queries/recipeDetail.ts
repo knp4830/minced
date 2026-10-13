@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 import { primaryAisle } from "@/lib/placeholderTone";
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
@@ -103,6 +104,15 @@ type Row = {
   recipe_diets: { diets: { slug: string; name: string } | null }[];
   recipe_allergens: { allergens: { name: string } | null }[];
   recipe_cookware: { cookware: { name: string } | null }[];
+  recipe_photos: PhotoRow | PhotoRow[] | null;
+};
+
+type PhotoRow = {
+  storage_path: string;
+  credit: string | null;
+  license: string;
+  attribution_url: string;
+  alt_text: string | null;
 };
 
 const SELECT = `
@@ -114,10 +124,17 @@ const SELECT = `
   recipe_steps(sort_order, instruction),
   recipe_diets(diets(slug, name)),
   recipe_allergens(allergens(name)),
-  recipe_cookware(cookware(name))
+  recipe_cookware(cookware(name)),
+  recipe_photos(storage_path, credit, license, attribution_url, alt_text)
 `;
 
-export async function getRecipeBySlug(slug: string): Promise<RecipeDetail | null> {
+/**
+ * `cache()` dedupes within one render: `generateMetadata` and the page both ask
+ * for the same slug, which used to be two full database reads per render.
+ */
+export const getRecipeBySlug = cache(async function getRecipeBySlug(
+  slug: string,
+): Promise<RecipeDetail | null> {
   const sb = createStaticClient() as unknown as SupabaseClient;
   const { data, error } = await sb
     .from("recipes")
@@ -128,22 +145,10 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeDetail | null
   if (!data) return null;
   const r = data as unknown as Row;
 
-  // `recipe_photos` ships with the photos lane; before it is applied this
-  // errors, and a missing credit must never take the recipe page down.
+  // The photo rides along in the same query (one round trip, not two).
   let photo: RecipePhotoCredit | null = null;
-  const photoRes = await sb
-    .from("recipe_photos")
-    .select("storage_path, credit, license, attribution_url, alt_text")
-    .eq("recipe_id", r.id)
-    .maybeSingle();
-  if (!photoRes.error && photoRes.data) {
-    const p = photoRes.data as {
-      storage_path: string;
-      credit: string | null;
-      license: string;
-      attribution_url: string;
-      alt_text: string | null;
-    };
+  const p = Array.isArray(r.recipe_photos) ? r.recipe_photos[0] : r.recipe_photos;
+  if (p) {
     photo = {
       url: photoPublicUrl(p.storage_path),
       credit: p.credit,
@@ -196,4 +201,4 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeDetail | null
     sourceUrl: r.source_url,
     sourceLicense: r.source_license,
   };
-}
+});

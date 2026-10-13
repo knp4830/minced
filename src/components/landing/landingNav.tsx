@@ -1,11 +1,13 @@
-import { CookingPot } from "lucide-react";
 import Link from "next/link";
 import { HeaderAccount } from "@/components/account/headerAccount";
-import { Button } from "@/components/ui/button";
 
 /*
  * Landing nav, per the handoff: logo with the mono "mise en place" eyebrow,
- * a text link to browse, one primary action, then the auth control. On phones the eyebrow and the text link drop away so the button fits.
+ * a text link to browse, then the auth control. There is deliberately no
+ * "What's in my fridge?" button here: the hero puts it right under the search
+ * box, and a second copy in the nav stacked two identical actions within one
+ * screen on phones. On phones the eyebrow and the text link drop away so the
+ * auth control fits.
  */
 export function LandingNav() {
   return (
@@ -31,12 +33,6 @@ export function LandingNav() {
           >
             Browse recipes
           </Link>
-          <Button asChild size="sm">
-            <Link href="/pantry">
-              <CookingPot aria-hidden className="size-4" />
-              <span>What’s in my fridge?</span>
-            </Link>
-          </Button>
           <HeaderAccount />
         </nav>
       </div>

@@ -20,6 +20,9 @@ export async function middleware(request: NextRequest) {
     return session.redirect(url);
   }
 
+  // /admin is deliberately not gated here: its layout answers 404 for signed-out
+  // visitors and non-admins alike, so the route does not advertise itself.
+
   if ((pathname === "/login" || pathname === "/signup") && session.user) {
     const url = request.nextUrl.clone();
     url.pathname = safeNext(request.nextUrl.searchParams.get("next"), "/account");
@@ -31,5 +34,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
+  matcher: ["/account/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
 };

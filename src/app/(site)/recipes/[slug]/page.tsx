@@ -132,6 +132,8 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
               <img
                 src={photoSrc}
                 alt={recipe.photo?.altText ?? recipe.title}
+                fetchPriority="high"
+                decoding="async"
                 className="absolute inset-0 size-full object-cover"
               />
             ) : (

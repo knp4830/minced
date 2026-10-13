@@ -1502,4 +1502,32 @@ Process lesson: a parallel wave can dispatch to the wrong worktree. When a branc
 
 ---
 
-## Entry 33 - [next entry goes here after wave 4]
+## Entry 33 - Wave 4: smooth for friends and family
+
+*Branch `wave4/integration`. Four lanes: dbperf, app, photos, admin.*
+
+### Why the matcher was slow: RLS policy cost (dbperf)
+A child-table policy like `using (can_read_recipe(recipe_id))` calls a `SECURITY DEFINER` SQL function once per row, and Postgres cannot inline it, so every call is a nested statement. One 8-item fridge read about 8,150 `recipe_ingredients` rows and made 8,089 calls (about 170 ms). The fast path is `recipe_id IN (select id from recipes)`: the subquery runs once under the caller's own rights (so `recipes`' own policies filter it), is hashed, and each row is a hash probe (about 16 ms). The visible rows are identical because `can_read_recipe` is exactly "published OR author = auth.uid()". `perf_rls_equivalence_test.sql` proves it by comparing the md5 of visible rows per role, and it fails if a policy is loosened. Two more gotchas: `FOR ALL` author policies also apply to SELECT, and permissive policies are evaluated in name order, so "authors write..." ran before "ingredients follow...". Use `ALTER POLICY`, not drop and create, so no table is ever unprotected.
+
+### Reading EXPLAIN ANALYZE for functions
+`EXPLAIN` on a non-inlinable SQL function shows only a Function Scan. Set `auto_explain.log_nested_statements = on` and `load 'auto_explain'` to see the statements inside. Measure as `anon`, in-session, median of several runs; superuser timings bypass RLS and hide the cost. Result: matcher with 8 items 176 to 16.5 ms, 1 item 85 to 11 ms; search and suggest were already 1-6 ms. What remains is network and region (functions run in iad1, matching Supabase us-east-1).
+
+Rebuild changed functions from the NEWEST definition (search later migrations by function name): the first cookware draft used the pre-photos-first body and the tests caught the lost ordering. A new trailing parameter changes the signature, so DROP then CREATE, or PostgREST reports an ambiguous function.
+
+### Streaming, loading.tsx and caching (app)
+With about 100 ms per remote round trip, sequential queries dominated page time. Fixes: embed the photo in the card select, wrap `getRecipeBySlug` in React `cache()` so `generateMetadata` and the page share one read (4 queries to 1), and run names and the RPC in parallel. `loading.tsx` streams a skeleton shell first, so TTFB becomes misleading; judge by total time or FCP/LCP. List results use `unstable_cache` (5 min TTL, stale-while-revalidate) with the cookie-free client, because `unstable_cache` cannot read `cookies()` and its results must be JSON-serialisable (a `Map` became a `Record`). That is only correct while lists show published recipes; per-user drafts need an uncached path. Warm LCP at 375px: /recipes 328 to 64 ms, /pantry 476 to 56. Do not judge paint timing in the hidden Browser pane (requestAnimationFrame is throttled); use headless Chrome over CDP (`scripts/perf/cdp-metrics.mjs`).
+
+**Cache versus admin:** any action that changes visibility must revalidate every cached list path. The verifier caught reject leaving `/pantry` for 5 minutes. **Auth:** Supabase answers a repeat sign-up with success, so "we sent a link" was false and an account-existence tell; the callback prefers `x-forwarded-host` so previews keep their cookies.
+
+### Admin gating with RLS (admin)
+`admins` is its own table, not a flag on `profiles` (which has an update-own-row policy, so a flag would let anyone promote themselves). It has select-own-row and no write policy. Review state lives in `recipe_reviews` (no row means unreviewed), keeping the hot `recipes` table small. Admin reads and writes are `SECURITY DEFINER` `admin_*` RPCs that start with `is_admin()`, not broad admin policies on `recipes`, because public pages rely on RLS for published-only and a broad SELECT would leak drafts into the public site for admins. Revoke EXECUTE from `public, anon` explicitly (default privileges grant anon). Reject sets `draft` and remembers `prior_status`, so it is reversible. Recipe pages are ISR, so reject must call `revalidatePath`.
+
+### Photos
+`process_images.py` rebuilds `photos.json` from `myplate.json` + `commons.json`, so removals must go through `commons.json` (`remove_photo.py`). Seeding was upsert-only, so a removed photo stayed live; `seed-photos.sql` now prunes. Review rule: reject brand, venue or receipt text, product shots, people as the subject, agency logos, files reused for two recipes, and dishes with extras the recipe lacks (stir-fried-beef showed peppers and pineapple). Credits are cleaned to "Author / Flickr"; truncated or "(talk)" credits need a `credits.py` OVERRIDE because `--check` misses them.
+
+### Process lessons
+The PR cannot enforce merge order: apply additive migrations BEFORE merging the code that needs them (wave 3 was merged first and live `/recipes` returned 500 until `db push`). Local `supabase start` from migrations alone fails at the families migration (it asserts seeded data); load the snapshot instead. The shared Browser pane and cookie jar are shared across parallel agents.
+
+---
+
+## Entry 34 - [next entry goes here after wave 5]
