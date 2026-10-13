@@ -33,6 +33,8 @@ export type RecipeCardProps = {
   /** Allergen display names, e.g. ["egg"]. */
   allergens?: string[];
   coverage?: RecipeCardCoverage;
+  /** "Use these first" results: how soon the fridge items this recipe uses expire. */
+  useFirst?: { label: string; urgent: boolean };
   /** `source_name === 'Minced original'`: shows the AI disclosure badge. */
   aiDrafted?: boolean;
   /** Defaults to /recipes/{slug}. */
@@ -61,6 +63,7 @@ export function RecipeCard({
   spiceLevel,
   allergens,
   coverage,
+  useFirst,
   aiDrafted = false,
   href,
   priority = false,
@@ -127,6 +130,18 @@ export function RecipeCard({
                 </span>
               </>
             )}
+          </p>
+        )}
+
+        {useFirst && (
+          <p
+            className={
+              useFirst.urgent
+                ? "mt-2 font-mono text-xs font-semibold text-paprika-deep"
+                : "mt-2 font-mono text-xs text-ink-muted"
+            }
+          >
+            {useFirst.label}
           </p>
         )}
 

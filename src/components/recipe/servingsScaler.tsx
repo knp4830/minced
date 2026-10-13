@@ -2,6 +2,8 @@
 
 import { Check, Minus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useAccount } from "@/components/account/accountProvider";
+import { fetchSavedFridge } from "@/lib/fridgeClient";
 import { displayQuantity } from "@/lib/scaling";
 
 export type ScalerIngredient = {
@@ -48,11 +50,30 @@ export function ServingsScaler({
 
   // Opened from fridge results, the link carries the fridge. The page itself
   // stays static and cacheable, so the marks are applied here, after mount.
+  // Opened without one (a bookmark, search), a signed-in visitor's SAVED fridge
+  // stands in for it. The URL always wins, so a shared link shows its own marks.
+  const { status } = useAccount();
   const [fridge, setFridge] = useState<ReadonlySet<number> | null>(null);
+  const [fromSaved, setFromSaved] = useState(false);
   useEffect(() => {
     const ids = readFridgeIds();
-    if (ids.length > 0) setFridge(new Set(ids));
-  }, []);
+    if (ids.length > 0) {
+      setFridge(new Set(ids));
+      setFromSaved(false);
+      return;
+    }
+    if (status !== "in") return;
+    let cancelled = false;
+    void fetchSavedFridge().then((saved) => {
+      if (cancelled || !saved || saved.items.length === 0) return;
+      // coverIds already include each item's family (parent and variants).
+      setFridge(new Set([...saved.items.map((i) => i.id), ...saved.coverIds]));
+      setFromSaved(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [status]);
 
   // A parent in the fridge covers its variants (same rule as match_recipes).
   const marks = ingredients.map((line) => {
@@ -114,7 +135,8 @@ export function ServingsScaler({
         >
           <span className="font-mono font-semibold text-herb">
             You have {haveCount} of {needed.length}
-          </span>{" "}
+          </span>
+          {fromSaved && " from your fridge"}{" "}
           {haveCount === needed.length ? "· nothing missing" : "· the rest are marked below"}
         </p>
       )}

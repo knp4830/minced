@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
   const session = await updateSession(request);
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/account") && !session.user) {
+  if ((pathname.startsWith("/account") || pathname.startsWith("/fridge")) && !session.user) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.search = `?next=${encodeURIComponent(pathname)}`;
@@ -51,5 +51,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/recipes/:slug", "/account/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
+  matcher: ["/recipes/:slug", "/account/:path*", "/fridge/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
 };
