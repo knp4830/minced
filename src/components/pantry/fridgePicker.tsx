@@ -102,13 +102,19 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   const finding = query.trim().toLowerCase();
   const found = useMemo(() => {
     if (!finding) return [];
+    // A typed plural must still find the singular name or synonym ("courgettes"
+    // finds the alias "courgette", "chicken breasts" finds "chicken breast").
+    // Names and synonyms are stored singular-ish, and substring matching alone
+    // fails the moment the trailing "s" is typed.
+    const stem = finding.replace(/(ies|es|s)$/, "");
+    const needles = stem.length >= 3 && stem !== finding ? [finding, stem] : [finding];
     // Rank: name starts with it, name contains it, then a synonym ("green
     // onion" finds scallion). Within a rank, most-used first.
     const rank = (i: CatalogItem): number => {
       const name = i.name.toLowerCase();
-      if (name.startsWith(finding)) return 0;
-      if (name.includes(finding)) return 1;
-      return i.aka?.split("|").some((s) => s.includes(finding)) ? 2 : 3;
+      if (needles.some((n) => name.startsWith(n))) return 0;
+      if (needles.some((n) => name.includes(n))) return 1;
+      return i.aka?.split("|").some((s) => needles.some((n) => s.includes(n))) ? 2 : 3;
     };
     return catalog.categories
       .flatMap((c) => c.items)
