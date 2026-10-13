@@ -7,19 +7,9 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { useAccount } from "@/components/account/accountProvider";
 import { Button } from "@/components/ui/button";
 import { addToShoppingList } from "@/lib/actions/shopping";
-import { fetchSavedFridge } from "@/lib/fridgeClient";
-import { readFridge } from "@/lib/fridgeStorage";
+import { useFridgeIds } from "@/lib/useFridgeIds";
 import { selectForList, type RecipeLineInput } from "@/lib/shopping";
 import { addRecipeLocal } from "@/lib/shoppingStorage";
-
-/** `?pantry=1,2,3` from the fridge results link (same contract as the scaler's marks). */
-function urlFridgeIds(): number[] {
-  const raw = new URLSearchParams(window.location.search).get("pantry") ?? "";
-  return raw
-    .split(",")
-    .map(Number)
-    .filter((n) => Number.isInteger(n) && n > 0);
-}
 
 type Done = { added: number; servings: number; skippedHave: string[]; where: "account" | "device" };
 type Notice = { kind: "done"; done: Done } | { kind: "error"; text: string } | null;
@@ -54,27 +44,12 @@ export function AddToShoppingList({
   const { status } = useAccount();
   const checkId = useId();
   const [skipStaples, setSkipStaples] = useState(true);
-  const [have, setHave] = useState<ReadonlySet<number>>(new Set());
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<Notice>(null);
 
-  // The fridge is known from the link we arrived by and from this browser's saved fridge.
-  // Signed in, the account's saved fridge is the truth (the local copy is emptied on
-  // import), so it is added once the session is known.
-  useEffect(() => {
-    const ids = new Set<number>(urlFridgeIds());
-    for (const f of readFridge()) ids.add(f.id);
-    setHave(ids);
-    if (status !== "in") return;
-    let cancelled = false;
-    void fetchSavedFridge().then((saved) => {
-      if (cancelled || !saved) return;
-      setHave(new Set([...ids, ...saved.items.map((i) => i.id), ...saved.coverIds]));
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [status]);
+  // Same fridge the have/missing marks use.
+  const { ids: fridgeIds } = useFridgeIds();
+  const have = useMemo<ReadonlySet<number>>(() => fridgeIds ?? new Set(), [fridgeIds]);
 
   const staplesInRecipe = useMemo(() => lines.filter((l) => l.isStaple).length, [lines]);
   const preview = useMemo(

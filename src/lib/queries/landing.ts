@@ -98,6 +98,7 @@ export async function getLandingPhotos(count = 9): Promise<LandingPhoto[]> {
   const { data, error } = await sb
     .from("recipe_photos")
     .select("storage_path, thumb_path, alt_text, width, height, recipes(slug, title)")
+    .order("recipe_id", { ascending: true })
     .limit(500);
   if (error || !data) return [];
 
@@ -135,11 +136,20 @@ export async function getLandingPhotos(count = 9): Promise<LandingPhoto[]> {
 /** Every photo that carries a credit, for the /about credits list. */
 export async function getPhotoCredits(): Promise<PhotoCredit[]> {
   const sb = createStaticClient() as unknown as SupabaseClient;
-  const { data, error } = await sb
-    .from("recipe_photos")
-    .select("credit, license, license_url, attribution_url, recipes(slug, title)")
-    .limit(2000);
-  if (error || !data) return [];
+  // PostgREST caps a response at max_rows (1000), so page through with .range():
+  // a silently truncated list would drop CC-BY attributions.
+  const PAGE = 500;
+  const data: unknown[] = [];
+  for (let from = 0; ; from += PAGE) {
+    const { data: page, error } = await sb
+      .from("recipe_photos")
+      .select("credit, license, license_url, attribution_url, recipes(slug, title)")
+      .order("recipe_id", { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (error) throw error;
+    data.push(...(page ?? []));
+    if (!page || page.length < PAGE) break;
+  }
   return (
     data as unknown as {
       credit: string | null;

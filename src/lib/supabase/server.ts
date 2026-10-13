@@ -24,7 +24,8 @@ export async function createClient() {
         setAll(cookiesToSet) {
           try {
             for (const { name, value, options } of cookiesToSet) {
-              cookieStore.set(name, value, options);
+              // No browser Supabase client exists, so nothing in the page needs to read the session.
+              cookieStore.set(name, value, { ...options, httpOnly: true });
             }
           } catch {
             // Server Components cannot set cookies — only Server Actions and

@@ -30,6 +30,7 @@ import { usableImageUrl } from "@/lib/photos";
 export const metadata: Metadata = {
   title: "What's in my fridge",
   description: "Every recipe that uses what you have, closest match first.",
+  robots: { index: false, follow: true },
 };
 
 /**

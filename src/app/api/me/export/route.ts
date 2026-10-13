@@ -1,3 +1,4 @@
+import { getCurrentUser } from "@/lib/queries/account";
 import { getFavoriteSlugs } from "@/lib/queries/favorites";
 import { getFridge } from "@/lib/queries/fridge";
 import { getShoppingLines } from "@/lib/queries/shopping";
@@ -16,7 +17,8 @@ export async function GET() {
   if (!user) {
     return Response.json({ error: "Not signed in" }, { status: 401, headers: { "Cache-Control": "private, no-store" } });
   }
-  const [favorites, cookware, fridge, shopping] = await Promise.all([
+  const [me, favorites, cookware, fridge, shopping] = await Promise.all([
+    getCurrentUser(),
     getFavoriteSlugs(),
     getMyCookwareSlugs(),
     getFridge(),
@@ -25,6 +27,7 @@ export async function GET() {
   const body = {
     exported_at: new Date().toISOString(),
     email: user.email ?? null,
+    display_name: me?.name ?? null,
     account_created_at: user.created_at,
     saved_recipes: favorites,
     owned_cookware: cookware,
