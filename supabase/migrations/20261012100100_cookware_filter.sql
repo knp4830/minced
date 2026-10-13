@@ -16,6 +16,14 @@
 
 begin;
 
+-- Load pg_trgm in THIS session before any CREATE FUNCTION ... SET "pg_trgm.*".
+-- Until the library is loaded, Postgres treats pg_trgm.word_similarity_threshold as
+-- an unknown placeholder, and only a superuser may SET a placeholder. Supabase
+-- migrations run as a non-superuser, so without this line the push fails with
+-- "permission denied to set parameter" (it did, 2026-10-12; the local snapshot runs
+-- as superuser and could not catch it). Calling any pg_trgm function loads it.
+select similarity('a', 'a');
+
 drop function match_recipes(integer[], integer, integer[], integer, integer, numeric, integer, integer, uuid, integer, text[], text[], text[], smallint, numeric, numeric, numeric);
 drop function search_recipes(text, integer, integer, text[], text[], text[], smallint, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, integer, double precision, uuid);
 
