@@ -208,11 +208,20 @@ def cmd_audit(include_nonfederal: bool) -> None:
 def cmd_build() -> None:
     dec = json.loads((MANIFEST_DIR / "myplate_decisions.json").read_text(encoding="utf-8"))
     found = {r["slug"]: r for r in json.loads((CACHE / "myplate" / "found.json").read_text(encoding="utf-8"))}
-    rows, dropped = [], []
+    rows, dropped, has_other = [], [], []
+    # One photo per recipe: a recipe that already has a reviewed photo from another source keeps it.
+    other = set()
+    for name in ("commons.json", "openverse.json", "pexels.json"):
+        f = MANIFEST_DIR / name
+        if f.exists():
+            other |= {r["slug"] for r in json.loads(f.read_text(encoding="utf-8"))}
     for d in dec:
         if not d["include"]:
             continue
         slug = d["slug"]
+        if slug in other:
+            has_other.append(slug)
+            continue
         img = IMAGES / f"{slug}.bin"
         if not img.exists():
             dropped.append(slug)
@@ -235,7 +244,8 @@ def cmd_build() -> None:
             "image_cache": f"myplate/images/{slug}.bin",
         })
     write_json(MANIFEST_DIR / "myplate.json", rows)
-    print(f"{len(rows)} manifest rows; {len(dropped)} included slugs lack a downloaded image: {dropped[:5]}", file=sys.stderr)
+    print(f"{len(rows)} manifest rows; {len(dropped)} included slugs lack a downloaded image: {dropped[:5]}; "
+          f"{len(has_other)} skipped because the recipe already has a photo from another source", file=sys.stderr)
 
 
 def main() -> None:

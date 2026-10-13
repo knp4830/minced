@@ -72,9 +72,9 @@ export default async function AboutPage() {
       <Section id="photos" title="Photos">
         <p>
           A photo appears only when we can use it honestly: public-domain photos
-          (USDA MyPlate photographs and Wikimedia Commons files marked public
-          domain), or Wikimedia Commons files licensed CC0, CC BY or CC BY-SA,
-          with the author credited on the image where the licence asks for it. Where a
+          (USDA photographs and other files marked public domain), or files
+          from Wikimedia Commons and Openverse (mostly Flickr) licensed CC0,
+          CC BY or CC BY-SA, with the author credited on the image where the licence asks for it. Where a
           photo is not free to use, or isn&apos;t a real picture of that dish, the
           card shows a plain striped block instead. We never show an AI-generated
           image as the finished dish.
