@@ -1,3 +1,4 @@
+import { ShoppingSync } from "@/components/shopping/shoppingSync";
 import { SiteFooter } from "@/components/shell/siteFooter";
 import { SiteHeader } from "@/components/shell/siteHeader";
 
@@ -10,6 +11,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         {children}
       </main>
       <SiteFooter />
+      <ShoppingSync />
     </>
   );
 }

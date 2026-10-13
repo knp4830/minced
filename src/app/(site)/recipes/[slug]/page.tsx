@@ -183,7 +183,11 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
 
         {/* Ingredients (client island: servings scaler) */}
         <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          <ServingsScaler baseServings={recipe.servings} ingredients={recipe.ingredients} />
+          <ServingsScaler
+            baseServings={recipe.servings}
+            ingredients={recipe.ingredients}
+            recipe={{ slug: recipe.slug, title: recipe.title }}
+          />
         </div>
 
         {/* Method */}
