@@ -329,6 +329,7 @@ function EditPanel({
             id={`${uid}-useby`}
             type="date"
             value={useBy}
+            min={isIsoDate(bought) ? bought : undefined}
             onChange={(e) => setUseBy(e.target.value)}
             className={FIELD}
           />

@@ -198,7 +198,7 @@ export default async function RecipesPage({ searchParams }: Props) {
         <section aria-labelledby="results-h" className="min-w-0 lg:pl-8">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
             <div>
-              <h1 id="results-h" className="text-[1.75rem] leading-tight md:text-[2rem]">
+              <h1 id="results-h" className="text-[1.75rem] leading-tight [overflow-wrap:anywhere] md:text-[2rem]">
                 {filters.q ? <>Results for “{filters.q}”</> : "Recipes"}
               </h1>
               <Suspense key={resultsKey} fallback={<p className="mt-1 h-4" aria-hidden />}>

@@ -82,6 +82,9 @@ export async function updateFridgeItem(id: string, patch: FridgePatch): Promise<
   const expiresOn = dateOrNull(p.expiresOn);
   const quantity = textOrNull(p.quantity, 60);
   const notes = textOrNull(p.notes, 200);
+  // A use-by date before the purchase date is a typo, not food that expired before it was
+  // bought. ISO dates compare correctly as strings. The form also sets min= on the field.
+  if (purchasedOn && expiresOn && expiresOn < purchasedOn) return { ok: false, reason: "failed" };
   if (purchasedOn !== undefined) clean.purchasedOn = purchasedOn;
   if (expiresOn !== undefined) clean.expiresOn = expiresOn;
   if (quantity !== undefined) clean.quantity = quantity;

@@ -260,9 +260,12 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
           <Refrigerator aria-hidden className="size-[18px]" />
           What&apos;s in my fridge?
           {count > 0 && (
-            <span className="rounded-full bg-herb px-2 py-0.5 font-mono text-[0.6875rem] text-on-herb">
-              {count}
-            </span>
+            <>
+              <span aria-hidden className="rounded-full bg-herb px-2 py-0.5 font-mono text-[0.6875rem] text-on-herb">
+                {count}
+              </span>
+              <span className="sr-only">, {count} picked</span>
+            </>
           )}
         </Button>
       ) : variant === "manage" ? (

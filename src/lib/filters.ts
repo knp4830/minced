@@ -180,8 +180,18 @@ function slugList(raw: string | undefined): string[] | undefined {
  * URL -> filters. Total: malformed or out-of-range values are dropped or
  * clamped, never thrown, because the input is user-editable.
  */
+/**
+ * Replace control characters (NUL, tabs, newlines...) with spaces. Postgres text
+ * cannot hold a NUL byte (error 22P05), so `?q=%00` used to crash the search page,
+ * and none of these characters mean anything in a search box.
+ */
+export function stripControlChars(s: string): string {
+  return s.replace(/\p{Cc}/gu, " ");
+}
+
 export function parseFilters(sp: SearchParamsInput): RecipeFilters {
-  const q = first(sp, "q")?.trim().slice(0, MAX_Q);
+  const rawQ = first(sp, "q");
+  const q = rawQ === undefined ? undefined : stripControlChars(rawQ).trim().slice(0, MAX_Q);
   const cursor = first(sp, "cursor")?.slice(0, 512);
   const out: RecipeFilters = {
     q: q || undefined,

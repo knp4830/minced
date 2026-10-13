@@ -1,3 +1,4 @@
+import { stripControlChars } from "@/lib/filters";
 import { suggestIngredients } from "@/lib/queries/matcher";
 
 /**
@@ -6,7 +7,7 @@ import { suggestIngredients } from "@/lib/queries/matcher";
  * this thin handler is the seam. GET /api/ingredients/suggest?q=chick
  */
 export async function GET(request: Request) {
-  const q = new URL(request.url).searchParams.get("q")?.slice(0, 60) ?? "";
+  const q = stripControlChars(new URL(request.url).searchParams.get("q") ?? "").trim().slice(0, 60);
   try {
     const suggestions = await suggestIngredients(q, 8);
     return Response.json(

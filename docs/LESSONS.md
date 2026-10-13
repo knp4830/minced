@@ -196,6 +196,11 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 - Symptom: Next failed with "stream did not contain valid UTF-8"; `UnicodeDecodeError`; garbled degree signs and accents; CRLF in generated SQL.
 - Rule: `open(..., encoding='utf-8')`, write with `newline='\n'`, `PYTHONIOENCODING=utf-8`, `subprocess.run(..., encoding='utf-8')`. Regexes as `r''` strings (`"\b"` became a backspace). CRLF warnings on checked-in files are harmless.
 
+**Python string escapes can write real control characters into source files.**
+- Symptom (2026-10-13): a Python edit meant to insert the JS regex text `[\u0000-\u001f]` wrote actual NUL/control bytes into `filters.ts`; git then showed the file as "Binary" in `git diff --stat`.
+- Rule: edit TypeScript/SQL with the Edit tool, not Python string replacement, whenever the new text contains backslashes. If you must use Python, use raw strings and check `git diff --stat` for "Bin" before committing. In JS prefer `\p{Cc}` with the `u` flag over `\u0000` ranges.
+- Also: `python -I` ignores `PYTHONIOENCODING`; call `sys.stdout.reconfigure(encoding='utf-8')` instead.
+
 **Git Bash rewrites paths.**
 - Symptom: `docker exec ... -f /tmp/x.sql` looked for a Windows path; `node ... /recipes` became `C:/Program Files/Git/recipes`.
 - Rule: `MSYS_NO_PATHCONV=1`, or pipe SQL on stdin (`docker exec -i ... < file`). Python on native Windows sees `C:/Users/<short>/AppData/Local/Temp/`, not bash `/tmp`; use the scratchpad directory.

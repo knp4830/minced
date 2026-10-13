@@ -8,6 +8,7 @@ import { getRecipeExpiryDays } from "@/lib/queries/fridge";
 import { RecipeList } from "@/components/recipe/recipeList";
 import {
   filtersToQuery,
+  hasActiveFilters,
   parseFilters,
   resultFilters,
   type RecipeFilters,
@@ -116,7 +117,7 @@ async function Results({
       {hasFridge && (
         <h2 id="results-heading" className="mb-4 text-lg md:text-xl">
           {recipes.length === 0
-            ? "No recipe uses these yet"
+            ? hasActiveFilters(filters) ? "No recipe fits these filters" : "No recipe uses these yet"
             : byExpiry
               ? `Using up what expires first · ${recipes.length} recipe${recipes.length === 1 ? "" : "s"}`
               : `Closest first${nextHref ? "" : ` · ${recipes.length} recipe${recipes.length === 1 ? "" : "s"}`}`}

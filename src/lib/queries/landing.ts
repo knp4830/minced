@@ -166,7 +166,10 @@ export async function getPhotoCredits(): Promise<PhotoCredit[]> {
       credit: r.credit,
       license: r.license,
       licenseUrl: r.license_url,
-      attributionUrl: r.attribution_url,
+      // myplate.gov was retired on 2026-01-07; link the Internet Archive copy, as recipe pages do.
+      attributionUrl: /^https?:\/\/(www\.)?myplate\.gov\//.test(r.attribution_url)
+        ? `https://web.archive.org/web/${r.attribution_url}`
+        : r.attribution_url,
     }))
     .sort((a, b) => a.title.localeCompare(b.title));
 }
