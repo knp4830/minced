@@ -96,3 +96,12 @@ Sources, in order, one photo per recipe (a recipe that already has a reviewed ph
 Migration `20261013110000_photo_sources.sql` widens `recipe_photos.source` (+ `openverse`, `pexels`) and `license` (+ `Pexels License`).
 Apply it BEFORE `seed-photos.sql`, or the seed fails on the check constraint.
 `export_photoless.py <container>` lists recipes still without a photo (with ingredients) from a restored snapshot.
+
+### Wave 5 final state
+- 352 photos: 57 USDA MyPlate (own photos; MyPlate logos allowed, third-party credits excluded), 285 Wikimedia Commons, 10 Openverse, 0 Pexels
+  (no PEXELS_API_KEY). 607 of 959 recipes stay on placeholders.
+- archive.org refused (429) the last 49 MyPlate images and 1 page (`myplate_pending.py need-image`); resume later with
+  `myplate_fetch.py cache/need_image.txt --stage images --jobs 1 --delay 2.5`, then `myplate_audit.py audit && build`, `myplate_sheets.py`.
+- Openverse used 185 of its 200 daily anonymous requests; continue tomorrow with `openverse.py search` (queried.json remembers).
+- `apply_manifest.py`'s seed raises if a manifest slug has no recipe: drop such slugs with `remove_photo.py` (done for baked-fish,
+  sweet-potato-casserole-0, removed in the duplicate merge).

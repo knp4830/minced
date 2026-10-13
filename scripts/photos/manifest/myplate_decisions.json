@@ -492,8 +492,8 @@
   {
     "slug": "baked-fish",
     "title": "Baked Fish",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: recipe no longer exists in the catalogue (removed in the duplicate merge)",
     "source_field": "A Harvest of Recipes with USDA Foods Adapted from a recipe by Veronica “Babe” Newago, Red Cliff Ojibwe",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/Baked%20Fish_fixed.png?itok=kAQLQ7z3",
@@ -3332,8 +3332,8 @@
   {
     "slug": "frozen-fruit-pops",
     "title": "Frozen Fruit Pops",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: visual review (wave 5): stock-photography look",
     "source_field": "The Power of Choice USDA Food and Nutrition Service and US Department of Health and Human Services Food and Drug Administration (FDA)",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2020-10/FrozenFruitPops_527x323.jpg?itok=h7qml4qt",
@@ -4132,8 +4132,8 @@
   {
     "slug": "hot-n-spicy-seasoning",
     "title": "Hot 'N Spicy Seasoning",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: visual review (wave 5): cut-out on white, stock look",
     "source_field": "A Healthier You: Based on the Dietary Guidelines for Americans US Department of Health and Human Services Office of Disease Prevention and Health Promotion",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2021-09/HotNSpicySeasoning_527x323.jpg?itok=PZbwhuVN",
@@ -7518,8 +7518,8 @@
   {
     "slug": "sweet-potato-casserole-0",
     "title": "Sweet Potato Casserole",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: recipe no longer exists in the catalogue (removed in the duplicate merge)",
     "source_field": "A Harvest of Recipes with USDA Foods USDA Food Distribution Program on Indian Reservations",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/Sweet%20Potato%20Casserole_fixed.png?itok=MFFElE43",

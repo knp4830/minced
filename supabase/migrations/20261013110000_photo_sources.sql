@@ -6,10 +6,10 @@
 -- The recipe_photos_cc_needs_credit check is untouched: every licence except Public domain / CC0 still needs a credit
 -- and a licence link, so a Pexels row without a photographer or link is refused by the database.
 
-alter table recipe_photos drop constraint recipe_photos_source_check;
+alter table recipe_photos drop constraint if exists recipe_photos_source_check;
 alter table recipe_photos add constraint recipe_photos_source_check
   check (source in ('usda_myplate', 'wikimedia_commons', 'openverse', 'pexels'));
 
-alter table recipe_photos drop constraint recipe_photos_license_check;
+alter table recipe_photos drop constraint if exists recipe_photos_license_check;
 alter table recipe_photos add constraint recipe_photos_license_check
   check (license in ('Public domain', 'CC0', 'Pexels License') or license ~ '^CC BY(-SA)? [0-9.]+$');
