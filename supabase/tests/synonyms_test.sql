@@ -36,7 +36,7 @@ create temp table t_pairs (term text, canonical text);
 -- here must resolve exact or alias.
 create temp table t_fuzzy_ok (term text primary key);
 insert into t_fuzzy_ok values
-  ('almond'), ('walnut'), ('pecan'), ('chive'), ('chickpea'), ('egg white');
+  ('almond'), ('walnut'), ('pecan'), ('chive'), ('chickpea'), ('egg white'), ('chili pepper');
 
 insert into t_pairs (term, canonical) values
   -- Alliums

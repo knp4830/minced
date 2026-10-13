@@ -1434,7 +1434,6 @@ insert into _alias_seed (canonical, alias) values
   ('chicken bouillon', 'chicken stock cube'),
   ('chicken breast', 'chicken fillet'),
   ('chickpeas', 'chick peas'),
-  ('chili peppers', 'chili pepper'),
   ('chili peppers', 'chilli'),
   ('chili peppers', 'chilli pepper'),
   ('chili peppers', 'chillies'),
