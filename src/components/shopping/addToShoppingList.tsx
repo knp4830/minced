@@ -7,6 +7,7 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { useAccount } from "@/components/account/accountProvider";
 import { Button } from "@/components/ui/button";
 import { addToShoppingList } from "@/lib/actions/shopping";
+import { fetchSavedFridge } from "@/lib/fridgeClient";
 import { readFridge } from "@/lib/fridgeStorage";
 import { selectForList, type RecipeLineInput } from "@/lib/shopping";
 import { addRecipeLocal } from "@/lib/shoppingStorage";
@@ -58,11 +59,22 @@ export function AddToShoppingList({
   const [notice, setNotice] = useState<Notice>(null);
 
   // The fridge is known from the link we arrived by and from this browser's saved fridge.
+  // Signed in, the account's saved fridge is the truth (the local copy is emptied on
+  // import), so it is added once the session is known.
   useEffect(() => {
     const ids = new Set<number>(urlFridgeIds());
     for (const f of readFridge()) ids.add(f.id);
     setHave(ids);
-  }, []);
+    if (status !== "in") return;
+    let cancelled = false;
+    void fetchSavedFridge().then((saved) => {
+      if (cancelled || !saved) return;
+      setHave(new Set([...ids, ...saved.items.map((i) => i.id), ...saved.coverIds]));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [status]);
 
   const staplesInRecipe = useMemo(() => lines.filter((l) => l.isStaple).length, [lines]);
   const preview = useMemo(
