@@ -1,3 +1,5 @@
+/* Cookie-free client for public catalog reads. Required inside unstable_cache, which cannot read request cookies. Sees only what the anon role may read. */
+
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
 import type { Database } from "@/types/database";

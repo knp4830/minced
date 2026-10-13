@@ -1,3 +1,5 @@
+/* The /recipes list without a search term: PostgREST query with the shared filters, cached 5 min (unstable_cache, cookie-free client), plus filter options and card extras. With ?q= the list comes from search.ts. */
+
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { unstable_cache } from "next/cache";
 

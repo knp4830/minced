@@ -1,3 +1,5 @@
+/* cn(): className merge helper used by the shadcn-style primitives. */
+
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 

@@ -1,3 +1,5 @@
+/* Request-scoped client that carries the visitor session cookie (httpOnly). Use for per-user reads and writes; RLS is the real gate. */
+
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
