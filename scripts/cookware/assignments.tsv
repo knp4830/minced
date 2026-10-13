@@ -14,7 +14,7 @@ apple-chunk-cake	baking-dish
 apple-cinnamon-bars	baking-dish
 apple-coffee-cake	baking-dish
 apple-coleslaw	none
-apple-corn-chili	blender,food-processor,pot
+apple-corn-chili	blender,pot
 apple-cranberry-salad-toss	none
 apple-crisp-0	baking-dish
 apple-fennel-chicken-salad-couscous	skillet
@@ -24,7 +24,7 @@ apple-sage-wild-rice-stuffing	skillet
 apple-salad	none
 apple-salad-sweet-tangy-yogurt-dressing	none
 apple-sandwiches	none
-apple-slice-pancakes	griddle,skillet
+apple-slice-pancakes	skillet
 apple-stuffed-squash	microwave
 apple-wedges-pumpkin-almond-butter	none
 applesauce	saucepan
@@ -49,7 +49,7 @@ baked-chicken	baking-dish
 baked-chicken-vegetables	roasting-pan
 baked-eggs-cheese	baking-dish,cake-pan
 baked-fish-0	baking-dish
-baked-fish-and-vegetables	none
+baked-fish-and-vegetables	sheet-pan
 baked-fish-creole-sauce	baking-dish
 baked-fish-tomatoes-peppers-onions	baking-dish
 baked-lemon-chicken	baking-dish,saucepan
@@ -75,7 +75,7 @@ banana-walnut-oatmeal	small-saucepan
 bananas-with-caramel-sauce	saucepan,sheet-pan
 barley-jambalaya	pot
 barley-pilaf	saucepan
-basic-custard	pot,saucepan
+basic-custard	pot
 basic-muffins	muffin-tin
 basic-quiche	cake-pan,skillet
 basic-soup-and-sauce-mix	none
@@ -108,7 +108,7 @@ black-bean-and-rice-salad	none
 black-bean-and-sweet-potato-quesadillas	skillet
 black-bean-burgers	skillet
 black-bean-burrito	microwave
-black-bean-quesadillas	griddle,skillet
+black-bean-quesadillas	skillet
 black-bean-salsa	none
 black-bean-soup-0	pot
 black-beans	saucepan
@@ -136,7 +136,7 @@ broccoli-strawberry-orzo-salad	pot
 broiled-tomatoes-and-cheese	sheet-pan
 brown-rice-pilaf	rice-cooker
 brown-rice-pilaf-sage-walnuts-and-dried	skillet
-brown-rice-sizzling-chicken-and-vegetables	skillet,wok
+brown-rice-sizzling-chicken-and-vegetables	skillet
 brown-rice-tabbouleh	none
 brussel-sprouts-cranberry-and-bulgur-salad	none
 brussels-sprouts-mushroom-sauce	microwave,pot
@@ -144,7 +144,7 @@ bulgur-chickpea-salad	saucepan
 bulgur-wheat-veggie-chickpea-salad	skillet
 butterfly-bite	none
 buttermilk-scones	sheet-pan
-butternut-squash-apple-soup	blender,food-processor,pot
+butternut-squash-apple-soup	blender,pot
 butternut-squash-black-beans	microwave,skillet
 butternut-squash-pasta-bake	baking-dish,food-processor,pot
 cabbage-roll-casserole	pot,skillet
@@ -154,7 +154,7 @@ cafe-mocha	saucepan
 cajun-catfish	sheet-pan
 california-avocado-super-summer-wrap	none
 candied-yams	baking-dish,pot
-cantaloupe-cooler	blender,food-processor
+cantaloupe-cooler	blender
 caramel-sauce	small-saucepan
 caribbean-bean-salad	none
 caribbean-casserole	skillet
@@ -166,7 +166,7 @@ cauliflower-shells-cheese	blender,pot
 celery-apricot-blue-cheese-spread	none
 chapatis-flatbread	skillet
 cheese-and-corn-chowder	pot
-cheese-stuffed-potatoes	none
+cheese-stuffed-potatoes	sheet-pan
 cheesy-chicken-broccoli-and-rice-bake	baking-dish,saucepan
 cherry-melon-grape-salad	none
 chicken-and-beans	pot
@@ -192,7 +192,7 @@ chicken-soup-soul	pot
 chicken-spaghetti	baking-dish,pot,skillet
 chicken-spanish-rice	saucepan
 chicken-stew	skillet
-chicken-stir-fry	skillet,wok
+chicken-stir-fry	skillet
 chicken-vegetable-soup-kale	saucepan
 chicken-waldorf-salad	none
 chickpea-dip	food-processor
@@ -202,9 +202,9 @@ chili-bean-dip	none
 chili-cheese-hominy	skillet
 chili-popcorn	none
 chili-tomato-macaroni	skillet
-chilled-blueberry-soup	blender,food-processor
-chilled-cantaloupe-soup	blender,food-processor
-chimichurri-sauce	blender,food-processor
+chilled-blueberry-soup	blender
+chilled-cantaloupe-soup	blender
+chimichurri-sauce	blender
 chocolate-chip-yogurt-cookies	sheet-pan
 chocolate-squash-cake	cake-pan,mixer
 chunky-garbanzo-bean-dip	none
@@ -215,7 +215,7 @@ citrus-salmon-fillets	skillet
 citrus-tuna-melt	sheet-pan
 citrus-vegetables	saucepan
 classic-honey-flan	baking-dish,saucepan
-classic-macaroni-and-cheese	baking-dish,pot,saucepan
+classic-macaroni-and-cheese	baking-dish,pot
 cobb-salad-pears	blender
 coffee-cooler	blender
 collard-green-gumbo-ham-hock	skillet
@@ -235,10 +235,10 @@ corn-casserole-0	baking-dish,saucepan
 corn-salad-fat-free-ranch-dressing	none
 corn-salad-fresh-basil-and-lemon	microwave,pot
 corn-soup	pot
-corn-toasties	griddle,skillet
+corn-toasties	skillet
 corn-tortillas	griddle
 cornbread-dressing	baking-dish,skillet
-cornmeal-pancakes	griddle,saucepan,skillet
+cornmeal-pancakes	saucepan,skillet
 country-style-potato-salad	pot
 couscous-peas-and-onions	skillet
 cowboy-caviar-bean-salsa	none
@@ -246,7 +246,7 @@ cranberry-ham-slice	baking-dish,saucepan
 cranberry-nut-bread	loaf-pan
 cranberry-pumpkin-muffins	muffin-tin
 cranberry-salad	none
-cream-broccoli-soup	blender,food-processor,saucepan
+cream-broccoli-soup	blender,saucepan
 creamy-chicken-hash	skillet
 creamy-dill-dip	none
 creamy-italian-herb-dressing	none
@@ -266,7 +266,7 @@ cucumber-salad	none
 cucumber-salad-tomatoes	none
 cucumber-yogurt-and-cream-cheese-dip	none
 cucumber-yogurt-and-herb-dip	none
-cumin-lime-shrimp-over-creamy-cauliflower-risotto	blender,food-processor,microwave,skillet
+cumin-lime-shrimp-over-creamy-cauliflower-risotto	blender,microwave,skillet
 curried-chicken-salad	none
 curried-chickpea-salad	none
 curried-potatoes	saucepan,skillet
@@ -286,11 +286,11 @@ drop-biscuits-better-baking-mix	sheet-pan
 dutch-apple-yogurt-dessert	none
 dutch-green-beans	saucepan
 eagle-nest	none
-easiest-banana-ice-cream	blender,food-processor
+easiest-banana-ice-cream	blender
 easy-baked-acorn-squash	baking-dish
 easy-beef-supper	skillet
 easy-mix-pizza-better-baking-mix	sheet-pan
-easy-oven-fish-spinach-basil-dipping-sauce-spiced-apples	blender,food-processor,saucepan,sheet-pan
+easy-oven-fish-spinach-basil-dipping-sauce-spiced-apples	blender,saucepan,sheet-pan
 eating-smart-seasoning-mix	none
 egg-foo-young	skillet,small-saucepan
 egg-salad	saucepan
@@ -304,15 +304,15 @@ european-salad	blender,skillet
 fabulous-fruit-muffins	muffin-tin
 falafel-yogurt-sandwich	pot,skillet
 fall-veggie-casserole	skillet
-farmers-market-gazpacho	blender,food-processor
+farmers-market-gazpacho	blender
 fat-free-apple-crumb-dessert	baking-dish
 feather-rolls	mixer
 festive-microwave-baked-apples	microwave
-fiesta-hummus	blender,food-processor
+fiesta-hummus	blender
 fiesta-stuffed-avocado	none
 fig-bars	baking-dish
 fish-spinach	skillet
-fish-tacos	griddle,microwave,sheet-pan,skillet
+fish-tacos	microwave,sheet-pan,skillet
 flavored-water	none
 flour-tortillas	skillet
 food-group-funny-face	none
@@ -323,7 +323,7 @@ fresh-fruit-cinnamon-yogurt-dip	none
 fresh-salsa	none
 fresh-tomato-salsa	none
 fresh-tomato-sauce	skillet
-fried-rice	skillet,wok
+fried-rice	skillet
 fried-rice-chicken-vegetables	skillet
 frosted-cake	cake-pan
 frozen-banana-pops	none
@@ -356,7 +356,7 @@ garden-pasta-salad	none
 garden-vegetable-soup	saucepan
 garlic-bok-choy	skillet
 garlic-ginger-ramen-beef	skillet
-gazpacho	blender,food-processor
+gazpacho	blender
 gazpacho-soup	none
 ginger-bread-mix	none
 gingery-quinoa-green-beans	microwave,pot,skillet
@@ -456,7 +456,7 @@ magic-crust-quiche	baking-dish,cake-pan,skillet
 magic-mix	none
 magical-fruit-salad	none
 mango-berry-rotini-salad	pot
-mango-cucumber-soup	blender,food-processor
+mango-cucumber-soup	blender
 mango-salsa	none
 mango-shake	blender
 maple-sweet-potatoes	microwave
@@ -481,7 +481,7 @@ minestrone-soup	pot
 mixed-fruit-salad	none
 mixed-grain-bread	loaf-pan
 mock-sour-cream	blender
-mock-southern-sweet-potato-pie	none
+mock-southern-sweet-potato-pie	cake-pan
 mousse-la-banana	blender
 mouth-watering-oven-fried-fish	baking-dish
 mozz-totz	sheet-pan,skillet
@@ -497,10 +497,10 @@ oatmeal-raisin-muffins	muffin-tin
 okra-and-greens	pot
 old-fashioned-bread-pudding	baking-dish,microwave
 old-fashioned-dressing	skillet
-one-pan-potatoes-chicken	microwave,pot,skillet
+one-pan-potatoes-chicken	microwave,skillet
 one-pan-spaghetti	skillet
 orange-banana-frosty	blender
-orange-cow	blender,food-processor
+orange-cow	blender
 orange-delight-juice	blender
 orange-honeyed-acorn-squash	baking-dish
 orange-pork-chops	baking-dish,skillet
@@ -526,7 +526,7 @@ pasta-salad-herb-vinaigrette	none
 pasta-vegetable-salad	none
 pasta-vegetables	none
 pea-guacamole	none
-pea-pesto	blender,food-processor
+pea-pesto	blender
 peach-cooler	blender
 peach-crisp	baking-dish,saucepan
 peach-sauce	saucepan
@@ -548,14 +548,14 @@ pear-rabbit	none
 pear-salad	none
 pears-pod	none
 perfect-pear-and-brussels-sprout-salad	none
-perfect-pumpkin-pancakes	griddle,skillet
+perfect-pumpkin-pancakes	skillet
 peruvian-ceviche	none
 peter-pumpkin-squares	baking-dish
-picadillo-0	none
+picadillo-0	skillet
 pico-de-gallo	none
 pineapple-avocado-chicken-salad	none
 pineapple-chicken	skillet
-pineapple-orange-frozen-yogurt	blender,food-processor
+pineapple-orange-frozen-yogurt	blender
 pineapple-pork	skillet
 pineapple-rice-bake	baking-dish
 pineapple-zucchini-cake	baking-dish
@@ -570,7 +570,7 @@ pork-power-bowl	grill,saucepan
 pot-roasted-beef	roasting-pan,skillet
 potato-beef-casserole	baking-dish,skillet
 potato-black-bean-kale-skillet	skillet
-potato-cakes	griddle,skillet
+potato-cakes	skillet
 potato-nachos	baking-dish,sheet-pan,skillet
 potato-salad	saucepan
 potato-skins-buffalo-chicken	microwave,sheet-pan,skillet
@@ -587,7 +587,7 @@ pumpkin-cookies	sheet-pan
 pumpkin-mac-cheese-one	microwave
 pumpkin-ricotta-stuffed-shells	baking-dish,pot
 pumpkin-soup	pot
-purple-cow	blender,food-processor
+purple-cow	blender
 quesadilla-con-huevos	microwave
 quick-and-easy-pizza	sheet-pan
 quick-and-easy-potato-casserole	baking-dish,microwave
@@ -605,7 +605,7 @@ rainbow-bell-pepper-boats-garbanzo-beans-and-kale	baking-dish
 rainbow-veggie-salad	none
 ratatouille-0	pot
 red-beans-and-rice-0	pot
-red-hot-fusilli	pot,saucepan
+red-hot-fusilli	pot
 red-lentil-latkes	saucepan,skillet
 red-monster-smoothie	blender
 red-potato-and-cabbage-colcannon	pot,skillet
@@ -682,7 +682,7 @@ somali-summer-salad	none
 soul-healthy-cornbread	baking-dish
 south-border	none
 soy-marinated-chicken	baking-dish
-spaghetti-and-spinach-pesto	blender,food-processor,pot
+spaghetti-and-spinach-pesto	blender,pot
 spaghetti-quick-meat-sauce	pot,skillet
 spaghetti-squash-tomatoes-basil-and-parmesan	baking-dish,microwave
 spanish-baked-fish	baking-dish
@@ -700,7 +700,7 @@ spinach-black-bean-salad	none
 spinach-potato-pancakes	griddle
 spinach-rice-salad	none
 spinach-salad-apples-and-raisins	none
-spinach-stuffed-potatoes	none
+spinach-stuffed-potatoes	sheet-pan
 spinach-tomatoes-and-corn	saucepan
 split-pea-soup	pot
 spring-vegetable-saute	skillet
@@ -725,7 +725,7 @@ summer-breeze-smoothie	blender
 summer-italian-vegetables	baking-dish
 summer-squash-squares	baking-dish
 summer-squash-stir-fry	skillet
-summer-vegetable-spaghetti	pot,saucepan
+summer-vegetable-spaghetti	pot
 sunshine-rice	saucepan
 sunshine-salad	none
 sweet-acorn-squash	baking-dish,microwave
@@ -770,7 +770,7 @@ tomato-and-cucumber-salad	none
 tomato-and-garlic-omelet	sheet-pan,skillet
 tomato-basil-and-bean-pasta-salad	pot
 tomato-basil-bruschetta	sheet-pan
-tomato-basil-soup	blender,food-processor,saucepan
+tomato-basil-soup	blender,saucepan
 tomato-n-cheese-pasta	baking-dish,pot,small-saucepan
 tostadas	sheet-pan
 tostadas-delgadas	sheet-pan
@@ -778,7 +778,7 @@ tropical-morning-treat	none
 tropical-overnight-oatmeal	none
 tuna-apple-salad	none
 tuna-apple-salad-sandwich	none
-tuna-melt-burger	none
+tuna-melt-burger	sheet-pan
 tuna-pasta	pot,skillet
 tuna-pasta-casserole	baking-dish,pot,skillet
 tuna-salad-grapes	none
@@ -830,11 +830,11 @@ very-berry-smoothie	blender
 vinaigrette-salad-dressing	none
 waldorf-salad	sheet-pan
 walleye-chowder	pot
-watermelon-gazpacho	blender,food-processor
+watermelon-gazpacho	blender
 white-chicken-chili	saucepan
 white-chili	pot
 white-sauce-thin	small-saucepan
-whole-grain-strawberry-pancakes	griddle,skillet
+whole-grain-strawberry-pancakes	skillet
 whole-wheat-garlic-bread-sticks	sheet-pan
 whole-wheat-muffins	muffin-tin
 wild-rice-muffins	muffin-tin
@@ -847,7 +847,7 @@ zesty-citrus-coleslaw	none
 zesty-herb-salad-dressing	none
 zesty-lemon-fish	sheet-pan
 zesty-skillet-zucchini	skillet
-zingy-lemon-chicken-pasta	baking-dish,pot,saucepan,skillet
+zingy-lemon-chicken-pasta	baking-dish,pot,skillet
 zucchini-and-tomatoes	saucepan
 zucchini-au-gratin	skillet
 zucchini-bread	loaf-pan
