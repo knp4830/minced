@@ -95,6 +95,11 @@ export function toggleLocal(keys: string[], checked: boolean) {
   writeLocalList(readLocalList().map((l) => (set.has(l.key) ? { ...l, checked } : l)));
 }
 
+export function removeLocal(keys: string[]) {
+  const set = new Set(keys);
+  writeLocalList(readLocalList().filter((l) => !set.has(l.key)));
+}
+
 export function clearCheckedLocal() {
   writeLocalList(readLocalList().filter((l) => !l.checked));
 }

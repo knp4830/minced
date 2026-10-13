@@ -70,6 +70,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   const { status } = useAccount();
   const signedIn = status === "in";
   const [saveError, setSaveError] = useState(false);
+  const [confirmEmpty, setConfirmEmpty] = useState(false);
   const uid = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -155,8 +156,11 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
     const rank = (i: CatalogItem): number => {
       const name = i.name.toLowerCase();
       if (needles.some((n) => name.startsWith(n))) return 0;
-      if (needles.some((n) => name.includes(n))) return 1;
-      return i.aka?.split("|").some((s) => needles.some((n) => s.includes(n))) ? 2 : 3;
+      // Match at the start of a word, not anywhere: "gar" finds garlic and
+      // "green garlic", not sugar or vinegar.
+      const atWord = (text: string, n: string) => text.startsWith(n) || text.includes(` ${n}`) || text.includes(`-${n}`);
+      if (needles.some((n) => atWord(name, n))) return 1;
+      return i.aka?.split("|").some((s) => needles.some((n) => atWord(s.toLowerCase(), n))) ? 2 : 3;
     };
     return catalog.categories
       .flatMap((c) => c.items)
@@ -302,14 +306,32 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
               <Refrigerator aria-hidden className="size-4" />
               {count > 0 ? "Add or change" : "Pick what’s in my fridge"}
             </Button>
-            {count > 0 && (
+            {count > 0 && !confirmEmpty && (
               <button
                 type="button"
-                onClick={() => commit([])}
+                onClick={() => setConfirmEmpty(true)}
                 className="inline-flex min-h-11 items-center text-[0.8125rem] text-ink-muted underline-offset-4 hover:text-herb hover:underline"
               >
                 Empty the fridge
               </button>
+            )}
+            {count > 0 && confirmEmpty && (
+              <span role="group" aria-label="Confirm emptying the fridge" className="inline-flex flex-wrap items-center gap-2">
+                <span className="text-[0.875rem] text-ink">Remove all {count}? Saved dates and amounts go too.</span>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => {
+                    setConfirmEmpty(false);
+                    commit([]);
+                  }}
+                >
+                  Yes, empty it
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => setConfirmEmpty(false)}>
+                  Keep it
+                </Button>
+              </span>
             )}
           </div>
           {saveError && (

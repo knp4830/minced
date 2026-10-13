@@ -223,8 +223,8 @@ function FridgeRowView({
 
   return (
     <li className="border-b border-line py-2.5">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-        <div className="min-w-0 flex-1 basis-44">
+      <div className="flex items-center gap-x-3">
+        <div className="min-w-0 flex-1">
           <p className="truncate text-[1rem] font-medium">
             {row.name}
             {row.quantity && (
@@ -234,21 +234,20 @@ function FridgeRowView({
             )}
           </p>
           {row.notes && <p className="truncate text-[0.8125rem] text-ink-muted">{row.notes}</p>}
+          <p
+            className={cn(
+              "mt-1 inline-flex min-h-8 max-w-full items-center rounded-sheet border px-2 font-mono text-[0.6875rem] whitespace-nowrap sm:px-2.5 sm:text-[0.75rem]",
+              BADGE[urgency],
+            )}
+          >
+            {expiryLabel(days)}
+            {row.expiresOn && (
+              <span className="ml-1.5 font-normal text-ink-muted">· {shortDate(row.expiresOn)}</span>
+            )}
+          </p>
         </div>
 
-        <p
-          className={cn(
-            "inline-flex min-h-8 items-center rounded-sheet border px-2.5 font-mono text-[0.75rem]",
-            BADGE[urgency],
-          )}
-        >
-          {expiryLabel(days)}
-          {row.expiresOn && (
-            <span className="ml-1.5 font-normal text-ink-muted">· {shortDate(row.expiresOn)}</span>
-          )}
-        </p>
-
-        <div className="flex items-center">
+        <div className="flex shrink-0 items-center">
           <button
             type="button"
             onClick={onEdit}

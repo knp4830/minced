@@ -47,7 +47,7 @@ export default async function AccountPage({ searchParams }: Props) {
         </span>
         <div className="min-w-0 flex-1">
           <h1 className="truncate text-[1.625rem] leading-tight md:text-[2rem]">{user.name}</h1>
-          <p className="truncate font-mono text-[0.8125rem] text-ink-muted">{user.email}</p>
+          <p title={user.email} className="truncate font-mono text-[0.8125rem] text-ink-muted">{user.email}</p>
         </div>
         <form action={logOut}>
           <Button type="submit" variant="secondary" className="text-paprika-deep">
@@ -122,7 +122,7 @@ export default async function AccountPage({ searchParams }: Props) {
               <div>
                 <h3 className="text-base font-semibold">Your data</h3>
                 <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Minced stores your email, the recipes you save, and security sign-in logs.{" "}
+                  Minced stores your email, the recipes you save, your cookware, your fridge (with dates and amounts), your shopping list, and security sign-in logs. Without an account, your shopping list stays in this browser only.{" "}
                   <Link href="/privacy" className="underline underline-offset-4 hover:text-herb">
                     Read the privacy policy
                   </Link>
@@ -139,7 +139,7 @@ export default async function AccountPage({ searchParams }: Props) {
               <div>
                 <h3 className="text-base font-semibold">Delete your account</h3>
                 <p className="mt-1.5 mb-4 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Removes your login and saved recipes right away. This can&apos;t be undone.
+                  Removes your login, saved recipes, fridge and shopping list right away. This can&apos;t be undone.
                 </p>
                 <DeleteAccountForm />
               </div>

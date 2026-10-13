@@ -2,6 +2,7 @@ import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
 import { FridgePicker } from "@/components/pantry/fridgePicker";
 import { Button } from "@/components/ui/button";
+import { LandingCta } from "@/components/landing/landingCta";
 import { getFilterOptions } from "@/lib/queries/browse";
 import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import {
@@ -31,7 +32,7 @@ const FEATURES = [
   },
   {
     title: "Filter by what matters",
-    body: "Narrow by time, diet, allergens, spice, calories or protein. Filters live in the link, so you can share them.",
+    body: "Narrow by time, diet, allergens, spice, calories, protein or the cookware you own. Filters live in the link, so you can share them.",
     radius: "50% 50% 3px 3px",
   },
   {
@@ -231,14 +232,7 @@ export default async function Home() {
         <h2 id="cta-h" className="mb-6 text-[1.875rem] md:text-[2.125rem]">
           Ready when you are.
         </h2>
-        <div className="flex flex-wrap justify-center gap-3">
-          <Button asChild variant="inverse" size="lg">
-            <Link href="/signup">Create an account</Link>
-          </Button>
-          <Button asChild variant="inverse-outline" size="lg">
-            <Link href="/recipes">Browse recipes</Link>
-          </Button>
-        </div>
+        <LandingCta />
       </section>
     </>
   );

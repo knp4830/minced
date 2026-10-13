@@ -5,6 +5,7 @@ import {
   clearAll,
   clearChecked,
   importLocal,
+  removeByIds,
   setChecked,
   type AddResult,
 } from "@/lib/queries/shopping";
@@ -37,6 +38,13 @@ export async function setShoppingChecked(keys: string[], checked: boolean): Prom
   const ids = keys.map(Number);
   if (!ids.every(isId)) return false;
   return setChecked(ids, checked === true);
+}
+
+export async function removeShoppingItems(keys: string[]): Promise<boolean> {
+  if (!Array.isArray(keys) || keys.length === 0 || keys.length > 500) return false;
+  const ids = keys.map(Number);
+  if (!ids.every(isId)) return false;
+  return removeByIds(ids);
 }
 
 export async function clearCheckedShopping(): Promise<boolean> {

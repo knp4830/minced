@@ -156,10 +156,44 @@ export function displayQuantity(
   if (!line.unit) return { amount: formatAmount(scaled), unit: "" };
 
   const promoted = promote(scaled, line.unit);
-  const q = promoted.quantity;
-  const unit = promoted.unit;
+  let q = promoted.quantity;
+  let unit = promoted.unit;
+  let amount = formatAmount(q);
+
+  // Rounding to a kitchen fraction must not drift: 4 1/2 tbsp is 0.28 cup, which
+  // would print as "1/4 cup" (10% short). Step back down the ladder until the
+  // printed amount is within 3% of the real one, so the recipe page and the
+  // shopping list agree.
+  const key = ladderOf(unit);
+  if (key && relativeError(parseAmount(amount), q) > 0.03) {
+    const steps = LADDERS[key];
+    const baseQty = q * (steps.find(([n]) => n === unit)?.[1] ?? 1);
+    for (let i = steps.findIndex(([n]) => n === unit) - 1; i >= 0; i--) {
+      const cq = baseQty / steps[i][1];
+      const text = formatAmount(cq);
+      q = cq;
+      unit = steps[i][0];
+      amount = text;
+      if (relativeError(parseAmount(text), cq) <= 0.03) break;
+    }
+  }
   // `formatAmount` can round up to the next whole; pluralise on the rounded text.
-  const amount = formatAmount(q);
   const n = amount === "0" ? 0 : q;
   return { amount, unit: pluralUnit(unit, n) };
+}
+
+/** "1 1/2" -> 1.5, "to taste" -> NaN. */
+export function parseAmount(text: string): number {
+  let total = 0;
+  for (const part of text.trim().split(/\s+/)) {
+    const m = /^(\d+)\/(\d+)$/.exec(part);
+    if (m) total += Number(m[1]) / Number(m[2]);
+    else total += Number(part);
+  }
+  return total;
+}
+
+function relativeError(shown: number, actual: number): number {
+  if (!Number.isFinite(shown) || actual <= 0) return 0;
+  return Math.abs(shown - actual) / actual;
 }

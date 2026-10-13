@@ -159,7 +159,7 @@
   }
 
   /* Inputs set their own focus ring; avoid a double outline. */
-  input:focus-visible,
+  input:not([type="checkbox"], [type="radio"]):focus-visible,
   textarea:focus-visible,
   select:focus-visible {
     outline: none;

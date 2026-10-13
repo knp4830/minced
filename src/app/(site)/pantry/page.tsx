@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { RememberList } from "@/components/recipe/rememberList";
 import { FridgePicker } from "@/components/pantry/fridgePicker";
 import { FridgeDatesLink, LocalFridgeImport } from "@/components/pantry/localFridgeImport";
 import { daysUntilLabel, todayIso, urgencyOf } from "@/lib/fridgeDates";
@@ -169,6 +170,9 @@ export default async function PantryPage({
 
   return (
     <div className="mx-auto max-w-[1400px] px-(--gutter) py-8 md:py-12">
+      <Suspense fallback={null}>
+        <RememberList />
+      </Suspense>
       <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
       <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What&apos;s in my fridge</h1>
       <p className="mt-2 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">

@@ -1,3 +1,4 @@
+import { ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 import { HeaderAccount } from "@/components/account/headerAccount";
 
@@ -32,6 +33,13 @@ export function LandingNav() {
             className="hidden min-h-11 items-center rounded-md text-sm font-medium text-ink transition-colors hover:text-herb sm:inline-flex"
           >
             Browse recipes
+          </Link>
+          <Link
+            href="/shopping"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium text-ink transition-colors hover:text-herb"
+          >
+            <ShoppingBasket aria-hidden className="size-[1.125rem] sm:hidden" />
+            <span className="sr-only sm:not-sr-only">Shopping list</span>
           </Link>
           <HeaderAccount />
         </nav>

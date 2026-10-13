@@ -97,6 +97,13 @@ export async function setChecked(ids: number[], checked: boolean): Promise<boole
   return !error;
 }
 
+/** Delete specific raw lines (RLS limits this to the caller's own). */
+export async function removeByIds(ids: number[]): Promise<boolean> {
+  const sb = await db();
+  const { error } = await sb.from("shopping_list_items").delete().in("id", ids);
+  return !error;
+}
+
 export async function clearChecked(): Promise<boolean> {
   const sb = await db();
   const { error } = await sb.from("shopping_list_items").delete().eq("checked", true);

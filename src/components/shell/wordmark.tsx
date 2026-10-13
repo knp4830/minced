@@ -7,7 +7,7 @@ export function Wordmark({ className }: { className?: string }) {
       href="/"
       aria-label="Minced, home"
       className={cn(
-        "-m-1 rounded-md p-1 font-display text-[1.3125rem] leading-none font-semibold tracking-[-0.02em] text-ink",
+        "-mx-1 inline-flex min-h-11 items-center rounded-md px-1 font-display text-[1.3125rem] leading-none font-semibold tracking-[-0.02em] text-ink",
         className,
       )}
     >

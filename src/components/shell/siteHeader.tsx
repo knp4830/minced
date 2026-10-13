@@ -1,7 +1,7 @@
-import { CookingPot, ShoppingBasket } from "lucide-react";
+import { ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 import { HeaderAccount } from "@/components/account/headerAccount";
-import { Button } from "@/components/ui/button";
+import { FridgeNavButton } from "@/components/shell/fridgeNavButton";
 import { HeaderSearch } from "@/components/shell/headerSearch";
 import { Wordmark } from "@/components/shell/wordmark";
 
@@ -31,18 +31,12 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/shopping"
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
           >
             <ShoppingBasket aria-hidden className="size-[1.125rem] sm:hidden" />
             <span className="sr-only sm:not-sr-only">Shopping list</span>
           </Link>
-          <Button asChild size="sm">
-            <Link href="/pantry">
-              <CookingPot aria-hidden className="size-4" />
-              <span className="hidden min-[420px]:inline">What’s in my fridge?</span>
-              <span className="min-[420px]:hidden">My fridge</span>
-            </Link>
-          </Button>
+          <FridgeNavButton />
           <HeaderAccount />
         </nav>
       </div>

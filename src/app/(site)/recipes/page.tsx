@@ -8,6 +8,7 @@ import {
   clearFiltersHref,
   FilterControls,
 } from "@/components/recipe/filterPanel";
+import { RememberList } from "@/components/recipe/rememberList";
 import { CookwareSync } from "@/components/recipe/cookwareSync";
 import { FilterSheet } from "@/components/recipe/filterSheet";
 import { RecipeList } from "@/components/recipe/recipeList";
@@ -29,6 +30,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const filtered = !!f.q || hasActiveFilters(f) || !!f.cursor;
   return {
     title: f.q ? `“${f.q}”` : "Recipes",
+    description:
+      "Every recipe is ingredients, amounts and numbered steps. Filter by time, diet, allergens, spice, calories, protein or the cookware you own.",
     // Search and filter URLs are infinite and thin; only the plain listing is indexable.
     robots: filtered ? { index: false, follow: true } : undefined,
   };
@@ -132,6 +135,17 @@ async function Results({ filters }: { filters: RecipeFilters }) {
         <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">{unknownNote}</p>
       )}
 
+      {filters.cursor && (
+        <p className="mb-3">
+          <Link
+            href={`/recipes${filtersToQuery({ ...filters, cursor: undefined })}`}
+            className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4 hover:text-herb"
+          >
+            Back to the first page
+          </Link>
+        </p>
+      )}
+
       <RecipeList
         recipes={page.recipes}
         nextHref={nextHref}
@@ -164,6 +178,9 @@ export default async function RecipesPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
+      <Suspense fallback={null}>
+        <RememberList />
+      </Suspense>
       <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
       <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
         {/* Desktop: sticky sidebar */}

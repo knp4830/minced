@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Printer } from "lucide-react";
+import { Check, Printer, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 
@@ -8,6 +8,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   clearCheckedShopping,
   clearShoppingList,
+  removeShoppingItems,
   setShoppingChecked,
 } from "@/lib/actions/shopping";
 import { formatAmount, pluralUnit } from "@/lib/scaling";
@@ -22,6 +23,7 @@ import {
   clearCheckedLocal,
   clearLocal,
   readLocalList,
+  removeLocal,
   toggleLocal,
 } from "@/lib/shoppingStorage";
 import { cn } from "@/lib/utils";
@@ -119,6 +121,21 @@ export function ShoppingList({
     });
   }
 
+  function removeItem(item: MergedItem) {
+    const keys = new Set(item.keys);
+    if (mode === "local") {
+      setError(null);
+      setLines((prev) => prev.filter((l) => !keys.has(l.key)));
+      removeLocal(item.keys);
+      return;
+    }
+    removeLines(
+      (l) => keys.has(l.key),
+      () => removeShoppingItems(item.keys),
+      "Couldn't remove that item. Try again.",
+    );
+  }
+
   function clearChecked() {
     if (mode === "local") {
       setError(null);
@@ -197,8 +214,16 @@ export function ShoppingList({
             </h2>
             <ul>
               {g.items.map((item) => (
-                <li key={item.id} className="border-b border-line">
+                <li key={item.id} className="flex items-center border-b border-line">
                   <ItemRow item={item} onToggle={() => toggle(item)} />
+                  <button
+                    type="button"
+                    onClick={() => removeItem(item)}
+                    aria-label={`Remove ${item.name}`}
+                    className="inline-flex size-11 shrink-0 items-center justify-center rounded-md text-ink-subtle transition-colors hover:text-paprika-deep print:hidden"
+                  >
+                    <X aria-hidden className="size-4" />
+                  </button>
                 </li>
               ))}
             </ul>
@@ -256,7 +281,7 @@ function ItemRow({ item, onToggle }: { item: MergedItem; onToggle: () => void })
       role="checkbox"
       aria-checked={item.checked}
       onClick={onToggle}
-      className="group flex min-h-12 w-full items-center gap-3 rounded-sm px-1 py-2.5 text-left transition-colors hover:bg-ink/4 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+      className="group flex min-h-12 min-w-0 flex-1 items-center gap-3 rounded-sm px-1 py-2.5 text-left transition-colors hover:bg-ink/4 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
     >
       <span
         aria-hidden
@@ -275,16 +300,26 @@ function ItemRow({ item, onToggle }: { item: MergedItem; onToggle: () => void })
       >
         {qty}
       </span>
-      <span
-        className={cn(
-          "min-w-0 flex-1 text-[0.9375rem] leading-snug",
-          item.checked && "text-ink-subtle line-through",
+      <span className="min-w-0 flex-1">
+        <span
+          className={cn(
+            "block text-[0.9375rem] leading-snug",
+            item.checked && "text-ink-subtle line-through",
+          )}
+        >
+          {item.name}
+        </span>
+        {first && (
+          <span className="mt-1 block w-fit max-w-full rounded-full bg-band px-2.5 py-0.5 font-mono text-[0.6875rem] text-ink-subtle sm:hidden print:hidden">
+            <span className="block truncate">
+              {first.title}
+              {more > 0 && ` +${more}`}
+            </span>
+          </span>
         )}
-      >
-        {item.name}
       </span>
       {first && (
-        <span className="shrink-0 rounded-full bg-band px-2.5 py-0.5 font-mono text-[0.6875rem] text-ink-subtle print:bg-transparent print:px-0">
+        <span className="hidden shrink-0 rounded-full bg-band px-2.5 py-0.5 font-mono text-[0.6875rem] text-ink-subtle sm:inline print:inline print:bg-transparent print:px-0">
           <span className="inline-block max-w-[6.5rem] truncate align-bottom print:max-w-none">
             {first.title}
           </span>

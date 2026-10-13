@@ -86,19 +86,19 @@ export default async function AboutPage() {
             </summary>
             <ul className="divide-y divide-line border-t border-line text-sm">
               {credits.map((c) => (
-                <li key={c.slug} className="px-4 py-2.5">
-                  <Link href={`/recipes/${c.slug}`} className={link}>
+                <li key={c.slug} className="px-4">
+                  <Link href={`/recipes/${c.slug}`} className={`${link} inline-block py-3.5`}>
                     {c.title}
                   </Link>
                   <span className="text-ink-muted">
                     {" "}
                     &mdash;{" "}
-                    <a href={c.attributionUrl} className={link} rel="noopener">
+                    <a href={c.attributionUrl} className={`${link} inline-block py-3.5`} rel="noopener">
                       {c.credit ?? "Source"}
                     </a>
                     ,{" "}
                     {c.licenseUrl ? (
-                      <a href={c.licenseUrl} className={link} rel="noopener">
+                      <a href={c.licenseUrl} className={`${link} inline-block py-3.5`} rel="noopener">
                         {c.license}
                       </a>
                     ) : (

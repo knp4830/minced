@@ -32,7 +32,7 @@ export default async function FridgePage() {
     <div className="mx-auto max-w-[820px] px-(--gutter) py-8 md:py-12">
       <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">My fridge</h1>
       <p className="mt-2 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-        Everything you have, soonest to expire first. The dates are suggestions based on how long
+        Everything you have, grouped by aisle, with the soonest to expire first inside each. The dates are suggestions based on how long
         each kind of food usually keeps; change any of them to match what you bought.
       </p>
 

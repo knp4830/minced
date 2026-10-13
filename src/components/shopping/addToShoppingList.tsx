@@ -163,20 +163,21 @@ export function AddToShoppingList({
 
       <div role="status" aria-live="polite" className="empty:hidden">
         {notice?.kind === "done" && (
-          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] text-ink">
-            <Check aria-hidden className="size-4 shrink-0 text-herb" />
-            <span>
+          <p className="flex items-start gap-2 text-[0.8125rem] leading-snug text-ink">
+            <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-herb" />
+            <span className="min-w-0">
               {notice.done.added === 0
                 ? "Nothing to add: everything is covered."
                 : `Added ${notice.done.added} ${notice.done.added === 1 ? "item" : "items"} for ${notice.done.servings} ${notice.done.servings === 1 ? "serving" : "servings"}.`}
               {notice.done.where === "device" && " Saved on this device."}
+              {" "}
+              <Link
+                href="/shopping"
+                className="inline-flex min-h-11 items-center font-semibold text-herb underline underline-offset-2"
+              >
+                View list
+              </Link>
             </span>
-            <Link
-              href="/shopping"
-              className="inline-flex min-h-11 items-center font-semibold text-herb underline underline-offset-2"
-            >
-              View list
-            </Link>
           </p>
         )}
         {notice?.kind === "error" && (
