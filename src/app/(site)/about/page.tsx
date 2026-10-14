@@ -5,6 +5,7 @@ import { getPhotoCredits } from "@/lib/queries/landing";
 
 export const metadata: Metadata = {
   title: "How recipes are made",
+  alternates: { canonical: "/about" },
   description:
     "Where Minced's recipes, photos and nutrition numbers come from, and where they can be wrong.",
 };
