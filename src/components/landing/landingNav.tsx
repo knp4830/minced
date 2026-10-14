@@ -3,17 +3,16 @@ import Link from "next/link";
 import { HeaderAccount } from "@/components/account/headerAccount";
 
 /*
- * Landing nav, per the handoff: logo with the mono "mise en place" eyebrow,
- * a text link to browse, then the auth control. There is deliberately no
+ * Landing nav, per the handoff: logo (the owner dropped the "mise en place"
+ * eyebrow), a text link to browse, then the auth control. There is deliberately no
  * "What's in my fridge?" button here: the hero puts it right under the search
  * box, and a second copy in the nav stacked two identical actions within one
- * screen on phones. On phones the eyebrow and the text link drop away so the
- * auth control fits.
+ * screen on phones. On phones the text link drops away so the auth control fits.
  */
 export function LandingNav() {
   return (
     <header className="border-b border-line bg-canvas">
-      <div className="mx-auto flex max-w-[1180px] items-center gap-4 px-(--gutter) py-3 md:py-4">
+      <div className="flex page-w items-center gap-4 py-3 md:py-4">
         <Link
           href="/"
           aria-label="Minced, home"
@@ -21,9 +20,6 @@ export function LandingNav() {
         >
           <span className="font-display text-[1.375rem] leading-none font-semibold tracking-[-0.02em] text-ink">
             Minced
-          </span>
-          <span aria-hidden className="label-mono hidden sm:inline">
-            mise en place
           </span>
         </Link>
 

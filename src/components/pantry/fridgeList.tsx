@@ -178,8 +178,10 @@ export function FridgeList({ initialRows, serverToday }: { initialRows: FridgeRo
         </p>
       )}
 
+      {/* Aisles flow into columns on wide screens, so a long fridge fills the page instead of one thin strip. */}
+      <div className="mt-8 columns-1 gap-x-12 lg:columns-2 2xl:columns-3">
       {groups.map((g) => (
-        <section key={g.aisle} aria-labelledby={`aisle-${g.aisle}`} className="mt-8">
+        <section key={g.aisle} aria-labelledby={`aisle-${g.aisle}`} className="mb-8 break-inside-avoid">
           <h2 id={`aisle-${g.aisle}`} className="label-mono mb-1">
             {g.aisle} <span className="text-ink-subtle">· {g.rows.length}</span>
           </h2>
@@ -198,6 +200,7 @@ export function FridgeList({ initialRows, serverToday }: { initialRows: FridgeRo
           </ul>
         </section>
       ))}
+      </div>
     </div>
   );
 }

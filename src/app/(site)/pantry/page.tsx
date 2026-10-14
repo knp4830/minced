@@ -176,7 +176,7 @@ export default async function PantryPage({
   const resultsKey = filtersToQuery(resultFilters(filters));
 
   return (
-    <div className="mx-auto max-w-[1400px] px-(--gutter) py-8 md:py-12">
+    <div className="page-w py-8 md:py-12">
       <Suspense fallback={null}>
         <RememberList />
       </Suspense>

@@ -21,7 +21,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="border-b border-line-strong bg-surface">
         <nav
           aria-label="Admin"
-          className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-5 gap-y-1 px-(--gutter) py-2.5 text-[0.875rem]"
+          className="flex page-w flex-wrap items-center gap-x-5 gap-y-1 py-2.5 text-[0.875rem]"
         >
           <span className="font-display text-[1.0625rem] font-semibold">Minced admin</span>
           <Link href="/admin/review" className="font-medium text-herb hover:underline">

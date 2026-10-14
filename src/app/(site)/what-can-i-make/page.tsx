@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function WhatCanIMakeIndex() {
   const combos = allCombos();
   return (
-    <div className="mx-auto max-w-[1400px] px-(--gutter) py-8 md:py-12">
+    <div className="page-w py-8 md:py-12">
       <h1 className="text-[1.75rem] leading-[1.1] md:text-[2.25rem]">What can I make with what I have</h1>
       <p className="mt-3 max-w-[38em] text-[0.9375rem] leading-relaxed text-ink-muted">
         Common ingredient combinations, each with the recipes that use all of them. Want your own

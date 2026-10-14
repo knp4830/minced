@@ -176,7 +176,7 @@ export function ReviewScreen({
         aria-label="Review actions"
         className="fixed inset-x-0 bottom-0 z-30 border-t border-line-strong bg-surface px-(--gutter) py-2 md:sticky md:top-0 md:inset-x-auto md:rounded-xl md:border md:px-3"
       >
-        <div className="mx-auto flex max-w-[1180px] items-center gap-1.5 md:flex-wrap md:gap-2">
+        <div className="flex items-center gap-1.5 md:flex-wrap md:gap-2">
           <Button variant="secondary" size="sm" className={BAR_BTN} onClick={() => prev && go(prev)} disabled={!prev || pending} aria-keyshortcuts="K">
             Prev <kbd className="hidden font-mono text-xs md:inline text-ink-subtle">K</kbd>
           </Button>

@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 export function SiteFooter({ flush = false }: { flush?: boolean }) {
   return (
     <footer className={cn("border-t border-line bg-band", !flush && "mt-16")}>
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-x-5 gap-y-1 px-(--gutter) py-3 md:flex-row md:items-center md:py-4">
+      <div className="flex page-w flex-col gap-x-5 gap-y-1 py-3 md:flex-row md:items-center md:py-4">
         <Wordmark className="inline-flex min-h-11 items-center self-start text-[1.0625rem]" />
         <span aria-hidden className="hidden text-stone-line md:inline">
           ·

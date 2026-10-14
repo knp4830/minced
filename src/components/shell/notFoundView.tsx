@@ -20,7 +20,7 @@ export function NotFoundView({
   primary?: { href: string; label: string };
 }) {
   return (
-    <div className="mx-auto max-w-[34rem] px-(--gutter) py-14 text-center md:py-20">
+    <div className="mx-auto max-w-[34rem] px-(--gutter) py-14 text-center md:py-20 xl:py-32">
       <p className="label-mono mb-3 tracking-[0.1em]">Error 404</p>
       <h1 className="text-[2rem] leading-[1.05] md:text-[2.5rem]">{title}</h1>
       <p className="mx-auto mt-3 max-w-[28em] text-[0.9375rem] leading-relaxed text-ink-muted">

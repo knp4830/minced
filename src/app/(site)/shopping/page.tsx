@@ -19,7 +19,7 @@ export default async function ShoppingPage() {
   const lines = user ? await getShoppingLines() : [];
 
   return (
-    <div className="mx-auto max-w-[720px] px-(--gutter) py-6 md:py-10">
+    <div className="page-w py-6 md:py-10">
       {/* The site header and footer have no place on a printed list. */}
       <style>{`@media print { header, footer { display: none !important } }`}</style>
       <h1 className="mb-1 text-[2rem] leading-tight tracking-[-0.02em]">Shopping list</h1>

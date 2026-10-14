@@ -95,7 +95,7 @@ export default async function ComboPage({ params }: { params: Promise<Params> })
   const pantryHref = comboPantryHref(combo);
 
   return (
-    <div className="mx-auto max-w-[1400px] px-(--gutter) py-8 md:py-12">
+    <div className="page-w py-8 md:py-12">
       <JsonLd
         data={{
           "@context": "https://schema.org",
