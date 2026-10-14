@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
 import { RememberList } from "@/components/recipe/rememberList";
 import { FridgePicker } from "@/components/pantry/fridgePicker";
