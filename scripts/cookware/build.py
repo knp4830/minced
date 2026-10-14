@@ -41,6 +41,17 @@ def q(s):
 assign = rows("assignments.tsv", 2)
 edits = rows("step_edits.tsv", 4)
 
+alt = rows("alt_groups.tsv", 2)
+alt_rows = []          # (slug, group_no, cookware)
+_n = {}
+for slug, cws in alt:
+    _n[slug] = _n.get(slug, 0) + 1
+    members = [c.strip() for c in cws.split(",")]
+    if len(members) < 2 or len(set(members)) != len(members):
+        sys.exit(f"alt_groups.tsv: a group needs 2+ distinct cookware: {slug} {cws}")
+    for c in members:
+        alt_rows.append((slug, _n[slug], c))
+
 pairs = []
 for slug, cw in assign:
     for c in ([] if cw == "none" else cw.split(",")):
@@ -172,8 +183,53 @@ begin
   raise notice 'recipe_cookware: % rows inserted', n;
 end $$;
 
+-- ALTERNATIVE GROUPS (wave 7): "X or Y" in a recipe's steps. Members of one group
+-- (same non-null alt_group within a recipe) are alternatives: the recipe needs ANY
+-- one of them. Requires migration 20261014100000_cookware_alt_groups.sql.
+create temp table _cw_alt (slug text, grp smallint, cookware text) on commit drop;
+""")
+
+if alt_rows:
+    w("insert into _cw_alt (slug, grp, cookware) values")
+    w(",\n".join(f"  ('{s}', {g}, '{c}')" for s, g, c in alt_rows) + ";")
+    w("")
+
+w("""do $$
+declare
+  bad text;
+  n   int;
+begin
+  select string_agg(distinct a.slug, ', ') into bad
+  from   _cw_alt a left join recipes r on r.slug = a.slug where r.id is null;
+  if bad is not null then raise exception 'unknown recipe slug(s) in alt groups: %', bad; end if;
+
+  select string_agg(distinct a.cookware, ', ') into bad
+  from   _cw_alt a left join cookware c on c.slug = a.cookware where c.id is null;
+  if bad is not null then raise exception 'unknown cookware slug(s) in alt groups: %', bad; end if;
+
+  -- every member must be a row of the recipe (add the other half of "X or Y")
+  insert into recipe_cookware (recipe_id, cookware_id)
+  select r.id, c.id
+  from   _cw_alt a
+  join   recipes  r on r.slug = a.slug
+  join   cookware c on c.slug = a.cookware
+  on conflict do nothing;
+  get diagnostics n = row_count;
+  raise notice 'alt groups: % member rows added', n;
+
+  update recipe_cookware rc
+  set    alt_group = a.grp
+  from   _cw_alt a
+  join   recipes  r on r.slug = a.slug
+  join   cookware c on c.slug = a.cookware
+  where  rc.recipe_id = r.id and rc.cookware_id = c.id
+    and  rc.alt_group is distinct from a.grp;
+  get diagnostics n = row_count;
+  raise notice 'alt groups: % rows grouped', n;
+end $$;
+
 commit;
 """)
 
 OUT.write_text("\n".join(sql), encoding="utf-8", newline="\n")
-print(f"wrote {OUT} ({len(pairs)} cookware pairs, {len(edits)} step edits, {len(assign)} recipes reviewed)")
+print(f"wrote {OUT} ({len(pairs)} cookware pairs, {len(edits)} step edits, {len(alt_rows)} alt-group members, {len(assign)} recipes reviewed)")

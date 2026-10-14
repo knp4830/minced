@@ -1079,4 +1079,118 @@ begin
   raise notice 'recipe_cookware: % rows inserted', n;
 end $$;
 
+-- ALTERNATIVE GROUPS (wave 7): "X or Y" in a recipe's steps. Members of one group
+-- (same non-null alt_group within a recipe) are alternatives: the recipe needs ANY
+-- one of them. Requires migration 20261014100000_cookware_alt_groups.sql.
+create temp table _cw_alt (slug text, grp smallint, cookware text) on commit drop;
+
+insert into _cw_alt (slug, grp, cookware) values
+  ('apple-corn-chili', 1, 'blender'),
+  ('apple-corn-chili', 1, 'food-processor'),
+  ('butternut-squash-apple-soup', 1, 'blender'),
+  ('butternut-squash-apple-soup', 1, 'food-processor'),
+  ('cantaloupe-cooler', 1, 'blender'),
+  ('cantaloupe-cooler', 1, 'food-processor'),
+  ('chilled-blueberry-soup', 1, 'blender'),
+  ('chilled-blueberry-soup', 1, 'food-processor'),
+  ('chilled-cantaloupe-soup', 1, 'blender'),
+  ('chilled-cantaloupe-soup', 1, 'food-processor'),
+  ('chimichurri-sauce', 1, 'blender'),
+  ('chimichurri-sauce', 1, 'food-processor'),
+  ('cream-broccoli-soup', 1, 'blender'),
+  ('cream-broccoli-soup', 1, 'food-processor'),
+  ('cumin-lime-shrimp-over-creamy-cauliflower-risotto', 1, 'blender'),
+  ('cumin-lime-shrimp-over-creamy-cauliflower-risotto', 1, 'food-processor'),
+  ('easiest-banana-ice-cream', 1, 'blender'),
+  ('easiest-banana-ice-cream', 1, 'food-processor'),
+  ('easy-oven-fish-spinach-basil-dipping-sauce-spiced-apples', 1, 'blender'),
+  ('easy-oven-fish-spinach-basil-dipping-sauce-spiced-apples', 1, 'food-processor'),
+  ('farmers-market-gazpacho', 1, 'blender'),
+  ('farmers-market-gazpacho', 1, 'food-processor'),
+  ('gazpacho', 1, 'blender'),
+  ('gazpacho', 1, 'food-processor'),
+  ('mango-cucumber-soup', 1, 'blender'),
+  ('mango-cucumber-soup', 1, 'food-processor'),
+  ('orange-cow', 1, 'blender'),
+  ('orange-cow', 1, 'food-processor'),
+  ('pea-pesto', 1, 'blender'),
+  ('pea-pesto', 1, 'food-processor'),
+  ('pineapple-orange-frozen-yogurt', 1, 'blender'),
+  ('pineapple-orange-frozen-yogurt', 1, 'food-processor'),
+  ('purple-cow', 1, 'blender'),
+  ('purple-cow', 1, 'food-processor'),
+  ('tomato-basil-soup', 1, 'blender'),
+  ('tomato-basil-soup', 1, 'food-processor'),
+  ('watermelon-gazpacho', 1, 'blender'),
+  ('watermelon-gazpacho', 1, 'food-processor'),
+  ('apple-slice-pancakes', 1, 'skillet'),
+  ('apple-slice-pancakes', 1, 'griddle'),
+  ('black-bean-quesadillas', 1, 'skillet'),
+  ('black-bean-quesadillas', 1, 'griddle'),
+  ('corn-toasties', 1, 'skillet'),
+  ('corn-toasties', 1, 'griddle'),
+  ('cornmeal-pancakes', 1, 'skillet'),
+  ('cornmeal-pancakes', 1, 'griddle'),
+  ('perfect-pumpkin-pancakes', 1, 'skillet'),
+  ('perfect-pumpkin-pancakes', 1, 'griddle'),
+  ('potato-cakes', 1, 'skillet'),
+  ('potato-cakes', 1, 'griddle'),
+  ('brown-rice-sizzling-chicken-and-vegetables', 1, 'skillet'),
+  ('brown-rice-sizzling-chicken-and-vegetables', 1, 'wok'),
+  ('chicken-stir-fry', 1, 'skillet'),
+  ('chicken-stir-fry', 1, 'wok'),
+  ('fried-rice', 1, 'skillet'),
+  ('fried-rice', 1, 'wok'),
+  ('fish-tacos', 1, 'skillet'),
+  ('fish-tacos', 1, 'griddle'),
+  ('fish-tacos', 1, 'microwave'),
+  ('grilled-vegetables', 1, 'grill'),
+  ('grilled-vegetables', 1, 'sheet-pan'),
+  ('panned-cabbage', 1, 'skillet'),
+  ('panned-cabbage', 1, 'saucepan'),
+  ('sauteed-cauliflower-rice', 1, 'skillet'),
+  ('sauteed-cauliflower-rice', 1, 'saucepan'),
+  ('skillet-pasta-dinner', 1, 'skillet'),
+  ('skillet-pasta-dinner', 1, 'saucepan'),
+  ('seared-greens', 1, 'skillet'),
+  ('seared-greens', 1, 'pot'),
+  ('roast-chicken', 1, 'roasting-pan'),
+  ('roast-chicken', 1, 'dutch-oven'),
+  ('stove-top-potato-and-cabbage-casserole', 1, 'skillet'),
+  ('stove-top-potato-and-cabbage-casserole', 1, 'dutch-oven');
+
+do $$
+declare
+  bad text;
+  n   int;
+begin
+  select string_agg(distinct a.slug, ', ') into bad
+  from   _cw_alt a left join recipes r on r.slug = a.slug where r.id is null;
+  if bad is not null then raise exception 'unknown recipe slug(s) in alt groups: %', bad; end if;
+
+  select string_agg(distinct a.cookware, ', ') into bad
+  from   _cw_alt a left join cookware c on c.slug = a.cookware where c.id is null;
+  if bad is not null then raise exception 'unknown cookware slug(s) in alt groups: %', bad; end if;
+
+  -- every member must be a row of the recipe (add the other half of "X or Y")
+  insert into recipe_cookware (recipe_id, cookware_id)
+  select r.id, c.id
+  from   _cw_alt a
+  join   recipes  r on r.slug = a.slug
+  join   cookware c on c.slug = a.cookware
+  on conflict do nothing;
+  get diagnostics n = row_count;
+  raise notice 'alt groups: % member rows added', n;
+
+  update recipe_cookware rc
+  set    alt_group = a.grp
+  from   _cw_alt a
+  join   recipes  r on r.slug = a.slug
+  join   cookware c on c.slug = a.cookware
+  where  rc.recipe_id = r.id and rc.cookware_id = c.id
+    and  rc.alt_group is distinct from a.grp;
+  get diagnostics n = row_count;
+  raise notice 'alt groups: % rows grouped', n;
+end $$;
+
 commit;

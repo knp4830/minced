@@ -215,6 +215,22 @@ export type AddSelection = {
   skippedHave: string[];
 };
 
+/**
+ * How many times one recipe's batch is on the list: the most rows any single
+ * ingredient has among that recipe's lines. 0 = not on the list. A recipe added
+ * once has one row per ingredient; "Add again" adds a second set (2 batches).
+ */
+export function batchCount(recipeLines: { ingredientId: number }[]): number {
+  const perIngredient = new Map<number, number>();
+  let max = 0;
+  for (const l of recipeLines) {
+    const n = (perIngredient.get(l.ingredientId) ?? 0) + 1;
+    perIngredient.set(l.ingredientId, n);
+    if (n > max) max = n;
+  }
+  return max;
+}
+
 /** Mirror of add_recipe_to_shopping_list() for the signed-out list. Keep the two in step. */
 export function selectForList(
   lines: RecipeLineInput[],

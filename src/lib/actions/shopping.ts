@@ -25,12 +25,14 @@ export async function addToShoppingList(input: {
   servings: number;
   skipStaples: boolean;
   haveIds: number[];
+  /** "ask" (default): report a recipe already on the list instead of touching it. "again": add another batch. */
+  mode?: "ask" | "again";
 }): Promise<AddResult> {
-  const { slug, servings, skipStaples, haveIds } = input ?? {};
+  const { slug, servings, skipStaples, haveIds, mode } = input ?? {};
   if (typeof slug !== "string" || !SLUG_RE.test(slug)) return { ok: false, reason: "not-found" };
   if (!Number.isInteger(servings) || servings < 1 || servings > 48) return { ok: false, reason: "failed" };
   const ids = Array.isArray(haveIds) ? haveIds.filter(isId).slice(0, 200) : [];
-  return addRecipe(slug, servings, skipStaples !== false, ids);
+  return addRecipe(slug, servings, skipStaples !== false, ids, mode === "again" ? "again" : "ask");
 }
 
 export async function setShoppingChecked(keys: string[], checked: boolean): Promise<boolean> {
