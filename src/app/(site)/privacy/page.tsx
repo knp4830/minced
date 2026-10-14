@@ -5,6 +5,7 @@ import { CONTACT_URL, LegalPage, LegalSection, legalLink } from "@/components/sh
 
 export const metadata: Metadata = {
   title: "Privacy policy",
+  alternates: { canonical: "/privacy" },
   description: "What Minced stores about you, who processes it, and how to delete it.",
 };
 

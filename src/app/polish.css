@@ -19,6 +19,14 @@ dialog:modal {
   overscroll-behavior: contain;
 }
 
+/* --- Recipe form: sticky action bar must not hide the focused field ---------
+ * The create/edit form keeps its Save / Submit bar fixed to the bottom of the
+ * viewport. Without scroll padding, tabbing to a field near the bottom leaves it
+ * underneath the bar (WCAG 2.2 "Focus Not Obscured"). */
+html:has([data-recipe-form]) {
+  scroll-padding-bottom: 8rem;
+}
+
 /* --- Navigation progress ----------------------------------------------------
  * <NavProgress/> sets data-phase on the bar and data-nav-pending on <html>. */
 .nav-progress {

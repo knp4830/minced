@@ -368,6 +368,12 @@ export function ReviewScreen({
                 {r.source.name ? ` (${r.source.name})` : ""}
               </p>
               {r.source.license && <p className="text-[0.8125rem] text-ink-muted">{r.source.license}</p>}
+              {sourceKey === "user" && (
+                <p className="mt-1 text-[0.8125rem] text-ink-muted">
+                  Written by a signed-in cook. Reject sends it back to them as a draft and shows them your note;
+                  approve publishes it. Check the diet tags against the ingredients and look for copied text.
+                </p>
+              )}
               {r.source.url && (
                 <p className="mt-1 text-[0.8125rem] break-all">
                   <a className="text-herb underline" href={r.source.url} target="_blank" rel="noopener noreferrer">

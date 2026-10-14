@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { RememberList } from "@/components/recipe/rememberList";
 import { FridgePicker } from "@/components/pantry/fridgePicker";
@@ -142,7 +143,11 @@ async function Results({
           ) : (
             <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
               Pick one thing or ten. Each recipe shows how many of its ingredients you have
-              and exactly what&apos;s missing.
+              and exactly what&apos;s missing. Not sure where to start? See{" "}
+              <Link href="/what-can-i-make" className="underline underline-offset-4 hover:text-herb">
+                popular ingredient combinations
+              </Link>
+              .
             </p>
           )
         }

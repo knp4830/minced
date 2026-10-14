@@ -5,6 +5,7 @@ import { CONTACT_URL, LegalPage, LegalSection, legalLink } from "@/components/sh
 
 export const metadata: Metadata = {
   title: "Terms of use",
+  alternates: { canonical: "/terms" },
   description: "The rules for using Minced, in plain language.",
 };
 
@@ -56,6 +57,20 @@ export default function TermsPage() {
             github.com/knp4830/minced/issues
           </a>{" "}
           naming the page and we will look at it promptly.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="submissions" title="Recipes you submit">
+        <p>
+          When you submit a recipe you confirm that you wrote it yourself, that it
+          is not copied from a book, site or video, and that you are allowed to
+          share it. You keep ownership. You give Minced a worldwide, non-exclusive,
+          royalty-free licence to host, display, format and adapt it (for example
+          to calculate nutrition and allergens) as part of the site. Every
+          submission is reviewed before it is public, and we may decline, edit for
+          clarity, or remove any recipe. You can delete your recipes at any time,
+          and deleting your account deletes them too. Report a recipe that
+          infringes your rights as described above.
         </p>
       </LegalSection>
 
