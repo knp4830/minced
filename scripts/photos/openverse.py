@@ -107,7 +107,7 @@ def load_queried() -> dict:
     return json.loads(QUERIED.read_text(encoding="utf-8")) if QUERIED.exists() else {}
 
 
-def cmd_search(path: str, out: str, thr: float, keep: int, max_queries: int, creator: str | None = None) -> None:
+def cmd_search(path: str, out: str, thr: float, keep: int, max_queries: int, creator: str | None = None, tag: str = "") -> None:
     recs = json.loads(Path(path).read_text(encoding="utf-8"))
     queried = load_queried()
     outp = OV / out
@@ -115,7 +115,7 @@ def cmd_search(path: str, out: str, thr: float, keep: int, max_queries: int, cre
     used = 0
     for rec in recs:
         slug, title = rec["slug"], rec["title"]
-        qkey = slug + (f"@{creator}" if creator else "")
+        qkey = slug + (f"@{creator}" if creator else "") + tag
         if qkey in queried or slug in res:
             continue
         if used >= max_queries:
@@ -298,6 +298,7 @@ if __name__ == "__main__":
     s.add_argument("--thr", type=float, default=0.67)
     s.add_argument("--keep", type=int, default=4)
     s.add_argument("--max-queries", type=int, default=150)
+    s.add_argument("--tag", default="", help="suffix for the queried key: re-query recipes with new query text")
     s.add_argument("--creator", help="restrict to one Openverse creator, e.g. USDAgov (USDA Flickr stream, public domain)")
     h = sub.add_parser("sheets")
     h.add_argument("--per", type=int, default=12)
@@ -308,7 +309,7 @@ if __name__ == "__main__":
     a = ap.parse_args()
     OV.mkdir(parents=True, exist_ok=True)
     if a.cmd == "search":
-        cmd_search(a.recipes, a.out, a.thr, a.keep, a.max_queries, a.creator)
+        cmd_search(a.recipes, a.out, a.thr, a.keep, a.max_queries, a.creator, a.tag)
     elif a.cmd == "sheets":
         cmd_sheets(a.per, a.top)
     elif a.cmd == "build":

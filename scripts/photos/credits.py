@@ -27,6 +27,8 @@ LIMIT = 40
 
 # Hand fixes where the Commons metadata has no usable name. Keyed by slug; reason in the comment.
 OVERRIDES = {
+    # Commons says "No machine-readable author provided. Dbenbenn assumed"; the uploader is the credit.
+    "applesauce-pancakes": "Dbenbenn",
     # Artist is literally "??? ???" on Commons (Flickr import lost a non-Latin name); the page link carries attribution.
     "curried-chicken-salad": "Evan Joshua Swigart / Flickr",
     "canh-chua": "Phương Huy",

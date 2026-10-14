@@ -105,3 +105,17 @@ Apply it BEFORE `seed-photos.sql`, or the seed fails on the check constraint.
 - Openverse used 185 of its 200 daily anonymous requests; continue tomorrow with `openverse.py search` (queried.json remembers).
 - `apply_manifest.py`'s seed raises if a manifest slug has no recipe: drop such slugs with `remove_photo.py` (done for baked-fish,
   sweet-potato-casserole-0, removed in the duplicate merge).
+
+## Wave 7 (re-audit, more Openverse/Commons/USDA-on-Commons)
+Owner rule: every photo must match the recipe's description AND look (same dish, cooked the same way, the recipe's main visible
+ingredients). Different dish or style, raw ingredient, logos, people, stock-photography look, doubtful uploader rights: reject.
+- `export_details.py <container>` writes `cache/details.json` (description, ingredients, steps for all recipes). `review_sheets.py`
+  builds sheets that put each photo next to that text (`audit`/`agrid` for photos already in the manifests, `cand`/`grid` for
+  candidates; `DENSE=1` for 4x3 tiles). Look at every tile; reject on doubt.
+- `commons_usda.py list|match`: USDA's own photos on Commons (Team Nutrition child care series etc.), matched by dish name.
+- `openverse.py search --tag "#2"` re-queries a recipe with a different query (the key in `queried.json` gets the suffix) so
+  hand-written queries are possible after the bare-title query returned nothing. One request per recipe still.
+- All 50 photos that an earlier wave-7 attempt added were re-reviewed; 28 failed and were removed with `remove_photo.py`
+  (bucket `wave7_review_2026_10_14` in `commons_r2_rejected.json`; MyPlate ones in `myplate_review_excludes.json`).
+  `commons_picks_w7.json` is NOT cleaned by `remove_photo.py`: drop the slug there too, or `commons_w4.py build` re-adds it.
+- Re-running `process_images.py` after the removals leaves no rejected slug in `photos.json` (checked).
