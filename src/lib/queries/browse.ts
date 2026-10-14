@@ -71,6 +71,8 @@ const CARD_COLUMNS =
   "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(allergens(name)), has_photo, recipe_photos(storage_path, thumb_path, credit, license), recipe_ingredients(sort_order, is_optional, ingredients(aisle_category, is_pantry_staple))";
 
 export const AI_SOURCE_NAME = "Minced original";
+/** recipes.source_name written by save_my_recipe() for every user-submitted recipe. */
+export const USER_SOURCE_NAME = "User submission";
 
 type CardPhoto = { url: string; credit: string | null };
 

@@ -59,6 +59,20 @@ export default function TermsPage() {
         </p>
       </LegalSection>
 
+      <LegalSection id="submissions" title="Recipes you submit">
+        <p>
+          When you submit a recipe you confirm that you wrote it yourself, that it
+          is not copied from a book, site or video, and that you are allowed to
+          share it. You keep ownership. You give Minced a worldwide, non-exclusive,
+          royalty-free licence to host, display, format and adapt it (for example
+          to calculate nutrition and allergens) as part of the site. Every
+          submission is reviewed before it is public, and we may decline, edit for
+          clarity, or remove any recipe. You can delete your recipes at any time,
+          and deleting your account deletes them too. Report a recipe that
+          infringes your rights as described above.
+        </p>
+      </LegalSection>
+
       <LegalSection id="liability" title="No warranty, limited liability">
         <p>
           Minced is provided &ldquo;as is&rdquo;, without warranties of any kind.
