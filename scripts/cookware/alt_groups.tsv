@@ -1,0 +1,40 @@
+# recipe_slug<TAB>cookware slugs that are ALTERNATIVES ("X or Y"), comma separated. One line per group.
+# A recipe's groups are numbered 1, 2, ... in file order. Members missing from recipe_cookware are added.
+# Only listed where the steps say "X or Y" and neither is otherwise required (a recipe that browns in a
+# skillet in one step and says "skillet or roasting pan" in the next still needs the skillet: not grouped).
+apple-corn-chili	blender,food-processor
+butternut-squash-apple-soup	blender,food-processor
+cantaloupe-cooler	blender,food-processor
+chilled-blueberry-soup	blender,food-processor
+chilled-cantaloupe-soup	blender,food-processor
+chimichurri-sauce	blender,food-processor
+cream-broccoli-soup	blender,food-processor
+cumin-lime-shrimp-over-creamy-cauliflower-risotto	blender,food-processor
+easiest-banana-ice-cream	blender,food-processor
+easy-oven-fish-spinach-basil-dipping-sauce-spiced-apples	blender,food-processor
+farmers-market-gazpacho	blender,food-processor
+gazpacho	blender,food-processor
+mango-cucumber-soup	blender,food-processor
+orange-cow	blender,food-processor
+pea-pesto	blender,food-processor
+pineapple-orange-frozen-yogurt	blender,food-processor
+purple-cow	blender,food-processor
+tomato-basil-soup	blender,food-processor
+watermelon-gazpacho	blender,food-processor
+apple-slice-pancakes	skillet,griddle
+black-bean-quesadillas	skillet,griddle
+corn-toasties	skillet,griddle
+cornmeal-pancakes	skillet,griddle
+perfect-pumpkin-pancakes	skillet,griddle
+potato-cakes	skillet,griddle
+brown-rice-sizzling-chicken-and-vegetables	skillet,wok
+chicken-stir-fry	skillet,wok
+fried-rice	skillet,wok
+fish-tacos	skillet,griddle,microwave
+grilled-vegetables	grill,sheet-pan
+panned-cabbage	skillet,saucepan
+sauteed-cauliflower-rice	skillet,saucepan
+skillet-pasta-dinner	skillet,saucepan
+seared-greens	skillet,pot
+roast-chicken	roasting-pan,dutch-oven
+stove-top-potato-and-cabbage-casserole	skillet,dutch-oven

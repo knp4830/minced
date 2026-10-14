@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-import type { ShopLine, UnitKind } from "@/lib/shopping";
+import { batchCount, type ShopLine, type UnitKind } from "@/lib/shopping";
 import { createClient } from "@/lib/supabase/server";
 
 /*
@@ -61,13 +61,20 @@ export async function getShoppingLines(): Promise<ShopLine[]> {
 
 export type AddResult =
   | { ok: true; added: number; skippedStaples: number; skippedHave: string[] }
-  | { ok: false; reason: "signed-out" | "not-found" | "full" | "failed" };
+  | { ok: false; reason: "signed-out" | "not-found" | "full" | "failed" }
+  /** The recipe is already on the list; nothing was written. `batches` is how many times. */
+  | { ok: false; reason: "on-list"; batches: number };
 
+/**
+ * `mode` "ask" (default) refuses to touch a recipe that is already on the list and
+ * reports it ("on-list"); "again" adds another batch on top, so quantities add up.
+ */
 export async function addRecipe(
   slug: string,
   servings: number,
   skipStaples: boolean,
   haveIds: number[],
+  mode: "ask" | "again" = "ask",
 ): Promise<AddResult> {
   const sb = await db();
   const {
@@ -79,11 +86,29 @@ export async function addRecipe(
   const id = (recipe as { id: string } | null)?.id;
   if (!id) return { ok: false, reason: "not-found" };
 
+  if (mode === "ask") {
+    const { data: existing, error: existingError } = await sb
+      .from("shopping_list_items")
+      .select("ingredient_id")
+      .eq("source_recipe_id", id)
+      .limit(500);
+    if (existingError) return { ok: false, reason: "failed" };
+    const rows = (existing ?? []) as { ingredient_id: number }[];
+    if (rows.length > 0) {
+      return {
+        ok: false,
+        reason: "on-list",
+        batches: batchCount(rows.map((r) => ({ ingredientId: r.ingredient_id }))),
+      };
+    }
+  }
+
   const { data, error } = await sb.rpc("add_recipe_to_shopping_list", {
     p_recipe_id: id,
     p_servings: servings,
     p_skip_staples: skipStaples,
     p_have_ids: haveIds,
+    p_add_batch: mode === "again",
   });
   if (error) return { ok: false, reason: error.code === "54000" ? "full" : "failed" };
   const r = data as { added: number; skipped_staples: number; skipped_have: string[] };
