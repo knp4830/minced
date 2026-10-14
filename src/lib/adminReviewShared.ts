@@ -1,14 +1,15 @@
 /* Client-safe pieces of the admin review queue: types, labels, pure helpers. */
 
 export type ReviewState = "unreviewed" | "approved" | "rejected" | "all";
-export type SourceKey = "usda" | "minced" | "mockup";
+export type SourceKey = "usda" | "minced" | "mockup" | "user";
 
 export const REVIEW_STATES: ReviewState[] = ["unreviewed", "approved", "rejected", "all"];
-export const SOURCE_KEYS: SourceKey[] = ["usda", "minced", "mockup"];
+export const SOURCE_KEYS: SourceKey[] = ["usda", "minced", "mockup", "user"];
 export const SOURCE_LABEL: Record<SourceKey | "other", string> = {
   usda: "USDA MyPlate",
   minced: "Minced original",
   mockup: "Design mockup",
+  user: "User",
   other: "Other",
 };
 

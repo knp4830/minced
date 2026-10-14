@@ -7,7 +7,7 @@ import { Chip } from "@/components/ui/chip";
 import { MetaRow } from "@/components/ui/metaRow";
 import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
-import { AI_SOURCE_NAME } from "@/lib/queries/browse";
+import { AI_SOURCE_NAME, USER_SOURCE_NAME } from "@/lib/queries/browse";
 import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
 import { needsAttribution } from "@/lib/photos";
 
@@ -81,6 +81,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const photoSrc = recipe.photo?.url ?? recipe.imageUrl;
   const isUsda = recipe.sourceName?.includes("MyPlate") ?? false;
   const isAi = recipe.sourceName === AI_SOURCE_NAME;
+  const isUser = recipe.sourceName === USER_SOURCE_NAME;
   const nutrition = nutritionRows(recipe.nutrition);
 
   return (
@@ -267,6 +268,15 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
         ) : isAi ? (
           <p>
             Written by Minced with AI assistance and reviewed before publishing.{" "}
+            <Link href="/about" className="underline underline-offset-2 hover:text-herb">
+              How we make recipes
+            </Link>
+            .
+          </p>
+        ) : isUser ? (
+          <p>
+            Shared by a Minced cook and reviewed before publishing. Nutrition, where shown, is an
+            estimate.{" "}
             <Link href="/about" className="underline underline-offset-2 hover:text-herb">
               How we make recipes
             </Link>
