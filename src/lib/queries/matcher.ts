@@ -3,10 +3,9 @@ import { MAX_INT4, resultFilters, type RecipeFilters } from "@/lib/filters";
 import { createStaticClient } from "@/lib/supabase/static";
 
 /**
- * Pantry matcher (M3.3) -- typed wrappers over two Postgres functions.
+ * Pantry matcher (M3.3) -- a typed wrapper over the `match_recipes` Postgres function.
  *
- * All ranking happens in `match_recipes` and all candidate scoring in
- * `suggest_ingredients`; this file only shapes arguments and results. Per
+ * All ranking happens in SQL; this file only shapes arguments and results. Per
  * CLAUDE.md there is no inline Supabase call in a component -- UI code imports
  * from here.
  */
@@ -39,15 +38,6 @@ export type MatchRecipesResult = {
   nextCursor: string | null;
 };
 
-/** One autocomplete suggestion. */
-export type IngredientSuggestion = {
-  ingredientId: number;
-  canonicalName: string;
-  /** The name or alias the typed text matched ("green onion" for scallion). */
-  matchedText: string;
-  matchKind: "name" | "alias";
-};
-
 type MatchRpcRow = {
   recipe_id: string;
   slug: string;
@@ -63,13 +53,6 @@ type MatchRpcRow = {
   missing_ids: number[];
   missing_names: string[];
   time_key: number;
-};
-
-type SuggestRpcRow = {
-  ingredient_id: number;
-  canonical_name: string;
-  matched_text: string;
-  match_kind: "name" | "alias";
 };
 
 // -- cursor -----------------------------------------------------------------
@@ -253,35 +236,4 @@ export function matchRecipes(
   options: { pageSize?: number; minHave?: number } = {},
 ): Promise<MatchRecipesResult> {
   return cachedMatches(resultFilters(filters), options);
-}
-
-/**
- * Autocomplete for the pantry input: top `limit` ingredients whose name or
- * alias matches what has been typed so far ("green oni" offers scallion,
- * "chicken" offers chicken before chicken broth).
- *
- * Not `resolveIngredient`: that returns one confident answer for the import
- * gate; this returns several plausible ones for a dropdown.
- */
-export async function suggestIngredients(
-  prefix: string,
-  limit = 8,
-): Promise<IngredientSuggestion[]> {
-  const text = prefix.trim();
-  if (text.length === 0) return [];
-
-  const supabase = createStaticClient();
-  const { data, error } = await supabase.rpc("suggest_ingredients", {
-    prefix: text,
-    max_results: Math.min(Math.max(Math.trunc(limit), 1), 25),
-  });
-  if (error) throw error;
-  const rows = (data ?? []) as SuggestRpcRow[];
-
-  return rows.map((row) => ({
-    ingredientId: row.ingredient_id,
-    canonicalName: row.canonical_name,
-    matchedText: row.matched_text,
-    matchKind: row.match_kind,
-  }));
 }

@@ -5,6 +5,7 @@ import { CONTACT_URL, LegalPage, LegalSection, legalLink } from "@/components/sh
 
 export const metadata: Metadata = {
   title: "Terms of use",
+  alternates: { canonical: "/terms" },
   description: "The rules for using Minced, in plain language.",
 };
 

@@ -1,0 +1,4002 @@
+[
+    {
+        "ids": [
+            3616,
+            3618
+        ],
+        "slug": "onion-bell-pepper",
+        "count": 108,
+        "names": [
+            "onion",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85
+        ],
+        "slug": "onion-tomato",
+        "count": 106,
+        "names": [
+            "onion",
+            "tomato"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45
+        ],
+        "slug": "onion-carrot",
+        "count": 77,
+        "names": [
+            "onion",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            46
+        ],
+        "slug": "onion-celery",
+        "count": 73,
+        "names": [
+            "onion",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85
+        ],
+        "slug": "garlic-tomato",
+        "count": 70,
+        "names": [
+            "garlic",
+            "tomato"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618
+        ],
+        "slug": "garlic-bell-pepper",
+        "count": 62,
+        "names": [
+            "garlic",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616
+        ],
+        "slug": "chicken-onion",
+        "count": 60,
+        "names": [
+            "chicken",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3619
+        ],
+        "slug": "onion-potato",
+        "count": 58,
+        "names": [
+            "onion",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618
+        ],
+        "slug": "tomato-bell-pepper",
+        "count": 56,
+        "names": [
+            "tomato",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            32
+        ],
+        "slug": "onion-lemon",
+        "count": 48,
+        "names": [
+            "onion",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11
+        ],
+        "slug": "chicken-garlic",
+        "count": 47,
+        "names": [
+            "chicken",
+            "garlic"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3617
+        ],
+        "slug": "onion-rice",
+        "count": 45,
+        "names": [
+            "onion",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            290
+        ],
+        "slug": "egg-milk",
+        "count": 44,
+        "names": [
+            "egg",
+            "milk"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            171
+        ],
+        "slug": "onion-chicken-broth",
+        "count": 44,
+        "names": [
+            "onion",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            111
+        ],
+        "slug": "onion-fresh-cilantro",
+        "count": 43,
+        "names": [
+            "onion",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            45
+        ],
+        "slug": "garlic-carrot",
+        "count": 42,
+        "names": [
+            "garlic",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            3618
+        ],
+        "slug": "onion-tomato-bell-pepper",
+        "count": 41,
+        "names": [
+            "onion",
+            "tomato",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            3616
+        ],
+        "slug": "ground-meat-onion",
+        "count": 40,
+        "names": [
+            "ground meat",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            110
+        ],
+        "slug": "onion-fresh-parsley",
+        "count": 40,
+        "names": [
+            "onion",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            3616
+        ],
+        "slug": "egg-onion",
+        "count": 39,
+        "names": [
+            "egg",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            20
+        ],
+        "slug": "onion-ground-cumin",
+        "count": 39,
+        "names": [
+            "onion",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            32
+        ],
+        "slug": "garlic-lemon",
+        "count": 38,
+        "names": [
+            "garlic",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            111
+        ],
+        "slug": "garlic-fresh-cilantro",
+        "count": 37,
+        "names": [
+            "garlic",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            111,
+            123
+        ],
+        "slug": "fresh-cilantro-lime",
+        "count": 36,
+        "names": [
+            "fresh cilantro",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            12
+        ],
+        "slug": "garlic-scallion",
+        "count": 35,
+        "names": [
+            "garlic",
+            "scallion"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            20
+        ],
+        "slug": "garlic-ground-cumin",
+        "count": 33,
+        "names": [
+            "garlic",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            123
+        ],
+        "slug": "onion-lime",
+        "count": 33,
+        "names": [
+            "onion",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            2373
+        ],
+        "slug": "onion-summer-squash",
+        "count": 33,
+        "names": [
+            "onion",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            111
+        ],
+        "slug": "tomato-fresh-cilantro",
+        "count": 32,
+        "names": [
+            "tomato",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            45
+        ],
+        "slug": "bell-pepper-carrot",
+        "count": 31,
+        "names": [
+            "bell pepper",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            388
+        ],
+        "slug": "onion-chili-powder",
+        "count": 31,
+        "names": [
+            "onion",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3619
+        ],
+        "slug": "garlic-potato",
+        "count": 30,
+        "names": [
+            "garlic",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            18
+        ],
+        "slug": "garlic-ginger",
+        "count": 29,
+        "names": [
+            "garlic",
+            "ginger"
+        ]
+    },
+    {
+        "ids": [
+            299,
+            3616
+        ],
+        "slug": "cheddar-cheese-onion",
+        "count": 28,
+        "names": [
+            "cheddar cheese",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            110
+        ],
+        "slug": "garlic-fresh-parsley",
+        "count": 28,
+        "names": [
+            "garlic",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            290,
+            3616
+        ],
+        "slug": "milk-onion",
+        "count": 28,
+        "names": [
+            "milk",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            409
+        ],
+        "slug": "onion-dried-thyme",
+        "count": 28,
+        "names": [
+            "onion",
+            "dried thyme"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            2357
+        ],
+        "slug": "onion-pasta",
+        "count": 28,
+        "names": [
+            "onion",
+            "pasta"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3618
+        ],
+        "slug": "chicken-bell-pepper",
+        "count": 27,
+        "names": [
+            "chicken",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            101
+        ],
+        "slug": "onion-corn",
+        "count": 27,
+        "names": [
+            "onion",
+            "corn"
+        ]
+    },
+    {
+        "ids": [
+            45,
+            46
+        ],
+        "slug": "carrot-celery",
+        "count": 26,
+        "names": [
+            "carrot",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            123
+        ],
+        "slug": "garlic-lime",
+        "count": 26,
+        "names": [
+            "garlic",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3617
+        ],
+        "slug": "garlic-rice",
+        "count": 26,
+        "names": [
+            "garlic",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            8
+        ],
+        "slug": "garlic-soy-sauce",
+        "count": 26,
+        "names": [
+            "garlic",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            3618
+        ],
+        "slug": "garlic-tomato-bell-pepper",
+        "count": 26,
+        "names": [
+            "garlic",
+            "tomato",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            46
+        ],
+        "slug": "bell-pepper-celery",
+        "count": 25,
+        "names": [
+            "bell pepper",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            11
+        ],
+        "slug": "ground-meat-garlic",
+        "count": 25,
+        "names": [
+            "ground meat",
+            "garlic"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            165
+        ],
+        "slug": "onion-diced-tomatoes",
+        "count": 25,
+        "names": [
+            "onion",
+            "diced tomatoes"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            111
+        ],
+        "slug": "onion-tomato-fresh-cilantro",
+        "count": 25,
+        "names": [
+            "onion",
+            "tomato",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            167
+        ],
+        "slug": "onion-tomato-sauce",
+        "count": 25,
+        "names": [
+            "onion",
+            "tomato sauce"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            3617
+        ],
+        "slug": "bell-pepper-rice",
+        "count": 24,
+        "names": [
+            "bell pepper",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            46
+        ],
+        "slug": "garlic-celery",
+        "count": 24,
+        "names": [
+            "garlic",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            171
+        ],
+        "slug": "garlic-chicken-broth",
+        "count": 24,
+        "names": [
+            "garlic",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            177
+        ],
+        "slug": "onion-black-beans",
+        "count": 24,
+        "names": [
+            "onion",
+            "black beans"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            46
+        ],
+        "slug": "onion-carrot-celery",
+        "count": 24,
+        "names": [
+            "onion",
+            "carrot",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            18
+        ],
+        "slug": "onion-ginger",
+        "count": 24,
+        "names": [
+            "onion",
+            "ginger"
+        ]
+    },
+    {
+        "ids": [
+            302,
+            3616
+        ],
+        "slug": "parmesan-onion",
+        "count": 24,
+        "names": [
+            "parmesan",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3617
+        ],
+        "slug": "chicken-rice",
+        "count": 23,
+        "names": [
+            "chicken",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            11
+        ],
+        "slug": "egg-garlic",
+        "count": 23,
+        "names": [
+            "egg",
+            "garlic"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            46
+        ],
+        "slug": "onion-bell-pepper-celery",
+        "count": 23,
+        "names": [
+            "onion",
+            "bell pepper",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            32
+        ],
+        "slug": "tomato-lemon",
+        "count": 23,
+        "names": [
+            "tomato",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            2373
+        ],
+        "slug": "bell-pepper-summer-squash",
+        "count": 22,
+        "names": [
+            "bell pepper",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            171
+        ],
+        "slug": "chicken-chicken-broth",
+        "count": 22,
+        "names": [
+            "chicken",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            32,
+            110
+        ],
+        "slug": "lemon-fresh-parsley",
+        "count": 22,
+        "names": [
+            "lemon",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            290,
+            3619
+        ],
+        "slug": "milk-potato",
+        "count": 22,
+        "names": [
+            "milk",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            8
+        ],
+        "slug": "onion-soy-sauce",
+        "count": 22,
+        "names": [
+            "onion",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            57
+        ],
+        "slug": "onion-spinach",
+        "count": 22,
+        "names": [
+            "onion",
+            "spinach"
+        ]
+    },
+    {
+        "ids": [
+            12,
+            8
+        ],
+        "slug": "scallion-soy-sauce",
+        "count": 22,
+        "names": [
+            "scallion",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            45,
+            3619
+        ],
+        "slug": "carrot-potato",
+        "count": 21,
+        "names": [
+            "carrot",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            46,
+            250
+        ],
+        "slug": "celery-mayonnaise",
+        "count": 21,
+        "names": [
+            "celery",
+            "mayonnaise"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            45
+        ],
+        "slug": "onion-bell-pepper-carrot",
+        "count": 21,
+        "names": [
+            "onion",
+            "bell pepper",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            112
+        ],
+        "slug": "onion-fresh-basil",
+        "count": 21,
+        "names": [
+            "onion",
+            "fresh basil"
+        ]
+    },
+    {
+        "ids": [
+            302,
+            11
+        ],
+        "slug": "parmesan-garlic",
+        "count": 21,
+        "names": [
+            "parmesan",
+            "garlic"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            20
+        ],
+        "slug": "bell-pepper-ground-cumin",
+        "count": 20,
+        "names": [
+            "bell pepper",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            45,
+            73
+        ],
+        "slug": "carrot-broccoli",
+        "count": 20,
+        "names": [
+            "carrot",
+            "broccoli"
+        ]
+    },
+    {
+        "ids": [
+            111,
+            20
+        ],
+        "slug": "fresh-cilantro-ground-cumin",
+        "count": 20,
+        "names": [
+            "fresh cilantro",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            111,
+            123
+        ],
+        "slug": "onion-fresh-cilantro-lime",
+        "count": 20,
+        "names": [
+            "onion",
+            "fresh cilantro",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            160
+        ],
+        "slug": "onion-rice-vinegar",
+        "count": 20,
+        "names": [
+            "onion",
+            "rice vinegar"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            45
+        ],
+        "slug": "tomato-carrot",
+        "count": 20,
+        "names": [
+            "tomato",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            89
+        ],
+        "slug": "tomato-cucumber",
+        "count": 20,
+        "names": [
+            "tomato",
+            "cucumber"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            110
+        ],
+        "slug": "tomato-fresh-parsley",
+        "count": 20,
+        "names": [
+            "tomato",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3620
+        ],
+        "slug": "tomato-lettuce",
+        "count": 20,
+        "names": [
+            "tomato",
+            "lettuce"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            123
+        ],
+        "slug": "tomato-lime",
+        "count": 20,
+        "names": [
+            "tomato",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            3618
+        ],
+        "slug": "chicken-onion-bell-pepper",
+        "count": 19,
+        "names": [
+            "chicken",
+            "onion",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            112
+        ],
+        "slug": "garlic-fresh-basil",
+        "count": 19,
+        "names": [
+            "garlic",
+            "fresh basil"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            57
+        ],
+        "slug": "garlic-spinach",
+        "count": 19,
+        "names": [
+            "garlic",
+            "spinach"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            3617
+        ],
+        "slug": "onion-bell-pepper-rice",
+        "count": 19,
+        "names": [
+            "onion",
+            "bell pepper",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            3619
+        ],
+        "slug": "onion-carrot-potato",
+        "count": 19,
+        "names": [
+            "onion",
+            "carrot",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            79
+        ],
+        "slug": "onion-jalapeno",
+        "count": 19,
+        "names": [
+            "onion",
+            "jalapeno"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            178
+        ],
+        "slug": "onion-kidney-beans",
+        "count": 19,
+        "names": [
+            "onion",
+            "kidney beans"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            111
+        ],
+        "slug": "bell-pepper-fresh-cilantro",
+        "count": 18,
+        "names": [
+            "bell pepper",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            45,
+            12
+        ],
+        "slug": "carrot-scallion",
+        "count": 18,
+        "names": [
+            "carrot",
+            "scallion"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            165
+        ],
+        "slug": "garlic-diced-tomatoes",
+        "count": 18,
+        "names": [
+            "garlic",
+            "diced tomatoes"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            2357
+        ],
+        "slug": "garlic-pasta",
+        "count": 18,
+        "names": [
+            "garlic",
+            "pasta"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3621
+        ],
+        "slug": "onion-cabbage",
+        "count": 18,
+        "names": [
+            "onion",
+            "cabbage"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            29
+        ],
+        "slug": "onion-mushrooms",
+        "count": 18,
+        "names": [
+            "onion",
+            "mushrooms"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3617
+        ],
+        "slug": "tomato-rice",
+        "count": 18,
+        "names": [
+            "tomato",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            110
+        ],
+        "slug": "bell-pepper-fresh-parsley",
+        "count": 17,
+        "names": [
+            "bell pepper",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            46,
+            126
+        ],
+        "slug": "celery-apple",
+        "count": 17,
+        "names": [
+            "celery",
+            "apple"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            45
+        ],
+        "slug": "chicken-carrot",
+        "count": 17,
+        "names": [
+            "chicken",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            46
+        ],
+        "slug": "chicken-celery",
+        "count": 17,
+        "names": [
+            "chicken",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            32
+        ],
+        "slug": "chicken-lemon",
+        "count": 17,
+        "names": [
+            "chicken",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            12
+        ],
+        "slug": "egg-scallion",
+        "count": 17,
+        "names": [
+            "egg",
+            "scallion"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            160
+        ],
+        "slug": "garlic-rice-vinegar",
+        "count": 17,
+        "names": [
+            "garlic",
+            "rice vinegar"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            111
+        ],
+        "slug": "garlic-tomato-fresh-cilantro",
+        "count": 17,
+        "names": [
+            "garlic",
+            "tomato",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            290,
+            128
+        ],
+        "slug": "milk-banana",
+        "count": 17,
+        "names": [
+            "milk",
+            "banana"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            2373
+        ],
+        "slug": "onion-bell-pepper-summer-squash",
+        "count": 17,
+        "names": [
+            "onion",
+            "bell pepper",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            73
+        ],
+        "slug": "onion-broccoli",
+        "count": 17,
+        "names": [
+            "onion",
+            "broccoli"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            89
+        ],
+        "slug": "onion-cucumber",
+        "count": 17,
+        "names": [
+            "onion",
+            "cucumber"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            98
+        ],
+        "slug": "onion-green-beans",
+        "count": 17,
+        "names": [
+            "onion",
+            "green beans"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            12
+        ],
+        "slug": "onion-scallion",
+        "count": 17,
+        "names": [
+            "onion",
+            "scallion"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            2373
+        ],
+        "slug": "tomato-summer-squash",
+        "count": 17,
+        "names": [
+            "tomato",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            3618
+        ],
+        "slug": "chicken-garlic-bell-pepper",
+        "count": 16,
+        "names": [
+            "chicken",
+            "garlic",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            20
+        ],
+        "slug": "onion-bell-pepper-ground-cumin",
+        "count": 16,
+        "names": [
+            "onion",
+            "bell pepper",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            171
+        ],
+        "slug": "chicken-onion-chicken-broth",
+        "count": 15,
+        "names": [
+            "chicken",
+            "onion",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            3617
+        ],
+        "slug": "chicken-onion-rice",
+        "count": 15,
+        "names": [
+            "chicken",
+            "onion",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            20
+        ],
+        "slug": "garlic-bell-pepper-ground-cumin",
+        "count": 15,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            111
+        ],
+        "slug": "onion-bell-pepper-fresh-cilantro",
+        "count": 15,
+        "names": [
+            "onion",
+            "bell pepper",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            46,
+            110
+        ],
+        "slug": "onion-celery-fresh-parsley",
+        "count": 15,
+        "names": [
+            "onion",
+            "celery",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            123
+        ],
+        "slug": "onion-tomato-lime",
+        "count": 15,
+        "names": [
+            "onion",
+            "tomato",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            111,
+            123
+        ],
+        "slug": "tomato-fresh-cilantro-lime",
+        "count": 15,
+        "names": [
+            "tomato",
+            "fresh cilantro",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            111,
+            20
+        ],
+        "slug": "garlic-fresh-cilantro-ground-cumin",
+        "count": 14,
+        "names": [
+            "garlic",
+            "fresh cilantro",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            111,
+            123
+        ],
+        "slug": "garlic-fresh-cilantro-lime",
+        "count": 14,
+        "names": [
+            "garlic",
+            "fresh cilantro",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            12,
+            8
+        ],
+        "slug": "garlic-scallion-soy-sauce",
+        "count": 14,
+        "names": [
+            "garlic",
+            "scallion",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            3616,
+            3618
+        ],
+        "slug": "ground-meat-onion-bell-pepper",
+        "count": 14,
+        "names": [
+            "ground meat",
+            "onion",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            388
+        ],
+        "slug": "onion-bell-pepper-chili-powder",
+        "count": 14,
+        "names": [
+            "onion",
+            "bell pepper",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            110
+        ],
+        "slug": "onion-bell-pepper-fresh-parsley",
+        "count": 14,
+        "names": [
+            "onion",
+            "bell pepper",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            111,
+            20
+        ],
+        "slug": "onion-fresh-cilantro-ground-cumin",
+        "count": 14,
+        "names": [
+            "onion",
+            "fresh cilantro",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            45
+        ],
+        "slug": "chicken-onion-carrot",
+        "count": 13,
+        "names": [
+            "chicken",
+            "onion",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            46,
+            250
+        ],
+        "slug": "onion-celery-mayonnaise",
+        "count": 13,
+        "names": [
+            "onion",
+            "celery",
+            "mayonnaise"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            45
+        ],
+        "slug": "onion-tomato-carrot",
+        "count": 13,
+        "names": [
+            "onion",
+            "tomato",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            46
+        ],
+        "slug": "onion-tomato-celery",
+        "count": 13,
+        "names": [
+            "onion",
+            "tomato",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            110
+        ],
+        "slug": "onion-tomato-fresh-parsley",
+        "count": 13,
+        "names": [
+            "onion",
+            "tomato",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            32
+        ],
+        "slug": "onion-tomato-lemon",
+        "count": 13,
+        "names": [
+            "onion",
+            "tomato",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            2373
+        ],
+        "slug": "onion-tomato-summer-squash",
+        "count": 13,
+        "names": [
+            "onion",
+            "tomato",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            45,
+            73
+        ],
+        "slug": "bell-pepper-carrot-broccoli",
+        "count": 12,
+        "names": [
+            "bell pepper",
+            "carrot",
+            "broccoli"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            111,
+            20
+        ],
+        "slug": "bell-pepper-fresh-cilantro-ground-cumin",
+        "count": 12,
+        "names": [
+            "bell pepper",
+            "fresh cilantro",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            171
+        ],
+        "slug": "chicken-garlic-chicken-broth",
+        "count": 12,
+        "names": [
+            "chicken",
+            "garlic",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            45
+        ],
+        "slug": "garlic-bell-pepper-carrot",
+        "count": 12,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            110
+        ],
+        "slug": "garlic-bell-pepper-fresh-parsley",
+        "count": 12,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            3617
+        ],
+        "slug": "garlic-bell-pepper-rice",
+        "count": 12,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            45,
+            46
+        ],
+        "slug": "garlic-carrot-celery",
+        "count": 12,
+        "names": [
+            "garlic",
+            "carrot",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            110
+        ],
+        "slug": "garlic-tomato-fresh-parsley",
+        "count": 12,
+        "names": [
+            "garlic",
+            "tomato",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            101
+        ],
+        "slug": "onion-bell-pepper-corn",
+        "count": 12,
+        "names": [
+            "onion",
+            "bell pepper",
+            "corn"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            46,
+            3619
+        ],
+        "slug": "onion-celery-potato",
+        "count": 12,
+        "names": [
+            "onion",
+            "celery",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            3617
+        ],
+        "slug": "onion-tomato-rice",
+        "count": 12,
+        "names": [
+            "onion",
+            "tomato",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            3617
+        ],
+        "slug": "chicken-garlic-rice",
+        "count": 11,
+        "names": [
+            "chicken",
+            "garlic",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            46
+        ],
+        "slug": "chicken-onion-celery",
+        "count": 11,
+        "names": [
+            "chicken",
+            "onion",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            85
+        ],
+        "slug": "chicken-onion-tomato",
+        "count": 11,
+        "names": [
+            "chicken",
+            "onion",
+            "tomato"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            3616,
+            3618
+        ],
+        "slug": "egg-onion-bell-pepper",
+        "count": 11,
+        "names": [
+            "egg",
+            "onion",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            111,
+            123,
+            79
+        ],
+        "slug": "fresh-cilantro-lime-jalapeno",
+        "count": 11,
+        "names": [
+            "fresh cilantro",
+            "lime",
+            "jalapeno"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            46
+        ],
+        "slug": "garlic-bell-pepper-celery",
+        "count": 11,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            45
+        ],
+        "slug": "garlic-tomato-carrot",
+        "count": 11,
+        "names": [
+            "garlic",
+            "tomato",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            32
+        ],
+        "slug": "garlic-tomato-lemon",
+        "count": 11,
+        "names": [
+            "garlic",
+            "tomato",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            3616,
+            388
+        ],
+        "slug": "ground-meat-onion-chili-powder",
+        "count": 11,
+        "names": [
+            "ground meat",
+            "onion",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            177
+        ],
+        "slug": "onion-bell-pepper-black-beans",
+        "count": 11,
+        "names": [
+            "onion",
+            "bell pepper",
+            "black beans"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            165
+        ],
+        "slug": "onion-bell-pepper-diced-tomatoes",
+        "count": 11,
+        "names": [
+            "onion",
+            "bell pepper",
+            "diced tomatoes"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            3619
+        ],
+        "slug": "onion-bell-pepper-potato",
+        "count": 11,
+        "names": [
+            "onion",
+            "bell pepper",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            8
+        ],
+        "slug": "onion-carrot-soy-sauce",
+        "count": 11,
+        "names": [
+            "onion",
+            "carrot",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            32,
+            46
+        ],
+        "slug": "onion-lemon-celery",
+        "count": 11,
+        "names": [
+            "onion",
+            "lemon",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            32,
+            110
+        ],
+        "slug": "onion-lemon-fresh-parsley",
+        "count": 11,
+        "names": [
+            "onion",
+            "lemon",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            3620
+        ],
+        "slug": "onion-tomato-lettuce",
+        "count": 11,
+        "names": [
+            "onion",
+            "tomato",
+            "lettuce"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618,
+            111
+        ],
+        "slug": "tomato-bell-pepper-fresh-cilantro",
+        "count": 11,
+        "names": [
+            "tomato",
+            "bell pepper",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            18
+        ],
+        "slug": "chicken-garlic-ginger",
+        "count": 10,
+        "names": [
+            "chicken",
+            "garlic",
+            "ginger"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            32
+        ],
+        "slug": "chicken-garlic-lemon",
+        "count": 10,
+        "names": [
+            "chicken",
+            "garlic",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            290,
+            3616
+        ],
+        "slug": "egg-milk-onion",
+        "count": 10,
+        "names": [
+            "egg",
+            "milk",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            112
+        ],
+        "slug": "garlic-bell-pepper-fresh-basil",
+        "count": 10,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "fresh basil"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            111
+        ],
+        "slug": "garlic-bell-pepper-fresh-cilantro",
+        "count": 10,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            18,
+            393
+        ],
+        "slug": "garlic-ginger-ground-turmeric",
+        "count": 10,
+        "names": [
+            "garlic",
+            "ginger",
+            "ground turmeric"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            112
+        ],
+        "slug": "garlic-tomato-fresh-basil",
+        "count": 10,
+        "names": [
+            "garlic",
+            "tomato",
+            "fresh basil"
+        ]
+    },
+    {
+        "ids": [
+            290,
+            3616,
+            3619
+        ],
+        "slug": "milk-onion-potato",
+        "count": 10,
+        "names": [
+            "milk",
+            "onion",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            2357
+        ],
+        "slug": "onion-bell-pepper-pasta",
+        "count": 10,
+        "names": [
+            "onion",
+            "bell pepper",
+            "pasta"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            110
+        ],
+        "slug": "onion-carrot-fresh-parsley",
+        "count": 10,
+        "names": [
+            "onion",
+            "carrot",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            111,
+            79
+        ],
+        "slug": "onion-fresh-cilantro-jalapeno",
+        "count": 10,
+        "names": [
+            "onion",
+            "fresh cilantro",
+            "jalapeno"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            178,
+            388
+        ],
+        "slug": "onion-kidney-beans-chili-powder",
+        "count": 10,
+        "names": [
+            "onion",
+            "kidney beans",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            32,
+            45
+        ],
+        "slug": "onion-lemon-carrot",
+        "count": 10,
+        "names": [
+            "onion",
+            "lemon",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3617,
+            171
+        ],
+        "slug": "onion-rice-chicken-broth",
+        "count": 10,
+        "names": [
+            "onion",
+            "rice",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            177
+        ],
+        "slug": "onion-tomato-black-beans",
+        "count": 10,
+        "names": [
+            "onion",
+            "tomato",
+            "black beans"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            79
+        ],
+        "slug": "onion-tomato-jalapeno",
+        "count": 10,
+        "names": [
+            "onion",
+            "tomato",
+            "jalapeno"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            3619
+        ],
+        "slug": "onion-tomato-potato",
+        "count": 10,
+        "names": [
+            "onion",
+            "tomato",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            302,
+            3616,
+            2357
+        ],
+        "slug": "parmesan-onion-pasta",
+        "count": 10,
+        "names": [
+            "parmesan",
+            "onion",
+            "pasta"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            111,
+            123
+        ],
+        "slug": "bell-pepper-fresh-cilantro-lime",
+        "count": 9,
+        "names": [
+            "bell pepper",
+            "fresh cilantro",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3618,
+            3617
+        ],
+        "slug": "chicken-bell-pepper-rice",
+        "count": 9,
+        "names": [
+            "chicken",
+            "bell pepper",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            85
+        ],
+        "slug": "chicken-garlic-tomato",
+        "count": 9,
+        "names": [
+            "chicken",
+            "garlic",
+            "tomato"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            409
+        ],
+        "slug": "chicken-onion-dried-thyme",
+        "count": 9,
+        "names": [
+            "chicken",
+            "onion",
+            "dried thyme"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            18
+        ],
+        "slug": "chicken-onion-ginger",
+        "count": 9,
+        "names": [
+            "chicken",
+            "onion",
+            "ginger"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            32
+        ],
+        "slug": "chicken-onion-lemon",
+        "count": 9,
+        "names": [
+            "chicken",
+            "onion",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            3619
+        ],
+        "slug": "chicken-onion-potato",
+        "count": 9,
+        "names": [
+            "chicken",
+            "onion",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            85,
+            3618
+        ],
+        "slug": "chicken-tomato-bell-pepper",
+        "count": 9,
+        "names": [
+            "chicken",
+            "tomato",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            299,
+            3616
+        ],
+        "slug": "egg-cheddar-cheese-onion",
+        "count": 9,
+        "names": [
+            "egg",
+            "cheddar cheese",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            111,
+            123,
+            20
+        ],
+        "slug": "fresh-cilantro-lime-ground-cumin",
+        "count": 9,
+        "names": [
+            "fresh cilantro",
+            "lime",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            388
+        ],
+        "slug": "garlic-bell-pepper-chili-powder",
+        "count": 9,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            45,
+            8
+        ],
+        "slug": "garlic-carrot-soy-sauce",
+        "count": 9,
+        "names": [
+            "garlic",
+            "carrot",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            32,
+            110
+        ],
+        "slug": "garlic-lemon-fresh-parsley",
+        "count": 9,
+        "names": [
+            "garlic",
+            "lemon",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            123
+        ],
+        "slug": "garlic-tomato-lime",
+        "count": 9,
+        "names": [
+            "garlic",
+            "tomato",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            3616,
+            85
+        ],
+        "slug": "ground-meat-onion-tomato",
+        "count": 9,
+        "names": [
+            "ground meat",
+            "onion",
+            "tomato"
+        ]
+    },
+    {
+        "ids": [
+            290,
+            299,
+            3616
+        ],
+        "slug": "milk-cheddar-cheese-onion",
+        "count": 9,
+        "names": [
+            "milk",
+            "cheddar cheese",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            171
+        ],
+        "slug": "onion-bell-pepper-chicken-broth",
+        "count": 9,
+        "names": [
+            "onion",
+            "bell pepper",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            428
+        ],
+        "slug": "onion-bell-pepper-flour-tortillas",
+        "count": 9,
+        "names": [
+            "onion",
+            "bell pepper",
+            "flour tortillas"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            112
+        ],
+        "slug": "onion-bell-pepper-fresh-basil",
+        "count": 9,
+        "names": [
+            "onion",
+            "bell pepper",
+            "fresh basil"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            32
+        ],
+        "slug": "onion-bell-pepper-lemon",
+        "count": 9,
+        "names": [
+            "onion",
+            "bell pepper",
+            "lemon"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            177,
+            20
+        ],
+        "slug": "onion-black-beans-ground-cumin",
+        "count": 9,
+        "names": [
+            "onion",
+            "black beans",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            3621
+        ],
+        "slug": "onion-carrot-cabbage",
+        "count": 9,
+        "names": [
+            "onion",
+            "carrot",
+            "cabbage"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            46,
+            126
+        ],
+        "slug": "onion-celery-apple",
+        "count": 9,
+        "names": [
+            "onion",
+            "celery",
+            "apple"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            46,
+            171
+        ],
+        "slug": "onion-celery-chicken-broth",
+        "count": 9,
+        "names": [
+            "onion",
+            "celery",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            171,
+            409
+        ],
+        "slug": "onion-chicken-broth-dried-thyme",
+        "count": 9,
+        "names": [
+            "onion",
+            "chicken broth",
+            "dried thyme"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            18,
+            393
+        ],
+        "slug": "onion-ginger-ground-turmeric",
+        "count": 9,
+        "names": [
+            "onion",
+            "ginger",
+            "ground turmeric"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            20,
+            388
+        ],
+        "slug": "onion-ground-cumin-chili-powder",
+        "count": 9,
+        "names": [
+            "onion",
+            "ground cumin",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            32,
+            111
+        ],
+        "slug": "onion-lemon-fresh-cilantro",
+        "count": 9,
+        "names": [
+            "onion",
+            "lemon",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            123,
+            79
+        ],
+        "slug": "onion-lime-jalapeno",
+        "count": 9,
+        "names": [
+            "onion",
+            "lime",
+            "jalapeno"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            112
+        ],
+        "slug": "onion-tomato-fresh-basil",
+        "count": 9,
+        "names": [
+            "onion",
+            "tomato",
+            "fresh basil"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            20
+        ],
+        "slug": "onion-tomato-ground-cumin",
+        "count": 9,
+        "names": [
+            "onion",
+            "tomato",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618,
+            46
+        ],
+        "slug": "tomato-bell-pepper-celery",
+        "count": 9,
+        "names": [
+            "tomato",
+            "bell pepper",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618,
+            89
+        ],
+        "slug": "tomato-bell-pepper-cucumber",
+        "count": 9,
+        "names": [
+            "tomato",
+            "bell pepper",
+            "cucumber"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618,
+            3617
+        ],
+        "slug": "tomato-bell-pepper-rice",
+        "count": 9,
+        "names": [
+            "tomato",
+            "bell pepper",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618,
+            2373
+        ],
+        "slug": "tomato-bell-pepper-summer-squash",
+        "count": 9,
+        "names": [
+            "tomato",
+            "bell pepper",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            110
+        ],
+        "slug": "chicken-garlic-fresh-parsley",
+        "count": 8,
+        "names": [
+            "chicken",
+            "garlic",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            110
+        ],
+        "slug": "chicken-onion-fresh-parsley",
+        "count": 8,
+        "names": [
+            "chicken",
+            "onion",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3616,
+            20
+        ],
+        "slug": "chicken-onion-ground-cumin",
+        "count": 8,
+        "names": [
+            "chicken",
+            "onion",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3617,
+            171
+        ],
+        "slug": "chicken-rice-chicken-broth",
+        "count": 8,
+        "names": [
+            "chicken",
+            "rice",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            2358,
+            3616
+        ],
+        "slug": "egg-chicken-onion",
+        "count": 8,
+        "names": [
+            "egg",
+            "chicken",
+            "onion"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            165
+        ],
+        "slug": "garlic-bell-pepper-diced-tomatoes",
+        "count": 8,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "diced tomatoes"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            3619
+        ],
+        "slug": "garlic-bell-pepper-potato",
+        "count": 8,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            2373
+        ],
+        "slug": "garlic-bell-pepper-summer-squash",
+        "count": 8,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            177,
+            20
+        ],
+        "slug": "garlic-black-beans-ground-cumin",
+        "count": 8,
+        "names": [
+            "garlic",
+            "black beans",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            45,
+            3619
+        ],
+        "slug": "garlic-carrot-potato",
+        "count": 8,
+        "names": [
+            "garlic",
+            "carrot",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            46,
+            110
+        ],
+        "slug": "garlic-celery-fresh-parsley",
+        "count": 8,
+        "names": [
+            "garlic",
+            "celery",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            12,
+            111
+        ],
+        "slug": "garlic-scallion-fresh-cilantro",
+        "count": 8,
+        "names": [
+            "garlic",
+            "scallion",
+            "fresh cilantro"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            20
+        ],
+        "slug": "garlic-tomato-ground-cumin",
+        "count": 8,
+        "names": [
+            "garlic",
+            "tomato",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            3619
+        ],
+        "slug": "garlic-tomato-potato",
+        "count": 8,
+        "names": [
+            "garlic",
+            "tomato",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            2373
+        ],
+        "slug": "garlic-tomato-summer-squash",
+        "count": 8,
+        "names": [
+            "garlic",
+            "tomato",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            11,
+            3618
+        ],
+        "slug": "ground-meat-garlic-bell-pepper",
+        "count": 8,
+        "names": [
+            "ground meat",
+            "garlic",
+            "bell pepper"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            178,
+            388
+        ],
+        "slug": "ground-meat-kidney-beans-chili-powder",
+        "count": 8,
+        "names": [
+            "ground meat",
+            "kidney beans",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            3616,
+            178
+        ],
+        "slug": "ground-meat-onion-kidney-beans",
+        "count": 8,
+        "names": [
+            "ground meat",
+            "onion",
+            "kidney beans"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            3616,
+            167
+        ],
+        "slug": "ground-meat-onion-tomato-sauce",
+        "count": 8,
+        "names": [
+            "ground meat",
+            "onion",
+            "tomato sauce"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            73
+        ],
+        "slug": "onion-bell-pepper-broccoli",
+        "count": 8,
+        "names": [
+            "onion",
+            "bell pepper",
+            "broccoli"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            89
+        ],
+        "slug": "onion-bell-pepper-cucumber",
+        "count": 8,
+        "names": [
+            "onion",
+            "bell pepper",
+            "cucumber"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            409
+        ],
+        "slug": "onion-bell-pepper-dried-thyme",
+        "count": 8,
+        "names": [
+            "onion",
+            "bell pepper",
+            "dried thyme"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            123
+        ],
+        "slug": "onion-bell-pepper-lime",
+        "count": 8,
+        "names": [
+            "onion",
+            "bell pepper",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            160
+        ],
+        "slug": "onion-bell-pepper-rice-vinegar",
+        "count": 8,
+        "names": [
+            "onion",
+            "bell pepper",
+            "rice vinegar"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            167
+        ],
+        "slug": "onion-bell-pepper-tomato-sauce",
+        "count": 8,
+        "names": [
+            "onion",
+            "bell pepper",
+            "tomato sauce"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            73
+        ],
+        "slug": "onion-carrot-broccoli",
+        "count": 8,
+        "names": [
+            "onion",
+            "carrot",
+            "broccoli"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            185
+        ],
+        "slug": "onion-carrot-lentils",
+        "count": 8,
+        "names": [
+            "onion",
+            "carrot",
+            "lentils"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            2357
+        ],
+        "slug": "onion-carrot-pasta",
+        "count": 8,
+        "names": [
+            "onion",
+            "carrot",
+            "pasta"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            2373
+        ],
+        "slug": "onion-carrot-summer-squash",
+        "count": 8,
+        "names": [
+            "onion",
+            "carrot",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            46,
+            3617
+        ],
+        "slug": "onion-celery-rice",
+        "count": 8,
+        "names": [
+            "onion",
+            "celery",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            111,
+            177
+        ],
+        "slug": "onion-fresh-cilantro-black-beans",
+        "count": 8,
+        "names": [
+            "onion",
+            "fresh cilantro",
+            "black beans"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3617,
+            8
+        ],
+        "slug": "onion-rice-soy-sauce",
+        "count": 8,
+        "names": [
+            "onion",
+            "rice",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            12,
+            8
+        ],
+        "slug": "onion-scallion-soy-sauce",
+        "count": 8,
+        "names": [
+            "onion",
+            "scallion",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            388
+        ],
+        "slug": "onion-tomato-chili-powder",
+        "count": 8,
+        "names": [
+            "onion",
+            "tomato",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            101
+        ],
+        "slug": "onion-tomato-corn",
+        "count": 8,
+        "names": [
+            "onion",
+            "tomato",
+            "corn"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            85,
+            89
+        ],
+        "slug": "onion-tomato-cucumber",
+        "count": 8,
+        "names": [
+            "onion",
+            "tomato",
+            "cucumber"
+        ]
+    },
+    {
+        "ids": [
+            302,
+            11,
+            2357
+        ],
+        "slug": "parmesan-garlic-pasta",
+        "count": 8,
+        "names": [
+            "parmesan",
+            "garlic",
+            "pasta"
+        ]
+    },
+    {
+        "ids": [
+            302,
+            3616,
+            85
+        ],
+        "slug": "parmesan-onion-tomato",
+        "count": 8,
+        "names": [
+            "parmesan",
+            "onion",
+            "tomato"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618,
+            20
+        ],
+        "slug": "tomato-bell-pepper-ground-cumin",
+        "count": 8,
+        "names": [
+            "tomato",
+            "bell pepper",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            111,
+            20
+        ],
+        "slug": "tomato-fresh-cilantro-ground-cumin",
+        "count": 8,
+        "names": [
+            "tomato",
+            "fresh cilantro",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            32,
+            89
+        ],
+        "slug": "tomato-lemon-cucumber",
+        "count": 8,
+        "names": [
+            "tomato",
+            "lemon",
+            "cucumber"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            32,
+            110
+        ],
+        "slug": "tomato-lemon-fresh-parsley",
+        "count": 8,
+        "names": [
+            "tomato",
+            "lemon",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            177,
+            20
+        ],
+        "slug": "bell-pepper-black-beans-ground-cumin",
+        "count": 7,
+        "names": [
+            "bell pepper",
+            "black beans",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            45,
+            46
+        ],
+        "slug": "bell-pepper-carrot-celery",
+        "count": 7,
+        "names": [
+            "bell pepper",
+            "carrot",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            45,
+            2373
+        ],
+        "slug": "bell-pepper-carrot-summer-squash",
+        "count": 7,
+        "names": [
+            "bell pepper",
+            "carrot",
+            "summer squash"
+        ]
+    },
+    {
+        "ids": [
+            3618,
+            20,
+            388
+        ],
+        "slug": "bell-pepper-ground-cumin-chili-powder",
+        "count": 7,
+        "names": [
+            "bell pepper",
+            "ground cumin",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            45,
+            46,
+            110
+        ],
+        "slug": "carrot-celery-fresh-parsley",
+        "count": 7,
+        "names": [
+            "carrot",
+            "celery",
+            "fresh parsley"
+        ]
+    },
+    {
+        "ids": [
+            46,
+            126,
+            273
+        ],
+        "slug": "celery-apple-raisins",
+        "count": 7,
+        "names": [
+            "celery",
+            "apple",
+            "raisins"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3618,
+            45
+        ],
+        "slug": "chicken-bell-pepper-carrot",
+        "count": 7,
+        "names": [
+            "chicken",
+            "bell pepper",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            45,
+            3617
+        ],
+        "slug": "chicken-carrot-rice",
+        "count": 7,
+        "names": [
+            "chicken",
+            "carrot",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            46,
+            126
+        ],
+        "slug": "chicken-celery-apple",
+        "count": 7,
+        "names": [
+            "chicken",
+            "celery",
+            "apple"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            45
+        ],
+        "slug": "chicken-garlic-carrot",
+        "count": 7,
+        "names": [
+            "chicken",
+            "garlic",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            409
+        ],
+        "slug": "chicken-garlic-dried-thyme",
+        "count": 7,
+        "names": [
+            "chicken",
+            "garlic",
+            "dried thyme"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            11,
+            3619
+        ],
+        "slug": "chicken-garlic-potato",
+        "count": 7,
+        "names": [
+            "chicken",
+            "garlic",
+            "potato"
+        ]
+    },
+    {
+        "ids": [
+            2358,
+            3617,
+            8
+        ],
+        "slug": "chicken-rice-soy-sauce",
+        "count": 7,
+        "names": [
+            "chicken",
+            "rice",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            2358,
+            3617
+        ],
+        "slug": "egg-chicken-rice",
+        "count": 7,
+        "names": [
+            "egg",
+            "chicken",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            11,
+            12
+        ],
+        "slug": "egg-garlic-scallion",
+        "count": 7,
+        "names": [
+            "egg",
+            "garlic",
+            "scallion"
+        ]
+    },
+    {
+        "ids": [
+            24,
+            3616,
+            429
+        ],
+        "slug": "egg-onion-sandwich-bread",
+        "count": 7,
+        "names": [
+            "egg",
+            "onion",
+            "sandwich bread"
+        ]
+    },
+    {
+        "ids": [
+            111,
+            177,
+            20
+        ],
+        "slug": "fresh-cilantro-black-beans-ground-cumin",
+        "count": 7,
+        "names": [
+            "fresh cilantro",
+            "black beans",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            3618,
+            409
+        ],
+        "slug": "garlic-bell-pepper-dried-thyme",
+        "count": 7,
+        "names": [
+            "garlic",
+            "bell pepper",
+            "dried thyme"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            45,
+            12
+        ],
+        "slug": "garlic-carrot-scallion",
+        "count": 7,
+        "names": [
+            "garlic",
+            "carrot",
+            "scallion"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            171,
+            8
+        ],
+        "slug": "garlic-chicken-broth-soy-sauce",
+        "count": 7,
+        "names": [
+            "garlic",
+            "chicken broth",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            111,
+            79
+        ],
+        "slug": "garlic-fresh-cilantro-jalapeno",
+        "count": 7,
+        "names": [
+            "garlic",
+            "fresh cilantro",
+            "jalapeno"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            20,
+            388
+        ],
+        "slug": "garlic-ground-cumin-chili-powder",
+        "count": 7,
+        "names": [
+            "garlic",
+            "ground cumin",
+            "chili powder"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            79,
+            20
+        ],
+        "slug": "garlic-jalapeno-ground-cumin",
+        "count": 7,
+        "names": [
+            "garlic",
+            "jalapeno",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            32,
+            45
+        ],
+        "slug": "garlic-lemon-carrot",
+        "count": 7,
+        "names": [
+            "garlic",
+            "lemon",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            32,
+            18
+        ],
+        "slug": "garlic-lemon-ginger",
+        "count": 7,
+        "names": [
+            "garlic",
+            "lemon",
+            "ginger"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            12,
+            171
+        ],
+        "slug": "garlic-scallion-chicken-broth",
+        "count": 7,
+        "names": [
+            "garlic",
+            "scallion",
+            "chicken broth"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            12,
+            123
+        ],
+        "slug": "garlic-scallion-lime",
+        "count": 7,
+        "names": [
+            "garlic",
+            "scallion",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            89
+        ],
+        "slug": "garlic-tomato-cucumber",
+        "count": 7,
+        "names": [
+            "garlic",
+            "tomato",
+            "cucumber"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            393
+        ],
+        "slug": "garlic-tomato-ground-turmeric",
+        "count": 7,
+        "names": [
+            "garlic",
+            "tomato",
+            "ground turmeric"
+        ]
+    },
+    {
+        "ids": [
+            11,
+            85,
+            3617
+        ],
+        "slug": "garlic-tomato-rice",
+        "count": 7,
+        "names": [
+            "garlic",
+            "tomato",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            3622,
+            3616,
+            45
+        ],
+        "slug": "ground-meat-onion-carrot",
+        "count": 7,
+        "names": [
+            "ground meat",
+            "onion",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            32,
+            111,
+            123
+        ],
+        "slug": "lemon-fresh-cilantro-lime",
+        "count": 7,
+        "names": [
+            "lemon",
+            "fresh cilantro",
+            "lime"
+        ]
+    },
+    {
+        "ids": [
+            290,
+            3616,
+            46
+        ],
+        "slug": "milk-onion-celery",
+        "count": 7,
+        "names": [
+            "milk",
+            "onion",
+            "celery"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            29
+        ],
+        "slug": "onion-bell-pepper-mushrooms",
+        "count": 7,
+        "names": [
+            "onion",
+            "bell pepper",
+            "mushrooms"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            3618,
+            8
+        ],
+        "slug": "onion-bell-pepper-soy-sauce",
+        "count": 7,
+        "names": [
+            "onion",
+            "bell pepper",
+            "soy sauce"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            45,
+            3617
+        ],
+        "slug": "onion-carrot-rice",
+        "count": 7,
+        "names": [
+            "onion",
+            "carrot",
+            "rice"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            111,
+            18
+        ],
+        "slug": "onion-fresh-cilantro-ginger",
+        "count": 7,
+        "names": [
+            "onion",
+            "fresh cilantro",
+            "ginger"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            79,
+            20
+        ],
+        "slug": "onion-jalapeno-ground-cumin",
+        "count": 7,
+        "names": [
+            "onion",
+            "jalapeno",
+            "ground cumin"
+        ]
+    },
+    {
+        "ids": [
+            3616,
+            32,
+            18
+        ],
+        "slug": "onion-lemon-ginger",
+        "count": 7,
+        "names": [
+            "onion",
+            "lemon",
+            "ginger"
+        ]
+    },
+    {
+        "ids": [
+            302,
+            11,
+            57
+        ],
+        "slug": "parmesan-garlic-spinach",
+        "count": 7,
+        "names": [
+            "parmesan",
+            "garlic",
+            "spinach"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            3618,
+            45
+        ],
+        "slug": "tomato-bell-pepper-carrot",
+        "count": 7,
+        "names": [
+            "tomato",
+            "bell pepper",
+            "carrot"
+        ]
+    },
+    {
+        "ids": [
+            85,
+            32,
+            111
+        ],
+        "slug": "tomato-lemon-fresh-cilantro",
+        "count": 7,
+        "names": [
+            "tomato",
+            "lemon",
+            "fresh cilantro"
+        ]
+    }
+]

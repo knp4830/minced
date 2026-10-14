@@ -32,6 +32,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     title: f.q ? `“${f.q}”` : "Recipes",
     description:
       "Every recipe is ingredients, amounts and numbered steps. Filter by time, diet, allergens, spice, calories, protein or the cookware you own.",
+    alternates: { canonical: "/recipes" },
     // Search and filter URLs are infinite and thin; only the plain listing is indexable.
     robots: filtered ? { index: false, follow: true } : undefined,
   };

@@ -1,4 +1,5 @@
 import { ArrowRight, Search } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FridgePicker } from "@/components/pantry/fridgePicker";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,11 @@ import {
  * input is the one client island and hydrates its saved pantry itself.
  */
 export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  title: { absolute: "Minced: recipes by name or by what's in your fridge" },
+  alternates: { canonical: "/" },
+};
 
 const FEATURES = [
   {
