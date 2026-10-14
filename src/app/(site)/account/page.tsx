@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { DeleteAccountForm } from "@/components/account/authForms";
+import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { MyRecipeBook } from "@/components/account/myRecipeBook";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -17,12 +18,14 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-const TABS = [
+const ALL_TABS = [
   { id: "library", label: "My Library" },
   { id: "book", label: "My Recipe Book" },
   { id: "settings", label: "Settings" },
 ] as const;
-type TabId = (typeof TABS)[number]["id"];
+type TabId = (typeof ALL_TABS)[number]["id"];
+// The recipe book is hidden until user recipes are switched on (see src/lib/flags.ts).
+const TABS = ALL_TABS.filter((t) => t.id !== "book" || USER_RECIPES_ENABLED);
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 

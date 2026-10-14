@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 import { RecipeForm } from "@/components/recipe/recipeForm";
+import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { getCurrentUser } from "@/lib/queries/account";
 import { getFormOptions, getMyRecipeBySlug } from "@/lib/queries/myRecipes";
 import { SLUG_RE, valuesFromDetail } from "@/lib/recipeForm";
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export default async function EditRecipePage({ params, searchParams }: Props) {
+  if (!USER_RECIPES_ENABLED) notFound();
   const { slug } = await params;
   const sp = await searchParams;
   const justSaved = (Array.isArray(sp.saved) ? sp.saved[0] : sp.saved) === "1";
