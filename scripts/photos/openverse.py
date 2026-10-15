@@ -85,7 +85,12 @@ def api_search(q: str, n: int = 20, creator: str | None = None) -> tuple[list[di
             if e.code == 429:
                 time.sleep(65 * (attempt + 1))  # per-minute burst; wait it out
                 continue
+            if e.code >= 500:
+                time.sleep(15 * (attempt + 1))
+                continue
             raise
+        except (TimeoutError, urllib.error.URLError, OSError):   # the API sometimes stalls; one dropped request must not kill a day's run
+            time.sleep(15 * (attempt + 1))
     return [], 0
 
 

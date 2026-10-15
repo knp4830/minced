@@ -1,5 +1,23 @@
 [
   {
+    "slug": "ambrosia",
+    "recipe_title": "Ambrosia",
+    "source": "openverse",
+    "license": "CC0",
+    "license_raw": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "author": "glowworm01",
+    "credit": "glowworm01 / Flickr",
+    "alt_text": "Ambrosia",
+    "attribution_url": "https://www.flickr.com/photos/190593005@N02/52489875939",
+    "source_image_url": "https://live.staticflickr.com/65535/52489875939_f4125b1d63_b.jpg",
+    "candidate_id": "22abf97f-99b6-4b7a-bd6f-da720a9f3c9a",
+    "file": "ambrosia salad",
+    "sha256": "246469ded5e51e9da37fe86d34a1e454980f5fe571d26e86994977f1bce51ba6",
+    "evidence": "Openverse record 22abf97f-99b6-4b7a-bd6f-da720a9f3c9a reports licence 'CC0' (creator 'glowworm01', provider flickr); landing page https://www.flickr.com/photos/190593005@N02/52489875939; image reviewed by a human/agent against the recipe's ingredients as showing this dish.",
+    "image_cache": "openverse/images/ambrosia.bin"
+  },
+  {
     "slug": "apple-stuffed-squash",
     "recipe_title": "Apple-Stuffed Squash",
     "source": "openverse",
@@ -232,6 +250,24 @@
     "sha256": "53778130821d2f6972b249469556753d081069f87affa66dc31683380dc699fc",
     "evidence": "Openverse record 20473ce7-54e1-430e-86f8-ed6155ffa0db reports licence 'CC0' (creator 'Foodie Girl', provider stocksnap); landing page https://stocksnap.io/photo/vegetable-tomato-U3VETDUZHC; image reviewed by a human/agent against the recipe's ingredients as showing this dish.",
     "image_cache": "openverse/images/roasted-tomatoes-herbs.bin"
+  },
+  {
+    "slug": "scrambled-eggs-zucchini",
+    "recipe_title": "Scrambled Eggs with Zucchini",
+    "source": "openverse",
+    "license": "CC BY 2.0",
+    "license_raw": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "author": "Neeta Lind",
+    "credit": "Neeta Lind / Flickr",
+    "alt_text": "Scrambled Eggs with Zucchini",
+    "attribution_url": "https://www.flickr.com/photos/71132408@N00/53499785422",
+    "source_image_url": "https://live.staticflickr.com/65535/53499785422_bcf35ac547_b.jpg",
+    "candidate_id": "dc70b688-2218-4ad9-97fc-b4bf188ddbbd",
+    "file": "Scrambled eggs with sautéed red bell peppers, zucchini and roasted potatoes",
+    "sha256": "333b9720a0c2d279d901322ad3b8048931f202f91df9a524173cfa1722e6442e",
+    "evidence": "Openverse record dc70b688-2218-4ad9-97fc-b4bf188ddbbd reports licence 'CC BY 2.0' (creator 'Neeta Lind', provider flickr); landing page https://www.flickr.com/photos/71132408@N00/53499785422; image reviewed by a human/agent against the recipe's ingredients as showing this dish.",
+    "image_cache": "openverse/images/scrambled-eggs-zucchini.bin"
   },
   {
     "slug": "vegetarian-matzo-ball-soup",

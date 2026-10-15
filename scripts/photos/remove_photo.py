@@ -51,7 +51,8 @@ def main() -> None:
     else:
         sys.exit(f"{slug}: not in any manifest ({', '.join(MANIFESTS)}, myplate.json)")
     write_json(MANIFEST_DIR / name, [r for r in rows if r["slug"] != slug])
-    for pn in ("commons_picks.json", "commons_picks_r2.json", "commons_picks_w4.json", "openverse_picks.json"):
+    for pn in ("commons_picks.json", "commons_picks_r2.json", "commons_picks_w4.json", "commons_picks_w7.json",
+               "openverse_picks.json", "openverse_picks_w7b.json"):
         picks = load(pn, {})
         if slug in picks:
             del picks[slug]

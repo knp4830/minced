@@ -119,3 +119,15 @@ ingredients). Different dish or style, raw ingredient, logos, people, stock-phot
   (bucket `wave7_review_2026_10_14` in `commons_r2_rejected.json`; MyPlate ones in `myplate_review_excludes.json`).
   `commons_picks_w7.json` is NOT cleaned by `remove_photo.py`: drop the slug there too, or `commons_w4.py build` re-adds it.
 - Re-running `process_images.py` after the removals leaves no rejected slug in `photos.json` (checked).
+
+## Review 2026-10-15 (duplicates, USDA restore, more photos)
+- Five photos were shared by two recipes (see `NEAR-DUPLICATES.md`): each pair compared by hand. Same dish -> the weaker RECIPE is deleted
+  by `scripts/dedupe-near-duplicates.sql` (dry-run mode, idempotent, re-points favourites and shopping links); different dish -> the photo
+  stays on one recipe only. `check_manifests.py [--recipes cache/details.json]` fails on any shared file, any returned rejected photo, or a
+  photo for a recipe that does not exist; run it before every `process_images.py` -> `apply_manifest.py`.
+- The five USDA "MyPlate gov Cultural Food" photos (logo allowed by owner decision) are in the manifest and were re-reviewed against their recipes.
+- New helpers: `near_dupes.py` (title stem + ingredient overlap), `photoless_from_manifest.py` (photo-less recipes from the manifest, not a lagging
+  snapshot), `rec.py <slug>...` (recipe text), `pick_w4.py <tiles> --through=N` (tile numbers -> picks, remembers reviewed slugs in
+  `cache/commons/reviewed_slugs.txt`), `commons_w4.py search` is now resumable and skips files already rejected or used, `commons_w4.py sheets --glob`.
+- `openverse.py` no longer dies on a stalled API response (retries); the daily budget of 200 requests was used up (`--tag "#r15"`).
+- Post-merge order: backup, dedupe script (dry run, then real), `upload_photos.py --apply`, `seed-photos.sql` (the seed raises on a slug with no recipe, so the dedupe must come first).

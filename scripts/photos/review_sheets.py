@@ -100,8 +100,7 @@ def grid(items: list[tuple[dict, str, Path]], name: str) -> None:
         sheet.save(out / f"{name}_g{n // per:03d}.png")
     index = [{"n": k, "slug": r["slug"], "label": lab, "path": str(p)} for k, (r, lab, p) in enumerate(items)]
     (out / f"{name}_gindex.json").write_text(
-        json.dumps(index, ensure_ascii=False, indent=0), encoding="utf-8", newline="
-"
+        json.dumps(index, ensure_ascii=False, indent=0), encoding="utf-8", newline="\n"
     )
     print(f"{len(items)} tiles -> {out} ({(len(items) + per - 1) // per} sheets)")
 

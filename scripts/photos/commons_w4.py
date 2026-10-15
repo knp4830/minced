@@ -35,11 +35,30 @@ RISKY = re.compile(
 )
 
 
+def excluded_files() -> set[str]:
+    """Files already rejected by a reviewer (commons_r2_rejected.json) or already used by a recipe (photos.json)."""
+    from common import MANIFEST_DIR
+    out: set[str] = set()
+    rej = json.loads((MANIFEST_DIR / "commons_r2_rejected.json").read_text(encoding="utf-8"))
+    for bucket in rej.values():
+        if isinstance(bucket, dict):
+            for v in bucket.values():
+                out.add(str(v).split(": ")[0])
+    for r in json.loads((MANIFEST_DIR / "photos.json").read_text(encoding="utf-8")):
+        if r.get("file"):
+            out.add(r["file"])
+    return out
+
+
 def cmd_search(path: str, out: str, thr: float, keep: int) -> None:
     recs = json.loads(Path(path).read_text(encoding="utf-8"))
-    res = {}
+    outp = CACHE / "commons" / out
+    res = json.loads(outp.read_text(encoding="utf-8")) if outp.exists() else {}   # resumable: slugs already searched are kept
+    skip = excluded_files()
     for rec in recs:
         slug, title = rec["slug"], rec["title"]
+        if slug in res:
+            continue
         qs = list(dict.fromkeys(rec.get("queries", []) + R2.queries(title)))
         seen, cands = set(), []
         for q in qs:
@@ -49,7 +68,7 @@ def cmd_search(path: str, out: str, thr: float, keep: int) -> None:
                 print("ERR", slug, e, file=sys.stderr)
                 continue
             for r in rows:
-                if r["file"] in seen:
+                if r["file"] in seen or r["file"] in skip:
                     continue
                 seen.add(r["file"])
                 if r["license"] is None or not r["author"] or (r["width"] or 0) < 500:
@@ -79,14 +98,18 @@ def cmd_search(path: str, out: str, thr: float, keep: int) -> None:
         write_json(CACHE / "commons" / out, res)
 
 
-def cmd_sheets(per: int, top: int) -> None:
+def cmd_sheets(per: int, top: int, pattern: str = "cand_w4_*.json") -> None:
     from PIL import Image, ImageDraw
 
     cands = {}
-    for f in sorted((CACHE / "commons").glob("cand_w4_*.json")):
+    for f in sorted((CACHE / "commons").glob(pattern)):
         cands.update(json.loads(f.read_text(encoding="utf-8")))
     tiles = []
+    done_f = CACHE / "commons" / "reviewed_slugs.txt"      # slugs already looked at in an earlier round of sheets
+    done = set(done_f.read_text(encoding="utf-8").split()) if done_f.exists() else set()
     for slug, v in cands.items():
+        if slug in done:
+            continue
         for i, r in enumerate(v["cands"][:top]):
             p = CACHE / "commons" / "review4" / slug / f"{i}.jpg"
             if p.exists():
@@ -130,6 +153,7 @@ if __name__ == "__main__":
     h = sub.add_parser("sheets")
     h.add_argument("--per", type=int, default=12)
     h.add_argument("--top", type=int, default=4)
+    h.add_argument("--glob", default="cand_w4_*.json", help="which candidate files to put on sheets (default: all wave-4 ones)")
     b = sub.add_parser("build")
     b.add_argument("picks")
     b.add_argument("recipes")
@@ -137,6 +161,6 @@ if __name__ == "__main__":
     if a.cmd == "search":
         cmd_search(a.recipes, a.out, a.thr, a.keep)
     elif a.cmd == "sheets":
-        cmd_sheets(a.per, a.top)
+        cmd_sheets(a.per, a.top, a.glob)
     else:
         R2.cmd_build(a.picks, a.recipes)
