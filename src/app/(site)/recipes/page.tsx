@@ -49,7 +49,7 @@ function EmptyState({ filters }: { filters: RecipeFilters }) {
   const filtered = hasActiveFilters(filters);
   return (
     <div className="mx-auto max-w-md rounded-xl border border-line bg-surface px-6 py-10 text-center">
-      <h2 className="text-xl">
+      <h2 className="text-xl [overflow-wrap:anywhere]">
         {filters.q ? <>No recipes for “{filters.q}”</> : "No recipes match these filters"}
       </h2>
       <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-muted">

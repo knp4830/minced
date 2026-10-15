@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { safeNext } from "@/lib/auth/validate";
+import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { recipeExists } from "@/lib/recipeGate";
 import { updateSession } from "@/lib/supabase/middleware";
 
@@ -26,6 +27,12 @@ export async function middleware(request: NextRequest) {
       /* malformed escape: fails the slug check below */
     }
     if (await recipeExists(slug)) return NextResponse.next();
+    return NextResponse.rewrite(new URL("/recipe-not-found", request.url), { status: 404 });
+  }
+
+  // With user recipes off, their routes answer a real 404 for everyone (signed in or not),
+  // so the route does not advertise itself and the status is 404, not a streamed 200.
+  if (!USER_RECIPES_ENABLED && (path === "/recipes/new" || /^\/recipes\/[^/]+\/edit$/.test(path))) {
     return NextResponse.rewrite(new URL("/recipe-not-found", request.url), { status: 404 });
   }
 

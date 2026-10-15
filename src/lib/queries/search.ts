@@ -104,7 +104,7 @@ export async function searchRecipes(
   const original = filters.q ?? "";
 
   // Door parity: the fridge understands "aubergine", so search must too.
-  const rewritten = await rewriteSynonyms(original);
+  const rewritten = expandShorthand(await rewriteSynonyms(original));
   let page = await runSearch({ ...filters, q: rewritten }, limit);
 
   // Nothing found for a single word: it may be a typo of an ingredient
@@ -159,6 +159,16 @@ async function rewriteSynonyms(q: string): Promise<string> {
       const r = resolved[i];
       return r && r.match_kind === "alias" ? r.canonical_name : w;
     })
+    .join(" ");
+}
+
+/** Cook shorthand that is not an ingredient alias: "mac and cheese" means macaroni. */
+const SHORTHAND: Record<string, string> = { mac: "macaroni" };
+
+function expandShorthand(q: string): string {
+  return q
+    .split(/\s+/)
+    .map((w) => SHORTHAND[w.toLowerCase()] ?? w)
     .join(" ");
 }
 
