@@ -68,7 +68,9 @@ export function buildSearchArgs(
 ) {
   return {
     q: filters.q ?? "",
+    min_total_min: filters.minTime,
     max_total_min: filters.maxTime,
+    include_ingredient_ids: filters.include?.length ? filters.include : undefined,
     cuisine_slugs: filters.cuisine,
     diet_slugs: filters.diet,
     exclude_allergen_slugs: filters.exclude,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useOptimistic, useRef, useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAccount } from "@/components/account/accountProvider";
 import { startNavProgress } from "@/components/shell/navProgress";
@@ -10,9 +11,11 @@ import { cookwareUrl, writeCookware, type StoredCookware } from "@/lib/cookwareS
 import { cn } from "@/lib/utils";
 
 /*
- * "My cookware": the pots and pans this cook owns, plus a switch that hides
- * every recipe needing something they lack. Rendered inside the filter rail,
- * the phone filter sheet and the fridge page, so both doors filter the same way.
+ * "My cookware": a switch that hides every recipe needing something the cook lacks,
+ * and, for people WITHOUT an account, the list of pots and pans they own (kept on this
+ * device). Signed-in people get the switch only: their list belongs to their account, and
+ * the filter panel just links there. Rendered inside the filter rail, the phone filter
+ * sheet and the fridge page, so both doors filter the same way.
  *
  * State lives in the URL (`ownedCookware`, `ownedOnly`) like every other filter.
  * Each change also goes to localStorage, and to the account when signed in; see
@@ -69,19 +72,7 @@ export function MyCookware({ owned, only, all }: Props) {
   return (
     <fieldset className="mb-5 min-w-0" aria-busy={pending}>
       <legend className="label-mono mb-2.5">My cookware</legend>
-      <div className="flex flex-wrap gap-1.5">
-        {all.map((c) => (
-          <Chip
-            key={c.slug}
-            selected={view.slugs.includes(c.slug)}
-            onClick={() => toggleOwned(c.slug)}
-          >
-            {c.name}
-          </Chip>
-        ))}
-      </div>
-
-      <div className="mt-3 flex min-h-11 items-center justify-between gap-3">
+      <div className="flex min-h-11 items-center justify-between gap-3">
         <span id={`${uid}-label`} className="text-[0.875rem] leading-snug text-ink">
           Only what I can make with my cookware
         </span>
@@ -109,9 +100,38 @@ export function MyCookware({ owned, only, all }: Props) {
       </div>
       <p id={`${uid}-hint`} className="mt-1 text-[0.8125rem] leading-snug text-ink-muted">
         {view.only && view.slugs.length === 0
-          ? "Pick what you own above. With nothing picked, recipes that need any pan or pot are hidden."
+          ? status === "out"
+            ? "Pick what you own below. With nothing picked, recipes that need any pan or pot are hidden."
+            : "With no cookware saved, recipes that need any pan or pot are hidden."
           : "Recipes that list no cookware always show."}
       </p>
+      {status === "out" ? (
+        // No account: the list lives on this device, so it is edited here. Collapsed once it has content.
+        <details open={view.only && view.slugs.length === 0} className="group/own mt-3">
+          <summary className="label-mono flex min-h-8 cursor-pointer list-none items-center justify-between marker:hidden [&::-webkit-details-marker]:hidden">
+            <span>Cookware I own{view.slugs.length ? ` (${view.slugs.length})` : ""}</span>
+            <span aria-hidden className="group-open/own:hidden">show</span>
+            <span aria-hidden className="hidden group-open/own:inline">hide</span>
+          </summary>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {all.map((c) => (
+              <Chip
+                key={c.slug}
+                selected={view.slugs.includes(c.slug)}
+                onClick={() => toggleOwned(c.slug)}
+              >
+                {c.name}
+              </Chip>
+            ))}
+          </div>
+        </details>
+      ) : status === "in" ? (
+        <p className="mt-1 text-[0.8125rem] leading-snug text-ink-muted">
+          <Link href="/account#cookware" className="underline underline-offset-2 hover:text-herb">
+            Manage my cookware in your account
+          </Link>
+        </p>
+      ) : null}
       {saveFailed && (
         <p role="status" className="mt-1 text-[0.8125rem] text-paprika-deep">
           Couldn&apos;t save this to your account. It&apos;s still kept on this device.

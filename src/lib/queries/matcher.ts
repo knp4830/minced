@@ -130,7 +130,9 @@ export function buildMatchArgs(
           cursor_recipe_id: cursor.recipeId,
         }
       : {}),
+    ...(filters.minTime !== undefined ? { min_total_min: filters.minTime } : {}),
     ...(filters.maxTime !== undefined ? { max_total_min: filters.maxTime } : {}),
+    ...(filters.include?.length ? { include_ingredient_ids: filters.include } : {}),
     ...(filters.cuisine?.length ? { cuisine_slugs: filters.cuisine } : {}),
     ...(filters.diet?.length ? { diet_slugs: filters.diet } : {}),
     ...(filters.exclude?.length ? { exclude_allergen_slugs: filters.exclude } : {}),
