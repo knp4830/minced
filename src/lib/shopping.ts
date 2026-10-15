@@ -158,6 +158,75 @@ export function mergeLines(lines: ShopLine[]): MergedItem[] {
   return out;
 }
 
+/** Units that are bought as they are counted: "2 cans", "1 head". Anything else is not a count. */
+const BUYABLE_UNITS = new Set(["can", "bunch", "head"]);
+
+/** What the shopping screen shows per ingredient. No measurements: you buy whole items. */
+export type BuyItem = Omit<MergedItem, "amount" | "unit"> & {
+  /** "6" for bare counts ("eggs"), "2 cans" for bought units, null when a count would be noise. */
+  count: string | null;
+};
+
+/**
+ * Collapse merged rows to one row per ingredient and drop the measurements.
+ * "1 1/2 cups milk" and "2 tbsp milk" are both just "milk": you buy a carton, and the recipe
+ * says how much to pour. A count survives only where the thing is bought by the piece:
+ * bare counts (eggs, lemons: always rounded UP, you cannot buy 2.5) and cans, bunches, heads.
+ */
+export function buyList(items: MergedItem[]): BuyItem[] {
+  const byIngredient = new Map<number, MergedItem[]>();
+  for (const it of items) {
+    const list = byIngredient.get(it.ingredientId);
+    if (list) list.push(it);
+    else byIngredient.set(it.ingredientId, [it]);
+  }
+  const out: BuyItem[] = [];
+  for (const group of byIngredient.values()) {
+    const first = group[0];
+    const bare = group.filter((g) => g.amount != null && g.unit == null);
+    const bought = group.filter((g) => g.amount != null && g.unit != null && BUYABLE_UNITS.has(g.unit));
+    let count: string | null = null;
+    if (bought.length > 0) {
+      const unit = bought[0].unit as string;
+      const n = Math.max(1, Math.ceil(bought.filter((g) => g.unit === unit).reduce((s, g) => s + (g.amount ?? 0), 0) - 1e-9));
+      count = `${n} ${n === 1 ? unit : `${unit}s`}`.replace("bunchs", "bunches");
+    } else if (bare.length > 0) {
+      const n = Math.max(1, Math.ceil(bare.reduce((s, g) => s + (g.amount ?? 0), 0) - 1e-9));
+      // "1" next to "garlic" says nothing; a count is worth showing from 2.
+      count = n >= 2 ? String(n) : null;
+    }
+    const recipes: { slug: string; title: string }[] = [];
+    for (const g of group) for (const r of g.recipes) if (!recipes.some((x) => x.slug === r.slug)) recipes.push(r);
+    out.push({
+      id: first.id,
+      ingredientId: first.ingredientId,
+      name: first.name,
+      aisle: first.aisle,
+      keys: group.flatMap((g) => g.keys),
+      recipes,
+      checked: group.every((g) => g.checked),
+      count,
+    });
+  }
+  return out;
+}
+
+export type BuyGroup = { aisle: string; items: BuyItem[] };
+
+export function groupBuyByAisle(items: BuyItem[]): BuyGroup[] {
+  const byAisle = new Map<string, BuyItem[]>();
+  for (const it of items) {
+    const a = (AISLE_ORDER as readonly string[]).includes(it.aisle) ? it.aisle : "Other";
+    const list = byAisle.get(a);
+    if (list) list.push(it);
+    else byAisle.set(a, [it]);
+  }
+  return AISLE_ORDER.filter((a) => byAisle.has(a)).map((aisle) => ({
+    aisle,
+    items: (byAisle.get(aisle) as BuyItem[]).sort((x, y) => x.name.localeCompare(y.name)),
+  }));
+}
+
 export function groupByAisle(items: MergedItem[]): AisleGroup[] {
   const byAisle = new Map<string, MergedItem[]>();
   for (const it of items) {
@@ -176,7 +245,7 @@ export function groupByAisle(items: MergedItem[]): AisleGroup[] {
 
 export type ListStats = { total: number; gathered: number; recipes: number };
 
-export function listStats(items: MergedItem[]): ListStats {
+export function listStats(items: Pick<MergedItem, "recipes" | "checked">[]): ListStats {
   const slugs = new Set<string>();
   for (const it of items) for (const r of it.recipes) slugs.add(r.slug);
   return {

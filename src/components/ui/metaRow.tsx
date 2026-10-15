@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { SpiceDots } from "@/components/ui/spiceDots";
+import { formatCalories, formatMinutes, formatServings } from "@/lib/format";
 
 export interface MetaRowProps extends React.ComponentProps<"div"> {
   /** Total minutes. */
@@ -15,7 +16,7 @@ export interface MetaRowProps extends React.ComponentProps<"div"> {
 }
 
 /**
- * The mono "spec strip": 30m · 4 srv · 410 cal · ●●○○ · $2.10.
+ * The mono "spec strip": 30 min · 4 servings · 410 calories · ●●○○ · $2.10 (words, not abbreviations).
  * Each part is optional so the same row serves cards, search hits and the recipe header.
  * Empty parts simply don't render, and separators are only drawn between parts.
  */
@@ -34,7 +35,7 @@ export function MetaRow({
     parts.push(
       <span key="time">
         <span className="sr-only">Time: </span>
-        {time}m
+        {formatMinutes(time)}
       </span>,
     );
   }
@@ -42,7 +43,7 @@ export function MetaRow({
     parts.push(
       <span key="srv">
         <span className="sr-only">Servings: </span>
-        {servings} srv
+        {formatServings(servings)}
       </span>,
     );
   }
@@ -50,7 +51,7 @@ export function MetaRow({
     parts.push(
       <span key="cal">
         <span className="sr-only">Calories: </span>
-        {calories} cal
+        {formatCalories(calories)}
       </span>,
     );
   }

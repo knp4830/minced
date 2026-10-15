@@ -4,7 +4,8 @@ import { Check, Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { useFridgeIds } from "@/lib/useFridgeIds";
 import { AddToShoppingList } from "@/components/shopping/addToShoppingList";
-import { displayQuantity } from "@/lib/scaling";
+import { useAccount } from "@/components/account/accountProvider";
+import { displayQuantity, scaleNoteAmounts } from "@/lib/scaling";
 
 export type ScalerIngredient = {
   quantity: number | null;
@@ -47,7 +48,12 @@ export function ServingsScaler({
 
   // The fridge behind the have/missing marks: link, this browser, or the account (one hook,
   // shared with the shopping box so both agree).
-  const { ids: fridge, fromSaved } = useFridgeIds();
+  // A signed-out visitor with only leftovers in this browser's storage sees NO marks: nothing
+  // here should read as "you are missing things" unless they just told us what they have
+  // (the link from a fridge search) or they are signed in with a saved fridge.
+  const { status } = useAccount();
+  const { ids: pickedFridge, fromSaved } = useFridgeIds();
+  const fridge = pickedFridge && (!fromSaved || status === "in") ? pickedFridge : null;
 
   // A parent in the fridge covers its variants (same rule as match_recipes).
   const marks = ingredients.map((line) => {
@@ -59,7 +65,33 @@ export function ServingsScaler({
   });
   const needed = ingredients.filter((l, i) => marks[i] && !l.optional);
   const haveCount = needed.filter((l) => marks[ingredients.indexOf(l)] === "have").length;
+  // Which lines are assumed, named from this recipe's own lines (the database holds the list).
+  const stapleNames = [
+    ...new Set(ingredients.filter((l) => l.isStaple).map((l) => l.name.toLowerCase())),
+  ];
+  const assumed =
+    stapleNames.length === 0
+      ? null
+      : `${
+          stapleNames.length === 1
+            ? stapleNames[0]
+            : `${stapleNames.slice(0, -1).join(", ")} and ${stapleNames[stapleNames.length - 1]}`
+        } ${stapleNames.length === 1 ? "is" : "are"} assumed`;
   const changed = servings !== baseServings;
+
+  // Prep notes: alternatives and sizes follow the servings, and a bare "optional" on a line
+  // already marked (optional) would say it twice.
+  const notes = ingredients.map((line) => {
+    if (!line.prepNote) return null;
+    const scaled = scaleNoteAmounts(line.prepNote, baseServings, servings);
+    const text = line.optional
+      ? scaled
+          .split(/,\s*/)
+          .filter((seg) => seg.trim().toLowerCase() !== "optional")
+          .join(", ")
+      : scaled;
+    return text || null;
+  });
 
   const stepBtn =
     "inline-flex size-11 items-center justify-center bg-band text-herb transition-colors hover:bg-sunken disabled:pointer-events-none disabled:opacity-40 sm:size-9";
@@ -86,7 +118,7 @@ export function ServingsScaler({
           </button>
           <output
             aria-live="polite"
-            className="min-w-[4.25rem] text-center font-mono text-[0.8125rem] font-semibold"
+            className="min-w-[6.75rem] px-3 text-center font-mono text-[0.8125rem] font-semibold whitespace-nowrap"
           >
             {servings} {servings === 1 ? "serving" : "servings"}
           </output>
@@ -112,6 +144,7 @@ export function ServingsScaler({
           </span>
           {fromSaved && " from your fridge"}{" "}
           {haveCount === needed.length ? "· nothing missing" : "· the rest are marked below"}
+          {assumed && <span className="block pt-0.5">{assumed}.</span>}
         </p>
       )}
 
@@ -124,13 +157,17 @@ export function ServingsScaler({
               className="flex items-baseline gap-3 border-b border-line py-2.5"
             >
               <span className="min-w-[4.75rem] shrink-0 font-mono text-[0.8125rem] font-semibold text-herb">
+                {q.approx && (
+                  <>
+                    <span aria-hidden>~</span>
+                    <span className="sr-only">about </span>
+                  </>
+                )}
                 {q.amount} {q.unit}
               </span>
               <span className="text-[0.9375rem] leading-snug">
                 {line.name}
-                {line.prepNote && (
-                  <span className="text-ink-muted">, {line.prepNote}</span>
-                )}
+                {notes[i] && <span className="text-ink-muted">, {notes[i]}</span>}
                 {line.optional && (
                   <span className="text-ink-muted"> (optional)</span>
                 )}
