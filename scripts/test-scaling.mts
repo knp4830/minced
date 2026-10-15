@@ -1,7 +1,7 @@
 // Run: node --experimental-strip-types scripts/test-scaling.mts
 // Plain asserts, no test runner (no new packages). Exits non-zero on failure.
 import assert from "node:assert/strict";
-import { displayQuantity, formatAmount, scaleNoteAmounts, scaleQuantity } from "../src/lib/scaling.ts";
+import { displayQuantity, pluralizeName, formatAmount, scaleNoteAmounts, scaleQuantity } from "../src/lib/scaling.ts";
 
 const show = (q: number | null, u: string | null, base: number, to: number) => {
   const r = displayQuantity({ quantity: q, unit: u }, base, to);
@@ -29,7 +29,16 @@ assert.equal(show(16, "oz", 4, 4), "1 lb");
 assert.equal(show(1, "cup", 3, 1), "1/3 cup");
 assert.equal(show(1, "cup", 3, 2), "2/3 cup");
 assert.equal(show(1.5, "cup", 4, 6), "2 1/4 cups");
-assert.equal(show(5, null, 3, 4), "6 2/3");
+assert.equal(show(5, null, 3, 4), "6 1/2"); // bare counts snap to halves
+const egg = (q: number, base: number, to: number) => displayQuantity({ quantity: q, unit: null, name: "egg" }, base, to).amount;
+assert.equal(egg(3, 4, 5), "4"); // 3.75 eggs -> 4, never "3 3/4"
+assert.equal(pluralizeName("egg", "4"), "eggs");
+assert.equal(pluralizeName("egg", "1"), "egg");
+assert.equal(pluralizeName("apple", "2 1/2"), "apples");
+assert.equal(pluralizeName("tomato", "2"), "tomatoes");
+assert.equal(pluralizeName("cherry", "3"), "cherries");
+assert.equal(pluralizeName("garlic cloves", "3"), "garlic cloves");
+assert.equal(pluralizeName("onion (yellow)", "2"), "onions (yellow)");
 
 // Count units pluralise; singular stays singular.
 assert.equal(show(1, "can", 3, 6), "2 cans");

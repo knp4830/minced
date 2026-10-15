@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import {
   Bricolage_Grotesque,
   DM_Sans,
@@ -94,6 +95,8 @@ const VARIANTS: LabVariant[] = [
 ];
 
 export default async function HeroLab() {
+  // A design lab, not a public page: it answers a real 404 on the live site. Set SHOW_LAB=1 to view it there.
+  if (process.env.NODE_ENV === "production" && process.env.SHOW_LAB !== "1") notFound();
   const photos = await getLandingPhotos();
   return (
     <>

@@ -12,6 +12,8 @@ export type ScalableLine = {
   quantity: number | null;
   /** Unit name as stored in `units.name` ("tsp", "cup", "clove") or null. */
   unit: string | null;
+  /** Ingredient name, used only to decide whether a bare count can be fractional (eggs cannot). */
+  name?: string;
 };
 
 export type DisplayQuantity = {
@@ -152,6 +154,27 @@ export function pluralUnit(unit: string, amountValue: number): string {
   return unit;
 }
 
+/**
+ * "egg" -> "eggs" once the shown amount is more than 1. Only for bare counts (no unit): a name
+ * after "cups" or "cloves" stays as written. Names that already end in "s" are left alone.
+ */
+export function pluralizeName(name: string, amountText: string): string {
+  if (!(parseAmount(amountText) > 1)) return name;
+  const m = /^(.*?)(\s*\(.*\))?$/.exec(name);
+  const base = m?.[1] ?? name;
+  const tail = m?.[2] ?? "";
+  const words = base.split(" ");
+  const last = words[words.length - 1];
+  if (!last || /s$/i.test(last) || /^(?:of|and)$/i.test(last) || /[^a-z]/i.test(last)) return name;
+  let plural: string;
+  if (/[^aeiou]y$/i.test(last)) plural = last.slice(0, -1) + "ies";
+  else if (/(?:ch|sh|x|z|o)$/i.test(last)) plural = last + "es";
+  else if (/fe?$/i.test(last) && /^(?:knife|loaf|leaf)$/i.test(last)) plural = last.replace(/fe?$/i, "ves");
+  else plural = last + "s";
+  words[words.length - 1] = plural;
+  return words.join(" ") + tail;
+}
+
 /** The text for one ingredient line at `targetServings`. */
 export function displayQuantity(
   line: ScalableLine,
@@ -162,7 +185,12 @@ export function displayQuantity(
 
   const scaled = scaleQuantity(line.quantity, baseServings, targetServings);
   if (!line.unit) {
-    const amount = formatAmount(scaled);
+    // A bare count of 2 or more reads as halves ("2 1/2 apples"), never "3 3/4 egg": whole items
+    // snap to the nearest half, eggs to the nearest whole. Flagged "about" when that moves it >3%.
+    const wholeOnly = /egg/i.test(line.name ?? "");
+    const snapped =
+      scaled >= 2 ? (wholeOnly ? Math.round(scaled) : Math.round(scaled * 2) / 2) : scaled;
+    const amount = formatAmount(snapped);
     const approx = relativeError(parseAmount(amount), scaled) > 0.03;
     return { amount, unit: "", ...(approx ? { approx } : {}) };
   }

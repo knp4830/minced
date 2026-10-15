@@ -23,7 +23,11 @@ export function AuthModal({ children }: { children: ReactNode }) {
     openerRef.current ??= document.activeElement as HTMLElement | null;
     const opener = openerRef.current;
     const d = ref.current;
-    if (d && !d.open) d.showModal();
+    if (d && !d.open) {
+      d.showModal();
+      // showModal() focuses the first focusable thing, which is Close. Land in the form instead.
+      d.querySelector<HTMLElement>("input:not([type=hidden]):not([disabled])")?.focus({ preventScroll: true });
+    }
     // Esc, the X and a backdrop click all end in the dialog's own "close" event.
     const onClose = () => router.back();
     d?.addEventListener("close", onClose);

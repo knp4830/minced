@@ -31,7 +31,7 @@ const FEATURES = [
   },
   {
     title: "Every measurement, upfront",
-    body: "Time, servings, calories and spice sit at the top. Then exact ingredient amounts and numbered steps, so you know what you’re in for before you start.",
+    body: "Time, servings, calories and protein sit at the top. Then exact ingredient amounts and numbered steps, so you know what you’re in for before you start.",
     radius: "3px",
   },
   {
@@ -218,8 +218,8 @@ export default async function Home() {
             </p>
             <p className="mb-4 text-base leading-[1.6] text-ink-muted">
               Stories are lovely when there’s time to read them. For the evenings when
-              there isn’t, Minced puts the decision first: time, servings, calories,
-              protein and spice at the top, then the exact things you’ll buy and the steps
+              there isn’t, Minced puts the decision first: time, servings, calories
+              and protein at the top, then the exact things you’ll buy and the steps
               in order.
             </p>
             <p className="text-base leading-[1.6] text-ink-muted">

@@ -36,7 +36,8 @@ export function FridgeNavButton() {
         ) : (
           <>
             <span className="hidden min-[420px]:inline">What’s in my fridge?</span>
-            <span className="min-[420px]:hidden">My fridge</span>
+            <span aria-hidden className="min-[420px]:hidden">Fridge search</span>
+            <span className="sr-only min-[420px]:hidden">What’s in my fridge?</span>
           </>
         )}
       </Link>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useFridgeIds } from "@/lib/useFridgeIds";
 import { AddToShoppingList } from "@/components/shopping/addToShoppingList";
 import { useAccount } from "@/components/account/accountProvider";
-import { displayQuantity, scaleNoteAmounts } from "@/lib/scaling";
+import { displayQuantity, pluralizeName, scaleNoteAmounts } from "@/lib/scaling";
 
 export type ScalerIngredient = {
   quantity: number | null;
@@ -153,6 +153,7 @@ export function ServingsScaler({
       <ul className="flex flex-col">
         {ingredients.map((line, i) => {
           const q = displayQuantity(line, baseServings, servings);
+          const shownName = q.unit ? line.name : pluralizeName(line.name, q.amount);
           return (
             <li
               key={i}
@@ -168,7 +169,7 @@ export function ServingsScaler({
                 {q.amount} {q.unit}
               </span>
               <span className="text-[0.9375rem] leading-snug">
-                {line.name}
+                {shownName}
                 {notes[i] && <span className="text-ink-muted">, {notes[i]}</span>}
                 {line.optional && (
                   <span className="text-ink-muted"> (optional)</span>
