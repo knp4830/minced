@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { DeleteAccountForm } from "@/components/account/authForms";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { MyRecipeBook } from "@/components/account/myRecipeBook";
+import { ComingSoon } from "@/components/shell/comingSoon";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { logOut } from "@/lib/actions/auth";
@@ -20,12 +21,13 @@ export const metadata: Metadata = {
 
 const ALL_TABS = [
   { id: "library", label: "My Library" },
-  { id: "book", label: "My Recipe Book" },
+  { id: "book", label: "My recipes" },
   { id: "settings", label: "Settings" },
 ] as const;
 type TabId = (typeof ALL_TABS)[number]["id"];
-// The recipe book is hidden until user recipes are switched on (see src/lib/flags.ts).
-const TABS = ALL_TABS.filter((t) => t.id !== "book" || USER_RECIPES_ENABLED);
+// "My recipes" is always listed. Until user recipes are switched on (see src/lib/flags.ts)
+// it shows a coming-soon note instead of the book.
+const TABS = ALL_TABS;
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
@@ -40,7 +42,7 @@ export default async function AccountPage({ searchParams }: Props) {
   if (!user) redirect("/login?next=%2Faccount");
 
   const saved = tab === "library" ? await getFavoriteCards() : [];
-  const mine = tab === "book" ? await listMyRecipes() : [];
+  const mine = tab === "book" && USER_RECIPES_ENABLED ? await listMyRecipes() : [];
   const rawFlash = Array.isArray(sp.notice) ? sp.notice[0] : sp.notice;
   const flash = tab === "book" && rawFlash ? rawFlash : null;
 
@@ -110,7 +112,17 @@ export default async function AccountPage({ searchParams }: Props) {
           </>
         )}
 
-        {tab === "book" && <MyRecipeBook recipes={mine} notice={flash} />}
+        {tab === "book" &&
+          (USER_RECIPES_ENABLED ? (
+            <MyRecipeBook recipes={mine} notice={flash} />
+          ) : (
+            <ComingSoon title="Your own recipes, in one place">
+              <p>
+                Write down the dishes you make your way, with your own amounts and steps, and keep them next
+                to everything you have saved. It is on its way.
+              </p>
+            </ComingSoon>
+          ))}
 
         {tab === "settings" && (
           <>

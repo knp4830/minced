@@ -40,7 +40,8 @@ export function MyCookware({ owned, only, all }: Props) {
   // Account saves run one at a time, last write wins.
   const saving = useRef<Promise<unknown>>(Promise.resolve());
 
-  if (all.length === 0) return null;
+  // Signed-in only: the list is saved to the account. A shared link's ownedCookware still filters.
+  if (all.length === 0 || status !== "in") return null;
 
   function apply(next: StoredCookware) {
     startNavProgress();

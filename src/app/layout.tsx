@@ -41,8 +41,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  /** Parallel route @modal: the log in / sign up dialog over the current page. */
+  modal: React.ReactNode;
 }>) {
   return (
     <html
@@ -60,7 +63,10 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <NavProgress />
         </Suspense>
-        <AccountProvider>{children}</AccountProvider>
+        <AccountProvider>
+          {children}
+          {modal}
+        </AccountProvider>
       </body>
     </html>
   );
