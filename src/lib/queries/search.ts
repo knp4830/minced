@@ -103,9 +103,26 @@ export async function searchRecipes(
   const limit = Math.min(Math.max(options.limit ?? DEFAULT_LIMIT, 1), MAX_LIMIT - 1);
   const original = filters.q ?? "";
 
-  // Door parity: the fridge understands "aubergine", so search must too.
+  // Search what the person typed first. Rewriting every word that happens to be an
+  // alias corrupted multi-word queries that already worked, so the synonym/shorthand
+  // rewrite ("aubergine" → eggplant, "mac" → macaroni) is only a fallback when the
+  // literal query finds almost nothing. Pagination follows whichever query won,
+  // because the cursor carries the same q.
   const rewritten = expandShorthand(await rewriteSynonyms(original));
-  let page = await runSearch({ ...filters, q: rewritten }, limit);
+  const canRewrite = rewritten.toLowerCase() !== original.trim().toLowerCase();
+  // Decide once, on the first page's shape, so "Show more" pages follow the same query.
+  const firstLiteral = await runSearch({ ...filters, q: original, cursor: undefined }, limit);
+  const firstAlt =
+    canRewrite && firstLiteral.results.length < 3
+      ? await runSearch({ ...filters, q: rewritten, cursor: undefined }, limit)
+      : null;
+  const useAlt = !!firstAlt && firstAlt.results.length > firstLiteral.results.length;
+  const chosenQ = useAlt ? rewritten : original;
+  let page = filters.cursor
+    ? await runSearch({ ...filters, q: chosenQ }, limit)
+    : useAlt
+      ? firstAlt!
+      : firstLiteral;
 
   // Nothing found for a single word: it may be a typo of an ingredient
   // ("chiken"). Retry once with the closest canonical ingredient name.

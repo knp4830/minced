@@ -84,7 +84,7 @@ export default async function AboutPage() {
           image as the finished dish.
         </p>
         {credits.length > 0 && (
-          <details className="rounded-xl border border-line bg-surface">
+          <details open className="rounded-xl border border-line bg-surface">
             <summary className="flex min-h-11 cursor-pointer items-center px-4 text-[0.9375rem] font-semibold">
               Photo credits ({credits.length})
             </summary>

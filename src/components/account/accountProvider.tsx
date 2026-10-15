@@ -47,12 +47,20 @@ const AUTH_PATH = /^\/(login|signup|account|reset-password|forgot-password|auth)
 
 const AUTH_COOKIE = /(?:^|;\s*)sb-[^=;]*-auth-token/;
 
+/**
+ * "Might someone be signed in?" The Supabase auth cookies are httpOnly (wave 5/6
+ * security hardening), so `document.cookie` can never see them — testing it made
+ * every signed-in visitor look signed out and the whole signed-in UI went dead.
+ * Only the server can tell, so a readable cookie is treated as a definite yes and
+ * its absence as "unknown": the provider asks /api/me either way.
+ */
 export function hasAuthCookie(): boolean {
   try {
-    return AUTH_COOKIE.test(document.cookie);
+    if (AUTH_COOKIE.test(document.cookie)) return true;
   } catch {
-    return false;
+    // no document (server) — fall through
   }
+  return true;
 }
 
 export function useAccount(): AccountContext {
