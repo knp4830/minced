@@ -67,8 +67,11 @@ const uid = () =>
   `l${Date.now().toString(36)}${(counter++).toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
 /** How many batches of this recipe are on the local list (0 = not on it). */
-export function recipeBatchesLocal(slug: string): number {
-  return batchCount(readLocalList().filter((l) => l.recipeSlug === slug));
+export function recipeBatchesLocal(slug: string, recipeIngredientIds: number[]): number {
+  return batchCount(
+    readLocalList().filter((l) => l.recipeSlug === slug),
+    recipeIngredientIds,
+  );
 }
 
 /**

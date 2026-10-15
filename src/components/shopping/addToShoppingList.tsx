@@ -134,7 +134,10 @@ export function AddToShoppingList({
         // Session expired mid-visit: keep the cook's work on this device instead.
       }
       if (mode === "ask") {
-        const batches = recipeBatchesLocal(slug);
+        const batches = recipeBatchesLocal(
+          slug,
+          lines.flatMap((l) => (l.ingredientId == null ? [] : [l.ingredientId])),
+        );
         if (batches > 0) {
           setOnList({ batches });
           return;

@@ -216,17 +216,24 @@ export type AddSelection = {
 };
 
 /**
- * How many times one recipe's batch is on the list: the most rows any single
- * ingredient has among that recipe's lines. 0 = not on the list. A recipe added
- * once has one row per ingredient; "Add again" adds a second set (2 batches).
+ * How many times one recipe's batch is on the list. A recipe can list the same
+ * ingredient on several rows (soy sauce in the marinade and the sauce), so one
+ * batch already holds that many rows. Divide each ingredient's rows on the list
+ * by its rows in the recipe, and take the largest result. 0 = not on the list.
+ * `recipeIngredientIds` has one entry per row of the recipe's ingredient list.
  */
-export function batchCount(recipeLines: { ingredientId: number }[]): number {
-  const perIngredient = new Map<number, number>();
+export function batchCount(
+  listed: { ingredientId: number }[],
+  recipeIngredientIds: number[],
+): number {
+  const base = new Map<number, number>();
+  for (const id of recipeIngredientIds) base.set(id, (base.get(id) ?? 0) + 1);
+  const onList = new Map<number, number>();
+  for (const l of listed) onList.set(l.ingredientId, (onList.get(l.ingredientId) ?? 0) + 1);
   let max = 0;
-  for (const l of recipeLines) {
-    const n = (perIngredient.get(l.ingredientId) ?? 0) + 1;
-    perIngredient.set(l.ingredientId, n);
-    if (n > max) max = n;
+  for (const [id, n] of onList) {
+    const batches = Math.ceil(n / (base.get(id) ?? 1));
+    if (batches > max) max = batches;
   }
   return max;
 }

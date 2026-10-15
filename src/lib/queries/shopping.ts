@@ -95,10 +95,18 @@ export async function addRecipe(
     if (existingError) return { ok: false, reason: "failed" };
     const rows = (existing ?? []) as { ingredient_id: number }[];
     if (rows.length > 0) {
+      const { data: base } = await sb
+        .from("recipe_ingredients")
+        .select("ingredient_id")
+        .eq("recipe_id", id)
+        .limit(500);
       return {
         ok: false,
         reason: "on-list",
-        batches: batchCount(rows.map((r) => ({ ingredientId: r.ingredient_id }))),
+        batches: batchCount(
+          rows.map((r) => ({ ingredientId: r.ingredient_id })),
+          ((base ?? []) as { ingredient_id: number }[]).map((r) => r.ingredient_id),
+        ),
       };
     }
   }
