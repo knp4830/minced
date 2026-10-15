@@ -174,6 +174,12 @@ export async function updatePassword(_prev: FormState, form: FormData): Promise<
   redirect("/account?notice=password");
 }
 
+/** Clears the session without redirecting; the client navigates itself (see SignOutForm). */
+export async function logOutQuiet(): Promise<void> {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+}
+
 export async function logOut(): Promise<void> {
   const supabase = await createClient();
   await supabase.auth.signOut();

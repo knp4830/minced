@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { useAccount } from "@/components/account/accountProvider";
-import { logOut } from "@/lib/actions/auth";
+import { SignOutForm } from "@/components/account/signOutForm";
 import { cn } from "@/lib/utils";
 
 /**
@@ -122,12 +122,12 @@ function AccountMenu({ className, name, initial }: { className?: string; name: s
             <Settings aria-hidden className="size-4 text-ink-muted" />
             Account settings
           </Link>
-          <form action={logOut} className="mt-1 border-t border-line pt-1">
+          <SignOutForm className="mt-1 border-t border-line pt-1">
             <button type="submit" className={cn(ITEM, "text-paprika-deep hover:text-paprika-deep")}>
               <LogOut aria-hidden className="size-4" />
               Sign out
             </button>
-          </form>
+          </SignOutForm>
         </div>
       )}
     </div>

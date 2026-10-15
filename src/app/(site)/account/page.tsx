@@ -8,7 +8,7 @@ import { MyRecipeBook } from "@/components/account/myRecipeBook";
 import { ComingSoon } from "@/components/shell/comingSoon";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { logOut } from "@/lib/actions/auth";
+import { SignOutForm } from "@/components/account/signOutForm";
 import { getCurrentUser } from "@/lib/queries/account";
 import { getFavoriteCards } from "@/lib/queries/favorites";
 import { listMyRecipes } from "@/lib/queries/myRecipes";
@@ -59,11 +59,11 @@ export default async function AccountPage({ searchParams }: Props) {
           <h1 className="truncate text-[1.625rem] leading-tight md:text-[2rem]">{user.name}</h1>
           <p title={user.email} className="truncate font-mono text-[0.8125rem] text-ink-muted">{user.email}</p>
         </div>
-        <form action={logOut}>
+        <SignOutForm>
           <Button type="submit" variant="secondary" className="text-paprika-deep">
             Sign out
           </Button>
-        </form>
+        </SignOutForm>
       </header>
 
       {notice && (

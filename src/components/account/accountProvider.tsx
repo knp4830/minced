@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
   useCallback,
@@ -14,6 +14,7 @@ import {
 } from "react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { logOutQuiet } from "@/lib/actions/auth";
 import { toggleFavorite } from "@/lib/actions/favorites";
 
 /*
@@ -38,6 +39,8 @@ type AccountContext = {
   me: Me | null;
   isSaved: (slug: string) => boolean;
   toggle: (slug: string) => Promise<ToggleResult>;
+  /** Signs out, drops the signed-in UI at once, and goes home. */
+  signOut: () => Promise<void>;
 };
 
 const Ctx = createContext<AccountContext | null>(null);
@@ -71,6 +74,7 @@ export function useAccount(): AccountContext {
 
 export function AccountProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   // Starts "out" so server HTML and first client render agree (and no-JS shows "Log in").
   const [status, setStatus] = useState<Status>("out");
   const [me, setMe] = useState<Me | null>(null);
@@ -178,9 +182,22 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     [saved, pathname, apply],
   );
 
+  // Signing out through a server-action redirect is unreliable here: the @modal
+  // intercepting route swallows the redirect on /account, and from other pages the
+  // provider never re-asks. So sign out, reset the provider, then navigate ourselves.
+  const signOut = useCallback(async () => {
+    try {
+      await logOutQuiet();
+    } finally {
+      apply("out", null, []);
+      router.replace("/");
+      router.refresh();
+    }
+  }, [apply, router]);
+
   const value = useMemo<AccountContext>(
-    () => ({ status, me, isSaved: (slug) => saved.has(slug), toggle }),
-    [status, me, saved, toggle],
+    () => ({ status, me, isSaved: (slug) => saved.has(slug), toggle, signOut }),
+    [status, me, saved, toggle, signOut],
   );
 
   return (
