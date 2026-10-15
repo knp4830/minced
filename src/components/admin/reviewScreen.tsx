@@ -176,7 +176,7 @@ export function ReviewScreen({
         aria-label="Review actions"
         className="fixed inset-x-0 bottom-0 z-30 border-t border-line-strong bg-surface px-(--gutter) py-2 md:sticky md:top-0 md:inset-x-auto md:rounded-xl md:border md:px-3"
       >
-        <div className="mx-auto flex max-w-[1180px] items-center gap-1.5 md:flex-wrap md:gap-2">
+        <div className="flex items-center gap-1.5 md:flex-wrap md:gap-2">
           <Button variant="secondary" size="sm" className={BAR_BTN} onClick={() => prev && go(prev)} disabled={!prev || pending} aria-keyshortcuts="K">
             Prev <kbd className="hidden font-mono text-xs md:inline text-ink-subtle">K</kbd>
           </Button>
@@ -368,6 +368,12 @@ export function ReviewScreen({
                 {r.source.name ? ` (${r.source.name})` : ""}
               </p>
               {r.source.license && <p className="text-[0.8125rem] text-ink-muted">{r.source.license}</p>}
+              {sourceKey === "user" && (
+                <p className="mt-1 text-[0.8125rem] text-ink-muted">
+                  Written by a signed-in cook. Reject sends it back to them as a draft and shows them your note;
+                  approve publishes it. Check the diet tags against the ingredients and look for copied text.
+                </p>
+              )}
               {r.source.url && (
                 <p className="mt-1 text-[0.8125rem] break-all">
                   <a className="text-herb underline" href={r.source.url} target="_blank" rel="noopener noreferrer">

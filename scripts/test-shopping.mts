@@ -1,7 +1,7 @@
 // Run: node --experimental-strip-types scripts/test-shopping.mts
 // Plain asserts, no test runner (no new packages). Exits non-zero on failure.
 import assert from "node:assert/strict";
-import { groupByAisle, listStats, mergeLines, selectForList, type ShopLine } from "../src/lib/shopping.ts";
+import { batchCount, groupByAisle, listStats, mergeLines, selectForList, type ShopLine } from "../src/lib/shopping.ts";
 
 let n = 0;
 const line = (o: Partial<ShopLine> & { ingredientId: number }): ShopLine => ({
@@ -175,6 +175,16 @@ assert.equal(
   const r2 = selectForList(lines, 2, 4, { skipStaples: false, have: new Set() });
   assert.deepEqual(r2.add.map((l) => l.name), ["onion", "yellow onion", "salt", "pepper"]);
   assert.equal(r2.add[0].quantity, 4, "2 onions for 2 servings => 4 for 4");
+}
+
+{
+  // kung-pao-chicken style: soy sauce (7) and cornstarch (8) on two rows each.
+  const recipe = [1, 7, 7, 8, 8, 9];
+  const once = recipe.map((ingredientId) => ({ ingredientId }));
+  assert.equal(batchCount([], recipe), 0, "not on the list");
+  assert.equal(batchCount(once, recipe), 1, "one add of a recipe with repeated ingredients is 1 batch");
+  assert.equal(batchCount([...once, ...once], recipe), 2, "after Add again it is 2 batches");
+  assert.equal(batchCount(once.filter((l) => l.ingredientId !== 1), recipe), 1, "skipped lines do not matter");
 }
 
 console.log("shopping: all assertions passed");

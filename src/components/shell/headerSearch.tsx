@@ -31,7 +31,7 @@ export function HeaderSearch() {
       role="search"
       action="/recipes"
       method="get"
-      className="order-last flex min-h-11 w-full items-center gap-2 rounded-field border border-line bg-sunken px-3 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20 md:order-none md:max-w-[26rem] md:flex-1"
+      className="order-last flex min-h-11 w-full items-center gap-2 rounded-field border border-line bg-sunken px-3 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20 md:order-none md:max-w-[26rem] md:min-w-[11rem] md:flex-1"
     >
       <Search aria-hidden className="size-4 shrink-0 text-stone" />
       <label htmlFor="site-search" className="sr-only">

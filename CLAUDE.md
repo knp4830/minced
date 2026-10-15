@@ -199,24 +199,25 @@ Live at https://minced-app.vercel.app with **19 migrations**, **959 recipes** (d
 
 Live at https://minced-app.vercel.app. Wave 4 (perf, cookware filter, admin review at `/admin/review`, `jit=off`) is applied and merged (PR #52). Live has **23 migrations** as of wave 4. Admin review (M1.5.6) is built; M1.5.7 stays open (your review).
 
-### Waves 5+6 (2026-10-13): integrated on `wave56/integration`, PR open, NOT yet applied to live
+### Waves 5+6 (2026-10-13): live
 
-**Six lanes:** cookware, synonyms, polish, photos, fridge, shopping, plus a security/quality/system review. **Checked:** shopping list (v1.1), fridge with dates, "only cookware I own", synonym coverage, cookware backfill (recorded as done in the plan's Ideas). **M1.5.7 stays open.** Navigation docs: **`docs/ARCHITECTURE.md`** (map, where to change X) and **`docs/LESSONS.md`** (every mistake and the rule). Read LESSONS first.
+Live has **29 migrations**, **959 recipes**, **352 photos** (607 placeholders), 705 aliases, 610 ingredients, cookware on about 762 recipes. Shopping list, fridge with dates, "only cookware I own", synonym coverage, security hardening and httpOnly cookies are live. **M1.5.7 stays open** (owner review of 247 rejected recipes and unresolved ingredients). Navigation docs: **`docs/ARCHITECTURE.md`** (map, where to change X) and **`docs/LESSONS.md`** (every mistake and the rule). Read LESSONS first.
 
-- **Six new migrations, apply BEFORE merging, in order:** `20261013100000_cookware_vocabulary`, `110000_photo_sources`, `130000_owned_cookware` (drops and recreates `match_recipes` and `search_recipes`), `140000_fridge`, `150000_shopping_list`, `160000_security_hardening`. Then `pnpm db:types` (already regenerated in this branch), `pnpm db:seed` (155 aliases), `seed-cookware.sql`, photo upload, `seed-photos.sql`. After these there will be **29 migrations on live**.
-- **Catalog:** 959 recipes; cookware on about 762 (was 103); **352 photos** (57 USDA, 285 Commons, 10 Openverse; 607 placeholders); 705 aliases, 610 ingredients.
-- **New:** `/fridge` (dates, "Use these first"), `/shopping` (merged across recipes, aisle groups, signed-out list in localStorage moved to the account on sign-in), "My cookware" with an "only what I can make" switch, `/pantry` filter rail, real 404s, nav progress bar, scroll lock, error pages, security headers and httpOnly auth cookies.
-- **Security review fixed:** signed-in users could write the public catalog through PostgREST; author write policies removed, `profiles` owner-only, grants narrowed, trigger functions pinned.
-- **Open decisions for you:** shopping list (optional ingredients, replace vs double on re-add, button position); "Use these first" (single soonest item vs up to 3); cookware chip labels (Mixer, Microwave, Grill) and showing all 21 chips; paprika for expiry urgency; middleware call per recipe view.
-- **Known issues:** NUL byte in `?q=` crashes `/recipes` and `/api/ingredients/suggest`; a very long unbroken `q` overflows at 375px; "mac and cheese" finds one of four macaroni recipes; `/about` links to retired myplate.gov; `next` 15.5.24 has two ISR advisories (bump to 15.5.27 needs approval); no rate limiting or CAPTCHA; backups cover the public schema only (no `auth.users`, no Storage); migrations cannot rebuild a database from scratch; `next build` fails while Supabase is paused; 15 recipes list both halves of "X or Y" cookware; 31 older recipes carry cookware their steps never name; `/kitchen-sink` still public; fridge `sort=expiry` returns one page of 99.
+### Wave 7 (2026-10-14): integrated on `wave7/integration`, PR open, NOT applied to live
+
+**Not on live yet. Four new migrations must be applied BEFORE merging, in order:** `20261014100000_cookware_alt_groups`, `100100_shopping_list_add_batch`, `120000_user_recipes`, `160000_user_recipes_hardening` (then live has **33**). Code merged first returns 500 on recipe pages. Back up first. Then `pnpm db:types` (committed types predate `160000`), `supabase/seed-cookware.sql` (expect 29 added, 73 grouped), and only after the photo fixes: upload and `seed-photos.sql`.
+
+- **Checked:** M5.1 and M5.3 (closes #29, #31). **Open:** M5.2 (no draft autosave), M3.7 (post-MVP, combo pages parked on branch `wave7/seo-combos-later`), M1.5.7.
+- **User recipes are built but NOT connected.** Both `NEXT_PUBLIC_ENABLE_USER_RECIPES` (build-time, default off) and the DB switch `feature_flags.user_recipes` (default off) must be on. Before turning on: DMCA agent registration, lawyer-reviewed Terms, decide `author_id` exposure, approval-by-slug race. See LEARNING-LOG Entry 35.
+- **Shipped in the PR:** shopping re-add dialog, cookware either/or (`alt_group`, 36 recipes), Recipe JSON-LD and canonicals, sitemap/robots fixes, `/kitchen-sink` and `/api/ingredients/suggest` removed, food-science brief (`docs/research/`), 56 new photos (not yet safe to apply).
+- **Verification failures carried forward, fix in the next small wave:** (1) signed-in client state is dead (`accountProvider.hasAuthCookie()` reads `document.cookie`, but cookies are httpOnly), (2) `rewriteSynonyms()` pushes 13 exact titles off page 1 and breaks "mac and cheese", (3) photos: 5 duplicate files, 1 rejected file back, 5 MyPlate logos, (4) `/about` says accounts do not exist. Also open: `next` 15.5.24 advisories, no rate limiting, backups lack `auth.users` and Storage, `next build` fails while Supabase is paused, fridge `sort=expiry` is one page of 99, "under 20 min" counts unknown times.
 
 ### Next up
 
-1. **You:** answer the open decisions above; review M1.5.7 (247 rejected recipes, unresolved ingredients) and the photos you flagged.
-2. Apply the wave 5+6 migrations, merge, run the post-merge steps from the PR.
-3. Quick fixes from the bug hunt (NUL byte, long query overflow, `mac` synonym, /about links).
-4. More photos (needs a Pexels key and a time archive.org stops returning 429).
-5. Research ideas recorded 2026-10-13 in BUILD-PLAN (not started): lifting research section, food-science research, preparation-aware nutrition (M5). **Remind the user about the food-science research.**
-6. **Domain, then Google sign-in, LAST** (also unblocks custom SMTP and lawyer-reviewed legal pages).
+1. **You:** say "go" so Claude backs up live, applies the four migrations and data, then merge. Review M1.5.7 and the photos.
+2. Next small wave: the two checklist bugs above, photo removals, `/about` copy, confirm landing title copy.
+3. Paste-a-blog import (needs M5 tables live and your decision on AI rewriting).
+4. **Wave 8: domain, Google sign-in, custom SMTP, then Phase 6 launch** (Sentry, PostHog, Lighthouse, real phone, three watched users).
+5. Post-MVP, listed at the end of BUILD-PLAN: SEO combo pages, food-science follow-ups, lifting research, workout plans. **Remind the user about the food-science research.**
 
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

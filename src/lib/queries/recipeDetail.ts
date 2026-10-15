@@ -108,7 +108,7 @@ type Row = {
   recipe_steps: { sort_order: number; instruction: string }[];
   recipe_diets: { diets: { slug: string; name: string } | null }[];
   recipe_allergens: { allergens: { name: string } | null }[];
-  recipe_cookware: { cookware: { name: string } | null }[];
+  recipe_cookware: { alt_group: number | null; cookware: { name: string } | null }[];
   recipe_photos: PhotoRow | PhotoRow[] | null;
 };
 
@@ -120,6 +120,33 @@ type PhotoRow = {
   alt_text: string | null;
 };
 
+/**
+ * One chip per requirement: a plain item is its own name, an alternatives group
+ * ("X or Y", rows sharing an alt_group) is one chip "Blender or food processor".
+ */
+export function cookwareLabels(
+  rows: { alt_group: number | null; cookware: { name: string } | null }[],
+): string[] {
+  // Each entry is the list of names that satisfy one requirement; a group keeps the
+  // position of its first member.
+  const requirements: string[][] = [];
+  const byGroup = new Map<number, string[]>();
+  for (const row of rows) {
+    if (!row.cookware) continue;
+    const group = row.alt_group == null ? undefined : byGroup.get(row.alt_group);
+    if (group) {
+      group.push(row.cookware.name);
+      continue;
+    }
+    const names = [row.cookware.name];
+    requirements.push(names);
+    if (row.alt_group != null) byGroup.set(row.alt_group, names);
+  }
+  return requirements.map(([first, ...rest]) =>
+    [first, ...rest.map((n) => n.toLowerCase())].join(" or "),
+  );
+}
+
 const SELECT = `
   id, slug, title, servings, total_time_min, prep_time_min, cook_time_min,
   spice_level, image_url, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
@@ -129,7 +156,7 @@ const SELECT = `
   recipe_steps(sort_order, instruction),
   recipe_diets(diets(slug, name)),
   recipe_allergens(allergens(name)),
-  recipe_cookware(cookware(name)),
+  recipe_cookware(alt_group, cookware(name)),
   recipe_photos(storage_path, credit, license, attribution_url, alt_text)
 `;
 
@@ -204,7 +231,7 @@ export const getRecipeBySlug = cache(async function getRecipeBySlug(
       .map((s) => s.instruction),
     diets: r.recipe_diets.flatMap((d) => (d.diets ? [d.diets] : [])),
     allergens: r.recipe_allergens.flatMap((a) => (a.allergens ? [a.allergens.name] : [])),
-    cookware: r.recipe_cookware.flatMap((c) => (c.cookware ? [c.cookware.name] : [])),
+    cookware: cookwareLabels(r.recipe_cookware),
     sourceName: r.source_name,
     sourceUrl: r.source_url,
     sourceLicense: r.source_license,

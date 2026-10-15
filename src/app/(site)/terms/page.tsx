@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { CONTACT_URL, LegalPage, LegalSection, legalLink } from "@/components/shell/legalPage";
+import { USER_RECIPES_ENABLED } from "@/lib/flags";
+import {
+  CONTACT_URL,
+  LegalPage,
+  LegalSection,
+  legalLink,
+} from "@/components/shell/legalPage";
 
 export const metadata: Metadata = {
   title: "Terms of use",
+  alternates: { canonical: "/terms" },
   description: "The rules for using Minced, in plain language.",
 };
 
@@ -18,11 +25,18 @@ export default function TermsPage() {
       <LegalSection id="use" title="Using Minced">
         <ul>
           <li>You must be 13 or older to make an account.</li>
-          <li>Keep your password to yourself. You are responsible for what happens under your account.</li>
-          <li>Do not scrape the site at a rate that slows it for others, attack it, or try to reach other people&apos;s data.</li>
+          <li>
+            Keep your password to yourself. You are responsible for what happens
+            under your account.
+          </li>
+          <li>
+            Do not scrape the site at a rate that slows it for others, attack
+            it, or try to reach other people&apos;s data.
+          </li>
           <li>
             We may change, pause or end the service, or close an account that
-            abuses it, at any time. It is a hobby project, with no uptime promise.
+            abuses it, at any time. It is a hobby project, with no uptime
+            promise.
           </li>
         </ul>
       </LegalSection>
@@ -36,8 +50,8 @@ export default function TermsPage() {
         <p>
           Allergen information is derived from the listed ingredients and may be
           incomplete or wrong. It does not account for brands, processing or
-          cross-contact. Always read the labels of what you buy, and do not rely on
-          Minced if you have a serious allergy. Follow safe food-handling
+          cross-contact. Always read the labels of what you buy, and do not rely
+          on Minced if you have a serious allergy. Follow safe food-handling
           temperatures for meat, poultry and eggs.
         </p>
       </LegalSection>
@@ -49,9 +63,9 @@ export default function TermsPage() {
           <Link href="/about" className={legalLink}>
             how recipes are made
           </Link>
-          . Photos carry the credit and licence shown with them. The Minced name,
-          design and code are ours. If something on the site infringes your
-          rights, open an issue at{" "}
+          . Photos carry the credit and licence shown with them. The Minced
+          name, design and code are ours. If something on the site infringes
+          your rights, open an issue at{" "}
           <a href={CONTACT_URL} rel="noopener noreferrer" className={legalLink}>
             github.com/knp4830/minced/issues
           </a>{" "}
@@ -59,13 +73,30 @@ export default function TermsPage() {
         </p>
       </LegalSection>
 
+      {USER_RECIPES_ENABLED && (
+        <LegalSection id="submissions" title="Recipes you submit">
+          <p>
+            When you submit a recipe you confirm that you wrote it yourself,
+            that it is not copied from a book, site or video, and that you are
+            allowed to share it. You keep ownership. You give Minced a
+            worldwide, non-exclusive, royalty-free licence to host, display,
+            format and adapt it (for example to calculate nutrition and
+            allergens) as part of the site. Every submission is reviewed before
+            it is public, and we may decline, edit for clarity, or remove any
+            recipe. You can delete your recipes at any time, and deleting your
+            account deletes them too. Report a recipe that infringes your rights
+            as described above.
+          </p>
+        </LegalSection>
+      )}
+
       <LegalSection id="liability" title="No warranty, limited liability">
         <p>
-          Minced is provided &ldquo;as is&rdquo;, without warranties of any kind.
-          To the extent the law allows, we are not liable for any loss or harm that
-          comes from using the site or relying on a recipe, a nutrition number or an
-          allergen note. Nothing here limits rights you have by law that cannot be
-          limited.
+          Minced is provided &ldquo;as is&rdquo;, without warranties of any
+          kind. To the extent the law allows, we are not liable for any loss or
+          harm that comes from using the site or relying on a recipe, a
+          nutrition number or an allergen note. Nothing here limits rights you
+          have by law that cannot be limited.
         </p>
       </LegalSection>
 

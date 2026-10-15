@@ -9,6 +9,7 @@ import {
   setChecked,
   type AddResult,
 } from "@/lib/queries/shopping";
+import { SLUG_RE } from "@/lib/validate";
 
 /*
  * Server Actions are public HTTP endpoints: everything arriving here is
@@ -16,7 +17,6 @@ import {
  * (RLS) regardless.
  */
 
-const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,150}$/;
 const isId = (n: unknown): n is number =>
   Number.isInteger(n) && (n as number) > 0 && (n as number) < 2 ** 31;
 
@@ -25,12 +25,14 @@ export async function addToShoppingList(input: {
   servings: number;
   skipStaples: boolean;
   haveIds: number[];
+  /** "ask" (default): report a recipe already on the list instead of touching it. "again": add another batch. */
+  mode?: "ask" | "again";
 }): Promise<AddResult> {
-  const { slug, servings, skipStaples, haveIds } = input ?? {};
+  const { slug, servings, skipStaples, haveIds, mode } = input ?? {};
   if (typeof slug !== "string" || !SLUG_RE.test(slug)) return { ok: false, reason: "not-found" };
   if (!Number.isInteger(servings) || servings < 1 || servings > 48) return { ok: false, reason: "failed" };
   const ids = Array.isArray(haveIds) ? haveIds.filter(isId).slice(0, 200) : [];
-  return addRecipe(slug, servings, skipStaples !== false, ids);
+  return addRecipe(slug, servings, skipStaples !== false, ids, mode === "again" ? "again" : "ask");
 }
 
 export async function setShoppingChecked(keys: string[], checked: boolean): Promise<boolean> {

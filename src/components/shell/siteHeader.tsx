@@ -14,7 +14,7 @@ import { Wordmark } from "@/components/shell/wordmark";
 export function SiteHeader() {
   return (
     <header className="z-40 md:sticky md:top-0 border-b border-line bg-canvas/95 backdrop-blur-sm supports-[backdrop-filter]:bg-canvas/85">
-      <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-5 gap-y-2.5 px-(--gutter) py-3 md:flex-nowrap md:py-3.5">
+      <div className="flex page-w flex-wrap items-center gap-x-5 gap-y-2.5 py-3 md:flex-nowrap md:py-3.5">
         <Wordmark />
 
         <HeaderSearch />
@@ -25,7 +25,7 @@ export function SiteHeader() {
         >
           <Link
             href="/recipes"
-            className="inline-flex min-h-11 items-center rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
+            className="hidden min-h-11 sm:inline-flex items-center rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
           >
             Recipes
           </Link>
@@ -33,8 +33,8 @@ export function SiteHeader() {
             href="/shopping"
             className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
           >
-            <ShoppingBasket aria-hidden className="size-[1.125rem] sm:hidden" />
-            <span className="sr-only sm:not-sr-only">Shopping list</span>
+            <ShoppingBasket aria-hidden className="size-[1.125rem] lg:hidden" />
+            <span className="sr-only lg:not-sr-only">Shopping list</span>
           </Link>
           <FridgeNavButton />
           <HeaderAccount />

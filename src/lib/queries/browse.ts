@@ -71,6 +71,8 @@ const CARD_COLUMNS =
   "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(allergens(name)), has_photo, recipe_photos(storage_path, thumb_path, credit, license), recipe_ingredients(sort_order, is_optional, ingredients(aisle_category, is_pantry_staple))";
 
 export const AI_SOURCE_NAME = "Minced original";
+/** recipes.source_name written by save_my_recipe() for every user-submitted recipe. */
+export const USER_SOURCE_NAME = "User submission";
 
 type CardPhoto = { url: string; credit: string | null };
 
@@ -165,15 +167,9 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   // when a matching child exists (no duplicates when it has several); recipes
   // with no cookware rows never match, per the shared contract.
   if (f.cookware?.length) q = q.in("cw.cookware.slug", f.cookware);
-  // "Only what I can make with my cookware": the recipe needs NO cookware outside
-  // the owned list. Anti-join, same shape as the allergen filter: embed the rows
-  // that would disqualify it, then keep recipes where there are none. A recipe with
-  // no cookware rows has no disqualifying row, so it passes (needs nothing).
-  if (f.ownedOnly) {
-    const owned = f.ownedCookware ?? [];
-    if (owned.length) q = q.not("nc.cookware.slug", "in", `(${owned.join(",")})`);
-    q = q.filter("nc", "is", "null");
-  }
+  // "Only what I can make with my cookware" is not a filter here: with it on, the
+  // list is read from makeable_recipes(owned) instead of the table (see loadBrowse),
+  // because "any member of an alternatives group" cannot be written as a PostgREST filter.
   return q as T;
 }
 
@@ -182,7 +178,6 @@ function selectFor(f: RecipeFilters): string {
   (f.diet ?? []).forEach((_, i) => parts.push(`diet${i}:recipe_diets!inner(diets!inner(slug))`));
   if (f.exclude?.length) parts.push("ex:recipe_allergens(allergens!inner(slug))");
   if (f.cookware?.length) parts.push("cw:recipe_cookware!inner(cookware!inner(slug))");
-  if (f.ownedOnly) parts.push("nc:recipe_cookware(cookware!inner(slug))");
   return parts.join(", ");
 }
 
@@ -194,9 +189,14 @@ async function loadBrowse(
   const sb = createStaticClient() as unknown as SupabaseClient;
   const cursor = decodeBrowseCursor(filters.cursor);
 
-  let query = sb
-    .from("recipes")
-    .select(selectFor(filters), cursor ? undefined : { count: "exact" });
+  // With "only my cookware" on, read the recipes the cook can make (alternatives
+  // groups: owning any member is enough); otherwise the table itself.
+  const countOpt = cursor ? undefined : { count: "exact" as const };
+  let query = filters.ownedOnly
+    ? sb
+        .rpc("makeable_recipes", { owned: filters.ownedCookware ?? [] }, countOpt)
+        .select(selectFor(filters))
+    : sb.from("recipes").select(selectFor(filters), countOpt);
   query = applyFilters(query, filters);
   if (cursor) {
     const t = quoteValue(cursor.title);

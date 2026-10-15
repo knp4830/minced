@@ -4,7 +4,7 @@
  * window or blocked storage throws. On sign-in the list is handed to the
  * account once (see ShoppingSync) and this copy is cleared.
  */
-import type { AddSelection, ShopLine, UnitKind } from "@/lib/shopping";
+import { batchCount, type AddSelection, type ShopLine, type UnitKind } from "@/lib/shopping";
 
 const KEY = "minced.shopping.v1";
 const MAX_LINES = 300;
@@ -66,12 +66,25 @@ let counter = 0;
 const uid = () =>
   `l${Date.now().toString(36)}${(counter++).toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
-/** Add a recipe's selected lines. Re-adding the same recipe replaces its earlier lines. */
+/** How many batches of this recipe are on the local list (0 = not on it). */
+export function recipeBatchesLocal(slug: string, recipeIngredientIds: number[]): number {
+  return batchCount(
+    readLocalList().filter((l) => l.recipeSlug === slug),
+    recipeIngredientIds,
+  );
+}
+
+/**
+ * Add a recipe's selected lines. By default re-adding the same recipe replaces
+ * its earlier lines; `batch: true` keeps them and adds another set, so the
+ * merged list shows the summed quantities (the cook asked for a second batch).
+ */
 export function addRecipeLocal(
   sel: AddSelection,
   recipe: { slug: string; title: string },
+  opts: { batch?: boolean } = {},
 ): { ok: boolean; full: boolean } {
-  const kept = readLocalList().filter((l) => l.recipeSlug !== recipe.slug);
+  const kept = readLocalList().filter((l) => opts.batch || l.recipeSlug !== recipe.slug);
   const fresh: ShopLine[] = sel.add.map((l) => ({
     key: uid(),
     ingredientId: l.ingredientId,

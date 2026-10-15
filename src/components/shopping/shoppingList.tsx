@@ -164,7 +164,7 @@ export function ShoppingList({
 
   if (merged.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-line-strong bg-band px-5 py-10 text-center">
+      <div className="mx-auto max-w-[40rem] rounded-xl border border-dashed border-line-strong bg-band px-5 py-10 text-center">
         <p className="text-[1.0625rem] font-semibold text-ink">Your list is empty.</p>
         <p className="mx-auto mt-1.5 max-w-[26rem] text-[0.9375rem] leading-relaxed text-ink-muted">
           Open a recipe and tap “Add to shopping list”. Quantities follow the servings you pick,
@@ -203,7 +203,7 @@ export function ShoppingList({
         </p>
       )}
 
-      <div className="flex flex-col gap-7">
+      <div className="columns-1 gap-x-12 lg:columns-2 2xl:columns-3 [&>section]:mb-7">
         {groups.map((g) => (
           <section key={g.aisle} aria-labelledby={`aisle-${g.aisle}`} className="break-inside-avoid">
             <h2

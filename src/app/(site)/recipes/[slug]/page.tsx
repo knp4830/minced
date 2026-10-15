@@ -3,13 +3,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FavoriteButton } from "@/components/account/favoriteButton";
+import { JsonLd } from "@/components/seo/jsonLd";
 import { Chip } from "@/components/ui/chip";
 import { MetaRow } from "@/components/ui/metaRow";
 import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
-import { AI_SOURCE_NAME } from "@/lib/queries/browse";
+import { AI_SOURCE_NAME, USER_SOURCE_NAME } from "@/lib/queries/browse";
 import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
 import { needsAttribution } from "@/lib/photos";
+import { SITE_URL } from "@/lib/site";
 
 /*
  * CACHING: incremental static regeneration, not build-time generation.
@@ -48,6 +50,8 @@ export async function generateMetadata({
     `serves ${recipe.servings}`,
   ].filter(Boolean);
 
+  const image = recipe.photo?.url ?? recipe.imageUrl ?? undefined;
+
   return {
     title: recipe.title,
     description: `${recipe.title}: ${bits.join(", ")}. Ingredients and steps, nothing else.`,
@@ -55,8 +59,10 @@ export async function generateMetadata({
     openGraph: {
       title: recipe.title,
       type: "article",
-      images: recipe.photo ? [recipe.photo.url] : recipe.imageUrl ? [recipe.imageUrl] : undefined,
+      images: image ? [image] : undefined,
     },
+    // The root layout says "summary"; a real photo earns the large card.
+    twitter: { card: image ? "summary_large_image" : "summary", title: recipe.title, images: image ? [image] : undefined },
   };
 }
 
@@ -73,6 +79,45 @@ function nutritionRows(n: RecipeDetail["nutrition"]) {
   return rows;
 }
 
+const isoMinutes = (n: number | null) => (n ? `PT${Math.trunc(n)}M` : undefined);
+
+/** schema.org/Recipe, so search engines can show time, calories and a photo in results. */
+function recipeJsonLd(recipe: RecipeDetail) {
+  const image = recipe.photo?.url ?? recipe.imageUrl;
+  const n = recipe.nutrition;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    name: recipe.title,
+    url: `${SITE_URL}/recipes/${recipe.slug}`,
+    ...(image ? { image: [image] } : {}),
+    recipeYield: `${recipe.servings} servings`,
+    ...(recipe.cuisine ? { recipeCuisine: recipe.cuisine } : {}),
+    ...(recipe.totalTimeMin ? { totalTime: isoMinutes(recipe.totalTimeMin) } : {}),
+    ...(recipe.prepTimeMin ? { prepTime: isoMinutes(recipe.prepTimeMin) } : {}),
+    ...(recipe.cookTimeMin ? { cookTime: isoMinutes(recipe.cookTimeMin) } : {}),
+    recipeIngredient: recipe.ingredients.map((i) =>
+      [i.quantity != null ? String(Math.round(i.quantity * 100) / 100) : null, i.unit, i.name]
+        .filter(Boolean)
+        .join(" ") + (i.prepNote ? `, ${i.prepNote}` : ""),
+    ),
+    recipeInstructions: recipe.steps.map((text) => ({ "@type": "HowToStep", text })),
+    ...(n.calories != null
+      ? {
+          nutrition: {
+            "@type": "NutritionInformation",
+            calories: `${Math.round(n.calories)} calories`,
+            ...(n.proteinG != null ? { proteinContent: `${Math.round(n.proteinG)} g` } : {}),
+            ...(n.carbsG != null ? { carbohydrateContent: `${Math.round(n.carbsG)} g` } : {}),
+            ...(n.fatG != null ? { fatContent: `${Math.round(n.fatG)} g` } : {}),
+            ...(n.fiberG != null ? { fiberContent: `${Math.round(n.fiberG)} g` } : {}),
+            ...(n.sodiumMg != null ? { sodiumContent: `${Math.round(n.sodiumMg)} mg` } : {}),
+          },
+        }
+      : {}),
+  };
+}
+
 export default async function RecipePage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const recipe = await getRecipeBySlug(slug);
@@ -81,45 +126,52 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const photoSrc = recipe.photo?.url ?? recipe.imageUrl;
   const isUsda = recipe.sourceName?.includes("MyPlate") ?? false;
   const isAi = recipe.sourceName === AI_SOURCE_NAME;
+  const isUser = recipe.sourceName === USER_SOURCE_NAME;
   const nutrition = nutritionRows(recipe.nutrition);
 
   return (
-    <article className="mx-auto max-w-[1180px] px-(--gutter) pt-4 pb-6 md:pt-6">
+    <article className="page-w pt-4 pb-6 md:pt-6">
+      <JsonLd data={recipeJsonLd(recipe)} />
       <div className="flex items-center justify-between gap-3">
         <BackToResults />
         {/* Client island: keeps this page cacheable; the saved state fills in after load. */}
         <FavoriteButton slug={recipe.slug} title={recipe.title} variant="detail" />
       </div>
 
-      <header className="mt-1 mb-6">
-        {recipe.cuisine && <p className="label-mono mb-2 tracking-[0.1em]">{recipe.cuisine}</p>}
-        <h1 className="text-[2rem] leading-[1.05] tracking-[-0.025em] sm:text-[2.5rem]">
-          {recipe.title}
-        </h1>
-        <MetaRow
-          size="md"
-          className="mt-4 gap-x-3.5 border-y border-line-strong py-3 text-ink"
-          time={recipe.totalTimeMin ?? undefined}
-          servings={recipe.servings}
-          calories={recipe.nutrition.calories != null ? round(recipe.nutrition.calories, 5) : undefined}
-          spice={recipe.spiceLevel ?? undefined}
-        />
-        {isAi && (
-          <p className="mt-3">
-            <Link
-              href="/about"
-              className="inline-block rounded-xs bg-sunken px-2 py-1 font-mono text-[0.6875rem] text-ink-muted underline-offset-2 hover:text-herb hover:underline"
-            >
-              Drafted with AI, reviewed by Minced
-            </Link>
-          </p>
-        )}
-      </header>
+      {/*
+        Hero: photo on the left, title and facts on the right, so the first screen on a big
+        monitor is a large photo beside everything you need to decide. Below `lg` it stacks
+        as title, photo, facts (DOM order), which is also the reading order.
+      */}
+      <div className="mt-2 grid gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:grid-rows-[auto_1fr] xl:gap-x-14">
+        <header className="lg:col-start-2 lg:row-start-1">
+          {recipe.cuisine && <p className="label-mono mb-2 tracking-[0.1em]">{recipe.cuisine}</p>}
+          <h1 className="text-[2rem] leading-[1.05] tracking-[-0.025em] sm:text-[2.5rem] xl:text-[3.25rem]">
+            {recipe.title}
+          </h1>
+          <MetaRow
+            size="md"
+            className="mt-4 gap-x-3.5 border-y border-line-strong py-3 text-ink"
+            time={recipe.totalTimeMin ?? undefined}
+            servings={recipe.servings}
+            calories={recipe.nutrition.calories != null ? round(recipe.nutrition.calories, 5) : undefined}
+            spice={recipe.spiceLevel ?? undefined}
+          />
+          {isAi && (
+            <p className="mt-3">
+              <Link
+                href="/about"
+                className="inline-block rounded-xs bg-sunken px-2 py-1 font-mono text-[0.6875rem] text-ink-muted underline-offset-2 hover:text-herb hover:underline"
+              >
+                Drafted with AI, reviewed by Minced
+              </Link>
+            </p>
+          )}
+        </header>
 
-      <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[17.5rem_minmax(0,1fr)_minmax(0,1fr)]">
-        {/* Photo or colour block */}
-        <figure className="lg:col-start-1 lg:row-start-1">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-line bg-hatch sm:aspect-[2/1] lg:aspect-[4/5]">
+        {/* Photo or colour block. On lg it stretches to the height of the facts beside it. */}
+        <figure className="flex flex-col lg:col-start-1 lg:row-span-2 lg:row-start-1">
+          <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-line bg-hatch md:aspect-[2/1] lg:aspect-auto lg:min-h-[24rem] lg:flex-1">
             {photoSrc ? (
               // Host varies by source (Storage / federal / Wikimedia): plain <img>.
               // eslint-disable-next-line @next/next/no-img-element
@@ -152,18 +204,68 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
               </a>
             </figcaption>
           )}
-          {recipe.diets.length > 0 && (
-            <div className="mt-4 flex flex-wrap items-center gap-1.5">
-              <span className="label-mono mr-1">diet</span>
-              {recipe.diets.map((d) => (
-                <Chip key={d.slug} isStatic>
-                  {d.name}
-                </Chip>
-              ))}
+        </figure>
+
+        {/* Facts: nutrition tiles, then diet, cookware and allergens in a wrapping row. */}
+        <div className="flex flex-col gap-5 lg:col-start-2 lg:row-start-2">
+          {nutrition.length > 0 && (
+            <section
+              aria-labelledby="nutrition-h"
+              className="rounded-xl border border-line bg-band p-4"
+            >
+              <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h2 id="nutrition-h" className="label-mono">
+                  Nutrition per serving
+                </h2>
+                <p className="font-mono text-[0.6875rem] text-ink-subtle">estimate · USDA data</p>
+              </div>
+              <dl className="grid grid-cols-3 gap-x-4 gap-y-3 sm:grid-cols-6 lg:grid-cols-3 xl:grid-cols-6">
+                {nutrition.map((row) => (
+                  <div key={row.label} className="min-w-0">
+                    <dt className="text-[0.75rem] text-ink-muted">{row.label}</dt>
+                    <dd className="font-mono text-[0.9375rem] font-semibold">~{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          )}
+
+          {(recipe.diets.length > 0 || recipe.cookware.length > 0) && (
+            <div className="flex flex-wrap gap-x-8 gap-y-4">
+              {recipe.diets.length > 0 && (
+                <div>
+                  <p className="label-mono mb-2">Diet</p>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {recipe.diets.map((d) => (
+                      <li key={d.slug}>
+                        <Chip isStatic>{d.name}</Chip>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {recipe.cookware.length > 0 && (
+                <section aria-labelledby="cookware-h">
+                  <h2 id="cookware-h" className="label-mono mb-2">
+                    Cookware
+                  </h2>
+                  <ul className="flex flex-wrap gap-2">
+                    {recipe.cookware.map((c) => (
+                      <li
+                        key={c}
+                        className="rounded-md border border-line bg-band px-2.5 py-1.5 text-[0.8125rem]"
+                      >
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
             </div>
           )}
+
           {recipe.allergens.length > 0 && (
-            <div className="mt-4 rounded-lg border border-paprika/30 bg-paprika/5 px-3.5 py-3">
+            <div className="rounded-lg border border-paprika/30 bg-paprika/5 px-3.5 py-3">
               <p className="mb-1 flex items-center gap-1.5 font-mono text-[0.625rem] tracking-[0.08em] text-paprika-deep uppercase">
                 <span aria-hidden className="size-1.5 rounded-full bg-paprika" />
                 Allergens
@@ -173,81 +275,36 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
               </p>
             </div>
           )}
-        </figure>
-
-        {/* Ingredients (client island: servings scaler) */}
-        <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          <ServingsScaler
-            baseServings={recipe.servings}
-            ingredients={recipe.ingredients}
-            recipe={{ slug: recipe.slug, title: recipe.title }}
-          />
         </div>
+      </div>
 
-        {/* Method */}
-        <section
-          aria-labelledby="method-h"
-          className="lg:col-start-3 lg:row-span-2 lg:row-start-1"
-        >
+      {/* Ingredients and method side by side; method gets the wider column. */}
+      <div className="mt-10 grid gap-x-12 gap-y-10 border-t border-line pt-8 lg:mt-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        {/* Client island: servings scaler, have/missing marks, add to shopping list. */}
+        <ServingsScaler
+          baseServings={recipe.servings}
+          ingredients={recipe.ingredients}
+          recipe={{ slug: recipe.slug, title: recipe.title }}
+        />
+
+        <section aria-labelledby="method-h">
           <h2 id="method-h" className="mb-3 text-[1.375rem]">
             Method
           </h2>
-          <ol className="flex flex-col gap-4">
+          <ol className="flex max-w-[46rem] flex-col gap-5">
             {recipe.steps.map((step, i) => (
-              <li key={i} className="flex items-start gap-3.5">
+              <li key={i} className="flex items-start gap-4">
                 <span
                   aria-hidden
-                  className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-herb font-mono text-xs font-semibold text-on-herb"
+                  className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-herb font-mono text-xs font-semibold text-on-herb"
                 >
                   {i + 1}
                 </span>
-                <p className="text-[0.9375rem] leading-relaxed text-ink-deep">{step}</p>
+                <p className="text-base leading-relaxed text-ink-deep lg:text-[1.0625rem]">{step}</p>
               </li>
             ))}
           </ol>
         </section>
-
-        {/* Nutrition + cookware */}
-        <div className="flex flex-col gap-6 lg:col-start-1 lg:row-start-2">
-          {nutrition.length > 0 && (
-            <section
-              aria-labelledby="nutrition-h"
-              className="rounded-xl border border-line bg-band p-4"
-            >
-              <h2 id="nutrition-h" className="label-mono mb-3">
-                Nutrition per serving
-              </h2>
-              <dl className="flex flex-col gap-2">
-                {nutrition.map((row) => (
-                  <div key={row.label} className="flex items-baseline justify-between gap-3">
-                    <dt className="text-[0.8125rem] text-ink-muted">{row.label}</dt>
-                    <dd className="font-mono text-[0.8125rem] font-semibold">~{row.value}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-3 border-t border-line pt-2.5 font-mono text-[0.6875rem] text-ink-subtle">
-                estimate · USDA data
-              </p>
-            </section>
-          )}
-          {recipe.cookware.length > 0 && (
-            <section aria-labelledby="cookware-h">
-              <h2 id="cookware-h" className="label-mono mb-2">
-                Cookware
-              </h2>
-              <ul className="flex flex-wrap gap-2">
-                {recipe.cookware.map((c) => (
-                  <li
-                    key={c}
-                    className="rounded-md border border-line bg-band px-2.5 py-1.5 text-[0.8125rem]"
-                  >
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-        </div>
       </div>
 
       <footer className="mt-10 border-t border-line pt-4 text-[0.8125rem] leading-relaxed text-ink-muted">
@@ -267,6 +324,15 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
         ) : isAi ? (
           <p>
             Written by Minced with AI assistance and reviewed before publishing.{" "}
+            <Link href="/about" className="underline underline-offset-2 hover:text-herb">
+              How we make recipes
+            </Link>
+            .
+          </p>
+        ) : isUser ? (
+          <p>
+            Shared by a Minced cook and reviewed before publishing. Nutrition, where shown, is an
+            estimate.{" "}
             <Link href="/about" className="underline underline-offset-2 hover:text-herb">
               How we make recipes
             </Link>

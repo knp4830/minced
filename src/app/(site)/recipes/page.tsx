@@ -32,6 +32,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     title: f.q ? `“${f.q}”` : "Recipes",
     description:
       "Every recipe is ingredients, amounts and numbered steps. Filter by time, diet, allergens, spice, calories, protein or the cookware you own.",
+    alternates: { canonical: "/recipes" },
     // Search and filter URLs are infinite and thin; only the plain listing is indexable.
     robots: filtered ? { index: false, follow: true } : undefined,
   };
@@ -48,7 +49,7 @@ function EmptyState({ filters }: { filters: RecipeFilters }) {
   const filtered = hasActiveFilters(filters);
   return (
     <div className="mx-auto max-w-md rounded-xl border border-line bg-surface px-6 py-10 text-center">
-      <h2 className="text-xl">
+      <h2 className="text-xl [overflow-wrap:anywhere]">
         {filters.q ? <>No recipes for “{filters.q}”</> : "No recipes match these filters"}
       </h2>
       <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-muted">
@@ -177,7 +178,7 @@ export default async function RecipesPage({ searchParams }: Props) {
   const resultsKey = filtersToQuery(resultFilters(filters));
 
   return (
-    <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
+    <div className="page-w py-6 md:py-8">
       <Suspense fallback={null}>
         <RememberList />
       </Suspense>

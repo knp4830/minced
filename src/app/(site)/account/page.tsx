@@ -3,11 +3,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { DeleteAccountForm } from "@/components/account/authForms";
+import { USER_RECIPES_ENABLED } from "@/lib/flags";
+import { MyRecipeBook } from "@/components/account/myRecipeBook";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { logOut } from "@/lib/actions/auth";
 import { getCurrentUser } from "@/lib/queries/account";
 import { getFavoriteCards } from "@/lib/queries/favorites";
+import { listMyRecipes } from "@/lib/queries/myRecipes";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -15,12 +18,14 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-const TABS = [
+const ALL_TABS = [
   { id: "library", label: "My Library" },
   { id: "book", label: "My Recipe Book" },
   { id: "settings", label: "Settings" },
 ] as const;
-type TabId = (typeof TABS)[number]["id"];
+type TabId = (typeof ALL_TABS)[number]["id"];
+// The recipe book is hidden until user recipes are switched on (see src/lib/flags.ts).
+const TABS = ALL_TABS.filter((t) => t.id !== "book" || USER_RECIPES_ENABLED);
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
@@ -35,9 +40,12 @@ export default async function AccountPage({ searchParams }: Props) {
   if (!user) redirect("/login?next=%2Faccount");
 
   const saved = tab === "library" ? await getFavoriteCards() : [];
+  const mine = tab === "book" ? await listMyRecipes() : [];
+  const rawFlash = Array.isArray(sp.notice) ? sp.notice[0] : sp.notice;
+  const flash = tab === "book" && rawFlash ? rawFlash : null;
 
   return (
-    <div className="mx-auto max-w-[1180px] px-(--gutter) py-6 md:py-10">
+    <div className="page-w py-6 md:py-10">
       <header className="flex flex-wrap items-center gap-x-5 gap-y-4">
         <span
           aria-hidden
@@ -102,16 +110,7 @@ export default async function AccountPage({ searchParams }: Props) {
           </>
         )}
 
-        {tab === "book" && (
-          <>
-            <h2 id="tab-h" className="mb-2 text-xl">
-              Your recipes
-            </h2>
-            <p className="max-w-md text-[0.9375rem] leading-relaxed text-ink-muted">
-              Writing and keeping your own recipes is coming. Everything you save stays in My Library until then.
-            </p>
-          </>
-        )}
+        {tab === "book" && <MyRecipeBook recipes={mine} notice={flash} />}
 
         {tab === "settings" && (
           <>

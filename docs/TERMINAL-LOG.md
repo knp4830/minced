@@ -425,6 +425,17 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-13 | `pnpm exec supabase db push --db-url "$DATABASE_URL"` for the wave-5/6 migrations | LIVE apply, by the integrator, BEFORE merging | Order: backup, `20261013100000`, `110000`, `130000`, `140000`, `150000`, `160000`; then `pnpm db:types`. Wave 3 merged first and live `/recipes` returned 500 |
 | 2026-10-13 | `git worktree list` then `git switch wave56/integration` | Resume a workflow | Resumed workflows renumber worktrees; confirm each branch and HEAD against its report before editing |
 | 2026-10-13 | `gh pr create --base main --head wave56/integration --body-file <file>` | Open the wave PR | Body starts with a MERGE ORDER WARNING |
+| 2026-10-14 | `bash .snapshot/restore.sh <name>` then `docker exec -i <c> psql -v ON_ERROR_STOP=1 -U postgres < supabase/migrations/20261014100000_cookware_alt_groups.sql` (then `100100`, `120000`, `160000`) | Apply the wave 7 migrations to a throwaway copy | Superuser, so privilege errors stay hidden. `docker rm -f <c>` afterwards |
+| 2026-10-14 | `psql -f supabase/seed-cookware.sql` twice | Alt-group seed | First run: 29 member rows added, 73 rows grouped; second run: 0 |
+| 2026-10-14 | `psql -f supabase/tests/{cookware_alt_groups,shopping_add_batch,user_recipes}_test.sql` | Wave 7 SQL suites | `user_recipes` also run as non-superuser `postgres` on a local stack. FAILED on a bare snapshot at baseline: `user_cookware_rls`, `security_hardening`, `admin_review`, `shopping_list` (no default grants) |
+| 2026-10-14 | `pnpm exec supabase gen types typescript --db-url <snapshot url> > src/types/database.ts` | Regenerate types from the migrated snapshot | Re-run `pnpm db:types` against live after the live apply; `160000` adds `feature_flags` and the private schema, which the committed types do not have yet |
+| 2026-10-14 | `docker run -d --name <n>-rest -p <port>:3000 -e PGRST_DB_URI=postgres://postgres:test@host.docker.internal:<dbport>/postgres -e PGRST_DB_SCHEMAS=public -e PGRST_DB_ANON_ROLE=anon public.ecr.aws/supabase/postgrest:v16.1` | Real PostgREST in front of a snapshot, for browse tests | Needs `grant usage on schema public to anon, authenticated` and a tiny proxy mapping `/rest/v1/*`; point `NEXT_PUBLIC_SUPABASE_URL` at it and rebuild |
+| 2026-10-14 | `MSYS_NO_PATHCONV=1 node audit.mjs http://127.0.0.1:<port> /recipes` | Path arguments in Git Bash | Without it `/recipes` became `C:/Program Files/Git/recipes` |
+| 2026-10-14 | `git switch wave7/photos` | Land the photos lane | FAILED: the branch was held by dead worktree `wf_fcd9ce54-754-2`. The real commit `ddfd4dc` was merged from `worktree-wf_cbb63ac1-145-1` |
+| 2026-10-14 | `git branch wave7/seo-combos-later b196d06 && git push -u origin wave7/seo-combos-later` | Park the SEO combo pages for post-MVP | `main`'s PR removes the combo route, data and sitemap entries |
+| 2026-10-14 | `python scripts/photos/remove_photo.py <slug> "reason" --bucket wave7_review_2026_10_14` | Remove a rejected photo | Does not clean `commons_picks_w7.json`; edit it by hand or the next build re-adds it. `PYTHONUTF8=1` for reading `photos.json` |
+| 2026-10-14 | `node --experimental-strip-types scripts/test-recipe-form.mts` | Recipe-form parsing tests | New in wave 7 |
+| 2026-10-14 | `gh pr create --base main --head wave7/integration --body-file <file>` | Open the wave 7 PR | Body starts with a MERGE ORDER WARNING |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

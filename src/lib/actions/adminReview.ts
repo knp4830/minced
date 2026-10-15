@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { after } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
+import { SLUG_RE } from "@/lib/validate";
 
 /*
  * Server Actions for the review queue. Each one is a public POST endpoint, so
@@ -20,7 +21,6 @@ type Rpc = {
   rpc(fn: string, args?: object): PromiseLike<{ data: unknown; error: { message: string; code?: string } | null }>;
 };
 
-const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,150}$/;
 
 function fail(error: { message: string; code?: string }): ActionResult {
   if (error.code === "42501") return { ok: false, reason: "forbidden" };

@@ -215,6 +215,29 @@ export type AddSelection = {
   skippedHave: string[];
 };
 
+/**
+ * How many times one recipe's batch is on the list. A recipe can list the same
+ * ingredient on several rows (soy sauce in the marinade and the sauce), so one
+ * batch already holds that many rows. Divide each ingredient's rows on the list
+ * by its rows in the recipe, and take the largest result. 0 = not on the list.
+ * `recipeIngredientIds` has one entry per row of the recipe's ingredient list.
+ */
+export function batchCount(
+  listed: { ingredientId: number }[],
+  recipeIngredientIds: number[],
+): number {
+  const base = new Map<number, number>();
+  for (const id of recipeIngredientIds) base.set(id, (base.get(id) ?? 0) + 1);
+  const onList = new Map<number, number>();
+  for (const l of listed) onList.set(l.ingredientId, (onList.get(l.ingredientId) ?? 0) + 1);
+  let max = 0;
+  for (const [id, n] of onList) {
+    const batches = Math.ceil(n / (base.get(id) ?? 1));
+    if (batches > max) max = batches;
+  }
+  return max;
+}
+
 /** Mirror of add_recipe_to_shopping_list() for the signed-out list. Keep the two in step. */
 export function selectForList(
   lines: RecipeLineInput[],

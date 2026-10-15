@@ -388,14 +388,17 @@ export type Database = {
       }
       recipe_cookware: {
         Row: {
+          alt_group: number | null
           cookware_id: number
           recipe_id: string
         }
         Insert: {
+          alt_group?: number | null
           cookware_id: number
           recipe_id: string
         }
         Update: {
+          alt_group?: number | null
           cookware_id?: number
           recipe_id?: string
         }
@@ -906,6 +909,7 @@ export type Database = {
     Functions: {
       add_recipe_to_shopping_list: {
         Args: {
+          p_add_batch?: boolean
           p_have_ids?: number[]
           p_recipe_id: string
           p_servings: number
@@ -914,6 +918,10 @@ export type Database = {
         Returns: Json
       }
       admin_assert: { Args: never; Returns: undefined }
+      admin_in_scope: {
+        Args: { r: Database["public"]["Tables"]["recipes"]["Row"] }
+        Returns: boolean
+      }
       admin_recipe_detail: { Args: { p_slug: string }; Returns: Json }
       admin_review_list: {
         Args: {
@@ -967,6 +975,7 @@ export type Database = {
         Returns: unknown
       }
       delete_my_account: { Args: never; Returns: undefined }
+      delete_my_recipe: { Args: { p_recipe_id: string }; Returns: string }
       expand_ingredient_family: { Args: { ids: number[] }; Returns: number[] }
       import_local_shopping_list: { Args: { p_items: Json }; Returns: number }
       ingredient_coverage: {
@@ -980,6 +989,46 @@ export type Database = {
         }[]
       }
       is_admin: { Args: never; Returns: boolean }
+      makeable_recipes: {
+        Args: { owned: string[] }
+        Returns: {
+          author_id: string | null
+          calories: number | null
+          carbs_g: number | null
+          cook_time_min: number | null
+          cost_per_serving: number | null
+          created_at: string
+          cuisine_id: number | null
+          description: string | null
+          fat_g: number | null
+          fiber_g: number | null
+          has_photo: boolean
+          id: string
+          image_url: string | null
+          notes: string | null
+          prep_time_min: number | null
+          protein_g: number | null
+          published_at: string | null
+          search_vector: unknown
+          servings: number
+          slug: string
+          sodium_mg: number | null
+          source_license: string | null
+          source_name: string | null
+          source_url: string | null
+          spice_level: number | null
+          status: Database["public"]["Enums"]["recipe_status"]
+          title: string
+          total_time_min: number | null
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "recipes"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       match_recipes: {
         Args: {
           cookware_slugs?: string[]
@@ -1019,6 +1068,23 @@ export type Database = {
           total_time_min: number
         }[]
       }
+      my_recipe_for_edit: { Args: { p_recipe_id: string }; Returns: Json }
+      my_recipes: {
+        Args: never
+        Returns: {
+          cook_time_min: number
+          id: string
+          ingredient_count: number
+          prep_time_min: number
+          returned: boolean
+          review_note: string
+          servings: number
+          slug: string
+          status: Database["public"]["Enums"]["recipe_status"]
+          title: string
+          updated_at: string
+        }[]
+      }
       normalize_ingredient_name: { Args: { raw: string }; Returns: string }
       owns_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
       recipe_expiry_days: {
@@ -1050,6 +1116,10 @@ export type Database = {
           unit_id: number
           unit_name: string
         }[]
+      }
+      save_my_recipe: {
+        Args: { p_data: Json; p_recipe_id: string; p_submit?: boolean }
+        Returns: Json
       }
       search_fold: { Args: { raw: string }; Returns: string }
       search_recipes: {
@@ -1109,6 +1179,27 @@ export type Database = {
           ingredient_id: number
         }[]
       }
+      user_recipe_num: {
+        Args: {
+          p_field: string
+          p_max: number
+          p_min: number
+          p_value: Json
+          p_whole?: boolean
+        }
+        Returns: number
+      }
+      user_recipe_text: {
+        Args: {
+          p_field: string
+          p_max: number
+          p_min: number
+          p_multiline?: boolean
+          p_value: string
+        }
+        Returns: string
+      }
+      withdraw_my_recipe: { Args: { p_recipe_id: string }; Returns: string }
     }
     Enums: {
       ingredient_match_kind: "exact" | "alias" | "fuzzy"

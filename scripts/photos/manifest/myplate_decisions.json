@@ -5822,8 +5822,8 @@
   {
     "slug": "potato-soup-0",
     "title": "Potato Soup",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7: recipe no longer exists (removed in duplicate merge)",
     "source_field": "A Harvest of Recipes with USDA Foods USDA Food Distribution Program on Indian Reservations",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/Potato%20Soup_fixed.png?itok=Q5FP47a-",
@@ -6142,8 +6142,8 @@
   {
     "slug": "red-beans-and-rice",
     "title": "Red Beans and Rice",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7: recipe no longer exists (removed in duplicate merge)",
     "source_field": "Food and Drug Administration (FDA) US Department of Health and Human Services",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2024-04/Red%20Beans%20and%20Rice.png?itok=deKljhjO",
@@ -6172,8 +6172,8 @@
   {
     "slug": "red-hot-fusilli",
     "title": "Red Hot Fusilli",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look, uploader rights doubtful",
     "source_field": "Stay Young at Heart: Cooking the Heart-Healthy Way US Department of Health and Human Services National Heart, Lung, and Blood Institute",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2021-11/RedHotFusilli_527x323.jpg?itok=x39pFwFA",
@@ -6252,8 +6252,8 @@
   {
     "slug": "rice-pudding",
     "title": "Rice Pudding",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7: recipe no longer exists (removed in duplicate merge)",
     "source_field": "Recipes and Tips for Healthy, Thrifty Meals USDA Center for Nutrition Policy and Promotion",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2021-11/RicePudding_527x323.jpg?itok=oUaRNb_k",
@@ -6496,7 +6496,7 @@
     "reason": "ok: federal-source recipe, no third-party credit signal",
     "source_field": "USDA Center for Nutrition Policy and Promotion Recipe submitted by Sarah, MyPlate Nutritionist",
     "source_class": "federal",
-    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/sarahsspicycurryturkeysoup.jpg?itok=w3y2QnTT",
+    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/medium/public/recipe-images/sarahsspicycurryturkeysoup.jpg?itok=mag7hNQh",
     "alt": "Sarah’s Spicy Curry Turkey Soup in a bowl"
   },
   {
@@ -6562,8 +6562,8 @@
   {
     "slug": "savory-spicy-ground-beef-succotash",
     "title": "Savory and Spicy Ground Beef & Succotash",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look, shows bacon where the recipe uses ground beef",
     "source_field": "A River of Recipes: Native American Recipes Using Commodity Foods USDA Food Distribution Program on Indian Reservations",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2022-07/SavorySpicyGroundBeefSuccotash_527x323.jpg?itok=PaIg4k8g",
@@ -6572,8 +6572,8 @@
   {
     "slug": "scallion-rice",
     "title": "Scallion Rice",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look (rustic props), uploader rights doubtful",
     "source_field": "DASH Eating Plan: Lower Your Blood Pressure US Department of Health and Human Services National Heart, Lung, and Blood Institute",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2025-06/Image-of-Scallion-Rice-Recipe.png?itok=kzQ__p2O",
@@ -6996,7 +6996,7 @@
     "reason": "ok: federal-source recipe, no third-party credit signal",
     "source_field": "USDA Center for Nutrition Policy and Promotion",
     "source_class": "federal",
-    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2021-01/SpanishFrittata.jpg?itok=syUYWN-F",
+    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2021-01/SpanishFrittata.jpg",
     "alt": "Spanish Frittata on a plate"
   },
   {
@@ -7142,8 +7142,8 @@
   {
     "slug": "spinach-tomatoes-and-corn",
     "title": "Spinach, Tomatoes, and Corn",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look (rustic bowl and props), uploader rights doubtful",
     "source_field": "Creative Recipes for Less Familiar USDA Commodities Used by Household Programs USDA Food and Nutrition Service Food Distribution Service",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2025-06/Image-of-Spinach-Tomatoes-Corn-Recipe.png?itok=uZvm19Ep",
@@ -7348,11 +7348,11 @@
   {
     "slug": "summer-breeze-smoothie",
     "title": "Summer Breeze Smoothie",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look (vanilla pods, rustic props), uploader rights doubtful",
     "source_field": "Heart Healthy Home Cooking: African American Style US Department of Health and Human Services National Heart, Lung, and Blood Institute",
     "source_class": "federal",
-    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2020-11/SummerBreezeSmoothies_527x323.jpg?itok=WUpDzSDL",
+    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2020-11/SummerBreezeSmoothies_527x323.jpg",
     "alt": "Summer Breeze Smoothie in a glass"
   },
   {
@@ -7398,8 +7398,8 @@
   {
     "slug": "summer-vegetable-spaghetti",
     "title": "Summer Vegetable Spaghetti",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look, uploader rights doubtful",
     "source_field": "Stay Young at Heart: Cooking the Heart-Healthy Way US Department of Health and Human Services National Heart, Lung, and Blood Institute",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2025-09/Image-of-Summer-Vegetable-Spaghetti-Recipe.jpg?itok=SDWKFro3",
@@ -7418,8 +7418,8 @@
   {
     "slug": "sunshine-salad",
     "title": "Sunshine Salad",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look (wooden bowl, studio light), uploader rights doubtful",
     "source_field": "US Department of Health and Human Services",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2020-11/SunshineSalad_0.jpg?itok=HQPYNPzY",
@@ -7708,8 +7708,8 @@
   {
     "slug": "tasty-fish-and-veggie-packets",
     "title": "Tasty Fish and Veggie Packets",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look, fish not visible in the foil",
     "source_field": "USDA Food and Nutrition Information Center",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2024-10/Tasty-fish-and-veggies-527x323%20%281%29.jpg?itok=hN-0Lk9N",
@@ -8418,18 +8418,18 @@
   {
     "slug": "very-berry-smoothie",
     "title": "Very Berry Smoothie",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look, uploader rights doubtful",
     "source_field": "USDA Center for Nutrition Policy and Promotion",
     "source_class": "federal",
-    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/VeryBerrySmoothie.jpg?itok=SQN1veun",
+    "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/VeryBerrySmoothie.jpg",
     "alt": "Very Berry Smoothie in a jar"
   },
   {
     "slug": "vinaigrette-salad-dressing",
     "title": "Vinaigrette Salad Dressing",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7 review: stock-photography look, uploader rights doubtful",
     "source_field": "USDA Supplemental Nutrition Assistance Program (SNAP)",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2022-08/VinaigretteSaladDressing_527x323.jpg?itok=OIPiltJE",
@@ -8548,8 +8548,8 @@
   {
     "slug": "wonderful-stuffed-potatoes",
     "title": "Stuffed Baked Potatoes",
-    "include": true,
-    "reason": "ok: federal-source recipe, no third-party credit signal",
+    "include": false,
+    "reason": "review-excluded: wave7: recipe no longer exists (removed in duplicate merge)",
     "source_field": "Adapted from \"Wonderful Stuffed Potatoes\" A Healthier You: Based on the Dietary Guidelines for Americans US Department of Health and Human Services Office of Disease Prevention and Health Promotion",
     "source_class": "federal",
     "image_src": "https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2024-10/image-of-wonderful-stuffed-potatoes-recipe.jpg?itok=RSn-Cvge",

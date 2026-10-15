@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { safeNext } from "@/lib/auth/validate";
+import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { recipeExists } from "@/lib/recipeGate";
 import { updateSession } from "@/lib/supabase/middleware";
 
@@ -12,11 +13,14 @@ import { updateSession } from "@/lib/supabase/middleware";
  * own token while someone browses, and /account re-checks on the server.
  */
 const RECIPE_PATH = /^\/recipes\/([^/]+)$/;
+const EDIT_ROUTE = /^\/recipes\/[^/]+\/edit$/;
 
 export async function middleware(request: NextRequest) {
   const { pathname: path } = request.nextUrl;
   const recipe = RECIPE_PATH.exec(path);
-  if (recipe) {
+  // /recipes/new is the create form, not a slug. No recipe can have it as a slug (user
+  // slugs end in a hash), so it falls through to the signed-in handling below.
+  if (recipe && recipe[1] !== "new") {
     let slug = recipe[1];
     try {
       slug = decodeURIComponent(slug);
@@ -27,10 +31,21 @@ export async function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL("/recipe-not-found", request.url), { status: 404 });
   }
 
+  // With user recipes off, their routes answer a real 404 for everyone (signed in or not),
+  // so the route does not advertise itself and the status is 404, not a streamed 200.
+  if (!USER_RECIPES_ENABLED && (path === "/recipes/new" || EDIT_ROUTE.test(path))) {
+    return NextResponse.rewrite(new URL("/recipe-not-found", request.url), { status: 404 });
+  }
+
   const session = await updateSession(request);
   const { pathname } = request.nextUrl;
 
-  if ((pathname.startsWith("/account") || pathname.startsWith("/fridge")) && !session.user) {
+  const needsLogin =
+    pathname.startsWith("/account") ||
+    pathname.startsWith("/fridge") ||
+    pathname === "/recipes/new" ||
+    EDIT_ROUTE.test(pathname);
+  if (needsLogin && !session.user) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.search = `?next=${encodeURIComponent(pathname)}`;
@@ -51,5 +66,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/recipes/:slug", "/account/:path*", "/fridge/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
+  matcher: ["/recipes/:slug", "/recipes/:slug/edit", "/account/:path*", "/fridge/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
 };

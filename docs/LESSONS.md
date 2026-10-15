@@ -183,7 +183,7 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 - Rule: Supabase answers a repeat sign-up with success, so the UI must say "check your email" for both (do not leak existence). The callback prefers `x-forwarded-host`; keep `NEXT_PUBLIC_SITE_URL` set in Vercel. Auth cookies are httpOnly (no browser client reads them). Do not `supabase config push` `config.toml` (password minimum 6, confirmations off). Built-in Supabase email is rate-limited and team-only until custom SMTP.
 
 **Dead and public by accident.**
-- Rule: `/kitchen-sink` is publicly routable until deleted; `/api/ingredients/suggest` has no caller; `robots.txt` should not name `/admin`.
+- Rule: `/kitchen-sink` and `/api/ingredients/suggest` were deleted in wave 7; `robots.txt` does not name `/admin`. After deleting a page, grep each primitive it used for importers (`ui/select` was orphaned, then needed by the recipe form).
 
 **Build and tooling.**
 - Rule: pnpm 11 reads `allowBuilds` from `pnpm-workspace.yaml`, not `package.json`. Pin `create-next-app@15.5.24` (latest is 16). `--frozen-lockfile` on a second machine. ESLint ignores `design/**` and `scripts/**`. `next` 15.5.24 has two ISR cache-poisoning advisories (fixed in 15.5.27; needs approval to bump).
@@ -258,3 +258,59 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 
 **Verifier suites must be runnable.**
 - Rule: a test that depends on grants or seed state the environment lacks proves nothing; say which environment a suite needs (snapshot vs local stack) in `RLS-TEST-PLAN.md`.
+
+---
+
+## 7. Wave 7 (2026-10-14)
+
+**A feature flag in the UI is not a feature switch.**
+- Symptom: `NEXT_PUBLIC_ENABLE_USER_RECIPES` hid the pages, but the Server Actions and the `save_my_recipe` RPC stayed callable by any signed-in user (the review caught it).
+- Rule: gate the write path where the write happens. The DB switch is `feature_flags` (`user_recipes`, default off, no API access); the public RPC wrappers raise 42501 while it is off; Server Actions also check the env flag. Both must be on. `NEXT_PUBLIC_*` is inlined at build, so changing it needs a redeploy.
+
+**An undo must undo the side effect.**
+- Symptom: approving a user recipe sets `status = published`; undoing the approval left it public while the admin thought it was pending.
+- Rule: every state change that has a visible side effect needs the reverse written and tested (`user_recipes_test.sql`).
+
+**Authors write only through definer RPCs.**
+- Rule: authors have no INSERT/UPDATE/DELETE on recipe tables. A `SECURITY DEFINER` function writes a fixed column list and can only produce `draft` or `in_review`, so a column added later is not author-writable by accident. Do not re-add author write policies.
+
+**Aggregating over child rows cannot be a PostgREST filter.**
+- Rule: put it in a `SECURITY INVOKER` SQL function returning `setof table` and call it with `.rpc(...).select(...)` (`makeable_recipes`); filters, embeds, order, paging and RLS still work. Group child rows by `coalesce(alt_group, -id)` so one predicate handles grouped and ungrouped requirements.
+
+**Changing a function's arguments is DROP then CREATE, and the migration must be live before the code.**
+- Rule: `add_recipe_to_shopping_list` gained `p_add_batch`; `/recipes/[slug]` calls `alt_group`. Code merged before the migrations returns 500. Order: backup, migrations, then merge.
+
+**A snapshot test proves logic, not privileges.**
+- Rule: run privilege-sensitive suites (`user_recipes`, `admin_review`, `security_hardening`, `user_cookware_rls`, `shopping_list`) on a local Supabase stack as the non-superuser `postgres` role. A bare snapshot has no default grants, so four suites fail there at baseline; that is the environment, not the code. Disable `on_auth_user_created` before `user_cookware_rls_test`, or its own profiles insert collides.
+
+**After `SET ROLE`, other users' rows are invisible.**
+- Rule: in tests, read ids and slugs as the owner role first (psql `\gset`), then switch.
+
+**A new single-segment route under `/recipes` is swallowed by the middleware slug gate.**
+- Rule: exempt it (`new`) and update `recipeGate.ts`.
+
+**User text reaches public pages, so escape it everywhere.**
+- Rule: JSON-LD, Open Graph and any `dangerouslySetInnerHTML` must escape `<` (`jsonLd.tsx` does).
+
+**Control and bidi characters in source.**
+- Rule: SQL regex classes use `\u` escapes, never literal invisible characters (Trojan Source). The original `user_recipes` migration still contains them (cannot be edited); `160000` supersedes the function.
+
+**Do not search-rewrite every word.**
+- Symptom: `rewriteSynonyms()` replaces each alias word, so "Corn Tortillas" becomes "Corn flour tortillas" and falls off page 1; 13 of 959 exact titles were lost, and "mac and cheese" was wrong.
+- Rule: rewrite only when the whole query is one alias, or run the original query first and use the rewrite as a fallback. Before shipping a search change, search all 959 exact titles and assert each is on page 1.
+
+**httpOnly cookies are invisible to `document.cookie`.**
+- Symptom: after wave 5/6 made auth cookies httpOnly, `accountProvider.hasAuthCookie()` always says no, so signed-in users see "Log in / Sign up", dead stars, no shopping or fridge import.
+- Rule: never gate client state on reading an auth cookie; call `/api/me`, or set a readable non-secret flag cookie. Test the signed-in UI in a real browser, not only the RPCs. Open bug.
+
+**Photo rules that failed in wave 7.**
+- Rule: `remove_photo.py` does not clean `commons_picks_w7.json`; rerunning `commons_w4.py build` re-adds a rejected file. After any removal, assert no rejected slug is in `photos.json`. Assert that no two recipes share a file hash and that no file is on a reject list. The verifier found 5 duplicated files and a rejected MyPlate-logo file back in. Put the recipe's steps next to each candidate photo, not only its title.
+
+**Worktree and tooling.**
+- Rule: a worktree cannot switch to a branch another worktree holds (`wave7/photos` was held by a dead earlier worktree); check `git worktree list` and delete stale ones. Git Bash rewrites URL paths such as `/recipes` into `C:/Program Files/Git/recipes`: set `MSYS_NO_PATHCONV=1`. Python on Windows needs `PYTHONUTF8=1` or `encoding="utf8"`. Docker `exec ... -f /tmp/x` is rewritten by Git Bash; pipe on stdin.
+
+**Next 15.5 streams metadata for non-bot agents on dynamic pages.**
+- Symptom: the description and canonical land in `<body>`, so Lighthouse reports no meta description on `/recipes` (SEO 92). Fix if wanted with `htmlLimitedBots` or blocking metadata.
+
+**Programmatic SEO URL sets are committed data.**
+- Rule: generate them with a reproducible read-only SQL script and `dynamicParams = false` only when the set changes solely with a deploy. (Parked on `wave7/seo-combos-later`.)

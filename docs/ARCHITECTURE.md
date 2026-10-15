@@ -21,15 +21,15 @@ Folders in parentheses are route groups: they share a layout and do not appear i
 | Group | Layout gives | Routes |
 |---|---|---|
 | `(landing)` | landing nav + footer | `/` |
-| `(site)` | `SiteHeader`, `SiteFooter`, `ShoppingSync`, error boundary | `/recipes`, `/recipes/[slug]`, `/pantry`, `/fridge`, `/shopping`, `/account`, `/about`, `/privacy`, `/terms`, `/kitchen-sink` (delete before launch), `/recipe-not-found` (internal 404 target) |
+| `(site)` | `SiteHeader`, `SiteFooter`, `ShoppingSync`, error boundary | `/recipes`, `/recipes/[slug]`, `/pantry`, `/fridge`, `/shopping`, `/account`, `/about`, `/privacy`, `/terms`, `/recipes/new` and `/recipes/[slug]/edit` (user recipes: built, **flag-gated**, 404 while `NEXT_PUBLIC_ENABLE_USER_RECIPES` is off, noindex, not in the sitemap), `/recipe-not-found` (internal 404 target). `/kitchen-sink` was deleted in wave 7. |
 | `(auth)` | centred auth card | `/login`, `/signup`, `/forgot-password`, `/reset-password` |
 | `admin` | `is_admin()` gate, 404 for everyone else | `/admin/review`, `/admin/review/list` |
-| `api` | none | `/api/me`, `/api/me/export`, `/api/fridge`, `/api/ingredients/suggest` (no caller now; candidate for deletion) |
+| `api` | none | `/api/me`, `/api/me/export`, `/api/fridge` (`/api/ingredients/suggest` was deleted in wave 7) |
 | `auth/callback` | none | email-link code exchange |
 
 Top level: `layout.tsx` (html, body, `NavProgress`), `not-found.tsx` (global 404, brings its own header and footer), `global-error.tsx`, `sitemap.ts`, `robots.ts`, `polish.css` (scroll lock, nav progress), `globals.css` (all colour tokens; **no raw hex anywhere else**).
 
-`src/middleware.ts` runs on only three things: `/recipes/<slug>` (real HTTP 404 for unknown slugs via `lib/recipeGate.ts`), `/account` and `/fridge` (redirect to login), and the auth routes (session refresh). It does no work on `/`, `/recipes`, `/pantry`.
+`src/middleware.ts` runs on only these: `/recipes/<slug>` (real HTTP 404 for unknown slugs via `lib/recipeGate.ts`; `new` is exempt, and `/recipes/new` plus `/recipes/<slug>/edit` redirect signed-out visitors to login), `/account` and `/fridge` (redirect to login), and the auth routes (session refresh). It does no work on `/`, `/recipes`, `/pantry`.
 
 ---
 
@@ -43,14 +43,15 @@ Rule: every Supabase call goes through `src/lib/queries/`. Components never call
 |---|---|
 | `account.ts` | Current user, display name, initial. Reused by `/api/me` and the export. |
 | `adminReview.ts` | Calls the `admin_*` RPCs for `/admin/review`. |
-| `browse.ts` | `/recipes` list via PostgREST, filter options, cached card extras. `unstable_cache`, 5 min. |
+| `browse.ts` | `/recipes` list via PostgREST, filter options, cached card extras. `unstable_cache`, 5 min. With `ownedOnly` it reads the `makeable_recipes(owned)` RPC (PostgREST cannot express "any member of an alt group is owned"). |
 | `favorites.ts` | Saved recipes for the signed-in user. |
 | `fridge.ts` | Read the saved fridge, shelf-life suggestions, `recipe_expiry_days`. |
 | `fridgeWrite.ts` | Fridge writes (replace, update dates). Validated upstream by `actions/fridge.ts`. |
 | `ingredientCatalog.ts` | The tap-picker catalog (aisles, families, aliases). Cached 1 h. |
 | `ingredients.ts` | `resolve_ingredient`, coverage, ingredient names. Import-gate helpers. |
 | `landing.ts` | Landing hero photos and the paged photo-credits list for `/about`. |
-| `matcher.ts` | `match_recipes` wrapper, cached 5 min, plus `suggest_ingredients`. |
+| `matcher.ts` | `match_recipes` wrapper, cached 5 min. (`suggestIngredients` was deleted in wave 7; the RPC stays in the database.) |
+| `myRecipes.ts` | User recipes: wrappers for `my_recipes`, `my_recipe_for_edit`, `save_my_recipe`, `delete_my_recipe`, `withdraw_my_recipe`, and the ingredient/unit name lists for the form (paged 1000 at a time). Still uses a loose cast; remove after `pnpm db:types`. |
 | `recipeDetail.ts` | One recipe with steps, ingredients, photo, nutrition. React `cache()`d. |
 | `recipes.ts` | Shared card types. Some dead exports (see review findings). |
 | `search.ts` | `search_recipes` wrapper and word resolution. |
@@ -81,12 +82,13 @@ Rule: every Supabase call goes through `src/lib/queries/`. Components never call
 
 | Folder | What is in it |
 |---|---|
-| `ui/` | shadcn-style primitives: `button`, `card`, `chip`, `input`, `label`, `select`, `textarea`, `metaRow`, `spiceDots`. `/kitchen-sink` shows them. |
+| `ui/` | shadcn-style primitives: `button`, `card`, `chip`, `input`, `label`, `select`, `textarea`, `metaRow`, `spiceDots`. (`/kitchen-sink` is gone; `select` is used by the recipe form.) |
 | `shell/` | `siteHeader`, `siteFooter`, `headerSearch`, `fridgeNavButton`, `navProgress` (top bar + dimmed results), `notFoundView`, `legalPage`, `skeletons`, `wordmark`. |
-| `recipe/` | `recipeCard`, `recipeList`, `recipePlaceholder`, `filterPanel`, `filterSheet` (phone), `servingsScaler` (+ have/missing marks), `myCookware`, `cookwareSync`, `backToResults`, `rememberList`. |
+| `recipe/` | `recipeForm` (user-recipe form, client), `recipeCard`, `recipeList`, `recipePlaceholder`, `filterPanel`, `filterSheet` (phone), `servingsScaler` (+ have/missing marks), `myCookware`, `cookwareSync`, `backToResults`, `rememberList`. |
 | `pantry/` | `fridgePicker` (tap bottom sheet, find box), `fridgeList` (the `/fridge` page), `localFridgeImport`. |
 | `shopping/` | `addToShoppingList`, `shoppingList`, `shoppingSync` (hands the local list to the account on sign-in). |
-| `account/` | `accountProvider` (session + favourites via `/api/me`), `authForms`, `favoriteButton`, `headerAccount`. |
+| `seo/` | `jsonLd` (Recipe JSON-LD; escapes `<`). |
+| `account/` | `myRecipeBook` (flag-gated tab), `accountProvider` (session + favourites via `/api/me`; known bug: gates on `document.cookie`, which is empty because auth cookies are httpOnly), `authForms`, `favoriteButton`, `headerAccount`. |
 | `admin/` | `reviewScreen`, `batchTable`, `reviewFilters`. |
 | `landing/` | `landingNav`, `landingCta`. |
 
@@ -98,7 +100,7 @@ Server Components by default. `"use client"` appears where there is state, effec
 
 ### Migrations timeline
 
-29 files. Never edit an applied one; add a new one. Where a function was redefined, **the current definition is in the newest file listed**.
+33 files (29 on live; the last four are wave 7 and are NOT applied to live until the owner says go). Never edit an applied one; add a new one. Where a function was redefined, **the current definition is in the newest file listed**.
 
 | Phase | Files (prefix) | What |
 |---|---|---|
@@ -108,14 +110,16 @@ Server Components by default. `"use client"` appears where there is state, effec
 | Wave 2: families + filters (Oct 10) | `20261010100000`-`100400` | ingredient families, filter args, NULL semantics, score float4, suggest latency |
 | Wave 3: photos first + accounts (Oct 11) | `20261011110000`, `120000` | `has_photo` tie-break, profiles/favourites/`delete_my_account` |
 | Wave 4: perf + admin (Oct 12) | `20261012100000`-`130000` | hashed RLS visibility, cookware filter, admin review, `jit=off` on RPCs |
+| Wave 7 (Oct 14) | `20261014100000` cookware alt groups, `100100` shopping add-batch, `120000` user recipes, `160000` user recipes hardening | `recipe_cookware.alt_group`, `makeable_recipes`, `p_add_batch`, author RPCs behind `feature_flags` |
 | Waves 5+6 (Oct 13) | `20261013100000` cookware vocabulary, `110000` photo sources, `130000` owned cookware, `140000` fridge, `150000` shopping list, `160000` security hardening | see below |
 
 ### Where each RPC is currently defined
 
 | Function | Current definition |
 |---|---|
-| `match_recipes` | `20261013130000_owned_cookware.sql` (copy the body from the live database, not an older file: `jit=off` and the trigram threshold live only in the newest) |
-| `search_recipes` | `20261013130000_owned_cookware.sql` |
+| `match_recipes` | `20261014100000_cookware_alt_groups.sql` (copy the body from the live database, not an older file: `jit=off` and the trigram threshold live only in the newest) |
+| `search_recipes` | `20261014100000_cookware_alt_groups.sql` |
+| `makeable_recipes` | `20261014100000_cookware_alt_groups.sql` |
 | `suggest_ingredients` | `20261010100400_suggest_latency.sql` |
 | `resolve_ingredient`, `strip_ingredient_modifiers` | `20260918205149_modifier_stripping.sql` |
 | `resolve_unit` | `20260918205149_modifier_stripping.sql` |
@@ -127,7 +131,12 @@ Server Components by default. `"use client"` appears where there is state, effec
 | `handle_new_user`, `delete_my_account` | `20261011120000_accounts.sql` |
 | `is_admin`, `admin_*` | `20261012120000_admin_review.sql` |
 | `suggested_shelf_life`, `recipe_expiry_days` | `20261013140000_fridge.sql` |
-| `add_recipe_to_shopping_list`, `import_local_shopping_list` | `20261013150000_shopping_list.sql` |
+| `add_recipe_to_shopping_list` (now 5 arguments, `p_add_batch`) | `20261014100100_shopping_list_add_batch.sql` |
+| `import_local_shopping_list` | `20261013150000_shopping_list.sql` |
+| `save_my_recipe`, `delete_my_recipe`, `withdraw_my_recipe`, `my_recipes`, `my_recipe_for_edit` | real bodies in schema `private` and thin `public` wrappers that raise 42501 while `feature_flags.user_recipes` is off: `20261014160000_user_recipes_hardening.sql` (first defined in `20261014120000_user_recipes.sql`) |
+| `admin_set_review` (undo of an approved user recipe returns it to `in_review`), `admin_review_list`, `admin_review_neighbors`, `admin_recipe_detail`, `admin_update_recipe`, `admin_review_progress`, `recipe_source_key` | `20261014160000` for `admin_set_review`; the rest `20261014120000_user_recipes.sql` (`admin_in_scope` hides never-submitted drafts) |
+| `delete_my_account` (also deletes the person's recipes) | `20261014120000_user_recipes.sql` |
+| `user_recipe_text` (control and bidi characters stripped) | `20261014160000_user_recipes_hardening.sql` (ASCII-only escapes) |
 
 A new trailing argument changes a function's signature: `DROP` then `CREATE`, or PostgREST reports an ambiguous function.
 
@@ -153,6 +162,9 @@ SQL suites run with `psql -v ON_ERROR_STOP=1` against a snapshot or local stack.
 | `accounts_rls_test.sh` | favourites and profile isolation |
 | `fridge_rls_test.sh`, `shopping_list_test.sql`, `shopping_list_api_test.sh`, `user_cookware_rls_test.sql` | owner-only data |
 | `security_hardening_test.sql` | author cannot write the catalog; grants narrowed |
+| `cookware_alt_groups_test.sql` | 45 assertions: either/or cookware in matcher, search and browse |
+| `shopping_add_batch_test.sql` | replace by default, `p_add_batch` keeps and sums |
+| `user_recipes_test.sql` | author RPC-only writes, caps, validation, review lifecycle, feature switch, undo-approval un-publishes. Run as a non-superuser on a local stack too |
 
 The written regression plan is `docs/RLS-TEST-PLAN.md` (+ `-admin`).
 
@@ -167,11 +179,12 @@ The written regression plan is `docs/RLS-TEST-PLAN.md` (+ `-admin`).
 | `myplate/` | `fetch.sh` (gentle, JOBS=2) -> `extract.py` -> `build_import.py` -> `import.sh`. Internet Archive source. |
 | `content/` | The 100 "Minced original" recipes: text in `recipes/*.txt`, `build_original.py`, `apply.sh`. Edit the `.txt`, not the DB. |
 | `nutrition/` | USDA FDC pipeline for non-MyPlate recipes. |
-| `cookware/` | `assignments.tsv` + `step_edits.tsv` -> `build.py` -> `supabase/seed-cookware.sql`. |
+| `cookware/` | `assignments.tsv` + `step_edits.tsv` + `alt_groups.tsv` (36 either/or recipes) -> `build.py` -> `supabase/seed-cookware.sql`. |
 | `photos/` | Candidate search (Commons, Openverse, MyPlate) -> manifests -> `process_images.py` -> `upload_photos.py --apply` -> `apply_manifest.py > seed-photos.sql`. Remove with `remove_photo.py`. README inside. |
+| `seo/` | Reserved; the combo generator `combos.sql` lives only on branch `wave7/seo-combos-later`. |
 | `perf/` | TTFB, CDP paint metrics, round-trip timing. |
 | `dedupe-recipes.sql`, `seed-issues.sh`, `db-seed.sh` | One-offs and seeding. |
-| `test-scaling.mts`, `test-shopping.mts` | `node --experimental-strip-types scripts/test-*.mts` |
+| `test-scaling.mts`, `test-shopping.mts`, `test-recipe-form.mts` | `node --experimental-strip-types scripts/test-*.mts` |
 
 ---
 
