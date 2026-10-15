@@ -52,10 +52,13 @@ def excluded_files() -> set[str]:
 
 def cmd_search(path: str, out: str, thr: float, keep: int) -> None:
     recs = json.loads(Path(path).read_text(encoding="utf-8"))
-    res = {}
+    outp = CACHE / "commons" / out
+    res = json.loads(outp.read_text(encoding="utf-8")) if outp.exists() else {}   # resumable: slugs already searched are kept
     skip = excluded_files()
     for rec in recs:
         slug, title = rec["slug"], rec["title"]
+        if slug in res:
+            continue
         qs = list(dict.fromkeys(rec.get("queries", []) + R2.queries(title)))
         seen, cands = set(), []
         for q in qs:
@@ -102,7 +105,11 @@ def cmd_sheets(per: int, top: int, pattern: str = "cand_w4_*.json") -> None:
     for f in sorted((CACHE / "commons").glob(pattern)):
         cands.update(json.loads(f.read_text(encoding="utf-8")))
     tiles = []
+    done_f = CACHE / "commons" / "reviewed_slugs.txt"      # slugs already looked at in an earlier round of sheets
+    done = set(done_f.read_text(encoding="utf-8").split()) if done_f.exists() else set()
     for slug, v in cands.items():
+        if slug in done:
+            continue
         for i, r in enumerate(v["cands"][:top]):
             p = CACHE / "commons" / "review4" / slug / f"{i}.jpg"
             if p.exists():
