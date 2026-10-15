@@ -6061,25 +6061,6 @@
     "image_cache": "commons/images/tuna-melt-burger.bin"
   },
   {
-    "slug": "avocado-breakfast-bruschetta",
-    "recipe_title": "Avocado Breakfast Bruschetta",
-    "source": "wikimedia_commons",
-    "license": "CC BY 2.0",
-    "license_raw": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "author": "Luca Nebuloni from Milan, Italy",
-    "credit": "Luca Nebuloni",
-    "alt_text": "Avocado Breakfast Bruschetta",
-    "credit_line": "Avocado toast with eggs",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Avocado_toast_with_eggs_(28508171495).jpg",
-    "source_image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Avocado_toast_with_eggs_%2828508171495%29.jpg/1280px-Avocado_toast_with_eggs_%2828508171495%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "file": "File:Avocado toast with eggs (28508171495).jpg",
-    "description": "Avocado toast with eggs (Recipe in italian with translation available: Mangia con Me )",
-    "sha256": "81c8f7412c7d5f48c3d1ed1557df127003631f292c72d08252a40fbb4ead0ff7",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Avocado_toast_with_eggs_(28508171495).jpg reports licence 'CC BY 2.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/avocado-breakfast-bruschetta.bin"
-  },
-  {
     "slug": "chimichurri-sauce",
     "recipe_title": "Chimichurri Sauce",
     "source": "wikimedia_commons",
@@ -6346,25 +6327,6 @@
     "image_cache": "commons/images/roasted-pork-tacos-pico-de-gallo.bin"
   },
   {
-    "slug": "sweet-potato-patties",
-    "recipe_title": "Sweet Potato Patties",
-    "source": "wikimedia_commons",
-    "license": "CC BY 2.0",
-    "license_raw": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "author": "Gail from Calgary, Canada",
-    "credit": "Gail",
-    "alt_text": "Sweet Potato Patties",
-    "credit_line": "patty cake",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Patty_cake_(5670175839).jpg",
-    "source_image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Patty_cake_%285670175839%29.jpg/1280px-Patty_cake_%285670175839%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "file": "File:Patty cake (5670175839).jpg",
-    "description": "Sweet potato and quinoa cakes <a href='http://thepinkpeppercorn.blogspot.com/2011/05/patty-cake.html' data-x-rel='nofollow'>The Pink Peppercorn</a>",
-    "sha256": "6724df6281d55b19d0275151a9bc850d6d930f3821362c60e6c41fe40cdf3e56",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Patty_cake_(5670175839).jpg reports licence 'CC BY 2.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/sweet-potato-patties.bin"
-  },
-  {
     "slug": "beef-pot-roast",
     "recipe_title": "Beef Pot Roast",
     "source": "wikimedia_commons",
@@ -6439,25 +6401,6 @@
     "sha256": "a66c521133c2b0933f84ee4891d8145c957082da4433f10dc8dce9d2229df0af",
     "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Sandal_sefasi.jpg reports licence 'CC BY-SA 4.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
     "image_cache": "commons/images/stuffed-summer-squash.bin"
-  },
-  {
-    "slug": "fruit-salad-jicama",
-    "recipe_title": "Fruit Salad with Jicama",
-    "source": "wikimedia_commons",
-    "license": "CC BY-SA 4.0",
-    "license_raw": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-    "author": "Bukky658",
-    "credit": "Bukky658",
-    "alt_text": "Fruit Salad with Jicama",
-    "credit_line": "Own work",
-    "attribution_url": "https://commons.wikimedia.org/wiki/File:Fruit_salads.jpg",
-    "source_image_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Fruit_salads.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-    "file": "File:Fruit salads.jpg",
-    "description": "This is an image with the theme \" Health and Wellness in Africa \" from:",
-    "sha256": "ef721f87c429866022a03110e0b7bc1801ccb149e65d67d23d0884eacd1d124d",
-    "evidence": "Commons file page https://commons.wikimedia.org/wiki/File:Fruit_salads.jpg reports licence 'CC BY-SA 4.0' via the MediaWiki API (extmetadata.LicenseShortName); image reviewed by a human/agent as showing this dish.",
-    "image_cache": "commons/images/fruit-salad-jicama.bin"
   },
   {
     "slug": "lite-fried-okra",

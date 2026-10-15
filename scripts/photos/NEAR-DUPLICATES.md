@@ -19,7 +19,6 @@ check on `manifest/photos.json`. Every pair below was compared by hand (ingredie
 |---|---|---|
 | heavenly-deviled-eggs | deviled-eggs | same dish; keeper has the fuller steps |
 | tostadas-delgadas | tostadas | same dish; keeper has more ingredients and steps |
-| scalloped-potatoes-ii | scalloped-potatoes | same dish (potato, onion, margarine, flour, milk); keeper has times and a photo |
 
 Favourites and shopping-list "from this recipe" links on a deleted recipe are re-pointed at the keeper first.
 
@@ -28,6 +27,7 @@ Favourites and shopping-list "from this recipe" links on a deleted recipe are re
 | Pair | Why kept |
 |---|---|
 | muffins / pancakes / drop-biscuits (better baking mix) | same mix, different dishes |
+| scalloped-potatoes-ii / scalloped-potatoes | Correction 2026-10-15: earlier text called -ii the weaker copy. It has more ingredients and steps and a different method (oven casserole, 1 hour, vs stovetop skillet, 15 minutes). Both kept; owner may still choose to merge. |
 | peanut-butter-bread, peanut-butter-muffins, three-grain-peanut-bread | loaf, muffin, grain loaf |
 | tasty-chicken-and-veggie-packets, tasty-fish-and-veggie-packets | chicken vs fish |
 | tomato-basil-bruschetta, tomato-basil-soup | appetiser vs soup |

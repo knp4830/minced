@@ -10,7 +10,8 @@
 -- Each row is (loser, keeper): the loser is deleted, the keeper stays.
 --   heavenly-deviled-eggs -> deviled-eggs        eggs + mayonnaise (+ mustard or salt/pepper); same dish. Keeper has the fuller steps.
 --   tostadas-delgadas     -> tostadas            flour tortillas, refried beans, lettuce, tomato, cheese; same dish. Keeper has more ingredients.
---   scalloped-potatoes-ii -> scalloped-potatoes  potatoes, onion, margarine, flour, milk; same dish. Keeper has times and a photo.
+--   (scalloped-potatoes-ii is NOT deleted: it is an oven casserole, 1 hour, with more ingredients and steps than
+--    scalloped-potatoes, a 15-minute stovetop skillet. Different method; kept pending the owner's say-so.)
 --
 -- Handled before the delete:
 --   favorites           re-pointed at the keeper (skipped if the user already saved the keeper).
@@ -24,8 +25,7 @@ begin;
 create temp table nd_pairs (loser text primary key, keeper text not null) on commit drop;
 insert into nd_pairs (loser, keeper) values
   ('heavenly-deviled-eggs', 'deviled-eggs'),
-  ('tostadas-delgadas',     'tostadas'),
-  ('scalloped-potatoes-ii', 'scalloped-potatoes');
+  ('tostadas-delgadas',     'tostadas');
 
 create temp table nd_plan on commit drop as
 select l.id as loser_id, l.slug as loser, k.id as keeper_id, k.slug as keeper
