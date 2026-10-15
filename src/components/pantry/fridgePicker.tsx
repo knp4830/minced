@@ -1,7 +1,8 @@
 "use client";
 
 import { Check, Refrigerator, Search, X } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useAccount } from "@/components/account/accountProvider";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,7 @@ import { Chip } from "@/components/ui/chip";
 import { saveFridge } from "@/lib/actions/fridge";
 import { FRIDGE_CHANGED, fetchSavedFridge } from "@/lib/fridgeClient";
 import { todayIso } from "@/lib/fridgeDates";
-import { readFridge, writeFridge, type FridgeItem } from "@/lib/fridgeStorage";
+import type { FridgeItem } from "@/lib/fridgeStorage";
 import type { CatalogItem, IngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import { cn } from "@/lib/utils";
 
@@ -19,16 +20,17 @@ import { cn } from "@/lib/utils";
  * any of it. No typing is ever required; the find box inside the sheet exists
  * for the rare item that is not among a tab's most-used chips.
  *
- *  - "hero": the button on the landing page. Remembers the fridge in
- *    localStorage and shows how many things are in it.
+ *  - "hero": the button on the landing page. Shows how many things are in the
+ *    saved fridge (signed in only).
  *  - "page": /pantry. The URL is the truth (`?pantry=12,40`): the committed
  *    items render as removable chips and every change pushes a new URL.
  *
  *  - "manage": /fridge. Only the button; the saved fridge is the server-rendered
  *    list around it, and "Save fridge" writes it without leaving the page.
  *
- * Where the fridge lives. Signed out: the URL plus localStorage, as before.
- * Signed in: the database (fridge_items) is the truth and the URL is the working
+ * Where the fridge lives. Signed out: the URL only. Nothing is saved in the
+ * browser; the picker is open to everyone and a gentle note offers an account
+ * to keep the fridge. Signed in: the database (fridge_items) is the truth and the URL is the working
  * view of it. An empty /pantry URL loads the saved fridge; committing a change
  * saves it. Opening someone's shared link never overwrites the saved fridge --
  * only an edit made here does.
@@ -41,6 +43,31 @@ import { cn } from "@/lib/utils";
 
 const TOP_N = 20;
 const FIND_LIMIT = 60;
+
+/** Fired by the header button when the picker page is already open. */
+export const OPEN_FRIDGE_PICKER = "minced:open-fridge-picker";
+
+/** "Sign in to save your fridge": the gentle prompt for signed-out visitors. Hidden while the session is still being checked. */
+function SaveFridgePrompt({ className, onNavigate }: { className?: string; onNavigate?: () => void }) {
+  const pathname = usePathname();
+  const [here, setHere] = useState(pathname);
+  useEffect(() => {
+    setHere(window.location.pathname + window.location.search);
+  }, [pathname]);
+  const next = here.length <= 300 ? `?next=${encodeURIComponent(here)}` : "";
+  return (
+    <p className={cn("text-[0.8125rem] leading-snug text-ink-muted", className)}>
+      <Link
+        href={`/login${next}`}
+        onClick={onNavigate}
+        className="font-medium text-ink underline underline-offset-4 hover:text-herb"
+      >
+        Sign in to save your fridge
+      </Link>
+      <span> and keep it on every device. You can search without an account.</span>
+    </p>
+  );
+}
 
 export type FridgePickerProps = {
   catalog: IngredientCatalog;
@@ -69,6 +96,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   const router = useRouter();
   const { status } = useAccount();
   const signedIn = status === "in";
+  const signedOut = status === "out";
   const [saveError, setSaveError] = useState(false);
   const [confirmEmpty, setConfirmEmpty] = useState(false);
   const uid = useId();
@@ -76,6 +104,8 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const [committed, setCommitted] = useState<FridgeItem[]>(initial);
+  const committedRef = useRef(committed);
+  committedRef.current = committed;
   const [draft, setDraft] = useState<FridgeItem[]>(initial);
   const [tab, setTab] = useState(catalog.categories[0]?.name ?? "");
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
@@ -116,24 +146,29 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
       };
     }
 
-    // Signed out: URL wins; storage only fills an empty one.
-    if (variant === "page") {
-      if (initial.length > 0) {
-        writeFridge(initial);
-        return;
-      }
-      const stored = readFridge();
-      if (stored.length > 0) {
-        setCommitted(stored);
-        startNavProgress();
-        router.replace(pantryUrl(stored, true));
-      }
-      return;
-    }
-    const stored = readFridge();
-    if (stored.length > 0) setCommitted(stored);
+    // Signed out: nothing is stored or restored. The URL is the whole fridge.
     // eslint-disable-next-line react-hooks/exhaustive-deps -- re-run on sign-in changes only
   }, [status]);
+
+  // "What's in my fridge?" in the header opens the picker straight away, via ?pick=1
+  // from another page or an event when already here. Page variant only.
+  useEffect(() => {
+    if (variant !== "page") return;
+    const open = () => {
+      setDraft(committedRef.current);
+      setQuery("");
+      if (!dialogRef.current?.open) dialogRef.current?.showModal();
+    };
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("pick") === "1") {
+      params.delete("pick");
+      const qs = params.toString().replaceAll("%2C", ",");
+      window.history.replaceState(null, "", `${window.location.pathname}${qs ? `?${qs}` : ""}`);
+      open();
+    }
+    window.addEventListener(OPEN_FRIDGE_PICKER, open);
+    return () => window.removeEventListener(OPEN_FRIDGE_PICKER, open);
+  }, [variant]);
 
   const catalogIds = useMemo(
     () => new Set(catalog.categories.flatMap((c) => c.items.map((i) => i.id))),
@@ -221,7 +256,6 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
       return;
     }
     if (signedIn) void persist(items);
-    else writeFridge(items);
     router.push(pantryUrl(items, variant === "page"), { scroll: variant !== "page" });
   }
 
@@ -337,6 +371,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
               </span>
             )}
           </div>
+          {signedOut && count > 0 && <SaveFridgePrompt className="mt-3 max-w-[34rem]" />}
           {saveError && (
             <p role="alert" className="mt-2 text-[0.8125rem] text-paprika-deep">
               Could not save your fridge just now. The link still has it; try again.
@@ -375,6 +410,10 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
             Tap everything you have. One is enough: you&apos;ll see every recipe that uses any of
             it. Salt, pepper, oil, butter, sugar, flour and water are assumed.
           </p>
+
+          {signedOut && variant !== "manage" && (
+            <SaveFridgePrompt className="mb-3" onNavigate={closeSheet} />
+          )}
 
           <div className="flex min-h-11 items-center gap-2 rounded-field border border-line bg-sunken px-3 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20">
             <Search aria-hidden className="size-4 shrink-0 text-stone" />

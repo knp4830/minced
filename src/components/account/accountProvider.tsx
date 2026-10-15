@@ -224,12 +224,14 @@ function LoginPrompt({ returnTo, onClose }: { returnTo: string | null; onClose: 
       <div className="mt-4 flex flex-col gap-2.5">
         <Link
           href={`/login?next=${next}`}
+          onClick={onClose}
           className={buttonVariants({ variant: "primary", size: "md" })}
         >
           Log in
         </Link>
         <Link
           href={`/signup?next=${next}`}
+          onClick={onClose}
           className={buttonVariants({ variant: "secondary", size: "md" })}
         >
           Create an account

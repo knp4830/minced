@@ -27,9 +27,10 @@ export function CookwareSync({ owned, only }: { owned: string[]; only: boolean }
 
   const key = `${owned.join(",")}|${only ? 1 : 0}`;
   useEffect(() => {
-    if (owned.length > 0 || only) writeCookware({ slugs: owned, only });
+    // Signed-in only: a signed-out visitor's choices are not kept on the device.
+    if (status === "in" && (owned.length > 0 || only)) writeCookware({ slugs: owned, only });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `key` covers owned + only
-  }, [key]);
+  }, [key, status]);
 
   useEffect(() => {
     if (status === "loading") {
@@ -41,6 +42,7 @@ export function CookwareSync({ owned, only }: { owned: string[]; only: boolean }
     if (status === "out" && hasAuthCookie() && !sawLoading.current) return;
     if (restored.current) return;
     restored.current = true;
+    if (status !== "in") return; // "My cookware" is a signed-in feature: nothing to restore
     if (owned.length > 0 || only) return;
 
     let cancelled = false;
