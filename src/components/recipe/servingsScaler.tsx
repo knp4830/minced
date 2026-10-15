@@ -69,21 +69,23 @@ export function ServingsScaler({
   const stapleNames = [
     ...new Set(ingredients.filter((l) => l.isStaple).map((l) => l.name.toLowerCase())),
   ];
+  const stapleList =
+    stapleNames.length <= 1
+      ? (stapleNames[0] ?? "")
+      : `${stapleNames.slice(0, -1).join(", ")} and ${stapleNames[stapleNames.length - 1]}`;
   const assumed =
     stapleNames.length === 0
       ? null
-      : `${
-          stapleNames.length === 1
-            ? stapleNames[0]
-            : `${stapleNames.slice(0, -1).join(", ")} and ${stapleNames[stapleNames.length - 1]}`
-        } ${stapleNames.length === 1 ? "is" : "are"} assumed`;
+      : `We assume you already have ${stapleList} (basic pantry staples), so ${
+          stapleNames.length === 1 ? "it isn't" : "they aren't"
+        } counted in this tally.`;
   const changed = servings !== baseServings;
 
   // Prep notes: alternatives and sizes follow the servings, and a bare "optional" on a line
   // already marked (optional) would say it twice.
   const notes = ingredients.map((line) => {
     if (!line.prepNote) return null;
-    const scaled = scaleNoteAmounts(line.prepNote, baseServings, servings);
+    const scaled = scaleNoteAmounts(line.prepNote, baseServings, servings, line.unit);
     const text = line.optional
       ? scaled
           .split(/,\s*/)
@@ -144,7 +146,7 @@ export function ServingsScaler({
           </span>
           {fromSaved && " from your fridge"}{" "}
           {haveCount === needed.length ? "· nothing missing" : "· the rest are marked below"}
-          {assumed && <span className="block pt-0.5">{assumed}.</span>}
+          {assumed && <span className="block pt-0.5">{assumed}</span>}
         </p>
       )}
 

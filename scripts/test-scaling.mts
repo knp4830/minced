@@ -72,5 +72,21 @@ assert.equal(scaleNoteAmounts("15 ounce can, drained", 2, 4), "15 ounce can, dra
 assert.equal(scaleNoteAmounts("14.5 oz each, drained", 2, 4), "14.5 oz each, drained");
 assert.equal(scaleNoteAmounts("cut into 1/2 inch pieces", 2, 4), "cut into 1/2 inch pieces");
 assert.equal(scaleNoteAmounts("or 1 cup", 4, 4), "or 1 cup");
+// Package sizes on can lines are never scaled (massaman, tomato soup).
+assert.equal(scaleNoteAmounts("13.5 oz", 4, 8, "can"), "13.5 oz");
+assert.equal(scaleNoteAmounts("14.5 ounce, drained, or use 6 cups cooked", 4, 12, "can"), "14.5 ounce, drained, or use 6 cups cooked");
+assert.equal(scaleNoteAmounts("14.5 ounces", 4, 8, null), "14.5 ounces");
+assert.equal(scaleNoteAmounts("16 ounce dried, rinsed", 4, 8, "lb"), "16 ounce dried, rinsed");
+assert.equal(scaleNoteAmounts("1 1/2 pounds", 4, 8, null), "3 lb");
+// Counts that name a thing follow the servings and agree in number.
+assert.equal(scaleNoteAmounts("4 drumsticks, 4 breasts", 10, 20, "piece"), "8 drumsticks, 8 breasts");
+assert.equal(scaleNoteAmounts("1/2 orange", 5, 10, "cup"), "1 orange");
+assert.equal(scaleNoteAmounts("1 orange", 2, 6, "cup"), "3 oranges");
+assert.equal(scaleNoteAmounts("2-3 bananas", 3, 6, null), "4-6 bananas");
+assert.equal(scaleNoteAmounts("1 medium eggplant", 8, 16, "cup"), "2 medium eggplant");
+assert.equal(scaleNoteAmounts("1 bunch", 4, 8, "cup"), "2 bunches");
+assert.equal(scaleNoteAmounts("3 limes, optional", 16, 8, null), "1 1/2 limes, optional");
+assert.equal(scaleNoteAmounts("85% lean", 4, 8, "lb"), "85% lean");
+assert.equal(scaleNoteAmounts("6 inch", 4, 8, null), "6 inch");
 
 console.log("scaling: all assertions passed");

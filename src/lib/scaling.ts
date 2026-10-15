@@ -224,23 +224,62 @@ const NOTE_UNITS: Record<string, string> = {
 };
 const NOTE_AMOUNT =
   /(?<![\w/.-])(\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d+\/\d+)\s*(teaspoons?|tsps?|tablespoons?|tbsps?|cups?|pounds?|lbs?|ounces?|oz)\b\.?(?!\s*(?:-|each|cans?|packages?|jars?|bags?|bottles?|boxes|box|cartons?|containers?))/gi;
-const NOTE_COUNT = /(?<![\w/.-])(\d+(?:\.\d+)?|\d+\/\d+)(?=\s+(?:large|medium|small)\b)/gi;
+const NUM = String.raw`\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d+\/\d+`;
+const SIZE_WORDS = "large|medium|small|full";
+const COUNT_NOUNS =
+  "bunch(?:es)?|sticks?|oranges?|limes?|lemons?|bananas?|breasts?|drumsticks?|thighs?|fillets?|portions?|slices?|stalks?|packages?|squash|eggplants?|onions?|sprigs?|cloves?";
+// "2 large", "2-3 bananas", "1/2 package", "4 drumsticks": a count that follows the servings.
+const NOTE_COUNT = new RegExp(
+  String.raw`(?<![\w/.-])(${NUM})(?:(\s*(?:-|to)\s*)(${NUM}))?(\s+)(?:(${SIZE_WORDS})\b|(${COUNT_NOUNS})\b)`,
+  "gi",
+);
+// A weight written first in a note ("14.5 ounces", "13.5 oz") on a line that is not a measured
+// volume is the size of the package or piece, not a quantity of the recipe.
+const NOTE_PACKAGE_LEAD = /^\s*\d+(?:\.\d+)?(?:\s+\d+\/\d+)?\s*-?\s*(?:oz|ounces?)\b/i;
+const CONTAINER_UNITS = new Set(["can"]);
+const VOLUME_UNITS = new Set(["tsp", "tbsp", "cup", "ml", "l", "fl oz", "pt", "qt", "gal"]);
+
+/** "orange" <-> "oranges" to follow the scaled count; more than 1 is plural, 1 or less singular. */
+function pluralNoun(noun: string, n: number): string {
+  const lower = noun.toLowerCase();
+  if (lower === "squash") return noun;
+  const one = lower.startsWith("bunch") ? "bunch" : lower.replace(/s$/, "");
+  const out = n > 1 ? (one === "bunch" ? "bunches" : `${one}s`) : one;
+  return noun[0] === noun[0].toUpperCase() ? out[0].toUpperCase() + out.slice(1) : out;
+}
 
 /**
  * Prep notes are cleaned of the ingredient's own amount (scripts/cleanup), but some keep a
  * second amount that belongs to an alternative ("or 1/2 teaspoon garlic powder") or a size
  * ("2 large"). Those follow the servings too. Package sizes ("15 ounce can") are left alone.
  */
-export function scaleNoteAmounts(note: string, baseServings: number, targetServings: number): string {
+export function scaleNoteAmounts(
+  note: string,
+  baseServings: number,
+  targetServings: number,
+  /** The ingredient line's own unit: a can's "13.5 oz" is its size, not an amount to scale. */
+  lineUnit?: string | null,
+): string {
   if (targetServings === baseServings || !(baseServings > 0)) return note;
+  if (lineUnit && CONTAINER_UNITS.has(lineUnit)) return note;
+  if (NOTE_PACKAGE_LEAD.test(note) && !(lineUnit && VOLUME_UNITS.has(lineUnit))) return note;
+  const factor = targetServings / baseServings;
   const scaled = note.replace(NOTE_AMOUNT, (whole, num: string, unit: string) => {
     const n = parseAmount(num);
     if (!Number.isFinite(n) || n <= 0) return whole;
     const q = displayQuantity({ quantity: n, unit: NOTE_UNITS[unit.toLowerCase()] }, baseServings, targetServings);
     return `${q.approx ? "about " : ""}${q.amount}${q.unit ? ` ${q.unit}` : ""}`;
   });
-  return scaled.replace(NOTE_COUNT, (whole, num: string) => {
-    const n = parseAmount(num);
-    return Number.isFinite(n) && n > 0 ? formatAmount((n * targetServings) / baseServings) : whole;
-  });
+  return scaled.replace(
+    NOTE_COUNT,
+    (whole, a: string, sep: string | undefined, b: string | undefined, gap: string, size?: string, noun?: string) => {
+      const x = parseAmount(a);
+      if (!Number.isFinite(x) || x <= 0) return whole;
+      const first = formatAmount(x * factor);
+      const hi = b === undefined ? x : parseAmount(b);
+      const text = b === undefined ? first : `${first}${sep}${formatAmount(hi * factor)}`;
+      if (size) return `${text}${gap}${size}`;
+      return `${text}${gap}${pluralNoun(noun as string, hi * factor)}`;
+    },
+  );
 }
