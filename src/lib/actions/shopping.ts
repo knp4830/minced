@@ -9,6 +9,7 @@ import {
   setChecked,
   type AddResult,
 } from "@/lib/queries/shopping";
+import { SLUG_RE } from "@/lib/validate";
 
 /*
  * Server Actions are public HTTP endpoints: everything arriving here is
@@ -16,7 +17,6 @@ import {
  * (RLS) regardless.
  */
 
-const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,150}$/;
 const isId = (n: unknown): n is number =>
   Number.isInteger(n) && (n as number) > 0 && (n as number) < 2 ** 31;
 

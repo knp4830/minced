@@ -88,6 +88,8 @@ create temp table ids (k text primary key, v uuid);
 grant all on ids to public;
 create temp table before_counts as select count(*) as n from recipes;
 select count(*) as imported_recipes from recipes \gset
+-- The feature switch ships OFF (section 14 tests that); everything below runs with it on.
+update feature_flags set enabled = true where name = 'user_recipes';
 
 -- ===== 1. anon cannot write or call anything ============================================
 set local role anon;
@@ -311,6 +313,13 @@ select t_assert((select count(*) = 0 from recipe_ingredients where recipe_id = (
 select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000ad', true);
 set local role authenticated;
 select admin_set_review(array[:'s_sub'], 'unreviewed');
+reset role;
+select t_assert((select status = 'in_review' from recipes where id = (select v from ids where k = 'a_sub')), 'undoing an approval pulls the user recipe back to in_review');
+set local role anon;
+select t_assert((select count(*) = 0 from recipes where id = (select v from ids where k = 'a_sub')), 'un-approved user recipe is not public');
+reset role;
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000ad', true);
+set local role authenticated;
 select admin_set_review(array[:'s_sub'], 'approved');
 reset role;
 select t_assert((select status = 'published' from recipes where id = (select v from ids where k = 'a_sub')), 'republished');
@@ -381,6 +390,26 @@ select t_assert((select count(*) = 0 from pg_proc p join pg_namespace n on n.oid
                 'all author RPCs are SECURITY DEFINER with a pinned search_path');
 select t_assert((select not has_function_privilege('anon', 'save_my_recipe(uuid,jsonb,boolean)', 'execute')), 'anon cannot execute save_my_recipe');
 select t_assert((select not has_function_privilege('authenticated', 'user_recipe_text(text,text,integer,integer,boolean)', 'execute')), 'helpers not callable');
+
+-- ===== 14. the feature switch gates every author RPC =================================================
+update feature_flags set enabled = false where name = 'user_recipes';
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000a1', true);
+set local role authenticated;
+select t_expect($q$select save_my_recipe(null, t_data(), true)$q$, '42501');
+select t_expect($q$select my_recipes()$q$, '42501');
+select t_expect($q$select my_recipe_for_edit(gen_random_uuid())$q$, '42501');
+select t_expect($q$select delete_my_recipe(gen_random_uuid())$q$, '42501');
+select t_expect($q$select withdraw_my_recipe(gen_random_uuid())$q$, '42501');
+select t_expect($q$select private.save_my_recipe(null, t_data(), true)$q$, '42501');   -- no schema access
+select t_expect($q$select feature_enabled('user_recipes')$q$, '42501');
+select t_expect($q$select * from feature_flags$q$, '42501');
+reset role;
+update feature_flags set enabled = true where name = 'user_recipes';
+select t_assert((select not has_schema_privilege('authenticated', 'private', 'usage')), 'private schema not usable by API roles');
+select t_assert((select not has_function_privilege('authenticated', 'private.save_my_recipe(uuid,jsonb,boolean)', 'execute')), 'impl not executable');
+select t_assert((select not has_table_privilege('anon', 'feature_flags', 'select')), 'flags table closed');
+select t_assert(user_recipe_text('a' || chr(8203) || chr(8238) || chr(65279) || 'b', 't', 1, 10) = 'ab', 'zero-width and bidi characters stripped');
+do $$ begin raise notice 'ok: 14 feature switch'; end $$;
 
 do $$ begin raise notice 'ALL PASSED'; end $$;
 rollback;

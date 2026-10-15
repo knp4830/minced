@@ -104,8 +104,6 @@ export function formatQuantity(n: number | null): string {
   return String(Math.round(n * 1000) / 1000);
 }
 
-export const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-export const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,150}$/;
 
 export type RecipeStatus = "draft" | "in_review" | "published";
 

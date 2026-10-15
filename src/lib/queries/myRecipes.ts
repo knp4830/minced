@@ -9,8 +9,9 @@ import { createStaticClient } from "@/lib/supabase/static";
  * The signed-in cook's own recipes (M5). Authors have NO table privileges on
  * recipes: every read and write here is a SECURITY DEFINER RPC that takes the
  * author from auth.uid() (see 20261014120000_user_recipes.sql). The RPCs are
- * reached through a loose call signature because src/types/database.ts is
- * regenerated at integration, after the migration is applied.
+ * reached through a loose call signature (kept until src/types/database.ts is
+ * regenerated after 20261014160000_user_recipes_hardening, which re-creates the
+ * five RPCs as wrappers behind the database-side feature switch).
  */
 
 type RpcResult = { data: unknown; error: { message: string; code?: string; hint?: string } | null };
@@ -80,6 +81,19 @@ export async function resolveIngredientName(name: string): Promise<string | null
   return rows[0]?.canonical_name ?? null;
 }
 
+/** PostgREST caps a response at max_rows (1000): page through so a growing vocabulary is never cut silently. */
+async function selectAll(sb: SupabaseClient, table: string, column: string) {
+  const PAGE = 1000;
+  const rows: Record<string, unknown>[] = [];
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await sb.from(table).select(column).order(column).range(from, from + PAGE - 1);
+    if (error) return { data: null, error };
+    const batch = (data ?? []) as unknown as Record<string, unknown>[];
+    rows.push(...batch);
+    if (batch.length < PAGE) return { data: rows, error: null };
+  }
+}
+
 async function loadFormOptions(): Promise<FormOptions> {
   const sb = createStaticClient() as unknown as SupabaseClient;
   const [cuisines, diets, cookware, units, ingredients, aliases] = await Promise.all([
@@ -87,8 +101,8 @@ async function loadFormOptions(): Promise<FormOptions> {
     sb.from("diets").select("id, name").order("id"),
     sb.from("cookware").select("id, name").order("name"),
     sb.from("units").select("name, kind").order("kind").order("name"),
-    sb.from("ingredients").select("canonical_name").limit(5000),
-    sb.from("ingredient_aliases").select("alias").limit(5000),
+    selectAll(sb, "ingredients", "canonical_name"),
+    selectAll(sb, "ingredient_aliases", "alias"),
   ]);
   for (const r of [cuisines, diets, cookware, units, ingredients, aliases]) {
     if (r.error) throw r.error;

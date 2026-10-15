@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { after } from "next/server";
 
 import { stripControlChars } from "@/lib/filters";
+import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import {
   deleteMyRecipe,
   resolveIngredientName,
@@ -11,7 +12,8 @@ import {
   withdrawMyRecipe,
   type SaveResult,
 } from "@/lib/queries/myRecipes";
-import { LIMITS, parseQuantity, UUID_RE, type RecipeFormValues } from "@/lib/recipeForm";
+import { LIMITS, parseQuantity, type RecipeFormValues } from "@/lib/recipeForm";
+import { UUID_RE } from "@/lib/validate";
 
 /*
  * Server Actions for the recipe form. Each is a public POST endpoint, so the
@@ -25,6 +27,7 @@ export type ActionResult =
   | { ok: true; id?: string; slug?: string; status?: "draft" | "in_review" }
   | { ok: false; message: string; field?: string };
 
+const OFF = "That recipe could not be found.";
 const GENERIC = "Something went wrong saving. Your recipe is still on this page; try again in a moment.";
 
 function describe(r: Extract<SaveResult, { ok: false }>): ActionResult {
@@ -93,7 +96,7 @@ function toPayload(v: RecipeFormValues): { ok: true; data: object } | { ok: fals
     if (!q.ok) {
       return {
         ok: false,
-        field: `ingredient:${i + 1}`,
+        field: `ingredient_qty:${i + 1}`,
         message: `Ingredient ${i + 1}: "${row.quantity.trim()}" is not an amount. Use a number like 2, 1/2 or 1 1/2, or leave it empty for "to taste".`,
       };
     }
@@ -137,6 +140,7 @@ function refresh(slug: string) {
 }
 
 export async function saveRecipe(id: string | null, values: RecipeFormValues, submit: boolean): Promise<ActionResult> {
+  if (!USER_RECIPES_ENABLED) return { ok: false, message: OFF };
   if (id !== null && (typeof id !== "string" || !UUID_RE.test(id))) {
     return { ok: false, message: "That recipe could not be found." };
   }
@@ -153,6 +157,7 @@ export async function saveRecipe(id: string | null, values: RecipeFormValues, su
 }
 
 export async function deleteRecipe(id: string): Promise<ActionResult> {
+  if (!USER_RECIPES_ENABLED) return { ok: false, message: OFF };
   if (typeof id !== "string" || !UUID_RE.test(id)) return { ok: false, message: "That recipe could not be found." };
   const res = await deleteMyRecipe(id);
   if (!res.ok) return describe(res);
@@ -161,6 +166,7 @@ export async function deleteRecipe(id: string): Promise<ActionResult> {
 }
 
 export async function withdrawRecipe(id: string): Promise<ActionResult> {
+  if (!USER_RECIPES_ENABLED) return { ok: false, message: OFF };
   if (typeof id !== "string" || !UUID_RE.test(id)) return { ok: false, message: "That recipe could not be found." };
   const res = await withdrawMyRecipe(id);
   if (!res.ok) return describe(res);
@@ -170,7 +176,7 @@ export async function withdrawRecipe(id: string): Promise<ActionResult> {
 
 /** The canonical ingredient a typed name resolves to, or null. Powers the inline "recognised" tick. */
 export async function checkIngredientName(name: string): Promise<{ canonical: string | null } | null> {
-  if (typeof name !== "string") return null;
+  if (!USER_RECIPES_ENABLED || typeof name !== "string") return null;
   const clean = stripControlChars(name).replace(/\s+/g, " ").trim().slice(0, LIMITS.nameMax);
   if (clean === "") return { canonical: null };
   try {

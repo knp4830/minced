@@ -98,8 +98,11 @@ def grid(items: list[tuple[dict, str, Path]], name: str) -> None:
             except Exception:  # noqa: BLE001
                 d.text((x + 5, yy + 5), "cannot open", fill="red", font=F)
         sheet.save(out / f"{name}_g{n // per:03d}.png")
-    json.dump([{"n": k, "slug": r["slug"], "label": lab, "path": str(p)} for k, (r, lab, p) in enumerate(items)],
-              open(out / f"{name}_gindex.json", "w", encoding="utf8"), ensure_ascii=False, indent=0)
+    index = [{"n": k, "slug": r["slug"], "label": lab, "path": str(p)} for k, (r, lab, p) in enumerate(items)]
+    (out / f"{name}_gindex.json").write_text(
+        json.dumps(index, ensure_ascii=False, indent=0), encoding="utf-8", newline="
+"
+    )
     print(f"{len(items)} tiles -> {out} ({(len(items) + per - 1) // per} sheets)")
 
 

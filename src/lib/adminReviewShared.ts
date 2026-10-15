@@ -1,5 +1,7 @@
 /* Client-safe pieces of the admin review queue: types, labels, pure helpers. */
 
+import { SLUG_RE } from "@/lib/validate";
+
 export type ReviewState = "unreviewed" | "approved" | "rejected" | "all";
 export type SourceKey = "usda" | "minced" | "mockup" | "user";
 
@@ -81,7 +83,6 @@ export function parseSource(v: string | string[] | undefined): SourceKey | null 
   return SOURCE_KEYS.includes(s as SourceKey) ? (s as SourceKey) : null;
 }
 
-const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,150}$/;
 export function parseSlug(v: string | string[] | undefined): string | null {
   const s = Array.isArray(v) ? v[0] : v;
   return s && SLUG_RE.test(s) ? s : null;

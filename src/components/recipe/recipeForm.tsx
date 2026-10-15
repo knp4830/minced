@@ -52,6 +52,8 @@ function fieldId(field: string | undefined): string | null {
   if (!field) return null;
   const ing = /^ingredient:(\d+)$/.exec(field);
   if (ing) return `ing-${ing[1]}-name`;
+  const qty = /^ingredient_qty:(\d+)$/.exec(field);
+  if (qty) return `ing-${qty[1]}-qty`;
   const step = /^step:(\d+)$/.exec(field);
   if (step) return `step-${step[1]}`;
   const map: Record<string, string> = {
@@ -165,6 +167,8 @@ export function RecipeForm({
   const [known, setKnown] = useState<Record<string, string | null | "pending">>({});
   const [focusId, setFocusId] = useState<string | null>(null);
   const errRef = useRef<HTMLDivElement>(null);
+  const deleteBtnRef = useRef<HTMLButtonElement>(null);
+  const wasConfirming = useRef(false);
 
   const localNames = useMemo(() => new Set(options.ingredientNames), [options.ingredientNames]);
 
@@ -193,6 +197,12 @@ export function RecipeForm({
     document.getElementById(focusId)?.focus();
     setFocusId(null);
   }, [focusId]);
+
+  // Closing the delete confirmation returns focus to the button that opened it.
+  useEffect(() => {
+    if (wasConfirming.current && !confirmDelete) deleteBtnRef.current?.focus();
+    wasConfirming.current = confirmDelete;
+  }, [confirmDelete]);
 
   useEffect(() => {
     if (!err) return;
@@ -327,10 +337,7 @@ export function RecipeForm({
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        save(status === "draft" || status === "new" ? false : true);
-      }}
+      onSubmit={(e) => e.preventDefault()}
       noValidate
       data-recipe-form
       className="mx-auto max-w-[820px] px-(--gutter) pt-6 pb-0 md:pt-10"
@@ -503,6 +510,7 @@ export function RecipeForm({
                     id={`ing-${n}-qty`}
                     mono
                     aria-label={`Ingredient ${n} amount`}
+                    aria-invalid={invalid(`ingredient_qty:${n}`)}
                     placeholder="Qty"
                     inputMode="decimal"
                     value={row.quantity}
@@ -534,7 +542,7 @@ export function RecipeForm({
                       value={row.name}
                       maxLength={LIMITS.nameMax}
                       aria-invalid={unresolved || invalid(`ingredient:${n}`)}
-                      aria-describedby={res !== undefined && res !== "pending" ? hintId : undefined}
+                      aria-describedby={unresolved || (typeof res === "string" && res !== "pending" && res !== lower) ? hintId : undefined}
                       onChange={(e) => updateIng(row.key, { name: e.target.value })}
                       onBlur={(e) => void checkName(e.target.value)}
                     />
@@ -801,18 +809,27 @@ export function RecipeForm({
                   Removes it from your recipe book{status === "published" ? " and from the site" : ""}. This cannot be
                   undone.
                 </p>
-                <Button type="button" variant="danger" className="mt-3" onClick={() => setConfirmDelete(true)} disabled={pending}>
+                <Button ref={deleteBtnRef} type="button" variant="danger" className="mt-3" onClick={() => setConfirmDelete(true)} disabled={pending}>
                   Delete recipe
                 </Button>
               </>
             ) : (
-              <div role="alertdialog" aria-labelledby="del-q" className="mt-3 max-w-md rounded-xl border border-paprika/40 bg-paprika/5 p-4">
+              <div
+                role="alertdialog"
+                aria-labelledby="del-q"
+                onKeyDown={(e) => {
+                  if (e.key === "Escape" && !pending) {
+                    e.stopPropagation();
+                    setConfirmDelete(false);
+                  }
+                }}
+                className="mt-3 max-w-md rounded-xl border border-paprika/40 bg-paprika/5 p-4">
                 <p id="del-q" className="text-[1.0625rem] font-semibold">
                   Delete &ldquo;{v.title.trim() || "this recipe"}&rdquo;?
                 </p>
                 <p className="mt-1 text-[0.9375rem] text-ink-muted">It will be gone for good.</p>
                 <div className="mt-4 flex flex-wrap gap-3">
-                  <Button type="button" variant="danger" onClick={remove} disabled={pending} aria-disabled={pending}>
+                  <Button type="button" variant="danger" onClick={remove} disabled={pending}>
                     {pending ? "Deleting…" : "Yes, delete it"}
                   </Button>
                   <Button type="button" variant="secondary" autoFocus onClick={() => setConfirmDelete(false)} disabled={pending}>
@@ -843,26 +860,26 @@ export function RecipeForm({
           </p>
           {(status === "new" || status === "draft") && (
             <>
-              <Button type="button" variant="secondary" onClick={() => save(false)} disabled={pending} aria-disabled={pending}>
+              <Button type="button" variant="secondary" onClick={() => save(false)} disabled={pending}>
                 Save draft
               </Button>
-              <Button type="button" onClick={() => save(true)} disabled={pending} aria-disabled={pending}>
+              <Button type="button" onClick={() => save(true)} disabled={pending}>
                 Submit for review
               </Button>
             </>
           )}
           {status === "in_review" && (
             <>
-              <Button type="button" variant="secondary" onClick={withdraw} disabled={pending} aria-disabled={pending}>
+              <Button type="button" variant="secondary" onClick={withdraw} disabled={pending}>
                 Withdraw to drafts
               </Button>
-              <Button type="button" onClick={() => save(true)} disabled={pending} aria-disabled={pending}>
+              <Button type="button" onClick={() => save(true)} disabled={pending}>
                 Save changes
               </Button>
             </>
           )}
           {status === "published" && (
-            <Button type="button" onClick={() => save(true)} disabled={pending} aria-disabled={pending}>
+            <Button type="button" onClick={() => save(true)} disabled={pending}>
               Save and send back to review
             </Button>
           )}

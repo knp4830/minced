@@ -16,7 +16,7 @@ export default async function NewRecipePage() {
   if (!USER_RECIPES_ENABLED) notFound();
   // Middleware already redirects signed-out visitors; this is the real check.
   const user = await getCurrentUser();
-  if (!user) redirect("/login?next=%2Frecipes%2Fnew");
+  if (!user) redirect(`/login?next=${encodeURIComponent("/recipes/new")}`);
 
   const options = await getFormOptions();
   return <RecipeForm options={options} initial={emptyValues()} recipe={null} />;

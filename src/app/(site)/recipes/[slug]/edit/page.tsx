@@ -5,7 +5,8 @@ import { RecipeForm } from "@/components/recipe/recipeForm";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { getCurrentUser } from "@/lib/queries/account";
 import { getFormOptions, getMyRecipeBySlug } from "@/lib/queries/myRecipes";
-import { SLUG_RE, valuesFromDetail } from "@/lib/recipeForm";
+import { valuesFromDetail } from "@/lib/recipeForm";
+import { SLUG_RE } from "@/lib/validate";
 
 export const metadata: Metadata = {
   title: "Edit recipe",

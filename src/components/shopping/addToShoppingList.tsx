@@ -242,8 +242,10 @@ export function AddToShoppingList({
         onClick={(e) => {
           if (e.target === dialogRef.current) dialogRef.current?.close();
         }}
-        className="m-auto w-[min(calc(100vw-2rem),26rem)] rounded-xl border border-line bg-surface p-5 text-ink shadow-sheet backdrop:bg-scrim"
+        className="m-auto w-[min(calc(100vw-2rem),26rem)] rounded-xl border border-line bg-surface p-0 text-ink shadow-sheet backdrop:bg-scrim"
       >
+        {/* The padding lives here, not on the <dialog>: a click on the dialog's own padding would read as a backdrop click. */}
+        <div className="p-5">
         <h2 id={`${checkId}-title`} className="text-[1.0625rem] leading-snug">
           {title} is already on your list
         </h2>
@@ -273,6 +275,7 @@ export function AddToShoppingList({
           >
             Keep one
           </Button>
+        </div>
         </div>
       </dialog>
     </div>

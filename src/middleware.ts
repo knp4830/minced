@@ -13,6 +13,7 @@ import { updateSession } from "@/lib/supabase/middleware";
  * own token while someone browses, and /account re-checks on the server.
  */
 const RECIPE_PATH = /^\/recipes\/([^/]+)$/;
+const EDIT_ROUTE = /^\/recipes\/[^/]+\/edit$/;
 
 export async function middleware(request: NextRequest) {
   const { pathname: path } = request.nextUrl;
@@ -32,7 +33,7 @@ export async function middleware(request: NextRequest) {
 
   // With user recipes off, their routes answer a real 404 for everyone (signed in or not),
   // so the route does not advertise itself and the status is 404, not a streamed 200.
-  if (!USER_RECIPES_ENABLED && (path === "/recipes/new" || /^\/recipes\/[^/]+\/edit$/.test(path))) {
+  if (!USER_RECIPES_ENABLED && (path === "/recipes/new" || EDIT_ROUTE.test(path))) {
     return NextResponse.rewrite(new URL("/recipe-not-found", request.url), { status: 404 });
   }
 
@@ -43,7 +44,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/account") ||
     pathname.startsWith("/fridge") ||
     pathname === "/recipes/new" ||
-    /^\/recipes\/[^/]+\/edit$/.test(pathname);
+    EDIT_ROUTE.test(pathname);
   if (needsLogin && !session.user) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
