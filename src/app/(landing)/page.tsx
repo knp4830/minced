@@ -36,7 +36,7 @@ const FEATURES = [
   },
   {
     title: "Filter by what matters",
-    body: "Narrow by time, diet, allergens, spice, calories, protein or the cookware you own. Filters live in the link, so you can share them.",
+    body: "Narrow by time, diet, allergens, ingredients, calories, protein or the cookware you own. Filters live in the link, so you can share them.",
     radius: "50% 50% 3px 3px",
   },
   {
@@ -118,11 +118,11 @@ export default async function Home() {
               {[
                 [recipes, "recipes"],
                 [String(filterCount), "filters"],
-                ["No sign-up", "to search"],
+                ["No sign2011up", "to search"],
               ].map(([n, label]) => (
                 <div key={label} className="px-2 py-3">
                   <dt className="sr-only">{label}</dt>
-                  <dd className="font-display text-xl leading-none font-semibold text-ink md:text-2xl">
+                  <dd className="font-display text-xl leading-none whitespace-nowrap font-semibold text-ink md:text-2xl">
                     {n}
                     <span aria-hidden className="mt-1 block font-mono text-[0.6875rem] font-normal tracking-normal text-ink-subtle">
                       {label}

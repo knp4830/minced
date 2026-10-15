@@ -39,7 +39,7 @@ export function PhotoMosaic({ photos, className }: { photos: LandingPhoto[]; cla
                   alt={photo.alt}
                   width={400}
                   height={400}
-                  loading={i < 2 ? "eager" : "lazy"}
+                  loading="eager"
                   decoding="async"
                   className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                 />
