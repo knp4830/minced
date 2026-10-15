@@ -1560,4 +1560,39 @@ Normal use passed. Defects to fix next: NUL byte in `?q=` crashes `/recipes` and
 
 ---
 
-## Entry 35 - [next entry goes here after wave 7]
+## Entry 35 - Wave 7: follow-ups, user recipes, launch prep, more photos, food-science brief
+
+*Branch `wave7/integration`. Lanes: followups, recipes, seo, photos, research, then verification, a review pass and these docs. Base: `main` after PR #52 plus waves 5+6 (live: 29 migrations, 959 recipes, 352 photos). Not applied to live when written; four new migrations wait for the owner.*
+
+### Shopping re-add and cookware either/or (followups lane)
+Re-adding a recipe already on the list used to replace its lines silently. Now a native `<dialog>` asks "Add again (N batches)" or "Keep one". The RPC default stays "replace" (a retry never doubles); `p_add_batch` keeps and sums. A batch is the most rows any ingredient has for the recipe (the first count overcounted recipes that repeat an ingredient; fixed in `bbc398a`). Native `<dialog>` gives focus trap and Escape; React `autoFocus` does not work because the dialog is closed at mount, so the effect calls `.focus()` after `showModal()`.
+
+Cookware alternatives: `recipe_cookware.alt_group` (nullable smallint). The owned filter ANDs rows, so listing "blender or food processor" as two rows hid the recipe from cooks owning one; listing one hid the "uses X" filter from the other. Predicate: group rows by `coalesce(alt_group, -cookware_id)` and fail the recipe if any group has no owned member. PostgREST cannot express that, so browse reads the `makeable_recipes(owned)` SQL function (SECURITY INVOKER, `setof recipes`). 36 recipes are grouped and 29 missing alternative rows were added by `seed-cookware.sql` (from `scripts/cookware/alt_groups.tsv`). The owner expected about 38 recipes with both halves; 12 had both and 24 had one. Not grouped on purpose: pot-roasted-beef and the tuna pasta pair (a member is required in another step).
+
+### User recipes, M5 (recipes lane; built but NOT connected)
+Authors cannot INSERT/UPDATE/DELETE any recipe table. Three definer RPCs (`save_my_recipe`, `delete_my_recipe`, `withdraw_my_recipe`) take the author from `auth.uid()`, write a fixed column list and can only produce `draft` or `in_review`. Publishing stays `admin_set_review`. Limits are server-side: 50 recipes per author, 10 in review, 60 ingredients, 40 steps. Every ingredient must resolve through `resolve_ingredient`, even in a draft (the schema forbids unresolved ingredients); errors carry SQLSTATE 22023 plus a HINT such as `ingredient:3` so the form can focus the row. Submitting needs a rights confirmation, checked in SQL. Editing a published recipe sends it back to `in_review`. A rejected user recipe returns to the author as a draft with the note. Account deletion deletes the person's recipes. The form is plain server-action forms: React Hook Form and Zod are not installed (no new packages). Not built: draft autosave (so M5.2 stays open), nutrition (left null, "estimate pending"), photo upload, an author preview.
+
+Owner decision during the wave: keep it deployed but unreachable. `NEXT_PUBLIC_ENABLE_USER_RECIPES` (default off, build-time) hides the account tab, "Create recipe", Edit and the routes. The review then found the write path was still open, so migration `20261014160000` adds `feature_flags` (`user_recipes`, default off, no API access), moves the five RPCs to schema `private` and re-creates `public` wrappers that raise 42501 while it is off. To turn on: set the env var, redeploy, and `update feature_flags set enabled = true where name = 'user_recipes'`.
+
+### Review findings
+Fixed: the write-path gate above; Undo of an approved user recipe left it public (now returns to `in_review`); the bad-amount error focused the name field; the delete confirmation lost focus and ignored Escape; the shopping dialog treated its own padding as the backdrop; a dangling `aria-describedby`; invisible bidi characters in a migration regex (replaced by `\u` escapes in the new migration); six copies of the slug regex now share `src/lib/validate.ts`; the form-options query pages past the 1000-row API cap.
+Deferred: (1) approval is by slug with no version check, so an author could change a recipe while an admin has it open; fix with an `updated_at` argument on `admin_set_review` at the next type regeneration. (2) `author_id` is readable by anon on published user recipes; decide a column-grant list or an owner table before turning the feature on, or say so in `/privacy`. (3) the loose RPC cast in `queries/myRecipes.ts`, the whole-book fetch to resolve one slug, the 870-line form component, and whitespace churn in terms/account.
+
+### SEO and launch prep (seo lane)
+Kept: schema.org Recipe JSON-LD on every recipe page (the biggest win for a recipe site; `<` is escaped because user text now reaches pages), canonicals, `twitter:card` summary_large_image for photo recipes, sitemap with `/privacy` and `/terms`, robots disallowing the reset-password routes, the landing title (owner to confirm), and removal of `/kitchen-sink`, `ui/select`'s only old caller (select came back for the recipe form) and `/api/ingredients/suggest`. Parked: M3.7. 300 combo pages (100 pairs, 200 triples from a read-only generator, `dynamicParams = false`) were built and verified, then moved out of the MVP by the owner. They live on branch `wave7/seo-combos-later`, not on `main`. Lighthouse 12.8 on a local production build: desktop 100 or 97 to 100 everywhere; mobile performance 82 to 96 (landing 82, LCP 4.6 s), accessibility 98 to 100.
+
+### Photos (photos lane)
+352 to 408 of 959. The lane first re-audited an earlier attempt's 50 uncommitted photos and removed 28 that failed the match rule (garden-barley-soup showed beef, walleye-chowder salmon). Only about 6 of 800 candidates for generic USDA titles passed review: the same dish cooked the same way is rare. **Verification failed this lane**: 5 new photos reuse a file already on another recipe (apple-pistachio-crisp, heavenly-deviled-eggs, fiesta-hummus, golden-split-pea-soup, tostadas-delgadas), one file on the reject list is back (corn-blueberry-and-wild-rice-salad), 5 MyPlate photos carry the MyPlate.gov logo, and a few are doubtful (tom-yum-goong has a bottle label; perfect-pumpkin-pancakes is a vegan buckwheat file). The photo seed and upload should wait for those removals.
+
+### Food-science brief (research lane)
+`docs/research/food-science-nutrition.md`: only USDA retention factors for micronutrients are strong enough to apply automatically, and Minced stores no micronutrients, so preparation-aware nutrition reduces to notes unless micronutrients come into scope. Several figures are flagged unverified. Listed as post-MVP at the end of BUILD-PLAN (owner decision).
+
+### Verification and the checklist pass
+Verified on the integrated branch: shopping re-add and cookware either/or (signed in and out, plus the SQL suites), user recipes end to end on a local stack, launch prep and the hidden flag. The photos milestone failed (above). The full TEST-CHECKLIST pass found two serious pre-existing bugs, **not fixed in this PR**: (1) signed-in client state is dead because `accountProvider.hasAuthCookie()` reads `document.cookie` while the cookies are httpOnly (header, stars, shopping and fridge import); (2) `rewriteSynonyms()` pushes 13 exact recipe titles off page 1 and breaks "mac and cheese". Both belong in the next small wave, before the domain and Google sign-in.
+
+### Gotchas worth remembering
+The flag was not a switch (see LESSONS section 7). The snapshot hides privilege errors; the recipes lane's non-superuser local-stack recipe is in TERMINAL-LOG. A worktree cannot switch to a branch another worktree holds.
+
+---
+
+## Entry 36 - [next entry goes here after wave 8]

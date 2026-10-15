@@ -34,13 +34,13 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #22 | **M3.4** Conventional filters layered into match_recipes | ☑ |
 | #23 | **M3.5** Postgres full-text search | ☑ |
 | #24 | **M3.6** Landing page (pantry input above the fold) | ☑ |
-| #25 | **M3.7** Programmatic /what-can-i-make/[combo] SEO pages | ☐ |
+| #25 | **M3.7** Programmatic /what-can-i-make/[combo] SEO pages | ☐ (post-MVP; built on branch `wave7/seo-combos-later`) |
 | #26 | **M4.1** Supabase Auth: email + Google, middleware, login/signup | ☐ |
 | #27 | **M4.2** Favorites with optimistic updates | ☑ |
 | #28 | **M4.3** Account page: Library / My Recipes / Settings | ☑ |
-| #29 | **M5.1** Recipe form with dynamic ingredient and step rows | ☐ |
-| #30 | **M5.2** Draft autosave and publish validation | ☐ |
-| #31 | **M5.3** Edit and delete own recipes | ☐ |
+| #29 | **M5.1** Recipe form with dynamic ingredient and step rows | ☑ (wave 7, hidden behind a flag) |
+| #30 | **M5.2** Draft autosave and publish validation | ☐ (save, submit and validation done; autosave not built) |
+| #31 | **M5.3** Edit and delete own recipes | ☑ (wave 7, hidden behind a flag) |
 | #32 | **M6.1** Error boundaries, not-found page, loading states | ☐ |
 | #33 | **M6.2** Sentry error monitoring | ☐ |
 | #34 | **M6.3** PostHog analytics on pantry queries and signups | ☐ |
@@ -748,6 +748,8 @@ Don't make the two feel like separate modes with a toggle. They're two inputs to
 
 ### ☐ M3.7 — Programmatic ingredient landing pages **(the growth engine)**
 
+> **Decision 2026-10-14: post-MVP.** Wave 7 built and verified 300 combo pages, but the owner moved them out of the MVP. The code lives on the pushed branch `wave7/seo-combos-later` (hub, `[combo]` route, `src/data/combos.json`, `scripts/seo/combos.sql`). It is not on `main`, so this box stays unchecked and no PR closes #25. The launch-prep parts of the same lane (Recipe JSON-LD, canonicals, sitemap, robots, `/kitchen-sink` removal) did ship.
+
 Generate a server-rendered page for every high-value ingredient combination: `/what-can-i-make/chicken-rice-broccoli`, `/what-can-i-make/eggs-spinach`, and so on.
 
 **Why this matters more than anything else in Phase 6's SEO checklist:** "what can I make with chicken and rice" is a query people type thousands of times a day, and it maps *exactly* onto what your app does. Each page is a real answer to a real question, prerendered, indexable. A few hundred of these is a compounding acquisition channel that costs nothing to run.
@@ -801,14 +803,16 @@ The heart button on cards and detail pages. Use an **optimistic update** — the
 
 > **Time:** 1 week. The most complex UI in the app.
 
-### ☐ M5.1 — Recipe form
-Dynamic ingredient rows (add/remove/reorder), dynamic step rows, all the metadata fields. React Hook Form + Zod for validation.
+### ☑ M5.1 — Recipe form (done 2026-10-14, wave 7; hidden behind `NEXT_PUBLIC_ENABLE_USER_RECIPES`)
+Plain server-action forms (React Hook Form and Zod are not installed). Dynamic ingredient rows (add/remove/reorder), dynamic step rows, all the metadata fields. React Hook Form + Zod for validation.
 
-### ☐ M5.2 — Draft / publish
-Autosave to draft. Publishing runs validation: at minimum a title, one ingredient, one step.
+### ☐ M5.2 — Draft / publish (mostly done in wave 7; autosave is the open part)
+Save draft, submit for review (rights confirmation, at least one ingredient and one step, enforced in SQL) and admin approval work. **Draft autosave is not built**, so this box stays open. Autosave to draft. Publishing runs validation: at minimum a title, one ingredient, one step.
 
-### ☐ M5.3 — Edit and delete
+### ☑ M5.3 — Edit and delete (done 2026-10-14, wave 7; hidden behind the flag)
 Same form, prefilled. Delete with a confirm dialog.
+
+> **Wave 7 status.** User recipes are built and will be deployed but are **not connected**: `NEXT_PUBLIC_ENABLE_USER_RECIPES` (default off) hides the account tab, "+ Create recipe" and the routes, and a DB switch (`feature_flags.user_recipes`, default off) makes the five author RPCs refuse. Both must be on to use the feature. Before turning them on: DMCA agent registration (`docs/LEGAL-COMPLIANCE.md` items 11-12), a lawyer pass on the new Terms section, a decision on `author_id` being readable on published user recipes, and the approval-by-slug race (see wave 7 review notes in LEARNING-LOG).
 
 **DoD for Phase 5:** you can write, save, publish, edit, and delete your own recipe, and it appears in browse alongside the seeded ones.
 
@@ -861,10 +865,10 @@ Asked for by the user on 2026-10-13. Research first, product second; none of the
 ### ☑ v1.1 — Shopping list (done 2026-10-13, wave 6)
 Already designed in the mockup. `shopping_list_items` table, "Add all ingredients" button on the recipe page, merge duplicates across recipes (2 cloves garlic + 3 cloves garlic = 5), group by aisle category.
 
-**Follow-ups decided 2026-10-13 (next small wave):**
-- **Re-adding a recipe to the shopping list:** if the recipe is already on the list (not cleared), say so and ask whether to keep both (e.g. cooking two batches → quantities add up) or keep just one. Never silently double or silently ignore.
-- **Cookware alternatives count as EITHER, not both.** A step that says "blender or food processor" means the recipe needs one of them. Model alternatives as a group (e.g. `recipe_cookware.alt_group`): "only cookware I own" passes if the user owns any member of each group; the "recipes that use X" filter matches any member. ~38 recipes currently store both halves as required.
-- **Keep adding photos** (Openverse allows ~200 anonymous requests/day; Pexels API keys are paused). Same legal rules; 607 recipes still on placeholders.
+**Follow-ups decided 2026-10-13 (done 2026-10-14, wave 7):**
+- **(Done, verified signed in and out.) Re-adding a recipe to the shopping list:** if the recipe is already on the list (not cleared), say so and ask whether to keep both (e.g. cooking two batches → quantities add up) or keep just one. Never silently double or silently ignore.
+- **(Done: `recipe_cookware.alt_group`, 36 recipes grouped, 29 alternative rows added.) Cookware alternatives count as EITHER, not both.** A step that says "blender or food processor" means the recipe needs one of them. Model alternatives as a group (e.g. `recipe_cookware.alt_group`): "only cookware I own" passes if the user owns any member of each group; the "recipes that use X" filter matches any member. ~38 recipes currently store both halves as required.
+- **Keep adding photos (wave 7: 352 to 408 of 959; 551 still on placeholders. Verification found 5 duplicate files and 5 MyPlate logos among the new ones, see LEARNING-LOG Entry 35, so the photo seed is not safe to apply until those are removed).** (Openverse allows ~200 anonymous requests/day; Pexels API keys are paused). Same legal rules; 607 recipes still on placeholders.
 
 ### v1.5 — "Me" personal dashboard (user's spec, 2026-10-13) — needs accounts + v1.2
 A signed-in page tying food, training and sleep together. **Design prompt for Claude Design: `docs/design-prompts/personal-dashboard.md`** (mockups first, then build).
@@ -1020,3 +1024,18 @@ Agents we'll create, and when:
 | `perf-auditor` | Phase 6 | Hunts N+1 queries, missing indexes, oversized client bundles, unnecessary `"use client"`. | Read, Grep, Bash |
 
 We write these when the phase that needs them arrives — an agent written before you understand the problem it solves is an agent you can't evaluate.
+
+---
+
+# NEXT UP (written 2026-10-14, end of wave 7)
+
+- **Paste-a-blog import** is next after the MVP basics. It needs the M5 tables (live once the wave 7 migrations are applied) and **a decision from the owner on AI rewriting** of steps (legal constraints in `docs/LEGAL-COMPLIANCE.md` section 1.4).
+- **Wave 8 = domain, Google sign-in, custom SMTP, then Phase 6 launch** (Sentry, PostHog, Lighthouse, real-phone pass, three watched users).
+
+# POST-MVP RESEARCH (decided 2026-10-14: finishing the MVP comes first)
+
+None of these starts until the MVP is launched. Each needs the owner's decisions listed in its "Ideas (added 2026-10-13)" entry above.
+
+- **Food-science research brief.** Done as a document: `docs/research/food-science-nutrition.md` (wave 7). Conclusion: only USDA retention factors for micronutrients are strong enough to apply automatically, and Minced stores no micronutrients today; everything else should be a note. Several figures are flagged unverified and must be checked against primary sources before reaching a user screen. The USDA Retention Factors Release 6 licence is unconfirmed.
+- **Preparation-aware nutrition (M5 extension).** Depends on the brief above and on whether micronutrients are in scope.
+- **Lifting research feed and workout research** (fitness area, v2 scope).
