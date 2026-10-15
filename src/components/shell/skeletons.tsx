@@ -37,7 +37,7 @@ export function RecipeGridSkeleton({ count = 8 }: { count?: number }) {
 /** /recipes: heading, count line, filter button on phones, rail on desktop, grid. */
 export function BrowseSkeleton() {
   return (
-    <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
+    <div className="page-w py-6 md:py-8">
       <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
         <div aria-hidden className="hidden space-y-6 lg:block lg:border-r lg:border-line lg:pr-5">
           <Bar className="h-5 w-20" />
@@ -66,7 +66,7 @@ export function BrowseSkeleton() {
 /** /pantry: title, intro, picker button, results. */
 export function PantrySkeleton() {
   return (
-    <div className="mx-auto max-w-[1180px] px-(--gutter) py-8 md:py-12">
+    <div className="page-w py-8 md:py-12">
       <Bar className="h-8 w-60 md:h-10" />
       <Bar className="mt-3 h-4 w-full max-w-[34em]" />
       <Bar className="mt-2 h-4 w-2/3 max-w-[24em]" />
@@ -82,14 +82,19 @@ export function PantrySkeleton() {
 /** /recipes/[slug]: title block, photo, ingredient and step columns. */
 export function RecipeSkeleton() {
   return (
-    <div role="status" aria-label="Loading recipe" className="mx-auto max-w-[1180px] px-(--gutter) pt-4 pb-6 md:pt-6">
+    <div role="status" aria-label="Loading recipe" className="page-w pt-4 pb-6 md:pt-6">
       <span className="sr-only">Loading recipe…</span>
       <div aria-hidden>
         <Bar className="mt-3 mb-5 h-4 w-24" />
-        <Bar className="mb-4 h-9 w-3/4 md:h-11" />
-        <Bar className="mb-6 h-11 w-full rounded-none" />
-        <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[17.5rem_minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="aspect-[16/9] rounded-xl border border-line bg-hatch sm:aspect-[2/1] lg:aspect-[4/5]" />
+        <div className="grid gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] xl:gap-x-14">
+          <div className="lg:col-start-2 lg:row-start-1">
+            <Bar className="mb-4 h-9 w-3/4 md:h-11" />
+            <Bar className="mb-6 h-11 w-full rounded-none" />
+            <Bar className="h-24 w-full" />
+          </div>
+          <div className="aspect-[3/2] rounded-xl border border-line bg-hatch md:aspect-[2/1] lg:col-start-1 lg:row-start-1 lg:aspect-auto lg:min-h-[24rem]" />
+        </div>
+        <div className="mt-10 grid gap-x-12 gap-y-8 border-t border-line pt-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           <div className="space-y-3">
             {Array.from({ length: 7 }, (_, i) => (
               <Bar key={i} className="h-5 w-full" />

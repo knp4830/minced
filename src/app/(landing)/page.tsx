@@ -112,7 +112,7 @@ export default async function Home() {
     <>
       <section
         aria-labelledby="hero-h"
-        className="mx-auto grid max-w-[1180px] items-center gap-8 px-(--gutter) pt-8 pb-10 md:grid-cols-[1.1fr_0.9fr] md:gap-12 md:pt-16 md:pb-14"
+        className="grid page-w items-center gap-8 pt-8 pb-10 md:grid-cols-[1.1fr_0.9fr] md:gap-12 md:pt-16 md:pb-14 xl:gap-20 xl:pt-24 xl:pb-20"
       >
         <div className="min-w-0">
           <p className="mb-4 font-mono text-[0.6875rem] tracking-[0.14em] text-herb uppercase md:mb-5">
@@ -120,16 +120,16 @@ export default async function Home() {
           </p>
           <h1
             id="hero-h"
-            className="text-[2.375rem] leading-[1.02] tracking-[-0.025em] sm:text-[2.75rem] lg:text-[3.5rem]"
+            className="text-[2.375rem] leading-[1.02] tracking-[-0.025em] sm:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.25rem]"
           >
             Find the recipe. Skip the life story.
           </h1>
-          <p className="mt-4 max-w-[30em] text-base leading-[1.55] text-ink-soft md:mt-5 md:text-[1.0625rem]">
+          <p className="mt-4 max-w-[30em] text-base leading-[1.55] text-ink-soft md:mt-5 md:text-[1.0625rem] xl:text-[1.1875rem]">
             Search for a dish, or tap what’s in your fridge and see everything you can make.
             Ingredients, amounts, numbered steps.
           </p>
 
-          <div className="mt-6 max-w-[32rem] md:mt-7">
+          <div className="mt-6 max-w-[32rem] md:mt-7 xl:max-w-[36rem]">
             <form role="search" action="/recipes" method="get" className="flex gap-2">
               <div className="flex min-h-12 min-w-0 flex-1 items-center gap-2 rounded-field border border-field bg-surface px-3.5 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20">
                 <Search aria-hidden className="size-4 shrink-0 text-stone" />
@@ -176,7 +176,7 @@ export default async function Home() {
       </section>
 
       <section aria-labelledby="features-h" className="border-t border-line bg-band">
-        <div className="mx-auto max-w-[1180px] px-(--gutter) py-12 md:py-14">
+        <div className="page-w py-12 md:py-14">
           <h2 id="features-h" className="label-mono mb-6 md:mb-7">
             What you actually get
           </h2>

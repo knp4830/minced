@@ -45,7 +45,7 @@ export default async function AccountPage({ searchParams }: Props) {
   const flash = tab === "book" && rawFlash ? rawFlash : null;
 
   return (
-    <div className="mx-auto max-w-[1180px] px-(--gutter) py-6 md:py-10">
+    <div className="page-w py-6 md:py-10">
       <header className="flex flex-wrap items-center gap-x-5 gap-y-4">
         <span
           aria-hidden

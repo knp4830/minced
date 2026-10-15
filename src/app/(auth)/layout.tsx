@@ -7,11 +7,14 @@ import { Wordmark } from "@/components/shell/wordmark";
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <header className="mx-auto flex w-full max-w-[1180px] items-center px-(--gutter) py-4 md:py-5">
+      <header className="flex w-full page-w items-center py-4 md:py-5">
         <Wordmark className="inline-flex min-h-11 items-center text-[1.5rem]" />
       </header>
-      <main id="main" className="flex-1 px-(--gutter) pt-4 pb-12 md:pt-10">
-        <div className="mx-auto w-full max-w-[380px]">{children}</div>
+      <main id="main" className="flex flex-1 flex-col justify-center px-(--gutter) pt-4 pb-12 md:pb-20">
+        {/* A quiet card from tablet up, so the form reads as one object on a big, empty canvas. */}
+        <div className="mx-auto w-full max-w-[380px] md:max-w-[26.5rem] md:rounded-xl md:border md:border-line md:bg-surface md:p-8">
+          {children}
+        </div>
       </main>
       <footer className="px-(--gutter) pb-6 text-center text-xs text-ink-subtle">
         <Link href="/privacy" className="inline-flex min-h-11 items-center px-2 underline underline-offset-4 hover:text-herb">

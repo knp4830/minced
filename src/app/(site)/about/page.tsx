@@ -31,13 +31,16 @@ export const revalidate = 3600;
 export default async function AboutPage() {
   const credits = await getPhotoCredits();
   return (
-    <div className="mx-auto max-w-[44rem] px-(--gutter) py-8 md:py-14">
-      <h1 className="text-[2rem] leading-[1.05] md:text-[2.75rem]">How recipes are made</h1>
-      <p className="mt-3 text-base leading-relaxed text-ink-soft md:text-[1.0625rem]">
-        Every recipe on Minced is ingredients, amounts and numbered steps. Here is
-        where they come from, and what to double-check.
-      </p>
+    <div className="page-w py-8 md:py-14 lg:grid lg:grid-cols-[minmax(0,22rem)_minmax(0,46rem)] lg:gap-x-20">
+      <header className="lg:sticky lg:top-24 lg:self-start">
+        <h1 className="text-[2rem] leading-[1.05] md:text-[2.75rem]">How recipes are made</h1>
+        <p className="mt-3 text-base leading-relaxed text-ink-soft md:text-[1.0625rem]">
+          Every recipe on Minced is ingredients, amounts and numbered steps. Here is
+          where they come from, and what to double-check.
+        </p>
+      </header>
 
+      <div className="lg:[&>section:first-child]:mt-0">
       <Section id="usda" title="Most recipes: USDA MyPlate Kitchen">
         <p>
           The bulk of the catalog is adapted from MyPlate Kitchen, the
@@ -165,6 +168,7 @@ export default async function AboutPage() {
           .
         </p>
       </Section>
+      </div>
     </div>
   );
 }

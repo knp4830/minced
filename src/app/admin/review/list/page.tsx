@@ -30,7 +30,7 @@ export default async function BatchPage({ searchParams }: Props) {
     : null;
 
   return (
-    <div className="mx-auto max-w-[1180px] space-y-5 px-(--gutter) py-5">
+    <div className="page-w space-y-5 py-5">
       <h1 className="text-[1.5rem] md:text-[1.75rem]">Batch review</h1>
       <ReviewHeader
         base="/admin/review/list"

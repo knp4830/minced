@@ -33,7 +33,7 @@ export default async function ReviewPage({ searchParams }: Props) {
 
   if (!slug) {
     return (
-      <div className="mx-auto max-w-[1180px] space-y-8 px-(--gutter) py-6">
+      <div className="page-w space-y-8 py-6">
         {header}
         <p className="rounded-xl border border-line-strong bg-surface p-6 text-[0.9375rem]">
           Nothing in this view.{" "}
@@ -50,7 +50,7 @@ export default async function ReviewPage({ searchParams }: Props) {
 
   if (!recipe) {
     return (
-      <div className="mx-auto max-w-[1180px] space-y-8 px-(--gutter) py-6">
+      <div className="page-w space-y-8 py-6">
         {header}
         <p role="alert" className="rounded-xl border border-line-strong bg-surface p-6 text-[0.9375rem]">
           No imported recipe called <span className="font-mono">{slug}</span>.{" "}
@@ -63,7 +63,7 @@ export default async function ReviewPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="mx-auto max-w-[1180px] px-(--gutter) pt-5 pb-28 md:pb-10">
+    <div className="page-w pt-5 pb-28 md:pb-10">
       {header}
       <ReviewScreen
         recipe={recipe}

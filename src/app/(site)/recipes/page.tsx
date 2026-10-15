@@ -178,7 +178,7 @@ export default async function RecipesPage({ searchParams }: Props) {
   const resultsKey = filtersToQuery(resultFilters(filters));
 
   return (
-    <div className="mx-auto max-w-[1400px] px-(--gutter) py-6 md:py-8">
+    <div className="page-w py-6 md:py-8">
       <Suspense fallback={null}>
         <RememberList />
       </Suspense>
