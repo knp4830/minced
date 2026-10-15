@@ -1,7 +1,7 @@
 // Run: node --experimental-strip-types scripts/test-scaling.mts
 // Plain asserts, no test runner (no new packages). Exits non-zero on failure.
 import assert from "node:assert/strict";
-import { displayQuantity, formatAmount, scaleQuantity } from "../src/lib/scaling.ts";
+import { displayQuantity, formatAmount, scaleNoteAmounts, scaleQuantity } from "../src/lib/scaling.ts";
 
 const show = (q: number | null, u: string | null, base: number, to: number) => {
   const r = displayQuantity({ quantity: q, unit: u }, base, to);
@@ -51,5 +51,26 @@ assert.ok(Math.abs(scaleQuantity(1, 3, 1) - 1 / 3) < 1e-12);
 // The printed amount must stay within 3% of the real one: 4 1/2 tbsp is NOT 1/4 cup.
 assert.equal(show(1.5, "tbsp", 1, 3), "4 1/2 tbsp");
 assert.equal(show(4, "tbsp", 1, 1), "1/4 cup");
+
+// Review item 15.3: no decimals, no "0.2 tsp"; rounded values are flagged approximate.
+assert.equal(show(0.1, "tsp", 1, 1), "a pinch");
+assert.equal(show(1, "tsp", 12, 1), "a pinch"); // 1/12 tsp
+assert.equal(show(1, "tsp", 8, 1), "1/8 tsp");
+assert.equal(show(0.2, "tsp", 1, 1), "1/4 tsp"); // nearest eighth, flagged approximate
+assert.equal(displayQuantity({ quantity: 0.2, unit: "tsp" }, 1, 1).approx, true);
+assert.equal(show(41, "tsp", 1, 1), "7/8 cup"); // 41 tsp is 0.854 cup
+assert.ok(!/\./.test(show(1, "cup", 7, 3)), "never a decimal");
+assert.ok(!/\./.test(show(3, null, 7, 1)), "never a decimal for bare counts");
+assert.equal(displayQuantity({ quantity: 0.2, unit: null }, 1, 1).approx, true);
+assert.equal(displayQuantity({ quantity: 2, unit: "cup" }, 1, 1).approx, undefined);
+
+// Alternatives and size counts inside prep notes follow the servings; package sizes do not.
+assert.equal(scaleNoteAmounts("or 1/2 teaspoon garlic powder", 2, 4), "or 1 tsp garlic powder");
+assert.equal(scaleNoteAmounts("or 1 cup thawed frozen chunks", 2, 4), "or 2 cups thawed frozen chunks");
+assert.equal(scaleNoteAmounts("2 large", 2, 4), "4 large");
+assert.equal(scaleNoteAmounts("15 ounce can, drained", 2, 4), "15 ounce can, drained");
+assert.equal(scaleNoteAmounts("14.5 oz each, drained", 2, 4), "14.5 oz each, drained");
+assert.equal(scaleNoteAmounts("cut into 1/2 inch pieces", 2, 4), "cut into 1/2 inch pieces");
+assert.equal(scaleNoteAmounts("or 1 cup", 4, 4), "or 1 cup");
 
 console.log("scaling: all assertions passed");

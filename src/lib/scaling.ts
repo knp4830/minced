@@ -19,6 +19,8 @@ export type DisplayQuantity = {
   amount: string;
   /** "cups", "tbsp", "" for bare counts like "3 eggs". */
   unit: string;
+  /** True when the shown value is rounded to a kitchen fraction by more than 3%: show "about". */
+  approx?: boolean;
 };
 
 export function scaleQuantity(
@@ -96,8 +98,8 @@ const FRACTIONS: [number, string][] = [
 
 /**
  * 0.5 -> "1/2", 1.5 -> "1 1/2", 2 -> "2", 0.34 -> "1/3", 12.4 -> "12".
- * Values that are not near a kitchen fraction fall back to one decimal (< 10)
- * or a whole number (>= 10).
+ * Values that are not near a kitchen fraction snap to the nearest eighth (< 10)
+ * or a whole number (>= 10); there are no decimals in a recipe.
  */
 export function formatAmount(value: number): string {
   if (!Number.isFinite(value) || value <= 0) return "0";
@@ -122,8 +124,14 @@ export function formatAmount(value: number): string {
   if (bestLabel && bestErr <= 0.04) {
     return whole > 0 ? `${whole} ${bestLabel}` : bestLabel;
   }
-  const rounded = Math.round(value * 10) / 10;
-  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+  // No kitchen fraction within 4%: a cook measures in eighths, never "0.2", so take the
+  // nearest eighth. `displayQuantity` flags the result as approximate.
+  const eighths = Math.round(value * 8);
+  const w = Math.floor(eighths / 8);
+  const f = eighths % 8;
+  const label = f === 0 ? "" : (FRACTIONS.find(([v]) => Math.abs(v - f / 8) < 1e-9)?.[1] ?? "");
+  if (!label) return String(w);
+  return w > 0 ? `${w} ${label}` : label;
 }
 
 const PLURAL_UNITS = new Set([
@@ -153,7 +161,11 @@ export function displayQuantity(
   if (line.quantity == null) return { amount: "to taste", unit: "" };
 
   const scaled = scaleQuantity(line.quantity, baseServings, targetServings);
-  if (!line.unit) return { amount: formatAmount(scaled), unit: "" };
+  if (!line.unit) {
+    const amount = formatAmount(scaled);
+    const approx = relativeError(parseAmount(amount), scaled) > 0.03;
+    return { amount, unit: "", ...(approx ? { approx } : {}) };
+  }
 
   const promoted = promote(scaled, line.unit);
   let q = promoted.quantity;
@@ -177,9 +189,13 @@ export function displayQuantity(
       if (relativeError(parseAmount(text), cq) <= 0.03) break;
     }
   }
+  // Under 1/8 tsp (the smallest measuring spoon) is a pinch, never "0.1 tsp".
+  if (unit === "tsp" && q < 0.11) return { amount: "a pinch", unit: "" };
+
   // `formatAmount` can round up to the next whole; pluralise on the rounded text.
   const n = amount === "0" ? 0 : q;
-  return { amount, unit: pluralUnit(unit, n) };
+  const approx = relativeError(parseAmount(amount), q) > 0.03;
+  return { amount, unit: pluralUnit(unit, n), ...(approx ? { approx } : {}) };
 }
 
 /** "1 1/2" -> 1.5, "to taste" -> NaN. */
@@ -196,4 +212,35 @@ export function parseAmount(text: string): number {
 function relativeError(shown: number, actual: number): number {
   if (!Number.isFinite(shown) || actual <= 0) return 0;
   return Math.abs(shown - actual) / actual;
+}
+
+/* ---- Amounts inside prep notes ------------------------------------------------------------ */
+
+const NOTE_UNITS: Record<string, string> = {
+  teaspoon: "tsp", teaspoons: "tsp", tsp: "tsp", tsps: "tsp",
+  tablespoon: "tbsp", tablespoons: "tbsp", tbsp: "tbsp", tbsps: "tbsp",
+  cup: "cup", cups: "cup", pound: "lb", pounds: "lb", lb: "lb", lbs: "lb",
+  ounce: "oz", ounces: "oz", oz: "oz",
+};
+const NOTE_AMOUNT =
+  /(?<![\w/.-])(\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d+\/\d+)\s*(teaspoons?|tsps?|tablespoons?|tbsps?|cups?|pounds?|lbs?|ounces?|oz)\b\.?(?!\s*(?:-|each|cans?|packages?|jars?|bags?|bottles?|boxes|box|cartons?|containers?))/gi;
+const NOTE_COUNT = /(?<![\w/.-])(\d+(?:\.\d+)?|\d+\/\d+)(?=\s+(?:large|medium|small)\b)/gi;
+
+/**
+ * Prep notes are cleaned of the ingredient's own amount (scripts/cleanup), but some keep a
+ * second amount that belongs to an alternative ("or 1/2 teaspoon garlic powder") or a size
+ * ("2 large"). Those follow the servings too. Package sizes ("15 ounce can") are left alone.
+ */
+export function scaleNoteAmounts(note: string, baseServings: number, targetServings: number): string {
+  if (targetServings === baseServings || !(baseServings > 0)) return note;
+  const scaled = note.replace(NOTE_AMOUNT, (whole, num: string, unit: string) => {
+    const n = parseAmount(num);
+    if (!Number.isFinite(n) || n <= 0) return whole;
+    const q = displayQuantity({ quantity: n, unit: NOTE_UNITS[unit.toLowerCase()] }, baseServings, targetServings);
+    return `${q.approx ? "about " : ""}${q.amount}${q.unit ? ` ${q.unit}` : ""}`;
+  });
+  return scaled.replace(NOTE_COUNT, (whole, num: string) => {
+    const n = parseAmount(num);
+    return Number.isFinite(n) && n > 0 ? formatAmount((n * targetServings) / baseServings) : whole;
+  });
 }

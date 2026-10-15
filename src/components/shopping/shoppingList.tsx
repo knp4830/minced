@@ -11,12 +11,12 @@ import {
   removeShoppingItems,
   setShoppingChecked,
 } from "@/lib/actions/shopping";
-import { formatAmount, pluralUnit } from "@/lib/scaling";
 import {
-  groupByAisle,
+  buyList,
+  groupBuyByAisle,
   listStats,
   mergeLines,
-  type MergedItem,
+  type BuyItem,
   type ShopLine,
 } from "@/lib/shopping";
 import {
@@ -64,8 +64,9 @@ export function ShoppingList({
     setLoaded(true);
   }, [mode]);
 
-  const merged = useMemo(() => mergeLines(lines), [lines]);
-  const groups = useMemo(() => groupByAisle(merged), [merged]);
+  // Names, not measurements: you buy whole items, the recipe says how much to use.
+  const merged = useMemo(() => buyList(mergeLines(lines)), [lines]);
+  const groups = useMemo(() => groupBuyByAisle(merged), [merged]);
   const stats = useMemo(() => listStats(merged), [merged]);
   const anyChecked = stats.gathered > 0 || lines.some((l) => l.checked);
 
@@ -77,7 +78,7 @@ export function ShoppingList({
   const linesRef = useRef(lines);
   linesRef.current = lines;
 
-  function toggle(item: MergedItem) {
+  function toggle(item: BuyItem) {
     const next = !item.checked;
     const keys = new Set(item.keys);
     const mark = (checked: boolean) =>
@@ -121,7 +122,7 @@ export function ShoppingList({
     });
   }
 
-  function removeItem(item: MergedItem) {
+  function removeItem(item: BuyItem) {
     const keys = new Set(item.keys);
     if (mode === "local") {
       setError(null);
@@ -167,8 +168,8 @@ export function ShoppingList({
       <div className="mx-auto max-w-[40rem] rounded-xl border border-dashed border-line-strong bg-band px-5 py-10 text-center">
         <p className="text-[1.0625rem] font-semibold text-ink">Your list is empty.</p>
         <p className="mx-auto mt-1.5 max-w-[26rem] text-[0.9375rem] leading-relaxed text-ink-muted">
-          Open a recipe and tap “Add to shopping list”. Quantities follow the servings you pick,
-          and the same ingredient from two recipes becomes one line.
+          Open a recipe and tap “Add to shopping list”. You get the ingredients to buy, grouped by
+          aisle, and the same ingredient from two recipes becomes one line.
         </p>
         <Link href="/recipes" className={cn(buttonVariants({ variant: "primary", size: "md" }), "mt-5")}>
           Browse recipes
@@ -268,11 +269,7 @@ export function ShoppingList({
   );
 }
 
-function ItemRow({ item, onToggle }: { item: MergedItem; onToggle: () => void }) {
-  const qty =
-    item.amount == null
-      ? "to taste"
-      : `${formatAmount(item.amount)}${item.unit ? ` ${pluralUnit(item.unit, item.amount)}` : ""}`;
+function ItemRow({ item, onToggle }: { item: BuyItem; onToggle: () => void }) {
   const first = item.recipes[0];
   const more = item.recipes.length - 1;
   return (
@@ -292,14 +289,6 @@ function ItemRow({ item, onToggle }: { item: MergedItem; onToggle: () => void })
       >
         {item.checked && <Check className="size-3.5" strokeWidth={3} />}
       </span>
-      <span
-        className={cn(
-          "w-[5.5rem] shrink-0 font-mono text-[0.84375rem] font-semibold text-herb sm:w-[6.5rem]",
-          item.checked && "text-ink-subtle line-through",
-        )}
-      >
-        {qty}
-      </span>
       <span className="min-w-0 flex-1">
         <span
           className={cn(
@@ -308,6 +297,18 @@ function ItemRow({ item, onToggle }: { item: MergedItem; onToggle: () => void })
           )}
         >
           {item.name}
+          {item.count && (
+            <span
+              className={cn(
+                "ml-2 font-mono text-[0.8125rem] font-semibold text-herb",
+                item.checked && "text-ink-subtle",
+              )}
+            >
+              <span aria-hidden>×</span>
+              <span className="sr-only">, </span>
+              {item.count}
+            </span>
+          )}
         </span>
         {first && (
           <span className="mt-1 block w-fit max-w-full rounded-full bg-band px-2.5 py-0.5 font-mono text-[0.6875rem] text-ink-subtle sm:hidden print:hidden">
