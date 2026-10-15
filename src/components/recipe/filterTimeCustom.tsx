@@ -41,11 +41,15 @@ export function TimeCustomRange({ filters, base }: { filters: RecipeFilters; bas
 
   function commit(f: string, t: string) {
     window.clearTimeout(timer.current);
-    const lo = clean(f);
-    const hi = clean(t);
+    let lo = clean(f);
+    let hi = clean(t);
+    // "From 60 to 20" means 20 to 60: swap rather than return nothing.
+    if (lo !== undefined && hi !== undefined && lo > hi) [lo, hi] = [hi, lo];
     const key = `${lo ?? ""}|${hi ?? ""}`;
     if (key === urlKey) return;
     setSent(key);
+    setFrom(lo === undefined ? "" : String(lo));
+    setTo(hi === undefined ? "" : String(hi));
     startNavProgress();
     const target = `${base}${filtersToQuery(withFilters(filters, { minTime: lo, maxTime: hi }))}`;
     startTransition(() => router.replace(target, { scroll: false }));

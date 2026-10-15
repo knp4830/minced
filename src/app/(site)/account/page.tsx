@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { CookwareEditor } from "@/components/account/cookwareEditor";
 import { DeleteAccountForm } from "@/components/account/authForms";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { MyRecipeBook } from "@/components/account/myRecipeBook";
@@ -10,8 +11,10 @@ import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { SignOutForm } from "@/components/account/signOutForm";
 import { getCurrentUser } from "@/lib/queries/account";
+import { getFilterOptions } from "@/lib/queries/browse";
 import { getFavoriteCards } from "@/lib/queries/favorites";
 import { listMyRecipes } from "@/lib/queries/myRecipes";
+import { getMyCookwareSlugs } from "@/lib/queries/userCookware";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -43,6 +46,13 @@ export default async function AccountPage({ searchParams }: Props) {
 
   const saved = tab === "library" ? await getFavoriteCards() : [];
   const mine = tab === "book" && USER_RECIPES_ENABLED ? await listMyRecipes() : [];
+  const [allCookware, myCookware] =
+    tab === "settings"
+      ? await Promise.all([
+          getFilterOptions().then((o) => o.allCookware),
+          getMyCookwareSlugs().catch(() => [] as string[]),
+        ])
+      : [[], [] as string[]];
   const rawFlash = Array.isArray(sp.notice) ? sp.notice[0] : sp.notice;
   const flash = tab === "book" && rawFlash ? rawFlash : null;
 
@@ -130,6 +140,14 @@ export default async function AccountPage({ searchParams }: Props) {
               Settings
             </h2>
             <div className="max-w-xl space-y-8">
+              <div id="cookware" className="scroll-mt-24">
+                <h3 className="text-base font-semibold">My cookware</h3>
+                <p className="mt-1.5 mb-3 text-[0.9375rem] leading-relaxed text-ink-muted">
+                  Tap what you own. Switch on &ldquo;Only what I can make with my cookware&rdquo; in the
+                  recipe filters and Minced hides anything that needs a pan or pot you don&apos;t have.
+                </p>
+                <CookwareEditor all={allCookware} initial={myCookware} />
+              </div>
               <div>
                 <h3 className="text-base font-semibold">Your data</h3>
                 <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-muted">
