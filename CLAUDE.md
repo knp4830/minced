@@ -212,6 +212,10 @@ Live has **29 migrations**, **959 recipes**, **352 photos** (607 placeholders), 
 - **Shipped in the PR:** shopping re-add dialog, cookware either/or (`alt_group`, 36 recipes), Recipe JSON-LD and canonicals, sitemap/robots fixes, `/kitchen-sink` and `/api/ingredients/suggest` removed, food-science brief (`docs/research/`), 56 new photos (not yet safe to apply).
 - **Verification failures carried forward, fix in the next small wave:** (1) signed-in client state is dead (`accountProvider.hasAuthCookie()` reads `document.cookie`, but cookies are httpOnly), (2) `rewriteSynonyms()` pushes 13 exact titles off page 1 and breaks "mac and cheese", (3) photos: 5 duplicate files, 1 rejected file back, 5 MyPlate logos, (4) `/about` says accounts do not exist. Also open: `next` 15.5.24 advisories, no rate limiting, backups lack `auth.users` and Storage, `next build` fails while Supabase is paused, fridge `sort=expiry` is one page of 99, "under 20 min" counts unknown times.
 
+### Review wave (2026-10-15): integrated on `review/integration`, PR open, NOT applied to live
+
+Owner's 19-item desktop review. **Before merging:** back up live, apply `supabase/migrations/20261015120000_filters_time_ingredients.sql` (live then has **34** migrations; code merged first breaks the landing page and filtered `/recipes`), run `pnpm db:types`, run `scripts/dedupe-near-duplicates.sql` (dry run first; deletes 2 recipes, 959 to 957), apply `scripts/cleanup/prep-notes-cleanup.sql` after reviewing the CSV, then photo upload and `seed-photos.sql`. Live is currently 33 migrations, 959 recipes, 352 photos. Status per item: `docs/review/2026-10-15-feedback.md`. Open: mac and cheese search, unknown-time recipes in ranges, 5 mismatched photos, 3 rejected picks that can return, `useFridgeIds` localStorage read, font choice at `/lab/hero`; domain and Google sign-in next.
+
 ### Next up
 
 1. **You:** say "go" so Claude backs up live, applies the four migrations and data, then merge. Review M1.5.7 and the photos.

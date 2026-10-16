@@ -149,9 +149,9 @@ export default async function AboutPage() {
           &ldquo;scallion&rdquo; and &ldquo;green onion&rdquo; are the same
           thing. Salt, pepper, oil, butter, sugar, flour and water are assumed to
           be in your kitchen and never count as missing, and optional ingredients
-          are not counted either. Your fridge stays in your browser and in the
-          link you share. Minced does not save anything to an account yet, so
-          log in and shopping-list pages are not available.
+          are not counted either. You can search by fridge without an
+          account; the picks live in the link you share. Sign in to save your
+          fridge, your favourite recipes and a shopping list.
         </p>
       </Section>
 

@@ -1595,4 +1595,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 36 - [next entry goes here after wave 8]
+## Entry 36 - Review wave: owner's desktop review, 19 changes
+
+**What we built.** The landing page got a green nav, a purpose-led headline, three honest coming-soon cards, a fuller footer and a hidden font lab. Log in and sign up became a modal. The fridge stays open to everyone but saves only when signed in. Filters gained a time range, a "Contains" ingredient filter and two sliders. The recipe page uses words instead of abbreviations, shows nutrition tiles and kitchen fractions, and the shopping list shows names only. A dedupe script and 28 more photos landed.
+
+**Key files.** `src/app/@modal`, `src/components/landing/*`, `src/components/recipe/filter*.tsx`, `src/lib/{filters,format,scaling,shopping}.ts`, `supabase/migrations/20261015120000_filters_time_ingredients.sql`, `scripts/dedupe-near-duplicates.sql`, `scripts/cleanup/clean_prep_notes.py`.
+
+**How it works and why.** Family-expanded "contains all of these" cannot be written in PostgREST, so browse reads `filtered_recipes()` and the RPCs take `include_ingredient_ids`. ALL semantics were chosen so each pick narrows the list. The modal is a Next intercepting route so a refresh still gets a real page. The prep-note amounts were USDA text duplicating structured amounts; fixing the data (not the display) was the durable answer. Rejected: ANY semantics for ingredients, a notify-me form on coming-soon cards (nothing could send mail).
+
+**Concepts.** Parallel and intercepting routes; native dialog; debounce plus URL-driven slider state.
+
+**Gotchas.** Apply the migration before the code. A lost backslash shipped "sign2011up". `/lab/hero` needs `SHOW_LAB=1` at build time. Sign-out on `/account` needed a full page load. Time ranges look loose because 653 of 959 recipes have no time. The coming-soon cards were cut to three by owner request: nutrition, workouts, and "Share your own recipes" (moderated submissions, see BUILD-PLAN post-MVP).
+
+---
+
+## Entry 37 - [next entry goes here]

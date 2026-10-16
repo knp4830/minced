@@ -1,4 +1,4 @@
-import { Dumbbell, LayoutDashboard, LineChart } from "lucide-react";
+import { Dumbbell, LineChart, Users } from "lucide-react";
 
 /*
  * Honest roadmap cards. None of these are built, so they are not links, have no
@@ -17,9 +17,9 @@ const ITEMS = [
     body: "See calories, protein and the rest add up across what you cook, against the targets you set.",
   },
   {
-    icon: LayoutDashboard,
-    title: "Your own page",
-    body: "One place for your favourites, your own recipes and the diets you follow. Your cookbook, kept the way you cook.",
+    icon: Users,
+    title: "Share your own recipes",
+    body: "Add the recipes you actually cook. Every submission is reviewed before it is published, so the catalog stays accurate and fair to the people who wrote it.",
   },
 ] as const;
 

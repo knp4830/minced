@@ -190,6 +190,11 @@ export function AccountProvider({ children }: { children: ReactNode }) {
       await logOutQuiet();
     } finally {
       apply("out", null, []);
+      // On auth pages the @modal slot swallows a soft navigation, so leave with a full page load.
+      if (AUTH_PATH.test(window.location.pathname)) {
+        window.location.assign("/");
+        return;
+      }
       router.replace("/");
       router.refresh();
     }

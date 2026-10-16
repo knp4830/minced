@@ -100,7 +100,7 @@ Server Components by default. `"use client"` appears where there is state, effec
 
 ### Migrations timeline
 
-33 files (29 on live; the last four are wave 7 and are NOT applied to live until the owner says go). Never edit an applied one; add a new one. Where a function was redefined, **the current definition is in the newest file listed**.
+34 files (29 on live; the last five are wave 7 and the review wave and are NOT applied to live until the owner says go). Never edit an applied one; add a new one. Where a function was redefined, **the current definition is in the newest file listed**.
 
 | Phase | Files (prefix) | What |
 |---|---|---|
@@ -111,14 +111,16 @@ Server Components by default. `"use client"` appears where there is state, effec
 | Wave 3: photos first + accounts (Oct 11) | `20261011110000`, `120000` | `has_photo` tie-break, profiles/favourites/`delete_my_account` |
 | Wave 4: perf + admin (Oct 12) | `20261012100000`-`130000` | hashed RLS visibility, cookware filter, admin review, `jit=off` on RPCs |
 | Wave 7 (Oct 14) | `20261014100000` cookware alt groups, `100100` shopping add-batch, `120000` user recipes, `160000` user recipes hardening | `recipe_cookware.alt_group`, `makeable_recipes`, `p_add_batch`, author RPCs behind `feature_flags` |
+| Review wave (Oct 15) | `20261015120000` | `ingredients.filter_group`, `min_total_min` and `include_ingredient_ids` on `match_recipes` and `search_recipes`, `filtered_recipes()` |
 | Waves 5+6 (Oct 13) | `20261013100000` cookware vocabulary, `110000` photo sources, `130000` owned cookware, `140000` fridge, `150000` shopping list, `160000` security hardening | see below |
 
 ### Where each RPC is currently defined
 
 | Function | Current definition |
 |---|---|
-| `match_recipes` | `20261014100000_cookware_alt_groups.sql` (copy the body from the live database, not an older file: `jit=off` and the trigram threshold live only in the newest) |
-| `search_recipes` | `20261014100000_cookware_alt_groups.sql` |
+| `match_recipes` | `20261015120000_filters_time_ingredients.sql` (copy the body from the live database, not an older file: `jit=off` and the trigram threshold live only in the newest) |
+| `search_recipes` | `20261015120000_filters_time_ingredients.sql` |
+| `filtered_recipes` (browse; replaces `makeable_recipes` in the app) | `20261015120000_filters_time_ingredients.sql` |
 | `makeable_recipes` | `20261014100000_cookware_alt_groups.sql` |
 | `suggest_ingredients` | `20261010100400_suggest_latency.sql` |
 | `resolve_ingredient`, `strip_ingredient_modifiers` | `20260918205149_modifier_stripping.sql` |
@@ -239,3 +241,12 @@ Email + password (Google waits for a domain). Sign-up/log-in are Server Actions 
 | Change servings maths | `lib/scaling.ts` and re-run `test-scaling.mts`. The shopping SQL must stay in step with `shopping.ts`. |
 | Add a page | Put it in the right route group; add to `sitemap.ts` if public; decide `noindex` and the robots rule. |
 | Understand why | `docs/LEARNING-LOG.md` (decisions), `docs/SCHEMA-NOTES.md` (schema; stale on newer tables, check migrations). |
+
+## 11. Review wave additions (2026-10-15)
+
+- **Auth modal:** parallel route `src/app/@modal` in the root layout with intercepting `(.)login`, `(.)signup`, `(.)forgot-password`; direct loads stay full pages under `(auth)`. Return page travels in `?next` (always through `safeNext`).
+- **Placeholders:** `/me` and the "My recipes" coming-soon note (`components/shell/comingSoon.tsx`); landing cards in `components/landing/comingSoon.tsx`.
+- **Filters:** `lib/filters.ts` gains `minTime`, `maxTime`, `include`; sliders in `components/recipe/filterSlider.tsx`; time boxes in `filterTimeCustom.tsx`; browse reads `filtered_recipes()`.
+- **Display:** `lib/format.ts` (time and servings words), `lib/scaling.ts` (kitchen fractions, note scaling), `lib/shopping.ts` (`buyList`, names only).
+- **Scripts:** `scripts/dedupe-near-duplicates.sql`, `scripts/cleanup/clean_prep_notes.py` and its generated SQL and CSV, `scripts/photos/check_manifests.py`, `near_dupes.py`.
+- **Hero lab:** `/lab/hero`, noindex, 404 in production unless `SHOW_LAB=1` at build time.

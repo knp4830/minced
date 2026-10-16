@@ -314,3 +314,23 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 
 **Programmatic SEO URL sets are committed data.**
 - Rule: generate them with a reproducible read-only SQL script and `dynamicParams = false` only when the set changes solely with a deploy. (Parked on `wave7/seo-combos-later`.)
+
+## 8. Review wave (2026-10-15)
+
+**Apply the filters migration before the code.** `20261015120000` adds `ingredients.filter_group`; the landing build and filtered `/recipes` fail with 42703 without it. Redefine RPCs from `pg_get_functiondef` on the live database; new trailing parameters mean DROP then CREATE.
+
+**Never pass a bare `[&>span]` override into a shared component.** Scope to a class unique to the element you mean (it boxed the signed-out "Log in" text).
+
+**Browser pane tabs are shared between agents.** Create your own tab first and pass `tabId` on every call.
+
+**Git Bash mangles `/tmp` paths for `docker exec`.** Pipe the file through stdin.
+
+**A rejected photo can come back from a `*picks*.json` file.** `remove_photo.py` and `check_manifests.py` must cover every picks file; `commons_picks_r15.json` still lists 3 rejected slugs.
+
+**A photo shared by two recipes is the tell for duplicate recipes.** `check_manifests.py` now guards it.
+
+**Escapes lost in scripted edits.** A unicode escape lost its backslash and shipped as "sign2011up". Grep visible text after any scripted edit.
+
+**Soft navigation after sign-out is swallowed on auth pages** by the `@modal` slot; use a full page load there.
+
+**Signed-out state must not be read from localStorage.** `src/lib/useFridgeIds.ts` still does; fix in the next small wave.
