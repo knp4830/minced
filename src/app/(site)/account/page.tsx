@@ -168,7 +168,7 @@ export default async function AccountPage({ searchParams }: Props) {
               <div>
                 <h3 className="text-base font-semibold">Delete your account</h3>
                 <p className="mt-1.5 mb-4 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Removes your login, saved recipes, fridge and shopping list right away. This can&apos;t be undone.
+                  Removes your login, saved recipes, fridge, shopping list and everything you logged on Me (targets, meals, workouts, sleep) right away. This can&apos;t be undone.
                 </p>
                 <DeleteAccountForm />
               </div>

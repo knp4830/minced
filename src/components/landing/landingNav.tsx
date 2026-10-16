@@ -10,8 +10,8 @@ import { HeaderAccount } from "@/components/account/headerAccount";
  * under the search box, and a second copy stacked two identical actions within one
  * screen on phones. On phones the text link drops away so the auth control fits.
  *
- * HeaderAccount draws ink text and a herb avatar; both vanish on green, so its
- * colours are overridden through className rather than forking the component.
+ * HeaderAccount draws ink text and a herb avatar; both vanish on green, so the
+ * text colour comes through className and the avatar through tone="onHerb".
  */
 const link = "rounded-md text-sm font-medium text-on-herb transition-colors hover:text-saffron";
 
@@ -40,7 +40,7 @@ export function LandingNav() {
             <ShoppingBasket aria-hidden className="size-[1.125rem] sm:hidden" />
             <span className="sr-only sm:not-sr-only">Shopping list</span>
           </Link>
-          <HeaderAccount className="text-on-herb hover:text-saffron [&>span.rounded-full]:bg-on-herb [&>span.rounded-full]:text-herb group-hover:[&>span.rounded-full]:bg-saffron" />
+          <HeaderAccount tone="onHerb" className="text-on-herb hover:text-saffron" />
         </nav>
       </div>
     </header>

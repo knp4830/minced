@@ -7,6 +7,7 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { useAccount } from "@/components/account/accountProvider";
 import { SignOutForm } from "@/components/account/signOutForm";
+import { ME_ENABLED } from "@/lib/me/flag";
 import { cn } from "@/lib/utils";
 
 /**
@@ -19,11 +20,12 @@ import { cn } from "@/lib/utils";
  * for everyone). If an auth cookie exists we hide it until /api/me answers, so
  * a signed-in person doesn't see the wrong control flash.
  */
-export function HeaderAccount({ className }: { className?: string }) {
+/** `onHerb`: drawn on the green landing header, where a herb avatar would vanish. */
+export function HeaderAccount({ className, tone = "default" }: { className?: string; tone?: "default" | "onHerb" }) {
   const { status, me } = useAccount();
   const router = useRouter();
 
-  if (status === "in" && me) return <AccountMenu className={className} name={me.name} initial={me.initial} />;
+  if (status === "in" && me) return <AccountMenu className={className} tone={tone} name={me.name} initial={me.initial} />;
 
   return (
     <Link
@@ -50,7 +52,17 @@ export function HeaderAccount({ className }: { className?: string }) {
 const ITEM =
   "flex min-h-11 w-full items-center gap-3 rounded-md px-3 text-left text-[0.9375rem] text-ink transition-colors hover:bg-ink/6 hover:text-herb focus-visible:bg-ink/6";
 
-function AccountMenu({ className, name, initial }: { className?: string; name: string; initial: string }) {
+function AccountMenu({
+  className,
+  tone,
+  name,
+  initial,
+}: {
+  className?: string;
+  tone: "default" | "onHerb";
+  name: string;
+  initial: string;
+}) {
   const [open, setOpen] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
@@ -88,7 +100,12 @@ function AccountMenu({ className, name, initial }: { className?: string; name: s
       >
         <span
           aria-hidden
-          className="flex size-8 items-center justify-center rounded-full bg-herb font-sans text-[0.875rem] font-semibold text-on-herb transition-colors group-hover:bg-herb-deep"
+          className={cn(
+            "flex size-8 items-center justify-center rounded-full font-sans text-[0.875rem] font-semibold transition-colors",
+            tone === "onHerb"
+              ? "bg-on-herb text-herb group-hover:bg-saffron"
+              : "bg-herb text-on-herb group-hover:bg-herb-deep",
+          )}
         >
           {initial}
         </span>
@@ -114,9 +131,11 @@ function AccountMenu({ className, name, initial }: { className?: string; name: s
           <Link href="/me" className={ITEM}>
             <CalendarDays aria-hidden className="size-4 text-ink-muted" />
             Me
-            <span className="ml-auto rounded-full border border-line-strong px-2 py-0.5 font-mono text-[0.625rem] text-ink-muted">
-              soon
-            </span>
+            {!ME_ENABLED && (
+              <span className="ml-auto rounded-full border border-line-strong px-2 py-0.5 font-mono text-[0.625rem] text-ink-muted">
+                soon
+              </span>
+            )}
           </Link>
           <Link href="/account?tab=settings" className={ITEM}>
             <Settings aria-hidden className="size-4 text-ink-muted" />
