@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FavoriteButton } from "@/components/account/favoriteButton";
+import { LogThisButton } from "@/components/me/logThisButton";
 import { JsonLd } from "@/components/seo/jsonLd";
 import { Chip } from "@/components/ui/chip";
 import { MetaRow } from "@/components/ui/metaRow";
@@ -151,7 +152,10 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
       <div className="flex items-center justify-between gap-3">
         <BackToResults />
         {/* Client island: keeps this page cacheable; the saved state fills in after load. */}
-        <FavoriteButton slug={recipe.slug} title={recipe.title} variant="detail" />
+        <div className="flex items-center gap-2">
+          <LogThisButton slug={recipe.slug} title={recipe.title} hasNutrition={recipe.nutrition.calories != null} />
+          <FavoriteButton slug={recipe.slug} title={recipe.title} variant="detail" />
+        </div>
       </div>
 
       {/*

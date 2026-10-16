@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="004914ee-12b4-47bc-bb8b-f7d3c5741e81"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>/* vietnamese */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("02589e02-0f36-428c-a05e-0075a35eff17") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("4f1ffc89-ff58-4c67-8d56-25ea19ef701b") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fb416055-0294-4ddf-8071-7c24d637da20") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("02589e02-0f36-428c-a05e-0075a35eff17") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("4f1ffc89-ff58-4c67-8d56-25ea19ef701b") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fb416055-0294-4ddf-8071-7c24d637da20") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("02589e02-0f36-428c-a05e-0075a35eff17") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("4f1ffc89-ff58-4c67-8d56-25ea19ef701b") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fb416055-0294-4ddf-8071-7c24d637da20") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("f4938cf7-372a-44ec-9e39-fa6db7096fd2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("e21bf602-f2ac-417b-8349-14495a876a78") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("324e7ffe-6ccc-4cdb-b783-c6acde6ae821") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("76738024-bf84-4edf-8dba-8eeae7a036f0") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("bc7be386-c1ad-48aa-9043-2a563523e460") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("322145a6-69b1-47e8-8e7f-43b43957aff1") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("7e629c56-37a1-4059-9f7e-501f543945a9") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("d87b7734-564e-417e-9b4c-b741d7213393") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("16d37089-f4c7-4002-a746-46fe83a60355") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("af50d37b-31f0-4607-8545-2d21ee0a32fa") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("0647dd37-07b6-4155-b63a-f09fb56b59be") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("e4e795e5-466f-4b53-9416-ce00dee7064d") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("0307f255-b089-4fcf-a3e9-3757c7872e14") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("0647dd37-07b6-4155-b63a-f09fb56b59be") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("e4e795e5-466f-4b53-9416-ce00dee7064d") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("0307f255-b089-4fcf-a3e9-3757c7872e14") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("0647dd37-07b6-4155-b63a-f09fb56b59be") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("e4e795e5-466f-4b53-9416-ce00dee7064d") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("0307f255-b089-4fcf-a3e9-3757c7872e14") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+body{margin:0;background:#CBD1C7;font-family:'Public Sans',sans-serif;color:#1C2420;-webkit-font-smoothing:antialiased}
+a{color:#2F4B3C}a:hover{color:#25402F}
+button{font-family:inherit}
+input[type=range]{accent-color:#2F4B3C}
+.dv-turn{padding:40px 44px 32px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;background:#1C2420;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 'Public Sans',sans-serif;color:#1C2420}
+.dv-opts{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 7px;background:rgba(28,36,32,0.1);color:#1C2420;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 'IBM Plex Mono',monospace;color:rgba(28,36,32,0.65)}
+.dv-card{background:#F1F3EE;border:1px solid rgba(28,36,32,0.12);box-shadow:0 2px 12px rgba(28,36,32,0.08);position:relative}
+.dv-opt:target .dv-oid{background:#2F4B3C;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.5 'Public Sans',sans-serif;color:rgba(28,36,32,0.6)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Minced · "Me" dashboard — desktop, phone, muscle bodies, and states A–E</span></div>
+
+<div class="dv-opts">
+<div class="dv-opt" id="1a" data-screen-label="Desktop dashboard"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Desktop · 1440 × 900 · page scrolls, fold marked · hover muscles, click dates, + Log opens the sheet</div>
+<div class="dv-card" style="width:1440px;min-height:900px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:16px;padding:0 40px;height:64px;border-bottom:1px solid rgba(28,36,32,0.08)">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:#2F4B3C;display:grid;place-items:center"><svg width="14" height="14" sc-camel-view-box="0 0 14 14" aria-hidden="true"><rect x="1" y="2" width="12" height="2" rx="1" fill="#FBFBF8"></rect><rect x="1" y="6" width="8" height="2" rx="1" fill="#FBFBF8"></rect><rect x="1" y="10" width="10" height="2" rx="1" fill="#FBFBF8"></rect></svg></div><span style="font:600 18px Fraunces,serif;color:#1C2420">Minced</span></div>
+<div style="width:1px;height:20px;background:rgba(28,36,32,0.12)"></div>
+<h1 style="font:500 24px/1 Fraunces,serif;margin:0;color:#1C2420">Me</h1>
+<span style="font:400 13px 'IBM Plex Mono',monospace;color:#4C5A53">Monday 13 October</span>
+<div style="flex:1"></div>
+<button sc-camel-on-click="{{ toggleLog }}" style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">+ Log</button>
+</div>
+<div style="position:absolute;left:0;right:0;top:900px;border-top:1px dashed rgba(28,36,32,0.28);pointer-events:none;z-index:2"><span style="position:absolute;right:12px;top:-18px;font:500 10px 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(28,36,32,0.5)">900 FOLD</span></div>
+<sc-if value="{{ morningPrompt }}" hint-placeholder-val="{{ false }}">
+<div style="margin:16px auto -8px;width:720px;background:#FBFBF8;border:1px solid rgba(28,36,32,0.1);border-radius:12px;box-shadow:0 8px 24px rgba(28,36,32,0.10);padding:12px 12px 12px 16px;display:flex;align-items:center;gap:14px">
+<div style="width:36px;height:36px;border-radius:50%;background:#EAEDE6;display:grid;place-items:center;flex:none"><svg width="16" height="16" sc-camel-view-box="0 0 12 12" aria-hidden="true"><path d="M6.5 1.2 A4.6 4.6 0 1 0 10.8 7.4 A3.6 3.6 0 0 1 6.5 1.2 Z" fill="#2F4B3C"></path></svg></div>
+<div style="flex:none"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Good morning</div><div style="font:500 16px/1.2 Fraunces,serif;margin-top:4px">How did you sleep?</div></div>
+<div style="flex:1"></div>
+<div style="display:flex;gap:6px"><sc-for list="{{ sleepChips }}" as="o" hint-placeholder-count="5"><button sc-camel-on-click="{{ o.onClick }}" style="height:32px;min-width:44px;padding:0 10px;border-radius:16px;border:1px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }};font:500 12px 'IBM Plex Mono',monospace;cursor:pointer;white-space:nowrap;flex:none">{{ o.label }}</button></sc-for><button style="height:32px;padding:0 12px;border-radius:16px;border:1px solid rgba(28,36,32,0.14);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">Other</button></div>
+<button aria-label="Dismiss" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:#4C5A53;cursor:pointer;font:400 18px/1 'Public Sans',sans-serif" style-hover="background:#EAEDE6">×</button>
+</div></sc-if>
+
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding:24px 40px 40px">
+<div style="grid-column:span 5;display:flex;flex-direction:column;gap:24px">
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+<div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Sun 12 – Sat 18 Oct</div><h2 style="font:500 20px/1.2 Fraunces,serif;color:#1C2420;margin:6px 0 0">This week's muscles</h2></div>
+<div style="display:flex;gap:12px;padding-top:4px;font:11px 'Public Sans',sans-serif;color:#4C5A53">
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#A9C1B3"></span>1 set</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#6B8C79"></span>2–3 sets</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#2F4B3C"></span>4+ sets</span>
+</div></div>
+<div data-fig="d" style="position:relative;display:flex;justify-content:center;gap:44px;margin-top:14px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+<svg sc-camel-view-box="0 0 200 424" style="height:300px;width:auto;display:block;overflow:visible" role="img" aria-label="Front view muscle map">
+<path d="{{ sil }}" fill="#E2E6DF"></path><path d="{{ sil }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ frontD }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ frontD }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg>
+<span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Front</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+<svg sc-camel-view-box="0 0 200 424" style="height:300px;width:auto;display:block;overflow:visible" role="img" aria-label="Back view muscle map">
+<path d="{{ sil }}" fill="#E2E6DF"></path><path d="{{ sil }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ backD }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ backD }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg>
+<span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Back</span></div>
+<sc-if value="{{ showTipD }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:{{ tipD.x }}px;top:{{ tipD.y }}px;transform:translate(-50%,calc(-100% - 14px));background:#1C2420;color:#FBFBF8;font:500 11px/1 'IBM Plex Mono',monospace;padding:7px 9px;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:3">{{ tipD.text }}</div></sc-if>
+</div></div>
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px;position:relative">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<h2 style="font:500 18px/1.2 Fraunces,serif;color:#1C2420;margin:0">{{ monthLabel }}</h2>
+<div style="display:flex;gap:4px">
+<button sc-camel-on-click="{{ prevMonth }}" aria-label="Previous month" style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;cursor:pointer;font:500 16px/1 'IBM Plex Mono',monospace" style-hover="background:#EAEDE6">‹</button>
+<button sc-camel-on-click="{{ nextMonth }}" aria-label="Next month" style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;cursor:pointer;font:500 16px/1 'IBM Plex Mono',monospace" style-hover="background:#EAEDE6">›</button>
+</div></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);margin-top:14px;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53;text-align:center">
+<span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px;margin-top:8px">
+<sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+<div sc-camel-on-click="{{ c.onClick }}" title="{{ c.title }}" style="height:54px;display:flex;flex-direction:column;align-items:center;padding-top:4px;border-radius:8px;cursor:{{ c.cursor }};background:{{ c.bg }}">
+<sc-if value="{{ c.isDay }}" hint-placeholder-val="{{ true }}">
+<span style="width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:{{ c.numWeight }} 13px 'IBM Plex Mono',monospace;color:{{ c.numColor }};box-shadow:{{ c.ring }}">{{ c.n }}</span>
+<div style="display:flex;align-items:center;justify-content:center;gap:5px;height:12px;margin-top:3px">
+<sc-if value="{{ c.trained }}" hint-placeholder-val="{{ false }}"><svg width="14" height="8" sc-camel-view-box="0 0 14 8" role="img" aria-label="Trained"><title>Trained</title><rect x="0" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect><rect x="2.5" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="5" y="3" width="4" height="2" fill="#2F4B3C"></rect><rect x="9" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="12" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect></svg></sc-if>
+<sc-if value="{{ c.hasFood }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" sc-camel-view-box="0 0 12 12" role="img" aria-label="{{ c.foodLabel }}"><title>{{ c.foodLabel }}</title><circle cx="6" cy="6" r="5.2" fill="{{ c.plateFill }}" stroke="#2F4B3C" stroke-width="1.2"></circle><circle cx="6" cy="6" r="2.2" fill="{{ c.plateInner }}" stroke="{{ c.plateInnerStroke }}" stroke-width="1"></circle></svg></sc-if>
+<sc-if value="{{ c.hasSleep }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:2px" title="Sleep"><svg width="9" height="9" sc-camel-view-box="0 0 12 12" aria-hidden="true"><path d="M6.5 1.2 A4.6 4.6 0 1 0 10.8 7.4 A3.6 3.6 0 0 1 6.5 1.2 Z" fill="#4C5A53"></path></svg><span style="font:400 10px/1 'IBM Plex Mono',monospace;color:#4C5A53">{{ c.sleep }}</span></span></sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid rgba(28,36,32,0.07);font:12px 'Public Sans',sans-serif;color:#4C5A53">
+<span style="display:flex;align-items:center;gap:6px"><svg width="14" height="8" sc-camel-view-box="0 0 14 8" aria-hidden="true"><rect x="0" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect><rect x="2.5" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="5" y="3" width="4" height="2" fill="#2F4B3C"></rect><rect x="9" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="12" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect></svg>Trained</span>
+<span style="display:flex;align-items:center;gap:6px"><svg width="12" height="12" sc-camel-view-box="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.2" fill="#2F4B3C" stroke="#2F4B3C" stroke-width="1.2"></circle><circle cx="6" cy="6" r="2.2" fill="#FBFBF8"></circle></svg>Nutrition goal hit</span>
+<span style="display:flex;align-items:center;gap:6px"><svg width="12" height="12" sc-camel-view-box="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.2" fill="none" stroke="#2F4B3C" stroke-width="1.2"></circle><circle cx="6" cy="6" r="2.2" fill="none" stroke="#2F4B3C" stroke-width="1"></circle></svg>Partly — protein short</span>
+<span style="display:flex;align-items:center;gap:6px"><svg width="10" height="10" sc-camel-view-box="0 0 12 12" aria-hidden="true"><path d="M6.5 1.2 A4.6 4.6 0 1 0 10.8 7.4 A3.6 3.6 0 0 1 6.5 1.2 Z" fill="#4C5A53"></path></svg><span style="font:400 11px 'IBM Plex Mono',monospace">7h</span> Sleep</span>
+</div>
+<sc-if value="{{ showPop }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:50%;top:84px;transform:translateX(-50%);width:304px;background:#FBFBF8;border:1px solid rgba(28,36,32,0.12);border-radius:12px;box-shadow:0 12px 32px rgba(28,36,32,0.16);padding:16px;z-index:5">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">{{ pop.eyebrow }}</div><div style="font:500 17px/1.2 Fraunces,serif;margin-top:5px">{{ pop.title }}</div></div><button sc-camel-on-click="{{ closePop }}" aria-label="Close" style="width:28px;height:28px;border-radius:8px;border:0;background:transparent;color:#4C5A53;cursor:pointer;font:400 16px/1 'Public Sans',sans-serif" style-hover="background:#EAEDE6">×</button></div>
+<div style="display:flex;flex-direction:column;margin-top:12px">
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(28,36,32,0.07)"><svg width="14" height="8" sc-camel-view-box="0 0 14 8" aria-hidden="true"><rect x="0" y="2" width="2" height="4" rx="0.6" fill="{{ pop.dumbFill }}"></rect><rect x="2.5" y="0.5" width="2.5" height="7" rx="0.6" fill="{{ pop.dumbFill }}"></rect><rect x="5" y="3" width="4" height="2" fill="{{ pop.dumbFill }}"></rect><rect x="9" y="0.5" width="2.5" height="7" rx="0.6" fill="{{ pop.dumbFill }}"></rect><rect x="12" y="2" width="2" height="4" rx="0.6" fill="{{ pop.dumbFill }}"></rect></svg><div style="flex:1;min-width:0"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Workout</div><div style="font:400 13px/1.3 'Public Sans',sans-serif;margin-top:3px">{{ pop.workout }}</div></div><button style="height:28px;padding:0 10px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">{{ pop.workoutBtn }}</button></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(28,36,32,0.07)"><svg width="12" height="12" sc-camel-view-box="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.2" fill="{{ pop.plateFill }}" stroke="{{ pop.plateStroke }}" stroke-width="1.2"></circle><circle cx="6" cy="6" r="2.2" fill="{{ pop.plateInner }}" stroke="{{ pop.plateInnerStroke }}" stroke-width="1"></circle></svg><div style="flex:1;min-width:0"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Nutrition</div><div style="font:400 13px/1.3 'Public Sans',sans-serif;margin-top:3px">{{ pop.food }}</div><div style="font:400 11px/1.3 'IBM Plex Mono',monospace;color:{{ pop.foodNoteColor }};margin-top:2px">{{ pop.foodNote }}</div></div><button style="height:28px;padding:0 10px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">{{ pop.foodBtn }}</button></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(28,36,32,0.07)"><svg width="12" height="12" sc-camel-view-box="0 0 12 12" aria-hidden="true"><path d="M6.5 1.2 A4.6 4.6 0 1 0 10.8 7.4 A3.6 3.6 0 0 1 6.5 1.2 Z" fill="#4C5A53"></path></svg><div style="flex:1;min-width:0"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Sleep</div><div style="font:400 13px/1.3 'IBM Plex Mono',monospace;margin-top:3px">{{ pop.sleep }}</div></div><button style="height:28px;padding:0 10px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">{{ pop.sleepBtn }}</button></div>
+</div></div></sc-if>
+</div>
+</div>
+
+<div style="grid-column:span 7;display:flex;flex-direction:column;gap:24px">
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Monday 13 Oct</div><h2 style="font:500 20px/1.2 Fraunces,serif;color:#1C2420;margin:6px 0 0">Today's food</h2></div><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53;padding-top:4px">Goal 2,300 kcal</span></div>
+<div style="display:flex;align-items:center;gap:40px;margin-top:18px">
+<div style="position:relative;width:208px;height:208px;flex:none">
+<svg sc-camel-view-box="0 0 208 208" width="208" height="208" role="img" aria-label="1,640 of 2,300 kcal eaten">
+<circle cx="104" cy="104" r="88" fill="none" stroke="#EAEDE6" stroke-width="16"></circle>
+<g transform="rotate(-90 104 104)">
+<circle cx="104" cy="104" r="88" fill="none" stroke="#2F4B3C" stroke-width="16" stroke-dasharray="{{ segCarb.dash }}" stroke-dashoffset="{{ segCarb.off }}"></circle>
+<circle cx="104" cy="104" r="88" fill="none" stroke="#6B8C79" stroke-width="16" stroke-dasharray="{{ segFat.dash }}" stroke-dashoffset="{{ segFat.off }}"></circle>
+<circle cx="104" cy="104" r="88" fill="none" stroke="#93A4AD" stroke-width="16" stroke-dasharray="{{ segProt.dash }}" stroke-dashoffset="{{ segProt.off }}"></circle>
+</g></svg>
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+<div style="font:500 30px/1 'IBM Plex Mono',monospace;color:#1C2420">1,640</div>
+<div style="font:400 12px/1 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:6px">/ 2,300 kcal</div>
+<div style="font:500 13px/1 'IBM Plex Mono',monospace;color:#2F4B3C;margin-top:10px">660 left</div>
+</div></div>
+<div style="display:flex;flex-direction:column;gap:10px;font:13px 'Public Sans',sans-serif">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#2F4B3C"></span><span style="width:60px">Carbs</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">688 kcal · 42%</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#6B8C79"></span><span style="width:60px">Fat</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">468 kcal · 29%</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#93A4AD"></span><span style="width:60px">Protein</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">484 kcal · 30%</span></div>
+<div style="font:12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin-top:4px;max-width:260px">Each segment is that macro's share of today's 2,300 kcal goal.</div>
+</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(28,36,32,0.07)">
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 13px 'Public Sans',sans-serif">Carbs</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">172 / 245 g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:8px;overflow:hidden"><div style="height:100%;width:70%;background:#2F4B3C;border-radius:2px"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 13px 'Public Sans',sans-serif">Fat</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">52 / 75 g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:8px;overflow:hidden"><div style="height:100%;width:69%;background:#6B8C79;border-radius:2px"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 13px 'Public Sans',sans-serif">Protein</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">121 / 160 g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:8px;overflow:hidden"><div style="height:100%;width:76%;background:#93A4AD;border-radius:2px"></div></div></div>
+</div></div>
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">From logged meals</div><h2 style="font:500 20px/1.2 Fraunces,serif;color:#1C2420;margin:6px 0 0">All nutrients today</h2></div><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;padding-top:4px">bar = % of daily value · <span style="color:#C1481E">over limit</span></span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;column-gap:36px;margin-top:10px">
+<div><sc-for list="{{ nutrA }}" as="n" hint-placeholder-count="10"><div style="display:grid;grid-template-columns:1fr 78px 64px 40px;align-items:center;gap:10px;height:32px;border-bottom:1px solid rgba(28,36,32,0.07)"><span style="font:400 13px 'Public Sans',sans-serif;color:#1C2420">{{ n.name }}</span><span style="font:400 12px 'IBM Plex Mono',monospace;text-align:right;color:{{ n.color }}">{{ n.amount }} {{ n.unit }}</span><span style="height:4px;border-radius:2px;background:#EAEDE6;overflow:hidden;display:block"><span style="display:block;height:100%;width:{{ n.barW }};background:{{ n.barColor }}"></span></span><span style="font:400 11px 'IBM Plex Mono',monospace;text-align:right;color:{{ n.pctColor }}">{{ n.pct }}%</span></div></sc-for></div>
+<div><sc-for list="{{ nutrB }}" as="n" hint-placeholder-count="9"><div style="display:grid;grid-template-columns:1fr 78px 64px 40px;align-items:center;gap:10px;height:32px;border-bottom:1px solid rgba(28,36,32,0.07)"><span style="font:400 13px 'Public Sans',sans-serif;color:#1C2420">{{ n.name }}</span><span style="font:400 12px 'IBM Plex Mono',monospace;text-align:right;color:{{ n.color }}">{{ n.amount }} {{ n.unit }}</span><span style="height:4px;border-radius:2px;background:#EAEDE6;overflow:hidden;display:block"><span style="display:block;height:100%;width:{{ n.barW }};background:{{ n.barColor }}"></span></span><span style="font:400 11px 'IBM Plex Mono',monospace;text-align:right;color:{{ n.pctColor }}">{{ n.pct }}%</span></div></sc-for></div>
+</div></div>
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">4 meals</div><h2 style="font:500 20px/1.2 Fraunces,serif;color:#1C2420;margin:6px 0 0">Today's meals</h2></div><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53;padding-top:4px">1,640 kcal logged</span></div>
+<div style="display:flex;flex-direction:column;margin-top:8px">
+<div style="padding:14px 0;border-top:1px solid rgba(28,36,32,0.07)">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:500 16px Fraunces,serif">Breakfast</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">540 kcal</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:8px;background:repeating-linear-gradient(45deg,#E3E7E0 0 4px,#EBEEE8 4px 8px);border:1px solid rgba(28,36,32,0.08);flex:none" role="img" aria-label="Recipe photo"></div><div style="flex:1;min-width:0"><div style="font:400 14px 'Public Sans',sans-serif">Overnight oats with blueberries</div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#2F4B3C;margin-top:4px">Minced recipe · 1 serving</div></div><span style="font:400 13px 'IBM Plex Mono',monospace">420 kcal</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:8px;background:#EAEDE6;flex:none;display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:50%;border:1.5px solid #4C5A53"></span></div><div style="flex:1;min-width:0"><div style="font:400 14px 'Public Sans',sans-serif">Flat white</div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:4px">250 ml · whole milk</div></div><span style="font:400 13px 'IBM Plex Mono',monospace">120 kcal</span></div>
+</div></div>
+<div style="padding:14px 0;border-top:1px solid rgba(28,36,32,0.07)">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:500 16px Fraunces,serif">Lunch</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">775 kcal</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:8px;background:repeating-linear-gradient(45deg,#E3E7E0 0 4px,#EBEEE8 4px 8px);border:1px solid rgba(28,36,32,0.08);flex:none" role="img" aria-label="Recipe photo"></div><div style="flex:1;min-width:0"><div style="font:400 14px 'Public Sans',sans-serif">Chickpea &amp; spinach curry</div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#2F4B3C;margin-top:4px">Minced recipe · 1 serving</div></div><span style="font:400 13px 'IBM Plex Mono',monospace">560 kcal</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:8px;background:#EAEDE6;flex:none;display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:50%;border:1.5px solid #4C5A53"></span></div><div style="flex:1;min-width:0"><div style="font:400 14px 'Public Sans',sans-serif">Brown rice</div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:4px">1 cup · cooked</div></div><span style="font:400 13px 'IBM Plex Mono',monospace">215 kcal</span></div>
+</div></div>
+<div style="padding:14px 0;border-top:1px solid rgba(28,36,32,0.07)">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:500 16px Fraunces,serif">Dinner</span><span style="font:400 12px 'Public Sans',sans-serif;color:#4C5A53">Nothing logged yet</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+</div>
+<div style="padding:14px 0 4px;border-top:1px solid rgba(28,36,32,0.07)">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:500 16px Fraunces,serif">Snacks</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">325 kcal</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:8px;background:repeating-linear-gradient(45deg,#E3E7E0 0 4px,#EBEEE8 4px 8px);border:1px solid rgba(28,36,32,0.08);flex:none" role="img" aria-label="Recipe photo"></div><div style="flex:1;min-width:0"><div style="font:400 14px 'Public Sans',sans-serif">Greek yoghurt with walnuts</div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#2F4B3C;margin-top:4px">Minced recipe · 1 serving</div></div><span style="font:400 13px 'IBM Plex Mono',monospace">230 kcal</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:8px;background:#EAEDE6;flex:none;display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:50%;border:1.5px solid #4C5A53"></span></div><div style="flex:1;min-width:0"><div style="font:400 14px 'Public Sans',sans-serif">Apple</div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:4px">1 medium</div></div><span style="font:400 13px 'IBM Plex Mono',monospace">95 kcal</span></div>
+</div></div>
+</div></div>
+</div>
+</div>
+
+<sc-if value="{{ logOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(28,36,32,0.45);display:flex;align-items:flex-start;justify-content:center;padding-top:120px;z-index:10" sc-camel-on-click="{{ closeLog }}">
+<div sc-camel-on-click="{{ stop }}" style="width:760px;background:#FBFBF8;border-radius:12px;border:1px solid rgba(28,36,32,0.1);box-shadow:0 24px 64px rgba(28,36,32,0.22);padding:24px 28px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Quick log</div><h2 style="font:500 24px/1.2 Fraunces,serif;margin:6px 0 0">What are you logging?</h2></div><button sc-camel-on-click="{{ closeLog }}" aria-label="Close" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:#4C5A53;cursor:pointer;font:400 18px/1 'Public Sans',sans-serif" style-hover="background:#EAEDE6">×</button></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px">
+<div style="background:#EAEDE6;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px"><div><h3 style="font:500 18px/1.2 Fraunces,serif;margin:0">Workout</h3><p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:4px 0 0">Pick a session type — it fills this week's muscle map.</p></div><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ sessionOpts }}" as="o" hint-placeholder-count="8"><button sc-camel-on-click="{{ o.onClick }}" style="height:32px;padding:0 12px;border-radius:16px;border:1px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }};font:500 12px 'Public Sans',sans-serif;cursor:pointer;white-space:nowrap;flex:none">{{ o.label }}</button></sc-for></div></div>
+<div style="background:#EAEDE6;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px"><div><h3 style="font:500 18px/1.2 Fraunces,serif;margin:0">Food</h3><p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:4px 0 0">Search Minced recipes or a food.</p></div><div style="height:40px;border-radius:9px;background:#FBFBF8;border:1px solid rgba(28,36,32,0.12);display:flex;align-items:center;padding:0 12px;font:400 13px 'Public Sans',sans-serif;color:#4C5A53">Search recipes or foods…</div><button style="height:36px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#F1F3EE">I cooked this</button><span style="font:400 11px 'Public Sans',sans-serif;color:#4C5A53">Log a recipe from its page</span></div>
+<div style="background:#EAEDE6;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px"><div><h3 style="font:500 18px/1.2 Fraunces,serif;margin:0">Sleep</h3><p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:4px 0 0">Last night, in hours.</p></div><div style="font:500 32px/1 'IBM Plex Mono',monospace;color:#1C2420">{{ sleepLabel }}</div><input type="range" min="0" max="12" step="0.5" value="{{ sleep }}" sc-camel-on-change="{{ setSleep }}" aria-label="Hours slept" style="width:100%;margin:0"><div style="display:flex;justify-content:space-between;font:400 10px 'IBM Plex Mono',monospace;color:#4C5A53"><span>0h</span><span>12h</span></div></div>
+</div>
+<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:20px"><button sc-camel-on-click="{{ closeLog }}" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">Cancel</button><button sc-camel-on-click="{{ closeLog }}" style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">Log</button></div>
+</div></div></sc-if>
+</div></div>
+</div>
+
+
+<div class="dv-opts" style="margin-top:40px">
+<div class="dv-opt" id="1b" data-screen-label="Phone"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Phone · 390 wide · swipe the muscle map front/back</div>
+<div class="dv-card" style="width:390px;overflow:hidden">
+<div style="height:44px;display:flex;align-items:center;justify-content:center;font:500 13px 'IBM Plex Mono',monospace">9:41</div>
+<div style="display:flex;align-items:center;gap:10px;padding:4px 16px 12px">
+<div style="width:28px;height:28px;border-radius:8px;background:#2F4B3C;display:grid;place-items:center"><svg width="14" height="14" sc-camel-view-box="0 0 14 14" aria-hidden="true"><rect x="1" y="2" width="12" height="2" rx="1" fill="#FBFBF8"></rect><rect x="1" y="6" width="8" height="2" rx="1" fill="#FBFBF8"></rect><rect x="1" y="10" width="10" height="2" rx="1" fill="#FBFBF8"></rect></svg></div>
+<h1 style="font:500 24px/1 Fraunces,serif;margin:0">Me</h1>
+<div style="flex:1"></div>
+<span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">Mon 13 Oct</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;padding:0 16px 100px">
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:18px 16px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Today</div><h2 style="font:500 20px/1.2 Fraunces,serif;margin:6px 0 0">Food</h2></div><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;padding-top:4px">Goal 2,300</span></div>
+<div style="display:flex;align-items:center;gap:20px;margin-top:14px">
+<div style="position:relative;width:150px;height:150px;flex:none">
+<svg sc-camel-view-box="0 0 208 208" width="150" height="150" role="img" aria-label="1,640 of 2,300 kcal eaten">
+<circle cx="104" cy="104" r="88" fill="none" stroke="#EAEDE6" stroke-width="18"></circle>
+<g transform="rotate(-90 104 104)">
+<circle cx="104" cy="104" r="88" fill="none" stroke="#2F4B3C" stroke-width="18" stroke-dasharray="{{ segCarb.dash }}" stroke-dashoffset="{{ segCarb.off }}"></circle>
+<circle cx="104" cy="104" r="88" fill="none" stroke="#6B8C79" stroke-width="18" stroke-dasharray="{{ segFat.dash }}" stroke-dashoffset="{{ segFat.off }}"></circle>
+<circle cx="104" cy="104" r="88" fill="none" stroke="#93A4AD" stroke-width="18" stroke-dasharray="{{ segProt.dash }}" stroke-dashoffset="{{ segProt.off }}"></circle>
+</g></svg>
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+<div style="font:500 22px/1 'IBM Plex Mono',monospace">1,640</div>
+<div style="font:400 10px/1 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:5px">/ 2,300 kcal</div>
+<div style="font:500 11px/1 'IBM Plex Mono',monospace;color:#2F4B3C;margin-top:8px">660 left</div>
+</div></div>
+<div style="display:flex;flex-direction:column;gap:12px;flex:1;min-width:0">
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 12px 'Public Sans',sans-serif">Carbs</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">172 / 245 g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:6px;overflow:hidden"><div style="height:100%;width:70%;background:#2F4B3C"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 12px 'Public Sans',sans-serif">Fat</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">52 / 75 g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:6px;overflow:hidden"><div style="height:100%;width:69%;background:#6B8C79"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 12px 'Public Sans',sans-serif">Protein</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">121 / 160 g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:6px;overflow:hidden"><div style="height:100%;width:76%;background:#93A4AD"></div></div></div>
+</div></div>
+<button style="margin-top:14px;width:100%;height:44px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">All nutrients today</button>
+</div>
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:18px 16px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><h2 style="font:500 20px/1.2 Fraunces,serif;margin:0">Today's meals</h2><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;padding-top:6px">1,640 kcal</span></div>
+<div style="display:flex;flex-direction:column;margin-top:6px">
+<div style="padding:12px 0;border-top:1px solid rgba(28,36,32,0.07)"><div style="display:flex;align-items:center;gap:10px;min-height:32px"><span style="font:500 15px Fraunces,serif">Breakfast</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">540 kcal</span><div style="flex:1"></div><button style="height:44px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer">+ Add</button></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:8px;background:repeating-linear-gradient(45deg,#E3E7E0 0 4px,#EBEEE8 4px 8px);border:1px solid rgba(28,36,32,0.08);flex:none" role="img" aria-label="Recipe photo"></div><div style="flex:1;min-width:0"><div style="font:400 13px 'Public Sans',sans-serif">Overnight oats with blueberries</div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#2F4B3C;margin-top:4px">Minced recipe</div></div><span style="font:400 12px 'IBM Plex Mono',monospace">420</span></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:8px;background:#EAEDE6;flex:none;display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:50%;border:1.5px solid #4C5A53"></span></div><div style="flex:1;min-width:0"><div style="font:400 13px 'Public Sans',sans-serif">Flat white</div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:4px">250 ml</div></div><span style="font:400 12px 'IBM Plex Mono',monospace">120</span></div>
+</div></div>
+<div style="padding:12px 0;border-top:1px solid rgba(28,36,32,0.07)"><div style="display:flex;align-items:center;gap:10px;min-height:32px"><span style="font:500 15px Fraunces,serif">Lunch</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">775 kcal</span><div style="flex:1"></div><button style="height:44px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer">+ Add</button></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:8px;background:repeating-linear-gradient(45deg,#E3E7E0 0 4px,#EBEEE8 4px 8px);border:1px solid rgba(28,36,32,0.08);flex:none" role="img" aria-label="Recipe photo"></div><div style="flex:1;min-width:0"><div style="font:400 13px 'Public Sans',sans-serif">Chickpea &amp; spinach curry</div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#2F4B3C;margin-top:4px">Minced recipe</div></div><span style="font:400 12px 'IBM Plex Mono',monospace">560</span></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:8px;background:#EAEDE6;flex:none;display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:50%;border:1.5px solid #4C5A53"></span></div><div style="flex:1;min-width:0"><div style="font:400 13px 'Public Sans',sans-serif">Brown rice</div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:4px">1 cup</div></div><span style="font:400 12px 'IBM Plex Mono',monospace">215</span></div>
+</div></div>
+<div style="padding:12px 0;border-top:1px solid rgba(28,36,32,0.07)"><div style="display:flex;align-items:center;gap:10px;min-height:32px"><span style="font:500 15px Fraunces,serif">Dinner</span><span style="font:400 11px 'Public Sans',sans-serif;color:#4C5A53">Nothing yet</span><div style="flex:1"></div><button style="height:44px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer">+ Add</button></div></div>
+<div style="padding:12px 0 0;border-top:1px solid rgba(28,36,32,0.07)"><div style="display:flex;align-items:center;gap:10px;min-height:32px"><span style="font:500 15px Fraunces,serif">Snacks</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">325 kcal</span><div style="flex:1"></div><button style="height:44px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer">+ Add</button></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:8px;background:repeating-linear-gradient(45deg,#E3E7E0 0 4px,#EBEEE8 4px 8px);border:1px solid rgba(28,36,32,0.08);flex:none" role="img" aria-label="Recipe photo"></div><div style="flex:1;min-width:0"><div style="font:400 13px 'Public Sans',sans-serif">Greek yoghurt with walnuts</div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#2F4B3C;margin-top:4px">Minced recipe</div></div><span style="font:400 12px 'IBM Plex Mono',monospace">230</span></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:8px;background:#EAEDE6;flex:none;display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:50%;border:1.5px solid #4C5A53"></span></div><div style="flex:1;min-width:0"><div style="font:400 13px 'Public Sans',sans-serif">Apple</div><div style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:4px">1 medium</div></div><span style="font:400 12px 'IBM Plex Mono',monospace">95</span></div>
+</div></div>
+</div></div>
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:18px 16px">
+<div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Sun 12 – Sat 18 Oct</div><h2 style="font:500 20px/1.2 Fraunces,serif;margin:6px 0 0">This week's muscles</h2>
+<div data-fig="p" style="position:relative;margin-top:8px">
+<div style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px;padding:0 16px">
+<div style="flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:6px">
+<svg sc-camel-view-box="0 0 200 424" style="height:280px;width:auto;display:block;overflow:visible" role="img" aria-label="Front view muscle map">
+<path d="{{ sil }}" fill="#E2E6DF"></path><path d="{{ sil }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ frontP }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ frontP }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Front · swipe for back</span></div>
+<div style="flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:6px">
+<svg sc-camel-view-box="0 0 200 424" style="height:280px;width:auto;display:block;overflow:visible" role="img" aria-label="Back view muscle map">
+<path d="{{ sil }}" fill="#E2E6DF"></path><path d="{{ sil }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ backP }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ backP }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Back</span></div>
+</div>
+<sc-if value="{{ showTipP }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:{{ tipP.x }}px;top:{{ tipP.y }}px;transform:translate(-50%,calc(-100% - 14px));background:#1C2420;color:#FBFBF8;font:500 11px/1 'IBM Plex Mono',monospace;padding:7px 9px;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:3">{{ tipP.text }}</div></sc-if>
+</div>
+<div style="display:flex;justify-content:center;gap:6px;margin-top:10px"><span style="width:6px;height:6px;border-radius:50%;background:#2F4B3C"></span><span style="width:6px;height:6px;border-radius:50%;background:rgba(28,36,32,0.2)"></span></div>
+<div style="display:flex;gap:12px;justify-content:center;margin-top:12px;font:11px 'Public Sans',sans-serif;color:#4C5A53">
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#A9C1B3"></span>1 set</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#6B8C79"></span>2–3 sets</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#2F4B3C"></span>4+ sets</span>
+</div></div>
+
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:18px 12px">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px">
+<h2 style="font:500 18px/1.2 Fraunces,serif;margin:0">{{ monthLabel }}</h2>
+<div style="display:flex;gap:4px">
+<button sc-camel-on-click="{{ prevMonth }}" aria-label="Previous month" style="width:44px;height:44px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;cursor:pointer;font:500 18px/1 'IBM Plex Mono',monospace">‹</button>
+<button sc-camel-on-click="{{ nextMonth }}" aria-label="Next month" style="width:44px;height:44px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;cursor:pointer;font:500 18px/1 'IBM Plex Mono',monospace">›</button>
+</div></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);margin-top:14px;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53;text-align:center">
+<span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px;margin-top:8px">
+<sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+<div sc-camel-on-click="{{ c.onClick }}" title="{{ c.title }}" style="height:50px;display:flex;flex-direction:column;align-items:center;padding-top:3px;border-radius:8px;cursor:{{ c.cursor }};background:{{ c.bg }}">
+<sc-if value="{{ c.isDay }}" hint-placeholder-val="{{ true }}">
+<span style="width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:{{ c.numWeight }} 13px 'IBM Plex Mono',monospace;color:{{ c.numColor }};box-shadow:{{ c.ring }}">{{ c.n }}</span>
+<div style="display:flex;align-items:center;justify-content:center;gap:3px;height:12px;margin-top:2px">
+<sc-if value="{{ c.trained }}" hint-placeholder-val="{{ false }}"><svg width="12" height="7" sc-camel-view-box="0 0 14 8" role="img" aria-label="Trained"><title>Trained</title><rect x="0" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect><rect x="2.5" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="5" y="3" width="4" height="2" fill="#2F4B3C"></rect><rect x="9" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="12" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect></svg></sc-if>
+<sc-if value="{{ c.hasFood }}" hint-placeholder-val="{{ false }}"><svg width="10" height="10" sc-camel-view-box="0 0 12 12" role="img" aria-label="{{ c.foodLabel }}"><title>{{ c.foodLabel }}</title><circle cx="6" cy="6" r="5.2" fill="{{ c.plateFill }}" stroke="#2F4B3C" stroke-width="1.2"></circle><circle cx="6" cy="6" r="2.2" fill="{{ c.plateInner }}" stroke="{{ c.plateInnerStroke }}" stroke-width="1"></circle></svg></sc-if>
+<sc-if value="{{ c.hasSleep }}" hint-placeholder-val="{{ false }}"><span style="font:400 9px/1 'IBM Plex Mono',monospace;color:#4C5A53" title="Sleep">{{ c.sleep }}</span></sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 4px 0;padding-top:12px;border-top:1px solid rgba(28,36,32,0.07);font:11px 'Public Sans',sans-serif;color:#4C5A53">
+<span style="display:flex;align-items:center;gap:5px"><svg width="12" height="7" sc-camel-view-box="0 0 14 8" aria-hidden="true"><rect x="0" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect><rect x="2.5" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="5" y="3" width="4" height="2" fill="#2F4B3C"></rect><rect x="9" y="0.5" width="2.5" height="7" rx="0.6" fill="#2F4B3C"></rect><rect x="12" y="2" width="2" height="4" rx="0.6" fill="#2F4B3C"></rect></svg>Trained</span>
+<span style="display:flex;align-items:center;gap:5px"><svg width="10" height="10" sc-camel-view-box="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.2" fill="#2F4B3C"></circle><circle cx="6" cy="6" r="2.2" fill="#FBFBF8"></circle></svg>Goal hit</span>
+<span style="display:flex;align-items:center;gap:5px"><svg width="10" height="10" sc-camel-view-box="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.2" fill="none" stroke="#2F4B3C" stroke-width="1.2"></circle><circle cx="6" cy="6" r="2.2" fill="none" stroke="#2F4B3C" stroke-width="1"></circle></svg>Protein short</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="font:400 10px 'IBM Plex Mono',monospace">7h</span>Sleep</span>
+</div></div>
+</div>
+<button aria-label="Log" style="position:sticky;bottom:24px;margin:-80px 16px 24px auto;display:flex;align-items:center;gap:6px;height:52px;padding:0 20px;border-radius:26px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 15px 'Public Sans',sans-serif;cursor:pointer;box-shadow:0 8px 20px rgba(28,36,32,0.22)" style-hover="background:#25402F">+ Log</button>
+</div></div>
+
+<div class="dv-opt" id="1k" data-screen-label="Muscle bodies"><div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a>Muscle map bodies · male and female · the dashboard switches via the bodyType tweak</div>
+<div class="dv-card" style="width:900px;padding:28px 32px 24px;background:#FBFBF8">
+<div data-fig="k" style="position:relative;display:flex;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+<svg sc-camel-view-box="0 0 200 424" style="height:440px;width:auto;display:block;overflow:visible" role="img" aria-label="Male front">
+<path d="{{ silM }}" fill="#E2E6DF"></path><path d="{{ silM }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ frontKM }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ frontKM }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Male · front</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+<svg sc-camel-view-box="0 0 200 424" style="height:440px;width:auto;display:block;overflow:visible" role="img" aria-label="Male back">
+<path d="{{ silM }}" fill="#E2E6DF"></path><path d="{{ silM }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ backKM }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ backKM }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Male · back</span></div>
+<div style="width:1px;background:rgba(28,36,32,0.08);align-self:stretch"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+<svg sc-camel-view-box="0 0 200 424" style="height:440px;width:auto;display:block;overflow:visible" role="img" aria-label="Female front">
+<path d="{{ silF }}" fill="#E2E6DF"></path><path d="{{ silF }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ frontKF }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ frontKF }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Female · front</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+<svg sc-camel-view-box="0 0 200 424" style="height:440px;width:auto;display:block;overflow:visible" role="img" aria-label="Female back">
+<path d="{{ silF }}" fill="#E2E6DF"></path><path d="{{ silF }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ backKF }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ backKF }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round" style="cursor:pointer" sc-camel-on-mouse-move="{{ m.onMove }}" sc-camel-on-mouse-leave="{{ m.onLeave }}" sc-camel-on-click="{{ m.onMove }}"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round" pointer-events="none"></path></sc-for></g>
+</svg><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Female · back</span></div>
+<sc-if value="{{ showTipK }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:{{ tipK.x }}px;top:{{ tipK.y }}px;transform:translate(-50%,calc(-100% - 14px));background:#1C2420;color:#FBFBF8;font:500 11px/1 'IBM Plex Mono',monospace;padding:7px 9px;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:3">{{ tipK.text }}</div></sc-if>
+</div>
+<div style="display:flex;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid rgba(28,36,32,0.07);font:12px 'Public Sans',sans-serif;color:#4C5A53;flex-wrap:wrap">
+<span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#D3D9D1"></span>Not trained</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#A9C1B3"></span>1 set</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#6B8C79"></span>2–3 sets</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#2F4B3C"></span>4+ sets</span>
+<span style="margin-left:auto">Groups: traps · delts · chest · serratus · biceps · triceps · forearms · abs · obliques · lats · mid/upper back · rotator cuff · lower back · hip flexors · sartorius · glutes · quads · adductors · hamstrings · calves · shins</span>
+</div></div></div>
+</div>
+
+<div class="dv-opts" style="margin-top:40px">
+<div class="dv-opt" id="1c" data-screen-label="Setup step 1"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>A · First-time setup · step 1 of 4 · toggles are live</div>
+<div class="dv-card" style="width:640px;padding:40px;background:#8F978F;display:grid;place-items:center">
+<div style="width:560px;background:#FBFBF8;border-radius:12px;box-shadow:0 24px 64px rgba(28,36,32,0.25);padding:28px 32px 24px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Step 1 of 4</span><div style="display:flex;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(28,36,32,0.15)"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(28,36,32,0.15)"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(28,36,32,0.15)"></span></div></div>
+<h2 style="font:500 26px/1.2 Fraunces,serif;margin:14px 0 0">Let's set your targets</h2>
+<p style="font:400 14px/1.5 'Public Sans',sans-serif;color:#4C5A53;margin:8px 0 0">Four quick questions. These feed the calorie formula and you can change them any time.</p>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:24px">
+<span style="font:500 13px 'Public Sans',sans-serif">Sex <span style="color:#4C5A53;font-weight:400">(for the formula)</span></span>
+<div style="display:inline-flex;background:#EAEDE6;border-radius:10px;padding:3px;gap:2px"><sc-for list="{{ unitOpts }}" as="o" hint-placeholder-count="2"><button sc-camel-on-click="{{ o.onClick }}" style="height:28px;padding:0 12px;border-radius:8px;border:0;background:{{ o.bg }};color:{{ o.color }};font:500 12px 'Public Sans',sans-serif;cursor:pointer">{{ o.label }}</button></sc-for></div>
+</div>
+<div style="display:inline-flex;background:#EAEDE6;border-radius:10px;padding:3px;gap:2px;margin-top:8px"><sc-for list="{{ sexOpts }}" as="o" hint-placeholder-count="2"><button sc-camel-on-click="{{ o.onClick }}" style="height:36px;padding:0 20px;border-radius:8px;border:0;background:{{ o.bg }};color:{{ o.color }};font:500 13px 'Public Sans',sans-serif;cursor:pointer">{{ o.label }}</button></sc-for></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 13px 'Public Sans',sans-serif">Age</span><span style="display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 12px;border-radius:9px;border:1px solid rgba(28,36,32,0.14);background:#FBFBF8"><span style="font:400 15px 'IBM Plex Mono',monospace">34</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">years</span></span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 13px 'Public Sans',sans-serif">Height</span><span style="display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 12px;border-radius:9px;border:1px solid rgba(28,36,32,0.14);background:#FBFBF8"><span style="font:400 15px 'IBM Plex Mono',monospace">{{ hVal }}</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">{{ hUnit }}</span></span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 13px 'Public Sans',sans-serif">Weight</span><span style="display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 12px;border-radius:9px;border:1px solid rgba(28,36,32,0.14);background:#FBFBF8"><span style="font:400 15px 'IBM Plex Mono',monospace">{{ wVal }}</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">{{ wUnit }}</span></span></div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px"><button style="height:36px;padding:0 14px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#4C5A53;font:500 13px 'Public Sans',sans-serif;cursor:pointer">Skip for now</button><button style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">Continue</button></div>
+</div></div></div>
+
+<div class="dv-opt" id="1d" data-screen-label="Setup step 2"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>A · step 2 · activity level</div>
+<div class="dv-card" style="width:640px;padding:40px;background:#8F978F;display:grid;place-items:center">
+<div style="width:560px;background:#FBFBF8;border-radius:12px;box-shadow:0 24px 64px rgba(28,36,32,0.25);padding:28px 32px 24px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Step 2 of 4</span><div style="display:flex;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(28,36,32,0.15)"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(28,36,32,0.15)"></span></div></div>
+<h2 style="font:500 26px/1.2 Fraunces,serif;margin:14px 0 0">How active are you?</h2>
+<p style="font:400 14px/1.5 'Public Sans',sans-serif;color:#4C5A53;margin:8px 0 0">Count a normal week, training included.</p>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+<sc-for list="{{ activityOpts }}" as="o" hint-placeholder-count="5"><button sc-camel-on-click="{{ o.onClick }}" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 14px;border-radius:10px;border:1px solid {{ o.cardBorder }};background:{{ o.cardBg }};cursor:pointer"><span style="width:18px;height:18px;border-radius:50%;border:1.5px solid #2F4B3C;display:grid;place-items:center;flex:none"><span style="width:8px;height:8px;border-radius:50%;background:{{ o.dot }}"></span></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:500 14px 'Public Sans',sans-serif;color:#1C2420">{{ o.label }}</span><span style="font:400 12px 'Public Sans',sans-serif;color:#4C5A53">{{ o.desc }}</span></span></button></sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px"><button style="height:36px;padding:0 14px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer">Back</button><button style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">Continue</button></div>
+</div></div></div>
+
+<div class="dv-opt" id="1e" data-screen-label="Setup step 3"><div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>A · step 3 · goal and pace</div>
+<div class="dv-card" style="width:640px;padding:40px;background:#8F978F;display:grid;place-items:center">
+<div style="width:560px;background:#FBFBF8;border-radius:12px;box-shadow:0 24px 64px rgba(28,36,32,0.25);padding:28px 32px 24px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Step 3 of 4</span><div style="display:flex;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(28,36,32,0.15)"></span></div></div>
+<h2 style="font:500 26px/1.2 Fraunces,serif;margin:14px 0 0">What's the goal?</h2>
+<p style="font:400 14px/1.5 'Public Sans',sans-serif;color:#4C5A53;margin:8px 0 0">Slower is easier to keep up. You can change pace later.</p>
+<div style="display:inline-flex;background:#EAEDE6;border-radius:10px;padding:3px;gap:2px;margin-top:22px"><sc-for list="{{ goalOpts }}" as="o" hint-placeholder-count="3"><button sc-camel-on-click="{{ o.onClick }}" style="height:36px;padding:0 22px;border-radius:8px;border:0;background:{{ o.bg }};color:{{ o.color }};font:500 13px 'Public Sans',sans-serif;cursor:pointer">{{ o.label }}</button></sc-for></div>
+<sc-if value="{{ showPace }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:22px"><span style="font:500 13px 'Public Sans',sans-serif">Pace</span>
+<div style="display:flex;gap:8px;margin-top:8px;align-items:center"><sc-for list="{{ paceOpts }}" as="o" hint-placeholder-count="3"><button sc-camel-on-click="{{ o.onClick }}" style="height:36px;padding:0 14px;border-radius:16px;border:1px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }};font:500 13px 'IBM Plex Mono',monospace;cursor:pointer;white-space:nowrap;flex:none">{{ o.label }}</button></sc-for><span style="font:400 12px 'Public Sans',sans-serif;color:#4C5A53">per week</span></div></div>
+</sc-if>
+<p style="font:400 12px/1.5 'Public Sans',sans-serif;color:#4C5A53;margin:16px 0 0;padding:10px 12px;background:#EAEDE6;border-radius:8px">{{ paceNote }}</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px"><button style="height:36px;padding:0 14px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer">Back</button><button style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">Continue</button></div>
+</div></div></div>
+
+<div class="dv-opt" id="1f" data-screen-label="Setup step 4"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>A · step 4 · result · recalculates from steps 1–3</div>
+<div class="dv-card" style="width:640px;padding:40px;background:#8F978F;display:grid;place-items:center">
+<div style="width:560px;background:#FBFBF8;border-radius:12px;box-shadow:0 24px 64px rgba(28,36,32,0.25);padding:28px 32px 24px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Step 4 of 4</span><div style="display:flex;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span><span style="width:8px;height:8px;border-radius:50%;background:#2F4B3C"></span></div></div>
+<h2 style="font:500 26px/1.2 Fraunces,serif;margin:14px 0 0">Your daily targets</h2>
+<p style="font:400 14px/1.5 'Public Sans',sans-serif;color:#4C5A53;margin:8px 0 0">Mifflin-St Jeor, adjusted for activity and goal. Edit anything before saving.</p>
+<div style="margin-top:20px;background:#EAEDE6;border-radius:12px;padding:20px;display:flex;align-items:baseline;justify-content:center;gap:10px"><span style="font:500 44px/1 'IBM Plex Mono',monospace">{{ tKcal }}</span><span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">kcal per day</span></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 13px 'Public Sans',sans-serif">Protein</span><span style="display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 12px;border-radius:9px;border:1px solid rgba(28,36,32,0.14)"><span style="font:400 15px 'IBM Plex Mono',monospace">{{ tProt }}</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">g</span></span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 13px 'Public Sans',sans-serif">Carbs</span><span style="display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 12px;border-radius:9px;border:1px solid rgba(28,36,32,0.14)"><span style="font:400 15px 'IBM Plex Mono',monospace">{{ tCarb }}</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">g</span></span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 13px 'Public Sans',sans-serif">Fat</span><span style="display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 12px;border-radius:9px;border:1px solid rgba(28,36,32,0.14)"><span style="font:400 15px 'IBM Plex Mono',monospace">{{ tFat }}</span><span style="font:400 11px 'IBM Plex Mono',monospace;color:#4C5A53">g</span></span></div>
+</div>
+<p style="font:400 12px/1.5 'Public Sans',sans-serif;color:#4C5A53;margin:12px 0 0">Resting rate <span style="font-family:'IBM Plex Mono',monospace">{{ tBmr }} kcal</span> · {{ activityName }} · protein 1.9 g/kg, fat 0.9 g/kg, carbs fill the rest.</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px"><button style="height:36px;padding:0 14px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer">Back</button><button style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">Save targets</button></div>
+</div></div></div>
+</div>
+
+<div class="dv-opts" style="margin-top:40px">
+<div class="dv-opt" id="1g" data-screen-label="Quick-log sheet"><div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a>B · Quick-log sheet from + Log · chips and slider are live</div>
+<div class="dv-card" style="width:840px;padding:40px;background:#8F978F;display:grid;place-items:center">
+<div style="width:760px;background:#FBFBF8;border-radius:12px;border:1px solid rgba(28,36,32,0.1);box-shadow:0 24px 64px rgba(28,36,32,0.22);padding:24px 28px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Quick log</div><h2 style="font:500 24px/1.2 Fraunces,serif;margin:6px 0 0">What are you logging?</h2></div><button aria-label="Close" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:#4C5A53;cursor:pointer;font:400 18px/1 'Public Sans',sans-serif" style-hover="background:#EAEDE6">×</button></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px">
+<div style="background:#EAEDE6;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px"><div><h3 style="font:500 18px/1.2 Fraunces,serif;margin:0">Workout</h3><p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:4px 0 0">Pick a session type — it fills this week's muscle map.</p></div><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ sessionOpts }}" as="o" hint-placeholder-count="8"><button sc-camel-on-click="{{ o.onClick }}" style="height:32px;padding:0 12px;border-radius:16px;border:1px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }};font:500 12px 'Public Sans',sans-serif;cursor:pointer;white-space:nowrap;flex:none">{{ o.label }}</button></sc-for></div></div>
+<div style="background:#EAEDE6;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px"><div><h3 style="font:500 18px/1.2 Fraunces,serif;margin:0">Food</h3><p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:4px 0 0">Search Minced recipes or a food.</p></div><div style="height:40px;border-radius:9px;background:#FBFBF8;border:1px solid rgba(28,36,32,0.12);display:flex;align-items:center;padding:0 12px;font:400 13px 'Public Sans',sans-serif;color:#4C5A53">Search recipes or foods…</div><button style="height:36px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#F1F3EE">I cooked this</button><span style="font:400 11px 'Public Sans',sans-serif;color:#4C5A53">Log a recipe from its page</span></div>
+<div style="background:#EAEDE6;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px"><div><h3 style="font:500 18px/1.2 Fraunces,serif;margin:0">Sleep</h3><p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:4px 0 0">Last night, in hours.</p></div><div style="font:500 32px/1 'IBM Plex Mono',monospace;color:#1C2420">{{ sleepLabel }}</div><input type="range" min="0" max="12" step="0.5" value="{{ sleep }}" sc-camel-on-change="{{ setSleep }}" aria-label="Hours slept" style="width:100%;margin:0"><div style="display:flex;justify-content:space-between;font:400 10px 'IBM Plex Mono',monospace;color:#4C5A53"><span>0h</span><span>12h</span></div></div>
+</div>
+<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:20px"><button style="height:36px;padding:0 14px;border-radius:9px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">Cancel</button><button style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">Log</button></div>
+</div></div></div>
+
+<div class="dv-opt" id="1h" data-screen-label="Day detail popover"><div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a>C · Day detail popover · Thu 9 Oct · also live on <a class="dv-oid" href="#1a">1a</a> dates</div>
+<div class="dv-card" style="width:400px;padding:40px 48px;display:grid;place-items:center">
+<div style="width:304px;background:#FBFBF8;border:1px solid rgba(28,36,32,0.12);border-radius:12px;box-shadow:0 12px 32px rgba(28,36,32,0.16);padding:16px;position:relative">
+<div style="position:absolute;left:50%;top:-7px;width:12px;height:12px;background:#FBFBF8;border-left:1px solid rgba(28,36,32,0.12);border-top:1px solid rgba(28,36,32,0.12);transform:translateX(-50%) rotate(45deg)"></div>
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">{{ popC.eyebrow }}</div><div style="font:500 17px/1.2 Fraunces,serif;margin-top:5px">{{ popC.title }}</div></div><button aria-label="Close" style="width:28px;height:28px;border-radius:8px;border:0;background:transparent;color:#4C5A53;cursor:pointer;font:400 16px/1 'Public Sans',sans-serif" style-hover="background:#EAEDE6">×</button></div>
+<div style="display:flex;flex-direction:column;margin-top:12px">
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(28,36,32,0.07)"><svg width="14" height="8" sc-camel-view-box="0 0 14 8" aria-hidden="true"><rect x="0" y="2" width="2" height="4" rx="0.6" fill="{{ popC.dumbFill }}"></rect><rect x="2.5" y="0.5" width="2.5" height="7" rx="0.6" fill="{{ popC.dumbFill }}"></rect><rect x="5" y="3" width="4" height="2" fill="{{ popC.dumbFill }}"></rect><rect x="9" y="0.5" width="2.5" height="7" rx="0.6" fill="{{ popC.dumbFill }}"></rect><rect x="12" y="2" width="2" height="4" rx="0.6" fill="{{ popC.dumbFill }}"></rect></svg><div style="flex:1;min-width:0"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Workout</div><div style="font:400 13px/1.3 'Public Sans',sans-serif;margin-top:3px">{{ popC.workout }}</div></div><button style="height:28px;padding:0 10px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">{{ popC.workoutBtn }}</button></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(28,36,32,0.07)"><svg width="12" height="12" sc-camel-view-box="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.2" fill="{{ popC.plateFill }}" stroke="{{ popC.plateStroke }}" stroke-width="1.2"></circle><circle cx="6" cy="6" r="2.2" fill="{{ popC.plateInner }}" stroke="{{ popC.plateInnerStroke }}" stroke-width="1"></circle></svg><div style="flex:1;min-width:0"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Nutrition</div><div style="font:400 13px/1.3 'Public Sans',sans-serif;margin-top:3px">{{ popC.food }}</div><div style="font:400 11px/1.3 'IBM Plex Mono',monospace;color:{{ popC.foodNoteColor }};margin-top:2px">{{ popC.foodNote }}</div></div><button style="height:28px;padding:0 10px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">{{ popC.foodBtn }}</button></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(28,36,32,0.07)"><svg width="12" height="12" sc-camel-view-box="0 0 12 12" aria-hidden="true"><path d="M6.5 1.2 A4.6 4.6 0 1 0 10.8 7.4 A3.6 3.6 0 0 1 6.5 1.2 Z" fill="#4C5A53"></path></svg><div style="flex:1;min-width:0"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Sleep</div><div style="font:400 13px/1.3 'IBM Plex Mono',monospace;margin-top:3px">{{ popC.sleep }}</div></div><button style="height:28px;padding:0 10px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">{{ popC.sleepBtn }}</button></div>
+</div></div></div></div>
+
+<div class="dv-opt" id="1i" data-screen-label="Morning prompt"><div class="dv-olabel"><a class="dv-oid" href="#1i">1i</a>D · Morning prompt · before noon, only if sleep isn't logged · toggle it on <a class="dv-oid" href="#1a">1a</a> via the morningPrompt tweak</div>
+<div class="dv-card" style="width:800px;padding:32px 40px">
+<div style="width:720px;background:#FBFBF8;border:1px solid rgba(28,36,32,0.1);border-radius:12px;box-shadow:0 8px 24px rgba(28,36,32,0.10);padding:12px 12px 12px 16px;display:flex;align-items:center;gap:14px">
+<div style="width:36px;height:36px;border-radius:50%;background:#EAEDE6;display:grid;place-items:center;flex:none"><svg width="16" height="16" sc-camel-view-box="0 0 12 12" aria-hidden="true"><path d="M6.5 1.2 A4.6 4.6 0 1 0 10.8 7.4 A3.6 3.6 0 0 1 6.5 1.2 Z" fill="#2F4B3C"></path></svg></div>
+<div style="flex:none"><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Good morning</div><div style="font:500 16px/1.2 Fraunces,serif;margin-top:4px">How did you sleep?</div></div>
+<div style="flex:1"></div>
+<div style="display:flex;gap:6px"><sc-for list="{{ sleepChips }}" as="o" hint-placeholder-count="5"><button sc-camel-on-click="{{ o.onClick }}" style="height:32px;min-width:44px;padding:0 10px;border-radius:16px;border:1px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }};font:500 12px 'IBM Plex Mono',monospace;cursor:pointer;white-space:nowrap;flex:none">{{ o.label }}</button></sc-for><button style="height:32px;padding:0 12px;border-radius:16px;border:1px solid rgba(28,36,32,0.14);background:transparent;color:#2F4B3C;font:500 12px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">Other</button></div>
+<button aria-label="Dismiss" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:#4C5A53;cursor:pointer;font:400 18px/1 'Public Sans',sans-serif" style-hover="background:#EAEDE6">×</button>
+</div></div></div>
+</div>
+
+<div class="dv-opts" style="margin-top:40px">
+<div class="dv-opt" id="1j" data-screen-label="Empty state"><div class="dv-olabel"><a class="dv-oid" href="#1j">1j</a>E · Brand-new user · 1440 × 900 · nothing logged, no targets</div>
+<div class="dv-card" style="width:1440px;height:900px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:16px;padding:0 40px;height:64px;border-bottom:1px solid rgba(28,36,32,0.08)">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:#2F4B3C;display:grid;place-items:center"><svg width="14" height="14" sc-camel-view-box="0 0 14 14" aria-hidden="true"><rect x="1" y="2" width="12" height="2" rx="1" fill="#FBFBF8"></rect><rect x="1" y="6" width="8" height="2" rx="1" fill="#FBFBF8"></rect><rect x="1" y="10" width="10" height="2" rx="1" fill="#FBFBF8"></rect></svg></div><span style="font:600 18px Fraunces,serif;color:#1C2420">Minced</span></div>
+<div style="width:1px;height:20px;background:rgba(28,36,32,0.12)"></div>
+<h1 style="font:500 24px/1 Fraunces,serif;margin:0;color:#1C2420">Me</h1>
+<span style="font:400 13px 'IBM Plex Mono',monospace;color:#4C5A53">Monday 13 October</span>
+<div style="flex:1"></div>
+<button style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#25402F">+ Log</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding:24px 40px 40px">
+<div style="grid-column:span 5;display:flex;flex-direction:column;gap:24px">
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+<div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Sun 12 – Sat 18 Oct</div><h2 style="font:500 20px/1.2 Fraunces,serif;color:#1C2420;margin:6px 0 0">This week's muscles</h2></div>
+<div style="display:flex;gap:12px;padding-top:4px;font:11px 'Public Sans',sans-serif;color:#4C5A53">
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#A9C1B3"></span>1 set</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#6B8C79"></span>2–3 sets</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:#2F4B3C"></span>4+ sets</span>
+</div></div>
+<div data-fig="e" style="position:relative;display:flex;justify-content:center;gap:44px;margin-top:14px">
+<svg sc-camel-view-box="0 0 200 424" style="height:236px;width:auto;display:block;overflow:visible" role="img" aria-label="Front view muscle map, nothing trained" data-e="1">
+<path d="{{ sil }}" fill="#E2E6DF"></path><path d="{{ sil }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ frontE }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ frontE }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round"></path></sc-for></g>
+</svg>
+<svg sc-camel-view-box="0 0 200 424" style="height:236px;width:auto;display:block;overflow:visible" role="img" aria-label="Back view muscle map, nothing trained">
+<path d="{{ sil }}" fill="#E2E6DF"></path><path d="{{ sil }}" fill="#E2E6DF" transform="translate(200 0) scale(-1 1)"></path>
+<sc-for list="{{ backE }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round"></path></sc-for>
+<g transform="translate(200 0) scale(-1 1)"><sc-for list="{{ backE }}" as="m" hint-placeholder-count="0"><path d="{{ m.d }}" fill="{{ m.fill }}" stroke="#FBFBF8" stroke-width="1.1" stroke-linejoin="round"></path><path d="{{ m.lines }}" fill="none" stroke="#FBFBF8" stroke-width="0.7" stroke-linecap="round"></path></sc-for></g>
+</svg>
+</div>
+<p style="font:400 13px/1.4 'Public Sans',sans-serif;color:#4C5A53;text-align:center;margin:10px auto 0;max-width:300px">Log a workout to see what you've trained this week.</p>
+</div>
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<h2 style="font:500 18px/1.2 Fraunces,serif;color:#1C2420;margin:0">October 2025</h2>
+<div style="display:flex;gap:4px">
+<button aria-label="Previous month" style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;cursor:pointer;font:500 16px/1 'IBM Plex Mono',monospace">‹</button>
+<button aria-label="Next month" style="width:32px;height:32px;border-radius:8px;border:1px solid rgba(28,36,32,0.12);background:#FBFBF8;color:#2F4B3C;cursor:pointer;font:500 16px/1 'IBM Plex Mono',monospace">›</button>
+</div></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);margin-top:14px;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53;text-align:center">
+<span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px;margin-top:8px">
+<sc-for list="{{ calCellsE }}" as="c" hint-placeholder-count="35">
+<div style="height:40px;display:flex;flex-direction:column;align-items:center;padding-top:4px;border-radius:8px">
+<sc-if value="{{ c.isDay }}" hint-placeholder-val="{{ true }}">
+<span style="width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:{{ c.numWeight }} 13px 'IBM Plex Mono',monospace;color:{{ c.numColor }};box-shadow:{{ c.ring }}">{{ c.n }}</span>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:8px 0 0;padding-top:8px;border-top:1px solid rgba(28,36,32,0.07)">Workouts, nutrition and sleep will appear under each day as you log them.</p>
+</div>
+</div>
+<div style="grid-column:span 7;display:flex;flex-direction:column;gap:24px">
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><div><div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:#4C5A53">Monday 13 Oct</div><h2 style="font:500 20px/1.2 Fraunces,serif;color:#1C2420;margin:6px 0 0">Today's food</h2></div><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53;padding-top:4px">No goal set</span></div>
+<div style="display:flex;align-items:center;gap:40px;margin-top:18px">
+<div style="position:relative;width:208px;height:208px;flex:none">
+<svg sc-camel-view-box="0 0 208 208" width="208" height="208" role="img" aria-label="0 kcal eaten, no goal set"><circle cx="104" cy="104" r="88" fill="none" stroke="#EAEDE6" stroke-width="16"></circle></svg>
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+<div style="font:500 30px/1 'IBM Plex Mono',monospace;color:#1C2420">0</div>
+<div style="font:400 12px/1 'IBM Plex Mono',monospace;color:#4C5A53;margin-top:6px">/ — kcal</div>
+</div></div>
+<div style="display:flex;flex-direction:column;gap:12px;max-width:300px">
+<div style="font:500 16px/1.3 Fraunces,serif">Set your daily targets</div>
+<div style="font:400 13px/1.5 'Public Sans',sans-serif;color:#4C5A53">Four questions give you a calorie goal and protein, carb and fat targets. Takes about a minute.</div>
+<button style="height:36px;padding:0 16px;border-radius:9px;background:#2F4B3C;color:#FBFBF8;border:0;font:500 13px 'Public Sans',sans-serif;cursor:pointer;align-self:flex-start" style-hover="background:#25402F">Set your targets</button>
+</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(28,36,32,0.07)">
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 13px 'Public Sans',sans-serif;color:#4C5A53">Carbs</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">— / — g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:8px"></div></div>
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 13px 'Public Sans',sans-serif;color:#4C5A53">Fat</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">— / — g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:8px"></div></div>
+<div><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 13px 'Public Sans',sans-serif;color:#4C5A53">Protein</span><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53">— / — g</span></div><div style="height:4px;border-radius:2px;background:#EAEDE6;margin-top:8px"></div></div>
+</div></div>
+<div style="background:#FBFBF8;border:1px solid rgba(28,36,32,0.08);border-radius:12px;padding:20px 22px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between"><h2 style="font:500 20px/1.2 Fraunces,serif;color:#1C2420;margin:0">Today's meals</h2><span style="font:400 12px 'IBM Plex Mono',monospace;color:#4C5A53;padding-top:6px">0 kcal logged</span></div>
+<div style="display:flex;flex-direction:column;margin-top:8px">
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(28,36,32,0.07)"><span style="font:500 16px Fraunces,serif">Breakfast</span><span style="font:400 12px 'Public Sans',sans-serif;color:#4C5A53">Nothing logged yet</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(28,36,32,0.07)"><span style="font:500 16px Fraunces,serif">Lunch</span><span style="font:400 12px 'Public Sans',sans-serif;color:#4C5A53">Nothing logged yet</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(28,36,32,0.07)"><span style="font:500 16px Fraunces,serif">Dinner</span><span style="font:400 12px 'Public Sans',sans-serif;color:#4C5A53">Nothing logged yet</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0 0;border-top:1px solid rgba(28,36,32,0.07)"><span style="font:500 16px Fraunces,serif">Snacks</span><span style="font:400 12px 'Public Sans',sans-serif;color:#4C5A53">Nothing logged yet</span><div style="flex:1"></div><button style="height:30px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#2F4B3C;font:500 13px 'Public Sans',sans-serif;cursor:pointer" style-hover="background:#EAEDE6">+ Add</button></div>
+</div>
+<p style="font:400 12px/1.4 'Public Sans',sans-serif;color:#4C5A53;margin:14px 0 0">Nutrients from your meals will be listed here once you've logged something.</p>
+</div>
+</div>
+</div></div></div>
+</div>
+
+<p class="dv-next">Try next: "make the muscle fills show a 7-day streak in gold" · "put the nutrients table behind a disclosure on <a class="dv-oid" href="#1a">1a</a>" · "show the phone quick-log as a bottom sheet"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;bodyType&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;male&quot;,&quot;options&quot;:[&quot;male&quot;,&quot;female&quot;],&quot;tsType&quot;:&quot;'male' | 'female'&quot;,&quot;section&quot;:&quot;Muscle map&quot;},&quot;morningPrompt&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dashboard&quot;}}">
+class Component extends DCLogic {
+  state = { hover: null, month: 9, year: 2025, selDay: null, logOpen: false, sleep: 7.5, sex: 'Male', units: 'Metric', activity: 2, goal: 'Lose', pace: '0.5', session: null, promptSleep: null };
+  FILLS = ['#D3D9D1', '#A9C1B3', '#6B8C79', '#2F4B3C'];
+  DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  SIL_M = 'M100 5 C88 5 80 15 80 30 C80 42 85 52 90 56 L90 68 C80 72 64 78 52 86 C44 90 38 98 36 108 C35 120 36 132 34 146 C33 156 32 164 30 172 C28 190 26 210 26 228 C24 240 25 252 31 256 C37 258 41 250 42 240 C43 226 46 210 49 196 C52 184 54 176 56 168 C58 156 61 142 63 128 C64 124 64 120 64 116 C68 132 72 150 72 172 C71 184 67 192 64 198 C60 212 60 228 60 244 C60 262 62 280 66 296 C60 310 58 326 60 344 C62 360 66 378 70 394 C64 400 60 408 64 416 C72 422 84 422 90 418 C90 410 88 402 88 396 C86 378 86 360 86 344 C85 328 84 312 84 296 C86 280 88 262 88 244 C92 230 96 218 100 206 Z';
+  SIL_F = 'M100 5 C88 5 80 15 80 30 C80 42 85 52 90 56 L90 68 C82 72 68 78 56 86 C48 90 42 98 40 108 C39 120 40 132 38 146 C37 156 36 164 34 172 C32 190 30 210 30 228 C28 240 29 252 35 256 C41 258 45 250 46 240 C47 226 50 210 53 196 C56 184 58 176 60 168 C62 156 64 142 66 128 C67 124 67 120 67 116 C70 132 75 150 76 172 C74 184 68 192 62 200 C56 212 54 228 56 246 C58 264 62 282 66 296 C60 310 58 326 60 344 C62 360 66 378 70 394 C64 400 60 408 64 416 C72 422 84 422 90 418 C90 410 88 402 88 396 C86 378 86 360 86 344 C85 328 84 312 84 296 C86 280 88 262 88 246 C92 232 96 220 100 208 Z';
+  DELT_L = 'M52 86 C44 88 37 96 36 106 C35 114 37 120 40 124 C44 122 48 118 52 114 C50 104 50 94 52 86 Z';
+  FORE = 'M38 170 C44 168 50 168 54 172 C50 186 46 204 42 222 C38 226 32 226 28 222 C30 206 34 188 38 170 Z';
+  FRONT = [
+    { k: 'neck', id: 'neck', label: 'Neck', d: 'M94 56 C92 62 91 66 90 70 L96 70 C96 64 97 60 98 56 Z' },
+    { k: 'traps', id: 'traps', label: 'Traps', d: 'M90 68 C80 72 64 78 52 86 C56 88 60 90 64 92 C72 86 82 80 92 76 Z' },
+    { k: 'deltL', id: 'delts', label: 'Delts', d: 'M52 86 C44 88 37 96 36 106 C35 114 37 120 40 124 C44 122 48 118 52 114 C50 104 50 94 52 86 Z', lines: 'M44 94 C42 104 42 114 44 120' },
+    { k: 'deltA', id: 'delts', label: 'Delts', d: 'M52 86 C58 88 64 90 66 94 C68 104 66 112 64 118 C60 120 56 120 52 114 C50 104 50 94 52 86 Z', lines: 'M58 92 C60 102 60 110 58 116' },
+    { k: 'chest', id: 'chest', label: 'Chest', d: 'M100 80 C88 80 76 84 68 92 C64 100 64 110 68 118 C76 126 90 128 100 126 Z', lines: 'M98 90 C88 92 78 96 70 104 M98 102 C90 104 80 108 72 114 M98 114 C90 116 82 120 74 122' },
+    { k: 'serr', id: 'serratus', label: 'Serratus', d: 'M68 120 C70 128 70 136 68 144 C72 142 76 138 80 134 L82 126 C78 124 72 122 68 120 Z', lines: 'M70 128 L80 132 M70 136 L78 138' },
+    { k: 'bic', id: 'biceps', label: 'Biceps', d: 'M42 124 C50 120 56 122 60 126 C60 140 58 154 54 166 C48 170 42 168 38 164 C37 150 38 136 42 124 Z', lines: 'M50 128 C50 142 48 156 46 166' },
+    { k: 'fore', id: 'forearms', label: 'Forearms', d: 'M38 170 C44 168 50 168 54 172 C50 186 46 204 42 222 C38 226 32 226 28 222 C30 206 34 188 38 170 Z', lines: 'M46 176 C42 192 38 208 34 222' },
+    { k: 'abs1', id: 'abs', label: 'Abs', d: 'M88 126 C87 132 86 137 86 142 L100 142 L100 126 Z' },
+    { k: 'abs2', id: 'abs', label: 'Abs', d: 'M86 142 C86 148 86 153 86 158 L100 158 L100 142 Z' },
+    { k: 'abs3', id: 'abs', label: 'Abs', d: 'M86 158 C86 164 87 170 88 176 L100 176 L100 158 Z' },
+    { k: 'abs4', id: 'abs', label: 'Abs', d: 'M88 176 C90 186 94 196 100 204 L100 176 Z' },
+    { k: 'obl', id: 'obliques', label: 'Obliques', d: 'M86 126 C80 124 74 122 68 120 C69 134 71 148 72 162 C72 174 74 184 80 192 C84 190 88 186 90 182 C86 172 86 160 86 142 Z', lines: 'M74 134 C78 138 82 142 84 146 M72 150 C76 154 80 158 84 162 M74 166 C78 170 82 174 86 178' },
+    { k: 'hip', id: 'hipflexors', label: 'Hip flexors', d: 'M64 200 C66 192 72 188 78 194 C76 202 74 210 72 218 C68 214 64 206 64 200 Z' },
+    { k: 'sart', id: 'sartorius', label: 'Sartorius', d: 'M78 194 C84 210 86 230 86 250 C86 266 86 282 84 292 L80 292 C82 278 82 262 80 248 C78 230 76 212 72 200 Z' },
+    { k: 'rf', id: 'quads', label: 'Quads', d: 'M66 206 C70 200 78 200 80 208 C82 228 82 254 80 278 C78 286 70 288 68 282 C64 258 64 232 66 206 Z', lines: 'M73 212 C74 236 74 260 73 282' },
+    { k: 'vl', id: 'quads', label: 'Quads', d: 'M64 208 C60 218 58 234 58 252 C58 270 60 286 66 296 L70 282 C66 258 64 232 64 208 Z' },
+    { k: 'vm', id: 'quads', label: 'Quads', d: 'M80 250 C84 256 86 266 86 282 C85 290 82 294 78 292 C78 278 80 264 80 250 Z' },
+    { k: 'add', id: 'adductors', label: 'Adductors', d: 'M92 210 C96 214 96 224 94 236 C92 244 90 248 88 246 C87 236 88 222 92 210 Z' },
+    { k: 'tib', id: 'shins', label: 'Shins', d: 'M72 300 C78 298 82 302 82 312 C82 336 80 360 76 384 C72 386 70 380 70 370 C68 346 68 322 72 300 Z', lines: 'M76 306 C77 330 76 356 74 380' },
+    { k: 'calfFo', id: 'calves', label: 'Calves', d: 'M66 302 C62 310 60 326 60 342 C60 356 62 368 66 376 C68 362 68 340 66 302 Z' },
+    { k: 'calfFi', id: 'calves', label: 'Calves', d: 'M84 308 C86 316 86 336 86 354 C86 366 84 374 82 380 C84 364 84 340 84 308 Z' }
+  ];
+  BACK = [
+    { k: 'btraps', id: 'traps', label: 'Traps', d: 'M100 60 C96 64 92 68 90 72 C80 76 64 82 52 86 C58 90 64 94 70 100 C80 110 90 126 100 150 Z', lines: 'M96 76 C88 86 82 98 78 106 M96 96 C92 106 88 118 86 128' },
+    { k: 'bdeltL', id: 'delts', label: 'Delts', d: 'M52 86 C44 88 37 96 36 106 C35 114 37 120 40 124 C44 122 48 118 52 114 C50 104 50 94 52 86 Z', lines: 'M44 94 C42 104 42 114 44 120' },
+    { k: 'bdeltP', id: 'delts', label: 'Delts', d: 'M52 86 C58 88 64 92 66 96 C68 106 66 114 62 120 C58 122 54 120 52 114 C50 104 50 94 52 86 Z' },
+    { k: 'cuff', id: 'rotatorcuff', label: 'Rotator cuff', d: 'M66 100 C72 100 78 104 82 110 C80 118 76 124 70 128 C66 122 64 110 66 100 Z', lines: 'M70 106 C74 110 76 116 76 122' },
+    { k: 'rhomb', id: 'midback', label: 'Mid / upper back', d: 'M84 112 C88 118 94 128 98 140 L98 150 C92 146 86 142 80 138 C80 128 82 120 84 112 Z', lines: 'M86 122 C90 128 94 136 96 144' },
+    { k: 'lats', id: 'lats', label: 'Lats', d: 'M66 128 C66 142 69 156 72 170 C74 182 79 192 86 198 C92 194 96 186 98 178 C98 168 98 160 98 152 C88 148 78 142 70 134 C68 132 67 130 66 128 Z', lines: 'M76 146 C78 160 82 176 88 190 M70 148 C72 162 76 178 82 192' },
+    { k: 'erect', id: 'lowerback', label: 'Lower back', d: 'M98 154 C94 160 92 170 92 184 C92 194 96 200 100 206 L100 154 Z', lines: 'M96 164 C95 176 95 188 97 198' },
+    { k: 'triLat', id: 'triceps', label: 'Triceps', d: 'M42 124 C46 122 50 122 52 124 C50 140 48 154 46 166 C42 168 38 166 38 164 C37 150 38 136 42 124 Z' },
+    { k: 'triLong', id: 'triceps', label: 'Triceps', d: 'M52 124 C56 122 59 124 60 126 C60 140 58 154 54 166 C51 168 48 168 46 166 C48 154 50 140 52 124 Z' },
+    { k: 'bfore', id: 'forearms', label: 'Forearms', d: 'M38 170 C44 168 50 168 54 172 C50 186 46 204 42 222 C38 226 32 226 28 222 C30 206 34 188 38 170 Z', lines: 'M46 176 C42 192 38 208 34 222' },
+    { k: 'gmed', id: 'glutes', label: 'Glutes', d: 'M64 198 C68 190 76 190 84 196 C82 204 78 210 72 212 C68 208 64 204 64 198 Z' },
+    { k: 'gmax', id: 'glutes', label: 'Glutes', d: 'M100 206 C94 204 86 206 78 212 C70 220 66 232 68 244 C74 252 82 254 88 248 C90 238 94 226 98 212 Z', lines: 'M92 212 C84 220 78 232 76 246 M96 220 C90 228 84 240 82 250' },
+    { k: 'hamO', id: 'hamstrings', label: 'Hamstrings', d: 'M66 250 C70 254 74 256 78 254 C78 272 78 288 76 300 L68 300 C64 284 64 266 66 250 Z', lines: 'M72 256 C72 272 72 288 72 300' },
+    { k: 'hamI', id: 'hamstrings', label: 'Hamstrings', d: 'M80 254 C84 256 86 254 88 252 C88 270 88 288 86 300 L78 300 C80 288 82 272 80 254 Z' },
+    { k: 'gasL', id: 'calves', label: 'Calves', d: 'M66 304 C70 302 74 304 76 310 C76 326 74 344 70 360 C66 362 62 356 62 346 C60 330 62 314 66 304 Z', lines: 'M70 310 C70 326 68 344 66 358' },
+    { k: 'gasM', id: 'calves', label: 'Calves', d: 'M78 308 C82 304 86 306 86 314 C86 332 84 350 80 364 C76 366 74 360 74 350 C74 334 76 320 78 308 Z', lines: 'M81 312 C81 330 80 348 78 362' },
+    { k: 'sol', id: 'calves', label: 'Calves', d: 'M68 364 C72 370 78 370 82 366 C80 376 78 384 76 392 L72 392 C70 384 68 374 68 364 Z' }
+  ];
+  F_OVR = {
+    traps: 'M90 68 C82 72 68 78 56 86 C60 88 64 90 68 92 C76 86 84 80 92 76 Z',
+    deltL: 'M56 86 C48 88 41 96 40 106 C39 114 41 120 44 124 C48 122 52 118 56 114 C54 104 54 94 56 86 Z',
+    deltA: 'M56 86 C62 88 66 90 68 94 C70 104 68 112 66 118 C62 120 58 120 56 114 C54 104 54 94 56 86 Z',
+    chest: 'M100 80 C90 80 78 84 70 92 C66 102 68 116 76 124 C86 132 96 130 100 126 Z',
+    serr: 'M70 122 C72 130 72 138 70 146 C74 144 78 140 82 136 L84 128 C80 126 74 124 70 122 Z',
+    bic: 'M46 124 C54 120 60 122 63 126 C63 140 61 154 57 166 C52 170 46 168 42 164 C41 150 42 136 46 124 Z',
+    fore: 'M42 170 C48 168 54 168 57 172 C53 186 50 204 46 222 C42 226 36 226 32 222 C34 206 38 188 42 170 Z',
+    obl: 'M86 126 C80 124 74 122 70 120 C72 134 75 150 76 164 C76 176 74 186 70 196 C76 194 84 190 90 184 C86 172 86 160 86 142 Z',
+    hip: 'M60 202 C62 194 68 190 76 194 C74 202 72 210 70 218 C66 214 60 208 60 202 Z',
+    vl: 'M60 210 C56 220 54 236 54 254 C54 272 58 288 66 296 L70 282 C64 258 60 234 60 210 Z',
+    rf: 'M66 208 C70 202 78 202 80 210 C82 230 82 256 80 280 C78 288 70 290 68 284 C64 260 62 234 66 208 Z',
+    btraps: 'M100 60 C96 64 92 68 90 72 C82 76 68 82 56 86 C62 90 68 94 72 100 C82 110 92 126 100 150 Z',
+    bdeltL: 'M56 86 C48 88 41 96 40 106 C39 114 41 120 44 124 C48 122 52 118 56 114 C54 104 54 94 56 86 Z',
+    bdeltP: 'M56 86 C62 88 66 92 68 96 C70 106 68 114 64 120 C60 122 56 120 56 114 C54 104 54 94 56 86 Z',
+    cuff: 'M68 100 C74 100 80 104 84 110 C82 118 78 124 72 128 C68 122 66 110 68 100 Z',
+    lats: 'M68 128 C68 142 72 156 76 170 C76 182 80 192 86 198 C92 194 96 186 98 178 C98 168 98 160 98 152 C88 148 80 142 72 134 C70 132 69 130 68 128 Z',
+    triLat: 'M46 124 C50 122 54 122 56 124 C54 140 52 154 50 166 C46 168 42 166 42 164 C41 150 42 136 46 124 Z',
+    triLong: 'M56 124 C60 122 62 124 63 126 C63 140 61 154 57 166 C54 168 52 168 50 166 C52 154 54 140 56 124 Z',
+    bfore: 'M42 170 C48 168 54 168 57 172 C53 186 50 204 46 222 C42 226 36 226 32 222 C34 206 38 188 42 170 Z',
+    gmed: 'M58 202 C64 192 74 192 84 198 C82 206 78 212 70 216 C64 212 58 208 58 202 Z',
+    gmax: 'M100 208 C94 204 84 206 74 214 C64 224 58 238 62 252 C70 260 82 260 88 250 C90 240 94 226 98 214 Z',
+    hamO: 'M62 256 C66 260 72 262 78 258 C78 274 78 290 76 300 L68 300 C62 286 60 270 62 256 Z'
+  };
+  F_LINES = { chest: 'M98 92 C88 94 80 100 74 108 M98 108 C90 112 84 118 78 122', bic: 'M54 128 C54 142 52 156 50 166', fore: 'M50 176 C46 192 42 208 38 222', bfore: 'M50 176 C46 192 42 208 38 222', deltL: 'M48 94 C46 104 46 114 48 120', bdeltL: 'M48 94 C46 104 46 114 48 120', gmax: 'M92 214 C84 222 76 236 72 250 M96 222 C90 230 84 242 80 254' };
+  TRAINED = { lats: { sets: 9, days: ['Sun'] }, midback: { sets: 6, days: ['Sun'] }, rotatorcuff: { sets: 2, days: ['Sun'] }, traps: { sets: 2, days: ['Sun'] }, delts: { sets: 3, days: ['Sun'] }, biceps: { sets: 4, days: ['Sun'] }, forearms: { sets: 1, days: ['Sun'] }, quads: { sets: 8, days: ['Mon'] }, glutes: { sets: 6, days: ['Mon'] }, hamstrings: { sets: 3, days: ['Mon'] }, calves: { sets: 3, days: ['Mon'] }, adductors: { sets: 2, days: ['Mon'] }, hipflexors: { sets: 1, days: ['Mon'] }, abs: { sets: 2, days: ['Mon'] }, lowerback: { sets: 1, days: ['Mon'] } };
+  CAL = { 1: { t: 'Push', f: 'hit', s: '7h' }, 2: { f: 'part', s: '6.5h' }, 3: { t: 'Legs', f: 'hit', s: '7.5h' }, 4: { s: '8h' }, 5: { t: 'Pull', f: 'hit', s: '7h' }, 6: { f: 'hit', s: '6h' }, 7: { t: 'Upper', f: 'part', s: '7h' }, 8: { f: 'hit', s: '7.5h' }, 9: { t: 'Pull', f: 'part', s: '6.5h' }, 10: { f: 'hit', s: '8h' }, 11: { t: 'Full body', f: 'hit', s: '8.5h' }, 12: { t: 'Pull', f: 'hit', s: '7h' }, 13: { t: 'Legs', f: 'part', s: '7.5h' } };
+  NUTR = [['Fibre', '21', 'g', 28], ['Sugars', '46', 'g', 50], ['Added sugar', '27', 'g', 25, true], ['Saturated fat', '22', 'g', 20, true], ['Sodium', '2,610', 'mg', 2300, true, 2610], ['Cholesterol', '180', 'mg', 300], ['Potassium', '2,940', 'mg', 3400, false, 2940], ['Calcium', '810', 'mg', 1000], ['Iron', '11.2', 'mg', 8], ['Magnesium', '300', 'mg', 420], ['Zinc', '8.4', 'mg', 11], ['Vitamin A', '610', 'µg', 900], ['Vitamin C', '74', 'mg', 90], ['Vitamin D', '5.6', 'µg', 15], ['Vitamin E', '9.1', 'mg', 15], ['Vitamin K', '118', 'µg', 120], ['Vitamin B6', '1.3', 'mg', 1.7], ['Vitamin B12', '3.1', 'µg', 2.4], ['Folate', '290', 'µg', 400]];
+  ACTIVITY = [{ v: 0, label: 'Sedentary', desc: 'Desk job, little or no exercise' }, { v: 1, label: 'Lightly active', desc: 'Light exercise 1–3 days a week' }, { v: 2, label: 'Moderately active', desc: 'Training 3–5 days a week' }, { v: 3, label: 'Very active', desc: 'Hard training 6–7 days a week' }, { v: 4, label: 'Extra active', desc: 'Physical job plus daily training' }];
+
+  figure(sex) {
+    const f = sex === 'female';
+    const map = s => ({ ...s, d: (f && this.F_OVR[s.k]) || s.d, lines: (f && this.F_LINES[s.k]) || s.lines || '' });
+    return { sil: f ? this.SIL_F : this.SIL_M, front: this.FRONT.map(map), back: this.BACK.map(map) };
+  }
+  intensity(s) { return s >= 4 ? 3 : s >= 2 ? 2 : s >= 1 ? 1 : 0; }
+  tip(e, inst, text) {
+    const wrap = e.currentTarget.ownerSVGElement.closest('[data-fig]');
+    const r = wrap.getBoundingClientRect();
+    this.setState({ hover: { inst, text, x: e.clientX - r.left, y: e.clientY - r.top } });
+  }
+  muscles(shapes, inst, empty) {
+    const leave = () => this.setState({ hover: null });
+    return shapes.map(s => {
+      const t = empty ? null : this.TRAINED[s.id];
+      const sets = t ? t.sets : 0;
+      const text = t ? `${s.label} · ${sets} ${sets === 1 ? 'set' : 'sets'} · ${t.days.join(', ')}` : `${s.label} · not trained this week`;
+      return { k: s.k, d: s.d, lines: s.lines, fill: this.FILLS[this.intensity(sets)], onMove: e => this.tip(e, inst, text), onLeave: leave };
+    });
+  }
+  dayData(y, m, d) {
+    if (y === 2025 && m === 9) return this.CAL[d] || null;
+    const h = (d * 7 + m * 3) % 5;
+    return { t: h === 0 || h === 2 ? ['Push', 'Pull', 'Legs', 'Upper'][d % 4] : null, f: ['hit', 'part', 'hit', 'none', 'hit'][h], s: ['7h', '6.5h', '8h', '7.5h', '7h'][(d + m) % 5] };
+  }
+  cells(empty) {
+    const { month: m, year: y, selDay } = this.state;
+    const first = new Date(y, m, 1).getDay();
+    const n = new Date(y, m + 1, 0).getDate();
+    const today = new Date(2025, 9, 13).getTime();
+    const out = [];
+    for (let i = 0; i < first; i++) out.push({ key: 'b' + i, isDay: false, cursor: 'default', bg: 'transparent', title: '' });
+    for (let d = 1; d <= n; d++) {
+      const date = new Date(y, m, d);
+      const future = date.getTime() > today;
+      const isToday = date.getTime() === today;
+      const data = (!empty && !future) ? this.dayData(y, m, d) : null;
+      const f = data ? (data.f || 'none') : 'none';
+      const sel = !empty && selDay === d;
+      const foodLabel = f === 'hit' ? 'Nutrition goal hit' : 'Nutrition partly — protein short';
+      const parts = [];
+      if (data && data.t) parts.push(data.t);
+      if (f !== 'none') parts.push(foodLabel);
+      if (data && data.s) parts.push(`Slept ${data.s}`);
+      out.push({
+        key: 'd' + d, isDay: true, n: d, isToday, future,
+        cursor: future || empty ? 'default' : 'pointer',
+        bg: sel ? '#EAEDE6' : 'transparent',
+        trained: !!(data && data.t), hasFood: f !== 'none', foodLabel,
+        plateFill: f === 'hit' ? '#2F4B3C' : 'none', plateInner: f === 'hit' ? '#FBFBF8' : 'none', plateInnerStroke: f === 'hit' ? 'none' : '#2F4B3C',
+        hasSleep: !!(data && data.s), sleep: (data && data.s) || '',
+        numWeight: isToday ? 700 : 500, numColor: future ? 'rgba(28,36,32,0.35)' : '#1C2420',
+        ring: isToday ? 'inset 0 0 0 2px #2F4B3C' : 'none',
+        title: `${this.DOW[date.getDay()].slice(0, 3)} ${d} ${this.MONTHS[m].slice(0, 3)}` + (future ? '' : parts.length ? ' · ' + parts.join(' · ') : ' · Nothing logged'),
+        onClick: () => { if (!future && !empty) this.setState({ selDay: sel ? null : d }); }
+      });
+    }
+    return out;
+  }
+  dayInfo(y, m, d) {
+    const data = this.dayData(y, m, d) || {};
+    const date = new Date(y, m, d);
+    const f = data.f || 'none';
+    const sets = { 1: 16, 3: 20, 5: 18, 7: 17, 9: 18, 11: 22, 12: 19, 13: 21 }[d] || 18;
+    return {
+      eyebrow: 'Day detail', title: `${this.DOW[date.getDay()]} ${d} ${this.MONTHS[m]}`,
+      workout: data.t ? `${data.t} · ${sets} sets · ${40 + (sets % 5) * 3} min` : 'No workout logged', workoutBtn: data.t ? 'Edit' : 'Add',
+      dumbFill: data.t ? '#2F4B3C' : 'rgba(28,36,32,0.25)',
+      food: f === 'hit' ? '2,240 / 2,300 kcal · protein 162 / 160 g' : f === 'part' ? '2,210 / 2,300 kcal · protein 131 / 160 g' : 'Not logged',
+      foodNote: f === 'hit' ? 'Goal hit' : f === 'part' ? 'Protein short by 29 g' : 'No meals logged', foodNoteColor: f === 'part' ? '#C1481E' : '#4C5A53',
+      foodBtn: f === 'none' ? 'Add' : 'Edit',
+      plateFill: f === 'hit' ? '#2F4B3C' : 'none', plateStroke: f === 'none' ? 'rgba(28,36,32,0.25)' : '#2F4B3C', plateInner: f === 'hit' ? '#FBFBF8' : 'none', plateInnerStroke: f === 'hit' ? 'none' : f === 'part' ? '#2F4B3C' : 'rgba(28,36,32,0.25)',
+      sleep: data.s ? `${data.s} slept` : 'Not logged', sleepBtn: data.s ? 'Edit' : 'Add'
+    };
+  }
+  opts(key, list) {
+    return list.map(o => {
+      const v = o.v !== undefined ? o.v : o;
+      const sel = this.state[key] === v;
+      return { label: o.label || String(v), desc: o.desc || '', bg: sel ? '#2F4B3C' : 'transparent', color: sel ? '#FBFBF8' : '#1C2420', border: sel ? '#2F4B3C' : 'rgba(28,36,32,0.14)', cardBg: sel ? '#EAEDE6' : '#FBFBF8', cardBorder: sel ? '#2F4B3C' : 'rgba(28,36,32,0.12)', dot: sel ? '#2F4B3C' : 'transparent', onClick: () => this.setState({ [key]: v }) };
+    });
+  }
+  renderVals() {
+    const S = this.state;
+    const body = this.props.bodyType ?? 'male';
+    const fig = this.figure(body), figM = this.figure('male'), figF = this.figure('female');
+    const hover = S.hover;
+    const tipFor = inst => (hover && hover.inst === inst) ? hover : null;
+    const tipD = tipFor('d'), tipP = tipFor('p'), tipK = tipFor('k');
+    const goal = 2300, c = 172, f = 52, p = 121;
+    const C = 2 * Math.PI * 88; let acc = 0;
+    const seg = k => { const len = k / goal * C; const vis = Math.max(len - 3, 0); const o = { dash: `${vis} ${C - vis}`, off: `${-acc}` }; acc += len; return o; };
+    const segCarb = seg(c * 4), segFat = seg(f * 9), segProt = seg(p * 4);
+    const nutr = this.NUTR.map(([name, amount, unit, dv, lim, num]) => { const v = num != null ? num : parseFloat(amount); const pct = Math.round(v / dv * 100); const over = !!lim && v > dv; return { name, amount, unit, pct: String(pct), barW: `${Math.min(pct, 100)}%`, color: over ? '#C1481E' : '#1C2420', barColor: over ? '#C1481E' : '#2F4B3C', pctColor: over ? '#C1481E' : '#4C5A53' }; });
+    const sexF = S.sex === 'Female', age = 34, h = 182, w = 84;
+    const bmr = 10 * w + 6.25 * h - 5 * age + (sexF ? -161 : 5);
+    const tdee = bmr * [1.2, 1.375, 1.55, 1.725, 1.9][S.activity];
+    const rate = S.goal === 'Maintain' ? 0 : parseFloat(S.pace) * 1000 * (S.goal === 'Lose' ? -1 : 1);
+    const kcalT = Math.round((tdee + rate) / 50) * 50;
+    const prot = Math.round(w * 1.9), fat = Math.round(w * 0.9);
+    const carb = Math.max(0, Math.round((kcalT - prot * 4 - fat * 9) / 20) * 5);
+    const imperial = S.units === 'Imperial';
+    const pop = S.selDay ? this.dayInfo(S.year, S.month, S.selDay) : null;
+    return {
+      morningPrompt: !!(this.props.morningPrompt ?? false),
+      sil: fig.sil, silM: figM.sil, silF: figF.sil,
+      frontD: this.muscles(fig.front, 'd'), backD: this.muscles(fig.back, 'd'),
+      frontP: this.muscles(fig.front, 'p'), backP: this.muscles(fig.back, 'p'),
+      frontE: this.muscles(fig.front, 'e', true), backE: this.muscles(fig.back, 'e', true),
+      frontKM: this.muscles(figM.front, 'k'), backKM: this.muscles(figM.back, 'k'), frontKF: this.muscles(figF.front, 'k'), backKF: this.muscles(figF.back, 'k'),
+      showTipD: !!tipD, tipD: tipD || {}, showTipP: !!tipP, tipP: tipP || {}, showTipK: !!tipK, tipK: tipK || {},
+      monthLabel: `${this.MONTHS[S.month]} ${S.year}`,
+      prevMonth: () => this.setState(s => ({ month: (s.month + 11) % 12, year: s.month === 0 ? s.year - 1 : s.year, selDay: null })),
+      nextMonth: () => this.setState(s => ({ month: (s.month + 1) % 12, year: s.month === 11 ? s.year + 1 : s.year, selDay: null })),
+      calCells: this.cells(false), calCellsE: this.cells(true),
+      showPop: !!pop, pop: pop || {}, closePop: () => this.setState({ selDay: null }),
+      popC: this.dayInfo(2025, 9, 9),
+      segCarb, segFat, segProt, nutrA: nutr.slice(0, 10), nutrB: nutr.slice(10),
+      logOpen: S.logOpen, toggleLog: () => this.setState(s => ({ logOpen: !s.logOpen })), closeLog: () => this.setState({ logOpen: false }), stop: e => e.stopPropagation(),
+      sleep: S.sleep, sleepLabel: `${S.sleep}h`, setSleep: e => this.setState({ sleep: parseFloat(e.target.value) }),
+      sessionOpts: this.opts('session', ['Upper', 'Lower', 'Push', 'Pull', 'Legs', 'Full body', 'Cardio', 'Custom']),
+      sleepChips: this.opts('promptSleep', ['5h', '6h', '7h', '8h', '9h']),
+      sexOpts: this.opts('sex', ['Female', 'Male']), unitOpts: this.opts('units', ['Metric', 'Imperial']),
+      activityOpts: this.opts('activity', this.ACTIVITY),
+      goalOpts: this.opts('goal', ['Lose', 'Maintain', 'Gain']),
+      paceOpts: this.opts('pace', [{ v: '0.25', label: '0.25 kg' }, { v: '0.5', label: '0.5 kg' }, { v: '0.75', label: '0.75 kg' }]),
+      showPace: S.goal !== 'Maintain',
+      paceNote: S.goal === 'Maintain' ? 'Eat at maintenance — no deficit or surplus.' : `About ${S.pace} kg per week · a ${Math.round(parseFloat(S.pace) * 1000)} kcal daily ${S.goal === 'Lose' ? 'deficit' : 'surplus'}.`,
+      hVal: imperial ? `5' 11"` : '182', hUnit: imperial ? 'ft in' : 'cm', wVal: imperial ? '185' : '84.0', wUnit: imperial ? 'lb' : 'kg',
+      tKcal: kcalT.toLocaleString('en-GB'), tProt: String(prot), tCarb: String(carb), tFat: String(fat), tBmr: Math.round(bmr).toLocaleString('en-GB'),
+      activityName: this.ACTIVITY[S.activity].label.toLowerCase()
+    };
+  }
+}
+</script>
+
+
+</body></html>
