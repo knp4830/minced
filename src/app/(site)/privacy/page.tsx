@@ -42,6 +42,11 @@ export default function PrivacyPage() {
         <ul>
           <li>Your email address, so you can log in and recover your password.</li>
           <li>A hashed password. We never see or store the password itself.</li>
+          <li>
+            If you choose &ldquo;Continue with Google&rdquo; instead of a password: the email address and Google account
+            id Google shares with us. We ask only for who you are (openid, email, profile), never for your mail, files
+            or contacts, and we do not store a password for that login.
+          </li>
           <li>The recipes you save (your favourites).</li>
           <li>The cookware you say you own, if you set &ldquo;My cookware&rdquo; while signed in.</li>
           <li>
@@ -115,6 +120,11 @@ export default function PrivacyPage() {
       <LegalSection id="processors" title="Who handles the data">
         <p>These services process data on our behalf. We have no other recipients.</p>
         <ul>
+          <li>
+            <strong className="font-semibold text-ink">Google</strong>, only if you use &ldquo;Continue with
+            Google&rdquo;. Google handles that sign-in under its own privacy policy and tells us your email address
+            and name; we do not send it anything about what you do on Minced.
+          </li>
           <li>
             <strong className="font-semibold text-ink">Supabase</strong> stores
             accounts and saved recipes in a database hosted in the United States and

@@ -441,6 +441,12 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-15 | `python scripts/photos/check_manifests.py` | Fail on shared or rejected photos | Does not scan `*picks*.json` yet |
 | 2026-10-15 | `docker exec ... psql -f /tmp/x.sql` | Run a file in a container | FAILED in Git Bash: `/tmp` path mangled. Pipe through stdin instead |
 | 2026-10-15 | `gh pr create --base main --head review/integration --body-file <file>` | Open the review wave PR | Body starts with a MERGE ORDER WARNING |
+| 2026-10-16 | `bash "/c/Users/Kevin Pham/minced/.snapshot/restore.sh" <name>` | Fresh copy of live in a throwaway Postgres container | Six SQL suites (admin_review, perf_rls_equivalence, security_hardening, shopping_list, user_cookware_rls, user_recipes) error on it: no grants or private schema. Same counts on main. Use a local Supabase stack |
+| 2026-10-16 | `pnpm exec supabase start` from a scratch copy of `supabase/` with another project_id and ports | Local auth stack for signed-in tests | Needs `alter schema public owner to postgres` after loading a snapshot |
+| 2026-10-16 | `supabase gen types --db-url <snapshot url>` | Regenerate `src/types/database.ts` without touching live | `pnpm db:types` points at live |
+| 2026-10-16 | `curl -I -H "Host: minced-app.vercel.app" http://localhost:<port>/recipes?q=x` | Test the canonical 308 on a production build | Set `MSYS_NO_PATHCONV=1` or Git Bash rewrites the path |
+| 2026-10-16 | `python scripts/photos/w8_prove_rejection.py` | Re-inject old rejected rows, expect every one dropped | Legacy note-only rejects are not covered |
+| 2026-10-16 | `gh pr create --base main --head wave8/integration --body-file <file>` | Open the wave 8 PR | Body starts with a MERGE ORDER WARNING |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

@@ -73,6 +73,17 @@ export default async function AboutPage() {
         </p>
       </Section>
 
+      <Section id="credits" title="Body-map artwork">
+        <p>
+          The muscle diagrams on the Me page use body artwork from{" "}
+          <a className="underline underline-offset-2" href="https://github.com/HichamELBSI/react-native-body-highlighter">
+            react-native-body-highlighter
+          </a>{" "}
+          by Hicham El Bsi, released under the MIT licence. The full licence text is in THIRD_PARTY_NOTICES.md in the
+          project repository.
+        </p>
+      </Section>
+
       <Section id="photos" title="Photos">
         <p>
           A photo appears only when we can use it honestly: public-domain photos

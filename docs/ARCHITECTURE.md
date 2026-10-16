@@ -250,3 +250,17 @@ Email + password (Google waits for a domain). Sign-up/log-in are Server Actions 
 - **Display:** `lib/format.ts` (time and servings words), `lib/scaling.ts` (kitchen fractions, note scaling), `lib/shopping.ts` (`buyList`, names only).
 - **Scripts:** `scripts/dedupe-near-duplicates.sql`, `scripts/cleanup/clean_prep_notes.py` and its generated SQL and CSV, `scripts/photos/check_manifests.py`, `near_dupes.py`.
 - **Hero lab:** `/lab/hero`, noindex, 404 in production unless `SHOW_LAB=1` at build time.
+
+## 12. Wave 8 additions (2026-10-16)
+
+- **Me dashboard** (`/me`, behind `NEXT_PUBLIC_ENABLE_ME`, build-time, must equal the string `true`; off shows the coming-soon page):
+  - Page `src/app/(site)/me/page.tsx`; components `src/components/me/*` (`me.css` holds the tints derived with `color-mix`, promote to tokens when globals.css is next opened); body map data and SVG in `src/components/me/bodyMap/*` (MIT, see `THIRD_PARTY_NOTICES.md`).
+  - Logic `src/lib/me/*`: `targets` (Mifflin-St Jeor), `dv` (FDA Daily Values), `muscles` (the one session-to-muscle table), `dates` (local-date arithmetic, `me_tz` cookie), `foodStatus` (goal-hit rule), `validate` (hand-written validators, no Zod), `flag`.
+  - Data: `src/lib/queries/me.ts`, Server Actions `src/lib/actions/me.ts` (each checks the flag, re-validates, and leaves RLS as the final gate). Recipe nutrition is read server-side and snapshotted at log time.
+  - Migration `20261016100000_me_dashboard.sql`: `me_targets`, `me_food_log`, `me_workouts`, `me_workout_muscles`, `me_sleep` (owner-only RLS, narrowed grants, per-day row caps, date window trigger) and RPCs `me_log_workout`, `me_week_muscles`, `me_month_summary` (all SECURITY INVOKER). Test: `supabase/tests/me_rls_test.sql` (55 checks). `/api/me/export` includes these tables. The recipe page has a "Log this" button (signed in, flag on).
+- **Google sign-in** (`NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN`, default off): `components/account/googleButton.tsx`, `signInWithGoogle` in `lib/actions/auth.ts`, callback handles `?error=` and `via=google` in `app/auth/callback/route.ts`. Profiles come from the existing `handle_new_user` trigger. Setup: `docs/setup/GOOGLE-SIGNIN.md`.
+- **Email**: four templates in `supabase/templates/` (wired in `config.toml`, links are `/auth/callback?token_hash=`); setup `docs/setup/EMAIL-SMTP.md`.
+- **Canonical host**: `next.config.ts` 308-redirects `minced-app.vercel.app` and `mise-two-xi.vercel.app` to `https://minced.kevinpham.page` (exact host match; previews and localhost are untouched). `SITE_URL` in `lib/site.ts` defaults to the new host.
+- **Photos**: sizes md 1200 / sm 640 (`scripts/photos/process_images.py`); landing uses `CURATED_SLUGS` in `lib/queries/landing.ts` with a catalog fallback that needs 1000 px or wider; audit in `scripts/photos/manifest/quality-audit.csv`; `w8_prove_rejection.py` re-injects old rejected rows and expects every one dropped.
+- **Where do I change**: calorie or macro maths, `lib/me/targets.ts`; which muscles a session trains, `lib/me/muscles.ts`; what counts as a goal day, `lib/me/foodStatus.ts`; a landing photo, `CURATED_SLUGS` plus `manifest/landing_curated.json`.
+- Migration count: 35 files after this wave (34 on live until the Me migration is applied).

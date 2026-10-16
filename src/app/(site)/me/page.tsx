@@ -50,7 +50,14 @@ export default async function MePage({ searchParams }: Props) {
   // "Today" is the person's local date. The browser tells us its zone in a cookie; the first visit falls
   // back to the visitor's zone from the host's geo header, then UTC, and TimezoneSync corrects it.
   const jar = await cookies();
-  const zone = jar.get(TZ_COOKIE)?.value ? decodeURIComponent(jar.get(TZ_COOKIE)!.value) : (await headers()).get("x-vercel-ip-timezone");
+  const cookieZone = jar.get(TZ_COOKIE)?.value;
+  let zone: string | null = null;
+  try {
+    zone = cookieZone ? decodeURIComponent(cookieZone) : null; // a malformed cookie must not 500 the page
+  } catch {
+    zone = null;
+  }
+  zone ??= (await headers()).get("x-vercel-ip-timezone");
   const today = todayInZone(zone);
 
   const sp = await searchParams;
@@ -96,7 +103,7 @@ export default async function MePage({ searchParams }: Props) {
           </div>
         )}
 
-        <div className="mt-5 grid gap-5 md:mt-6 md:gap-6 lg:grid-cols-12">
+        <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-5 md:mt-6 md:gap-6 lg:grid-cols-12">
           <div className="contents lg:col-span-5 lg:flex lg:flex-col lg:gap-6">
             <div className="max-lg:order-3">
               <MuscleCard weekLabel={weekLabel(week.from, week.to)} week={weekMap} defaultSex={targets?.sex ?? "male"} />

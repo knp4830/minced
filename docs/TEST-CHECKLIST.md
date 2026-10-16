@@ -142,5 +142,24 @@ Live site: https://minced-app.vercel.app
 - [ ] After applying the prep-note cleanup: cranberry-salad shows no stray ". packages" note (known defect until `clean_prep_notes.py` is fixed).
 - Still open: mac and cheese search, unknown-time recipes pass time ranges, kitchen-fraction oddities (19 tbsp, 1/8 egg), prep-note cleanup edge cases (cranberry-salad, 'about 3 cups', delicious-greens mustard), legacy photo rejections without file names (29) not guarded against rebuild.
 
+## 15. Wave 8 (2026-10-16), check after the Me migration, photos and redirects are live
+- [ ] Hero: the biggest landing tile (Japanese Curry Rice) is crisp at 1920 wide and on a retina phone. The other tiles are sharp, no blurry or ugly photo on the landing page.
+- [ ] Open five random recipe cards on retina: no soft photos. (Known: about 80 photos are under 1000 px wide, see questions P2.)
+- [ ] `minced-app.vercel.app/recipes?q=soup` redirects with a 308 to `minced.kevinpham.page/recipes?q=soup`. A Vercel preview URL does not redirect.
+- [ ] Sign up, confirm from the email on a different browser or phone, land on /account. A second click on the link says it expired.
+- [ ] Forgot password: email arrives from the new sender, link opens /reset-password, new password works.
+- [ ] Google (only once the flag is on): "Continue with Google" on /login, /signup and the modal; cancel at Google shows the friendly message; a first login creates an account; the same email as an existing account signs into that account.
+- [ ] Me, flag off: `/me` shows coming soon, no Me link in the header, no "Log this" on recipes.
+- [ ] Me, signed out: sign-in prompt; Log in and Create account open the modal.
+- [ ] Me, signed in: targets wizard (metric and imperial; Skip for now), edit targets; mockup example (34 y, 182 cm, 84 kg, male, moderately active, lose 0.5 kg/wk) gives 2300 kcal, 160 g protein, 245 g carbs.
+- [ ] Log a workout (preset, Custom with muscles, Cardio) and sleep: the muscle map fills in, Male and Female and Front and Back toggle, hover or tap shows a tooltip, phone swipe works.
+- [ ] Add a recipe at 1.5 servings and a quick add to a meal; remove one; the ring, macro bars and nutrient percentages update; over a limit shows the warning style.
+- [ ] Calendar: month arrows, keyboard arrows, tap a day, add and remove, future days disabled.
+- [ ] ★ Phone 375: /me has no horizontal scroll, cards fit, the FAB and quick-log sheet open and close.
+- [ ] Recipe page "Log this" (signed in, flag on) writes to today's meal.
+- [ ] /privacy lists health data and Google sign-in; /about credits the body-map artwork.
+- [ ] Delete account removes Me data (type DELETE; fridge, shopping, favourites, Me rows are gone).
+- [ ] Run `supabase/tests/me_rls_test.sql` on a throwaway database, never live.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

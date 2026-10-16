@@ -212,16 +212,26 @@ Live has **29 migrations**, **959 recipes**, **352 photos** (607 placeholders), 
 - **Shipped in the PR:** shopping re-add dialog, cookware either/or (`alt_group`, 36 recipes), Recipe JSON-LD and canonicals, sitemap/robots fixes, `/kitchen-sink` and `/api/ingredients/suggest` removed, food-science brief (`docs/research/`), 56 new photos (not yet safe to apply).
 - **Verification failures carried forward, fix in the next small wave:** (1) signed-in client state is dead (`accountProvider.hasAuthCookie()` reads `document.cookie`, but cookies are httpOnly), (2) `rewriteSynonyms()` pushes 13 exact titles off page 1 and breaks "mac and cheese", (3) photos: 5 duplicate files, 1 rejected file back, 5 MyPlate logos, (4) `/about` says accounts do not exist. Also open: `next` 15.5.24 advisories, no rate limiting, backups lack `auth.users` and Storage, `next build` fails while Supabase is paused, fridge `sort=expiry` is one page of 99, "under 20 min" counts unknown times.
 
-### Review wave (2026-10-15): integrated on `review/integration`, PR open, NOT applied to live
+### Review wave (2026-10-15): merged in PR #55, live has 34 migrations
 
 Owner's 19-item desktop review. **Before merging:** back up live, apply `supabase/migrations/20261015120000_filters_time_ingredients.sql` (live then has **34** migrations; code merged first breaks the landing page and filtered `/recipes`), run `pnpm db:types`, run `scripts/dedupe-near-duplicates.sql` (dry run first; deletes 2 recipes, 959 to 957), apply `scripts/cleanup/prep-notes-cleanup.sql` after reviewing the CSV, then photo upload and `seed-photos.sql`. Live is currently 33 migrations, 959 recipes, 352 photos. Status per item: `docs/review/2026-10-15-feedback.md`. Open: mac and cheese search, unknown-time recipes in ranges, 5 mismatched photos, 3 rejected picks that can return, `useFridgeIds` localStorage read, font choice at `/lab/hero`; domain and Google sign-in next.
 
+### Wave 8 (2026-10-16): integrated on `wave8/integration`, PR open, NOT applied to live
+
+**MERGE ORDER: back up live, apply `20261016100000_me_dashboard.sql` (live then has 35 migrations), merge, then push an empty commit if the Vercel preview ran too early (LESSONS section 9).** Types are already regenerated. Photos: upload and `seed-photos.sql` wait on questions P1 and P2.
+
+- **Shipped, all behind flags or inert:** Me dashboard at `/me` (`NEXT_PUBLIC_ENABLE_ME=true`), Google sign-in (`NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN=true`), 308 redirect from the two old hostnames to `minced.kevinpham.page`, four email templates, sharper landing photos (hero fixed at its root), /privacy and /about updated. Setup docs in `docs/setup/`.
+- **Checked boxes: none.** M4.1 stays open until a real Google login works on live. Me has no issue number; it is built, not signed off.
+- **Owner steps and every open question:** `docs/review/2026-10-16-wave8-questions.md`.
+- **Open from verification:** photos (fish-spinach shows a rejected photo, six swaps worse than before, 80 photos under 1000 px), pescatarian filter excludes vegetarian dishes, Me phone layout fix not re-verified in a browser.
+
 ### Next up
 
-1. **You:** say "go" so Claude backs up live, applies the four migrations and data, then merge. Review M1.5.7 and the photos.
-2. Next small wave: the two checklist bugs above, photo removals, `/about` copy, confirm landing title copy.
-3. Paste-a-blog import (needs M5 tables live and your decision on AI rewriting).
-4. **Wave 8: domain, Google sign-in, custom SMTP, then Phase 6 launch** (Sentry, PostHog, Lighthouse, real phone, three watched users).
-5. Post-MVP, listed at the end of BUILD-PLAN: SEO combo pages, food-science follow-ups, lifting research, workout plans. **Remind the user about the food-science research.**
+1. **You:** answer the questions file, then say "go" so Claude backs up live, applies the Me migration, and you merge. Review the photos (P1, P2) and M1.5.7.
+2. Small wave: photo fixes from P1, pescatarian, Me phone check, Google colour tokens.
+3. Owner setup: Google Cloud, Resend plus Porkbun DNS, Vercel env vars (steps in the questions file); then turn the flags on.
+4. Paste-a-blog import (needs M5 tables live and your decision on AI rewriting).
+5. Phase 6 launch: Sentry, PostHog, Lighthouse, real phone, three watched users.
+6. Post-MVP, listed at the end of BUILD-PLAN: SEO combo pages, micronutrients on Me, food-science follow-ups, lifting research, workout plans. **Remind the user about the food-science research.**
 
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

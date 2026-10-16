@@ -785,6 +785,8 @@ Logged out. On a phone. Under 200ms per query.
 ### ☐ M4.1 — Supabase Auth (email/password + Google OAuth)
 **Partly done (wave 3, 2026-10-11): the email/password half works** (sign-up with confirmation, log in, log out, forgot/reset password, middleware on account/auth routes only, open-redirect guard). **Google sign-in is deferred until a domain exists** (user decision), so the box stays unchecked.
 
+**Wave 8 (2026-10-16):** the Google code, branded email templates, canonical-host redirect and setup docs are built and verified on a local stack, but behind `NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN` (default off). **The box stays unchecked until a real Google login works on live** (owner steps in `docs/setup/GOOGLE-SIGNIN.md`).
+
 Middleware for session refresh, `/login` and `/signup` matching the mockup, protected routes.
 
 ### ☑ M4.2 — Favorites
@@ -877,6 +879,8 @@ A signed-in page tying food, training and sleep together. **Design prompt for Cl
 - **Right:** MyFitnessPal-style calorie ring + carbs/fat/protein bars + a full nutrient table from the day's meals; meals list with "+ Add".
 - **Getting there:** sign-in required; first visit runs a targets setup (sex for the formula, age, height, weight, activity, goal + pace → Mifflin-St Jeor calories and macros, editable). Logging: one "+ Log" sheet (Workout session type / Food / Sleep), a morning "How did you sleep?" prompt, and tapping a calendar day to edit.
 - **Ideas for the page:** streaks (gold), weekly summary, weight-trend sparkline linking to the weight chart, "recipes that fit what's left today" (protein left → Minced recipes via the existing nutrition data), water intake, rest-day suggestion from the muscle map.
+
+**Wave 8 status (2026-10-16): built, NOT checked.** The dashboard is on branch `wave8/integration` behind `NEXT_PUBLIC_ENABLE_ME` (default off) with migration `20261016100000_me_dashboard.sql`. Verified: targets maths, logging, RLS (55 checks), keyboard, desktop. Not verified: phone layout after the overflow fix, "Log this" in a browser, the mannequin art style of the mockup (we use MIT anatomical art), vitamins and minerals (recipes store only 6 nutrients). Questions: `docs/review/2026-10-16-wave8-questions.md`.
 
 **Workout pages (browse/follow plans by style) move to a later wave than v1.5** (user decision 2026-10-13); see v2 below.
 

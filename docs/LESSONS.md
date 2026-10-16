@@ -334,3 +334,25 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 **Soft navigation after sign-out is swallowed on auth pages** by the `@modal` slot; use a full page load there.
 
 **Signed-out state must not be read from localStorage.** `src/lib/useFridgeIds.ts` now reads the URL only when signed out (fixed on review/integration).
+
+## 9. Wave 8 (2026-10-16)
+
+**Vercel PREVIEW builds prerender against the LIVE database.** A PR whose pages query a new column or table fails its preview until the migration is applied to live. After applying the migration, push an empty commit (`git commit --allow-empty`) to re-run the preview.
+
+**A blurry hero can be a rendering cause, not a bad source.** The landing tile served a 400 px thumb into a 379 px box, which a 2x screen stretches 2x. Measure source pixels against rendered pixels times device pixel ratio before judging a photo. Sizes are now md 1200 and sm 640.
+
+**The Laplacian sharpness number is a poor judge of food photos.** Smooth soups and deliberate shallow depth of field score low and look fine, and a 600 px photo upscaled 2x scores fine at the 480 px the audit measures. Every photo also needs a human look, at the size it is shown on a retina screen.
+
+**Legacy photo rejections without a filename cannot be enforced.** `is_rejected()` matches on (slug, file); note-only entries from wave 3 let `fish-spinach` come back. Every reject entry needs the filename, and `check_manifests.py` should fail on a note-only reject slug that has a photo.
+
+**Go templates evaluate `{{ }}` even inside HTML comments.** Supabase email templates must not mention a placeholder in a comment.
+
+**Git Bash rewrites `/paths` in curl arguments.** Set `MSYS_NO_PATHCONV=1`.
+
+**A local Supabase stack loaded from a snapshot needs `alter schema public owner to postgres`** before postgres can create tables.
+
+**A CSS grid needs `minmax(0,1fr)` or `min-w-0` on its children.** Without it one wide child (a table, a long unbroken word) widens every card; `/me` was 439 px wide on a 375 px phone. Use `grid-cols-[minmax(0,1fr)]` for the single-column case.
+
+**PKCE sign-in must start and finish on the same host.** The verifier cookie is host-bound, so Google sign-in and emailed `?code=` links break across hosts. The canonical 308 redirect and Supabase Site URL must agree, and email templates should use `token_hash` links, which work from any browser.
+
+**A malformed cookie must not 500 a page.** `decodeURIComponent` throws on a stray `%`; wrap it (the `me_tz` cookie on `/me`).
