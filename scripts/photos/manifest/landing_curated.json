@@ -1,0 +1,27 @@
+{
+  "_about": "The 9 landing photos (src/lib/queries/landing.ts CURATED_SLUGS), in slot order. Each was opened at 1920 px and judged by eye: sharp, uncluttered, no brand or label text, appetising, and the dish it is labelled as. Source files are the 1920 px Commons rendition (scripts/photos/hires.py).",
+  "slots": {
+    "0": "hero tile (square crop, title scrim): japanese-curry-rice, clean white ground, 1920x1440 source of a 3797x2848 original",
+    "6": "big tile of 'Why we built this' (tall crop): sopa-de-tortilla, square 1920x1920 source so a portrait crop loses nothing"
+  },
+  "picked": [
+    {"slug": "japanese-curry-rice", "slot": 0, "source_px": "1920x1440", "why": "pale blue-and-white plate on white, centred, crisp rice grain and sauce sheen"},
+    {"slug": "shakshuka", "slot": 1, "source_px": "1920x1440", "why": "cast-iron pan, eggs and herbs, warm colour, sharp"},
+    {"slug": "som-tam", "slot": 2, "source_px": "1920x1295", "why": "bright, fills the frame, no clutter"},
+    {"slug": "okonomiyaki", "slot": 3, "source_px": "1920x1280", "why": "glossy sauce lines, fills the frame"},
+    {"slug": "maafe", "slot": 4, "source_px": "1920x1280", "why": "orange stew in a white bowl, centred"},
+    {"slug": "oyakodon", "slot": 5, "source_px": "1920x1281", "why": "soft yellow egg bowl, clean dark ground"},
+    {"slug": "sopa-de-tortilla", "slot": 6, "source_px": "1920x1920", "why": "square source, rich and sharp, centred bowl"},
+    {"slug": "chickpea-dip", "slot": 7, "source_px": "1920x1440", "why": "styled hummus with chickpeas, sharp, centred"},
+    {"slug": "tabbouleh", "slot": 8, "source_px": "1920x1440", "why": "fresh green mound, sharp"}
+  ],
+  "rejected_for_landing": {
+    "gyudon": "the bowl carries a restaurant chain's logo",
+    "arroz-con-pollo-chicken-and-rice": "MyPlate logo in the corner; fine on a recipe page, not on the front page",
+    "chicken-pozole-soup": "MyPlate logo in the corner",
+    "agedashi-tofu": "napkin and spoon in frame; the hero it replaces, and the one that looked soft",
+    "kanda-poha": "paper plate, busy print; blurry on the old page",
+    "menemen": "foil tray under the clay bowl; small and soft on the old page",
+    "green-onion-omelet": "USDA 600x400, upscaled to a tall tile on the old page"
+  }
+}

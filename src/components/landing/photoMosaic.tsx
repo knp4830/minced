@@ -32,14 +32,15 @@ export function PhotoMosaic({ photos, className }: { photos: LandingPhoto[]; cla
                 href={`/recipes/${photo.slug}`}
                 className="group relative block size-full overflow-hidden rounded-xl border border-line bg-hatch shadow-lift"
               >
-                {/* Remote Storage host, already thumbnailed: no next/image. */}
+                {/* Remote Storage host, already resized (tile 0 gets the 1200 px file, see getLandingPhotos): no next/image. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={photo.url}
                   alt={photo.alt}
-                  width={400}
-                  height={400}
+                  width={i === 0 ? 800 : 400}
+                  height={i === 0 ? 800 : 400}
                   loading="eager"
+                  fetchPriority={i === 0 ? "high" : undefined}
                   decoding="async"
                   className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                 />

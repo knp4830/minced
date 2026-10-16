@@ -9,9 +9,9 @@ Writes scripts/photos/out/<source>/<slug>/{md,sm}.webp      (NOT committed)
        scripts/photos/manifest/photos.json                  (committed; the
        single source of truth the SQL and the uploader are generated from)
 
-Sizes: md = max 800px wide (recipe page / card @2x), sm = max 400px (grid /
-pantry results). Never upscaled -- MyPlate's archived photos are 600x400 and stay
-600x400 at md. WebP q80 is ~35% smaller than JPEG at the same look.
+Sizes: md = max 1200px wide (recipe page, landing hero @2x), sm = max 640px (cards / grid /
+pantry results @2x). Never upscaled -- MyPlate's archived photos are 600x400 and stay
+600x400 at md. WebP q82 is ~35% smaller than JPEG at the same look.
 
 Re-encoding through Pillow also drops EXIF, which matters for Commons photos:
 phone photos routinely carry GPS coordinates of someone's kitchen.
@@ -37,8 +37,10 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("Pillow is required (pip install pillow). It is a dev-machine tool, not a project dependency.")
 
-SIZES = {"md": 800, "sm": 400}
-QUALITY = 80
+# Wave 8: md 800 -> 1200 and sm 400 -> 640. The recipe page shows the photo ~590 CSS px wide and a card is ~255 px wide;
+# on a 2x screen that needs 1180 and 510 pixels. At 800/400 every photo was upscaled (the soft hero the owner saw).
+SIZES = {"md": 1200, "sm": 640}
+QUALITY = 82
 SOURCE_DIR = {"usda_myplate": "usda", "wikimedia_commons": "commons", "openverse": "openverse", "pexels": "pexels"}
 
 

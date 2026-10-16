@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
@@ -39,6 +40,10 @@ OV = CACHE / "openverse"
 QUERIED = OV / "queried.json"
 SLEEP = 4.0                    # 15 requests/minute, under the 20/minute burst limit
 MIN_AVAILABLE = 3              # stop when this few daily requests remain
+# Wave 8 quality floors (env, so older runs behave as before): OV_MIN_LONG = smallest long side in px,
+# OV_SHARP = minimum Laplacian variance of the 480 px downloaded copy (see w8_search.lap480).
+MIN_LONG = int(os.environ.get("OV_MIN_LONG", "0"))
+SHARP = float(os.environ.get("OV_SHARP", "0"))
 
 # openverse licence code -> (manifest licence string, needs version)
 LICENSES = {"cc0": "CC0", "pdm": "Public domain", "by": "CC BY", "by-sa": "CC BY-SA"}
@@ -100,6 +105,8 @@ def gate(title: str, r: dict, thr: float) -> float | None:
         return None
     if (r.get("width") or 0) < 600 or (r.get("height") or 0) < 400:
         return None
+    if max(r.get("width") or 0, r.get("height") or 0) < MIN_LONG:
+        return None
     t = r.get("title") or ""
     if RISKY.search(t):
         return None
@@ -147,12 +154,22 @@ def cmd_search(path: str, out: str, thr: float, keep: int, max_queries: int, cre
         cands = cands[:keep]
         d = OV / "review" / slug
         d.mkdir(parents=True, exist_ok=True)
-        for i, c in enumerate(cands):
+        kept = []
+        for c in cands:
             st, body, _ = http_get(c["url"], retries=2)
-            if st == 200:
-                (d / f"{i}.jpg").write_bytes(body)
-            else:
-                c["download_failed"] = st
+            if st != 200:
+                continue
+            p = d / f"{len(kept)}.jpg"
+            p.write_bytes(body)
+            if SHARP:
+                from w8_search import lap480
+                lv = lap480(p)
+                if lv is None or lv < SHARP:
+                    p.unlink()
+                    continue
+                c["lap480"] = round(lv)
+            kept.append(c)
+        cands = kept
         res[slug] = {"title": title, "ingredients": rec.get("ingredients") or [], "cands": cands}
         queried[qkey] = len(cands)
         write_json(outp, res)
