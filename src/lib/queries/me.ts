@@ -2,12 +2,7 @@
  * Database access for the Me dashboard. Every call goes through the request-scoped, cookie-carrying client,
  * so Row Level Security is the real gate: a person can only ever read or write their own rows. Nothing here
  * may be called from a cached (ISR) page.
- *
- * Cast: src/types/database.ts is regenerated at integration, after migration 20261016100000 is applied, so
- * the me_* tables are not in it yet. Remove `loose()` after `pnpm db:types`.
  */
-
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createClient } from "@/lib/supabase/server";
 import { addDays, weekRange } from "@/lib/me/dates";
@@ -22,8 +17,10 @@ import {
   type WorkoutEntry,
 } from "@/lib/me/types";
 
-async function loose(): Promise<SupabaseClient> {
-  return (await createClient()) as unknown as SupabaseClient;
+type Db = Awaited<ReturnType<typeof createClient>>;
+
+async function loose() {
+  return createClient();
 }
 
 const num = (v: unknown): number => (v === null || v === undefined ? 0 : Number(v));
@@ -308,14 +305,14 @@ export type WriteResult = { ok: true } | { ok: false; error: string };
 const FAILED: WriteResult = { ok: false, error: "That did not save. Please try again." };
 const SIGN_IN: WriteResult = { ok: false, error: "Sign in to keep your Me page." };
 
-async function signedIn(): Promise<{ db: SupabaseClient; uid: string } | null> {
+async function signedIn(): Promise<{ db: Db; uid: string } | null> {
   const supabase = await createClient();
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
   if (error || !user) return null;
-  return { db: supabase as unknown as SupabaseClient, uid: user.id };
+  return { db: supabase, uid: user.id };
 }
 
 export async function writeTargets(t: MeTargets): Promise<WriteResult> {
@@ -397,8 +394,9 @@ export async function writeWorkout(w: {
   const { error } = await s.db.rpc("me_log_workout", {
     p_date: w.date,
     p_session: w.session,
-    p_custom_name: w.customName,
-    p_minutes: w.minutes,
+    // Generated types mark these non-null (no SQL default); the function accepts NULL.
+    p_custom_name: w.customName as string,
+    p_minutes: w.minutes as number,
     p_muscles: w.muscles.map((m) => ({ m: m.muscle, s: m.sets })),
   });
   if (error) return error.code === "54000" ? { ok: false, error: "That is a lot of workouts for one day." } : FAILED;
