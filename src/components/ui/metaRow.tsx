@@ -76,7 +76,9 @@ export function MetaRow({
       data-slot="meta-row"
       className={cn(
         "flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-ink-muted",
-        size === "sm" ? "text-[0.71875rem]" : "text-[0.8125rem]",
+        // Card-size rows sit in a two-column grid on phones, where a wrapped row left a "·"
+        // dangling at a line end; there the gap alone separates the parts.
+        size === "sm" ? "text-[0.71875rem] max-sm:gap-x-3" : "text-[0.8125rem]",
         className,
       )}
       {...props}
@@ -84,7 +86,7 @@ export function MetaRow({
       {parts.map((part, i) => (
         <React.Fragment key={i}>
           {i > 0 && (
-            <span aria-hidden className="text-stone-line">
+            <span aria-hidden className={cn("text-stone-line", size === "sm" && "max-sm:hidden")}>
               ·
             </span>
           )}

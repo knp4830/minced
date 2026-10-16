@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition, type ReactNode } from "react";
+import { useEffect, useState, useTransition, type ReactNode } from "react";
 
 import { Plus, X } from "lucide-react";
 
@@ -24,8 +24,25 @@ export function LogButton({ className }: { className?: string }) {
 /** The phone's floating "+ Log" pill. Sticky inside the page flow so it never covers the footer. */
 export function LogFab() {
   const ui = useMeUi();
+  // Slides away while you scroll down to read (it used to sit on the Add buttons and the calendar's
+  // month arrows) and comes back the moment you scroll up or stop near the top.
+  const [away, setAway] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (Math.abs(y - last) < 8) return;
+      setAway(y > last && y > 120);
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <div className="pointer-events-none sticky bottom-6 z-20 mt-6 flex justify-end md:hidden">
+    <div
+      inert={away}
+      className={`pointer-events-none sticky bottom-6 z-20 mt-6 flex justify-end transition-[opacity,translate] duration-200 md:hidden ${away ? "translate-y-4 opacity-0 [&_button]:pointer-events-none" : ""}`}
+    >
       <button
         type="button"
         aria-label="Log"

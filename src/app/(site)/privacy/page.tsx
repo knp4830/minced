@@ -68,7 +68,7 @@ export default function PrivacyPage() {
         </p>
         <p>
           We do not run analytics, advertising, or tracking scripts, and we do not
-          collect your date of birth, location, or payment details. We do not sell
+          collect your date of birth, precise location, or payment details. We do not sell
           or share personal information.
         </p>
       </LegalSection>
@@ -105,7 +105,10 @@ export default function PrivacyPage() {
           <code className="font-mono text-[0.875em]">sb-</code>). They exist only to
           remember that you are logged in, and are removed when you log out (at the
           latest they expire after about 13 months). Because they are strictly necessary for the login you asked
-          for, there is no cookie banner. Nothing else on Minced sets cookies. (Your fridge picks are saved in browser storage on your device, not in cookies.)
+          for, there is no cookie banner. If you use the Me page, one more small cookie,{" "}
+          <code className="font-mono text-[0.875em]">me_tz</code>, remembers your time zone (for example America/New_York) for one year so
+          the page can tell which day it is for you. It holds no other information, and it is removed when you log out or delete your account.
+          Nothing else on Minced sets cookies. (Your fridge picks are saved in browser storage on your device, not in cookies.)
         </p>
       </LegalSection>
 

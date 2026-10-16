@@ -101,7 +101,8 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput): Promise<
       recipeId: rec.id,
       name: rec.title.slice(0, 120),
       servings: n,
-      calories: r1(rec.calories * n),
+      // The recipe page shows calories to the nearest 5; log that number so the diary matches the page.
+      calories: r1(Math.round(rec.calories / 5) * 5 * n),
       proteinG: r1((rec.proteinG ?? 0) * n),
       carbsG: r1((rec.carbsG ?? 0) * n),
       fatG: r1((rec.fatG ?? 0) * n),

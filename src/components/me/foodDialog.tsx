@@ -187,7 +187,7 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
           </div>
           {kcal !== null && <span className="font-mono text-sm text-ink-muted">{nf.format(kcal)} kcal</span>}
         </div>
-        <div className="mt-6 flex justify-end gap-2">
+        <div className="me-dialog-actions flex justify-end gap-2">
           <Button variant="secondary" size="sm" onClick={() => setPicked(null)}>
             Back
           </Button>

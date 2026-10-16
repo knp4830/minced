@@ -1,6 +1,6 @@
 "use server";
 
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import {
@@ -10,6 +10,7 @@ import {
   validateNewPassword,
 } from "@/lib/auth/validate";
 import { GOOGLE_SIGNIN_ENABLED } from "@/lib/flags";
+import { TZ_COOKIE } from "@/lib/me/dates";
 import { deleteMyAccount } from "@/lib/queries/account";
 import { createClient } from "@/lib/supabase/server";
 
@@ -207,11 +208,18 @@ export async function updatePassword(_prev: FormState, form: FormData): Promise<
 export async function logOutQuiet(): Promise<void> {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  await forgetTimeZone();
+}
+
+/** The Me page's time-zone cookie is personal data: it goes when the session does. */
+async function forgetTimeZone(): Promise<void> {
+  (await cookies()).delete(TZ_COOKIE);
 }
 
 export async function logOut(): Promise<void> {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  await forgetTimeZone();
   redirect("/");
 }
 
@@ -225,5 +233,6 @@ export async function deleteAccount(_prev: FormState, form: FormData): Promise<F
   const supabase = await createClient();
   // The user row is gone, so the refresh token is dead; this just clears the cookies.
   await supabase.auth.signOut();
+  await forgetTimeZone();
   redirect("/login?notice=deleted");
 }

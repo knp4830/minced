@@ -106,3 +106,20 @@
     box-shadow: var(--shadow-frame);
   }
 }
+
+/* The primary action stays in view at the bottom of a scrolling sheet (it sat below the fold on a phone). */
+.me-dialog-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  margin: 1.25rem -1.25rem -1.25rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}
+@media (min-width: 48rem) {
+  .me-dialog-actions {
+    margin: 1.25rem -1.75rem -1.5rem;
+    padding: 0.75rem 1.75rem;
+  }
+}

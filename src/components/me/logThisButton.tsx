@@ -73,7 +73,7 @@ function LogDialog({ slug, title, onClose }: { slug: string; title: string; onCl
           <p className="mt-4 text-[0.9375rem]">
             Added to {MEALS.find((m) => m.v === done)?.label.toLowerCase()} on today&rsquo;s page.
           </p>
-          <div className="mt-6 flex justify-end gap-2">
+          <div className="me-dialog-actions flex justify-end gap-2">
             <Button variant="secondary" size="sm" onClick={onClose}>
               Done
             </Button>
@@ -120,7 +120,7 @@ function LogDialog({ slug, title, onClose }: { slug: string; title: string; onCl
           <p role="alert" className={cn("mt-3 text-[0.8125rem] text-paprika-deep", !message && "sr-only")}>
             {message}
           </p>
-          <div className="mt-6 flex justify-end gap-2">
+          <div className="me-dialog-actions flex justify-end gap-2">
             <Button variant="secondary" size="sm" onClick={onClose}>
               Cancel
             </Button>

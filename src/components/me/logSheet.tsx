@@ -198,7 +198,7 @@ export function LogSheet({
       <p role="alert" className={cn("mt-3 text-[0.8125rem] text-paprika-deep", !message && "sr-only")}>
         {message}
       </p>
-      <div className="mt-5 flex justify-end gap-2">
+      <div className="me-dialog-actions flex justify-end gap-2">
         <Button variant="secondary" size="sm" onClick={onClose}>
           Cancel
         </Button>

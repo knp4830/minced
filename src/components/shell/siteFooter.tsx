@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/shell/wordmark";
+import { ME_ENABLED } from "@/lib/me/flag";
 import { cn } from "@/lib/utils";
 
 /*
@@ -18,6 +19,7 @@ const GROUPS = [
       ["/recipes", "Browse recipes"],
       ["/pantry", "What’s in my fridge"],
       ["/shopping", "Shopping list"],
+      ...(ME_ENABLED ? ([["/me", "Me: nutrition and workouts"]] as const) : []),
     ],
   },
   {

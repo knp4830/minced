@@ -4,6 +4,7 @@ import { HeaderAccount } from "@/components/account/headerAccount";
 import { FridgeNavButton } from "@/components/shell/fridgeNavButton";
 import { HeaderSearch } from "@/components/shell/headerSearch";
 import { Wordmark } from "@/components/shell/wordmark";
+import { ME_ENABLED } from "@/lib/me/flag";
 
 /*
  * Server component, no JS: search is a plain GET form, nav items are links.
@@ -29,6 +30,14 @@ export function SiteHeader() {
           >
             Recipes
           </Link>
+          {ME_ENABLED && (
+            <Link
+              href="/me"
+              className="hidden min-h-11 sm:inline-flex items-center rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
+            >
+              Me
+            </Link>
+          )}
           <Link
             href="/shopping"
             className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-md px-2.5 text-[0.84375rem] font-medium text-ink transition-colors hover:text-herb"
@@ -36,8 +45,10 @@ export function SiteHeader() {
             <ShoppingBasket aria-hidden className="size-[1.125rem] lg:hidden" />
             <span className="sr-only lg:not-sr-only">Shopping list</span>
           </Link>
-          <FridgeNavButton />
-          <HeaderAccount />
+          <span className="acct-slot contents">
+            <FridgeNavButton />
+            <HeaderAccount />
+          </span>
         </nav>
       </div>
     </header>

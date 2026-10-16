@@ -4,6 +4,7 @@
  * may be called from a cached (ISR) page.
  */
 
+import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createClient } from "@/lib/supabase/server";
 import { addDays, weekRange } from "@/lib/me/dates";
 import {
@@ -80,14 +81,23 @@ type FoodRow = {
   fat_g: number | string;
   fiber_g: number | string | null;
   sodium_mg: number | string | null;
-  recipes: { slug: string; image_url: string | null } | { slug: string; image_url: string | null }[] | null;
+  recipes: LoggedRecipe | LoggedRecipe[] | null;
 };
+
+type PhotoRow = { storage_path: string; thumb_path: string | null };
+type LoggedRecipe = { slug: string; image_url: string | null; recipe_photos: PhotoRow | PhotoRow[] | null };
+
+/** The photo the cards show (uploaded photo first, then the legacy URL), or null. */
+function recipeThumb(imageUrl: string | null, photos: PhotoRow | PhotoRow[] | null | undefined): string | null {
+  const p = Array.isArray(photos) ? photos[0] : photos;
+  return p ? photoPublicUrl(p.thumb_path ?? p.storage_path) : usableImageUrl(imageUrl);
+}
 
 export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
   const db = await loose();
   const { data } = await db
     .from("me_food_log")
-    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, recipes(slug, image_url)")
+    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
     .eq("log_date", date)
     .order("created_at", { ascending: true })
     .limit(80);
@@ -104,7 +114,7 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
       fatG: num(r.fat_g),
       fiberG: numOrNull(r.fiber_g),
       sodiumMg: numOrNull(r.sodium_mg),
-      recipe: rec ? { slug: rec.slug, imageUrl: rec.image_url } : null,
+      recipe: rec ? { slug: rec.slug, imageUrl: recipeThumb(rec.image_url, rec.recipe_photos) } : null,
     };
   });
 }
@@ -220,6 +230,7 @@ type RecipeRow = {
   servings: number;
   calories: number | string | null;
   image_url: string | null;
+  recipe_photos: PhotoRow | PhotoRow[] | null;
 };
 
 /** Escapes LIKE wildcards so a search for "100%" is a literal search. */
@@ -233,7 +244,7 @@ export async function findRecipesToLog(query: string, limit = 8): Promise<Loggab
   const db = await loose();
   const { data } = await db
     .from("recipes")
-    .select("id, slug, title, servings, calories, image_url")
+    .select("id, slug, title, servings, calories, image_url, recipe_photos(storage_path, thumb_path)")
     .eq("status", "published")
     .ilike("title", `%${likeEscape(q)}%`)
     .order("has_photo", { ascending: false })
@@ -244,7 +255,7 @@ export async function findRecipesToLog(query: string, limit = 8): Promise<Loggab
     title: r.title,
     servings: r.servings,
     calories: numOrNull(r.calories),
-    imageUrl: r.image_url,
+    imageUrl: recipeThumb(r.image_url, r.recipe_photos),
   }));
 }
 

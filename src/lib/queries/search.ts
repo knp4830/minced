@@ -169,16 +169,34 @@ async function rewriteSynonyms(q: string): Promise<string> {
   const words = trimmed.split(/\s+/).slice(0, 8);
 
   const whole = await resolveWord(trimmed);
-  if (whole && whole.match_kind === "alias") return whole.canonical_name;
+  if (whole && whole.match_kind === "alias" && isSynonymSwap(trimmed, whole.canonical_name)) {
+    return whole.canonical_name;
+  }
   if (words.length === 1 && !whole) return q;
 
   const resolved = await Promise.all(words.map((w) => (w.length > 2 ? resolveWord(w) : null)));
   return words
     .map((w, i) => {
       const r = resolved[i];
-      return r && r.match_kind === "alias" ? r.canonical_name : w;
+      return r && r.match_kind === "alias" && isSynonymSwap(w, r.canonical_name)
+        ? r.canonical_name
+        : w;
     })
     .join(" ");
+}
+
+/**
+ * A real synonym replaces a word with a different one (aubergine -> eggplant). An alias
+ * that merely NARROWS the word ("cheese" -> "shredded cheese") is a shopping-list
+ * convenience, not a synonym: swapping it in turns "mac and cheese" into
+ * "macaroni and shredded cheese" and loses Classic Macaroni and Cheese.
+ */
+function isSynonymSwap(original: string, canonical: string): boolean {
+  const canon = canonical.toLowerCase().split(/\s+/);
+  return !original
+    .toLowerCase()
+    .split(/\s+/)
+    .every((w) => canon.includes(w) || canon.includes(w.replace(/(es|s)$/, "")));
 }
 
 /** Cook shorthand that is not an ingredient alias: "mac and cheese" means macaroni. */
@@ -210,7 +228,7 @@ async function runSearch(filters: RecipeFilters, limit: number): Promise<SearchP
   const rows = (data ?? []) as SearchRpcRow[];
   const page = rows.slice(0, limit);
 
-  const results: SearchResult[] = page.map((row) => ({
+  const results: SearchResult[] = page.filter((row) => row.match_kind !== "fuzzy" || fuzzyFits(filters.q ?? "", row.title)).map((row) => ({
     id: row.id,
     slug: row.slug,
     title: row.title,
@@ -237,4 +255,42 @@ async function runSearch(filters: RecipeFilters, limit: number): Promise<SearchP
         ? encodeSearchCursor({ score: last.score, id: last.id })
         : null,
   };
+}
+
+/** Edit distance, capped: enough to tell "shaksuka" from "shake" without a library. */
+function editDistance(a: string, b: string): number {
+  if (Math.abs(a.length - b.length) > 3) return 99;
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= b.length; j++) {
+      cur[j] = Math.min(
+        prev[j]! + 1,
+        cur[j - 1]! + 1,
+        prev[j - 1]! + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
+    }
+    prev = cur;
+  }
+  return prev[b.length]!;
+}
+
+const FUZZY_SKIP = new Set(["and", "the", "with", "for", "of", "in", "a", "an", "n"]);
+
+/**
+ * The database's look-alike tier is loose on purpose (it catches typos), but it also pairs
+ * "carbonara" with "caramel sauce" and "tikka masala" with "chana masala". Keep a look-alike
+ * title only when EVERY meaningful word of the query is a near-spelling of some title word,
+ * so a typo still finds its recipe and an absent dish honestly finds nothing.
+ */
+function fuzzyFits(query: string, title: string): boolean {
+  const words = query.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 1 && !FUZZY_SKIP.has(w));
+  const titleWords = title.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+  if (!words.length) return false;
+  return words.every((w) => {
+    const allowed = w.length <= 4 ? 1 : w.length <= 8 ? 2 : 3;
+    return titleWords.some(
+      (t) => t === w || t.startsWith(w) || (w.startsWith(t) && t.length > 3) || editDistance(w, t) <= allowed,
+    );
+  });
 }
