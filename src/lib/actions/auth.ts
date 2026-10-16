@@ -9,6 +9,7 @@ import {
   validateEmail,
   validateNewPassword,
 } from "@/lib/auth/validate";
+import { GOOGLE_SIGNIN_ENABLED } from "@/lib/flags";
 import { deleteMyAccount } from "@/lib/queries/account";
 import { createClient } from "@/lib/supabase/server";
 
@@ -73,6 +74,34 @@ export async function logIn(_prev: FormState, form: FormData): Promise<FormState
     return { email, error: "That email and password don't match." };
   }
   redirect(next);
+}
+
+/**
+ * "Continue with Google": asks Supabase for the Google consent URL and sends the browser there.
+ * A plain <form action>, so it works without JavaScript. The PKCE verifier cookie is set on
+ * THIS host, which is why the callback must come back to the same host (see auth/callback).
+ * `via=google` tells the callback which flow it is finishing so a failure says the right thing.
+ * Google needs no password, and Supabase links the sign-in to an existing account with the same
+ * verified email instead of making a duplicate.
+ */
+export async function signInWithGoogle(form: FormData): Promise<void> {
+  const next = safeNext(text(form, "next"), "/account");
+  const back = `/login?error=oauth${next === "/account" ? "" : `&next=${encodeURIComponent(next)}`}`;
+  // The button is hidden while the flag is off, but a server action is a public endpoint.
+  if (!GOOGLE_SIGNIN_ENABLED) redirect(back);
+
+  const supabase = await createClient();
+  const origin = await siteOrigin();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${origin}/auth/callback?via=google&next=${encodeURIComponent(next)}`,
+      // Only ever ask for who they are. No Gmail, Drive or contacts scopes.
+      scopes: "openid email profile",
+    },
+  });
+  if (error || !data.url) redirect(back);
+  redirect(data.url);
 }
 
 export async function signUp(_prev: FormState, form: FormData): Promise<FormState> {
