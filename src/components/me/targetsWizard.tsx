@@ -131,9 +131,9 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
 
   return (
     <MeDialog eyebrow={`Step ${step} of ${STEPS}`} title={["Let’s set your targets", "How active are you?", "What’s the goal?", "Your daily targets"][step - 1]} onClose={onClose} widthRem={34}>
-      <div className="mt-3 flex gap-1.5" role="progressbar" aria-valuemin={1} aria-valuemax={STEPS} aria-valuenow={step} aria-label="Setup progress">
+      <div className="mt-3 flex items-center gap-2" role="progressbar" aria-valuemin={1} aria-valuemax={STEPS} aria-valuenow={step} aria-label="Setup progress">
         {Array.from({ length: STEPS }, (_, i) => (
-          <span key={i} className={cn("h-1 flex-1 rounded-full", i < step ? "bg-herb" : "bg-band")} />
+          <span key={i} className={cn("size-2 rounded-full", i < step ? "bg-herb" : "bg-line-strong")} />
         ))}
       </div>
 
@@ -147,7 +147,7 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
             <Seg label="Units" value={units} options={[["metric", "Metric"], ["imperial", "Imperial"]]} onChange={(v) => switchUnits(v as Units)} />
           </div>
           <div className="mt-2">
-            <Seg label="Sex for the formula" value={sex ?? ""} options={[["female", "Female"], ["male", "Male"]]} onChange={(v) => setSex(v as Sex)} wide />
+            <Seg label="Sex for the formula" value={sex ?? ""} options={[["female", "Female"], ["male", "Male"]]} onChange={(v) => setSex(v as Sex)} />
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             <div>
@@ -230,7 +230,7 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
             <label className="sr-only" htmlFor={`${id}-kcal`}>
               Calories per day
             </label>
-            <input id={`${id}-kcal`} inputMode="numeric" value={edit.kcal} onChange={(e) => onKcalEdit(e.target.value.replace(/\D/g, "").slice(0, 4))} className="w-28 bg-transparent font-mono text-[2.5rem] leading-none font-medium outline-none focus-visible:underline" />
+            <input id={`${id}-kcal`} inputMode="numeric" value={edit.kcal === "" ? "" : Number(edit.kcal).toLocaleString("en-GB")} onChange={(e) => onKcalEdit(e.target.value.replace(/\D/g, "").slice(0, 4))} className="w-32 bg-transparent font-mono text-[2.5rem] leading-none font-medium outline-none focus-visible:underline" />
             <span className="pb-1 font-mono text-xs text-ink-muted">kcal per day</span>
           </div>
           <div className="mt-4 grid grid-cols-3 gap-3">
@@ -294,7 +294,7 @@ function Seg({ label, value, options, onChange, wide }: { label: string; value: 
           aria-checked={value === v}
           onClick={() => onChange(v)}
           className={cn(
-            "min-h-10 rounded-sm px-4 text-[0.875rem] font-medium transition-colors pointer-coarse:min-h-11",
+            "min-h-11 rounded-sm px-4 text-[0.875rem] font-medium transition-colors sm:min-h-10",
             wide && "flex-1",
             value === v ? "bg-herb text-on-herb" : "text-ink hover:text-herb",
           )}

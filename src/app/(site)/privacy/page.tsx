@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy policy"
-      updated="October 14, 2026"
+      updated="October 16, 2026"
       intro="Minced is a small personal project. You can browse every recipe without an account and without giving us anything. If you make an account, this page says exactly what we keep and how to remove it."
     >
       <LegalSection id="who" title="Who runs this">
@@ -52,6 +52,10 @@ export default function PrivacyPage() {
             Your shopping list, if you use it while signed in: the ingredients
             and amounts, which recipe they came from, and what you have ticked off.
           </li>
+          <li>
+            Your <strong className="font-semibold text-ink">Me page</strong> data, if you use it while signed in. This is
+            health-related, so it is listed in full under &ldquo;Health and fitness data&rdquo; below.
+          </li>
           <li>When the account was created.</li>
           <li>
             Sign-in logs (IP address and browser) that Supabase keeps for
@@ -66,6 +70,32 @@ export default function PrivacyPage() {
           We do not run analytics, advertising, or tracking scripts, and we do not
           collect your date of birth, location, or payment details. We do not sell
           or share personal information.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="health" title="Health and fitness data">
+        <p>
+          The Me page is optional. Only if you use it, and only while signed in, we store the following, tied to your
+          account:
+        </p>
+        <ul>
+          <li>
+            Your targets: sex (female or male), age, height, weight, activity level, goal, and the calorie and
+            macronutrient targets worked out from them.
+          </li>
+          <li>
+            Your food log: what you ate, the meal and date, and the calories, protein, carbohydrate, fat, and where
+            given, fibre and sodium.
+          </li>
+          <li>Your workouts: the date, the session type, minutes, sets, and which muscle groups you trained.</li>
+          <li>Your sleep: hours slept on each date you enter.</li>
+        </ul>
+        <p>
+          This is sensitive, so: it is used only to show you your own page. It is not used for advertising or analytics,
+          not combined with anything else, and not shared or sold. Only you can read it (the database enforces that for
+          each row), and it is never public. You can delete any single entry on the page, download all of it with
+          &ldquo;Download my data&rdquo;, or delete the account to remove all of it at once. Minced is not a medical
+          service, and the targets are general estimates, not medical advice.
         </p>
       </LegalSection>
 
@@ -105,7 +135,7 @@ export default function PrivacyPage() {
         <ul>
           <li>
             <strong className="font-semibold text-ink">Running your account</strong>{" "}
-            (email, password hash, saved recipes, cookware, fridge, shopping list): needed to provide the account
+            (email, password hash, saved recipes, cookware, fridge, shopping list, and Me page data): needed to provide the account
             you asked for (contract).
           </li>
           <li>
@@ -124,7 +154,7 @@ export default function PrivacyPage() {
       <LegalSection id="keep" title="How long we keep it">
         <p>
           For as long as the account exists. When you delete the account, your
-          email, password hash, saved recipes, cookware, fridge and shopping list are removed immediately. Security
+          email, password hash, saved recipes, cookware, fridge, shopping list and Me page data (targets, food log, workouts, sleep) are removed immediately. Security
           logs (which can include your email and IP address) and routine backups
           age out on the host&apos;s own schedule, and are never restored for any purpose except recovering the whole site.
         </p>
@@ -139,7 +169,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="font-semibold text-ink">See or correct your data:</strong>{" "}
-            your email, saved recipes, cookware, fridge and shopping list are all there is. Your email and saved recipes are visible on
+            your email, saved recipes, cookware, fridge, shopping list and Me page data are all there is. Your email and saved recipes are visible on
             your <Link href="/account" className={legalLink}>account page</Link>, your cookware in the
             &ldquo;My cookware&rdquo; filter, your fridge on <Link href="/fridge" className={legalLink}>My fridge</Link> and your list on the <Link href="/shopping" className={legalLink}>shopping list</Link>. You
             can download a copy from Settings (&ldquo;Download my data&rdquo;). To

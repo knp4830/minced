@@ -83,7 +83,7 @@ export function MuscleCard({
               aria-pressed={sex === s}
               onClick={() => setSex(s)}
               className={cn(
-                "min-h-9 rounded-sm px-3.5 text-[0.8125rem] font-medium transition-colors pointer-coarse:min-h-11",
+                "min-h-11 sm:min-h-9 rounded-sm px-3.5 text-[0.8125rem] font-medium transition-colors pointer-coarse:min-h-11",
                 sex === s ? "bg-herb text-on-herb" : "text-ink hover:text-herb",
               )}
             >

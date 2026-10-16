@@ -423,3 +423,45 @@ export async function removeSleep(date: string): Promise<WriteResult> {
   const { data, error } = await s.db.from("me_sleep").delete().eq("log_date", date).select("log_date");
   return error || !data || data.length === 0 ? FAILED : { ok: true };
 }
+
+// ---------- export ("Download my data") ----------
+
+/**
+ * Everything the Me page stores about the signed-in person, for /api/me/export. Raw columns, snake_case, no
+ * internal ids except the entry ids. RLS limits every table to the caller's own rows; the explicit ceiling
+ * is far above any real diary and exists so a runaway account cannot build an unbounded response.
+ */
+export async function getMyHealthExport() {
+  const db = await loose();
+  const cap = 20000;
+  const [targets, food, workouts, sleep] = await Promise.all([
+    db
+      .from("me_targets")
+      .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, updated_at")
+      .maybeSingle(),
+    db
+      .from("me_food_log")
+      .select("log_date, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, created_at, recipes(slug)")
+      .order("log_date", { ascending: true })
+      .limit(cap),
+    db
+      .from("me_workouts")
+      .select("log_date, session, custom_name, minutes, sets, created_at, me_workout_muscles(muscle, sets)")
+      .order("log_date", { ascending: true })
+      .limit(cap),
+    db.from("me_sleep").select("log_date, hours").order("log_date", { ascending: true }).limit(cap),
+  ]);
+  return {
+    targets: targets.data ?? null,
+    food_log: (food.data ?? []).map((r) => {
+      const { recipes: recipe, ...rest } = r as typeof r & { recipes?: { slug: string } | { slug: string }[] | null };
+      const slug = Array.isArray(recipe) ? recipe[0]?.slug : recipe?.slug;
+      return { ...rest, recipe_slug: slug ?? null };
+    }),
+    workouts: (workouts.data ?? []).map((w) => {
+      const { me_workout_muscles, ...rest } = w as typeof w & { me_workout_muscles?: { muscle: string; sets: number }[] | null };
+      return { ...rest, muscles: me_workout_muscles ?? [] };
+    }),
+    sleep: sleep.data ?? [],
+  };
+}

@@ -170,7 +170,12 @@ export function CalendarCard({
               <span aria-hidden className="mt-0.5 flex h-3 items-center justify-center gap-[3px] md:mt-[3px] md:gap-[5px]">
                 {d?.trained.length ? <Dumbbell /> : null}
                 {d && d.food !== "none" ? <Plate hit={d.food === "hit"} /> : null}
-                {d?.sleep != null ? <span className="font-mono text-[0.5625rem] text-ink-muted md:text-[0.625rem]">{d.sleep}</span> : null}
+                {d?.sleep != null ? (
+                  <span className="flex items-center gap-[2px] font-mono text-[0.5625rem] text-ink-muted md:text-[0.625rem]">
+                    <Moon />
+                    {d.sleep}h
+                  </span>
+                ) : null}
               </span>
             </button>
           );
@@ -185,7 +190,7 @@ export function CalendarCard({
           <Plate hit /> Nutrition goal hit
         </li>
         <li className="flex items-center gap-1.5">
-          <Plate hit={false} /> Partly &mdash; protein short
+          <Plate hit={false} /> Partly &mdash; protein or calories off
         </li>
         <li className="flex items-center gap-1.5">
           <Moon /> <span className="font-mono text-[0.6875rem]">7h</span> Sleep
@@ -204,7 +209,7 @@ export function CalendarCard({
               close();
             }
           }}
-          className="absolute top-20 left-1/2 z-10 w-[min(19rem,calc(100%-1.5rem))] -translate-x-1/2 rounded-xl border border-line-strong bg-surface p-4 shadow-frame"
+          className="absolute top-20 left-1/2 z-10 w-[min(22rem,calc(100%-1.5rem))] -translate-x-1/2 rounded-xl border border-line-strong bg-surface p-4 shadow-frame"
         >
           <div className="flex items-start justify-between">
             <div>

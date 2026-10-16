@@ -93,7 +93,7 @@ function LogDialog({ slug, title, onClose }: { slug: string; title: string; onCl
                 aria-checked={meal === m.v}
                 onClick={() => setMeal(m.v)}
                 className={cn(
-                  "min-h-9 rounded-sheet border px-3.5 text-[0.8125rem] font-medium transition-colors pointer-coarse:min-h-11",
+                  "min-h-11 sm:min-h-9 rounded-sheet border px-3.5 text-[0.8125rem] font-medium transition-colors pointer-coarse:min-h-11",
                   meal === m.v ? "border-herb bg-herb text-on-herb" : "border-line-strong text-ink hover:border-herb hover:text-herb",
                 )}
               >

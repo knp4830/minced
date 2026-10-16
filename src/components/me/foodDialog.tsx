@@ -105,7 +105,7 @@ function Pill({ checked, onClick, children }: { checked: boolean; onClick: () =>
       aria-checked={checked}
       onClick={onClick}
       className={cn(
-        "min-h-9 rounded-sheet border px-3.5 text-[0.8125rem] font-medium transition-colors pointer-coarse:min-h-11",
+        "min-h-11 sm:min-h-9 rounded-sheet border px-3.5 text-[0.8125rem] font-medium transition-colors pointer-coarse:min-h-11",
         checked ? "border-herb bg-herb text-on-herb" : "border-line-strong text-ink hover:border-herb hover:text-herb",
       )}
     >
@@ -273,7 +273,7 @@ function QuickTab({ date, meal, pending, startTransition, setMessage, onDone }: 
           <Num id={`${id}-na`} label="Sodium" unit="mg" value={f.sodiumMg} onChange={set("sodiumMg")} />
         </div>
       </details>
-      <FieldHint>Leave a box empty if you do not know it. An empty box is counted as unknown, not as zero.</FieldHint>
+      <FieldHint>Only calories are required. Empty protein, carbs or fat count as 0 g. Empty fibre or sodium stay unknown, so they are left out of your totals rather than counted as zero.</FieldHint>
       <div className="mt-5 flex justify-end">
         <Button type="submit" size="sm" disabled={pending || !f.name.trim() || f.calories.trim() === ""}>
           {pending ? "Adding…" : "Add"}
@@ -286,10 +286,13 @@ function QuickTab({ date, meal, pending, startTransition, setMessage, onDone }: 
 function Num({ id, label, unit, value, onChange, required }: { id: string; label: string; unit: string; value: string; onChange: React.ChangeEventHandler<HTMLInputElement>; required?: boolean }) {
   return (
     <div>
-      <Label htmlFor={id}>
-        {label} <span className="font-normal text-ink-subtle">({unit})</span>
-      </Label>
-      <Input id={id} mono inputMode="decimal" value={value} onChange={onChange} required={required} placeholder={required ? "" : "optional"} />
+      <Label htmlFor={id}>{label}</Label>
+      <div className="relative">
+        <Input id={id} mono inputMode="decimal" value={value} onChange={onChange} required={required} placeholder={required ? "" : "optional"} className="pr-10" />
+        <span aria-hidden className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-ink-subtle">
+          {unit}
+        </span>
+      </div>
     </div>
   );
 }

@@ -90,7 +90,7 @@ export function LogSheet({
                 aria-checked={session === s.v}
                 onClick={() => setSession(session === s.v ? null : s.v)}
                 className={cn(
-                  "min-h-9 rounded-sheet border px-3 text-[0.8125rem] font-medium whitespace-nowrap transition-colors pointer-coarse:min-h-11",
+                  "min-h-11 sm:min-h-9 rounded-sheet border px-3 text-[0.8125rem] font-medium whitespace-nowrap transition-colors pointer-coarse:min-h-11",
                   session === s.v ? "border-herb bg-herb text-on-herb" : "border-outline bg-transparent text-ink hover:border-herb hover:text-herb",
                 )}
               >
