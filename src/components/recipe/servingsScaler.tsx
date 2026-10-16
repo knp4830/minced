@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useFridgeIds } from "@/lib/useFridgeIds";
 import { AddToShoppingList } from "@/components/shopping/addToShoppingList";
 import { useAccount } from "@/components/account/accountProvider";
-import { displayQuantity, pluralizeName, scaleNoteAmounts } from "@/lib/scaling";
+import { displayQuantity, pluralizeName } from "@/lib/scaling";
 
 export type ScalerIngredient = {
   quantity: number | null;
@@ -81,17 +81,16 @@ export function ServingsScaler({
         } counted in this tally.`;
   const changed = servings !== baseServings;
 
-  // Prep notes: alternatives and sizes follow the servings, and a bare "optional" on a line
-  // already marked (optional) would say it twice.
+  // Prep notes are shown as written. Numbers inside them ("use 4-6 cloves", package sizes)
+  // are never scaled; a bare "optional" on a line already marked (optional) would say it twice.
   const notes = ingredients.map((line) => {
     if (!line.prepNote) return null;
-    const scaled = scaleNoteAmounts(line.prepNote, baseServings, servings, line.unit);
     const text = line.optional
-      ? scaled
+      ? line.prepNote
           .split(/,\s*/)
           .filter((seg) => seg.trim().toLowerCase() !== "optional")
           .join(", ")
-      : scaled;
+      : line.prepNote;
     return text || null;
   });
 

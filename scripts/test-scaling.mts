@@ -1,7 +1,7 @@
 // Run: node --experimental-strip-types scripts/test-scaling.mts
 // Plain asserts, no test runner (no new packages). Exits non-zero on failure.
 import assert from "node:assert/strict";
-import { displayQuantity, pluralizeName, formatAmount, scaleNoteAmounts, scaleQuantity } from "../src/lib/scaling.ts";
+import { displayQuantity, pluralizeName, formatAmount, parseAmount, scaleQuantity } from "../src/lib/scaling.ts";
 
 const show = (q: number | null, u: string | null, base: number, to: number) => {
   const r = displayQuantity({ quantity: q, unit: u }, base, to);
@@ -67,35 +67,74 @@ assert.equal(show(1, "tsp", 12, 1), "a pinch"); // 1/12 tsp
 assert.equal(show(1, "tsp", 8, 1), "1/8 tsp");
 assert.equal(show(0.2, "tsp", 1, 1), "1/4 tsp"); // nearest eighth, flagged approximate
 assert.equal(displayQuantity({ quantity: 0.2, unit: "tsp" }, 1, 1).approx, true);
-assert.equal(show(41, "tsp", 1, 1), "7/8 cup"); // 41 tsp is 0.854 cup
+assert.equal(show(41, "tsp", 1, 1), "3/4 cup + 5 tsp"); // 41 tsp is 0.854 cup; 7/8 is not a measuring cup
 assert.ok(!/\./.test(show(1, "cup", 7, 3)), "never a decimal");
 assert.ok(!/\./.test(show(3, null, 7, 1)), "never a decimal for bare counts");
 assert.equal(displayQuantity({ quantity: 0.2, unit: null }, 1, 1).approx, true);
 assert.equal(displayQuantity({ quantity: 2, unit: "cup" }, 1, 1).approx, undefined);
 
-// Alternatives and size counts inside prep notes follow the servings; package sizes do not.
-assert.equal(scaleNoteAmounts("or 1/2 teaspoon garlic powder", 2, 4), "or 1 tsp garlic powder");
-assert.equal(scaleNoteAmounts("or 1 cup thawed frozen chunks", 2, 4), "or 2 cups thawed frozen chunks");
-assert.equal(scaleNoteAmounts("2 large", 2, 4), "4 large");
-assert.equal(scaleNoteAmounts("15 ounce can, drained", 2, 4), "15 ounce can, drained");
-assert.equal(scaleNoteAmounts("14.5 oz each, drained", 2, 4), "14.5 oz each, drained");
-assert.equal(scaleNoteAmounts("cut into 1/2 inch pieces", 2, 4), "cut into 1/2 inch pieces");
-assert.equal(scaleNoteAmounts("or 1 cup", 4, 4), "or 1 cup");
-// Package sizes on can lines are never scaled (massaman, tomato soup).
-assert.equal(scaleNoteAmounts("13.5 oz", 4, 8, "can"), "13.5 oz");
-assert.equal(scaleNoteAmounts("14.5 ounce, drained, or use 6 cups cooked", 4, 12, "can"), "14.5 ounce, drained, or use 6 cups cooked");
-assert.equal(scaleNoteAmounts("14.5 ounces", 4, 8, null), "14.5 ounces");
-assert.equal(scaleNoteAmounts("16 ounce dried, rinsed", 4, 8, "lb"), "16 ounce dried, rinsed");
-assert.equal(scaleNoteAmounts("1 1/2 pounds", 4, 8, null), "3 lb");
-// Counts that name a thing follow the servings and agree in number.
-assert.equal(scaleNoteAmounts("4 drumsticks, 4 breasts", 10, 20, "piece"), "8 drumsticks, 8 breasts");
-assert.equal(scaleNoteAmounts("1/2 orange", 5, 10, "cup"), "1 orange");
-assert.equal(scaleNoteAmounts("1 orange", 2, 6, "cup"), "3 oranges");
-assert.equal(scaleNoteAmounts("2-3 bananas", 3, 6, null), "4-6 bananas");
-assert.equal(scaleNoteAmounts("1 medium eggplant", 8, 16, "cup"), "2 medium eggplant");
-assert.equal(scaleNoteAmounts("1 bunch", 4, 8, "cup"), "2 bunches");
-assert.equal(scaleNoteAmounts("3 limes, optional", 16, 8, null), "1 1/2 limes, optional");
-assert.equal(scaleNoteAmounts("85% lean", 4, 8, "lb"), "85% lean");
-assert.equal(scaleNoteAmounts("6 inch", 4, 8, null), "6 inch");
+// Kitchen-friendly volume: the largest sensible unit, common fractions, compound when inexact.
+assert.equal(show(38, "tsp", 1, 1), "3/4 cup + 2 tsp");
+assert.equal(show(12.5, "tbsp", 1, 1), "3/4 cup + 1/2 tbsp");
+assert.equal(show(10, "tbsp", 1, 1), "1/2 cup + 2 tbsp");
+assert.equal(show(8, "tbsp", 1, 1), "1/2 cup");
+assert.equal(show(20, "tsp", 1, 1), "1/3 cup + 4 tsp");
+assert.equal(show(10, "tsp", 1, 1), "3 tbsp + 1 tsp");
+assert.equal(show(7, "tsp", 1, 1), "2 tbsp + 1 tsp");
+assert.equal(show(4, "tsp", 1, 1), "1 tbsp + 1 tsp");
+assert.equal(show(2, "tsp", 1, 1), "2 tsp");
+assert.equal(show(1.75, "cup", 1, 1), "1 3/4 cups");
+assert.equal(show(1.9, "cup", 1, 1), "1 3/4 cups + 7 tsp"); // 1.9 cup is not a measure: cup plus remainder
+assert.ok(!/[.]/.test(show(1.9, "cup", 1, 1)));
+// Nothing ever drifts more than 3% unless it says "about".
+for (const base of [3, 12]) {
+  for (const to of [1, 2, 3, 4, 5, 6, 7, 12, 24]) {
+    for (const [q, u] of [[10, "tbsp"], [0.75, "cup"], [1.75, "cup"], [2, "tsp"], [8, "tbsp"], [0.5, "tsp"], [1, "tbsp"]] as [number, string][]) {
+      const d = displayQuantity({ quantity: q, unit: u }, base, to);
+      const tsp = { tsp: 1, tbsp: 3, cup: 48 } as Record<string, number>;
+      const want = ((q * to) / base) * tsp[u];
+      if (d.amount === "a pinch") continue;
+      let got = 0;
+      const [cupPart, ...rest] = `${d.amount} ${d.unit}`.split(" + ");
+      for (const part of [cupPart, ...rest]) {
+        const m = /^([\d/ ]+?)\s*(tsp|tbsp|cups?)$/.exec(part.trim());
+        assert.ok(m, `parseable: ${base}->${to} ${q} ${u}: "${d.amount} ${d.unit}"`);
+        got += parseAmount(m[1]) * tsp[m[2].replace(/s$/, "")];
+      }
+      if (!d.approx && want >= 0.2) assert.ok(Math.abs(got - want) / want <= 0.03 + 1e-9, `${base}->${to} ${q} ${u}: shown ${d.amount} ${d.unit} vs ${want} tsp`);
+    }
+  }
+}
+
+// Counted items: halves, "about" when inexact, eggs whole from 2 up.
+const cnt = (q: number, u: string | null, base: number, to: number, name: string) => {
+  const r = displayQuantity({ quantity: q, unit: u, name }, base, to);
+  return `${r.approx ? "about " : ""}${r.amount}${r.unit ? " " + r.unit : ""}`;
+};
+assert.equal(cnt(2, null, 12, 1, "apple"), "about 1/4");
+assert.equal(cnt(2, null, 12, 2, "apple"), "1/3");
+assert.equal(cnt(2, null, 12, 5, "apple"), "about 3/4"); // 0.83 snaps to the nearest common fraction
+assert.equal(cnt(2, null, 12, 7, "apple"), "about 1"); // 1.17
+assert.equal(cnt(2, null, 12, 24, "apple"), "4");
+assert.equal(cnt(3, null, 12, 4, "egg"), "1");
+assert.equal(cnt(3, null, 12, 1, "egg"), "about 1/2");
+assert.equal(cnt(3, null, 12, 7, "egg"), "about 2"); // 1.75
+assert.equal(cnt(5, "clove", 3, 1, "garlic"), "about 1 1/2 cloves");
+assert.equal(cnt(5, "clove", 3, 12, "garlic"), "20 cloves");
+assert.equal(cnt(1, "head", 3, 12, "bok choy"), "4 heads");
+
+// Real recipes at 1, 2, 4 and 12 servings (apple-cake serves 12, garlic-bok-choy serves 3).
+type Line = [number, string | null, string];
+const appleCake: Line[] = [[10, "tbsp", "butter"], [0.75, "cup", "sugar"], [3, null, "egg"], [1.75, "cup", "flour"], [2, "tsp", "baking powder"], [1, "tbsp", "lemon"], [2, null, "apple"], [8, "tbsp", "apricot jam"]];
+const bokChoy: Line[] = [[1, "head", "bok choy"], [5, "clove", "garlic"], [2, "tsp", "oil"], [0.5, "tsp", "salt"]];
+const row = (lines: Line[], base: number, to: number) => lines.map(([q, u, n]) => cnt(q, u, base, to, n)).join(" | ");
+assert.equal(row(appleCake, 12, 1), "2 1/2 tsp | 1 tbsp | about 1/2 | 2 tbsp + 1 tsp | about 1/8 tsp | 1/4 tsp | about 1/4 | 2 tsp");
+assert.equal(row(appleCake, 12, 2), "1 tbsp + 2 tsp | 2 tbsp | 1/2 | 1/4 cup + 2 tsp | 1/3 tsp | 1/2 tsp | 1/3 | 1 tbsp + 1 tsp");
+assert.equal(row(appleCake, 12, 4), "3 tbsp + 1 tsp | 1/4 cup | 1 | 1/2 cup + 4 tsp | 2/3 tsp | 1 tsp | 2/3 | 2 tbsp + 2 tsp");
+assert.equal(row(appleCake, 12, 12), "1/2 cup + 2 tbsp | 3/4 cup | 3 | 1 3/4 cups | 2 tsp | 1 tbsp | 2 | 1/2 cup");
+assert.equal(row(bokChoy, 3, 1), "1/3 head | about 1 1/2 cloves | 2/3 tsp | about 1/8 tsp");
+assert.equal(row(bokChoy, 3, 2), "2/3 head | about 3 1/2 cloves | 1 1/3 tsp | 1/3 tsp");
+assert.equal(row(bokChoy, 3, 4), "about 1 1/2 heads | 6 1/2 cloves | 2 2/3 tsp | 2/3 tsp");
+assert.equal(row(bokChoy, 3, 12), "4 heads | 20 cloves | 2 tbsp + 2 tsp | 2 tsp");
 
 console.log("scaling: all assertions passed");

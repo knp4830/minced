@@ -8,15 +8,18 @@ Scale the servings and the note stays put, so the page contradicts itself.
 
 RULES (applied per comma-separated segment of the note):
   1. A segment that STARTS with an amount phrase (number + a volume/weight/stick unit,
-     optionally "about", optionally "+ another amount") loses that phrase:
-       "1/4 cup, chopped, optional" -> "chopped, optional"
-       "about 4 cups sliced"        -> "sliced"
-       "1/2 cup + 1 teaspoon"       -> (note removed)
+     optionally "about", optionally "+ another amount") loses that phrase ONLY WHEN IT
+     DUPLICATES THE LINE'S OWN QUANTITY (same dimension, within 5%; "1 full stick + 2
+     tablespoons" beside 10 tbsp, "1/2 cup" beside 8 tbsp):
+       "1/4 cup, chopped, optional" beside 1/4 cup -> "chopped, optional"
+       "about 4 cups sliced" beside 4 cups         -> "sliced"
+       "1/2 cup + 1 teaspoon" beside 25 tsp        -> (note removed)
   2. KEPT, because they are package sizes and do not scale with servings:
        "15 ounce can", "12 oz. bag", "13.5 oz each", "14.5-ounce can", and any amount
        on a line whose unit is `can` ("14.5 ounces" beside "1 can diced tomatoes").
-  3. KEPT for the app to scale at display time: "or 1/2 teaspoon garlic powder"
-     (an alternative with its own amount) and "2 large" (size counts).
+  3. KEPT, never rewritten (the app does not scale numbers inside notes): any amount that
+     is NOT a duplicate of the line quantity: "1 pound" beside "1 head bok choy", "use
+     4-6 cloves, minced", "or 1/2 teaspoon garlic powder", "2 large".
   4. PROMOTE: when the line has NO structured quantity and no unit, and the note starts
      with a single amount in a unit the database knows ("14 ounces" on firm tofu), the
      amount moves into quantity/unit_id (otherwise the page says "to taste" for tofu).
@@ -72,6 +75,52 @@ def to_number(text):
     return total
 
 
+# Size of each unit in a common base: teaspoons for volume, grams for mass.
+VOLUME_TSP = {
+    "tsp": 1, "tbsp": 3, "cup": 48, "pt": 96, "qt": 192, "gal": 768, "fl oz": 6,
+    "ml": 0.2029, "l": 202.9, "stick": 24,
+}
+MASS_G = {"g": 1, "kg": 1000, "oz": 28.3495, "lb": 453.592}
+NOTE_UNIT_NAME = {**PROMOTE, "stick": "stick", "sticks": "stick", "milliliter": "ml", "milliliters": "ml"}
+SINGLE_RE = re.compile(rf"({NUM})(\s+to\s+{NUM})?\s*({UNIT})\b", re.I)
+DUP_TOLERANCE = 0.05
+
+
+def amount_in_base(amount):
+    """'1 full stick + 2 tablespoons' -> ('vol', 30.0 tsp). None for ranges or unknown units."""
+    total, dim = 0.0, None
+    parts = SINGLE_RE.findall(amount)
+    if not parts:
+        return None
+    for num, rng, unit in parts:
+        if rng:
+            return None
+        key = re.sub(r"^full\s+", "", unit.lower()).rstrip(".")
+        name = NOTE_UNIT_NAME.get(key)
+        if name in VOLUME_TSP:
+            d, size = "vol", VOLUME_TSP[name]
+        elif name in MASS_G:
+            d, size = "mass", MASS_G[name]
+        else:
+            return None
+        if dim not in (None, d):
+            return None
+        dim = d
+        total += to_number(num) * size
+    return dim, total
+
+
+def duplicates_line(amount, qty, unit):
+    """True when the note's amount is the same quantity as the structured line."""
+    if qty == "" or unit == "":
+        return False
+    line = amount_in_base(f"{qty} {unit}") if unit in VOLUME_TSP or unit in MASS_G else None
+    note = amount_in_base(amount)
+    if not line or not note or line[0] != note[0] or line[1] <= 0:
+        return False
+    return abs(note[1] - line[1]) / line[1] <= DUP_TOLERANCE
+
+
 def clean_note(note, qty, unit):
     """Returns (new_note_or_None, promote_or_None, removed_text)."""
     segments = [s.strip() for s in re.split(r",\s*", note) if s.strip()]
@@ -84,6 +133,9 @@ def clean_note(note, qty, unit):
             continue
         amount, rest = m.group(1), m.group(2)
         rest = re.sub(r"^(?:of|-|–)\s+", "", rest).strip()
+        if not amount_lives_in_note and not duplicates_line(amount, qty, unit):
+            out.append(seg)  # a different amount (package size, alternative): leave untouched
+            continue
         if amount_lives_in_note:
             # The note is the only place this amount exists: move it, or leave the note alone.
             first = FIRST.match(amount)

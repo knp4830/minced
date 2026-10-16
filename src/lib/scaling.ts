@@ -175,6 +175,106 @@ export function pluralizeName(name: string, amountText: string): string {
   return words.join(" ") + tail;
 }
 
+/* Common kitchen fractions of a cup (a cook owns 1/4, 1/3, 1/2, 2/3 and 3/4 cup measures). */
+const CUP_FRACTIONS = [0, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 3 / 4];
+const VOLUME_TSP: Record<string, number> = { tsp: 1, tbsp: 3, cup: 48 };
+/** Units counted one by one: shown in halves ("2 1/2 cloves"), "about" when inexact. */
+const COUNT_UNITS = new Set(["clove", "head", "stalk", "fillet", "can", "bunch", "piece", "portion", "slice"]);
+const NEAR = 0.02;
+
+/** The nearest whole-plus-common-cup-fraction at or below `cups` (or nearest, when `floor` is false). */
+function cupStep(cups: number, floor: boolean): number {
+  const whole = Math.floor(cups);
+  let best = whole;
+  let bestErr = Infinity;
+  for (let w = Math.max(0, whole - 1); w <= whole + 1; w++) {
+    for (const f of [...CUP_FRACTIONS, 1]) {
+      const v = w + f;
+      if (floor && v > cups + 1e-9) continue;
+      const e = Math.abs(v - cups);
+      if (e < bestErr) {
+        bestErr = e;
+        best = v;
+      }
+    }
+  }
+  return best;
+}
+
+/**
+ * Volume (tsp/tbsp/cup lines) in the largest unit that reads well, from the total in teaspoons:
+ *   12 1/2 tbsp -> "3/4 cup + 1/2 tbsp", 38 tsp -> "3/4 cup + 2 tsp", 10 tbsp -> "1/2 cup + 2 tbsp".
+ * A single unit is used whenever it is within 2% ("1/3 cup", "4 1/2 tbsp", "7 tsp"); otherwise a
+ * cup measure plus a remainder in tbsp (halves) or tsp.
+ */
+function volumeDisplay(t: number): DisplayQuantity {
+  const err = (shown: number) => Math.abs(shown - t) / t;
+  const single = (amount: number, unit: string): DisplayQuantity => ({
+    amount: formatAmount(amount),
+    unit,
+  });
+  const cupResult = (cups: number, rest?: string, approx = false): DisplayQuantity => ({
+    amount: formatAmount(cups),
+    unit: `${cups > 1 ? "cups" : "cup"}${rest ? ` + ${rest}` : ""}`,
+    ...(approx ? { approx } : {}),
+  });
+  const cups = t / 48;
+
+  // Ten cups and up: a quarter-cup is plenty of precision.
+  if (t >= 480) {
+    const v = Math.round(cups * 4) / 4;
+    return cupResult(v, undefined, err(v * 48) > 0.03);
+  }
+  if (t >= 12) {
+    const v = cupStep(cups, false);
+    if (v > 0 && err(v * 48) <= NEAR) return cupResult(v);
+  }
+  // Up to 7 tbsp stays in tablespoons, in halves ("4 1/2 tbsp").
+  if (t < 24) {
+    const tb = Math.round((t / 3) * 2) / 2;
+    if (tb > 0 && err(tb * 3) <= NEAR) return single(tb, "tbsp");
+  }
+  if (t < 12) {
+    // 4 tsp or more that is not a half-tablespoon reads as "3 tbsp + 1 tsp", the way a cook measures.
+    if (t >= 4) {
+      let w = Math.floor(t / 3);
+      let ts = Math.round((t - 3 * w) * 4) / 4;
+      if (ts >= 3) {
+        w += 1;
+        ts = 0;
+      }
+      const shown = w * 3 + ts;
+      if (w >= 1 && ts > 0 && err(shown) <= NEAR) {
+        return { amount: formatAmount(w), unit: `tbsp + ${formatAmount(ts)} tsp` };
+      }
+    }
+    const ts = Math.round(t * 4) / 4;
+    if (err(ts) <= NEAR) return single(ts, "tsp");
+    const tb = Math.round((t / 3) * 2) / 2;
+    return { ...single(tb, "tbsp"), approx: true };
+  }
+
+  // A cup measure plus a remainder.
+  const c = cupStep(cups, true);
+  const r = t - c * 48;
+  const tb = Math.round((r / 3) * 2) / 2;
+  const ts = r < 2 ? Math.round(r * 4) / 4 : Math.round(r * 2) / 2;
+  const errTb = tb > 0 ? Math.abs(c * 48 + tb * 3 - t) : Infinity;
+  const errTs = ts > 0 ? Math.abs(c * 48 + ts - t) : Infinity;
+  if (r >= 1.5 && errTb <= errTs + 1e-9 && errTb / t <= NEAR) return cupResult(c, `${formatAmount(tb)} tbsp`);
+  if (errTs / t <= NEAR) return cupResult(c, `${formatAmount(ts)} tsp`);
+  if (tb > 0 && r >= 1.5) return cupResult(c, `${formatAmount(tb)} tbsp`, errTb / t > 0.03);
+  return cupResult(c, ts > 0 ? `${formatAmount(ts)} tsp` : undefined, errTs / t > 0.03);
+}
+
+/** A counted amount: halves from 1 up, common fractions below 1. */
+function snapCount(scaled: number, wholeOnly: boolean): number {
+  if (scaled >= 2 && wholeOnly) return Math.round(scaled);
+  if (scaled >= 1 || wholeOnly) return Math.max(0.5, Math.round(scaled * 2) / 2);
+  const v = cupStep(scaled, false); // 0, 1/4, 1/3, 1/2, 2/3, 3/4 or 1
+  return v > 0 ? v : 1 / 4;
+}
+
 /** The text for one ingredient line at `targetServings`. */
 export function displayQuantity(
   line: ScalableLine,
@@ -185,14 +285,21 @@ export function displayQuantity(
 
   const scaled = scaleQuantity(line.quantity, baseServings, targetServings);
   if (!line.unit) {
-    // A bare count of 2 or more reads as halves ("2 1/2 apples"), never "3 3/4 egg": whole items
-    // snap to the nearest half, eggs to the nearest whole. Flagged "about" when that moves it >3%.
-    const wholeOnly = /egg/i.test(line.name ?? "");
-    const snapped =
-      scaled >= 2 ? (wholeOnly ? Math.round(scaled) : Math.round(scaled * 2) / 2) : scaled;
+    // Whole items read as halves ("2 1/2 apples"), never "3 3/4 egg": eggs are whole from 2 up.
+    // Flagged "about" when the shown amount is more than 3% off.
+    const snapped = snapCount(scaled, /egg/i.test(line.name ?? ""));
     const amount = formatAmount(snapped);
     const approx = relativeError(parseAmount(amount), scaled) > 0.03;
     return { amount, unit: "", ...(approx ? { approx } : {}) };
+  }
+  if (COUNT_UNITS.has(line.unit)) {
+    const amount = formatAmount(snapCount(scaled, false));
+    const approx = relativeError(parseAmount(amount), scaled) > 0.03;
+    return { amount, unit: pluralUnit(line.unit, parseAmount(amount)), ...(approx ? { approx } : {}) };
+  }
+  if (line.unit in VOLUME_TSP) {
+    const t = scaled * VOLUME_TSP[line.unit];
+    if (t >= 3) return volumeDisplay(t);
   }
 
   const promoted = promote(scaled, line.unit);
@@ -240,74 +347,4 @@ export function parseAmount(text: string): number {
 function relativeError(shown: number, actual: number): number {
   if (!Number.isFinite(shown) || actual <= 0) return 0;
   return Math.abs(shown - actual) / actual;
-}
-
-/* ---- Amounts inside prep notes ------------------------------------------------------------ */
-
-const NOTE_UNITS: Record<string, string> = {
-  teaspoon: "tsp", teaspoons: "tsp", tsp: "tsp", tsps: "tsp",
-  tablespoon: "tbsp", tablespoons: "tbsp", tbsp: "tbsp", tbsps: "tbsp",
-  cup: "cup", cups: "cup", pound: "lb", pounds: "lb", lb: "lb", lbs: "lb",
-  ounce: "oz", ounces: "oz", oz: "oz",
-};
-const NOTE_AMOUNT =
-  /(?<![\w/.-])(\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d+\/\d+)\s*(teaspoons?|tsps?|tablespoons?|tbsps?|cups?|pounds?|lbs?|ounces?|oz)\b\.?(?!\s*(?:-|each|cans?|packages?|jars?|bags?|bottles?|boxes|box|cartons?|containers?))/gi;
-const NUM = String.raw`\d+(?:\.\d+)?(?:\s+\d+\/\d+)?|\d+\/\d+`;
-const SIZE_WORDS = "large|medium|small|full";
-const COUNT_NOUNS =
-  "bunch(?:es)?|sticks?|oranges?|limes?|lemons?|bananas?|breasts?|drumsticks?|thighs?|fillets?|portions?|slices?|stalks?|packages?|squash|eggplants?|onions?|sprigs?|cloves?";
-// "2 large", "2-3 bananas", "1/2 package", "4 drumsticks": a count that follows the servings.
-const NOTE_COUNT = new RegExp(
-  String.raw`(?<![\w/.-])(${NUM})(?:(\s*(?:-|to)\s*)(${NUM}))?(\s+)(?:(${SIZE_WORDS})\b|(${COUNT_NOUNS})\b)`,
-  "gi",
-);
-// A weight written first in a note ("14.5 ounces", "13.5 oz") on a line that is not a measured
-// volume is the size of the package or piece, not a quantity of the recipe.
-const NOTE_PACKAGE_LEAD = /^\s*\d+(?:\.\d+)?(?:\s+\d+\/\d+)?\s*-?\s*(?:oz|ounces?)\b/i;
-const CONTAINER_UNITS = new Set(["can"]);
-const VOLUME_UNITS = new Set(["tsp", "tbsp", "cup", "ml", "l", "fl oz", "pt", "qt", "gal"]);
-
-/** "orange" <-> "oranges" to follow the scaled count; more than 1 is plural, 1 or less singular. */
-function pluralNoun(noun: string, n: number): string {
-  const lower = noun.toLowerCase();
-  if (lower === "squash") return noun;
-  const one = lower.startsWith("bunch") ? "bunch" : lower.replace(/s$/, "");
-  const out = n > 1 ? (one === "bunch" ? "bunches" : `${one}s`) : one;
-  return noun[0] === noun[0].toUpperCase() ? out[0].toUpperCase() + out.slice(1) : out;
-}
-
-/**
- * Prep notes are cleaned of the ingredient's own amount (scripts/cleanup), but some keep a
- * second amount that belongs to an alternative ("or 1/2 teaspoon garlic powder") or a size
- * ("2 large"). Those follow the servings too. Package sizes ("15 ounce can") are left alone.
- */
-export function scaleNoteAmounts(
-  note: string,
-  baseServings: number,
-  targetServings: number,
-  /** The ingredient line's own unit: a can's "13.5 oz" is its size, not an amount to scale. */
-  lineUnit?: string | null,
-): string {
-  if (targetServings === baseServings || !(baseServings > 0)) return note;
-  if (lineUnit && CONTAINER_UNITS.has(lineUnit)) return note;
-  if (NOTE_PACKAGE_LEAD.test(note) && !(lineUnit && VOLUME_UNITS.has(lineUnit))) return note;
-  const factor = targetServings / baseServings;
-  const scaled = note.replace(NOTE_AMOUNT, (whole, num: string, unit: string) => {
-    const n = parseAmount(num);
-    if (!Number.isFinite(n) || n <= 0) return whole;
-    const q = displayQuantity({ quantity: n, unit: NOTE_UNITS[unit.toLowerCase()] }, baseServings, targetServings);
-    return `${q.approx ? "about " : ""}${q.amount}${q.unit ? ` ${q.unit}` : ""}`;
-  });
-  return scaled.replace(
-    NOTE_COUNT,
-    (whole, a: string, sep: string | undefined, b: string | undefined, gap: string, size?: string, noun?: string) => {
-      const x = parseAmount(a);
-      if (!Number.isFinite(x) || x <= 0) return whole;
-      const first = formatAmount(x * factor);
-      const hi = b === undefined ? x : parseAmount(b);
-      const text = b === undefined ? first : `${first}${sep}${formatAmount(hi * factor)}`;
-      if (size) return `${text}${gap}${size}`;
-      return `${text}${gap}${pluralNoun(noun as string, hi * factor)}`;
-    },
-  );
 }
