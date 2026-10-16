@@ -333,4 +333,4 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 
 **Soft navigation after sign-out is swallowed on auth pages** by the `@modal` slot; use a full page load there.
 
-**Signed-out state must not be read from localStorage.** `src/lib/useFridgeIds.ts` still does; fix in the next small wave.
+**Signed-out state must not be read from localStorage.** `src/lib/useFridgeIds.ts` now reads the URL only when signed out (fixed on review/integration).

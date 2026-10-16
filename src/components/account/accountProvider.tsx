@@ -48,6 +48,9 @@ const Ctx = createContext<AccountContext | null>(null);
 /** Pages where signing in, out or deleting an account happens; navigating to or from one means "ask again". */
 const AUTH_PATH = /^\/(login|signup|account|reset-password|forgot-password|auth)(\/|$)/;
 
+/** Pages that only make sense signed in: signing out from one goes home. */
+const SIGNED_IN_AREA = /^\/(account|fridge|me)(\/|$)|^\/recipes\/new\/?$|^\/recipes\/[^/]+\/edit\/?$/;
+
 const AUTH_COOKIE = /(?:^|;\s*)sb-[^=;]*-auth-token/;
 
 /**
@@ -188,15 +191,27 @@ export function AccountProvider({ children }: { children: ReactNode }) {
   const signOut = useCallback(async () => {
     try {
       await logOutQuiet();
-    } finally {
-      apply("out", null, []);
-      // On auth pages the @modal slot swallows a soft navigation, so leave with a full page load.
-      if (AUTH_PATH.test(window.location.pathname)) {
-        window.location.assign("/");
-        return;
-      }
-      router.replace("/");
-      router.refresh();
+    } catch {
+      // Fall through: the re-check below says whether the session really ended.
+    }
+    apply("out", null, []);
+    const here = window.location.pathname;
+    // Signed-in areas and auth pages have nothing to show a signed-out visitor, and on auth
+    // pages the @modal slot swallows a soft navigation: leave with a full page load.
+    if (AUTH_PATH.test(here) || SIGNED_IN_AREA.test(here)) {
+      window.location.assign("/");
+      return;
+    }
+    // A public page stays where it is. The fridge page carries the saved fridge in its URL, so
+    // drop that; every page re-renders and the provider asks /api/me once more to confirm.
+    if (here === "/pantry" && window.location.search) router.replace("/pantry");
+    router.refresh();
+    try {
+      const res = await fetch("/api/me", { cache: "no-store" });
+      const body = (await res.json()) as { user: Me | null; favorites: string[] };
+      if (res.ok && body.user) apply("in", body.user, body.favorites); // sign-out did not take
+    } catch {
+      // Offline: the cookie is gone either way; stay signed out.
     }
   }, [apply, router]);
 

@@ -146,7 +146,9 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
       };
     }
 
-    // Signed out: nothing is stored or restored. The URL is the whole fridge.
+    // Signed out: nothing is stored or restored. The URL is the whole fridge. The hero keeps
+    // its count in state, so drop a saved fridge that was showing when the person signed out.
+    if (variant === "hero") setCommitted(initial);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- re-run on sign-in changes only
   }, [status]);
 

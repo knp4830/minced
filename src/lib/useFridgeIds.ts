@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useAccount } from "@/components/account/accountProvider";
 import { fetchSavedFridge, type SavedFridge } from "@/lib/fridgeClient";
 import { MAX_INT4 } from "@/lib/filters";
-import { readFridge } from "@/lib/fridgeStorage";
 
 /** `?pantry=1,2,3` from the fridge results link, read after mount. Ids are clamped to int4. */
 export function urlFridgeIds(): number[] {
@@ -31,9 +30,8 @@ function fetchSavedOnce(): Promise<SavedFridge | null> {
 
 /**
  * The fridge as the recipe page should see it: one answer for the have/missing marks and
- * the shopping box. Order: the link we arrived by (`?pantry=`), then this browser's saved
- * fridge, then (signed in) the account's saved fridge, which is the truth for a signed-in
- * visitor. Resolved after mount so the page itself stays static and cacheable.
+ * the shopping box. Order: the link we arrived by (`?pantry=`), then (signed in) the
+ * account's saved fridge. Signed out, the URL is the only source; localStorage is not read. Resolved after mount so the page itself stays static and cacheable.
  */
 export function useFridgeIds(): { ids: ReadonlySet<number> | null; fromSaved: boolean } {
   const { status } = useAccount();
@@ -48,9 +46,9 @@ export function useFridgeIds(): { ids: ReadonlySet<number> | null; fromSaved: bo
       setState({ ids: new Set(fromUrl), fromSaved: false });
       return;
     }
-    const local = readFridge().map((f) => f.id);
-    const localState = local.length > 0 ? { ids: new Set(local), fromSaved: true } : { ids: null, fromSaved: false };
-    setState(localState);
+    // Signed out (or not yet known): picks live in the URL only, so nothing is read from
+    // this browser's old localStorage fridge, and a saved fridge from before sign-out is dropped.
+    setState({ ids: null, fromSaved: false });
     if (status !== "in") return;
     let cancelled = false;
     void fetchSavedOnce().then((saved) => {
