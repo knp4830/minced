@@ -143,21 +143,37 @@ def cmd_csv() -> None:
     the review bucket in commons_r2_rejected.json says what was dropped, the current rows say what replaced it."""
     metrics = json.loads(METRICS.read_text(encoding="utf-8"))
     dec = json.loads(DECISIONS.read_text(encoding="utf-8")) if DECISIONS.exists() else {}
-    rej = json.loads((MANIFEST_DIR / "commons_r2_rejected.json").read_text(encoding="utf-8")).get("wave8_quality_2026_10_16", {})
+    allrej = json.loads((MANIFEST_DIR / "commons_r2_rejected.json").read_text(encoding="utf-8"))
+    rej = allrej.get("wave8_quality_2026_10_16", {})
+    later = {}   # slugs touched by the later review rounds: the rejection text (what was wrong with the file) is the reason
+    for b in ("wave8_fixer_2026_10_16", "wave8_photo_fixes_2026_10_16"):
+        later.update(allrej.get(b, {}))
     now = {r["slug"] for r in load_rows(strict=False)}
+    published = {r["slug"] for r in json.loads((MANIFEST_DIR / "photos.json").read_text(encoding="utf-8"))}
+    ex_f = MANIFEST_DIR / "myplate_review_excludes.json"
+    excl = json.loads(ex_f.read_text(encoding="utf-8")) if ex_f.exists() else {}
     rows = []
     for slug in sorted(metrics):
         m = metrics[slug]
         d = dec.get(slug)
         flags = auto_flags(m)
-        if slug in rej:
+        if d and d.get("final"):   # set by hand after the verifier round: restored / removed, with its own reason
+            verdict = {"restored": "keep", "replaced": "replace", "removed": "remove"}[d["final"]]
+            reason = d["reason"]
+        elif slug in rej or slug in later:
             verdict = "replace" if slug in now else "remove"
-            reason = (d or {}).get("reason", "") or rej[slug]
+            reason = (later.get(slug) or (d or {}).get("reason", "") or rej[slug])
             reason += "; replaced by a better photo of the same dish" if verdict == "replace" else "; no better free photo found, placeholder instead"
         elif d:
             verdict, reason = "keep", d["reason"]
         else:
             verdict, reason = "keep", "; ".join(flags) + " (numbers only; looked fine on the sheet)" if flags else "reviewed on contact sheet: no defect"
+        if verdict != "remove" and slug not in published:   # dropped by a USDA-photo review (myplate_review_excludes.json) or similar
+            verdict = "remove"
+            reason = excl.get(slug) or reason
+            reason += "; no better free photo found, placeholder instead"
+        elif verdict == "remove" and slug in published:
+            raise SystemExit(f"{slug}: CSV says remove but the photo is published; fix quality_decisions.json")
         rows.append([slug, m.get("source", ""), m.get("w"), m.get("h"), m.get("sharpness"), m.get("edge95"),
                      m.get("jpegq") or "", m.get("block"), verdict, reason])
     CSV_OUT.parent.mkdir(parents=True, exist_ok=True)
