@@ -152,7 +152,8 @@
   "baked-trout": {
     "score": 3,
     "verdict": "keep",
-    "reason": "reviewed: no defect"
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
   },
   "banana-berry-muffins": {
     "score": 3,
@@ -180,9 +181,10 @@
     "reason": "reviewed: no defect"
   },
   "banh-mi": {
-    "score": 2,
-    "verdict": "replace",
-    "reason": "street clutter, foam cup, wax paper"
+    "score": 1,
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (bottle and paper clutter around the sandwich); no acceptable free photo, placeholder instead"
   },
   "barley-jambalaya": {
     "score": 4,
@@ -390,9 +392,10 @@
     "reason": "reviewed: no defect"
   },
   "cafe-mocha": {
-    "score": 2,
-    "verdict": "replace",
-    "reason": "newspaper and napkin in frame, harsh light"
+    "score": 1,
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (beer bottle in the frame, not clearly a mocha); no acceptable free photo, placeholder instead"
   },
   "candied-yams": {
     "score": 2,
@@ -805,9 +808,10 @@
     "reason": "reviewed: no defect"
   },
   "fish-spinach": {
-    "score": 4,
+    "score": 3,
     "verdict": "keep",
-    "reason": "reviewed: no defect"
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
   },
   "fish-tacos": {
     "score": 2,
@@ -1222,7 +1226,8 @@
   "menemen": {
     "score": 3,
     "verdict": "keep",
-    "reason": "reviewed: no defect"
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 swap showed no egg; the previous Commons photo is back (752 px, parsley and egg visible)"
   },
   "mercimek-corbasi": {
     "score": 3,
@@ -1590,9 +1595,10 @@
     "reason": "reviewed: no defect"
   },
   "rice-pudding1": {
-    "score": 2,
-    "verdict": "replace",
-    "reason": "plain, dark"
+    "score": 1,
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (scribbled napkin in the frame); no acceptable free photo, placeholder instead"
   },
   "rice-salad": {
     "score": 4,
@@ -1691,8 +1697,9 @@
   },
   "shepherds-pie": {
     "score": 1,
-    "verdict": "replace",
-    "reason": "very blurry (lap 34)"
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (gas stove with a visible brand in the frame); no acceptable free photo, placeholder instead"
   },
   "shiro-wat": {
     "score": 3,
@@ -1802,7 +1809,8 @@
   "stir-fried-beef": {
     "score": 3,
     "verdict": "keep",
-    "reason": "reviewed: no defect"
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
   },
   "stir-fry-vegetables-and-beef": {
     "score": 4,
@@ -1920,9 +1928,10 @@
     "reason": "reviewed: no defect"
   },
   "tofu-broccoli": {
-    "score": 4,
+    "score": 3,
     "verdict": "keep",
-    "reason": "reviewed: no defect"
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
   },
   "tom-kha-gai": {
     "score": 3,

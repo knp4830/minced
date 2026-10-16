@@ -31,7 +31,7 @@
   },
   "wave3_fixer_dropped": {
     "tostadas": "photo shows shrimp tostadas; recipe has no shrimp",
-    "fish-spinach": "photo reads as egg/frittata gratin, no visible fish",
+    "fish-spinach": "File:Oriental oven Fish on spinach.jpg: photo reads as egg/frittata gratin, no visible fish",
     "curried-chickpea-salad": "chickpeas not evident in photo (potato salad)",
     "pineapple-rice-bake": "photo shows a savoury chicken casserole; the USDA recipe is a sweet pineapple rice dessert bake",
     "cheese-and-corn-chowder": "photo dominated by grilled-cheese toast, no visible corn in the soup",
@@ -42,7 +42,7 @@
   "tomato-basil-soup": "manual review 2026-10-12: restaurant logo (Obika Mozzarella Bar) printed large on the placemat; trademark/endorsement risk",
   "fruit-pizza": "manual review 2026-10-12: knife-company product photo (Rada Cutlery) uploaded by an individual; uploader rights uncertain",
   "tostadas": "verifier r1: photo shows shrimp tostadas; recipe is bean/cheese",
-  "fish-spinach": "verifier r1: no visible fish",
+  "fish-spinach": "File:Oriental oven Fish on spinach.jpg: verifier r1: no visible fish",
   "curried-chickpea-salad": "verifier r1: chickpeas not evident",
   "wave4_review_2026_10_12": {
     "arroz-caldo": "File:Arroz Caldo, Grape Custard, Fruits, Virgin Light.jpg: large Virgin Cola can brand visible beside the bowl",
@@ -145,12 +145,22 @@
     "fruit-pizza": "File:Fruit pizza.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish",
     "meatball-soup": "File:Soup with meatballs-01.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish",
     "jamaican-jerk-chicken": "File:Jerk chicken@The Jamaican Grill (162928762).jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish",
-    "menemen": "File:Turkish egg dish Menemen.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish",
     "roasted-bell-peppers": "File:Seasonal roasted bell peppers.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish",
     "stuffed-tomatoes": "File:Artichoke Stuffed Tomato (5052814731).jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo",
     "cream-broccoli-soup": "File:Vegan kreme of broccoli soup.jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo",
     "veggie-burgers": "File:Veggie burger (1).jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo",
     "roasted-potatoes": "File:Lemony roasted potatoes (29307744858).jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo",
     "baked-chicken-vegetables": "File:Oven baked vegetables with Chicken Skewers.jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo"
+  },
+  "wave8_photo_fixes_2026_10_16": {
+    "fish-spinach": "File:Oriental oven Fish on spinach.jpg: returned after being rejected in wave 3 ('no visible fish'); USDA photo restored",
+    "tofu-broccoli": "File:Baked Tofu with Broccoli and Rice.jpg: wave 8 swap was worse than the USDA photo; USDA photo restored",
+    "stir-fried-beef": "File:Stir-fried beef, Fire Town, Montparnasse, Paris 002.jpg: wave 8 swap was worse than the USDA photo; USDA photo restored",
+    "baked-trout": "File:Baked trout.jpg: wave 8 swap was worse than the USDA photo; USDA photo restored",
+    "menemen": "File:Sahanda menemen in Ankara.jpg: no egg visible, phone snapshot; the previous photo is restored",
+    "shepherds-pie": "File:Shepherd's pie with a mozzarella cheese topping.jpg: gas stove with a visible brand in the frame",
+    "rice-pudding1": "File:Rice pudding spoons.jpg: scribbled napkin in the frame",
+    "cafe-mocha": "File:Black Mocha - Black Mocha 2024-01-08.jpg: beer bottle in the frame; not clearly a mocha",
+    "banh-mi": "File:Special Baguette (Bánh mì) - Banh Mi Ancient Saigon 2024-12-20.jpg: bottle and paper clutter around the sandwich"
   }
 }

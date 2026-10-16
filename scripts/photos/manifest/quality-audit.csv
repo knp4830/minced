@@ -1,7 +1,7 @@
 slug,source,w,h,sharpness,edge95,jpegq,block,verdict,reason
 agedashi-tofu,wikimedia_commons,1280,960,571.7,27.3,87,1.241,keep,"restaurant table, napkin+spoon in frame"
 aji-de-gallina,wikimedia_commons,1280,971,940.5,37.8,87,1.125,keep,cluttered table cutlery
-aloo-gobi,wikimedia_commons,773,773,389.7,24.2,95,0.984,keep,reviewed: no defect
+aloo-gobi,wikimedia_commons,1280,1280,801.2,36.7,87,1.096,replace,File:Aloo Gobi Sabji.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 ambrosia,openverse,1024,1024,95.5,15.7,88,1.263,keep,soft (lap 96)
 angel-food-cake,wikimedia_commons,1280,960,492.3,28.4,87,1.138,keep,reviewed: no defect
 apple-cake,wikimedia_commons,1024,768,528.4,32.6,85,1.083,keep,reviewed: no defect
@@ -23,19 +23,19 @@ baba-ghanoush,wikimedia_commons,1280,721,217.3,26.9,87,1.241,keep,"soft, garish 
 baingan-bharta,wikimedia_commons,1280,960,681.2,32.1,87,1.139,keep,busy floral cloth
 baked-beans,wikimedia_commons,1280,1708,212.0,20.5,87,1.382,keep,reviewed: no defect
 baked-chicken,openverse,1024,683,725.8,31.4,88,1.107,keep,reviewed: no defect
-baked-chicken-vegetables,wikimedia_commons,1920,1440,3576.0,72.1,87,1.011,keep,reviewed: no defect
+baked-chicken-vegetables,wikimedia_commons,1920,1440,3576.0,72.1,87,1.011,remove,"File:Oven baked vegetables with Chicken Skewers.jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo; no better free photo found, placeholder instead"
 baked-fish-tomatoes-peppers-onions,openverse,1024,683,258.0,21.8,88,1.246,keep,reviewed: no defect
 baked-lemon-chicken,usda_myplate,600,400,410.4,37.7,90,1.062,keep,reviewed: no defect
 baked-meatballs,wikimedia_commons,1280,775,524.3,29.2,87,1.132,keep,reviewed: no defect
 baked-salmon-herbs-lemon,wikimedia_commons,1280,960,823.9,40.3,87,1.182,keep,reviewed: no defect
 baked-tofu,openverse,1024,683,424.0,26.5,88,1.297,keep,reviewed: no defect
-baked-trout,usda_myplate,600,400,991.4,32.8,90,0.986,keep,reviewed: no defect
-banana-berry-muffins,usda_myplate,480,480,758.4,47.1,,1.032,keep,only 480x480
+baked-trout,usda_myplate,600,400,991.4,32.8,90,0.986,keep,"verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
+banana-berry-muffins,usda_myplate,480,480,758.4,47.1,,1.032,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 banana-bread,wikimedia_commons,1280,960,898.9,38.0,87,1.086,keep,"foil, cluttered corner"
 banana-cupcakes,wikimedia_commons,1280,826,147.0,17.0,87,1.378,keep,soft (lap 147)
 banana-pudding,wikimedia_commons,640,640,274.8,21.2,90,1.185,remove,"640px jar of baked custard, does not read as banana pudding; no better free photo found, placeholder instead"
 banana-walnut-oatmeal,usda_myplate,600,400,293.7,31.4,90,1.077,keep,reviewed: no defect
-banh-mi,wikimedia_commons,1280,964,1163.6,43.1,87,1.06,replace,"street clutter, foam cup, wax paper; replaced by a better photo of the same dish"
+banh-mi,wikimedia_commons,1280,964,1163.6,43.1,87,1.06,remove,"verifier round 2: wave 8 replacement rejected (bottle and paper clutter around the sandwich); no acceptable free photo, placeholder instead"
 barley-jambalaya,wikimedia_commons,1280,853,570.6,32.9,87,1.053,keep,reviewed: no defect
 barley-pilaf,wikimedia_commons,800,600,117.2,16.5,93,1.154,keep,soft
 basic-custard,wikimedia_commons,1280,1172,1012.0,42.5,87,1.155,keep,reviewed: no defect
@@ -54,7 +54,7 @@ beef-stroganoff,wikimedia_commons,1280,854,419.2,29.0,87,1.213,keep,reviewed: no
 beef-suya,wikimedia_commons,1280,960,1583.7,53.8,87,1.123,remove,"newspaper, red tabletop, harsh flash; no better free photo found, placeholder instead"
 beef-vegetable-soup,wikimedia_commons,1280,872,1131.9,41.4,87,1.107,keep,reviewed: no defect
 bibimbap,wikimedia_commons,1280,960,1184.0,49.3,87,1.149,keep,reviewed: no defect
-black-bean-burgers,wikimedia_commons,704,528,142.4,18.8,99,0.985,keep,704px soft
+black-bean-burgers,wikimedia_commons,1280,947,827.6,39.1,87,1.161,replace,File:Vegetarian black bean burger with homefries.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 black-bean-quesadillas,wikimedia_commons,1280,960,164.2,17.5,87,1.39,keep,"second look at full size: appetising close-up, sharp"
 black-bean-soup-0,wikimedia_commons,1024,768,1128.6,40.6,96,1.009,keep,reviewed: no defect
 black-beans,openverse,1024,757,2201.7,59.4,88,1.036,keep,reviewed: no defect
@@ -63,7 +63,7 @@ blueberry-muffins,wikimedia_commons,1280,896,522.0,27.3,87,1.15,keep,reviewed: n
 braised-chicken-thighs-spinach,usda_myplate,600,400,875.2,50.2,90,1.028,keep,reviewed: no defect
 bran-muffins,wikimedia_commons,1280,1707,321.9,25.6,87,1.36,keep,reviewed: no defect
 bread-pudding-vanilla-sauce,wikimedia_commons,640,480,529.2,29.0,95,1.086,keep,640px
-breakfast-burrito-salsa,usda_myplate,480,373,190.6,28.7,,1.003,keep,only 480x373
+breakfast-burrito-salsa,usda_myplate,480,373,190.6,28.7,,1.003,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 breakfast-potato-egg-burritos,wikimedia_commons,1280,753,600.0,31.3,87,1.148,keep,reviewed: no defect
 broccoli-omelet,openverse,960,956,423.6,34.1,99,0.983,keep,reviewed: no defect
 broccoli-salad,openverse,1024,858,717.3,41.7,88,1.1,keep,reviewed: no defect
@@ -77,7 +77,7 @@ butternut-squash-pasta-bake,wikimedia_commons,1280,960,3069.8,70.3,87,1.022,keep
 cabbage-salad,wikimedia_commons,1280,960,85.0,11.2,87,1.532,remove,"dim, soft (lap 85), plain white plate, unappetising; no better free photo found, placeholder instead"
 cabbage-stir-fry,wikimedia_commons,1080,1080,424.0,30.8,72,1.759,keep,reviewed: no defect
 cacio-e-pepe,wikimedia_commons,1280,721,1097.9,44.7,87,1.14,keep,reviewed: no defect
-cafe-mocha,wikimedia_commons,1280,1707,905.7,37.1,87,1.129,keep,"newspaper and napkin in frame, harsh light"
+cafe-mocha,wikimedia_commons,1280,1707,905.7,37.1,87,1.129,remove,"verifier round 2: wave 8 replacement rejected (beer bottle in the frame, not clearly a mocha); no acceptable free photo, placeholder instead"
 candied-yams,wikimedia_commons,1280,960,710.5,33.1,87,1.115,remove,"mushy puree on plaid cloth, harsh flash; no better free photo found, placeholder instead"
 canh-chua,wikimedia_commons,1280,1570,295.7,22.5,87,1.317,keep,reviewed: no defect
 caribbean-bean-salad,wikimedia_commons,1920,1280,653.6,32.2,87,1.149,keep,reviewed: no defect
@@ -98,7 +98,7 @@ chicken-pozole-soup,wikimedia_commons,1280,960,1701.8,55.6,87,1.065,keep,MyPlate
 chicken-ratatouille,wikimedia_commons,1280,853,389.8,27.5,87,1.201,keep,reviewed: no defect
 chicken-rice-soup,wikimedia_commons,1280,848,958.0,39.8,87,1.168,keep,reviewed: no defect
 chicken-salad,wikimedia_commons,1280,960,652.2,38.6,94,1.024,remove,"plastic tub, chopsticks in frame; no better free photo found, placeholder instead"
-chicken-salad-and-peach-sandwich,usda_myplate,480,320,346.1,35.3,90,1.106,keep,only 480x320
+chicken-salad-and-peach-sandwich,usda_myplate,480,320,346.1,35.3,90,1.106,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 chicken-shawarma,wikimedia_commons,1280,1707,774.8,37.0,87,1.24,replace,styrofoam takeaway clamshell; replaced by a better photo of the same dish
 chicken-stew,wikimedia_commons,1280,960,745.5,34.1,87,1.103,keep,reviewed: no defect
 chicken-stir-fry,wikimedia_commons,1280,960,2244.2,60.2,87,1.075,keep,reviewed: no defect
@@ -116,7 +116,7 @@ classic-honey-flan,usda_myplate,600,400,87.9,17.7,90,1.21,keep,"soft (lap 88), 6
 classic-macaroni-and-cheese,wikimedia_commons,1280,960,192.2,20.2,87,1.266,keep,reviewed: no defect
 cobb-salad-pears,usda_myplate,600,400,345.2,35.0,90,1.089,keep,reviewed: no defect
 coffee-cooler,wikimedia_commons,852,1136,331.4,24.8,92,0.99,remove,"foam and ice in a plastic tub, unclear subject; no better free photo found, placeholder instead"
-collard-green-gumbo-ham-hock,usda_myplate,480,392,187.4,26.2,90,1.091,keep,only 480x392
+collard-green-gumbo-ham-hock,usda_myplate,480,392,187.4,26.2,90,1.091,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 colorful-quesadillas,wikimedia_commons,1240,930,652.8,35.6,99,0.998,keep,reviewed: no defect
 confetti-bean-salsa,usda_myplate,600,400,180.0,21.5,,1.007,keep,reviewed: no defect
 congee,wikimedia_commons,1000,1000,1218.3,46.2,97,0.987,keep,reviewed: no defect
@@ -125,7 +125,7 @@ corn-and-bean-medley,usda_myplate,600,400,419.4,30.0,90,1.19,keep,reviewed: no d
 corn-blueberry-and-wild-rice-salad,wikimedia_commons,1280,960,1768.8,54.5,87,1.05,keep,reviewed on contact sheet: no defect
 corn-bread,wikimedia_commons,1280,824,1396.4,54.2,87,1.09,keep,reviewed: no defect
 corn-casserole-0,usda_myplate,600,400,1927.5,81.8,,1.149,keep,reviewed: no defect
-corn-soup,usda_myplate,480,480,667.3,47.5,,1.038,keep,only 480x480
+corn-soup,usda_myplate,480,480,667.3,47.5,,1.038,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 corn-toasties,usda_myplate,600,400,43.9,12.2,,1.033,keep,"second look at full size: stack of fritters, deliberate shallow depth of field, clean white ground (USDA 600x400)"
 corn-tortillas,openverse,1024,768,576.8,32.2,88,1.23,keep,reviewed: no defect
 cornbread-dressing,wikimedia_commons,1280,853,560.6,31.0,87,1.19,keep,reviewed: no defect
@@ -135,11 +135,11 @@ cowboy-caviar-bean-salsa,wikimedia_commons,1280,1706,744.9,36.6,87,1.218,keep,re
 cranberry-nut-bread,wikimedia_commons,1280,853,961.6,38.5,87,1.097,keep,reviewed: no defect
 cranberry-pumpkin-muffins,wikimedia_commons,770,484,818.5,41.0,97,1.025,keep,reviewed: no defect
 cranberry-salad,wikimedia_commons,1280,960,1775.4,50.6,87,1.086,keep,reviewed: no defect
-cream-broccoli-soup,wikimedia_commons,1280,960,283.5,22.0,87,1.336,replace,"soft (lap 161), grey and dull; replaced by a better photo of the same dish"
+cream-broccoli-soup,wikimedia_commons,1280,960,283.5,22.0,87,1.336,remove,"File:Vegan kreme of broccoli soup.jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo; no better free photo found, placeholder instead"
 crusty-rice-tofu-and-vegetables,usda_myplate,600,400,264.4,24.8,90,1.888,keep,reviewed: no defect
-cuban-salad,usda_myplate,384,480,737.0,43.0,90,1.088,keep,tiny (384x480)
+cuban-salad,usda_myplate,384,480,737.0,43.0,90,1.088,remove,"tiny (384x480) (no better free photo of this dish found; the placeholder beats a poor photo); no better free photo found, placeholder instead"
 cucumber-salad,wikimedia_commons,1024,683,182.0,19.2,89,1.482,keep,reviewed: no defect
-cucumber-salad-tomatoes,wikimedia_commons,612,612,163.5,13.9,90,0.995,keep,"second look at full size: fresh close-up, sharp enough"
+cucumber-salad-tomatoes,wikimedia_commons,1280,850,791.3,38.6,87,1.115,replace,File:Tomato and cucumber salad (7592786440).jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 curried-chicken-salad,wikimedia_commons,1280,1927,348.5,28.3,87,1.307,keep,reviewed: no defect
 curried-squash-stew,usda_myplate,600,400,188.8,24.4,90,1.114,keep,reviewed: no defect
 curtido-salvadoreno-cabbage-salad,wikimedia_commons,1280,1714,624.4,29.4,87,1.071,keep,reviewed: no defect
@@ -148,7 +148,7 @@ dan-dan-noodles,wikimedia_commons,1280,853,479.9,32.4,87,1.147,keep,reviewed: no
 daves-herb-stuffed-mushrooms,usda_myplate,600,400,118.8,25.8,,0.999,keep,reviewed: no defect
 deep-dish-apple-cranberry-pie,wikimedia_commons,1280,853,546.4,28.4,87,1.21,keep,reviewed: no defect
 deviled-eggs,wikimedia_commons,1280,814,994.5,44.8,87,1.117,keep,reviewed: no defect
-dirty-rice,usda_myplate,480,480,807.3,60.7,,0.993,keep,only 480x480
+dirty-rice,usda_myplate,480,480,807.3,60.7,,0.993,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 doro-wat,wikimedia_commons,1920,1441,555.3,30.9,87,0.994,keep,reviewed: no defect
 easy-beef-supper,usda_myplate,600,400,1416.9,62.1,,1.145,keep,reviewed: no defect
 easy-mix-pizza-better-baking-mix,wikimedia_commons,1024,768,934.1,41.8,99,1.119,keep,reviewed: no defect
@@ -160,7 +160,7 @@ esquites,wikimedia_commons,1280,1280,1191.9,42.3,87,1.138,remove,"held in a hand
 falafel-yogurt-sandwich,wikimedia_commons,1280,853,102.4,13.0,87,1.385,keep,second look at full size: falafel pita with background blur by design
 farmers-market-gazpacho,wikimedia_commons,1024,768,113.3,14.6,98,0.997,keep,soft (lap 113)
 fattoush,wikimedia_commons,1280,960,1186.1,47.0,87,1.141,keep,reviewed: no defect
-fish-spinach,usda_myplate,600,400,379.7,34.0,90,1.078,keep,reviewed: no defect
+fish-spinach,usda_myplate,600,400,379.7,34.0,90,1.078,keep,"verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
 fish-tacos,wikimedia_commons,1280,1707,2033.0,79.9,87,1.047,replace,"dark restaurant, cluttered, sign text; replaced by a better photo of the same dish"
 flour-tortillas,wikimedia_commons,1280,850,153.2,13.3,87,1.275,keep,soft (lap 153)
 french-spinach-frittata,usda_myplate,600,400,444.6,37.3,90,1.07,keep,reviewed: no defect
@@ -171,11 +171,11 @@ frijoles-de-la-olla,wikimedia_commons,1280,768,394.4,19.7,87,1.122,remove,"dim f
 frosted-cake,wikimedia_commons,1280,1707,193.1,14.0,87,1.278,keep,second look at full size: clean cake on stand
 fruit-crisp,usda_myplate,600,400,264.1,28.2,90,1.101,keep,reviewed: no defect
 fruit-dippers,usda_myplate,600,400,448.0,29.4,90,1.069,keep,reviewed: no defect
-fruit-pizza,wikimedia_commons,700,400,1170.0,55.1,99,0.989,keep,reviewed: no defect
+fruit-pizza,wikimedia_commons,1024,768,884.4,41.0,97,1.0,replace,File:Fruit pizza.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 fruit-salad-yogurt,wikimedia_commons,1280,960,483.1,28.3,87,1.218,keep,reviewed: no defect
 fruit-smoothie,wikimedia_commons,1280,1617,775.5,32.1,87,1.221,remove,"phone snap of a blender jug held in a hand; no better free photo found, placeholder instead"
 ful-medames,wikimedia_commons,1280,1305,1692.2,62.8,87,1.121,keep,reviewed: no defect
-garden-pan-bread,usda_myplate,480,480,569.0,41.3,,1.008,keep,only 480x480
+garden-pan-bread,usda_myplate,480,480,569.0,41.3,,1.008,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 garden-pasta-salad,usda_myplate,600,400,1550.7,75.6,,1.113,keep,reviewed: no defect
 garlic-bok-choy,wikimedia_commons,1920,1440,1236.0,53.3,87,1.114,keep,reviewed: no defect
 gazpacho,wikimedia_commons,1920,1440,1518.0,51.2,87,1.112,keep,reviewed: no defect
@@ -186,14 +186,14 @@ glazed-meatloaf,wikimedia_commons,1280,840,1498.6,54.1,87,1.099,keep,reviewed: n
 goi-cuon,wikimedia_commons,1280,720,465.2,27.3,87,1.181,keep,reviewed: no defect
 granola-bars,wikimedia_commons,1280,1280,1923.3,57.3,92,1.027,replace,1280x331 strip cut-out; replaced by a better photo of the same dish
 granola-oatmeal-coconut-pecan,wikimedia_commons,1280,956,4272.7,89.1,87,0.997,keep,reviewed: no defect
-great-northern-bean-soup,usda_myplate,480,480,786.3,60.2,,1.016,keep,only 480x480
+great-northern-bean-soup,usda_myplate,480,480,786.3,60.2,,1.016,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 greek-salad,wikimedia_commons,774,590,972.6,35.8,99,1.041,keep,reviewed: no defect
 green-onion-omelet,usda_myplate,600,400,682.6,51.2,,1.114,keep,reviewed: no defect
 grilled-cheese-peaches,usda_myplate,600,400,666.4,40.0,90,1.07,keep,reviewed: no defect
 grilled-vegetables,wikimedia_commons,1280,826,3770.8,84.0,87,1.043,keep,reviewed: no defect
 gujarati-kadhi,wikimedia_commons,1280,1046,2164.1,60.1,87,1.029,replace,"soft (lap 106), flash glare, top-down in a pot; replaced by a better photo of the same dish"
 gyeran-jjim,wikimedia_commons,1280,960,302.8,23.2,87,1.239,keep,reviewed: no defect
-gyudon,wikimedia_commons,1920,1275,619.0,39.3,87,1.234,keep,reviewed: no defect
+gyudon,wikimedia_commons,1280,960,737.9,41.4,87,1.11,replace,File:Gyuu-don 001.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 harira,wikimedia_commons,1280,960,1889.2,56.4,87,1.059,keep,reviewed: no defect
 hearty-beef-soup,usda_myplate,600,400,1539.6,63.8,,1.125,keep,reviewed: no defect
 homemade-mashed-potatoes,wikimedia_commons,1280,853,81.9,8.9,87,1.464,keep,second look at full size: plain but clean and sharp enough
@@ -204,13 +204,13 @@ huevos-motulenos,wikimedia_commons,1280,934,47.1,14.3,,1.006,remove,"very soft (
 huevos-rancheros-fresh-salsa,wikimedia_commons,1280,1280,604.2,24.8,87,1.152,keep,reviewed: no defect
 hummus,wikimedia_commons,1280,854,479.9,29.4,87,1.138,keep,reviewed: no defect
 italian-bean-soup,wikimedia_commons,1280,853,480.3,30.0,87,1.172,keep,reviewed: no defect
-jamaican-jerk-chicken,wikimedia_commons,640,480,1426.2,43.2,74,1.17,keep,reviewed: no defect
+jamaican-jerk-chicken,wikimedia_commons,1280,912,809.9,29.2,87,1.213,replace,File:Jerk chicken@The Jamaican Grill (162928762).jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 jamaican-rice-and-peas,wikimedia_commons,1920,1439,6436.6,110.8,87,1.059,keep,reviewed: no defect
 japanese-curry-rice,wikimedia_commons,1920,1440,547.6,32.8,87,1.168,keep,reviewed: no defect
 japchae,wikimedia_commons,1920,1440,517.8,33.1,87,1.164,keep,reviewed: no defect
 jollof-rice,wikimedia_commons,1024,681,348.3,26.2,95,1.164,keep,reviewed: no defect
 julias-sauteed-steamed-collards,usda_myplate,600,400,517.0,35.5,90,1.95,keep,reviewed: no defect
-kale-salad-yogurt-dressing,usda_myplate,480,294,435.8,42.8,90,1.018,keep,only 480x294
+kale-salad-yogurt-dressing,usda_myplate,480,294,435.8,42.8,90,1.018,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 kanda-poha,wikimedia_commons,1280,960,771.1,40.1,87,1.202,keep,"paper plate, busy pattern"
 kelewele,wikimedia_commons,1242,1225,793.9,38.9,99,0.994,keep,reviewed: no defect
 kerala-fish-curry,wikimedia_commons,1024,683,1160.3,47.8,98,0.989,keep,reviewed: no defect
@@ -240,10 +240,10 @@ mapo-tofu,wikimedia_commons,1280,960,1159.1,43.7,87,1.133,keep,reviewed: no defe
 mashed-sweet-potatoes,wikimedia_commons,1280,853,296.2,21.6,87,1.14,keep,reviewed: no defect
 masoor-dal-red-lentils-onion,wikimedia_commons,1280,960,1329.1,43.2,87,1.065,keep,MyPlate logo allowed
 massaman-curry,wikimedia_commons,1280,853,320.7,24.0,87,1.23,keep,reviewed: no defect
-meatball-soup,wikimedia_commons,663,683,391.9,23.8,99,1.008,keep,reviewed: no defect
+meatball-soup,wikimedia_commons,1280,803,362.8,26.6,87,1.201,replace,File:Soup with meatballs-01.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 mediterranean-chicken-and-white-bean-salad,usda_myplate,600,400,500.2,42.0,90,1.057,keep,reviewed: no defect
 melissas-slow-cooker-stuffing,wikimedia_commons,1280,1707,1671.5,53.2,87,1.096,keep,reviewed: no defect
-menemen,wikimedia_commons,752,599,332.5,27.0,80,1.36,keep,reviewed: no defect
+menemen,wikimedia_commons,752,599,332.5,27.0,80,1.36,keep,"verifier round 2: the wave 8 swap showed no egg; the previous Commons photo is back (752 px, parsley and egg visible)"
 mercimek-corbasi,wikimedia_commons,1280,960,132.7,10.6,87,1.242,keep,"second look at full size: clean soup on white, nothing wrong"
 microwave-baked-potato,wikimedia_commons,1280,853,302.6,20.0,87,1.158,keep,reviewed: no defect
 microwave-potato-corn-chowder,wikimedia_commons,1280,854,705.5,34.7,87,1.201,keep,reviewed: no defect
@@ -286,7 +286,7 @@ pasta-vegetables,wikimedia_commons,1280,960,115.3,16.6,87,1.24,keep,reviewed: no
 pav-bhaji,wikimedia_commons,1280,1196,1574.1,51.7,87,1.046,keep,reviewed: no defect
 peach-sauce,usda_myplate,600,400,444.8,25.5,90,1.092,keep,reviewed: no defect
 peanut-butter-banana-smoothie,usda_myplate,600,400,78.3,15.3,90,1.223,keep,"second look at full size: attractive, subject sharp (USDA 600x400)"
-peanut-butter-n-fruit-wich,usda_myplate,480,294,180.8,28.4,90,1.046,keep,reviewed: no defect
+peanut-butter-n-fruit-wich,usda_myplate,480,294,180.8,28.4,90,1.046,remove,"only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer); no better free photo found, placeholder instead"
 pear-orange-sauce,usda_myplate,600,400,35.9,8.5,90,1.268,keep,"second look at full size: pear in sauce, subject sharp, background blur is deliberate (USDA 600x400)"
 pear-quesadillas,usda_myplate,600,400,1010.9,58.7,90,1.109,keep,reviewed: no defect
 pear-salad,wikimedia_commons,1280,1237,444.4,25.0,87,1.191,keep,reviewed: no defect
@@ -317,27 +317,27 @@ red-beans-and-rice-0,wikimedia_commons,1280,960,299.4,23.3,93,1.17,keep,reviewed
 red-red,wikimedia_commons,960,960,936.3,44.3,74,1.212,keep,reviewed: no defect
 refried-beans,wikimedia_commons,1000,726,96.7,14.6,89,1.625,keep,second look at full size: clean bowl
 rice-chicken-arroz-con-pollo,wikimedia_commons,1280,1600,2608.1,68.9,87,1.035,keep,reviewed: no defect
-rice-pudding1,wikimedia_commons,1024,1024,144.3,19.9,96,1.065,replace,"plain, dark; replaced by a better photo of the same dish"
+rice-pudding1,wikimedia_commons,1024,1024,144.3,19.9,96,1.065,remove,"verifier round 2: wave 8 replacement rejected (scribbled napkin in the frame); no acceptable free photo, placeholder instead"
 rice-salad,wikimedia_commons,1000,667,353.6,30.5,97,1.034,keep,reviewed: no defect
 roast-chicken,wikimedia_commons,1280,853,2669.7,64.0,87,1.04,replace,person and bag in frame; replaced by a better photo of the same dish
-roasted-bell-peppers,wikimedia_commons,719,719,377.4,28.6,94,0.995,keep,reviewed: no defect
+roasted-bell-peppers,wikimedia_commons,1280,958,323.2,25.5,87,1.312,replace,File:Seasonal roasted bell peppers.jpg: low resolution (under 800 px) or weak match; replaced by a sharper photo of the same dish; replaced by a better photo of the same dish
 roasted-brussels-sprouts,wikimedia_commons,1280,1707,312.2,23.9,87,1.115,keep,reviewed: no defect
 roasted-cauliflower,wikimedia_commons,1280,853,825.2,38.3,87,1.15,keep,reviewed: no defect
 roasted-pork-tacos-pico-de-gallo,wikimedia_commons,1280,960,2126.7,65.1,87,1.072,keep,reviewed: no defect
-roasted-potatoes,wikimedia_commons,1920,1280,42.4,10.4,87,1.717,keep,reviewed: no defect
+roasted-potatoes,wikimedia_commons,1920,1280,42.4,10.4,87,1.717,remove,"File:Lemony roasted potatoes (29307744858).jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo; no better free photo found, placeholder instead"
 roasted-tomatoes-herbs,openverse,960,640,3147.8,69.0,99,1.052,keep,reviewed: no defect
 ropa-vieja,wikimedia_commons,1280,770,1331.6,47.9,87,1.092,keep,reviewed: no defect
 salmon-burgers,wikimedia_commons,1024,683,83.5,14.3,96,1.158,keep,second look at full size: clear burger plate
 salmon-patties,wikimedia_commons,1280,913,252.4,23.4,75,1.562,keep,reviewed: no defect
 sambar,wikimedia_commons,1280,853,932.4,39.3,87,1.205,keep,reviewed: no defect
-sarahs-spicy-curry-turkey-soup,usda_myplate,310,200,73.5,25.3,90,0.976,keep,tiny (310x200) and soft
+sarahs-spicy-curry-turkey-soup,usda_myplate,310,200,73.5,25.3,90,0.976,remove,"tiny (310x200) and soft (no better free photo of this dish found; the placeholder beats a poor photo); no better free photo found, placeholder instead"
 savory-bread-pudding-kale-and-butternut-squash,usda_myplate,600,400,546.0,36.2,90,1.078,keep,reviewed: no defect
 savory-meatloaf-muffins,wikimedia_commons,1280,853,548.2,24.1,87,1.337,keep,reviewed: no defect
 scalloped-potatoes,wikimedia_commons,1280,720,734.9,27.7,87,1.164,remove,"pale and dull, unappetising; no better free photo found, placeholder instead"
 scrambled-tofu,wikimedia_commons,1280,833,623.4,35.5,87,1.171,keep,reviewed: no defect
 seared-greens,usda_myplate,600,400,1082.4,55.4,90,0.983,keep,reviewed: no defect
 shakshuka,wikimedia_commons,1920,1440,478.4,33.5,87,1.296,keep,reviewed: no defect
-shepherds-pie,wikimedia_commons,1280,853,642.0,42.2,87,1.184,replace,very blurry (lap 34); replaced by a better photo of the same dish
+shepherds-pie,wikimedia_commons,1280,853,642.0,42.2,87,1.184,remove,"verifier round 2: wave 8 replacement rejected (gas stove with a visible brand in the frame); no acceptable free photo, placeholder instead"
 shiro-wat,wikimedia_commons,1112,679,432.0,30.0,97,1.068,keep,reviewed: no defect
 simple-fish-tacos,usda_myplate,600,400,226.5,28.8,90,1.118,keep,reviewed: no defect
 simple-stuffed-peppers,wikimedia_commons,1280,853,940.8,36.1,87,1.257,keep,reviewed: no defect
@@ -359,7 +359,7 @@ spicy-southern-barbecued-chicken,usda_myplate,600,400,239.1,29.2,90,1.097,keep,r
 split-pea-soup,wikimedia_commons,1280,960,100.2,9.5,87,1.435,keep,reviewed: no defect
 spring-vegetable-saute,usda_myplate,600,400,231.4,21.6,90,1.105,keep,reviewed: no defect
 squash-soup,wikimedia_commons,1280,960,727.4,28.3,87,1.173,replace,tiny bowl in a big dull frame; replaced by a better photo of the same dish
-stir-fried-beef,usda_myplate,600,400,180.0,24.1,90,1.064,keep,reviewed: no defect
+stir-fried-beef,usda_myplate,600,400,180.0,24.1,90,1.064,keep,"verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
 stir-fry-vegetables-and-beef,wikimedia_commons,1920,1278,527.9,35.2,87,1.19,keep,reviewed: no defect
 stove-top-green-chile-chicken-enchiladas,wikimedia_commons,1280,1707,1239.1,51.0,87,1.146,remove,"dish small in a tall frame, clothing at the top edge; no better free photo found, placeholder instead"
 strawberries-watermelon-pineapple-salad,wikimedia_commons,1280,853,350.8,21.9,87,1.122,keep,reviewed on contact sheet: no defect
@@ -367,7 +367,7 @@ stuffed-baked-potatoes,wikimedia_commons,640,640,1210.2,45.2,90,0.988,keep,revie
 stuffed-bell-peppers,wikimedia_commons,1280,960,567.5,29.1,87,1.194,keep,reviewed: no defect
 stuffed-pasta-shells,wikimedia_commons,1280,960,2122.7,58.2,87,1.053,keep,reviewed: no defect
 stuffed-summer-squash,wikimedia_commons,1280,960,299.7,26.1,87,1.367,keep,reviewed: no defect
-stuffed-tomatoes,wikimedia_commons,1280,1707,178.0,17.0,87,1.239,replace,supermarket tray with a printed label; replaced by a better photo of the same dish
+stuffed-tomatoes,wikimedia_commons,1280,1707,178.0,17.0,87,1.239,remove,"File:Artichoke Stuffed Tomato (5052814731).jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo; no better free photo found, placeholder instead"
 sugar-and-spice-cookies-better-baking-mix,wikimedia_commons,1280,960,219.3,18.4,87,1.273,keep,"second look at full size: soft pastel cookies, nothing wrong"
 summer-squash-squares,wikimedia_commons,1280,853,424.8,26.5,87,1.207,keep,reviewed: no defect
 sweet-potato-hash-egg,wikimedia_commons,1280,960,314.2,25.6,80,1.293,keep,reviewed: no defect
@@ -378,12 +378,12 @@ tacos-al-pastor,wikimedia_commons,1280,853,607.6,35.5,87,1.205,keep,reviewed: no
 tallarines-verdes,wikimedia_commons,1920,1280,1136.6,45.5,87,1.089,keep,reviewed: no defect
 tamagoyaki,wikimedia_commons,1280,960,249.7,21.4,87,1.29,keep,reviewed: no defect
 tartar-sauce,wikimedia_commons,1280,850,678.4,35.2,87,1.198,keep,reviewed: no defect
-tasty-chicken-and-veggie-packets,usda_myplate,600,400,44.7,15.8,90,1.167,keep,"blurry (lap 45), does not show packets"
+tasty-chicken-and-veggie-packets,usda_myplate,600,400,44.7,15.8,90,1.167,remove,"blurry (lap 45), does not show packets (no better free photo of this dish found; the placeholder beats a poor photo); no better free photo found, placeholder instead"
 thai-green-curry,wikimedia_commons,1920,1285,428.6,31.1,85,1.248,keep,reviewed: no defect
 thit-kho-trung,wikimedia_commons,1200,1812,330.3,26.1,83,1.748,keep,reviewed: no defect
 thousand-island-dressing,wikimedia_commons,1280,887,597.4,33.1,87,1.224,replace,"soft (lap 138), dull; replaced by a better photo of the same dish"
 tinga-de-pollo,wikimedia_commons,1280,1039,1503.3,62.4,87,1.081,keep,reviewed: no defect
-tofu-broccoli,usda_myplate,600,400,389.2,29.6,90,1.945,keep,reviewed: no defect
+tofu-broccoli,usda_myplate,600,400,389.2,29.6,90,1.945,keep,"verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
 tom-kha-gai,wikimedia_commons,1024,804,264.0,24.0,96,1.267,keep,reviewed: no defect
 tom-yum-goong,wikimedia_commons,1280,960,285.2,23.8,87,1.23,replace,"person, beer bottle and clutter in frame; replaced by a better photo of the same dish"
 tomato-and-cucumber-salad,wikimedia_commons,1024,768,742.2,34.4,80,1.178,keep,reviewed: no defect
@@ -410,7 +410,7 @@ vegetable-stroganoff,usda_myplate,600,400,396.8,29.8,90,1.939,keep,reviewed: no 
 vegetarian-matzo-ball-soup,openverse,1024,678,41.5,13.3,88,1.472,keep,"second look at full size: subject sharp, background blur deliberate; appetising"
 vegetarian-spaghetti-sauce,usda_myplate,600,400,116.7,19.7,90,1.166,keep,reviewed: no defect
 vegetarian-stuffed-peppers,wikimedia_commons,1280,1707,188.2,21.6,87,1.358,keep,reviewed: no defect
-veggie-burgers,wikimedia_commons,1600,1200,374.7,27.7,93,1.157,replace,"small (536x382), soft, cork trivet; replaced by a better photo of the same dish"
+veggie-burgers,wikimedia_commons,1600,1200,374.7,27.7,93,1.157,remove,"File:Veggie burger (1).jpg: owner review: weak match / pale / awkward crop; no better free photo found, placeholder beats a poor photo; no better free photo found, placeholder instead"
 veggie-chow-mein,wikimedia_commons,1280,960,1993.7,60.5,87,1.045,keep,reviewed: no defect
 veggie-noodles,wikimedia_commons,1280,960,645.3,31.3,87,1.048,keep,reviewed: no defect
 veggie-quesadillas,wikimedia_commons,1280,1707,88.6,11.7,87,1.383,keep,"second look at full size: close, appetising"
