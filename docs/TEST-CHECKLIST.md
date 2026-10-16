@@ -136,7 +136,11 @@ Live site: https://minced-app.vercel.app
 - [ ] Shopping list shows names, grouped by aisle, no cups or grams.
 - [ ] `/about` no longer says accounts are unavailable.
 - [ ] After dedupe: heavenly-deviled-eggs and tostadas-delgadas are 404; recipe count is 957.
-- Still open: mac and cheese search, unknown-time recipes pass time ranges, kitchen-fraction oddities (19 tbsp, 1/8 egg), 5 photos that do not match, 3 rejected picks that can return.
+- [ ] Landing and filters make no spice-level claim; "No sign-up" shows as normal text (no hex box); `/lab/hero` is 404.
+- [ ] Sign out from the header on `/recipes`, from `/pantry` and from `/account`: header returns to Log in / Sign up, fridge picks are gone, Back does not show stale account content.
+- [ ] Apple Cake at 12, 2 and 1 servings: amounts read in cups, tbsp and tsp (no decimals); eggs read "about 1/2 egg" at 1 serving; prep notes do not change with servings.
+- [ ] After applying the prep-note cleanup: cranberry-salad shows no stray ". packages" note (known defect until `clean_prep_notes.py` is fixed).
+- Still open: mac and cheese search, unknown-time recipes pass time ranges, kitchen-fraction oddities (19 tbsp, 1/8 egg), prep-note cleanup edge cases (cranberry-salad, 'about 3 cups', delicious-greens mustard), legacy photo rejections without file names (29) not guarded against rebuild.
 
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.
