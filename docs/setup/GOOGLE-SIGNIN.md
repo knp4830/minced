@@ -76,11 +76,13 @@ Use a private window, on `https://minced.kevinpham.page` (not the old `*.vercel.
 | Symptom | Cause |
 | --- | --- |
 | Google says `redirect_uri_mismatch` | The redirect URI in step 3.4 differs from `https://nmdrlfnwlqytzhunsffl.supabase.co/auth/v1/callback` by even one character. |
-| Back on `/login` with "couldn't sign you in with Google" | Provider not enabled in Supabase, wrong secret, or the sign-in started on a different host than it finished on. |
+| Browser shows raw JSON `{"code":400,"error_code":"validation_failed","msg":"Unsupported provider: provider is not enabled"}` at `.../auth/v1/authorize` | The flag is on but the Google provider is not enabled in Supabase (step 4). The app cannot detect this: the server action only builds the URL, so the person is sent straight to Supabase and never returns to `/login`. Keep `NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN` off until step 4 is done; turn it off and redeploy to hide the button. |
+| Back on `/login` with "couldn't sign you in with Google" | Wrong client secret, or the sign-in started on a different host than it finished on. |
 | Lands on the old Site URL | `https://minced.kevinpham.page/**` is missing from Supabase Redirect URLs. |
 | "Access blocked: app has not completed verification" | The app is in Testing and the email is not a listed test user. |
 
 ## Notes for later
 
+- **Preview deployments cannot test Google sign-in.** With `NEXT_PUBLIC_SITE_URL` set to production, the redirect goes to the production host, but the sign-in cookie was set on the preview host, so the flow cannot complete. Test only on `https://minced.kevinpham.page`.
 - New Google users get a `profiles` row from the existing sign-up trigger, with no display name. Minced does not copy their Google name; that is a product decision (see the wave 8 open questions).
 - Local development: `supabase/config.toml` has the Google provider off. To try it on a local stack set `enabled = true` and export `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID` / `_SECRET` (a separate Google client whose redirect URI is the local stack's `/auth/v1/callback`). Not needed for production.
