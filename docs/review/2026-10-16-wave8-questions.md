@@ -11,7 +11,7 @@ Nothing below has been done for you. No lane touched live, DNS, Google, Resend o
 2. Supabase dashboard, Authentication, URL Configuration: Site URL = `https://minced.kevinpham.page`; add `https://minced.kevinpham.page/**` to Redirect URLs. Do this before merge, or the 308 host redirect will break sign-in.
 3. Vercel, Production env: `NEXT_PUBLIC_SITE_URL=https://minced.kevinpham.page`.
 
-**B. Photos (do NOT run until P1 and P2 are answered)**
+**B. Photos (P1 is fixed; run after you answer P2 or accept it as is)**
 4. Back up live (database dump and the `recipe-photos` bucket listing).
 5. `python scripts/photos/process_images.py`, then `python scripts/photos/upload_photos.py --apply`, then run `supabase/seed-photos.sql`. The seed deletes `recipe_photos` rows for recipes not in the manifest.
 
@@ -45,9 +45,9 @@ Nothing below has been done for you. No lane touched live, DNS, Google, Resend o
 | M9 | Food in the quick-log sheet opens an Add food dialog (recipe search plus quick add); recipes save immediately there, while Log saves workout plus sleep. | Split as stated | Keep |
 | M10 | Skip on the targets wizard: leave no calorie goal forever, or re-prompt after a few days? | Never re-prompt | Keep; a gentle line on the page is enough |
 | M11 | Muscle map style: the owner mockup shows a flat mannequin with white seams; the build uses MIT-licensed anatomical line art (react-native-body-highlighter), male and female, front and back, accurate muscle groups. Not 1-for-1. | MIT artwork | Accept, or ask for a redraw in the mannequin style (our own art, more work) |
-| M12 | Muscle map defaults to Male even after targets saved sex=female. | Male | Default from the saved sex |
+| M12 | Muscle map defaulted to Male even after targets saved sex=female. | **Fixed (a2750b7)**: follows the saved sex, toggle still works | Done, verified in a browser |
 | M13 | Mockup details not matched: no "I cooked this" button on the Food card; the empty state keeps an "All nutrients" card; quick-add placeholders can clip in narrow macro fields. | Left as built | Fine for now |
-| M14 | Phone layout: cards overflowed to 439 px in verification. Fixed in the close-out commit with `grid-cols-[minmax(0,1fr)]` on the dashboard grid. NOT re-verified in a browser (needs a signed-in local stack). | Fixed | Check `/me` on your phone first |
+| M14 | Phone layout overflowed to 439 px. | **Fixed and verified** at 375 px signed in on a local stack (scrollWidth 375) | Done |
 | M15 | "Fibre" spelling on /me (the site is US-leaning, USDA says fiber). | Fibre | Switch to Fiber? |
 
 Not driven in a browser after the last changes: "Log this" on a recipe page, and the phone quick-log sheet and FAB.
@@ -69,14 +69,14 @@ Not driven in a browser after the last changes: "Log this" on a recipe page, and
 
 | # | Question | Default | Recommendation |
 |---|---|---|---|
-| P1 | **Blocks the photo step.** Verification found `fish-spinach` shows a photo rejected in wave 3 (reads as a frittata, no fish) because legacy reject entries have no filename. Also worse-than-before swaps: shepherds-pie (gas stove, brand visible), rice-pudding1 (scribbled napkin), cafe-mocha (beer bottle), tofu-broccoli (hand in frame), stir-fried-beef (restaurant plate), banh-mi (clutter). | Not fixed in this PR | Revert tofu-broccoli and stir-fried-beef to the old USDA photos; remove the other five; add filenames to the reject entries and a `check_manifests.py` rule for legacy note-only rejects. Next small wave, before step 5 |
+| P1 | fish-spinach showed a previously rejected photo; several swaps were worse than before. | **Fixed (c7271da)**: fish-spinach, tofu-broccoli, stir-fried-beef, baked-trout back to their USDA photos, menemen back to its old photo; shepherds-pie, rice-pudding1, cafe-mocha, banh-mi removed; `check_manifests.py` now fails if a note-only reject slug gets an unreviewed photo | No longer blocks the photo step (377 photos) |
 | P2 | 80 of 381 photos are under 1000 px wide (55 are USDA 600x400). Recipe pages show about 590 CSS px, so they are 2x upscaled on retina and soft. | As is | Accept USDA 600 px for now, or cap the display size of small photos. Your call |
 | P3 | Photo-less recipes (534): none added, because no honest match was found for generic USDA titles. | Striped placeholders | Accept for generic titles; add named dishes only when a clear match appears |
 | P4 | 24 photos removed (placeholder shown). Want any back? Sheets are in the photos worktree, `scripts/photos/cache/w8/owner_sheets/removed_*.jpg` (gitignored). | Stay removed | Keep removed |
 | P5 | 21 photos swapped; sheets `replaced_*.jpg` (old left, new right). | Approved as is | Glance, then approve |
 | P6 | USDA-logo photos allowed on the landing page? | No | No |
 | P7 | Recipe cards load the 640 px file (was 400): sharper on retina, about 1.6x bytes per card. | 640 | Keep |
-| P8 | `quality-audit.csv` is stale for a few slugs (says "replaced" where removed). | Stale | Regenerate in the next photo wave |
+| P8 | `quality-audit.csv` was stale. | **Fixed (c7271da)**: derived from photos.json; 354 keep, 23 replace, 46 remove | Done |
 
 ## Site-wide findings from verification (not decided by a lane)
 
@@ -84,6 +84,6 @@ Not driven in a browser after the last changes: "Log this" on a recipe page, and
 |---|---|---|---|
 | S1 | Pescatarian filter returns 13 recipes while Vegetarian returns 40, because only fish dishes are tagged pescatarian. Should pescatarian include vegetarian and vegan? | As tagged | Yes, include them |
 | S2 | A leftover hidden streaming `<div id="S:1">` duplicates the page body in the DOM (also on live; a Next streaming artefact). | Ignore | Ignore |
-| S3 | Signed-in avatar circle is the same green as the landing header (invisible). | Not changed | Give it a light ring |
+| S3 | Signed-in avatar invisible on the green landing header. | **Fixed (a2750b7)**: light avatar on green | Done |
 | S4 | `/terms` does not mention Me or health data (`/privacy` does). | Not changed | Cover it in the lawyer pass before user recipes launch |
 | S5 | `/about` has about 50 credit links smaller than 44 px at 375. | Not changed | Pad them in a polish wave |
