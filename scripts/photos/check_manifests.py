@@ -5,8 +5,8 @@
 
 Checks (all offline):
   1. one file / one recipe: no source image (sha256, attribution URL, file name) is used by two slugs;
-  2. rejected photos never return: no (slug, file) pair from commons_r2_rejected.json is in photos.json, and no slug in
-     myplate_review_excludes.json is in photos.json;
+  2. rejected photos never return: no (slug, file) pair from commons_r2_rejected.json is in photos.json or in ANY *picks*.json,
+     and no USDA photo whose slug is in myplate_review_excludes.json is in photos.json;
   3. no recipe appears twice;
   4. with --recipes (export_details.py output): every slug in photos.json is a recipe that exists.
 """
@@ -14,6 +14,9 @@ import collections
 import json
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import is_rejected, picks_files, rejected_refs  # noqa: E402
 
 M = Path(__file__).resolve().parent / "manifest"
 
@@ -36,14 +39,14 @@ def main():
                 by[r[key]].append(r["slug"])
         problems += [f"same {key} on {v}" for v in by.values() if len(v) > 1]
 
-    have = {(r["slug"], r.get("file")) for r in photos}
-    for bucket, rows in load("commons_r2_rejected.json").items():
-        if not isinstance(rows, dict):
-            continue
-        for slug, v in rows.items():
-            f = str(v).split(": ")[0]
-            if (slug, f) in have:
-                problems.append(f"rejected photo is back: {slug} {f} (bucket {bucket})")
+    rej = rejected_refs()
+    for r in photos:
+        if is_rejected(r["slug"], r.get("file"), r.get("attribution_url"), r.get("source_image_url"), rejected=rej):
+            problems.append(f"rejected photo is back: {r['slug']} {r.get('file') or r.get('attribution_url')}")
+    for pf in picks_files():   # a rejected pick left in a picks file is re-added by the next build
+        for slug, pick in json.loads(pf.read_text(encoding="utf8")).items():
+            if is_rejected(slug, str(pick), rejected=rej):
+                problems.append(f"rejected pick still in {pf.name}: {slug} {pick}")
     usda = {r["slug"] for r in photos if r.get("source") == "usda_myplate"}
     for slug in load("myplate_review_excludes.json"):   # only the USDA photo was rejected; another source may fill the slug
         if slug in usda:

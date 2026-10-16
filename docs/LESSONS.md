@@ -325,7 +325,7 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 
 **Git Bash mangles `/tmp` paths for `docker exec`.** Pipe the file through stdin.
 
-**A rejected photo can come back from a `*picks*.json` file.** `remove_photo.py` and `check_manifests.py` must cover every picks file; `commons_picks_r15.json` still lists 3 rejected slugs.
+**A rejected photo can come back from a `*picks*.json` file.** Fixed: `common.rejected_refs()` is the one reader of `commons_r2_rejected.json`; `remove_photo.py` clears the slug from every `*picks*.json` (globbed), `commons_r2.py build` skips rejected picks, `process_images.py` drops any row whose (slug, file) is rejected (prints `DROPPED`), and `check_manifests.py` fails on a rejected pick left in any picks file. Proved by re-injecting 6 rejected rows into `commons.json`: all 6 dropped, 423 photos out.
 
 **A photo shared by two recipes is the tell for duplicate recipes.** `check_manifests.py` now guards it.
 

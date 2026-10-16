@@ -58,3 +58,36 @@ def http_get(url: str, *, retries: int = 6, pause: float = 4.0, timeout: int = 4
 def write_json(path: Path, data) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+
+
+# ---- rejected photos: ONE reader every pipeline stage uses -------------------------------------------------------
+# commons_r2_rejected.json mixes shapes: {bucket: {slug: "<file or url>: reason"}}, top-level {slug: "<file>: reason"},
+# and a "_note". A rejected (slug, file) pair must never reach photos.json again, whichever stage rebuilds it.
+
+def rejected_refs() -> dict[str, set[str]]:
+    """slug -> the files / URLs a reviewer rejected for that slug (the text before the first ': ')."""
+    f = MANIFEST_DIR / "commons_r2_rejected.json"
+    out: dict[str, set[str]] = {}
+    if not f.exists():
+        return out
+    for key, v in json.loads(f.read_text(encoding="utf-8")).items():
+        pairs = v.items() if isinstance(v, dict) else [(key, v)] if isinstance(v, str) and not key.startswith("_") else []
+        for slug, why in pairs:
+            out.setdefault(slug, set()).add(str(why).split(": ")[0])
+    return out
+
+
+def is_rejected(slug: str, *refs: str | None, rejected: dict[str, set[str]] | None = None) -> bool:
+    """True when any of refs (file name, attribution URL, Openverse id) matches a rejection recorded for slug."""
+    bad = (rejected_refs() if rejected is None else rejected).get(slug, set())
+    return any(r and any(r == b or r in b for b in bad) for r in refs)
+
+
+def myplate_excluded() -> set[str]:
+    f = MANIFEST_DIR / "myplate_review_excludes.json"
+    return set(json.loads(f.read_text(encoding="utf-8"))) if f.exists() else set()
+
+
+def picks_files() -> list[Path]:
+    """Every picks file a build step could read. Globbed so a new round's file is covered without editing a list."""
+    return sorted(MANIFEST_DIR.glob("*picks*.json"))

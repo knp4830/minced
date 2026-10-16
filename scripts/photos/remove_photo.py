@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import MANIFEST_DIR, write_json  # noqa: E402
+from common import MANIFEST_DIR, picks_files, write_json  # noqa: E402
 
 
 def load(name: str, default=None):
@@ -51,12 +51,11 @@ def main() -> None:
     else:
         sys.exit(f"{slug}: not in any manifest ({', '.join(MANIFESTS)}, myplate.json)")
     write_json(MANIFEST_DIR / name, [r for r in rows if r["slug"] != slug])
-    for pn in ("commons_picks.json", "commons_picks_r2.json", "commons_picks_w4.json", "commons_picks_w7.json",
-               "openverse_picks.json", "openverse_picks_w7b.json"):
-        picks = load(pn, {})
+    for pf in picks_files():   # every *picks*.json (r15, w4, w7, openverse ...), so no rebuild can re-add the photo
+        picks = json.loads(pf.read_text(encoding="utf-8"))
         if slug in picks:
             del picks[slug]
-            write_json(MANIFEST_DIR / pn, picks)
+            write_json(pf, picks)
     rej = load("commons_r2_rejected.json", {})
     rej.setdefault(bucket, {})[slug] = f"{removed.get('file') or removed.get('attribution_url')}: {reason}"
     write_json(MANIFEST_DIR / "commons_r2_rejected.json", rej)
