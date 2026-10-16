@@ -48,7 +48,6 @@ update recipe_ingredients set prep_note = NULL, quantity = 3, unit_id = (select 
 update recipe_ingredients set prep_note = 'optional', quantity = 0.5, unit_id = (select id from units where name = 'tsp') where id = 8299 and prep_note is not distinct from '1/2 teaspoon, optional';
 update recipe_ingredients set prep_note = 'for glaze', quantity = 0.333333, unit_id = (select id from units where name = 'cup') where id = 8328 and prep_note is not distinct from '1/3 cup, for glaze';
 update recipe_ingredients set prep_note = 'for glaze', quantity = 1, unit_id = (select id from units where name = 'tsp') where id = 8329 and prep_note is not distinct from '1 teaspoon, for glaze';
-update recipe_ingredients set prep_note = '. packages, can also use raspberry', quantity = 3, unit_id = (select id from units where name = 'oz') where id = 8341 and prep_note is not distinct from '3 oz. packages, can also use raspberry';
 update recipe_ingredients set prep_note = NULL where id = 8384 and prep_note is not distinct from '2 tablespoons';
 update recipe_ingredients set prep_note = 'optional', quantity = 0.5, unit_id = (select id from units where name = 'tsp') where id = 8391 and prep_note is not distinct from '1/2 teaspoon, optional';
 update recipe_ingredients set prep_note = 'optional', quantity = 0.5, unit_id = (select id from units where name = 'tsp') where id = 8392 and prep_note is not distinct from '1/2 teaspoon, optional';
