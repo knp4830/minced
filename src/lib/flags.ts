@@ -6,3 +6,10 @@
  * is no link to them anywhere, the routes 404, and they are not in the sitemap.
  */
 export const USER_RECIPES_ENABLED = process.env.NEXT_PUBLIC_ENABLE_USER_RECIPES === "true";
+
+/**
+ * "Continue with Google" on the log-in and sign-up screens. Off until the Google OAuth client
+ * exists and the provider is switched on in the Supabase dashboard (docs/setup/GOOGLE-SIGNIN.md);
+ * with the flag on but the provider off, people would tap a button that can only fail.
+ */
+export const GOOGLE_SIGNIN_ENABLED = process.env.NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN === "true";
