@@ -118,7 +118,7 @@ export default async function Home() {
               {[
                 [recipes, "recipes"],
                 [String(filterCount), "filters"],
-                ["No sign‑up", "to search"],
+                ["No sign-up", "to search"],
               ].map(([n, label]) => (
                 <div key={label} className="px-2 py-3">
                   <dt className="sr-only">{label}</dt>
