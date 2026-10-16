@@ -436,6 +436,11 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-14 | `python scripts/photos/remove_photo.py <slug> "reason" --bucket wave7_review_2026_10_14` | Remove a rejected photo | Does not clean `commons_picks_w7.json`; edit it by hand or the next build re-adds it. `PYTHONUTF8=1` for reading `photos.json` |
 | 2026-10-14 | `node --experimental-strip-types scripts/test-recipe-form.mts` | Recipe-form parsing tests | New in wave 7 |
 | 2026-10-14 | `gh pr create --base main --head wave7/integration --body-file <file>` | Open the wave 7 PR | Body starts with a MERGE ORDER WARNING |
+| 2026-10-15 | `psql "$URL" -v ON_ERROR_STOP=1 -v dry_run=1 -f scripts/dedupe-near-duplicates.sql` | Dry-run the near-duplicate delete | Rolls back; drop `dry_run` to apply. Snapshot only so far |
+| 2026-10-15 | `python scripts/cleanup/clean_prep_notes.py` | Regenerate the prep-note cleanup SQL and CSV | Idempotent; second run changes 0 rows |
+| 2026-10-15 | `python scripts/photos/check_manifests.py` | Fail on shared or rejected photos | Does not scan `*picks*.json` yet |
+| 2026-10-15 | `docker exec ... psql -f /tmp/x.sql` | Run a file in a container | FAILED in Git Bash: `/tmp` path mangled. Pipe through stdin instead |
+| 2026-10-15 | `gh pr create --base main --head review/integration --body-file <file>` | Open the review wave PR | Body starts with a MERGE ORDER WARNING |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

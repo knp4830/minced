@@ -137,6 +137,21 @@ export type Database = {
           },
         ]
       }
+      feature_flags: {
+        Row: {
+          enabled: boolean
+          name: string
+        }
+        Insert: {
+          enabled?: boolean
+          name: string
+        }
+        Update: {
+          enabled?: boolean
+          name?: string
+        }
+        Relationships: []
+      }
       fridge_items: {
         Row: {
           added_on: string
@@ -296,6 +311,7 @@ export type Database = {
           density_g_per_ml: number | null
           family_id: number | null
           fdc_id: number | null
+          filter_group: string | null
           id: number
           is_pantry_staple: boolean
           name_norm: string | null
@@ -308,6 +324,7 @@ export type Database = {
           density_g_per_ml?: number | null
           family_id?: number | null
           fdc_id?: number | null
+          filter_group?: string | null
           id?: never
           is_pantry_staple?: boolean
           name_norm?: string | null
@@ -320,6 +337,7 @@ export type Database = {
           density_g_per_ml?: number | null
           family_id?: number | null
           fdc_id?: number | null
+          filter_group?: string | null
           id?: never
           is_pantry_staple?: boolean
           name_norm?: string | null
@@ -977,6 +995,47 @@ export type Database = {
       delete_my_account: { Args: never; Returns: undefined }
       delete_my_recipe: { Args: { p_recipe_id: string }; Returns: string }
       expand_ingredient_family: { Args: { ids: number[] }; Returns: number[] }
+      feature_enabled: { Args: { p_name: string }; Returns: boolean }
+      filtered_recipes: {
+        Args: { include_ids?: number[]; owned?: string[] }
+        Returns: {
+          author_id: string | null
+          calories: number | null
+          carbs_g: number | null
+          cook_time_min: number | null
+          cost_per_serving: number | null
+          created_at: string
+          cuisine_id: number | null
+          description: string | null
+          fat_g: number | null
+          fiber_g: number | null
+          has_photo: boolean
+          id: string
+          image_url: string | null
+          notes: string | null
+          prep_time_min: number | null
+          protein_g: number | null
+          published_at: string | null
+          search_vector: unknown
+          servings: number
+          slug: string
+          sodium_mg: number | null
+          source_license: string | null
+          source_name: string | null
+          source_url: string | null
+          spice_level: number | null
+          status: Database["public"]["Enums"]["recipe_status"]
+          title: string
+          total_time_min: number | null
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "recipes"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       import_local_shopping_list: { Args: { p_items: Json }; Returns: number }
       ingredient_coverage: {
         Args: { min_similarity?: number; raw_names: string[] }
@@ -1039,6 +1098,7 @@ export type Database = {
           cursor_time_key?: number
           diet_slugs?: string[]
           exclude_allergen_slugs?: string[]
+          include_ingredient_ids?: number[]
           max_calories?: number
           max_missing?: number
           max_spice?: number
@@ -1046,6 +1106,7 @@ export type Database = {
           min_calories?: number
           min_have?: number
           min_protein_g?: number
+          min_total_min?: number
           must_use_ids?: number[]
           owned_cookware_slugs?: string[]
           page_size?: number
@@ -1130,6 +1191,7 @@ export type Database = {
           cursor_score?: number
           diet_slugs?: string[]
           exclude_allergen_slugs?: string[]
+          include_ingredient_ids?: number[]
           max_calories?: number
           max_carbs_g?: number
           max_fat_g?: number
@@ -1141,6 +1203,7 @@ export type Database = {
           min_carbs_g?: number
           min_fat_g?: number
           min_protein_g?: number
+          min_total_min?: number
           owned_cookware_slugs?: string[]
           q: string
           result_limit?: number

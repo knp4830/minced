@@ -68,8 +68,10 @@ export function AddToShoppingList({
   const decided = useRef(false);
 
   // Same fridge the have/missing marks use.
-  const { ids: fridgeIds } = useFridgeIds();
-  const have = useMemo<ReadonlySet<number>>(() => fridgeIds ?? new Set(), [fridgeIds]);
+  // Same gate too: a signed-out browser's old saved fridge does not silently trim the list.
+  const { ids: fridgeIds, fromSaved } = useFridgeIds();
+  const usable = fridgeIds && (!fromSaved || status === "in") ? fridgeIds : null;
+  const have = useMemo<ReadonlySet<number>>(() => usable ?? new Set(), [usable]);
 
   const staplesInRecipe = useMemo(() => lines.filter((l) => l.isStaple).length, [lines]);
   const preview = useMemo(

@@ -19,7 +19,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms of use"
-      updated="October 10, 2026"
+      updated="October 14, 2026"
       intro="Minced is a free recipe site run as a personal portfolio project. By using it, or by creating an account, you agree to these terms. They are short on purpose."
     >
       <LegalSection id="use" title="Using Minced">

@@ -30,7 +30,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import CACHE, MANIFEST_DIR, OUT, write_json  # noqa: E402
+from common import CACHE, MANIFEST_DIR, OUT, is_rejected, myplate_excluded, rejected_refs, write_json  # noqa: E402
 
 try:
     from PIL import Image
@@ -51,8 +51,27 @@ def load_rows() -> list[dict]:
     return rows
 
 
+def drop_rejected(rows: list[dict]) -> tuple[list[dict], list[str]]:
+    """A rejected photo must never come back from a rebuild, whichever manifest or picks file produced the row."""
+    rej, excl = rejected_refs(), myplate_excluded()
+    keep, dropped = [], []
+    for r in rows:
+        why = None
+        if r.get("source") == "usda_myplate" and r["slug"] in excl:
+            why = "myplate_review_excludes.json"
+        elif is_rejected(r["slug"], r.get("file"), r.get("attribution_url"), r.get("source_image_url"), rejected=rej):
+            why = "commons_r2_rejected.json"
+        if why:
+            dropped.append(f"{r['slug']} ({r.get('file') or r.get('attribution_url')}): listed in {why}")
+        else:
+            keep.append(r)
+    return keep, dropped
+
+
 def main() -> None:
-    rows = load_rows()
+    rows, dropped = drop_rejected(load_rows())
+    for d in dropped:
+        print("DROPPED (rejected)", d, file=sys.stderr)
     final, problems = [], []
     seen = set()
     for r in rows:

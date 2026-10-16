@@ -175,6 +175,7 @@ export function LoginForm({ next }: { next?: string }) {
         )}
       </Field>
       <Link
+        replace
         href="/forgot-password"
         className="-mt-1 inline-flex min-h-11 items-center self-start text-[0.8125rem] text-ink-muted underline underline-offset-4 hover:text-herb"
       >

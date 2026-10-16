@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
+import { formatMinutes, formatServings } from "@/lib/format";
 import type { MyRecipeRow, RecipeStatus } from "@/lib/recipeForm";
 import { cn } from "@/lib/utils";
 
@@ -35,8 +36,8 @@ function StatusPill({ row }: { row: MyRecipeRow }) {
 
 function meta(r: MyRecipeRow): string {
   const total = (r.prep_time_min ?? 0) + (r.cook_time_min ?? 0);
-  const parts = [`${r.ingredient_count} ingredient${r.ingredient_count === 1 ? "" : "s"}`, `${r.servings} srv`];
-  if (total > 0) parts.unshift(`${total}m`);
+  const parts = [`${r.ingredient_count} ingredient${r.ingredient_count === 1 ? "" : "s"}`, formatServings(r.servings)];
+  if (total > 0) parts.unshift(formatMinutes(total));
   return parts.join(" · ");
 }
 

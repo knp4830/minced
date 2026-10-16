@@ -31,7 +31,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   return {
     title: f.q ? `“${f.q}”` : "Recipes",
     description:
-      "Every recipe is ingredients, amounts and numbered steps. Filter by time, diet, allergens, spice, calories, protein or the cookware you own.",
+      "Every recipe is ingredients, amounts and numbered steps. Filter by time, ingredients, diet, allergens, calories, protein or the cookware you own.",
     alternates: { canonical: "/recipes" },
     // Search and filter URLs are infinite and thin; only the plain listing is indexable.
     robots: filtered ? { index: false, follow: true } : undefined,
@@ -106,7 +106,7 @@ async function Results({ filters }: { filters: RecipeFilters }) {
     ? `/recipes${filtersToQuery({ ...filters, cursor: page.nextCursor })}`
     : null;
   const unknown = [
-    filters.maxTime !== undefined && "time",
+    (filters.minTime !== undefined || filters.maxTime !== undefined) && "time",
     filters.spiceMax !== undefined && "spice level",
     (filters.calMin !== undefined ||
       filters.calMax !== undefined ||

@@ -11,7 +11,11 @@
  *   pantry     pantry      int[]     match_recipes(pantry_ids)      "12,40,7"
  *   use        use         int[]     match_recipes(must_use_ids)    "use it up"
  *   maxMissing maxMissing  int       match_recipes(max_missing)
- *   maxTime    maxTime     int min   max_total_min    (both RPCs)
+ *   minTime    minTime     int min   min_total_min    (both RPCs)  } a RANGE; either end may
+ *   maxTime    maxTime     int min   max_total_min    (both RPCs)  } be missing ("Over 60")
+ *   include    include     int[]     include_ingredient_ids (both RPCs; browse via
+ *                                    filtered_recipes) -- recipe contains ALL of them,
+ *                                    each satisfied by itself, its parent or its children
  *   cuisine    cuisine     slug[]    cuisine_slugs    (both) -- ANY of
  *   diet       diet        slug[]    diet_slugs       (both) -- ALL of
  *   exclude    exclude     slug[]    exclude_allergen_slugs (both) -- NONE of
@@ -21,7 +25,8 @@
  *   ownedOnly  ownedOnly   boolean   "1" => owned_cookware_slugs = ownedCookware (both)
  *                                    -- recipe needs NOTHING outside the list; no cookware
  *                                    data = needs none = passes. List empty = owns nothing.
- *   spiceMax   spiceMax    0..4      max_spice        (both)
+ *   spiceMax   spiceMax    0..4      max_spice        (both) -- no control in the UI since
+ *                                    wave 8; the URL param and the data still work
  *   calMin     calMin      number    min_calories     (both)
  *   calMax     calMax      number    max_calories     (both)
  *   proteinMin proteinMin  number    min_protein_g    (both)
@@ -72,8 +77,12 @@ export type RecipeFilters = {
   use?: number[];
   /** Matcher only: show recipes missing at most this many. */
   maxMissing?: number;
+  /** Total minutes, lower bound (with `maxTime`: a range). Unknown-time recipes pass. */
+  minTime?: number;
   /** Total minutes, upper bound. Unknown-time recipes pass. */
   maxTime?: number;
+  /** Canonical ingredient ids the recipe must contain (ALL of them; families count). */
+  include?: number[];
   /** Cuisine slugs; recipe matches ANY. */
   cuisine?: string[];
   /** Diet slugs; recipe must carry ALL. */
@@ -106,7 +115,9 @@ export const FILTER_PARAMS = [
   "pantry",
   "use",
   "maxMissing",
+  "minTime",
   "maxTime",
+  "include",
   "cuisine",
   "diet",
   "exclude",
@@ -198,7 +209,9 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     pantry: idList(first(sp, "pantry")),
     use: idList(first(sp, "use")),
     maxMissing: int(first(sp, "maxMissing"), 0, 10),
+    minTime: int(first(sp, "minTime"), 1, 1440),
     maxTime: int(first(sp, "maxTime"), 1, 1440),
+    include: idList(first(sp, "include")),
     cuisine: slugList(first(sp, "cuisine")),
     diet: slugList(first(sp, "diet")),
     exclude: slugList(first(sp, "exclude")),
@@ -212,6 +225,10 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     sort: first(sp, "sort") === "expiry" ? "expiry" : undefined,
     cursor: cursor || undefined,
   };
+  // A reversed range ("minTime=90&maxTime=30") is a typo in an editable URL: read it the way it was meant.
+  if (out.minTime !== undefined && out.maxTime !== undefined && out.minTime > out.maxTime) {
+    [out.minTime, out.maxTime] = [out.maxTime, out.minTime];
+  }
   // Drop undefined keys so equality checks and spreads behave.
   return Object.fromEntries(
     Object.entries(out).filter(([, v]) => v !== undefined),
@@ -267,10 +284,18 @@ export function toggleInList(
   return withFilters(f, { [key]: next });
 }
 
+/** Toggle one ingredient id in the "contains" filter. */
+export function toggleInclude(f: RecipeFilters, id: number): RecipeFilters {
+  const cur = f.include ?? [];
+  return withFilters(f, { include: cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id] });
+}
+
 /** True when any narrowing filter (not q / pantry / cursor) is set. */
 export function hasActiveFilters(f: RecipeFilters): boolean {
   return (
+    f.minTime !== undefined ||
     f.maxTime !== undefined ||
+    !!f.include?.length ||
     f.spiceMax !== undefined ||
     f.calMin !== undefined ||
     f.calMax !== undefined ||

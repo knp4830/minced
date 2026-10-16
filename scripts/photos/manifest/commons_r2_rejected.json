@@ -49,10 +49,11 @@
     "tom-yum-goong": "File:Tom yum goong-01.jpg: Singha beer bottle with label visible and a diner's hand",
     "baked-trout": "File:Baked Trout with dill.jpg: Leffe beer bottle label legible in the corner",
     "taco-salad": "File:Flickr jeffk 38941161--Taco salad.jpg: restaurant tablecloth crest and a receipt in frame (venue branding)",
-    "chicken-pozole-soup": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0015).jpg: MyPlate.gov program logo printed in the corner of the photo",
-    "corn-blueberry-and-wild-rice-salad": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0023).jpg: MyPlate.gov program logo printed in the corner of the photo",
     "garden-pasta-salad": "File:Pasta salad closeup.JPG: same file as pasta-salad (one photo, one recipe; Pasta salad closeup.JPG)",
-    "stir-fried-beef": "File:Stir Fried Beef @ Congee Time (5611725153).jpg: verifier r2: peppers and pineapple not in recipe"
+    "stir-fried-beef": "File:Stir Fried Beef @ Congee Time (5611725153).jpg: verifier r2: peppers and pineapple not in recipe",
+    "fruit-salad-jicama": "File:Fruit salads.jpg: Review 2026-10-15: photo (File:Fruit salads.jpg) shows none of the recipe's main ingredients (no jicama, watermelon or papaya).",
+    "avocado-breakfast-bruschetta": "File:Avocado toast with eggs (28508171495).jpg: Review 2026-10-15: photo shows a poached egg; recipe uses hard-boiled.",
+    "sweet-potato-patties": "File:Patty cake (5670175839).jpg: Review 2026-10-15: photo looks like quinoa/grain patties, not bread-crumbed mashed sweet potato."
   },
   "wave7_review_2026_10_13": {
     "homemade-bagels": "File:Homemade bagels.jpg: wave7 review: cut halves with no visible hole, cannot confirm they are bagels"
@@ -71,5 +72,21 @@
     "cheese-and-corn-chowder": "File:Cheesy Corn Chowder soup.jpg: wave7 review: smooth yellow cheese soup, no potato, carrot, celery or corn visible",
     "fried-rice": "File:Fried rice with chicken (17234644521).jpg: wave7 review: rice with cilantro, no egg or mixed vegetables visible; cilantro not in recipe",
     "tomato-and-garlic-omelet": "File:Omelette with butter and tomatoes.jpg: wave7 review: plain folded omelet, no croutons, mozzarella or basil visible"
+  },
+  "review_2026_10_15": {
+    "apple-pistachio-crisp": "File:Apple Goodie crisp.JPG: same file as another recipe (reviewed 2026-10-15): different dish, photo stays on the recipe it matches, or recipe deleted as a duplicate",
+    "fiesta-hummus": "File:Hummus from The Nile.jpg: same file as another recipe (reviewed 2026-10-15): different dish, photo stays on the recipe it matches, or recipe deleted as a duplicate",
+    "golden-split-pea-soup": "File:Yellow Split Pea Soup.jpg: same file as another recipe (reviewed 2026-10-15): different dish, photo stays on the recipe it matches, or recipe deleted as a duplicate",
+    "heavenly-deviled-eggs": "File:Deviled Eggs - 3-23-08.jpg: same file as another recipe (reviewed 2026-10-15): different dish, photo stays on the recipe it matches, or recipe deleted as a duplicate",
+    "tostadas-delgadas": "File:Tostada (5076307841) (2).jpg: same file as another recipe (reviewed 2026-10-15): different dish, photo stays on the recipe it matches, or recipe deleted as a duplicate",
+    "tostadas": "File:Tostada (5076307841) (2).jpg: photo shows grilled shrimp with green salsa; recipe is beans, cheese, lettuce, tomato, no shrimp",
+    "fruit-smoothie-ii": "Fruit Smoothie: stocksnap.io stock photograph (stock-photography look; owner rule), not a home-cooked dish",
+    "red-potato-and-cabbage-colcannon": "File:Colcannon.JPG: Review 2026-10-15: appliance brand (HOTPOINT) and an oil bottle label visible.",
+    "marinara-sauce": "File:Vegan Tomato Basil Marinara Sauce (8529418515).jpg: Review 2026-10-15: product shot, canning jars with legible Ball brand embossing; no dish shown.",
+    "beef-pot-roast": "File:Pot roast 1.jpg: Review 2026-10-15: shows roasted potatoes, carrots and a sausage-like slice; recipe has only chuck roast, onion, bouillon, OJ and allspice.",
+    "chilled-blueberry-soup": "File:Blueberry soup.jpg: Review 2026-10-15: fusilli pasta in the soup and flower garnish; recipe is blueberries, apple juice, yogurt, cinnamon, mint.",
+    "fruit-kabobs-yogurt-dip": "File:Fruit skewers.jpg: Review 2026-10-15: skewers of mandarin, pineapple and grapes; recipe is watermelon, pineapple, grapes, strawberries, kiwi.",
+    "scrambled-eggs-zucchini": "Scrambled eggs with sautéed red bell peppers, zucchini and roasted potatoes: Review 2026-10-15: roasted potatoes are the bulk of the photo; recipe has no potatoes.",
+    "honey-lemon-chicken": "File:Lemon Chicken on Rice.jpg: Review 2026-10-15: served on a mound of rice the recipe does not include."
   }
 }

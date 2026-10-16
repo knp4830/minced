@@ -1,0 +1,154 @@
+recipe_ingredient_id,ingredient,quantity,unit,old_prep_note,new_prep_note,promoted_to,removed
+6312,vanilla yogurt,0.125,cup,2 tablespoons,,,2 tablespoons
+6324,unsalted butter,10.0,tbsp,1 full stick + 2 tablespoons,,,1 full stick + 2 tablespoons
+6332,apricot jam,8.0,tbsp,1/2 cup,,,1/2 cup
+6336,orange,,,"1 teaspoon, optional",optional,1 tsp,1 teaspoon
+6454,orange juice,0.0625,cup,1 tablespoon,,,1 tablespoon
+6493,pine nuts,,,"1 cup, optional",optional,1 cup,1 cup
+6687,salt,,,"1/4 teaspoon, optional",optional,0.25 tsp,1/4 teaspoon
+6705,black pepper,,,"1/4 teaspoon, optional",optional,0.25 tsp,1/4 teaspoon
+6706,garlic powder,,,"1/4 teaspoon, optional",optional,0.25 tsp,1/4 teaspoon
+6719,all-purpose flour,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+6799,raisins,,,"1/2 cup, optional",optional,0.5 cup,1/2 cup
+6800,sunflower seeds,,,"1/2 cup, optional",optional,0.5 cup,1/2 cup
+6881,green bell pepper,,,"1/2 cup, optional",optional,0.5 cup,1/2 cup
+6882,red bell pepper,,,"1/2 cup, optional",optional,0.5 cup,1/2 cup
+6890,vanilla extract,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+6903,milk,,,"1/2 cup optional, only if adding carrots, raisins or walnuts","optional, only if adding carrots, raisins or walnuts",0.5 cup,1/2 cup
+7000,orange juice,0.0625,cup,1 tablespoon,,,1 tablespoon
+7012,ground beef,32.0,oz,"2 pounds, cubed",cubed,,2 pounds
+7092,granulated sugar,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+7103,lime,,,"1 tablespoon, optional",optional,1 tbsp,1 tablespoon
+7109,fresh cilantro,,,"2 tablespoons chopped, optional","chopped, optional",2 tbsp,2 tablespoons
+7110,yellow mustard,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+7121,sour cream,,,2 Tablespoons optional or reduced fat plain yogurt,optional or reduced fat plain yogurt,2 tbsp,2 Tablespoons
+7185,salt,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+7289,yellow onion,,,"optional, 1 tablespoon",optional,1 tbsp,1 tablespoon
+7309,corn,0.125,cup,2 tablespoons,,,2 tablespoons
+7311,green bell pepper,0.125,cup,2 tablespoons,,,2 tablespoons
+7313,tomato,0.0625,cup,1 tablespoon,,,1 tablespoon
+7328,cheddar cheese,,,"1/2 cup grated, optional","grated, optional",0.5 cup,1/2 cup
+7395,poppy seeds,,,"1 teaspoon, optional",optional,1 tsp,1 teaspoon
+7424,walnuts,,,"1/4 cup, chopped, optional","chopped, optional",0.25 cup,1/4 cup
+7512,chicken bouillon,3.0,tsp,1 tablespoon,,,1 tablespoon
+7568,cornmeal,0.25,cup,about 4 tablespoons,,,about 4 tablespoons
+7599,dry milk powder,8.333333333333334,tbsp,1/2 cup + 1 teaspoon,,,1/2 cup + 1 teaspoon
+7732,salt,,,"optional, 1/4 teaspoon",optional,0.25 tsp,1/4 teaspoon
+7742,fresh parsley,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+7862,sweet pickle relish,,,2 tablespoons,,2 tbsp,2 tablespoons
+7911,fresh parsley,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+8020,margarine,0.5,cup,1 stick,,,1 stick
+8033,walnuts,,,"1/4 cup, optional",optional,0.25 cup,1/4 cup
+8159,orange juice,0.0625,cup,1 tablespoon,,,1 tablespoon
+8170,crushed red pepper,,,"1/4 teaspoon, optional",optional,0.25 tsp,1/4 teaspoon
+8175,red bell pepper,0.125,cup,2 Tablespoons,,,2 Tablespoons
+8176,green bell pepper,0.125,cup,2 Tablespoons,,,2 Tablespoons
+8236,corn,,,about 3 cups,,3 cup,about 3 cups
+8299,salt,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+8328,powdered sugar,,,"1/3 cup, for glaze",for glaze,0.333333 cup,1/3 cup
+8329,water,,,"1 teaspoon, for glaze",for glaze,1 tsp,1 teaspoon
+8384,orange juice,0.125,cup,2 tablespoons,,,2 tablespoons
+8391,salt,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+8392,fresh dill,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+8417,salt,,,"optional, 2 teaspoons",optional,2 tsp,2 teaspoons
+8426,plain yogurt,,,"optional, 1 teaspoon per serving","optional, per serving",1 tsp,1 teaspoon
+8437,ranch dressing,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+8539,salt,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+8586,crushed red pepper,,,"optional, 1/2 teaspoon",optional,0.5 tsp,1/2 teaspoon
+8612,yellow mustard,,,about 1/2 pound,,0.5 lb,about 1/2 pound
+8613,collard greens,,,about 1/2 pound,,0.5 lb,about 1/2 pound
+8740,sweet pickle relish,,,2/3 tablespoon,,0.666667 tbsp,2/3 tablespoon
+8787,carrot,0.25,cup,"4 tablespoons, shredded",shredded,,4 tablespoons
+8788,parmesan,0.3333333333333333,tbsp,"1 teaspoon, grated",grated,,1 teaspoon
+9028,orange juice,,,2 Tablespoons,,2 tbsp,2 Tablespoons
+9030,lemon,,,2 Tablespoons,,2 tbsp,2 Tablespoons
+9059,plain yogurt,,,8 oz,,8 oz,8 oz
+9060,vanilla yogurt,,,8 oz,,8 oz,8 oz
+9063,brown sugar,1.5,tsp,1/2 tablespoon,,,1/2 tablespoon
+9148,beef broth,,,14.5 ounces,,14.5 oz,14.5 ounces
+9149,chicken broth,,,14.5 ounces,,14.5 oz,14.5 ounces
+9296,raisins,,,"optional, 1/4 cup",optional,0.25 cup,1/4 cup
+9492,dried basil,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+9502,salt,,,"1 teaspoon, optional",optional,1 tsp,1 teaspoon
+9507,plain yogurt,4.0,tbsp,1/4 cup,,,1/4 cup
+9571,salt,,,"1/4 teaspoon, to taste",to taste,0.25 tsp,1/4 teaspoon
+9572,black pepper,,,"1/4 teaspoon, to taste",to taste,0.25 tsp,1/4 teaspoon
+9692,salt,,,"1 teaspoon, optional",optional,1 tsp,1 teaspoon
+9705,brown sugar,9.0,tsp,3 tablespoons,,,3 tablespoons
+9774,firm tofu,,,14 ounces,,14 oz,14 ounces
+9779,sesame seeds,0.3333333333333333,tbsp,"1 teaspoon, toasted",toasted,,1 teaspoon
+9873,crushed red pepper,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+9903,brown sugar,3.0,tsp,"1 tablespoon, packed",packed,,1 tablespoon
+9926,yellow onion,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+10006,fresh cilantro,,,"1 tablespoon, optional",optional,1 tbsp,1 tablespoon
+10020,orange juice,0.0625,cup,1 tablespoon,,,1 tablespoon
+10126,corn,0.125,cup,2 tablespoons,,,2 tablespoons
+10128,yellow onion,0.6666666666666666,tbsp,2 teaspoons,,,2 teaspoons
+10243,active dry yeast,,,1/4 ounce,,0.25 oz,1/4 ounce
+10250,garlic,,,"2 teaspoons, optional",optional,2 tsp,2 teaspoons
+10251,butter,4.0,tbsp,1/4 cup,,,1/4 cup
+10253,water,8.0,cup,2 quarts,,,2 quarts
+10353,orange juice,0.125,cup,2 tablespoons,,,2 tablespoons
+10357,ground nutmeg,,,"1/8 teaspoon, optional",optional,0.125 tsp,1/8 teaspoon
+10377,paprika,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+10378,garlic powder,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+10380,salt,,,"optional, 1/2 teaspoon",optional,0.5 tsp,1/2 teaspoon
+10416,butter,4.0,tbsp,1/4 cup,,,1/4 cup
+10473,parmesan,,,"1/2 cup, optional",optional,0.5 cup,1/2 cup
+10605,carrot,,,"2 tablespoons, optional",optional,2 tbsp,2 tablespoons
+10625,strawberries,1.3333333333333333,tbsp,4 teaspoons,,,4 teaspoons
+10801,brown sugar,6.0,tsp,2 Tablespoons,,,2 Tablespoons
+10857,cream of mushroom soup,,,10.75 ounces,,10.75 oz,10.75 ounces
+10858,chicken broth,,,10.75 ounces,,10.75 oz,10.75 ounces
+11036,vegetable broth,,,14.5 ounces,,14.5 oz,14.5 ounces
+11037,chicken broth,,,14.5 ounces,,14.5 oz,14.5 ounces
+11050,salsa,,,"4 tablespoons, optional",optional,4 tbsp,4 tablespoons
+11078,black-eyed peas,,,about 2 pounds,,2 lb,about 2 pounds
+11079,peas,,,about 2 pounds,,2 lb,about 2 pounds
+11089,mixed vegetables,,,10 ounce frozen or vegetables of your choice,frozen or vegetables of your choice,10 oz,10 ounce
+11099,plain yogurt,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+11121,garlic powder,,,"1 teaspoon, optional",optional,1 tsp,1 teaspoon
+11129,fresh parsley,,,"1 Tablespoon, optional",optional,1 tbsp,1 Tablespoon
+11130,fresh dill,,,"1 Tablespoon, optional",optional,1 tbsp,1 Tablespoon
+11137,breadcrumbs,,,"1 cup, optional",optional,1 cup,1 cup
+11226,chicken breast,,,"1/2 pound diced into 1/2-inch pieces, optional","diced into 1/2-inch pieces, optional",0.5 lb,1/2 pound
+11232,parmesan,,,"optional, 2 tablespoons, or other cheese","optional, or other cheese",2 tbsp,2 tablespoons
+11304,salt,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+11360,paprika,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+11361,parmesan,,,"1/4 cup, optional",optional,0.25 cup,1/4 cup
+11416,celery,,,"1/2 cup chopped, optional","chopped, optional",0.5 cup,1/2 cup
+11434,celery,,,"1/4 cup, optional",optional,0.25 cup,1/4 cup
+11435,green bell pepper,,,"1 tablespoon, optional",optional,1 tbsp,1 tablespoon
+11586,firm tofu,,,14 ounces,,14 oz,14 ounces
+11592,collard greens,,,1 1/2 pounds,,1.5 lb,1 1/2 pounds
+11593,kale,,,1 1/2 pounds,,1.5 lb,1 1/2 pounds
+11681,spaghetti sauce,,,24 ounces,,24 oz,24 ounces
+11682,spinach,,,"10 ounces, or chopped broccoli",or chopped broccoli,10 oz,10 ounces
+11684,broccoli,,,"10 ounce, frozen, can also use mustard greens, collard greens or spinach","frozen, can also use mustard greens, collard greens or spinach",10 oz,10 ounce
+11685,tomato,,,about 30 oz,,30 oz,about 30 oz
+11686,beef broth,,,about 30 oz,,30 oz,about 30 oz
+11730,pinto beans,1.0,lb,"16 ounce dried, rinsed","dried, rinsed",,16 ounce
+11797,sesame seeds,,,"2 tablespoons, optional",optional,2 tbsp,2 tablespoons
+11923,ketchup,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+11925,molasses,0.3333333333333333,tbsp,1 teaspoon,,,1 teaspoon
+11947,ground nutmeg,,,"1/8 teaspoon, optional",optional,0.125 tsp,1/8 teaspoon
+12015,lemon,,,"2 tablespoons, optional",optional,2 tbsp,2 tablespoons
+12016,lime,,,"2 tablespoons, optional",optional,2 tbsp,2 tablespoons
+12156,raisins,,,"1/3 cup, optional",optional,0.333333 cup,1/3 cup
+12265,brown sugar,6.0,tsp,"2 tablespoons, packed",packed,,2 tablespoons
+12330,brown sugar,6.0,tsp,2 tablespoons,,,2 tablespoons
+12350,ground cumin,,,"1 1/2 teaspoons, optional",optional,1.5 tsp,1 1/2 teaspoons
+12522,firm tofu,,,14 ounce - patted dry and cut into ½ inch cubes,patted dry and cut into ½ inch cubes,14 oz,14 ounce
+12528,fresh cilantro,,,"1/4 cup, optional",optional,0.25 cup,1/4 cup
+12587,chili powder,,,"2 teaspoons, optional",optional,2 tsp,2 teaspoons
+12654,cream of mushroom soup,,,"10.75 ounces, or cream of celery, or chicken","or cream of celery, or chicken",10.75 oz,10.75 ounces
+12655,chicken broth,,,"10.75 ounces, or cream of celery, or chicken","or cream of celery, or chicken",10.75 oz,10.75 ounces
+12661,mayonnaise,0.125,cup,2 Tablespoons,,,2 Tablespoons
+12662,plain yogurt,0.125,cup,2 Tablespoons,,,2 Tablespoons
+12810,salt,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+12935,salt,,,"1/2 teaspoon, optional",optional,0.5 tsp,1/2 teaspoon
+13033,broccoli,0.0625,cup,1 tablespoon,,,1 tablespoon
+13143,vanilla yogurt,,,6 oz,,6 oz,6 oz
+13147,strawberry yogurt,,,6 oz,,6 oz,6 oz
+13161,vanilla yogurt,,,"1 teaspoon, optional",optional,1 tsp,1 teaspoon
+13284,dried sage,16.0,oz,1 pound,,,1 pound

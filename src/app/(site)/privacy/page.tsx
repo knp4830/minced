@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy policy"
-      updated="October 13, 2026"
+      updated="October 14, 2026"
       intro="Minced is a small personal project. You can browse every recipe without an account and without giving us anything. If you make an account, this page says exactly what we keep and how to remove it."
     >
       <LegalSection id="who" title="Who runs this">

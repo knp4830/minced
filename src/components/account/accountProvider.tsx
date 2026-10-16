@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
   useCallback,
@@ -14,6 +14,7 @@ import {
 } from "react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { logOutQuiet } from "@/lib/actions/auth";
 import { toggleFavorite } from "@/lib/actions/favorites";
 
 /*
@@ -38,12 +39,17 @@ type AccountContext = {
   me: Me | null;
   isSaved: (slug: string) => boolean;
   toggle: (slug: string) => Promise<ToggleResult>;
+  /** Signs out, drops the signed-in UI at once, and goes home. */
+  signOut: () => Promise<void>;
 };
 
 const Ctx = createContext<AccountContext | null>(null);
 
 /** Pages where signing in, out or deleting an account happens; navigating to or from one means "ask again". */
 const AUTH_PATH = /^\/(login|signup|account|reset-password|forgot-password|auth)(\/|$)/;
+
+/** Pages that only make sense signed in: signing out from one goes home. */
+const SIGNED_IN_AREA = /^\/(account|fridge|me)(\/|$)|^\/recipes\/new\/?$|^\/recipes\/[^/]+\/edit\/?$/;
 
 const AUTH_COOKIE = /(?:^|;\s*)sb-[^=;]*-auth-token/;
 
@@ -71,6 +77,7 @@ export function useAccount(): AccountContext {
 
 export function AccountProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   // Starts "out" so server HTML and first client render agree (and no-JS shows "Log in").
   const [status, setStatus] = useState<Status>("out");
   const [me, setMe] = useState<Me | null>(null);
@@ -178,9 +185,39 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     [saved, pathname, apply],
   );
 
+  // Signing out through a server-action redirect is unreliable here: the @modal
+  // intercepting route swallows the redirect on /account, and from other pages the
+  // provider never re-asks. So sign out, reset the provider, then navigate ourselves.
+  const signOut = useCallback(async () => {
+    try {
+      await logOutQuiet();
+    } catch {
+      // Fall through: the re-check below says whether the session really ended.
+    }
+    apply("out", null, []);
+    const here = window.location.pathname;
+    // Signed-in areas and auth pages have nothing to show a signed-out visitor, and on auth
+    // pages the @modal slot swallows a soft navigation: leave with a full page load.
+    if (AUTH_PATH.test(here) || SIGNED_IN_AREA.test(here)) {
+      window.location.assign("/");
+      return;
+    }
+    // A public page stays where it is. The fridge page carries the saved fridge in its URL, so
+    // drop that; every page re-renders and the provider asks /api/me once more to confirm.
+    if (here === "/pantry" && window.location.search) router.replace("/pantry");
+    router.refresh();
+    try {
+      const res = await fetch("/api/me", { cache: "no-store" });
+      const body = (await res.json()) as { user: Me | null; favorites: string[] };
+      if (res.ok && body.user) apply("in", body.user, body.favorites); // sign-out did not take
+    } catch {
+      // Offline: the cookie is gone either way; stay signed out.
+    }
+  }, [apply, router]);
+
   const value = useMemo<AccountContext>(
-    () => ({ status, me, isSaved: (slug) => saved.has(slug), toggle }),
-    [status, me, saved, toggle],
+    () => ({ status, me, isSaved: (slug) => saved.has(slug), toggle, signOut }),
+    [status, me, saved, toggle, signOut],
   );
 
   return (
@@ -224,12 +261,14 @@ function LoginPrompt({ returnTo, onClose }: { returnTo: string | null; onClose: 
       <div className="mt-4 flex flex-col gap-2.5">
         <Link
           href={`/login?next=${next}`}
+          onClick={onClose}
           className={buttonVariants({ variant: "primary", size: "md" })}
         >
           Log in
         </Link>
         <Link
           href={`/signup?next=${next}`}
+          onClick={onClose}
           className={buttonVariants({ variant: "secondary", size: "md" })}
         >
           Create an account

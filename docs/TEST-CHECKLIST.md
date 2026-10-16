@@ -123,5 +123,24 @@ Live site: https://minced-app.vercel.app
 - The "under 20 min" time filter counts recipes with unknown time (stored as 0) as matching.
 - Fridge "Use these first" returns one page of 99.
 
+## 14. Review wave (2026-10-15), check after the migration, dedupe and cleanup are live
+- [ ] Landing: green nav, "Know what to cook tonight.", stat strip reads "No sign-up", three Coming soon cards (nutrition, workouts, share your own recipes), no horizontal scroll at 375.
+- [ ] Signed out: header "What's in my fridge?" opens the picker; "Sign in to save your fridge" shows; nothing is stored; reload loses picks.
+- [ ] Log in and Sign up open as a modal over the page; Esc, X and backdrop close and return focus; direct `/login` is a full page.
+- [ ] Sign out from `/account` lands on `/`.
+- [ ] `/me` shows a coming-soon page; "My recipes" shows a placeholder when the flag is off.
+- [ ] Filters: time chips and From/To; Contains chips narrow results (also with `?q=` and on `/pantry`); calories and protein sliders move with arrow keys; max spice is gone.
+- [ ] Signed in: cookware filter shows the toggle plus a collapsed list; signed out: no cookware group.
+- [ ] Apple Cake: "12 servings", nutrition tiles, More nutrition, one allergen row, 12 px gap at the stepper, no amount in the butter note.
+- [ ] Signed out with no fridge link: no have/missing marks. With `?pantry=` the staples sentence appears.
+- [ ] Shopping list shows names, grouped by aisle, no cups or grams.
+- [ ] `/about` no longer says accounts are unavailable.
+- [ ] After dedupe: heavenly-deviled-eggs and tostadas-delgadas are 404; recipe count is 957.
+- [ ] Landing and filters make no spice-level claim; "No sign-up" shows as normal text (no hex box); `/lab/hero` is 404.
+- [ ] Sign out from the header on `/recipes`, from `/pantry` and from `/account`: header returns to Log in / Sign up, fridge picks are gone, Back does not show stale account content.
+- [ ] Apple Cake at 12, 2 and 1 servings: amounts read in cups, tbsp and tsp (no decimals); eggs read "about 1/2 egg" at 1 serving; prep notes do not change with servings.
+- [ ] After applying the prep-note cleanup: cranberry-salad shows no stray ". packages" note (known defect until `clean_prep_notes.py` is fixed).
+- Still open: mac and cheese search, unknown-time recipes pass time ranges, kitchen-fraction oddities (19 tbsp, 1/8 egg), prep-note cleanup edge cases (cranberry-salad, 'about 3 cups', delicious-greens mustard), legacy photo rejections without file names (29) not guarded against rebuild.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

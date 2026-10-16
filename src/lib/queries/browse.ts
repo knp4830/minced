@@ -149,6 +149,9 @@ function decodeBrowseCursor(
 function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters): T {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let q: any = query;
+  if (f.minTime !== undefined) {
+    q = q.or(`total_time_min.is.null,total_time_min.eq.0,total_time_min.gte.${f.minTime}`);
+  }
   if (f.maxTime !== undefined) {
     q = q.or(`total_time_min.is.null,total_time_min.eq.0,total_time_min.lte.${f.maxTime}`);
   }
@@ -167,9 +170,10 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   // when a matching child exists (no duplicates when it has several); recipes
   // with no cookware rows never match, per the shared contract.
   if (f.cookware?.length) q = q.in("cw.cookware.slug", f.cookware);
-  // "Only what I can make with my cookware" is not a filter here: with it on, the
-  // list is read from makeable_recipes(owned) instead of the table (see loadBrowse),
-  // because "any member of an alternatives group" cannot be written as a PostgREST filter.
+  // "Only what I can make with my cookware" and "contains these ingredients" are not
+  // filters here: with either on, the list is read from filtered_recipes(owned, include)
+  // instead of the table (see loadBrowse), because "any member of an alternatives group is
+  // owned" and "ingredient or its family" cannot be written as PostgREST filters.
   return q as T;
 }
 
@@ -191,10 +195,20 @@ async function loadBrowse(
 
   // With "only my cookware" on, read the recipes the cook can make (alternatives
   // groups: owning any member is enough); otherwise the table itself.
+  // Likewise "contains these ingredients" (family-expanded). One RPC does both, and
+  // PostgREST still filters, embeds, orders and pages on top of its rows.
   const countOpt = cursor ? undefined : { count: "exact" as const };
-  let query = filters.ownedOnly
+  const useRpc = filters.ownedOnly || !!filters.include?.length;
+  let query = useRpc
     ? sb
-        .rpc("makeable_recipes", { owned: filters.ownedCookware ?? [] }, countOpt)
+        .rpc(
+          "filtered_recipes",
+          {
+            owned: filters.ownedOnly ? (filters.ownedCookware ?? []) : null,
+            include_ids: filters.include?.length ? filters.include : null,
+          },
+          countOpt,
+        )
         .select(selectFor(filters))
     : sb.from("recipes").select(selectFor(filters), countOpt);
   query = applyFilters(query, filters);
@@ -331,7 +345,81 @@ export type FilterOptions = {
   cookware: { slug: string; name: string }[];
   /** The whole cookware vocabulary: what a cook can say they own, used or not. */
   allCookware: { slug: string; name: string }[];
+  /** Ingredient chips for the "Contains" filter, by shelf, most-used first. */
+  ingredientGroups: IngredientGroup[];
 };
+
+export type IngredientGroup = {
+  slug: string;
+  name: string;
+  items: { id: number; name: string; uses: number }[];
+};
+
+/** Shelf order and wording for the "Contains" filter. Slugs are `ingredients.filter_group`, plus "dairy". */
+const INGREDIENT_GROUPS = [
+  { slug: "vegetables", name: "Vegetables" },
+  { slug: "fruit", name: "Fruit" },
+  { slug: "herbs", name: "Fresh herbs" },
+  { slug: "meat", name: "Meat & poultry" },
+  { slug: "seafood", name: "Seafood" },
+  { slug: "dairy", name: "Dairy & eggs" },
+  { slug: "legumes", name: "Beans, lentils & tofu" },
+  { slug: "grains", name: "Grains, pasta & bread" },
+  { slug: "nuts", name: "Nuts & seeds" },
+  { slug: "spices", name: "Spices" },
+  { slug: "pantry", name: "Pantry & sauces" },
+] as const;
+
+const AISLE_SHELF: Record<string, string> = {
+  Produce: "vegetables",
+  Protein: "meat",
+  Dairy: "dairy",
+  Spices: "spices",
+  Other: "grains",
+  Pantry: "pantry",
+};
+
+type IngredientRow = {
+  id: number;
+  canonical_name: string;
+  aisle_category: string;
+  filter_group: string | null;
+  is_pantry_staple: boolean;
+  family_id: number | null;
+  recipe_ingredients: { count: number }[];
+};
+
+/**
+ * One chip per family PARENT ("onion", not "yellow onion"): the filter expands a
+ * parent to its variants in Postgres, so offering both would be two taps for one
+ * answer. A variant's usage is credited to its parent. Pantry staples are left out
+ * (salt, oil: nearly every recipe has them, so the chip would filter nothing), as are
+ * ingredients no recipe uses (a dead end).
+ */
+function buildIngredientGroups(rows: IngredientRow[]): IngredientGroup[] {
+  const uses = new Map<number, number>();
+  for (const r of rows) {
+    const target = r.family_id ?? r.id;
+    uses.set(target, (uses.get(target) ?? 0) + (r.recipe_ingredients[0]?.count ?? 0));
+  }
+  const byShelf = new Map<string, IngredientGroup["items"]>();
+  for (const r of rows) {
+    if (r.family_id !== null || r.is_pantry_staple) continue;
+    const n = uses.get(r.id) ?? 0;
+    if (n === 0) continue;
+    // Eggs sit on their own shelf in the database; the panel shows them with dairy.
+    const raw = r.filter_group ?? AISLE_SHELF[r.aisle_category] ?? "pantry";
+    const shelf = raw === "eggs" ? "dairy" : raw;
+    const list = byShelf.get(shelf) ?? [];
+    list.push({ id: r.id, name: r.canonical_name.toLowerCase(), uses: n });
+    byShelf.set(shelf, list);
+  }
+  return INGREDIENT_GROUPS.filter((g) => (byShelf.get(g.slug)?.length ?? 0) > 0).map((g) => ({
+    slug: g.slug,
+    name: g.name,
+    items: byShelf.get(g.slug)!.sort((a, b) => b.uses - a.uses || a.name.localeCompare(b.name)),
+  }));
+}
 
 /**
  * Vocabularies for the filter panel. Cuisines are listed only if at least one
@@ -340,16 +428,21 @@ export type FilterOptions = {
  */
 async function loadFilterOptions(): Promise<FilterOptions> {
   const sb = createStaticClient() as unknown as SupabaseClient;
-  const [cuisines, diets, allergens, cookware] = await Promise.all([
+  const [cuisines, diets, allergens, cookware, ingredients] = await Promise.all([
     sb.from("cuisines").select("slug, name, recipes(count)").order("name"),
     sb.from("diets").select("slug, name").order("name"),
     sb.from("allergens").select("slug, name").order("name"),
     sb.from("cookware").select("slug, name, recipe_cookware(count)").order("name"),
+    sb
+      .from("ingredients")
+      .select("id, canonical_name, aisle_category, filter_group, is_pantry_staple, family_id, recipe_ingredients(count)")
+      .limit(5000),
   ]);
   if (cuisines.error) throw cuisines.error;
   if (diets.error) throw diets.error;
   if (allergens.error) throw allergens.error;
   if (cookware.error) throw cookware.error;
+  if (ingredients.error) throw ingredients.error;
 
   return {
     cuisines: (cuisines.data as { slug: string; name: string; recipes: { count: number }[] }[])
@@ -364,6 +457,7 @@ async function loadFilterOptions(): Promise<FilterOptions> {
       slug,
       name,
     })),
+    ingredientGroups: buildIngredientGroups((ingredients.data ?? []) as unknown as IngredientRow[]),
   };
 }
 
@@ -372,6 +466,6 @@ async function loadFilterOptions(): Promise<FilterOptions> {
  * and the panel renders on every browse/search request. Uses the cookie-free
  * client because unstable_cache cannot read request cookies.
  */
-export const getFilterOptions = unstable_cache(loadFilterOptions, ["filter-options-v2"], {
+export const getFilterOptions = unstable_cache(loadFilterOptions, ["filter-options-v3"], {
   revalidate: 3600,
 });

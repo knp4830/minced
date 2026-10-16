@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { CookwareEditor } from "@/components/account/cookwareEditor";
 import { DeleteAccountForm } from "@/components/account/authForms";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { MyRecipeBook } from "@/components/account/myRecipeBook";
+import { ComingSoon } from "@/components/shell/comingSoon";
 import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { logOut } from "@/lib/actions/auth";
+import { SignOutForm } from "@/components/account/signOutForm";
 import { getCurrentUser } from "@/lib/queries/account";
+import { getFilterOptions } from "@/lib/queries/browse";
 import { getFavoriteCards } from "@/lib/queries/favorites";
 import { listMyRecipes } from "@/lib/queries/myRecipes";
+import { getMyCookwareSlugs } from "@/lib/queries/userCookware";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -20,12 +24,13 @@ export const metadata: Metadata = {
 
 const ALL_TABS = [
   { id: "library", label: "My Library" },
-  { id: "book", label: "My Recipe Book" },
+  { id: "book", label: "My recipes" },
   { id: "settings", label: "Settings" },
 ] as const;
 type TabId = (typeof ALL_TABS)[number]["id"];
-// The recipe book is hidden until user recipes are switched on (see src/lib/flags.ts).
-const TABS = ALL_TABS.filter((t) => t.id !== "book" || USER_RECIPES_ENABLED);
+// "My recipes" is always listed. Until user recipes are switched on (see src/lib/flags.ts)
+// it shows a coming-soon note instead of the book.
+const TABS = ALL_TABS;
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
@@ -40,7 +45,14 @@ export default async function AccountPage({ searchParams }: Props) {
   if (!user) redirect("/login?next=%2Faccount");
 
   const saved = tab === "library" ? await getFavoriteCards() : [];
-  const mine = tab === "book" ? await listMyRecipes() : [];
+  const mine = tab === "book" && USER_RECIPES_ENABLED ? await listMyRecipes() : [];
+  const [allCookware, myCookware] =
+    tab === "settings"
+      ? await Promise.all([
+          getFilterOptions().then((o) => o.allCookware),
+          getMyCookwareSlugs().catch(() => [] as string[]),
+        ])
+      : [[], [] as string[]];
   const rawFlash = Array.isArray(sp.notice) ? sp.notice[0] : sp.notice;
   const flash = tab === "book" && rawFlash ? rawFlash : null;
 
@@ -57,11 +69,11 @@ export default async function AccountPage({ searchParams }: Props) {
           <h1 className="truncate text-[1.625rem] leading-tight md:text-[2rem]">{user.name}</h1>
           <p title={user.email} className="truncate font-mono text-[0.8125rem] text-ink-muted">{user.email}</p>
         </div>
-        <form action={logOut}>
+        <SignOutForm>
           <Button type="submit" variant="secondary" className="text-paprika-deep">
             Sign out
           </Button>
-        </form>
+        </SignOutForm>
       </header>
 
       {notice && (
@@ -110,7 +122,17 @@ export default async function AccountPage({ searchParams }: Props) {
           </>
         )}
 
-        {tab === "book" && <MyRecipeBook recipes={mine} notice={flash} />}
+        {tab === "book" &&
+          (USER_RECIPES_ENABLED ? (
+            <MyRecipeBook recipes={mine} notice={flash} />
+          ) : (
+            <ComingSoon title="Your own recipes, in one place">
+              <p>
+                Write down the dishes you make your way, with your own amounts and steps, and keep them next
+                to everything you have saved. It is on its way.
+              </p>
+            </ComingSoon>
+          ))}
 
         {tab === "settings" && (
           <>
@@ -118,6 +140,14 @@ export default async function AccountPage({ searchParams }: Props) {
               Settings
             </h2>
             <div className="max-w-xl space-y-8">
+              <div id="cookware" className="scroll-mt-24">
+                <h3 className="text-base font-semibold">My cookware</h3>
+                <p className="mt-1.5 mb-3 text-[0.9375rem] leading-relaxed text-ink-muted">
+                  Tap what you own. Switch on &ldquo;Only what I can make with my cookware&rdquo; in the
+                  recipe filters and Minced hides anything that needs a pan or pot you don&apos;t have.
+                </p>
+                <CookwareEditor all={allCookware} initial={myCookware} />
+              </div>
               <div>
                 <h3 className="text-base font-semibold">Your data</h3>
                 <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-muted">

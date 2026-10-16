@@ -1,7 +1,7 @@
 // Run: node --experimental-strip-types scripts/test-shopping.mts
 // Plain asserts, no test runner (no new packages). Exits non-zero on failure.
 import assert from "node:assert/strict";
-import { batchCount, groupByAisle, listStats, mergeLines, selectForList, type ShopLine } from "../src/lib/shopping.ts";
+import { batchCount, buyList, groupBuyByAisle, groupByAisle, listStats, mergeLines, selectForList, type ShopLine } from "../src/lib/shopping.ts";
 
 let n = 0;
 const line = (o: Partial<ShopLine> & { ingredientId: number }): ShopLine => ({
@@ -185,6 +185,32 @@ assert.equal(
   assert.equal(batchCount(once, recipe), 1, "one add of a recipe with repeated ingredients is 1 batch");
   assert.equal(batchCount([...once, ...once], recipe), 2, "after Add again it is 2 batches");
   assert.equal(batchCount(once.filter((l) => l.ingredientId !== 1), recipe), 1, "skipped lines do not matter");
+}
+
+// Review item 16: the list shows names, not measurements; counts only where you buy by the piece.
+{
+  const rows = buyList(
+    mergeLines([
+      line({ ingredientId: 1, name: "milk", ...CUP, quantity: 1.5 }),
+      line({ ingredientId: 1, name: "milk", ...TBSP, quantity: 2 }),
+      line({ ingredientId: 2, name: "egg", quantity: 2.5, recipeSlug: "a", recipeTitle: "A" }),
+      line({ ingredientId: 2, name: "egg", quantity: 1, recipeSlug: "b", recipeTitle: "B" }),
+      line({ ingredientId: 3, name: "diced tomatoes", unit: "can", unitKind: "count", quantity: 2 }),
+      line({ ingredientId: 4, name: "lemon", quantity: 1 }),
+      line({ ingredientId: 5, name: "garlic", unit: "clove", unitKind: "count", quantity: 6 }),
+      line({ ingredientId: 6, name: "salt", quantity: null }),
+    ]),
+  );
+  const by = (name: string) => rows.find((r) => r.name === name)!;
+  assert.equal(rows.length, 6, "one row per ingredient");
+  assert.equal(by("milk").count, null, "no cups of milk on the list");
+  assert.equal(by("egg").count, "4", "2.5 + 1 eggs round UP to 4");
+  assert.deepEqual(by("egg").recipes.map((r) => r.slug), ["a", "b"], "source tags survive");
+  assert.equal(by("diced tomatoes").count, "2 cans");
+  assert.equal(by("lemon").count, null, "a count of 1 is noise");
+  assert.equal(by("garlic").count, null, "cloves are not bought by the clove");
+  assert.equal(by("salt").count, null);
+  assert.equal(groupBuyByAisle(rows)[0].aisle, "Produce");
 }
 
 console.log("shopping: all assertions passed");

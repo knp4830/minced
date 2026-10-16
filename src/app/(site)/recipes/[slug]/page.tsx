@@ -1,4 +1,5 @@
 import { BackToResults } from "@/components/recipe/backToResults";
+import { ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -68,14 +69,28 @@ export async function generateMetadata({
 
 const round = (n: number, step: number) => Math.round(n / step) * step;
 
-function nutritionRows(n: RecipeDetail["nutrition"]) {
+/** The four numbers people look for first. */
+function nutritionHeadline(n: RecipeDetail["nutrition"]) {
   const rows: { label: string; value: string }[] = [];
   if (n.calories != null) rows.push({ label: "Calories", value: `${round(n.calories, 5)}` });
   if (n.proteinG != null) rows.push({ label: "Protein", value: `${Math.round(n.proteinG)} g` });
   if (n.carbsG != null) rows.push({ label: "Carbs", value: `${Math.round(n.carbsG)} g` });
   if (n.fatG != null) rows.push({ label: "Fat", value: `${Math.round(n.fatG)} g` });
-  if (n.fiberG != null) rows.push({ label: "Fiber", value: `${Math.round(n.fiberG)} g` });
-  if (n.sodiumMg != null) rows.push({ label: "Sodium", value: `${round(n.sodiumMg, 10)} mg` });
+  return rows;
+}
+
+/**
+ * The label view. Daily values are the FDA's reference amounts for a 2,000 calorie diet.
+ * Only nutrients the database holds are listed; nothing is invented.
+ */
+function nutritionLabel(n: RecipeDetail["nutrition"]) {
+  const rows: { label: string; value: string; dv: number | null; indent?: boolean }[] = [];
+  const pct = (v: number, daily: number) => Math.round((v / daily) * 100);
+  if (n.fatG != null) rows.push({ label: "Total fat", value: `${Math.round(n.fatG)} g`, dv: pct(n.fatG, 78) });
+  if (n.sodiumMg != null) rows.push({ label: "Sodium", value: `${round(n.sodiumMg, 10)} mg`, dv: pct(n.sodiumMg, 2300) });
+  if (n.carbsG != null) rows.push({ label: "Total carbohydrate", value: `${Math.round(n.carbsG)} g`, dv: pct(n.carbsG, 275) });
+  if (n.fiberG != null) rows.push({ label: "Dietary fiber", value: `${Math.round(n.fiberG)} g`, dv: pct(n.fiberG, 28), indent: true });
+  if (n.proteinG != null) rows.push({ label: "Protein", value: `${Math.round(n.proteinG)} g`, dv: pct(n.proteinG, 50) });
   return rows;
 }
 
@@ -127,7 +142,8 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const isUsda = recipe.sourceName?.includes("MyPlate") ?? false;
   const isAi = recipe.sourceName === AI_SOURCE_NAME;
   const isUser = recipe.sourceName === USER_SOURCE_NAME;
-  const nutrition = nutritionRows(recipe.nutrition);
+  const nutrition = nutritionHeadline(recipe.nutrition);
+  const label = nutritionLabel(recipe.nutrition);
 
   return (
     <article className="page-w pt-4 pb-6 md:pt-6">
@@ -157,6 +173,24 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             calories={recipe.nutrition.calories != null ? round(recipe.nutrition.calories, 5) : undefined}
             spice={recipe.spiceLevel ?? undefined}
           />
+          {recipe.allergens.length > 0 && (
+            <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5">
+              <p className="flex items-center gap-1.5 font-mono text-[0.625rem] tracking-[0.08em] text-paprika-deep uppercase">
+                <span aria-hidden className="size-1.5 rounded-full bg-paprika" />
+                Contains
+              </p>
+              <ul className="flex flex-wrap gap-1.5" aria-label="Allergens">
+                {recipe.allergens.map((a) => (
+                  <li
+                    key={a}
+                    className="rounded-full border border-paprika/30 bg-paprika/5 px-2.5 py-0.5 text-[0.75rem] leading-snug text-paprika-deep"
+                  >
+                    {a.toLowerCase()}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {isAi && (
             <p className="mt-3">
               <Link
@@ -219,14 +253,53 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
                 </h2>
                 <p className="font-mono text-[0.6875rem] text-ink-subtle">estimate · USDA data</p>
               </div>
-              <dl className="grid grid-cols-3 gap-x-4 gap-y-3 sm:grid-cols-6 lg:grid-cols-3 xl:grid-cols-6">
+              <dl className="grid grid-cols-2 gap-x-4 gap-y-3 min-[420px]:grid-cols-4">
                 {nutrition.map((row) => (
                   <div key={row.label} className="min-w-0">
                     <dt className="text-[0.75rem] text-ink-muted">{row.label}</dt>
-                    <dd className="font-mono text-[0.9375rem] font-semibold">~{row.value}</dd>
+                    <dd className="font-mono text-[1.0625rem] font-semibold">~{row.value}</dd>
                   </div>
                 ))}
               </dl>
+
+              {label.length > 0 && (
+                <details className="group mt-3 border-t border-line pt-2.5">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 rounded-xs text-[0.8125rem] font-semibold text-herb focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden">
+                    <span>More nutrition</span>
+                    <ChevronDown aria-hidden className="size-4 transition-transform group-open:rotate-180" />
+                  </summary>
+                  {/* Nutrition-label layout: a heavy rule above, hairlines between rows. */}
+                  <div className="mt-1 max-w-[22rem] rounded-md border border-ink bg-surface px-3 pt-2 pb-2.5 text-ink">
+                    <p className="text-[1.125rem] font-extrabold tracking-tight">Nutrition facts</p>
+                    <p className="text-[0.75rem] text-ink-muted">Per serving, estimated</p>
+                    {recipe.nutrition.calories != null && (
+                      <div className="mt-1 flex items-baseline justify-between border-t-[6px] border-ink pt-1">
+                        <span className="text-[0.9375rem] font-bold">Calories</span>
+                        <span className="font-mono text-[1.5rem] leading-none font-bold">
+                          {round(recipe.nutrition.calories, 5)}
+                        </span>
+                      </div>
+                    )}
+                    <p className="mt-1 border-t border-ink pt-1 text-right text-[0.6875rem] font-bold">% Daily value*</p>
+                    <dl>
+                      {label.map((row) => (
+                        <div
+                          key={row.label}
+                          className="flex items-baseline justify-between gap-3 border-t border-line-strong py-1 text-[0.8125rem]"
+                        >
+                          <dt className={row.indent ? "pl-4" : "font-bold"}>
+                            {row.label} <span className="font-normal">{row.value}</span>
+                          </dt>
+                          <dd className="font-mono font-bold">{row.dv != null ? `${row.dv}%` : ""}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <p className="mt-1.5 border-t-[6px] border-ink pt-1.5 text-[0.6875rem] leading-snug text-ink-muted">
+                      *Percent daily values use a 2,000 calorie diet. Amounts are estimated from USDA data.
+                    </p>
+                  </div>
+                </details>
+              )}
             </section>
           )}
 
@@ -264,17 +337,6 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             </div>
           )}
 
-          {recipe.allergens.length > 0 && (
-            <div className="rounded-lg border border-paprika/30 bg-paprika/5 px-3.5 py-3">
-              <p className="mb-1 flex items-center gap-1.5 font-mono text-[0.625rem] tracking-[0.08em] text-paprika-deep uppercase">
-                <span aria-hidden className="size-1.5 rounded-full bg-paprika" />
-                Allergens
-              </p>
-              <p className="text-[0.8125rem] text-paprika-deep">
-                Contains {recipe.allergens.join(", ").toLowerCase()}.
-              </p>
-            </div>
-          )}
         </div>
       </div>
 

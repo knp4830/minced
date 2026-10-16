@@ -1,23 +1,23 @@
 "use client";
 
-import { useId, useOptimistic, useRef, useState, useTransition } from "react";
+import { useId, useOptimistic, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAccount } from "@/components/account/accountProvider";
 import { startNavProgress } from "@/components/shell/navProgress";
-import { Chip } from "@/components/ui/chip";
-import { saveMyCookware } from "@/lib/actions/cookware";
 import { cookwareUrl, writeCookware, type StoredCookware } from "@/lib/cookwareStorage";
 import { cn } from "@/lib/utils";
 
 /*
- * "My cookware": the pots and pans this cook owns, plus a switch that hides
- * every recipe needing something they lack. Rendered inside the filter rail,
- * the phone filter sheet and the fridge page, so both doors filter the same way.
+ * "My cookware": a switch that hides every recipe needing something the cook lacks,
+ * Signed-in cooks only; signed-out visitors do not see it, though a shared link's
+ * ownedCookware still filters. This is the switch alone: the list of pots and pans lives in
+ * the account (Settings > cookware, see CookwareEditor) and the link below goes there.
+ * Rendered inside the filter rail, the phone filter sheet and the fridge page.
  *
  * State lives in the URL (`ownedCookware`, `ownedOnly`) like every other filter.
- * Each change also goes to localStorage, and to the account when signed in; see
- * CookwareSync for the way back. The chips repaint instantly (useOptimistic) and
- * the results catch up behind the progress bar.
+ * Each change also goes to localStorage; see CookwareSync for the way back. The switch
+ * repaints instantly (useOptimistic) and the results catch up behind the progress bar.
  */
 
 type Props = {
@@ -36,11 +36,9 @@ export function MyCookware({ owned, only, all }: Props) {
     { slugs: owned, only },
     (_current, next) => next,
   );
-  const [saveFailed, setSaveFailed] = useState(false);
-  // Account saves run one at a time, last write wins.
-  const saving = useRef<Promise<unknown>>(Promise.resolve());
 
-  if (all.length === 0) return null;
+  // Signed-in only: the list is saved to the account. A shared link's ownedCookware still filters.
+  if (all.length === 0 || status !== "in") return null;
 
   function apply(next: StoredCookware) {
     startNavProgress();
@@ -49,38 +47,12 @@ export function MyCookware({ owned, only, all }: Props) {
       setView(next);
       router.push(cookwareUrl(next), { scroll: false });
     });
-    if (status === "in") {
-      saving.current = saving.current.then(() =>
-        saveMyCookware(next.slugs)
-          .then((r) => setSaveFailed(!r.ok))
-          .catch(() => setSaveFailed(true)),
-      );
-    }
-  }
-
-  function toggleOwned(slug: string) {
-    const slugs = view.slugs.includes(slug)
-      ? view.slugs.filter((s) => s !== slug)
-      : [...view.slugs, slug];
-    apply({ slugs, only: view.only });
   }
 
   return (
     <fieldset className="mb-5 min-w-0" aria-busy={pending}>
       <legend className="label-mono mb-2.5">My cookware</legend>
-      <div className="flex flex-wrap gap-1.5">
-        {all.map((c) => (
-          <Chip
-            key={c.slug}
-            selected={view.slugs.includes(c.slug)}
-            onClick={() => toggleOwned(c.slug)}
-          >
-            {c.name}
-          </Chip>
-        ))}
-      </div>
-
-      <div className="mt-3 flex min-h-11 items-center justify-between gap-3">
+      <div className="flex min-h-11 items-center justify-between gap-3">
         <span id={`${uid}-label`} className="text-[0.875rem] leading-snug text-ink">
           Only what I can make with my cookware
         </span>
@@ -108,14 +80,14 @@ export function MyCookware({ owned, only, all }: Props) {
       </div>
       <p id={`${uid}-hint`} className="mt-1 text-[0.8125rem] leading-snug text-ink-muted">
         {view.only && view.slugs.length === 0
-          ? "Pick what you own above. With nothing picked, recipes that need any pan or pot are hidden."
+          ? "No cookware saved yet, so recipes that need any pan or pot are hidden."
           : "Recipes that list no cookware always show."}
       </p>
-      {saveFailed && (
-        <p role="status" className="mt-1 text-[0.8125rem] text-paprika-deep">
-          Couldn&apos;t save this to your account. It&apos;s still kept on this device.
-        </p>
-      )}
+      <p className="mt-1 text-[0.8125rem] leading-snug text-ink-muted">
+        <Link href="/account?tab=settings#cookware" className="underline underline-offset-2 hover:text-herb">
+          Choose which cookware I own
+        </Link>
+      </p>
     </fieldset>
   );
 }

@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import commons as C  # noqa: E402
-from common import CACHE, MANIFEST_DIR, http_get, write_json  # noqa: E402
+from common import CACHE, MANIFEST_DIR, http_get, is_rejected, rejected_refs, write_json  # noqa: E402
 from credits import clean_credit  # noqa: E402
 
 STOP = set("a an and with the of in on for to or from your my our style easy quick simple fresh homemade baked roasted sauteed no bake light low fat free".split())
@@ -162,7 +162,12 @@ def cmd_build(picks_file: str, recipes_file: str) -> None:
     target = MANIFEST_DIR / "commons.json"
     existing = json.loads(target.read_text(encoding="utf-8")) if target.exists() else []
     have = {r["slug"] for r in existing}
-    picks = {k: v for k, v in json.loads(Path(picks_file).read_text(encoding="utf-8")).items() if k not in have}
+    rej = rejected_refs()
+    raw = json.loads(Path(picks_file).read_text(encoding="utf-8"))
+    for k, v in raw.items():
+        if is_rejected(k, str(v), rejected=rej):
+            print(f"SKIPPED (rejected earlier): {k} {v}", file=sys.stderr)
+    picks = {k: v for k, v in raw.items() if k not in have and not is_rejected(k, str(v), rejected=rej)}
     tmp = Path(picks_file).with_suffix(".tmp.json")
     tmp.write_text(json.dumps(picks), encoding="utf-8")
     try:
