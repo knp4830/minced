@@ -18,24 +18,6 @@
     "image_cache": "openverse/images/ambrosia.bin"
   },
   {
-    "slug": "apple-stuffed-squash",
-    "recipe_title": "Apple-Stuffed Squash",
-    "source": "openverse",
-    "license": "CC BY 2.0",
-    "license_raw": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0/",
-    "author": "Chic Bee",
-    "credit": "Chic Bee / Flickr",
-    "alt_text": "Apple-Stuffed Squash",
-    "attribution_url": "https://www.flickr.com/photos/80454089@N00/53176532449",
-    "source_image_url": "https://live.staticflickr.com/65535/53176532449_b2bd53730c_b.jpg",
-    "candidate_id": "613808f7-bbcf-4522-bec3-1902d74171d0",
-    "file": "My Usual Recipe <> 'How do You Like Them Apples?' - Cooking for Thanksgiving, Hanukkah, and Rosh HaShanah ~~ Zeroing In On Mom and Chic's Baked Sweet and Savory Stuffed Apples & Acorn Squash ~~",
-    "sha256": "c2ef1a5da23f7532fe94fb724eccf4a9f02e6b3bfb8a20a7ee95dad4ad175028",
-    "evidence": "Openverse record 613808f7-bbcf-4522-bec3-1902d74171d0 reports licence 'CC BY 2.0' (creator 'Chic Bee', provider flickr); landing page https://www.flickr.com/photos/80454089@N00/53176532449; image reviewed by a human/agent against the recipe's ingredients as showing this dish.",
-    "image_cache": "openverse/images/apple-stuffed-squash.bin"
-  },
-  {
     "slug": "baked-chicken",
     "recipe_title": "Baked Chicken",
     "source": "openverse",

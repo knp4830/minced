@@ -140,20 +140,6 @@
     "image_cache": "myplate/images/breakfast-burrito-salsa.bin"
   },
   {
-    "slug": "cafe-mocha",
-    "recipe_title": "Cafe Mocha",
-    "source": "usda_myplate",
-    "license": "Public domain",
-    "license_url": "https://www.usa.gov/government-works",
-    "credit": "USDA MyPlate Kitchen (U.S. Department of Agriculture)",
-    "attribution_url": "https://www.myplate.gov/recipes/cafe-mocha",
-    "source_image_url": "https://web.archive.org/web/2025im_/https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/CafeMocha.jpg?itok=G_oO_mxl",
-    "alt_text": "Cafe Mocha",
-    "sha256": "ca7d9bffbef22b808b12700ac2ed7978e95a349d96ddcd9d16c8b213a576e551",
-    "evidence": "Recipe page Source field: 'USDA’S Collection of Nonfat Dry Milk (NDM) Recipes USDA Food and Nutrition Service Food Distribution Service' (federal body). No stock-agency, photographer or copyright credit in the page's recipe section, image alt text or file name. Image shared with no unrelated recipe. Photo metadata is stripped by the site, so authorship is established by provenance, not by embedded credit.",
-    "image_cache": "myplate/images/cafe-mocha.bin"
-  },
-  {
     "slug": "chicken-and-cranberry-salad",
     "recipe_title": "Chicken and Cranberry Salad",
     "source": "usda_myplate",
@@ -348,20 +334,6 @@
     "sha256": "412465b2f905eb803d7e8e2ddc987f92890725d40ea40251773187c9c6e46a18",
     "evidence": "Recipe page Source field: 'USDA Center for Nutrition Policy and Promotion' (federal body). No stock-agency, photographer or copyright credit in the page's recipe section, image alt text or file name. Image shared with no unrelated recipe. Photo metadata is stripped by the site, so authorship is established by provenance, not by embedded credit.",
     "image_cache": "myplate/images/crusty-rice-tofu-and-vegetables.bin"
-  },
-  {
-    "slug": "cuban-salad",
-    "recipe_title": "Cuban Salad",
-    "source": "usda_myplate",
-    "license": "Public domain",
-    "license_url": "https://www.usa.gov/government-works",
-    "credit": "USDA MyPlate Kitchen (U.S. Department of Agriculture)",
-    "attribution_url": "https://www.myplate.gov/recipes/cuban-salad",
-    "source_image_url": "https://web.archive.org/web/2025im_/https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/recipe-images/CubanSalad.jpg?itok=sk122i_3",
-    "alt_text": "Cuban Salad",
-    "sha256": "93b2ff3ee6f17d37ca7b17995a89ccb484ed6b7fd3f634c78abba5b402fa53ad",
-    "evidence": "Recipe page Source field: 'USDA Center for Nutrition Policy and Promotion' (federal body). No stock-agency, photographer or copyright credit in the page's recipe section, image alt text or file name. Image shared with no unrelated recipe. Photo metadata is stripped by the site, so authorship is established by provenance, not by embedded credit.",
-    "image_cache": "myplate/images/cuban-salad.bin"
   },
   {
     "slug": "curried-squash-stew",
@@ -798,20 +770,6 @@
     "image_cache": "myplate/images/pot-roasted-beef.bin"
   },
   {
-    "slug": "sarahs-spicy-curry-turkey-soup",
-    "recipe_title": "Sarah’s Spicy Curry Turkey Soup",
-    "source": "usda_myplate",
-    "license": "Public domain",
-    "license_url": "https://www.usa.gov/government-works",
-    "credit": "USDA MyPlate Kitchen (U.S. Department of Agriculture)",
-    "attribution_url": "https://www.myplate.gov/recipes/sarahs-spicy-curry-turkey-soup",
-    "source_image_url": "https://web.archive.org/web/2025im_/https://myplate-prod.azureedge.us/sites/default/files/styles/medium/public/recipe-images/sarahsspicycurryturkeysoup.jpg?itok=mag7hNQh",
-    "alt_text": "Sarah’s Spicy Curry Turkey Soup in a bowl",
-    "sha256": "1712a743e938100931cba5f7c423bc00e9e5d88c566b58641c00c1f675343aff",
-    "evidence": "Recipe page Source field: 'USDA Center for Nutrition Policy and Promotion Recipe submitted by Sarah, MyPlate Nutritionist' (federal body). No stock-agency, photographer or copyright credit in the page's recipe section, image alt text or file name. Image shared with no unrelated recipe. Photo metadata is stripped by the site, so authorship is established by provenance, not by embedded credit.",
-    "image_cache": "myplate/images/sarahs-spicy-curry-turkey-soup.bin"
-  },
-  {
     "slug": "savory-bread-pudding-kale-and-butternut-squash",
     "recipe_title": "Savory Bread Pudding with Kale and Butternut Squash",
     "source": "usda_myplate",
@@ -936,20 +894,6 @@
     "sha256": "6509a07cda0ae947333f89a827689b0d55626005eb5e48f28b14da460461801b",
     "evidence": "Recipe page Source field: 'Delicious Heart-Healthy Latino Recipes/ Platillos Latinos Sabrosos y Saludables US Department of Health and Human Services National Heart, Lung, and Blood Institute' (federal body). No stock-agency, photographer or copyright credit in the page's recipe section, image alt text or file name. Image shared with no unrelated recipe. Photo metadata is stripped by the site, so authorship is established by provenance, not by embedded credit.",
     "image_cache": "myplate/images/stir-fried-beef.bin"
-  },
-  {
-    "slug": "tasty-chicken-and-veggie-packets",
-    "recipe_title": "Tasty Chicken and Veggie Packets",
-    "source": "usda_myplate",
-    "license": "Public domain",
-    "license_url": "https://www.usa.gov/government-works",
-    "credit": "USDA MyPlate Kitchen (U.S. Department of Agriculture)",
-    "attribution_url": "https://www.myplate.gov/recipes/tasty-chicken-and-veggie-packets",
-    "source_image_url": "https://web.archive.org/web/2025im_/https://myplate-prod.azureedge.us/sites/default/files/styles/recipe/public/2024-04/chicken%20and%20vegetables.JPG?itok=lcmT-_Kx",
-    "alt_text": "Tasty Chicken and Veggie Packets",
-    "sha256": "a87c81bc126a80017763b2814aa02e23973047e88d99538cba419c14525f4050",
-    "evidence": "Recipe page Source field: 'USDA Food and Nutrition Information Center' (federal body). No stock-agency, photographer or copyright credit in the page's recipe section, image alt text or file name. Image shared with no unrelated recipe. Photo metadata is stripped by the site, so authorship is established by provenance, not by embedded credit.",
-    "image_cache": "myplate/images/tasty-chicken-and-veggie-packets.bin"
   },
   {
     "slug": "tofu-broccoli",

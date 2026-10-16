@@ -89,27 +89,81 @@ function dishKinds(title: string): string[] {
 }
 
 /**
- * Nine real photos for the hero grid. Squarish-or-landscape crops only (a
- * portrait photo cropped square loses the dish), then greedily spread across
- * dish kinds, walking the catalog at a fixed stride so the choice is stable.
+ * Slot 0 is the big hero tile; slots 6-8 are the "Why we built this" collage (a 553 px-tall tile and two
+ * 242-270 px ones). They get the 1200 px `storage_path` file, which stays sharp on a 2x screen; the five
+ * small hero tiles (about 183-206 px) get the 640 px `thumb_path`. Wave 8: the hero used the 400 px thumb
+ * in a 379 px tile, so on a retina screen it was stretched 2x.
+ */
+const LARGE_SLOTS = new Set([0, 6, 7, 8]);
+
+/**
+ * The landing photos are curated, not sampled: every one was checked at full size (source at least 1920 px
+ * on the long side, sharp, no clutter or brand text, and it really is the dish it is labelled as). Order
+ * matters: 0 is the hero tile, 6 the big collage tile (both want a roughly square, centred subject).
+ * scripts/photos/manifest/landing_curated.json is the human-readable record of why each was picked.
+ */
+const CURATED_SLUGS = [
+  "japanese-curry-rice",
+  "shakshuka",
+  "som-tam",
+  "okonomiyaki",
+  "maafe",
+  "oyakodon",
+  "sopa-de-tortilla",
+  "chickpea-dip",
+  "tabbouleh",
+] as const;
+
+/** A fallback photo must have been stored at least this wide (md is capped at 1200), i.e. a source of 1000+ px. */
+const FALLBACK_MIN_WIDTH = 1000;
+
+function toLandingPhoto(r: PhotoRow, slot: number): LandingPhoto {
+  const path = LARGE_SLOTS.has(slot) ? r.storage_path : (r.thumb_path ?? r.storage_path);
+  return {
+    slug: r.recipes!.slug,
+    title: r.recipes!.title,
+    url: photoPublicUrl(path),
+    alt: r.alt_text ?? r.recipes!.title,
+  };
+}
+
+/**
+ * Nine real photos for the hero grid: the curated list above, in order. If a curated recipe has lost its
+ * photo (or the list is short of `count`), the remainder is filled from the catalog: only photos stored at
+ * least FALLBACK_MIN_WIDTH wide (never a small or upscaled one), squarish-or-landscape crops only (a
+ * portrait photo cropped square loses the dish), spread across dish kinds, walking the catalog at a fixed
+ * stride so the choice is stable.
  */
 export async function getLandingPhotos(count = 9): Promise<LandingPhoto[]> {
   const sb = createStaticClient() as unknown as SupabaseClient;
+
+  const { data: curatedData } = await sb
+    .from("recipe_photos")
+    .select("storage_path, thumb_path, alt_text, width, height, recipes!inner(slug, title)")
+    .in("recipes.slug", [...CURATED_SLUGS]);
+  const bySlug = new Map(
+    ((curatedData ?? []) as unknown as PhotoRow[]).filter((r) => r.recipes).map((r) => [r.recipes!.slug, r]),
+  );
+  const curated = CURATED_SLUGS.map((s) => bySlug.get(s)).filter((r): r is PhotoRow => Boolean(r));
+  if (curated.length >= count) return curated.slice(0, count).map((r, i) => toLandingPhoto(r, i));
+
   const { data, error } = await sb
     .from("recipe_photos")
     .select("storage_path, thumb_path, alt_text, width, height, recipes(slug, title)")
     .order("recipe_id", { ascending: true })
     .limit(500);
-  if (error || !data) return [];
+  if (error || !data) return curated.map((r, i) => toLandingPhoto(r, i));
 
+  const taken = new Set(curated.map((r) => r.recipes!.slug));
   const rows = (data as unknown as PhotoRow[])
     .filter((r) => {
-      if (!r.recipes) return false;
+      if (!r.recipes || taken.has(r.recipes.slug)) return false;
+      if (r.width < FALLBACK_MIN_WIDTH) return false;
       const ratio = r.width / r.height;
       return ratio >= 1 && ratio <= 1.6;
     })
     .sort((a, b) => a.recipes!.title.localeCompare(b.recipes!.title));
-  if (rows.length === 0) return [];
+  if (rows.length === 0) return curated.map((r, i) => toLandingPhoto(r, i));
 
   const stride = Math.max(1, Math.floor(rows.length / (count * 2)));
   const picked: PhotoRow[] = [];
@@ -125,12 +179,7 @@ export async function getLandingPhotos(count = 9): Promise<LandingPhoto[]> {
     }
   }
 
-  return picked.map((r) => ({
-    slug: r.recipes!.slug,
-    title: r.recipes!.title,
-    url: photoPublicUrl(r.thumb_path ?? r.storage_path),
-    alt: r.alt_text ?? r.recipes!.title,
-  }));
+  return [...curated, ...picked].slice(0, count).map((r, i) => toLandingPhoto(r, i));
 }
 
 /** Every photo that carries a credit, for the /about credits list. */
