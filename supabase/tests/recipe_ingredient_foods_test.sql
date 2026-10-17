@@ -7,6 +7,8 @@
 
 begin;
 
+grant select, insert, update, delete on me_food_log to authenticated;  -- Supabase grants this by default; the stub env does not (rolled back with the test)
+
 create or replace function pg_temp.as_user(u uuid) returns void language plpgsql as $$
 begin
   perform set_config('request.jwt.claim.sub', u::text, true);
@@ -17,6 +19,12 @@ end $$;
 insert into auth.users (id, email) values
   ('00000000-0000-0000-0000-0000000000a1', 'a@example.test'),
   ('00000000-0000-0000-0000-0000000000b2', 'b@example.test');
+insert into profiles (id) select id from auth.users where email like '%@example.test' on conflict do nothing;  -- Supabase's signup trigger does this; the stub auth schema has none
+-- Self-contained: a fake branded soy sauce linked to soy sauce (8), so the test runs on the real wave 10 data too.
+insert into usda_foods (fdc_id, description, data_type, brand_owner, brand_name, serving_size, serving_size_unit, household_serving)
+values (900002, 'SOY SAUCE', 'branded', 'Fixture Foods Co', 'Fixturemann', 15, 'ml', '1 tbsp (15 ml)') on conflict do nothing;
+insert into usda_food_nutrients (fdc_id, nutrient_id, amount_per_100g) values (900002, 1, 67), (900002, 13, 6000) on conflict do nothing;
+insert into ingredient_foods (ingredient_id, form, fdc_id, is_default) values (8, 'default', 900002, false) on conflict do nothing;
 update feature_flags set enabled = true where name = 'user_recipes';
 
 insert into recipes (id, slug, title, author_id, status, servings, source_name, source_license)

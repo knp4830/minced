@@ -121,8 +121,8 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
     .eq("log_date", date)
     .order("created_at", { ascending: true })
     .limit(80);
-  // `nutrients` is new (migration 20261017150000); the generated types learn it at the next pnpm db:types.
-  return ((data ?? []) as unknown as FoodRow[]).map((r) => {
+  // `nutrients` (migration 20261017150000) is now in the generated types.
+  return ((data ?? []) as FoodRow[]).map((r) => {
     const rec = Array.isArray(r.recipes) ? (r.recipes[0] ?? null) : r.recipes;
     return {
       id: r.id,
@@ -477,7 +477,7 @@ export async function writeFood(f: NewFood): Promise<WriteResult> {
     sodium_mg: f.sodiumMg,
     nutrients: f.nutrients ?? null,
     // `nutrients` is new (migration 20261017150000); drop this cast after the next pnpm db:types.
-  } as never);
+  });
   if (error) return error.code === "54000" ? { ok: false, error: "That is a lot of entries for one day. Remove one first." } : FAILED;
   return { ok: true };
 }
