@@ -1,0 +1,208 @@
+# Italy, Spain, Portugal, Greece, France
+00 flour | Pantry | grains | EUM | doppio zero flour;tipo 00 flour;pizza flour;italian 00 flour | gluten | wheat_flour white,_all-purpose,_enriched,_unbleached //
+semola rimacinata | Pantry | grains | EUM | re-milled durum semolina;durum wheat flour;semolina flour | gluten | wheat_flour white,_all-purpose,_unenriched //
+bucatini | Pantry | grains | EUM | perciatelli | gluten | pasta dry,_enriched //
+tagliatelle | Pantry | grains | EUM | tagliolini;egg tagliatelle | gluten,egg | pasta fresh-refrigerated,_plain //
+pappardelle | Pantry | grains | EUM | - | gluten,egg | pasta fresh-refrigerated,_plain //
+farfalle | Pantry | grains | EUM | bow tie pasta;bowtie pasta | gluten | pasta dry,_enriched //
+rotini | Pantry | grains | EUM,NAM | rotelle;spirali;corkscrew pasta | gluten | pasta dry,_enriched //
+ziti | Pantry | grains | EUM,NAM | baked ziti pasta;mostaccioli | gluten | pasta dry,_enriched //
+shell pasta | Pantry | grains | EUM,NAM | conchiglie;jumbo shells;medium shells | gluten | pasta dry,_enriched //
+elbow macaroni | Pantry | grains | NAM,EUM | - | gluten | pasta dry,_enriched //
+ditalini | Pantry | grains | EUM | small tube pasta | gluten | pasta dry,_enriched //
+orecchiette | Pantry | grains | EUM | little ears pasta | gluten | pasta dry,_enriched //
+paccheri | Pantry | grains | EUM | - | gluten | pasta dry,_enriched //
+cavatappi | Pantry | grains | EUM,NAM | cellentani | gluten | pasta dry,_enriched //
+capellini | Pantry | grains | EUM | - | gluten | pasta dry,_enriched //
+vermicelli pasta | Pantry | grains | EUM | spaghettini;fideo | gluten | pasta dry,_enriched //
+fideo noodles | Pantry | grains | EUM,LAT | coiled vermicelli;fideos;fideua pasta | gluten | pasta dry,_enriched //
+campanelle | Pantry | grains | EUM | gigli;bell flower pasta | gluten | pasta dry,_enriched //
+gemelli | Pantry | grains | EUM | - | gluten | pasta dry,_enriched //
+whole wheat pasta | Pantry | grains | GLO | wholemeal pasta;whole grain spaghetti | gluten | pasta whole-wheat,_dry //
+gluten-free pasta | Pantry | grains | GLO | corn pasta;brown rice pasta | - | pasta gluten-free,_corn //
+egg pasta | Pantry | grains | EUM,EUE | fresh pasta;fresh egg noodles | gluten,egg | pasta fresh-refrigerated,_plain //
+gnocchi | Pantry | grains | EUM | potato gnocchi | gluten | // gnocchi
+tortellini | Pantry | grains | EUM | cheese tortellini;tortelloni | gluten,dairy,egg | // cheese tortellini, tortellini
+ravioli | Pantry | grains | EUM | cheese ravioli | gluten,dairy,egg | // cheese ravioli, ravioli
+manicotti | Pantry | grains | EUM | cannelloni | gluten | pasta dry,_enriched //
+parmigiano reggiano | Dairy | - | EUM | parmigiano;grana padano;grana;aged parmesan | dairy | cheese parmesan,_hard //
+asiago | Dairy | - | EUM | asiago cheese | dairy | // asiago
+fontina | Dairy | - | EUM | fontina val d'aosta;fontina cheese | dairy | cheese fontina //
+taleggio | Dairy | - | EUM | - | dairy | proxy: cheese port_de_salut //
+gorgonzola | Dairy | - | EUM | gorgonzola dolce;gorgonzola piccante | dairy | cheese blue //
+burrata | Dairy | - | EUM | burrata cheese | dairy | proxy: cheese mozzarella whole_milk //
+stracciatella | Dairy | - | EUM | - | dairy | proxy: cheese mozzarella whole_milk //
+scamorza | Dairy | - | EUM | smoked mozzarella;scamorza affumicata | dairy | cheese mozzarella,_low_moisture,_part-skim //
+caciocavallo | Dairy | - | EUM | - | dairy | proxy: cheese provolone //
+ricotta salata | Dairy | - | EUM | salted ricotta;baked ricotta | dairy | proxy: cheese romano //
+robiola | Dairy | - | EUM | - | dairy | proxy: cheese neufchatel //
+bresaola | Protein | meat | EUM | air-dried beef | - | // bresaola
+speck | Protein | meat | EUM | smoked prosciutto;speck alto adige | - | proxy: ham cured //
+guanciale | Protein | meat | EUM | cured pork jowl;pork cheek | - | pork cured,_bacon,_unprepared //
+soppressata | Protein | meat | EUM | sopressata;dry salami | - | salami dry_or_hard //
+genoa salami | Protein | meat | EUM,NAM | salami;hard salami | - | salami dry_or_hard //
+pepperoni | Protein | meat | NAM,EUM | pepperoni slices | - | pepperoni //
+nduja | Protein | meat | EUM | spreadable salami;calabrian sausage | - | // nduja
+capicola | Protein | meat | EUM | coppa;capocollo;gabagool | - | // capicola
+porchetta | Protein | meat | EUM | - | - | proxy: pork fresh shoulder whole separable_lean_and_fat raw //
+cotechino | Protein | meat | EUM | - | - | // cotechino
+bottarga | Protein | seafood | EUM | cured mullet roe;botarga | fish | proxy: fish roe mixed_species raw //
+tuna in olive oil | Pantry | seafood | EUM | oil-packed tuna;italian tuna;tonno | fish | fish tuna light,_canned_in_oil //
+colatura di alici | Pantry | pantry | EUM | italian anchovy sauce;garum | fish | proxy: sauce fish ready-to-serve //
+anchovy paste | Pantry | pantry | EUM,EUW | - | fish | // anchovy paste
+castelvetrano olives | Pantry | vegetables | EUM | green olives sicilian | - | olives pickled green //
+nicoise olives | Pantry | vegetables | EUM | - | - | olives ripe,_canned //
+olive tapenade | Pantry | pantry | EUM,EUW | tapenade;olive paste | fish | // tapenade
+arrabbiata sauce | Pantry | pantry | EUM | - | - | // arrabbiata cat=pizza_sauces
+alfredo sauce | Pantry | pantry | NAM,EUM | - | dairy | // alfredo sauce -mix cat=pizza_sauces
+bolognese sauce | Pantry | pantry | EUM | ragu;meat sauce | - | // bolognese -ravioli -lasagna -pasta cat=pizza_sauces
+passata | Pantry | pantry | EUM | tomato passata;strained tomatoes;pomì | - | // passata
+san marzano tomatoes | Pantry | vegetables | EUM | san marzano;plum tomatoes canned | - | tomatoes red,_ripe,_canned,_packed_in_tomato_juice //
+tomato puree | Pantry | pantry | EUM | - | - | tomato_products canned,_puree //
+carnaroli rice | Pantry | grains | EUM | vialone nano;risotto rice | - | rice white,_medium-grain,_raw //
+balsamic glaze | Pantry | pantry | EUM | balsamic reduction;glaze di aceto balsamico | - | // balsamic glaze
+marsala wine | Other | pantry | EUM | marsala;sweet marsala;dry marsala | - | wine dessert,_sweet //
+vermouth | Other | pantry | EUM | dry vermouth;sweet vermouth;vermut | - | wine dessert,_dry //
+amaretto | Other | pantry | EUM | amaretto liqueur | nuts | proxy: alcoholic_beverage liqueur coffee 53_proof //
+limoncello | Other | pantry | EUM | - | - | proxy: alcoholic_beverage liqueur coffee 53_proof //
+grappa | Other | pantry | EUM | - | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+brandy | Other | pantry | EUM,EUW | cognac;armagnac;calvados | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+sparkling wine | Other | pantry | EUM,EUW | champagne;prosecco;cava;brut | - | wine table,_white //
+red wine | Other | pantry | GLO | merlot;cabernet;table red wine | - | wine table,_red //
+rose wine | Other | pantry | EUW | rosé | - | wine table,_white //
+port wine | Other | pantry | EUW | ruby port;tawny port | - | wine dessert,_sweet //
+sherry | Other | pantry | EUM | cooking sherry;dry sherry;oloroso;fino | - | wine dessert,_dry //
+beer | Other | pantry | GLO | lager;ale;stout;pilsner;wheat beer | gluten | alcoholic_beverage beer,_regular,_all //
+ladyfingers | Pantry | grains | EUM | savoiardi;boudoir biscuits | gluten,egg | -
+amaretti cookies | Pantry | pantry | EUM | amaretti biscuits | nuts,egg | -
+grissini | Pantry | grains | EUM | breadsticks | gluten | // breadsticks
+ciabatta | Pantry | grains | EUM | ciabatta rolls | gluten | bread italian //
+focaccia | Pantry | grains | EUM | - | gluten | -
+piadina | Pantry | grains | EUM | italian flatbread | gluten | // piadina
+brioche | Pantry | grains | EUW | brioche bread;brioche buns | gluten,egg,dairy | // brioche
+croissant dough | Pantry | grains | EUW | crescent dough sheet | gluten,dairy | // croissant dough -chocolate -pinched cat=bakery
+chestnuts | Pantry | nuts | EUM,EUW,EA | roasted chestnuts;cooked chestnuts | nuts | nuts chestnuts,_european,_roasted //
+chestnut flour | Pantry | grains | EUM | farina di castagne | nuts | proxy: nuts chestnuts,_european,_dried,_unpeeled //
+hazelnut spread | Pantry | pantry | EUM | nutella;chocolate hazelnut spread | nuts,dairy | // chocolate hazelnut spread
+marzipan | Pantry | pantry | EUW,EUM | almond paste | nuts | // marzipan
+almond paste | Pantry | pantry | EUW | frangipane base | nuts | // almond paste -chocolate -coconut cat=baking_additives
+marcona almonds | Pantry | nuts | EUM | spanish almonds | nuts | nuts almonds //
+truffle oil | Pantry | pantry | EUM,EUW | white truffle oil;black truffle oil | - | oil olive,_salad_or_cooking //
+black truffle | Produce | vegetables | EUW | truffle;perigord truffle | - | -
+truffle salt | Spices | spices | EUM | - | - | salt table //
+porcini mushrooms | Produce | vegetables | EUM | cepes;boletus;penny buns | - | proxy: mushrooms white raw //
+dried porcini | Pantry | vegetables | EUM | dried cepes;dried boletus | - | // dried porcini
+morel mushrooms | Produce | vegetables | EUW | morels | - | mushrooms morel raw //
+chanterelle mushrooms | Produce | vegetables | EUW | chanterelles;girolles | - | mushrooms chanterelle raw //
+marjoram | Produce | herbs | EUM | fresh marjoram;sweet marjoram | - | marjoram,_dried //
+dried marjoram | Spices | spices | EUM | - | - | spices marjoram,_dried //
+lovage | Produce | herbs | EUW | - | - | proxy: celery raw //
+flat-leaf parsley | Produce | herbs | EUM | italian parsley | - | parsley fresh //
+fennel pollen | Spices | spices | EUM | wild fennel pollen | - | proxy: spices fennel_seed //
+radicchio | Produce | vegetables | EUM | chicory red;treviso | - | radicchio raw //
+endive | Produce | vegetables | EUW | belgian endive;witloof;chicory;curly endive;frisee | - | endive raw //
+escarole | Produce | vegetables | EUM | broadleaf endive;batavian endive | - | endive raw //
+arugula wild | Produce | vegetables | EUM | rocket;wild rocket | - | arugula raw //
+cardoon | Produce | vegetables | EUM | cardone;cardoni | - | cardoon raw //
+artichoke hearts | Pantry | vegetables | EUM | marinated artichoke hearts;canned artichoke hearts | - | // artichoke hearts cat=canned
+calabrian chili paste | Pantry | pantry | EUM | calabrian chilies;peperoncino paste | - | // calabrian chili
+peperoncino | Spices | spices | EUM | italian red pepper flakes | - | spices pepper,_red_or_cayenne //
+pimenton dulce | Spices | spices | EUM | sweet spanish paprika;pimenton de la vera | - | spices paprika //
+pimenton picante | Spices | spices | EUM | hot spanish paprika | - | spices paprika //
+manchego | Dairy | - | EUM | manchego cheese;queso manchego | dairy | proxy: cheese swiss //
+mahon cheese | Dairy | - | EUM | idiazabal;cabrales | dairy | proxy: cheese swiss //
+jamon serrano | Protein | meat | EUM | spanish ham;serrano ham | - | pork cured,_ham,_slice //
+jamon iberico | Protein | meat | EUM | iberico ham;pata negra;jamon de bellota | - | pork cured,_ham,_slice //
+sobrasada | Protein | meat | EUM | - | - | // sobrasada
+salchichon | Protein | meat | EUM | spanish salami | - | salami dry_or_hard //
+bomba rice | Pantry | grains | EUM | paella rice;calasparra rice;valencia rice;arroz bomba | - | rice white,_medium-grain,_raw //
+romesco | Pantry | pantry | EUM | romesco sauce | nuts | // romesco
+alioli | Pantry | pantry | EUM | aioli;garlic mayonnaise | egg | -
+padron peppers | Produce | vegetables | EUM | pimientos de padron | - | peppers sweet green raw //
+membrillo | Pantry | fruit | EUM | quince paste;dulce de membrillo | - | // quince paste
+quince | Produce | fruit | EUM,ME | - | - | quinces raw //
+turron | Pantry | pantry | EUM | spanish nougat;torrone | nuts,egg | -
+squid ink | Pantry | seafood | EUM | cuttlefish ink;nero di seppia | shellfish | proxy: mollusks squid raw //
+razor clams | Protein | seafood | EUM | navajas | shellfish | mollusks clam,_mixed_species,_raw //
+octopus | Protein | seafood | EUM,EA | pulpo;polpo | shellfish | mollusks octopus,_common,_raw //
+cuttlefish | Protein | seafood | EUM,EA | sepia;seppia | shellfish | mollusks cuttlefish,_mixed_species,_raw //
+anchovies fresh | Protein | seafood | EUM | boquerones;acciughe | fish | fish anchovy european raw //
+sardines canned | Pantry | seafood | EUM,EUN | tinned sardines;sardines in oil | fish | fish sardine atlantic,_canned_in_oil //
+mackerel canned | Pantry | seafood | EUN,EUM | - | fish | fish mackerel jack,_canned //
+skate wing | Protein | seafood | EUW | ray wing | fish | proxy: fish ocean_perch atlantic raw //
+sea bass | Protein | seafood | EUM | branzino;loup de mer;robalo | fish | fish sea_bass mixed_species raw //
+monkfish | Protein | seafood | EUW,EUM | lotte | fish | fish monkfish raw //
+turbot | Protein | seafood | EUW | - | fish | fish turbot,_european raw //
+dover sole | Protein | seafood | EUW | sole;lemon sole | fish | fish flatfish_(flounder_and_sole_species) raw //
+red mullet | Protein | seafood | EUM | rouget;barbounia | fish | fish mullet,_striped raw //
+tarama | Pantry | seafood | EUM | taramasalata;carp roe | fish | // tarama
+tzatziki | Pantry | pantry | EUM | cucumber yogurt sauce;cacik | dairy | // tzatziki
+trahana | Pantry | grains | EUM | tarhana;xinochondros | gluten,dairy | // trahana
+hilopites | Pantry | grains | EUM | greek egg noodles | gluten,egg | pasta dry,_enriched //
+mizithra | Dairy | - | EUM | myzithra | dairy | proxy: cheese ricotta whole_milk //
+graviera | Dairy | - | EUM | kefalograviera | dairy | proxy: cheese swiss //
+greek honey | Pantry | pantry | EUM | thyme honey | - | honey -honeydew -honeycrisp -honeycomb //
+caper berries | Pantry | vegetables | EUM | - | - | capers canned //
+chourico | Protein | meat | EUM | portuguese chorizo | - | // chourico
+creme fraiche | Dairy | - | EUW | crème fraîche | dairy | proxy: cream sour cultured //
+fromage blanc | Dairy | - | EUW | fromage frais;quark;faisselle | dairy | proxy: cheese cottage creamed small_curd //
+quark | Dairy | - | EUW,EUE | topfen;tvorog | dairy | proxy: cheese cottage creamed small_curd //
+brie | Dairy | - | EUW | brie cheese | dairy | cheese brie //
+camembert | Dairy | - | EUW | camembert cheese | dairy | cheese camembert //
+roquefort | Dairy | - | EUW | - | dairy | cheese roquefort //
+comte | Dairy | - | EUW | gruyere comté;beaufort | dairy | cheese gruyere //
+emmental | Dairy | - | EUW | emmentaler;swiss emmental | dairy | cheese swiss //
+reblochon | Dairy | - | EUW | tartiflette cheese | dairy | cheese port_de_salut //
+boursin | Dairy | - | EUW | garlic herb cheese spread | dairy | -
+raclette cheese | Dairy | - | EUW | raclette | dairy | cheese swiss //
+gouda | Dairy | - | EUW | smoked gouda;aged gouda | dairy | cheese gouda //
+edam | Dairy | - | EUW | - | dairy | cheese edam //
+havarti | Dairy | - | EUN | havarti cheese | dairy | // havarti
+jarlsberg | Dairy | - | EUN | - | dairy | proxy: cheese swiss //
+gjetost | Dairy | - | EUN | brunost;norwegian brown cheese | dairy | cheese gjetost //
+muenster | Dairy | - | EUW | munster cheese | dairy | cheese muenster //
+limburger | Dairy | - | EUW | - | dairy | cheese limburger //
+colby cheese | Dairy | - | NAM | colby jack | dairy | cheese colby //
+neufchatel | Dairy | - | EUW | reduced fat cream cheese | dairy | cheese neufchatel //
+cultured butter | Dairy | - | EUW | european butter;kerrygold style;irish butter | dairy | butter without_salt //
+clarified butter | Dairy | - | SA,EUW | drawn butter;beurre clarifie | dairy | butter oil,_anhydrous //
+duck fat | Pantry | pantry | EUW | rendered duck fat | - | // duck fat
+goose fat | Pantry | pantry | EUW,EUE | schmaltz goose | - | fat goose //
+chicken fat | Pantry | pantry | EUE,GLO | schmaltz;rendered chicken fat | - | fat chicken //
+lard | Pantry | pantry | GLO | pork lard;manteca;leaf lard | - | lard -collards -frybread //
+beef tallow | Pantry | pantry | GLO | suet rendered;dripping | - | fat beef_tallow //
+suet | Pantry | pantry | EUW | beef suet;vegetarian suet | gluten | fat beef_tallow //
+foie gras | Protein | meat | EUW | duck liver;goose liver | - | foie_gras //
+duck confit | Protein | meat | EUW | confit de canard | - | duck domesticated,_meat_only,_cooked,_roasted //
+duck breast | Protein | meat | EUW,EA | magret | - | duck domesticated,_meat_only,_raw //
+whole duck | Protein | meat | EA,EUW | duck | - | duck domesticated,_meat_and_skin,_raw //
+goose | Protein | meat | EUE,EUW | - | - | goose domesticated,_meat_and_skin,_raw //
+rabbit | Protein | meat | EUM,EUW | rabbit meat | - | game_meat rabbit,_domesticated,_composite_of_cuts,_raw //
+quail | Protein | meat | EUM,EA | - | - | quail meat_and_skin,_raw //
+venison | Protein | meat | EUW,NAM | deer meat | - | game_meat deer,_raw //
+bison | Protein | meat | NAM | buffalo meat;ground bison | - | game_meat bison,_ground,_raw //
+wild boar | Protein | meat | EUM,EUW | boar | - | game_meat boar,_wild,_raw //
+veal | Protein | meat | EUM,EUW | veal cutlet;veal scallopini;veal shank | - | veal ? raw //
+veal stock | Pantry | pantry | EUW | demi-glace;veal demi-glace;brown stock | - | // demi glace
+fish stock | Pantry | pantry | EUW,GLO | fumet;fish fumet;fish broth | fish | // fish stock cat=soup
+bouquet garni | Spices | spices | EUW | - | - | proxy: spices thyme,_dried //
+fines herbes | Spices | spices | EUW | - | - | proxy: spices parsley,_dried //
+chervil | Produce | herbs | EUW | fresh chervil | - | spices chervil,_dried //
+celeriac | Produce | vegetables | EUW,EUE | celery root | - | celeriac raw //
+salsify | Produce | vegetables | EUW | oyster plant | - | salsify raw //
+haricots verts | Produce | vegetables | EUW | french green beans;thin green beans | - | beans snap,_green,_raw //
+cornichons | Pantry | vegetables | EUW | gherkins;french pickles | - | pickles cucumber,_dill //
+white asparagus | Produce | vegetables | EUW | spargel | - | asparagus raw //
+lambs lettuce | Produce | vegetables | EUW | mache;corn salad;rapunzel | - | proxy: lettuce green_leaf raw //
+snails | Protein | seafood | EUW | escargot;escargots | shellfish | mollusks snail,_raw //
+frog legs | Protein | seafood | EUW,EA | cuisses de grenouille | - | frog_legs raw //
+remoulade | Pantry | pantry | EUW,NAM | remoulade sauce | egg | // remoulade
+bearnaise sauce | Pantry | pantry | EUW | - | egg,dairy | -
+hollandaise sauce | Pantry | pantry | EUW | - | egg,dairy | -
+gelatin | Pantry | pantry | GLO | powdered gelatin;gelatine;leaf gelatin | - | gelatins dry_powder,_unsweetened //
+lavender | Spices | spices | EUW | culinary lavender;dried lavender | - | proxy: spices thyme,_dried //
+tonka bean | Spices | spices | EUW | - | - | proxy: // tonka
+praline paste | Pantry | pantry | EUW | hazelnut praline;gianduja | nuts | // praline paste
+creme de cassis | Other | pantry | EUW | cassis | - | proxy: alcoholic_beverage liqueur coffee 53_proof //
+triple sec | Other | pantry | EUW | cointreau;grand marnier;orange liqueur | - | proxy: alcoholic_beverage liqueur coffee 53_proof //
+pastis | Other | pantry | EUW | pernod;ricard;anise liqueur;ouzo;sambuca;arak | - | proxy: alcoholic_beverage liqueur coffee 53_proof //

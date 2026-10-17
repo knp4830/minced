@@ -1,0 +1,127 @@
+# Italian, Mediterranean, European and general Western pantry brands
+spaghetti | barilla/de cecco/ronzoni/dececco/de cecco/rummo/delallo/colavita/banza/ancient harvest | spaghetti | n=8 kmin=250
+penne | barilla/de cecco/ronzoni/rummo/delallo/colavita/banza | penne | n=6 kmin=250
+linguine | barilla/de cecco/ronzoni/rummo/delallo/colavita | linguine | n=5 kmin=250
+fettuccine | barilla/de cecco/ronzoni/rummo/delallo/colavita | fettuccine | n=5 kmin=250
+rigatoni | barilla/de cecco/ronzoni/rummo/delallo/colavita | rigatoni | n=5 kmin=250
+fusilli | barilla/de cecco/ronzoni/rummo/delallo/colavita | fusilli | n=5 kmin=250
+orzo | barilla/de cecco/ronzoni/rummo/delallo/colavita/mediterranean | orzo | n=4 kmin=250
+macaroni | barilla/de cecco/ronzoni/creamette/mueller's | macaroni | n=4 kmin=250
+angel hair | barilla/de cecco/ronzoni/delallo | angel hair | n=3 kmin=250
+lasagna noodles | barilla/de cecco/ronzoni/delallo/no-boil | lasagna | n=4 kmin=250
+farfalle | barilla/de cecco/ronzoni/rummo/delallo | farfalle | n=4 kmin=250
+bucatini | barilla/de cecco/rummo/delallo/colavita | bucatini | n=3 kmin=250
+whole wheat pasta | barilla/de cecco/ronzoni/delallo/bionaturae/rummo | whole wheat | n=5 -sauce kmin=250
+gluten-free pasta | barilla/banza/ancient harvest/jovial/tinkyada | pasta | n=5 cat=pasta kmin=250
+couscous | near east/ziyad/bob's red mill/moroccan/cedar/tipiak/Gefen | couscous | n=5 kmin=250
+bulgur | bob's red mill/ziyad/cedar/jennies/tabbouleh | bulgur | n=3 kmin=250
+farro | bob's red mill/rustichella/delallo/tuscan/farro | farro | n=3 kmin=250
+polenta | quaker/bob's red mill/delallo/ancient/marathon/organic | polenta | n=4 kmin=250
+arborio rice | riceselect/lundberg/carnaroli/delallo/gallo/riso/rustichella | arborio | n=4 kmin=250
+quinoa | ancient harvest/bob's red mill/alter eco/trader/white rose/rise & shine | quinoa | n=5 kmin=250
+rolled oats | quaker/bob's red mill/old wessex/nature's path/country choice | rolled oats | n=4 cat=cereal kmin=250
+steel-cut oats | quaker/bob's red mill/mccann's/country choice/nature's path | steel cut | n=3 cat=cereal kmin=250
+barley | quaker/bob's red mill/goya | barley | n=3 kmin=250
+wild rice | lundberg/uncle ben's/gourmet house/rice select | wild rice | n=3 kmin=250
+brown rice | lundberg/uncle ben's/ben's original/mahatma/riceselect/goya/minute/lotus foods | brown rice | n=5 kmin=250
+white rice | mahatma/uncle ben's/ben's original/carolina/riceselect/goya/riviana/minute | white rice | n=6 kmin=250
+marinara sauce | rao's/mezzetta/classico/prego/ragu/newman's own/muir glen/barilla/victoria/bertolli | marinara | n=8 d=1.05
+spaghetti sauce | rao's/classico/prego/ragu/newman's own/barilla/bertolli/hunt's | spaghetti sauce | n=6 d=1.05
+pizza sauce | contadina/rao's/muir glen/pastorelli/full circle/pizza quick | pizza sauce | n=3 d=1.05
+pesto | barilla/classico/buitoni/filippo berio/rao's/delallo/cibo naturals/costa | pesto | n=6
+crushed tomatoes | muir glen/cento/hunt's/san marzano/red gold/pomi/tuttorosso/redpack | crushed tomatoes | n=6
+diced tomatoes | muir glen/hunt's/del monte/red gold/pomi/tuttorosso/rotel/s&w/cento | diced tomatoes | n=6
+whole tomatoes | muir glen/cento/hunt's/san marzano/red gold/pomi/tuttorosso/redpack | whole peeled tomatoes, whole tomatoes | n=6
+tomato paste | contadina/hunt's/muir glen/cento/tuttorosso/red gold/amore/pastene/mutti/goya | tomato paste | n=6
+tomato sauce | hunt's/del monte/contadina/muir glen/red gold/cento/tuttorosso/goya | tomato sauce | n=6 d=1.05
+passata | mutti/pomi/cento/bionaturae/pastene | passata | n=4 d=1.05
+tomato puree | mutti/pomi/cento | puree | n=3 d=1.05 -crushed -chunky -paste
+san marzano tomatoes | cento/pastene/delallo/la valle/mutti/pomi | san marzano | n=5
+olive oil | bertolli/colavita/filippo berio/pompeian/california olive ranch/star/goya/lucini/spectrum/kirkland/carapelli | olive oil | n=10 d=0.91 -tuna -sardine -salmon -anchov -dressing -mayo -vinaigrette -pesto -tapenade -spray
+avocado oil | chosen foods/primal kitchen/kasandrinos/marianne's/pompeian | avocado oil | n=3 d=0.91
+vegetable oil | crisco/wesson/mazola/great value/kirkland/orville | vegetable oil | n=4 d=0.92
+canola oil | wesson/crisco/mazola/spectrum/great value | canola oil | n=4 d=0.92
+coconut oil | nutiva/spectrum/carrington/kirkland/laughing tiger/dr bronner | coconut oil | n=4 d=0.92
+peanut oil | planters/lou ana/la tourangelle/spectrum | peanut oil | n=3 d=0.92
+balsamic glaze | mezzetta/delallo/cucina viva/pompeian/gia russa/nonna pia | balsamic glaze | n=3 d=1.2
+parmesan | kraft/sargento/bellissimo/belgioioso/boar's head/polly-o/bertolli/stella/locatelli/pecorino | parmesan | n=6
+mozzarella | galbani/polly-o/sargento/belgioioso/tillamook/kraft/boar's head/organic valley | mozzarella | n=6
+ricotta | galbani/polly-o/belgioioso/calabro/organic valley/precious | ricotta | n=5
+mascarpone | galbani/belgioioso/vermont creamery/gioia | mascarpone | n=3
+provolone | sargento/boar's head/belgioioso/galbani/tillamook | provolone | n=4
+feta | athenos/president/mt vikos/boar's head/cabot/organic valley/emporium | feta | n=5
+goat cheese | chavrie/laura chenel/vermont creamery/president/montchevre/woolwich | goat cheese, chevre | n=4
+blue cheese | treasure cave/maytag/salemville/sargento/gorgonzola/crystal farms | blue cheese | n=4
+cheddar cheese | tillamook/cabot/kraft/sargento/cracker barrel/land o'lakes/boar's head/organic valley/president/kerrygold | cheddar | n=10
+swiss cheese | sargento/boar's head/lorraine/tillamook/jarlsberg/emmi/organic valley | swiss | n=4
+cream cheese | philadelphia/kraft/organic valley/tofutti/daisy/temp tee/neufchatel | cream cheese | n=5
+shredded cheese | kraft/sargento/tillamook/cabot/great value/organic valley | shredded cheese | n=5
+monterey jack | sargento/tillamook/cabot/kraft/boar's head | monterey jack | n=3
+pepper jack | sargento/tillamook/cabot/kraft/boar's head | pepper jack | n=3
+american cheese | kraft/boar's head/land o'lakes/sargento/borden/velveeta | american | n=4 -sandwich
+cottage cheese | daisy/breakstone's/good culture/hood/kalona/organic valley | cottage cheese | n=5
+sour cream | daisy/breakstone's/kraft/organic valley/hood/knudsen | sour cream | n=5
+butter | land o'lakes/kerrygold/challenge/plugra/lurpak/tillamook/organic valley/cabot/president/horizon | butter | n=10 -spread -light
+unsalted butter | land o'lakes/kerrygold/challenge/plugra/lurpak/tillamook/organic valley/cabot/president/horizon | unsalted butter | n=6
+ghee | ancient organics/amul/4th & heart/pure indian foods/nature's ghee/organic valley/gaea | ghee | n=6
+heavy cream | land o'lakes/horizon/organic valley/hood/prairie farms/heluva good | heavy cream, heavy whipping | n=5 d=1.0
+half-and-half | land o'lakes/horizon/organic valley/hood/prairie farms/international delight | half & half, half and half | n=4 d=1.0
+milk | fairlife/horizon/organic valley/lactaid/hood/prairie farms/darigold/shamrock | milk | n=8 d=1.03 cat=milk
+buttermilk | land o'lakes/horizon/organic valley/hood/darigold/bulgarian/cultured | buttermilk | n=4 d=1.03
+plain yogurt | chobani/fage/oikos/siggi's/stonyfield/dannon/yoplait/wallaby/brown cow/kalona | plain | n=8 cat=yogurt -vanilla
+greek yogurt | chobani/fage/oikos/siggi's/stonyfield/dannon/yoplait/two good | greek | n=8 cat=yogurt
+evaporated milk | carnation/pet/nestle/goya/borden | evaporated milk | n=3 d=1.07
+sweetened condensed milk | eagle brand/nestle/la lechera/carnation/borden/goya | condensed milk | n=4 d=1.3
+almond milk | almond breeze/silk/califia/pacific/blue diamond/almond dream/trader joe | almond milk | n=6 d=1.0 cat=plant
+soy milk | silk/westsoy/pacific/edensoy/vitasoy/soy dream/8th continent | soy milk | n=5 d=1.0 cat=plant
+oat milk | oatly/planet oat/califia/silk/pacific/elmhurst/ripple | oat milk | n=5 d=1.0 cat=plant
+egg | eggland's best/vital farms/pete & gerry's/organic valley/happy egg/nellie's/land o'lakes | eggs | n=5 cat=eggs -deviled -scrambled -salad -boiled -omelet -liquid -whites
+mayonnaise | hellmann's/best foods/duke's/kraft/blue plate/sir kensington/primal kitchen/follow your heart | mayo, mayonnaise | n=6 -dressing -spread
+dijon mustard | maille/grey poupon/edmond fallot/amora | dijon | n=3
+pancetta | citterio/boar's head/volpi/applegate/hormel/di lusso | pancetta | n=3
+prosciutto | citterio/boar's head/volpi/la quercia/applegate/di lusso/galileo | prosciutto | n=4
+chorizo | palacios/la tienda/hormel/johnsonville/aidells | chorizo | n=3
+italian sausage | johnsonville/hillshire/aidells/applegate/jones/premio/hot italian | italian sausage | n=5
+pepperoni | hormel/boar's head/applegate/margherita/primo/volpi | pepperoni | n=4
+bacon | oscar mayer/hormel/applegate/wright/smithfield/boar's head/niman ranch/kirkland | bacon | n=6 -bits -pieces -bar -jerky
+ham | hormel/oscar mayer/applegate/boar's head/smithfield/dietz/honeysuckle | ham | n=5 -salad
+hot dogs | oscar mayer/ball park/nathan's/hebrew national/applegate/hillshire/boar's head | hot dog, franks | n=6 -bun -buns
+anchovies | cento/roland/ortiz/king oscar/season/crown prince/rubinelli/flatbread/tinned | anchovy | n=6
+canned tuna | starkist/bumble bee/chicken of the sea/wild planet/safe catch/genova/ortiz/tonno | tuna | n=8 form=canned
+sardines | king oscar/season/crown prince/matiz/wild planet/bela/porthos/brunswick | sardines | n=6 form=canned
+salmon | wild planet/bumble bee/kirkland/chicken of the sea/starkist/pacific/alaska | salmon | n=3 form=canned cat=canned
+chicken broth | swanson/pacific/kitchen basics/college inn/imagine/progresso/better than bouillon/knorr | chicken broth | n=8 d=1.0
+beef broth | swanson/pacific/kitchen basics/college inn/imagine/progresso | beef broth | n=5 d=1.0
+vegetable broth | swanson/pacific/kitchen basics/college inn/imagine/progresso | vegetable broth | n=6 d=1.0
+chicken bouillon | knorr/maggi/better than bouillon/wyler's/herb-ox/orrington farms/goya/edward & sons | chicken bouillon, bouillon | n=6
+tomato soup | campbell's/progresso/pacific/amy's/imagine | tomato soup | n=3
+cream of mushroom soup | campbell's/progresso/pacific/amy's/imagine | cream of mushroom | n=3
+cream of chicken soup | campbell's/progresso/pacific/amy's/imagine | cream of chicken | n=3
+peanut butter | jif/skippy/peter pan/smucker's/justin's/crazy richard/teddie/adams/earth balance | peanut butter | n=8 -pretzel -bar
+almond butter | justin's/barney/maranatha/mighty/trader joe/kirkland/artisana | almond butter | n=4
+honey | sue bee/nate's/y.s. eco/local hive/kirkland/golden blossom/langnese/capilano/nature nate | honey | n=6 -bbq -mustard -roasted -cereal -bar
+maple syrup | maple grove/coombs/kirkland/log cabin/nature nate's/butternut mountain/vermont/runamok | maple syrup | n=5 d=1.33
+molasses | grandma's/brer rabbit/plantation/wholesome/crosby's/sweet harvest | molasses | n=4 d=1.4
+granulated sugar | domino/c&h/imperial/pioneer/great value/kirkland/wholesome/sugar in the raw | sugar | n=4 -free -cookie -bar -cube cat=granulated
+brown sugar | domino/c&h/imperial/pioneer/great value/kirkland/wholesome | brown sugar | n=4 -ham -bacon -oatmeal -cereal -mustard -bbq -sauce -syrup
+powdered sugar | domino/c&h/imperial/pioneer/great value/kirkland/wholesome | powdered sugar | n=3
+all-purpose flour | king arthur/gold medal/pillsbury/bob's red mill/white lily/swans down/ardent mills/arrowhead/great value | all purpose flour, all-purpose flour | n=7
+bread flour | king arthur/gold medal/pillsbury/bob's red mill/ardent mills | bread flour | n=4
+whole wheat flour | king arthur/gold medal/pillsbury/bob's red mill/arrowhead mills/hodgson mill | whole wheat flour | n=5
+cornmeal | bob's red mill/quaker/arrowhead/goya/albers/indian head | cornmeal | n=4 kmin=250
+cornstarch | argo/clabber girl/kirkland/great value/bob's red mill | cornstarch | n=3
+baking powder | clabber girl/rumford/calumet/bob's red mill/arrowhead | baking powder | n=4
+baking soda | arm & hammer/bob's red mill/clabber girl | baking soda | n=3
+active dry yeast | fleischmann's/red star/saf/bob's red mill | yeast | n=4 -nutritional
+cocoa powder | hershey's/ghirardelli/droste/nestle/valrhona/scharffen berger/bob's red mill/navitas | cocoa | n=5 -cereal -drink -mix -hot -marshmallow -chocolate_milk
+semisweet chocolate | ghirardelli/baker's/guittard/nestle/hershey's/lindt/enjoy life | chocolate chips | n=6
+chocolate chips | nestle/toll house/ghirardelli/guittard/hershey's/enjoy life/lily's | chocolate chips | n=6
+vanilla yogurt | chobani/oikos/dannon/yoplait/stonyfield/siggi's | vanilla | n=5 cat=yogurt
+peanuts | planters/blue diamond/kirkland/trader joe/fisher | peanuts | n=3 -candy -butter -chocolate cat=popcorn
+almonds | blue diamond/kirkland/trader joe/wonderful/planters/fisher/diamond | almonds | n=4 -butter -milk -chocolate cat=popcorn
+walnuts | diamond/kirkland/trader joe/planters/fisher/Sun-Maid | walnuts | n=3 -candy -chocolate cat=popcorn
+pecans | diamond/kirkland/trader joe/planters/fisher | pecans | n=3 -candy -praline -chocolate cat=popcorn
+cashews | planters/kirkland/trader joe/wonderful/blue diamond/fisher | cashews | n=3 -butter -chocolate cat=popcorn
+pistachios | wonderful/kirkland/trader joe/paramount/setton/fisher | pistachios | n=3 -chocolate cat=popcorn
+raisins | sun-maid/sunmaid/del monte/kirkland/trader joe | raisins | n=3 -cereal -bar
+dried cranberries | ocean spray/craisins/kirkland/trader joe/sun-maid | cranberries | n=3 -juice -sauce

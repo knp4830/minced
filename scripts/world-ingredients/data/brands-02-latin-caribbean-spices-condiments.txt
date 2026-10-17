@@ -1,0 +1,106 @@
+# Latin American, Caribbean, spices and common condiments
+adobo seasoning | goya/badia/loisa/la costena | adobo | n=5
+sazon | goya/badia/loisa | sazon | n=4
+taco seasoning | mccormick/old el paso/ortega/lawry's/simply organic/frontier/taco bell | taco seasoning | n=6
+taco sauce | old el paso/ortega/taco bell/la victoria/herdez | taco sauce | n=5 d=1.05
+salsa | pace/tostitos/herdez/old el paso/la victoria/rosarita/chi-chi's/newman's own/mrs renfro | salsa | n=8 d=1.05
+enchilada sauce | old el paso/las palmas/rosarita/la victoria/herdez/ortega | enchilada sauce | n=5 d=1.03
+chipotle in adobo | la costena/herdez/embasa/goya/la morena | chipotle | n=5
+salsa verde | herdez/la costena/rosarita/old el paso/la victoria/hatch | salsa verde | n=4 d=1.05
+refried beans | rosarita/la costena/old el paso/ortega/goya/amy's/la preferida/gold mine | refried beans | n=7
+black beans | goya/bush's/la costena/progresso/eden/rosarita/la preferida/pacific/amy's | black beans | n=8 form=canned
+pinto beans | goya/bush's/la costena/progresso/eden/rosarita/la preferida | pinto beans | n=6 form=canned
+kidney beans | goya/bush's/la costena/progresso/eden/s&w/red kidney | kidney beans | n=6 form=canned
+chickpeas | goya/bush's/la costena/progresso/eden/s&w/pacific/cedar | chick peas | n=3 form=canned
+chickpeas | goya/bush's/progresso/eden/s&w | garbanzo | n=6 form=canned
+white beans | goya/bush's/progresso/eden/s&w | white beans | n=3 form=canned
+cannellini beans | goya/bush's/progresso/eden/s&w/cento | cannellini | n=4 form=canned
+lentils | goya/bob's red mill/laxmi/swad/deep/ziyad | lentils | n=5 kmin=250
+masa harina | maseca/bob's red mill/goya/quaker/gruma/azteca | masa | n=4
+corn tortillas | mission/guerrero/la banderita/tyson/ole/maseca/siete | corn tortillas | n=6
+flour tortillas | mission/guerrero/old el paso/la banderita/ole/azteca/tyson/siete | flour tortillas | n=7
+tostadas | mission/guerrero/la banderita/mi rancho | tostada | n=3
+taco shells | old el paso/ortega/mission/gran luchito/la banderita | taco shells | n=4
+tortilla chips | tostitos/mission/xochitl/late july/garden of eatin | tortilla chips | n=4
+hot sauce | tabasco/frank's/cholula/tapatio/valentina/texas pete/crystal/louisiana/sriracha/trappey | hot sauce | n=10 d=1.05
+hot sauce | tabasco | pepper sauce | n=2 d=1.05
+mexican crema | cacique/el mexicano/la vaquita/lala/nuestra | crema | n=3
+queso fresco | cacique/el mexicano/la vaquita/rizo bros/lala/queso fresco | queso fresco | n=5
+cotija | cacique/el mexicano/la vaquita/rizo bros/lala | cotija | n=4
+chorizo | cacique/el mexicano/la vaquita/palacios/goya/johnsonville/hormel/mexican | chorizo | n=6
+piloncillo | goya/la perla/la fortaleza/santa cruz | piloncillo | n=2
+plantain | goya/chifles/la fe | plantain | n=2
+green plantain | goya/chifles/la fe | green plantain | n=2
+guava paste | goya/la fe/la perla | guava | n=2 cat=baking
+achiote paste | goya/la perla/badia/loisa/mi rancho | achiote | n=3
+jerk seasoning | grace/walkerswood/busha browne/mccormick/badia/spicely | jerk | n=5
+allspice berries | mccormick/spice islands/badia/frontier/simply organic/morton | allspice | n=4
+cumin seeds | mccormick/spice islands/badia/frontier/simply organic/morton | cumin | n=4
+ground cumin | mccormick/spice islands/badia/frontier/simply organic/morton | cumin | n=4
+ground coriander | mccormick/spice islands/badia/frontier/simply organic/morton | coriander | n=3
+paprika | mccormick/spice islands/badia/frontier/simply organic/morton/penzeys | paprika | n=5
+smoked paprika | mccormick/spice islands/badia/frontier/simply organic/morton/la chinata | smoked paprika | n=4
+cayenne | mccormick/spice islands/badia/frontier/simply organic/morton | cayenne | n=3
+chili powder | mccormick/spice islands/badia/frontier/simply organic/morton/lawry's | chili powder | n=5
+crushed red pepper | mccormick/spice islands/badia/frontier/simply organic/morton | red pepper | n=3 -marinade -beef -soy -roasted -jelly -sauce
+black pepper | mccormick/spice islands/badia/frontier/simply organic/morton/tellicherry | black pepper | n=5 -rub -chicken -thyme -sauce -seasoning
+white pepper | mccormick/spice islands/badia/frontier/simply organic/morton | white pepper | n=3
+garlic powder | mccormick/spice islands/badia/frontier/simply organic/morton/lawry's | garlic powder | n=5
+onion powder | mccormick/spice islands/badia/frontier/simply organic/morton | onion powder | n=4
+ground turmeric | mccormick/spice islands/badia/frontier/simply organic/morton | turmeric | n=4 -tea -ginger -latte
+ground ginger | mccormick/spice islands/badia/frontier/simply organic/morton | ginger | n=3 -drink -kelp -honey -tea
+ground cinnamon | mccormick/spice islands/badia/frontier/simply organic/morton | cinnamon | n=4
+ground nutmeg | mccormick/spice islands/badia/frontier/simply organic/morton | nutmeg | n=3
+ground cloves | mccormick/spice islands/badia/frontier/simply organic/morton | cloves | n=3
+cardamom | mccormick/spice islands/badia/frontier/simply organic/morton | cardamom | n=3
+star anise | mccormick/spice islands/badia/frontier/simply organic/morton | star anise | n=2
+fennel seeds | mccormick/spice islands/badia/frontier/simply organic/morton | fennel | n=2
+caraway seeds | mccormick/spice islands/badia/frontier/simply organic/morton | caraway | n=2
+mustard seeds | mccormick/spice islands/badia/frontier/simply organic/morton | mustard seed | n=2
+celery seed | mccormick/spice islands/badia/frontier/simply organic/morton | celery seed | n=2
+bay leaf | mccormick/spice islands/badia/frontier/simply organic/morton | bay leaves | n=3
+dried oregano | mccormick/spice islands/badia/frontier/simply organic/morton | oregano | n=4
+dried basil | mccormick/spice islands/badia/frontier/simply organic/morton | basil | n=3 -garlic -lemon
+dried thyme | mccormick/spice islands/badia/frontier/simply organic/morton | thyme | n=3
+dried rosemary | mccormick/spice islands/badia/frontier/simply organic/morton | rosemary | n=3
+dried sage | mccormick/spice islands/badia/frontier/simply organic/morton | sage | n=3
+dried parsley | mccormick/spice islands/badia/frontier/simply organic/morton | parsley | n=3
+dried dill | mccormick/spice islands/badia/frontier/simply organic/morton | dill weed | n=3
+dried mint | mccormick/spice islands/badia/frontier/simply organic/morton | mint | n=2
+italian seasoning | mccormick/spice islands/badia/frontier/simply organic/morton | italian seasoning | n=4
+poultry seasoning | mccormick/spice islands/badia/frontier/simply organic/morton | poultry seasoning | n=3
+pumpkin pie spice | mccormick/spice islands/badia/frontier/simply organic/morton | pumpkin pie spice | n=3
+apple pie spice | mccormick/spice islands/badia/frontier/simply organic/morton | apple pie spice | n=2
+herbes de provence | mccormick/spice islands/badia/frontier/simply organic/morton | herbes de provence | n=3
+old bay seasoning | old bay/mccormick | old bay | n=2 -tartar -rub -sauce -crab_cake
+lemon pepper | mccormick/spice islands/badia/frontier/simply organic/morton/lawry's | lemon pepper | n=3
+everything bagel seasoning | trader joe/mccormick/everything but | everything | n=3
+sumac | sadaf/frontier/mccormick/spicely/simply organic | sumac | n=3
+za'atar | sadaf/frontier/mccormick/spicely/simply organic/al wadi | zaatar, za'atar | n=3
+saffron | mccormick/spice islands/badia/frontier/la mancha | saffron | n=3
+vanilla extract | mccormick/nielsen-massey/simply organic/watkins/spice islands/rodelle/kirkland | vanilla extract | n=5 d=1.0
+kosher salt | diamond crystal/morton/redmond/kosher | kosher salt | n=3
+salt | morton/diamond crystal/maldon/celtic sea/redmond/himalayan | salt | n=3 -pepper -rub -seasoning
+ketchup | heinz/hunt's/annie's/sir kensington/primal kitchen/organicville | ketchup | n=5 d=1.15
+yellow mustard | french's/heinz/gulden's/plochman's | yellow mustard | n=4 d=1.05
+dijon mustard | grey poupon/maille/french's/gulden's/trader joe | dijon | n=4 d=1.05
+whole grain mustard | grey poupon/maille/french's/inglehoffer/stone ground | mustard | n=3 d=1.05
+mayonnaise | hellmann's/best foods/duke's/kraft/blue plate/sir kensington/primal kitchen | mayonnaise | n=6 -spread
+barbecue sauce | sweet baby ray's/kraft/bull's-eye/stubb's/kc masterpiece/lillie's/famous dave's/heinz | barbecue sauce | n=8 d=1.2
+worcestershire sauce | lea & perrins/lea and perrins/heinz | worcestershire | n=3 d=1.15
+italian dressing | wishbone/kraft/newman's own/ken's/olive garden | italian | n=3 d=0.98 cat=salad
+ranch dressing | hidden valley/ken's/wishbone/kraft/marie's/newman's own/litehouse | ranch | n=5 d=1.0 cat=salad
+balsamic vinegar | pompeian/colavita/lucini/mazzetti/napa valley/bertolli/ottavio | balsamic vinegar | n=5 d=1.1
+apple cider vinegar | bragg/heinz/spectrum/white house/pompeian | apple cider vinegar | n=4 d=1.0 -honey -ginger -drink -shot -tonic
+white vinegar | heinz/white house/pompeian/great value | distilled white vinegar, white vinegar | n=3 d=1.0
+red wine vinegar | pompeian/colavita/heinz/spectrum/gia russa | red wine vinegar | n=3 d=1.0
+sherry vinegar | la bodega/gaea/pedro ximenez/columela/de jerez | sherry vinegar | n=2 d=1.0
+sweet pickle relish | heinz/vlasic/mt. olive/claussen | relish | n=3
+pickles | vlasic/claussen/mt. olive/bubbies/grillo's/heinz | pickles | n=4
+capers | goya/cento/roland/mezzetta/la nicchia/bell-carter | capers | n=5
+green olives | mezzetta/goya/pearls/lindsay/mario/cento/bella cerignola/castelvetrano | green olives | n=5
+black olives | lindsay/pearls/goya/mario/sensible/bell-carter | ripe olives, black olives | n=4
+kalamata olives | mezzetta/cento/divina/peloponnese/pearls/mt. athos/gaea | kalamata | n=4
+sun-dried tomatoes | mezzetta/cento/bella sun luci/mutti/ochild | sun-dried tomatoes, sun dried tomatoes | n=4
+roasted red peppers | mezzetta/cento/pacific/goya/divina/mancini | roasted red peppers | n=4
+artichoke | mezzetta/cento/goya/divina/marinated | artichoke | n=2

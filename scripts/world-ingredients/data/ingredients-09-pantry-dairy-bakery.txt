@@ -1,0 +1,160 @@
+# Global pantry: baking, oils, sweeteners, dairy and alternatives, bread, condiments, nuts and seeds, legumes, grains
+unsweetened chocolate | Pantry | pantry | GLO | baking chocolate;bitter chocolate | - | baking_chocolate unsweetened squares //
+dark chocolate | Pantry | pantry | GLO | bittersweet chocolate;70% chocolate | dairy | chocolate dark,_70-85%_cacao_solids //
+milk chocolate | Pantry | pantry | GLO | - | dairy | candies milk_chocolate //
+white chocolate | Pantry | pantry | GLO | - | dairy | candies white_chocolate //
+dutch process cocoa | Pantry | pantry | GLO | alkalized cocoa;dutched cocoa | - | cocoa dry_powder,_unsweetened,_processed_with_alkali //
+espresso powder | Pantry | pantry | GLO | instant espresso;instant coffee | - | beverages coffee,_instant,_regular,_powder //
+almond extract | Pantry | pantry | GLO | - | nuts | proxy: vanilla_extract -imitation //
+lemon extract | Pantry | pantry | GLO | - | - | proxy: vanilla_extract -imitation //
+peppermint extract | Pantry | pantry | GLO | mint extract | - | proxy: vanilla_extract -imitation //
+food coloring | Pantry | pantry | GLO | gel food coloring | - | // food coloring d=1.0
+sprinkles | Pantry | pantry | GLO | jimmies;nonpareils | - | // sprinkles
+xanthan gum | Pantry | pantry | GLO | - | - | // xanthan gum
+pectin | Pantry | pantry | GLO | powdered pectin;liquid pectin | - | -
+instant yeast | Pantry | pantry | GLO | rapid rise yeast;bread machine yeast | - | leavening_agents yeast,_baker's,_active_dry //
+vital wheat gluten | Pantry | pantry | GLO | wheat gluten | gluten | wheat_gluten //
+cake flour | Pantry | grains | NAM | - | gluten | wheat_flour white cake //
+pastry flour | Pantry | grains | NAM | whole wheat pastry flour | gluten | wheat_flour white,_all-purpose,_unenriched //
+almond flour | Pantry | grains | GLO | almond meal;ground almonds | nuts | nuts almonds //
+hazelnut flour | Pantry | grains | EUW | hazelnut meal | nuts | nuts hazelnuts_or_filberts //
+corn flour | Pantry | grains | NAM | - | - | corn_flour whole-grain,_yellow //
+stevia | Pantry | pantry | GLO | stevia sweetener | - | // stevia
+monk fruit sweetener | Pantry | pantry | EA | luo han guo sweetener | - | // monk fruit
+erythritol | Pantry | pantry | GLO | - | - | // erythritol
+sucralose | Pantry | pantry | GLO | splenda | - | // sucralose
+date sugar | Pantry | pantry | ME | - | - | proxy: dates deglet_noor //
+brown rice syrup | Pantry | pantry | EA | rice malt syrup | - | // brown rice syrup
+barley malt syrup | Pantry | pantry | GLO | malt syrup | gluten | syrups malt //
+simple syrup | Pantry | pantry | GLO | sugar syrup | - | -
+rock sugar | Pantry | pantry | EA | crystal sugar;bing tang;yellow rock sugar | - | sugars granulated //
+maltose | Pantry | pantry | EA | maltose syrup;mai ya tang | gluten | syrups malt //
+sugar cubes | Pantry | pantry | GLO | - | - | sugars granulated //
+skim milk | Dairy | - | GLO | nonfat milk;fat-free milk | dairy | milk fluid,_nonfat //
+whole milk | Dairy | - | GLO | full-fat milk | dairy | milk whole,_3.25%_milkfat //
+reduced fat milk | Dairy | - | GLO | 2% milk;low-fat milk;1% milk | dairy | milk reduced_fat,_fluid,_2%_milkfat //
+goat milk | Dairy | - | GLO | goats milk | dairy | milk goat,_fluid //
+lactose-free milk | Dairy | - | GLO | - | dairy | proxy: milk reduced_fat fluid 2% //
+rice milk | Dairy | - | GLO | - | - | rice_milk //
+cashew milk | Dairy | - | GLO | - | nuts | // cashew milk -dessert -frozen -ice -yogurt -cream cat=plant_based
+hemp milk | Dairy | - | GLO | - | - | // hemp milk cat=plant_based
+light cream | Dairy | - | NAM | coffee cream;table cream | dairy | cream fluid,_light_(coffee_cream_or_table_cream) //
+whipping cream | Dairy | - | GLO | whipped cream;light whipping cream | dairy | cream fluid,_light_whipping //
+vegan butter | Dairy | - | GLO | plant butter;dairy-free butter | - | proxy: margarine spread 35-39% //
+vegan cheese | Dairy | - | GLO | dairy-free cheese;plant-based cheese;cashew cheese | nuts | // vegan cheese
+string cheese | Dairy | - | NAM | mozzarella sticks | dairy | cheese mozzarella,_low_moisture,_part-skim //
+processed cheese | Dairy | - | NAM | velveeta;cheese product;cheese whiz | dairy | cheese pasteurized_process american //
+cheese powder | Dairy | - | NAM | mac and cheese powder | dairy | -
+egg yolk | Protein | eggs | GLO | yolks | egg | egg yolk,_raw,_fresh //
+goose egg | Protein | eggs | EUW | - | egg | egg goose,_whole,_fresh,_raw //
+liquid egg | Protein | eggs | NAM | carton eggs;pasteurized eggs | egg | egg whole,_raw,_frozen,_pasteurized //
+meringue powder | Pantry | eggs | NAM | - | egg | // meringue powder
+whole wheat bread | Pantry | grains | GLO | wheat bread;wholemeal bread | gluten | bread whole-wheat commercially_prepared -toasted -crumbs //
+white bread | Pantry | grains | GLO | sliced white bread | gluten | bread white commercially_prepared -toasted -crumbs //
+hawaiian rolls | Pantry | grains | NAM | sweet rolls | gluten,dairy,egg | // hawaiian rolls
+challah | Pantry | grains | ME,EUE | egg bread | gluten,egg | bread egg //
+croissant | Pantry | grains | EUW | croissants | gluten,dairy | croissants butter //
+water crackers | Pantry | grains | GLO | table water crackers | gluten | crackers standard_snack-type //
+matzo | Pantry | grains | ME,EUE | matzah;matzo crackers | gluten | crackers matzo,_plain //
+rice crackers | Pantry | grains | EA | senbei;rice cakes puffed | - | proxy: snacks rice_cake brown_rice //
+stuffing mix | Pantry | grains | NAM | bread stuffing | gluten | bread stuffing bread dry_mix //
+tabasco sauce | Pantry | pantry | NAM | louisiana hot sauce;cayenne pepper sauce | - | sauce ready-to-serve pepper TABASCO //
+buffalo sauce | Pantry | pantry | NAM | wing sauce;frank's redhot | dairy | // buffalo wing sauce, buffalo sauce cat=ketchup
+steak sauce | Pantry | pantry | NAM | a1 sauce;hp steak sauce | gluten | // steak sauce
+caesar dressing | Pantry | pantry | NAM | - | egg,fish,dairy | salad_dressing caesar -fat-free -low //
+blue cheese dressing | Pantry | pantry | NAM | - | dairy,egg | salad_dressing blue_or_roquefort -low -fat-free //
+thousand island dressing | Pantry | pantry | NAM | russian dressing | egg | salad_dressing thousand_island -fat-free -low -reduced //
+honey mustard | Pantry | pantry | NAM | honey mustard dressing | - | // honey mustard
+greek dressing | Pantry | pantry | EUM | - | - | // greek dressing
+sesame ginger dressing | Pantry | pantry | EA,NAM | asian dressing | soy,sesame | // sesame ginger dressing cat=salad_dressing
+green goddess dressing | Pantry | pantry | NAM | - | egg,fish | // green goddess dressing
+champagne vinegar | Pantry | pantry | EUW | - | - | vinegar distilled //
+pickled jalapenos | Pantry | vegetables | LAT,NAM | nacho jalapenos | - | peppers jalapeno,_canned //
+giardiniera | Pantry | vegetables | EUM,NAM | pickled vegetables italian | - | // giardiniera
+orange marmalade | Pantry | pantry | EUW | marmalade | - | proxy: jams_and_preserves apricot //
+raspberry jam | Pantry | pantry | GLO | - | - | jams_and_preserves ? //
+peach preserves | Pantry | pantry | GLO | - | - | jams_and_preserves ? //
+fig jam | Pantry | pantry | EUM,ME | - | - | // fig jam
+apple butter | Pantry | pantry | NAM | - | - | fruit_butters apple //
+lemon curd | Pantry | pantry | EUW | - | egg,dairy | // lemon curd
+miso soup mix | Pantry | pantry | EA | instant miso soup | soy,fish | -
+ramen seasoning | Pantry | pantry | EA | ramen flavor packet | gluten,soy | // ramen seasoning
+bone broth | Pantry | pantry | GLO | - | - | soup beef_broth,_bouillon //
+cream of celery soup | Pantry | pantry | NAM | cream of potato soup | dairy,gluten | soup cream_of_celery //
+chicken noodle soup | Pantry | pantry | NAM | - | gluten,egg | soup chicken_noodle,_canned //
+canned mushrooms | Pantry | vegetables | GLO | - | - | mushrooms canned drained //
+canned green beans | Pantry | vegetables | NAM | - | - | beans snap,_green,_canned //
+canned peas | Pantry | vegetables | NAM | - | - | peas green,_canned //
+walnuts english | Pantry | nuts | GLO | - | nuts | nuts walnuts,_english //
+brazil nuts | Pantry | nuts | LAT | - | nuts | nuts brazilnuts,_dried //
+hemp seeds | Pantry | nuts | GLO | hemp hearts | - | seeds hemp_seed,_hulled //
+watermelon seeds | Pantry | nuts | EA,ME | - | - | seeds watermelon_seed_kernels,_dried //
+cashew butter | Pantry | nuts | GLO | - | nuts | nuts cashew_butter,_plain //
+sunflower seed butter | Pantry | nuts | GLO | sunbutter | - | seeds sunflower_seed_butter //
+hazelnut butter | Pantry | nuts | GLO | - | nuts | nuts hazelnuts_or_filberts //
+lupini beans | Pantry | legumes | EUM | lupin beans;tarwi | - | lupins mature_seeds,_raw //
+borlotti beans | Pantry | legumes | EUM | cranberry beans | - | beans cranberry_(roman) //
+flageolet beans | Pantry | legumes | EUW | - | - | beans white //
+red beans | Pantry | legumes | CAR,NAM | small red beans | - | proxy: beans kidney red mature_seeds raw //
+broad beans dried | Pantry | legumes | ME,EUM | ful medames;habas | - | broadbeans_(fava_beans) mature_seeds,_raw //
+canned chickpeas | Pantry | legumes | GLO | garbanzo beans canned | - | chickpeas mature_seeds,_canned //
+canned lentils | Pantry | legumes | GLO | - | - | lentils mature_seeds,_cooked //
+baked beans | Pantry | legumes | NAM,EUW | - | - | beans baked,_canned,_plain_or_vegetarian //
+instant rice | Pantry | grains | NAM | minute rice;quick rice | - | rice white,_long-grain,_precooked_or_instant //
+parboiled rice | Pantry | grains | GLO | converted rice;uncle ben's | - | rice white,_long-grain,_parboiled //
+corn nuts | Pantry | grains | LAT,NAM | - | - | -
+textured vegetable protein | Pantry | pantry | GLO | tvp;soy curls;textured soy protein | soy | -
+plant-based ground | Protein | pantry | NAM | plant-based meat;beyond ground;impossible ground | soy | // plant based ground
+veggie burger | Protein | pantry | NAM | meatless burger;black bean burger | soy,gluten | veggie_burgers unprepared //
+protein powder | Pantry | pantry | GLO | whey protein;pea protein | dairy | -
+safflower oil | Pantry | pantry | GLO | - | - | oil safflower,_salad_or_cooking,_high_oleic //
+corn oil | Pantry | pantry | GLO | maize oil | - | oil corn,_industrial_and_retail,_all_purpose_salad_or_cooking //
+grapeseed oil | Pantry | pantry | EUW | - | - | oil grapeseed //
+walnut oil | Pantry | pantry | EUW | - | nuts | oil walnut //
+hazelnut oil | Pantry | pantry | EUW | - | nuts | oil hazelnut //
+almond oil | Pantry | pantry | GLO | - | nuts | oil almond //
+flaxseed oil | Pantry | pantry | GLO | linseed oil | - | oil flaxseed //
+rice bran oil | Pantry | pantry | EA | - | - | oil rice_bran //
+soybean oil | Pantry | pantry | GLO | - | soy | oil soybean,_salad_or_cooking //
+palm shortening | Pantry | pantry | GLO | - | - | shortening ? //
+mustard oil | Pantry | pantry | SA | sarson ka tel;kachi ghani | - | proxy: oil canola //
+cocoa butter | Pantry | pantry | GLO | - | - | oil cocoa_butter //
+mct oil | Pantry | pantry | GLO | - | - | proxy: oil coconut //
+pork loin | Protein | meat | GLO | pork loin roast;center cut pork | - | pork fresh,_loin,_whole,_separable_lean_and_fat,_raw //
+pork spare ribs | Protein | meat | GLO | spareribs;st louis ribs | - | pork fresh,_spareribs,_separable_lean_and_fat,_raw //
+baby back ribs | Protein | meat | GLO | pork back ribs;loin back ribs | - | pork fresh,_backribs,_separable_lean_and_fat,_raw //
+canadian bacon | Protein | meat | NAM | back bacon;peameal bacon | - | canadian_bacon unprepared //
+salt pork | Protein | meat | NAM,EUW | fatback;streaky salt pork | - | pork cured,_salt_pork,_raw //
+pork sausage | Protein | meat | GLO | fresh pork sausage;sausage links | - | sausage pork_and_beef fresh cooked //
+ham steak | Protein | meat | NAM | - | - | ham sliced,_regular //
+beef tenderloin | Protein | meat | GLO | filet mignon;beef filet | - | beef tenderloin_steak lean_and_fat raw //
+new york strip | Protein | meat | NAM | strip steak;kansas city strip | - | beef top_loin lean_and_fat raw //
+t-bone steak | Protein | meat | NAM | porterhouse | - | beef t-bone raw //
+beef shank | Protein | meat | GLO | osso buco beef;shin of beef | - | beef shank_crosscuts raw //
+tri-tip | Protein | meat | NAM | tri tip roast | - | beef tri-tip lean_and_fat raw //
+flat iron steak | Protein | meat | NAM | - | - | beef top_blade lean_and_fat raw //
+eye of round | Protein | meat | NAM | round roast;rump roast | - | beef eye_of_round lean_and_fat raw //
+roast beef | Protein | meat | GLO | deli roast beef | - | -
+corned beef | Protein | meat | EUW,NAM | - | - | beef cured,_corned_beef,_brisket //
+pastrami | Protein | meat | NAM | - | - | beef cured pastrami //
+beef jerky | Protein | meat | NAM | - | - | beef jerky //
+ground chuck | Protein | meat | NAM | 80/20 ground beef;lean ground beef | - | beef ground,_80%_lean_meat_/_20%_fat,_raw //
+turkey legs | Protein | meat | NAM | turkey drumsticks | - | turkey drumstick raw //
+turkey bacon | Protein | meat | NAM | - | - | bacon turkey unprepared //
+chicken skin | Protein | meat | GLO | - | - | chicken skin raw -capons //
+rack of lamb | Protein | meat | EUW | lamb rack;frenched rack | - | lamb rib separable_lean_and_fat raw -new_zealand //
+lamb loin | Protein | meat | EUW | lamb loin chops | - | lamb loin separable_lean_and_fat raw -new_zealand //
+langoustine | Protein | seafood | EUW | norway lobster;scampi;dublin bay prawn | shellfish | proxy: crustaceans shrimp,_raw //
+sea scallops | Protein | seafood | GLO | bay scallops | shellfish | mollusks scallop,_mixed_species,_raw //
+smoked trout | Protein | seafood | EUN,NAM | smoked mackerel;smoked whitefish | fish | -
+flounder | Protein | seafood | NAM | fluke;plaice | fish | fish flatfish_(flounder_and_sole_species) raw //
+haddock | Protein | seafood | EUW,NAM | - | fish | fish haddock raw //
+hake | Protein | seafood | EUM,EUW | merluza | fish | proxy: fish whiting mixed_species raw //
+perch | Protein | seafood | NAM | ocean perch | fish | fish perch,_mixed_species,_raw //
+carp | Protein | seafood | EUE,EA | - | fish | fish carp raw //
+pike | Protein | seafood | EUE,NAM | - | fish | fish pike,_northern,_raw //
+canned salmon | Pantry | seafood | NAM | pink salmon canned | fish | fish salmon,_pink,_canned //
+canned crab | Pantry | seafood | NAM | - | shellfish | crustaceans crab,_blue,_canned //
+canned clams | Pantry | seafood | NAM | - | shellfish | mollusks clam,_mixed_species,_canned //
+oyster crackers | Pantry | grains | NAM | - | gluten | // oyster crackers
+instant noodles | Pantry | grains | EA,GLO | cup noodles;instant ramen | gluten | soup ramen_noodle //
