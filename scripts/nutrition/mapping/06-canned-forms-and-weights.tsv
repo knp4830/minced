@@ -1,0 +1,37 @@
+kind	ingredient	form	value	conf	note
+food	tomato	canned	170051	H	SR canned tomatoes in juice (a recipe "can of tomatoes" is canned, not fresh)
+food	corn	canned	169214	H	SR canned whole-kernel corn drained solids; USDA can (303 x 406) = 298 g
+food	green beans	canned	169143	H	SR canned green beans regular pack drained solids; USDA can = 262 g
+food	peas	canned	170015	M	SR canned green peas drained and rinsed; USDA can = 257 g
+food	carrot	canned	170396	H	SR canned carrots drained solids; USDA can = 284 g
+food	mushrooms	canned	169254	H	SR canned mushrooms drained solids; USDA can = 132 g
+food	pinto beans	canned	173797	H	SR canned pinto beans drained and rinsed; USDA can = 258 g
+food	pumpkin	canned	168450	H	SR canned pumpkin without salt
+food	pineapple	canned	167767	H	SR canned pineapple juice pack drained
+food	salmon	canned	175175	M	SR canned pink salmon drained solids with skin and bones; USDA can = 315 g
+portion	tomato	can	411	us_can_size	M	14.5 oz can of tomatoes, contents with juice	canned
+portion	pumpkin	can	425	us_can_size	M	15 oz can of pumpkin puree	canned
+portion	chicken breast	each	170	curated	M	one boneless skinless breast half, about 6 oz raw (recipes that give a weight use it instead)
+portion	sandwich bread	each	25	curated	M	a bread line with no unit counts slices; same weight as the slice entry
+portion	graham crackers	each	14	usda	H	USDA: one large rectangular piece (2 squares) of graham cracker
+portion	graham crackers	piece	14	usda	H	USDA: one large rectangular piece (2 squares) of graham cracker
+portion	acorn squash	each	431	usda	M	USDA: one 4-inch acorn squash
+portion	cooking spray	each	0.3	usda	M	USDA: one 1/3-second spray of PAM
+portion	black beans	cup	172	usda	M	cup of cooked black beans (SR 173735); canned drained beans weigh the same within about 5 percent
+portion	american cheese	cup	113	usda	M	USDA cup of shredded process cheese (SR American, low fat)
+portion	green chiles	can	113	us_can_size	M	4 oz can of diced green chiles
+portion	fruit cocktail	can	432	us_can_size	M	15.25 oz can, solids and liquids
+portion	mandarin orange	can	190	curated	M	11 oz can drained is about one cup of segments (SR cup drained 189 g)
+portion	chicken broth	can	435	us_can_size	M	14.5 oz can (same weight USDA gives for canned beef broth)
+portion	pie crust	each	173	usda	M	USDA: one average frozen pie crust
+food	chicken breast	cooked	171477	H	SR chicken breast meat only cooked roasted (lines that say cooked, shredded or diced by the cup)
+portion	chicken thighs	each	113	curated	M	edible meat and skin of one medium bone-in thigh, about 4 oz. USDA's 193 g "thigh with skin" portion overstates the recipes (published MyPlate calories imply about 110 g edible per thigh)
+portion	evaporated milk	can	369	usda	M	USDA: 13 oz can of evaporated milk (12 fl oz cans weigh about the same)
+portion	sweet onion	cup	160	usda	M	USDA cup of chopped onion (same as onion)
+portion	english muffin	each	57	usda	H	USDA: one English muffin
+portion	tilapia	each	116	usda	M	USDA: one tilapia fillet
+portion	pork chops	each	199	usda	M	USDA: one raw center-loin chop, bone excluded (259 g with bone)
+portion	chili peppers	each	45	usda	H	USDA: one hot chili pepper
+portion	halibut	fillet	170	curated	M	6 oz serving fillet (the repo convention used for salmon); USDA's own halibut "fillet" is a 408 g half-side
+portion	sourdough bread	slice	59	usda	M	USDA medium slice of French/Vienna bread (the record's bare "slice" is a 139 g loaf slice)
+portion	baguette	slice	29	usda	M	USDA small slice of French/Vienna bread (a baguette slice, not a loaf slice)

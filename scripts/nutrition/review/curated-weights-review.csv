@@ -1,0 +1,107 @@
+ingredient,form,unit,grams_per_unit,source,note
+allspice berries,default,each,0.1,curated,ground allspice stands in for whole berries; 0.1 g per berry
+apple,default,each,182,curated,1 medium
+avocado,default,each,150,curated,"1 Hass avocado, edible portion"
+baguette,default,each,85,curated,a 6-inch length
+bay leaf,default,each,0.2,curated,curated gram weight
+bell pepper,default,each,119,curated,same as green bell pepper: Generic bell pepper follows green bell pepper
+black beans,default,can,255.0,curated,15 oz can drained solids (same convention as kidney beans in the existing map)
+black olives,default,each,4,curated,curated gram weight
+cannellini beans,default,can,255.0,curated,15 oz can drained solids
+cardamom,default,each,0.2,curated,each = one green pod
+carrot,default,each,61,curated,curated gram weight
+cauliflower,default,each,588,curated,"USDA 1 medium head, edible portion"
+cauliflower,default,head,588,curated,"USDA 1 medium head, edible portion"
+celery,default,stalk,40,curated,curated gram weight
+cherry tomato,default,each,17,curated,curated gram weight
+chicken breast,default,each,170.0,curated,"one boneless skinless breast half, about 6 oz raw (recipes that give a weight use it instead)"
+chicken broth,default,can,435.0,us_can_size,14.5 oz can (same weight USDA gives for canned beef broth)
+chicken drumsticks,default,each,105,curated,"meat and skin, raw; 105 g edible per drumstick (bone excluded). A lb line is read as edible weight"
+chicken thighs,default,each,113.0,curated,"edible meat and skin of one medium bone-in thigh, about 4 oz. USDA's 193 g ""thigh with skin"" portion overstates the recipes (published MyPlate calories imply about 110 g edible per thigh)"
+chickpeas,default,can,240,curated,"15 oz can: 425 g net, ~240 g drained"
+chile de arbol,default,each,1,curated,Proxy: SR sun-dried hot chile; each ~1 g
+chipotle in adobo,default,each,10,curated,Branded; one chipotle with its sauce
+cinnamon stick,default,each,3,curated,ground cinnamon stands in; ~3 g per stick
+coconut milk,default,can,400,curated,13.5 oz can ~ 400 g
+corn tortillas,default,each,26,curated,6-inch
+cream of mushroom soup,default,can,305.0,us_can_size,10.75 oz condensed soup can
+crushed tomatoes,default,can,411,curated,14.5 oz can
+cucumber,default,each,300,curated,curated gram weight
+curry leaves,default,each,0.1,curated,"Proxy: SR fresh basil per leaf; a curry leaf is < 0.2 g, so the number is a rounding error"
+daikon,default,each,400,curated,"oriental radish, raw"
+diced tomatoes,default,can,411.0,us_can_size,"14.5 oz can, contents including juice"
+dinner rolls,default,each,35,curated,a soft pav-style bun
+dried red chiles,default,each,2,curated,curated gram weight
+egg,default,each,50,curated,1 large; counted raw even when 'soft-boiled' (boiling adds no energy)
+eggplant,default,each,450,curated,curated gram weight
+fava beans,default,can,250,curated,"canned, drained"
+fresh thyme,default,each,1,curated,each = sprig
+fruit cocktail,default,can,432.0,us_can_size,"15.25 oz can, solids and liquids"
+galangal,default,slice,3,curated,"Proxy: SR ginger root (galangal is its relative); slices are removed from soup, so this slightly overstates"
+garlic,default,clove,3,curated,SR Legacy chosen over Foundation 1104647 because it carries a clove portion; a bare 'each' means a head ~ 40 g? see review; a bare 'each' means a head ~ 40 g? see review; a bare 'each' means a head ~ 40 g? see review; a bare 'each' means a head ~ 40 g? see review
+garlic,default,each,40,curated,SR Legacy chosen over Foundation 1104647 because it carries a clove portion; a bare 'each' means a head ~ 40 g? see review; a bare 'each' means a head ~ 40 g? see review; a bare 'each' means a head ~ 40 g? see review; a bare 'each' means a head ~ 40 g? see review
+ginger,default,piece,10,curated,"grated, loosely packed: ~6 g/tbsp; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g"
+ginger,default,slice,3,curated,"grated, loosely packed: ~6 g/tbsp; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g; slice = 1/4-inch coin ~3 g, piece = 1-inch knob ~10 g"
+great northern beans,default,can,255.0,curated,15 oz can drained solids
+greek yogurt,default,cup,245.0,curated,Greek yogurt cup weight not in USDA record; regular yogurt cup used (+-8 percent)
+green bell pepper,default,each,119,curated,curated gram weight
+green chiles,default,can,113.0,us_can_size,4 oz can of diced green chiles
+green plantain,default,each,179,curated,peeled
+guajillo chile,default,each,4,curated,Proxy: SR sun-dried hot chile
+habanero,default,each,7,curated,Proxy: SR hot red chili
+halibut,default,fillet,170.0,curated,"6 oz serving fillet (the repo convention used for salmon); USDA's own halibut ""fillet"" is a 408 g half-side"
+jalapeno,default,each,14,curated,curated gram weight
+kaffir lime leaves,default,each,0.5,curated,Proxy: basil; per-leaf weight is the point
+kidney beans,default,can,255,curated,"canned, drained"
+kombu,default,piece,5,curated,SR has only raw kelp (43 kcal/100 g); dried kombu is ~6x denser. A 5 g piece is under 15 kcal and is removed from the pot
+lemon,default,each,58,curated,"1 fruit, without peel; tbsp/cup lines are juice (density 1.03); tbsp/cup lines are juice (density 1.03); tbsp/cup lines are juice (density 1.03); tbsp/cup lines are juice (density 1.03)"
+lemongrass,default,each,15,curated,edible bottom third of a stalk
+lime,default,each,67,curated,tbsp/cup lines are juice
+long beans,default,each,20,curated,curated gram weight
+mandarin orange,default,can,190.0,curated,11 oz can drained is about one cup of segments (SR cup drained 189 g)
+navy beans,default,can,255.0,curated,15 oz can drained solids
+okra,default,each,12,curated,curated gram weight
+onion,default,each,110,curated,same as yellow onion: Generic onion follows yellow onion
+pasilla chile,default,each,10,curated,curated gram weight
+pigeon peas,default,can,250,curated,boiled; canned drained
+pita bread,default,each,60,curated,curated gram weight
+poblano pepper,default,each,110,curated,Proxy: SR green bell pepper (same fresh capsicum energy)
+potato,default,each,230,curated,same as russet potato: Generic potato follows russet potato
+preserved lemon,default,each,30,curated,Proxy: SR lemon peel; rind only. Brine adds sodium this does not count
+pumpkin,canned,can,425.0,us_can_size,15 oz can of pumpkin puree
+radish,default,each,4.5,curated,curated gram weight
+ramen noodles,default,portion,110,curated,SR has no fresh ramen; fresh egg-pasta is the nearest. 1 portion ~ 110 g (a 4 oz nest)
+red bell pepper,default,each,119,curated,1 medium
+red onion,default,each,110,curated,curated gram weight
+rice paper,default,each,8,curated,Branded; one 8-inch round
+ripe plantain,default,each,179,curated,peeled
+roma tomato,default,each,62,curated,curated gram weight
+romaine lettuce,default,each,250,curated,a head or a heart; ~250 g
+russet potato,default,each,230,curated,curated gram weight
+salmon,default,fillet,170,curated,recipe says 6 oz each = 170 g; USDA's own 'fillet' portion is a whole 396 g side
+saltine crackers,default,each,3,curated,curated gram weight
+sandwich bread,default,each,25.0,curated,a bread line with no unit counts slices; same weight as the slice entry
+sandwich bread,default,slice,25,curated,curated gram weight
+scallion,default,each,15,curated,curated gram weight
+scallion,default,stalk,15,curated,curated gram weight
+scotch bonnet,default,each,10,curated,Proxy: SR hot red chili
+serrano pepper,default,each,6,curated,curated gram weight
+shallot,default,each,30,curated,curated gram weight
+shrimp,default,each,8,curated,"raw, peeled; each = one medium shrimp (~8 g)"
+snapper,default,each,170,curated,each = 6 oz fillet
+spring roll wrappers,default,each,8,curated,Branded; small 3x7-inch lumpia wrapper
+star anise,default,each,0.7,curated,Proxy: SR anise seed
+sweet potato,default,each,130,curated,curated gram weight
+thai chile,default,each,2,curated,Proxy: SR hot red chili
+tomato,canned,can,411.0,us_can_size,"14.5 oz can of tomatoes, contents with juice"
+tomato,default,each,123,curated,curated gram weight
+tomato sauce,default,can,425,curated,15 oz can
+tostadas,default,each,12,curated,curated gram weight
+white beans,default,can,255.0,curated,15 oz can drained solids
+white onion,default,each,110,curated,curated gram weight
+whole chicken,default,each,1030,curated,"meat and skin, raw. 'about 3.5 lb' bird ~ 65% edible = ~1,030 g (broth recipe: most nutrients stay in the pot, so this overstates the bowl)"
+whole cloves,default,each,0.1,curated,curated gram weight
+whole tomatoes,default,can,794,curated,28 oz can (the usual size for whole peeled); includes the juice
+yellow onion,default,each,110,curated,1 medium
+yukon gold potato,default,each,170,curated,"white potato, flesh and skin"
+zucchini,default,each,196,curated,curated gram weight

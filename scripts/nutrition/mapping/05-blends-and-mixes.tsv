@@ -1,0 +1,35 @@
+kind	ingredient	form	value	conf	note
+food	popcorn	default	167959	M	SR air-popped popcorn (a cup popped is 8 g; kernels would be about 4x denser)
+food	short ribs	default	170827	M	SR boneless chuck short ribs lean and fat raw (bone-in weight is about 40 percent bone)
+food	cake mix	default	172708	M	SR pudding-type white cake dry mix
+food	cornbread mix	default	174908	H	SR cornbread dry mix
+food	pudding mix	default	169609	M	SR vanilla pudding dry mix (flavour not stated)
+food	biscuit mix	default	174902	H	SR biscuit dry mix
+food	baking mix	default	174902	M	SR biscuit dry mix (Bisquick-type baking mix)
+food	pumpkin pie spice	default	171332	H	SR pumpkin pie spice
+food	apple pie spice	default	171332	M	Proxy: SR pumpkin pie spice (same cinnamon, nutmeg, allspice, clove family)
+food	poultry seasoning	default	171331	H	SR poultry seasoning
+food	italian seasoning	default	171328	M	Proxy: SR dried oregano (blend of dried oregano, basil, thyme, rosemary: 230 to 330 kcal per 100 g)
+food	herbes de provence	default	170938	M	Proxy: SR dried thyme (dried thyme, savory, rosemary, lavender blend)
+food	kalamata olives	default	169094	M	Proxy: SR ripe canned olives (116 kcal); brined kalamatas are 115 to 145 kcal, sodium differs
+food	white wine vinegar	default	172240	M	Proxy: SR red wine vinegar (acetic acid, about 19 kcal, same minerals)
+food	taco seasoning	default	628002	M	Branded label data (McCormick taco seasoning mix); labels round to whole numbers and omit micronutrients
+food	red curry paste	default	2034463	M	Branded label data (Simply Asia red curry paste); macros and sodium only
+food	halloumi	default	2624366	M	Branded label data (halloumi cheese); macros, calcium, sodium, cholesterol only
+skip	shredded cheese	cheddar, mozzarella or a blend: owner decision (map to cheddar?)
+skip	seasoning mix	generic and ambiguous (taco, ranch, onion soup all differ)
+skip	lemon pepper	labels round to 0 kcal per serving and salt content varies by brand
+skip	adobo seasoning	salt-based blend; Branded labels round to 0 and vary 0 to 100 kcal
+skip	chinese five spice	Branded labels round to 0 kcal; no SR record
+skip	old bay seasoning	salt-based blend; Branded labels round to 0
+skip	za'atar	Branded labels round to 0; no SR record
+skip	everything bagel seasoning	Branded labels disagree (0 to 714 kcal)
+skip	furikake	Branded label inconsistent (macros 25 percent each)
+skip	peanut butter chips	Branded only, one record per brand
+skip	breakfast sausage	no pork breakfast-sausage record in SR/Foundation; cooked/raw and fat level vary
+skip	taco sauce	no SR record; Branded labels vary
+skip	chili sauce	ambiguous between tomato chili sauce (Heinz) and Asian chili sauce
+skip	dried fruit	generic mix
+skip	cereal	generic
+skip	fruit juice	generic
+skip	salad dressing	generic: 30 to 560 kcal per 100 g
