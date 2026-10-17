@@ -163,7 +163,9 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   // Diets are NOT filtered here: pescatarian accepts vegetarian and vegan recipes, a rule that
   // lives in Postgres (diet_satisfying) and is applied by filtered_recipes(), which loadBrowse
   // reads whenever a diet is set.
-  if (f.exclude?.length) {
+  // Allergens: an embed filter on the table; on the filtered_recipes() path the function does it
+  // (PostgREST cannot filter a to-many embed on an RPC result: 42703 "recipes_ex_1 does not exist").
+  if (f.exclude?.length && !usesFilteredRecipes(f)) {
     q = q.in("ex.allergens.slug", f.exclude).filter("ex", "is", "null");
   }
   // Recipes that USE any selected cookware. An inner embed keeps a parent only
@@ -177,9 +179,14 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   return q as T;
 }
 
+/** True when the list is read from the filtered_recipes() RPC instead of the table. */
+function usesFilteredRecipes(f: RecipeFilters): boolean {
+  return !!f.ownedOnly || !!f.include?.length || !!f.diet?.length;
+}
+
 function selectFor(f: RecipeFilters): string {
   const parts = [CARD_COLUMNS.replace("cuisines(name)", f.cuisine?.length ? "cuisines!inner(name)" : "cuisines(name)")];
-  if (f.exclude?.length) parts.push("ex:recipe_allergens(allergens!inner(slug))");
+  if (f.exclude?.length && !usesFilteredRecipes(f)) parts.push("ex:recipe_allergens(allergens!inner(slug))");
   if (f.cookware?.length) parts.push("cw:recipe_cookware!inner(cookware!inner(slug))");
   return parts.join(", ");
 }
@@ -197,7 +204,7 @@ async function loadBrowse(
   // Likewise "contains these ingredients" (family-expanded). One RPC does both, and
   // PostgREST still filters, embeds, orders and pages on top of its rows.
   const countOpt = cursor ? undefined : { count: "exact" as const };
-  const useRpc = filters.ownedOnly || !!filters.include?.length || !!filters.diet?.length;
+  const useRpc = usesFilteredRecipes(filters);
   let query = useRpc
     ? sb
         .rpc(
@@ -206,6 +213,7 @@ async function loadBrowse(
             owned: filters.ownedOnly ? (filters.ownedCookware ?? []) : null,
             include_ids: filters.include?.length ? filters.include : null,
             diet_slugs: filters.diet?.length ? filters.diet : null,
+            exclude_slugs: filters.exclude?.length ? filters.exclude : null,
           },
           countOpt,
         )

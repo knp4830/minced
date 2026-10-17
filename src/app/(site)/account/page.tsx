@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { permanentRedirect, redirect } from "next/navigation";
 
-import { CookwareEditor } from "@/components/account/cookwareEditor";
-import { DeleteAccountForm } from "@/components/account/authForms";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { MyRecipeBook } from "@/components/account/myRecipeBook";
 import { ComingSoon } from "@/components/shell/comingSoon";
@@ -11,10 +9,8 @@ import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { SignOutForm } from "@/components/account/signOutForm";
 import { getCurrentUser } from "@/lib/queries/account";
-import { getFilterOptions } from "@/lib/queries/browse";
 import { getFavoriteCards } from "@/lib/queries/favorites";
 import { listMyRecipes } from "@/lib/queries/myRecipes";
-import { getMyCookwareSlugs } from "@/lib/queries/userCookware";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -22,21 +18,22 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-const ALL_TABS = [
+const TABS = [
   { id: "library", label: "My Library" },
   { id: "book", label: "My recipes" },
-  { id: "settings", label: "Settings" },
 ] as const;
-type TabId = (typeof ALL_TABS)[number]["id"];
+type TabId = (typeof TABS)[number]["id"];
 // "My recipes" is always listed. Until user recipes are switched on (see src/lib/flags.ts)
 // it shows a coming-soon note instead of the book.
-const TABS = ALL_TABS;
+// Settings used to be a third tab here; it is its own page now (/settings), linked after the tabs.
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
 export default async function AccountPage({ searchParams }: Props) {
   const sp = await searchParams;
   const rawTab = Array.isArray(sp.tab) ? sp.tab[0] : sp.tab;
+  // Old links (and the cookware filter's "manage" link) point at the former Settings tab: send them on, 308.
+  if (rawTab === "settings") permanentRedirect("/settings");
   const tab: TabId = TABS.some((t) => t.id === rawTab) ? (rawTab as TabId) : "library";
   const notice = (Array.isArray(sp.notice) ? sp.notice[0] : sp.notice) === "password";
 
@@ -46,13 +43,6 @@ export default async function AccountPage({ searchParams }: Props) {
 
   const saved = tab === "library" ? await getFavoriteCards() : [];
   const mine = tab === "book" && USER_RECIPES_ENABLED ? await listMyRecipes() : [];
-  const [allCookware, myCookware] =
-    tab === "settings"
-      ? await Promise.all([
-          getFilterOptions().then((o) => o.allCookware),
-          getMyCookwareSlugs().catch(() => [] as string[]),
-        ])
-      : [[], [] as string[]];
   const rawFlash = Array.isArray(sp.notice) ? sp.notice[0] : sp.notice;
   const flash = tab === "book" && rawFlash ? rawFlash : null;
 
@@ -98,6 +88,12 @@ export default async function AccountPage({ searchParams }: Props) {
             {t.label}
           </Link>
         ))}
+        <Link
+          href="/settings"
+          className="inline-flex min-h-11 items-center rounded-sheet border border-line-strong px-4 text-[0.875rem] font-medium text-ink transition-colors hover:border-herb hover:text-herb"
+        >
+          Settings
+        </Link>
       </nav>
 
       <section className="mt-7" aria-labelledby="tab-h">
@@ -134,47 +130,6 @@ export default async function AccountPage({ searchParams }: Props) {
             </ComingSoon>
           ))}
 
-        {tab === "settings" && (
-          <>
-            <h2 id="tab-h" className="mb-4 text-xl">
-              Settings
-            </h2>
-            <div className="max-w-xl space-y-8">
-              <div id="cookware" className="scroll-mt-24">
-                <h3 className="text-base font-semibold">My cookware</h3>
-                <p className="mt-1.5 mb-3 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Tap what you own. Switch on &ldquo;Only what I can make with my cookware&rdquo; in the
-                  recipe filters and Minced hides anything that needs a pan or pot you don&apos;t have.
-                </p>
-                <CookwareEditor all={allCookware} initial={myCookware} />
-              </div>
-              <div>
-                <h3 className="text-base font-semibold">Your data</h3>
-                <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Minced stores your email, the recipes you save, your cookware, your fridge (with dates and amounts), your shopping list, and security sign-in logs. If you use Me, it also stores your targets (sex, age, height, weight, goal), food log, workouts and sleep; they are included in the download below. Without an account, your shopping list stays in this browser only.{" "}
-                  <Link href="/privacy" className="underline underline-offset-4 hover:text-herb">
-                    Read the privacy policy
-                  </Link>
-                  .
-                </p>
-                <a
-                  href="/api/me/export"
-                  download
-                  className="mt-3 inline-flex min-h-11 items-center text-[0.9375rem] font-medium underline underline-offset-4 hover:text-herb"
-                >
-                  Download my data
-                </a>
-              </div>
-              <div>
-                <h3 className="text-base font-semibold">Delete your account</h3>
-                <p className="mt-1.5 mb-4 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Removes your login, saved recipes, fridge, shopping list and everything you logged on Me (targets, meals, workouts, sleep) right away. This can&apos;t be undone.
-                </p>
-                <DeleteAccountForm />
-              </div>
-            </div>
-          </>
-        )}
       </section>
     </div>
   );

@@ -17,9 +17,13 @@ import {
   hasActiveFilters,
   parseFilters,
   resultFilters,
+  withFilters,
+  type DefaultsState,
   type RecipeFilters,
   type SearchParamsInput,
 } from "@/lib/filters";
+import { DefaultsChip, PrefsMarker } from "@/components/recipe/defaultsChip";
+import { resolveDefaults } from "@/lib/prefsCookie";
 import { getFilterOptions, getRecipePage } from "@/lib/queries/browse";
 import { RecipeGridSkeleton } from "@/components/shell/skeletons";
 
@@ -45,23 +49,35 @@ function countLabel(total: number | null, lowerBound: boolean, hasQuery: boolean
   return hasQuery ? `${n} ${noun} found` : `${n} ${noun}`;
 }
 
-function EmptyState({ filters }: { filters: RecipeFilters }) {
+function EmptyState({ filters, defaults }: { filters: RecipeFilters; defaults: DefaultsState }) {
   const filtered = hasActiveFilters(filters);
+  const byDefaults = !!defaults.applied;
   return (
     <div className="mx-auto max-w-md rounded-xl border border-line bg-surface px-6 py-10 text-center">
       <h2 className="text-xl [overflow-wrap:anywhere]">
         {filters.q ? <>No recipes for “{filters.q}”</> : "No recipes match these filters"}
       </h2>
       <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-muted">
-        {filters.q
-          ? "Check the spelling, or try one word, like “chickpea” or “soup”."
-          : "Loosen a filter and the list grows back."}
+        {byDefaults
+          ? "No recipes match these filters and your defaults. Turn off your defaults to see more."
+          : filters.q
+            ? "Check the spelling, or try one word, like “chickpea” or “soup”."
+            : "Loosen a filter and the list grows back."}
       </p>
       <div className="mt-5 flex flex-wrap justify-center gap-3">
+        {byDefaults && (
+          <Link
+            href={`/recipes${filtersToQuery(withFilters(filters, { defaults: "off" }))}`}
+            scroll={false}
+            className={buttonVariants({ variant: "primary", size: "md" })}
+          >
+            Turn off my defaults
+          </Link>
+        )}
         {filtered && (
           <Link
             href={clearFiltersHref(filters)}
-            className={buttonVariants({ variant: "primary", size: "md" })}
+            className={buttonVariants({ variant: byDefaults ? "secondary" : "primary", size: "md" })}
           >
             Clear filters
           </Link>
@@ -99,11 +115,23 @@ async function CountLine({ filters }: { filters: RecipeFilters }) {
   ) : null;
 }
 
-/** Everything that waits on the database. Rendered inside a keyed <Suspense>. */
-async function Results({ filters }: { filters: RecipeFilters }) {
+/**
+ * Everything that waits on the database. Rendered inside a keyed <Suspense>.
+ * `filters` is what is QUERIED (saved defaults merged in); `urlFilters` is what the address bar says, and every
+ * link we build keeps the latter, so a shared link never carries the sender's defaults.
+ */
+async function Results({
+  filters,
+  urlFilters,
+  defaults,
+}: {
+  filters: RecipeFilters;
+  urlFilters: RecipeFilters;
+  defaults: DefaultsState;
+}) {
   const page = await pageFor(filters);
   const nextHref = page.nextCursor
-    ? `/recipes${filtersToQuery({ ...filters, cursor: page.nextCursor })}`
+    ? `/recipes${filtersToQuery({ ...urlFilters, cursor: page.nextCursor })}`
     : null;
   const unknown = [
     (filters.minTime !== undefined || filters.maxTime !== undefined) && "time",
@@ -139,7 +167,7 @@ async function Results({ filters }: { filters: RecipeFilters }) {
       {filters.cursor && (
         <p className="mb-3">
           <Link
-            href={`/recipes${filtersToQuery({ ...filters, cursor: undefined })}`}
+            href={`/recipes${filtersToQuery({ ...urlFilters, cursor: undefined })}`}
             className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4 hover:text-herb"
           >
             Back to the first page
@@ -151,13 +179,13 @@ async function Results({ filters }: { filters: RecipeFilters }) {
         recipes={page.recipes}
         nextHref={nextHref}
         label={filters.q ? `Recipes matching ${filters.q}` : "Recipes"}
-        empty={<EmptyState filters={filters} />}
+        empty={<EmptyState filters={urlFilters} defaults={defaults} />}
       />
 
       {filters.cursor && (
         <p className="mt-6 text-center">
           <Link
-            href={`/recipes${filtersToQuery({ ...filters, cursor: undefined })}`}
+            href={`/recipes${filtersToQuery({ ...urlFilters, cursor: undefined })}`}
             className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4 hover:text-herb"
           >
             Back to the first page
@@ -169,9 +197,14 @@ async function Results({ filters }: { filters: RecipeFilters }) {
 }
 
 export default async function RecipesPage({ searchParams }: Props) {
-  const filters = parseFilters((await searchParams) as SearchParamsInput);
+  // `url` is what the address bar says (links, chips, the badge); `filters` is what is queried, with the
+  // signed-in person's saved diet / allergen defaults merged in on the SERVER, before the first byte, so a
+  // default allergen can never flash an unfiltered list. The cookie is read here, outside every cache.
+  const url = parseFilters((await searchParams) as SearchParamsInput);
   const options = await getFilterOptions();
-  const activeCount = activeFilterCount(filters);
+  const defaults = await resolveDefaults(url, options);
+  const filters = defaults.effective;
+  const activeCount = activeFilterCount(url);
   // Same-route navigations (a chip tap) do not trigger loading.tsx; a keyed
   // Suspense boundary does, so the list shows a skeleton while the chips and
   // the URL already reflect the tap.
@@ -182,7 +215,8 @@ export default async function RecipesPage({ searchParams }: Props) {
       <Suspense fallback={null}>
         <RememberList />
       </Suspense>
-      <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
+      <CookwareSync owned={url.ownedCookware ?? []} only={url.ownedOnly === true} />
+      <PrefsMarker state={defaults} />
       <div className="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
         {/* Desktop: sticky sidebar */}
         <aside
@@ -191,9 +225,9 @@ export default async function RecipesPage({ searchParams }: Props) {
         >
           <div className="mb-4 flex items-baseline justify-between">
             <h2 className="text-[1.0625rem]">Filters</h2>
-            <ClearFilters filters={filters} />
+            <ClearFilters filters={url} />
           </div>
-          <FilterControls filters={filters} options={options} />
+          <FilterControls filters={url} options={options} defaults={defaults} />
         </aside>
 
         <section aria-labelledby="results-h" className="min-w-0 lg:pl-8">
@@ -208,13 +242,15 @@ export default async function RecipesPage({ searchParams }: Props) {
             </div>
             {filters.q && (
               <Link
-                href={`/recipes${filtersToQuery({ ...filters, q: undefined, cursor: undefined })}`}
+                href={`/recipes${filtersToQuery({ ...url, q: undefined, cursor: undefined })}`}
                 className="inline-flex min-h-11 items-center rounded-md text-sm text-ink-muted underline underline-offset-4 hover:text-herb lg:min-h-0"
               >
                 Clear search
               </Link>
             )}
           </div>
+
+          <DefaultsChip state={defaults} filters={url} options={options} base="/recipes" className="mb-4" />
 
           {/* Phone: "Filters" button opening a bottom sheet. Stays mounted across
               taps so it does not close; only its button label waits for data. */}
@@ -227,14 +263,14 @@ export default async function RecipesPage({ searchParams }: Props) {
             }
           >
             <div className="mb-3 flex justify-end">
-              <ClearFilters filters={filters} />
+              <ClearFilters filters={url} />
             </div>
-            <FilterControls filters={filters} options={options} />
+            <FilterControls filters={url} options={options} defaults={defaults} />
           </FilterSheet>
 
           <div data-results>
             <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
-              <Results filters={filters} />
+              <Results filters={filters} urlFilters={url} defaults={defaults} />
             </Suspense>
           </div>
         </section>

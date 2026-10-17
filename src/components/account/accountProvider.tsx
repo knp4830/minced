@@ -47,10 +47,13 @@ type AccountContext = {
 const Ctx = createContext<AccountContext | null>(null);
 
 /** Pages where signing in, out or deleting an account happens; navigating to or from one means "ask again". */
-const AUTH_PATH = /^\/(login|signup|account|reset-password|forgot-password|auth)(\/|$)/;
+const AUTH_PATH = /^\/(login|signup|account|settings|reset-password|forgot-password|auth)(\/|$)/;
+
+/** Fired (on window) by Settings after the display name changes, so the header can show it without a reload. */
+export const ACCOUNT_CHANGED_EVENT = "minced:account-changed";
 
 /** Pages that only make sense signed in: signing out from one goes home. */
-const SIGNED_IN_AREA = /^\/(account|fridge|me)(\/|$)|^\/recipes\/new\/?$|^\/recipes\/[^/]+\/edit\/?$/;
+const SIGNED_IN_AREA = /^\/(account|settings|fridge|me)(\/|$)|^\/recipes\/new\/?$|^\/recipes\/[^/]+\/edit\/?$/;
 
 const AUTH_COOKIE = /(?:^|;\s*)sb-[^=;]*-auth-token/;
 
@@ -121,6 +124,20 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  // The list pages render the person's saved diet / allergen defaults on the server from a cookie and leave a
+  // fingerprint of them in the page. If /api/me says the database now holds something else (another device
+  // changed them, or this is the first request after logging in on a new device), refresh the page once.
+  const refreshedFor = useRef<string | null>(null);
+  const reconcilePrefs = useCallback(
+    (hash: string) => {
+      const have = document.querySelector("[data-prefs-hash]")?.getAttribute("data-prefs-hash");
+      if (have === undefined || have === null || have === hash || refreshedFor.current === hash) return;
+      refreshedFor.current = hash;
+      router.refresh();
+    },
+    [router],
+  );
+
   // Re-check when it can have changed: on first load, and whenever a navigation
   // touches the sign-in / account pages (logging in, out or deleting the account
   // all end in a redirect, and the provider outlives the page it was rendered
@@ -148,7 +165,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     (async () => {
       try {
         const res = await fetch("/api/me", { cache: "no-store" });
-        const body = (await res.json()) as { user: Me | null; favorites: string[]; error?: boolean };
+        const body = (await res.json()) as { user: Me | null; favorites: string[]; error?: boolean; prefsHash?: string };
         if (cancelled) return;
         // A failed lookup keeps whatever we knew; it must not sign anyone out in the UI.
         if (!res.ok || body.error) {
@@ -156,6 +173,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
           return;
         }
         apply(body.user ? "in" : "out", body.user, body.favorites);
+        if (body.user && body.prefsHash !== undefined) reconcilePrefs(body.prefsHash);
       } catch {
         if (!cancelled && statusRef.current === "loading") apply("out", null, []);
       }
@@ -163,7 +181,22 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [pathname, apply]);
+  }, [pathname, apply, reconcilePrefs]);
+
+  // Settings tells us the display name changed, so the header shows it without a reload.
+  useEffect(() => {
+    const onChanged = async () => {
+      try {
+        const res = await fetch("/api/me", { cache: "no-store" });
+        const body = (await res.json()) as { user: Me | null; favorites: string[]; error?: boolean };
+        if (res.ok && !body.error && body.user) setMe(body.user);
+      } catch {
+        /* the header catches up on the next page */
+      }
+    };
+    window.addEventListener(ACCOUNT_CHANGED_EVENT, onChanged);
+    return () => window.removeEventListener(ACCOUNT_CHANGED_EVENT, onChanged);
+  }, []);
 
   const toggle = useCallback(
     async (slug: string): Promise<ToggleResult> => {

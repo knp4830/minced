@@ -84,7 +84,7 @@ export function MyCookware({ owned, only, all }: Props) {
           : "Recipes that list no cookware always show."}
       </p>
       <p className="mt-1 text-[0.8125rem] leading-snug text-ink-muted">
-        <Link href="/account?tab=settings#cookware" className="underline underline-offset-2 hover:text-herb">
+        <Link href="/settings#cookware" className="underline underline-offset-2 hover:text-herb">
           Choose which cookware I own
         </Link>
       </p>

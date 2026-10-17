@@ -47,6 +47,7 @@ export async function middleware(request: NextRequest) {
 
   const needsLogin =
     pathname.startsWith("/account") ||
+    pathname.startsWith("/settings") ||
     pathname.startsWith("/fridge") ||
     pathname === "/recipes/new" ||
     EDIT_ROUTE.test(pathname);
@@ -71,5 +72,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/recipe-not-found", "/recipes/:slug", "/recipes/:slug/edit", "/account/:path*", "/fridge/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
+  matcher: ["/recipe-not-found", "/recipes/:slug", "/recipes/:slug/edit", "/account/:path*", "/settings/:path*", "/fridge/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
 };

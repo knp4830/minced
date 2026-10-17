@@ -7,7 +7,8 @@
 
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createClient } from "@/lib/supabase/server";
-import { addDays, localDateOf, weekRange } from "@/lib/me/dates";
+import { addDays, localDateOf, weekRange, type WeekStart } from "@/lib/me/dates";
+import { getMySettings, writeSettings } from "@/lib/queries/settings";
 import {
   sumFood,
   type DayDetail,
@@ -54,12 +55,15 @@ export async function getTargets(zone?: string | null): Promise<MeTargets | null
     .maybeSingle();
   const r = data as TargetRow | null;
   if (!r) return null;
+  // Settings owns sex and units now (Settings > Body / Units). me_targets keeps a mirrored copy only for
+  // old readers and goes away in a follow-up migration; where the two ever differ, Settings is right.
+  const s = await getMySettings();
   return {
-    sex: r.sex,
+    sex: s.sex ?? r.sex,
     age: r.age_years,
     heightCm: num(r.height_cm),
     weightKg: num(r.weight_kg),
-    units: r.units,
+    units: s.units,
     activity: r.activity,
     goal: r.goal,
     paceKg: num(r.pace_kg),
@@ -206,8 +210,11 @@ export async function getDismissedCheckIns(): Promise<Partial<Record<CheckInKind
 
 // ---------- week and month ----------
 
-export async function getWeekMuscles(date: string): Promise<{ from: string; to: string; muscles: WeekMuscle[] }> {
-  const { from, to } = weekRange(date);
+export async function getWeekMuscles(
+  date: string,
+  weekStart: WeekStart = "monday",
+): Promise<{ from: string; to: string; muscles: WeekMuscle[] }> {
+  const { from, to } = weekRange(date, weekStart);
   const db = await createClient();
   const { data } = await db.rpc("me_week_muscles", { p_from: from, p_to: to });
   const muscles = ((data ?? []) as { muscle: string; sets: number | string; days: string[] }[]).map((r) => ({
@@ -368,6 +375,10 @@ export async function writeTargets(t: Omit<MeTargets, "updatedOn">): Promise<Wri
   const s = await signedIn();
   if (!s) return SIGN_IN;
   const db = s.db;
+  // Sex and units belong to Settings. The wizard only asks for sex when Settings has none, and either way what
+  // it sends is what Settings holds, so this write is a no-op for a person who already set them.
+  const settings = await writeSettings({ sex: t.sex, units: t.units });
+  if (!settings.ok) return settings.reason === "signed-out" ? SIGN_IN : FAILED;
   const { error } = await db.from("me_targets").upsert(
     {
       user_id: s.uid,

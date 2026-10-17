@@ -3,6 +3,7 @@ import { getFavoriteSlugs } from "@/lib/queries/favorites";
 import { getFridge } from "@/lib/queries/fridge";
 import { getShoppingLines } from "@/lib/queries/shopping";
 import { getMyHealthExport } from "@/lib/queries/me";
+import { getMySettingsExport } from "@/lib/queries/settings";
 import { getMyCookwareSlugs } from "@/lib/queries/userCookware";
 import { createClient } from "@/lib/supabase/server";
 
@@ -18,13 +19,14 @@ export async function GET() {
   if (!user) {
     return Response.json({ error: "Not signed in" }, { status: 401, headers: { "Cache-Control": "private, no-store" } });
   }
-  const [me, favorites, cookware, fridge, shopping, health] = await Promise.all([
+  const [me, favorites, cookware, fridge, shopping, health, settings] = await Promise.all([
     getCurrentUser(),
     getFavoriteSlugs(),
     getMyCookwareSlugs(),
     getFridge(),
     getShoppingLines(),
     getMyHealthExport(),
+    getMySettingsExport(),
   ]);
   const body = {
     exported_at: new Date().toISOString(),
@@ -33,6 +35,8 @@ export async function GET() {
     account_created_at: user.created_at,
     saved_recipes: favorites,
     owned_cookware: cookware,
+    // Units, week start, sex and the default diet / allergen filters. null until you save one.
+    settings,
     fridge: fridge.map((f) => ({
       ingredient: f.name,
       aisle: f.aisle,

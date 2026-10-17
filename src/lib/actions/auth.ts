@@ -11,6 +11,8 @@ import {
 } from "@/lib/auth/validate";
 import { GOOGLE_SIGNIN_ENABLED } from "@/lib/flags";
 import { TZ_COOKIE } from "@/lib/me/dates";
+import { PREFS_COOKIE } from "@/lib/prefs";
+import { syncPrefsCookie } from "@/lib/prefsCookie";
 import { deleteMyAccount } from "@/lib/queries/account";
 import { createClient } from "@/lib/supabase/server";
 
@@ -74,6 +76,8 @@ export async function logIn(_prev: FormState, form: FormData): Promise<FormState
     }
     return { email, error: "That email and password don't match." };
   }
+  // Their saved diet / allergen defaults must apply from the very first list they open.
+  await syncPrefsCookie(supabase);
   redirect(next);
 }
 
@@ -145,7 +149,10 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
   }
 
   // Confirmations off (local dev): a session came back, so the person is signed in.
-  if (data.session) redirect(next);
+  if (data.session) {
+    await syncPrefsCookie(supabase);
+    redirect(next);
+  }
 
   // Same answer whether or not the address already has an account: Supabase
   // answers a repeat sign-up with success and sends no confirmation, so any
@@ -211,9 +218,11 @@ export async function logOutQuiet(): Promise<void> {
   await forgetTimeZone();
 }
 
-/** The Me page's time-zone cookie is personal data: it goes when the session does. */
+/** The Me page's time-zone cookie and the saved-filters cookie are personal data: they go when the session does. */
 async function forgetTimeZone(): Promise<void> {
-  (await cookies()).delete(TZ_COOKIE);
+  const jar = await cookies();
+  jar.delete(TZ_COOKIE);
+  jar.delete(PREFS_COOKIE);
 }
 
 export async function logOut(): Promise<void> {

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { BodyMap, type MuscleWeek } from "@/components/me/bodyMap/BodyMap";
 import { useMeUi } from "@/components/me/meUi";
 import type { BodySex } from "@/components/me/bodyMap";
+import { weekSpanWords, type WeekStart } from "@/lib/me/dates";
 import { cn } from "@/lib/utils";
 
 /*
@@ -23,7 +24,9 @@ export function MuscleCard({
   weekLabel,
   week,
   defaultSex,
+  weekStart = "monday",
 }: {
+  weekStart?: WeekStart;
   weekLabel: string;
   week: Record<string, MuscleWeek>;
   defaultSex: BodySex;
@@ -92,7 +95,7 @@ export function MuscleCard({
           ))}
         </div>
         <p className="w-full text-[0.75rem] leading-relaxed text-ink-subtle">
-          Color follows the hard sets you log for each muscle over the week, Monday to Sunday. Around 10 or more weekly sets per muscle is the commonly cited target for building muscle; a few sets is enough to keep what you have.
+          Color follows the hard sets you log for each muscle over the week, {weekSpanWords(weekStart)}. Around 10 or more weekly sets per muscle is the commonly cited target for building muscle; a few sets is enough to keep what you have.
         </p>
         {empty && (
           <p className="flex items-center gap-3 text-[0.8125rem] text-ink-muted">
