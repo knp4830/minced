@@ -161,5 +161,20 @@ Live site: https://minced-app.vercel.app
 - [ ] Delete account removes Me data (type DELETE; fridge, shopping, favourites, Me rows are gone).
 - [ ] Run `supabase/tests/me_rls_test.sql` on a throwaway database, never live.
 
+## 16. Wave 9 (2026-10-17), check after both migrations are live (Me needs the flag on)
+- [ ] Diet filter on /recipes and /pantry: Pescatarian shows vegetarian and vegan dishes too (about 55), Vegetarian includes vegan (about 42), Vegan about 22; counts match between browse, search (`?q=bean`) and the fridge matcher.
+- [ ] Me wizard: mockup example (34 y, 182 cm, 84 kg, male, moderately active, lose 0.5 kg/wk) shows 2,810 minus 550 = 2,260 kcal, 160 g protein, and "Show each step". A small, sedentary woman at 0.75 kg/wk is raised to 1,200 with a plain-words note.
+- [ ] Goal weight (lose or gain): wrong direction is refused; projected date shows in the wizard, weight card and check-ins.
+- [ ] Goal days: lose 85 to 105 percent, maintain 90 to 110, gain 95 to 115, plus protein at least 90 percent; "partly" says which part missed; the day detail and /me/how-goal-days show the same numbers.
+- [ ] Weigh-in from the quick-log sheet, the Weight card and the morning card; Clear (x) removes it. Chart: daily dots, 7-day average line, goal line; 30 days, 90 days, Weekly toggles (`?wr=`); hidden data table present.
+- [ ] Check-ins: shows after a 2 kg drift, 28-day-old targets or goal reached; "Not now" stays gone after reload and on another device; saving targets brings it back.
+- [ ] Streaks strip (food, sleep, weight): yesterday still counts; gentle copy.
+- [ ] Weeks start Monday in the calendar and muscle map; legend reads 1-4 / 5-9 / 10+ sets; the "Workout plans and exercise library: coming soon" card is not clickable.
+- [ ] Imperial users: weights, goal and chart read in pounds.
+- [ ] ★ Phone 375: /me no horizontal scroll, "All nutrients today" collapsed behind "Show all nutrients", label reads "Fiber".
+- [ ] Google "G" shows four brand colours (flag on); /about links all at least 44 px tall at 375 (known: body-art credit about 42 px).
+- [ ] /privacy lists weigh-ins and goal weight; the data export includes weigh-ins.
+- [ ] Run `supabase/tests/me_rls_test.sql` (93 checks) on a throwaway stack, never live.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

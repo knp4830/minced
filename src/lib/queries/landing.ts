@@ -1,4 +1,3 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { photoPublicUrl } from "@/lib/photos";
 import { createStaticClient } from "@/lib/supabase/static";
@@ -36,7 +35,7 @@ type PhotoRow = {
 
 /** Published recipes, exact. RLS already hides drafts from the anonymous key. */
 export async function getRecipeCount(): Promise<number> {
-  const sb = createStaticClient() as unknown as SupabaseClient;
+  const sb = createStaticClient();
   const { count, error } = await sb
     .from("recipes")
     .select("id", { count: "exact", head: true });
@@ -135,7 +134,7 @@ function toLandingPhoto(r: PhotoRow, slot: number): LandingPhoto {
  * stride so the choice is stable.
  */
 export async function getLandingPhotos(count = 9): Promise<LandingPhoto[]> {
-  const sb = createStaticClient() as unknown as SupabaseClient;
+  const sb = createStaticClient();
 
   const { data: curatedData } = await sb
     .from("recipe_photos")
@@ -184,7 +183,7 @@ export async function getLandingPhotos(count = 9): Promise<LandingPhoto[]> {
 
 /** Every photo that carries a credit, for the /about credits list. */
 export async function getPhotoCredits(): Promise<PhotoCredit[]> {
-  const sb = createStaticClient() as unknown as SupabaseClient;
+  const sb = createStaticClient();
   // PostgREST caps a response at max_rows (1000), so page through with .range():
   // a silently truncated list would drop CC-BY attributions.
   const PAGE = 500;

@@ -33,7 +33,7 @@ export const FDA_DV: DvRow[] = [
   { id: "cholesterol", name: "Cholesterol", unit: "mg", dv: 300, kind: "limit" },
   { id: "sodium", name: "Sodium", unit: "mg", dv: 2300, kind: "limit", tracked: "sodium" },
   { id: "carbs", name: "Total carbohydrate", unit: "g", dv: 275, kind: "target", tracked: "carbs" },
-  { id: "fiber", name: "Fibre", unit: "g", dv: 28, kind: "target", tracked: "fiber" },
+  { id: "fiber", name: "Fiber", unit: "g", dv: 28, kind: "target", tracked: "fiber" },
   { id: "added_sugar", name: "Added sugars", unit: "g", dv: 50, kind: "limit" },
   { id: "protein", name: "Protein", unit: "g", dv: 50, kind: "target", tracked: "protein" },
   { id: "vit_d", name: "Vitamin D", unit: "µg", dv: 20, kind: "target" },

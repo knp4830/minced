@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
  */
 
 const LEGEND = [
-  { label: "1 set", cls: "bg-(--me-herb-1)" },
-  { label: "2–3 sets", cls: "bg-(--me-herb-2)" },
-  { label: "4+ sets", cls: "bg-(--me-herb-3)" },
+  { label: "1–4 sets", cls: "bg-(--me-herb-1)" },
+  { label: "5–9 sets", cls: "bg-(--me-herb-2)" },
+  { label: "10+ sets", cls: "bg-(--me-herb-3)" },
 ];
 
 export function MuscleCard({
@@ -42,7 +42,7 @@ export function MuscleCard({
             This week&rsquo;s muscles
           </h2>
         </div>
-        <ul className="flex gap-3 pt-1 text-[0.6875rem] text-ink-muted" aria-label="Colour key">
+        <ul className="flex gap-3 pt-1 text-[0.6875rem] text-ink-muted" aria-label="Color key, sets this week">
           {LEGEND.map((l) => (
             <li key={l.label} className="flex items-center gap-1.5">
               <span aria-hidden className={cn("size-2.5 rounded-xs", l.cls)} />
@@ -91,6 +91,9 @@ export function MuscleCard({
             </button>
           ))}
         </div>
+        <p className="w-full text-[0.75rem] leading-relaxed text-ink-subtle">
+          Color follows the hard sets you log for each muscle over the week, Monday to Sunday. Around 10 or more weekly sets per muscle is the commonly cited target for building muscle; a few sets is enough to keep what you have.
+        </p>
         {empty && (
           <p className="flex items-center gap-3 text-[0.8125rem] text-ink-muted">
             Log a workout to see what you&rsquo;ve trained this week.

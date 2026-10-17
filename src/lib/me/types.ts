@@ -23,6 +23,10 @@ export type MeTargets = {
   proteinG: number;
   carbsG: number;
   fatG: number;
+  /** Where the person wants to get to; null for maintain or when skipped. */
+  goalWeightKg: number | null;
+  /** The local date the targets were last saved (YYYY-MM-DD). */
+  updatedOn: string;
 };
 
 export type FoodEntry = {
@@ -57,6 +61,8 @@ export type DayDetail = {
   food: FoodEntry[];
   workouts: WorkoutEntry[];
   sleep: number | null;
+  /** Morning weigh-in in kg, or null. */
+  weightKg: number | null;
   totals: DayTotals;
 };
 
@@ -70,6 +76,7 @@ export type DaySummary = {
   trained: string[];
   sets: number;
   sleepHours: number | null;
+  weightKg: number | null;
 };
 
 export type WeekMuscle = { muscle: string; sets: number; days: string[] };

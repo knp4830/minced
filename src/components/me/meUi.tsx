@@ -22,6 +22,8 @@ type Dialog =
 type Ui = {
   today: string;
   targets: MeTargets | null;
+  /** 7-day average weigh-in in kg, or null. */
+  avgWeightKg: number | null;
   openLog: (date?: string) => void;
   openFood: (meal?: Meal, date?: string) => void;
   openTargets: () => void;
@@ -41,7 +43,7 @@ function mealForNow(): Meal {
   return h < 10 ? "breakfast" : h < 15 ? "lunch" : h < 21 ? "dinner" : "snack";
 }
 
-export function MeUiProvider({ today, targets, children }: { today: string; targets: MeTargets | null; children: ReactNode }) {
+export function MeUiProvider({ today, targets, avgWeightKg, children }: { today: string; targets: MeTargets | null; avgWeightKg: number | null; children: ReactNode }) {
   const [dialog, setDialog] = useState<Dialog>(null);
 
   const openLog = useCallback((date?: string) => setDialog({ kind: "log", date: date ?? today }), [today]);
@@ -49,14 +51,14 @@ export function MeUiProvider({ today, targets, children }: { today: string; targ
   const openTargets = useCallback(() => setDialog({ kind: "targets" }), []);
   const close = useCallback(() => setDialog(null), []);
 
-  const value = useMemo<Ui>(() => ({ today, targets, openLog, openFood, openTargets }), [today, targets, openLog, openFood, openTargets]);
+  const value = useMemo<Ui>(() => ({ today, targets, avgWeightKg, openLog, openFood, openTargets }), [today, targets, avgWeightKg, openLog, openFood, openTargets]);
 
   return (
     <Ctx.Provider value={value}>
       {children}
       {dialog?.kind === "log" && <LogSheet date={dialog.date} today={today} onClose={close} onOpenFood={(d) => openFood(undefined, d)} />}
       {dialog?.kind === "food" && <FoodDialog date={dialog.date} today={today} meal={dialog.meal} onClose={close} />}
-      {dialog?.kind === "targets" && <TargetsWizard initial={targets} onClose={close} />}
+      {dialog?.kind === "targets" && <TargetsWizard initial={targets} today={today} avgWeightKg={avgWeightKg} onClose={close} />}
     </Ctx.Provider>
   );
 }

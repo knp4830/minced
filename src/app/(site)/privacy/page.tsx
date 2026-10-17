@@ -85,15 +85,16 @@ export default function PrivacyPage() {
         </p>
         <ul>
           <li>
-            Your targets: sex (female or male), age, height, weight, activity level, goal, and the calorie and
+            Your targets: sex (female or male), age, height, weight, activity level, goal, goal weight, and the calorie and
             macronutrient targets worked out from them.
           </li>
           <li>
             Your food log: what you ate, the meal and date, and the calories, protein, carbohydrate, fat, and where
-            given, fibre and sodium.
+            given, fiber and sodium.
           </li>
           <li>Your workouts: the date, the session type, minutes, sets, and which muscle groups you trained.</li>
           <li>Your sleep: hours slept on each date you enter.</li>
+          <li>Your weigh-ins: the weight you log on each date, and which targets reminders you have dismissed.</li>
         </ul>
         <p>
           This is sensitive, so: it is used only to show you your own page. It is not used for advertising or analytics,
@@ -167,7 +168,7 @@ export default function PrivacyPage() {
       <LegalSection id="keep" title="How long we keep it">
         <p>
           For as long as the account exists. When you delete the account, your
-          email, password hash, saved recipes, cookware, fridge, shopping list and Me page data (targets, food log, workouts, sleep) are removed immediately. Security
+          email, password hash, saved recipes, cookware, fridge, shopping list and Me page data (targets, food log, workouts, sleep, weigh-ins) are removed immediately. Security
           logs (which can include your email and IP address) and routine backups
           age out on the host&apos;s own schedule, and are never restored for any purpose except recovering the whole site.
         </p>

@@ -95,9 +95,14 @@ export function distributeSets(session: Exclude<Session, "custom">, total: numbe
   return parts.filter((p) => p.sets > 0).map((p) => ({ muscle: p.muscle, sets: p.sets }));
 }
 
-/** Weekly sets -> 0 (not trained), 1 (1 set), 2 (2-3 sets), 3 (4+ sets): the legend's three greens. */
+/**
+ * WEEKLY sets per muscle -> 0 (not trained), 1 (1-4 sets, light), 2 (5-9 sets, medium), 3 (10+ sets, full):
+ * the legend's three greens. Training research commonly puts the growth target at about 10 or more hard sets
+ * per muscle per week, with fewer enough to maintain; the colours follow that, so full green means "this
+ * muscle got a growth-sized week".
+ */
 export function intensity(sets: number): 0 | 1 | 2 | 3 {
-  return sets >= 4 ? 3 : sets >= 2 ? 2 : sets >= 1 ? 1 : 0;
+  return sets >= 10 ? 3 : sets >= 5 ? 2 : sets >= 1 ? 1 : 0;
 }
 
 /** Default total sets / minutes the log sheet starts with. Easy to change. */
