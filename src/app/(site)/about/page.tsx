@@ -76,7 +76,7 @@ export default async function AboutPage() {
       <Section id="credits" title="Body-map artwork">
         <p>
           The muscle diagrams on the Me page use body artwork from{" "}
-          <a className="underline underline-offset-2" href="https://github.com/HichamELBSI/react-native-body-highlighter">
+          <a className="inline-block py-3 underline underline-offset-2" href="https://github.com/HichamELBSI/react-native-body-highlighter">
             react-native-body-highlighter
           </a>{" "}
           by Hicham El Bsi, released under the MIT licence. The full licence text is in THIRD_PARTY_NOTICES.md in the
@@ -102,18 +102,18 @@ export default async function AboutPage() {
             <ul className="divide-y divide-line border-t border-line text-sm">
               {credits.map((c) => (
                 <li key={c.slug} className="px-4">
-                  <Link href={`/recipes/${c.slug}`} className={`${link} inline-block py-3.5`}>
+                  <Link href={`/recipes/${c.slug}`} className={`${link} inline-block min-w-11 py-3.5`}>
                     {c.title}
                   </Link>
                   <span className="text-ink-muted">
                     {" "}
                     &mdash;{" "}
-                    <a href={c.attributionUrl} className={`${link} inline-block py-3.5`} rel="noopener">
+                    <a href={c.attributionUrl} className={`${link} inline-block min-w-11 py-3.5`} rel="noopener">
                       {c.credit ?? "Source"}
                     </a>
                     ,{" "}
                     {c.licenseUrl ? (
-                      <a href={c.licenseUrl} className={`${link} inline-block py-3.5`} rel="noopener">
+                      <a href={c.licenseUrl} className={`${link} inline-block min-w-11 py-3.5`} rel="noopener">
                         {c.license}
                       </a>
                     ) : (
@@ -173,7 +173,7 @@ export default async function AboutPage() {
         </p>
         <p>
           Ready to cook?{" "}
-          <Link href="/" className={link}>
+          <Link href="/" className={`${link} inline-block py-3`}>
             Start from what&apos;s in your kitchen
           </Link>
           .
