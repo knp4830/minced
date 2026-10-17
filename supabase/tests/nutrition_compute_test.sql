@@ -3,7 +3,7 @@
 --
 --   psql "$URL" -v ON_ERROR_STOP=1 -f supabase/tests/nutrition_compute_test.sql
 --
--- Needs: the four 202610171200xx migrations applied. Runs as the table owner (postgres).
+-- Needs: the three 2026101712xxxx nutrition migrations applied. Runs as the table owner (postgres).
 -- Real FDC values used for the owner's example (SR Legacy, per 100 g):
 --   174036 ground beef 80/20 raw : 254 kcal, 17.17 P, 20.0 F, 0 C, 66 mg Na, 2.14 mcg B12, 71 mg chol
 --   169230 garlic raw            : 149 kcal, 6.36 P, 0.5 F, 33.06 C, 17 mg Na, 0 B12, 1 clove = 3 g

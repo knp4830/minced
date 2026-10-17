@@ -1,4 +1,4 @@
--- Wave 10, lane B, migration 3 of 4: type-ahead search and the write hooks.
+-- Wave 10, lane B, migration 3 of 3: type-ahead search and the write hooks.
 --
 --   search_foods(q, max_results)   canonical ingredients AND linked generic foods AND brands
 --   trg_recipes_before_write       skips its updated_at / search_vector work for nutrition-only writes

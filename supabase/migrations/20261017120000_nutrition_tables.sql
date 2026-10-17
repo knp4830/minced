@@ -1,4 +1,4 @@
--- Wave 10, lane B (schema + compute), migration 1 of 4: nutrition tables.
+-- Wave 10, lane B (schema + compute), migration 1 of 3: nutrition tables.
 --
 -- Design: docs/research/wave10-micronutrients-plan.md section 3.1, extended by the
 -- owner's wave-10/11 goal (brands as FOODS linked to a canonical ingredient, a

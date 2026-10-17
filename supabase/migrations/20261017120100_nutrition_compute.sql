@@ -1,4 +1,4 @@
--- Wave 10, lane B, migration 2 of 4: the compute layer.
+-- Wave 10, lane B, migration 2 of 3: the compute layer.
 --
 --   food_has_nutrition(fdc)            can this food contribute at all (has energy)
 --   food_nutrient_amount(fdc, n, ing)  per-100 g value with conversions and the added-sugar estimate
