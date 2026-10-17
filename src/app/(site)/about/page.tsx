@@ -76,7 +76,7 @@ export default async function AboutPage() {
       <Section id="credits" title="Body-map artwork">
         <p>
           The muscle diagrams on the Me page use body artwork from{" "}
-          <a className="inline-block py-3 underline underline-offset-2" href="https://github.com/HichamELBSI/react-native-body-highlighter">
+          <a className="relative underline underline-offset-2 after:absolute after:-inset-y-3 after:inset-x-0 after:content-['']" href="https://github.com/HichamELBSI/react-native-body-highlighter">
             react-native-body-highlighter
           </a>{" "}
           by Hicham El Bsi, released under the MIT licence. The full licence text is in THIRD_PARTY_NOTICES.md in the
