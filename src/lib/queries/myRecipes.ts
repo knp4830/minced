@@ -40,6 +40,27 @@ export async function getMyRecipeBySlug(slug: string): Promise<MyRecipeDetail | 
   return (data ?? null) as MyRecipeDetail | null;
 }
 
+/** The specific food (a brand, say) an author picked per line, keyed by the line's position (sort_order). */
+export type PickedFood = { pos: number; fdcId: number; label: string | null; brand: string | null };
+
+/** Stores the food choices after a save. A failure is reported, not hidden: the recipe itself is already saved. */
+export async function setMyRecipeFoods(recipeId: string, picks: { pos: number; fdc_id: number }[]): Promise<boolean> {
+  const { error } = await rpc("set_my_recipe_foods", { p_recipe_id: recipeId, p_picks: picks });
+  return !error;
+}
+
+/** Food choices saved with a recipe. Empty (never throws) when the nutrition tables are not there yet. */
+export async function getMyRecipeFoods(recipeId: string): Promise<PickedFood[]> {
+  const { data, error } = await rpc("my_recipe_foods", { p_recipe_id: recipeId });
+  if (error || !Array.isArray(data)) return [];
+  return (data as { pos: number; fdc_id: number; label: string | null; brand: string | null }[]).map((r) => ({
+    pos: r.pos,
+    fdcId: r.fdc_id,
+    label: r.label,
+    brand: r.brand,
+  }));
+}
+
 export type SaveResult =
   | { ok: true; id: string; slug: string; status: "draft" | "in_review" }
   | { ok: false; reason: "signed_out" | "not_found" | "invalid" | "failed"; message?: string; field?: string };
@@ -81,43 +102,24 @@ export async function resolveIngredientName(name: string): Promise<string | null
   return rows[0]?.canonical_name ?? null;
 }
 
-/** PostgREST caps a response at max_rows (1000): page through so a growing vocabulary is never cut silently. */
-async function selectAll(sb: SupabaseClient, table: string, column: string) {
-  const PAGE = 1000;
-  const rows: Record<string, unknown>[] = [];
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await sb.from(table).select(column).order(column).range(from, from + PAGE - 1);
-    if (error) return { data: null, error };
-    const batch = (data ?? []) as unknown as Record<string, unknown>[];
-    rows.push(...batch);
-    if (batch.length < PAGE) return { data: rows, error: null };
-  }
-}
-
 async function loadFormOptions(): Promise<FormOptions> {
   const sb = createStaticClient() as unknown as SupabaseClient;
-  const [cuisines, diets, cookware, units, ingredients, aliases] = await Promise.all([
+  const [cuisines, diets, cookware, units] = await Promise.all([
     sb.from("cuisines").select("id, name").order("name"),
     sb.from("diets").select("id, name").order("id"),
     sb.from("cookware").select("id, name").order("name"),
     sb.from("units").select("name, kind").order("kind").order("name"),
-    selectAll(sb, "ingredients", "canonical_name"),
-    selectAll(sb, "ingredient_aliases", "alias"),
   ]);
-  for (const r of [cuisines, diets, cookware, units, ingredients, aliases]) {
+  for (const r of [cuisines, diets, cookware, units]) {
     if (r.error) throw r.error;
   }
-  const names = new Set<string>();
-  for (const r of (ingredients.data ?? []) as { canonical_name: string }[]) names.add(r.canonical_name.toLowerCase());
-  for (const r of (aliases.data ?? []) as { alias: string }[]) names.add(r.alias.toLowerCase());
   return {
     cuisines: (cuisines.data ?? []) as FormOptions["cuisines"],
     diets: (diets.data ?? []) as FormOptions["diets"],
     cookware: (cookware.data ?? []) as FormOptions["cookware"],
     units: ((units.data ?? []) as { name: string }[]).map((u) => u.name),
-    ingredientNames: [...names].sort(),
   };
 }
 
 /** Vocabularies change only on import: cached for an hour with the cookie-free client. */
-export const getFormOptions = unstable_cache(loadFormOptions, ["recipe-form-options-v1"], { revalidate: 3600 });
+export const getFormOptions = unstable_cache(loadFormOptions, ["recipe-form-options-v2"], { revalidate: 3600 });

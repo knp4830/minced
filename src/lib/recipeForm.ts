@@ -26,6 +26,15 @@ export type IngredientRow = {
   name: string;
   note: string;
   optional: boolean;
+  /**
+   * A specific USDA food or brand picked for this line (the line itself is still the canonical ingredient
+   * `name`). Null/absent: the ingredient's default food is used.
+   */
+  fdcId?: number | null;
+  /** What to show for that pick ("Kikkoman Soy Sauce"). Display only, never sent to the database. */
+  foodLabel?: string;
+  /** The picker said this pick has no nutrition data. Display only. */
+  noNutrition?: boolean;
 };
 
 /** Everything the form edits. Numbers stay strings until the server parses them. */
@@ -176,6 +185,4 @@ export type FormOptions = {
   diets: { id: number; name: string }[];
   cookware: { id: number; name: string }[];
   units: string[];
-  /** Canonical names and aliases, lower-case, for the name field's suggestions. */
-  ingredientNames: string[];
 };
