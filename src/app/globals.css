@@ -102,6 +102,12 @@
   --page-max: 90rem;
   --measure: 68ch;
   --header-h: 3.75rem;
+  /* Google's official "G" mark colours. Brand-mandated, not part of Minced's palette: used only
+     by the sign-in mark; the button around it stays neutral per Google's branding rules. */
+  --google-blue: #4285f4;
+  --google-green: #34a853;
+  --google-yellow: #fbbc05;
+  --google-red: #ea4335;
   color-scheme: light;
 }
 @media (min-width: 140rem) {
