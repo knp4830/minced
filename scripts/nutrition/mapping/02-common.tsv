@@ -1,0 +1,46 @@
+kind	ingredient	form	value	conf	note
+food	brown rice	default	169703	H	SR brown long-grain rice raw (uncooked); "cooked" lines use the cooked form
+food	brown rice	cooked	169704	H	SR brown long-grain rice cooked
+food	dried rosemary	default	171333	H	SR rosemary dried
+food	bacon	default	168277	M	SR bacon raw (unprepared); 1 raw slice 28 g. Cooked-weight lines understate kcal per gram
+food	couscous	default	169699	H	SR couscous dry
+food	cream-style corn	default	169215	H	SR canned cream-style corn
+food	ham	default	173864	H	SR sliced regular ham
+food	deli ham	default	173864	M	SR sliced regular ham
+food	hominy	default	169701	H	SR canned white hominy
+food	lima beans	default	174254	M	SR large lima beans canned (recipes do not say canned or frozen)
+food	molasses	default	168820	H	SR molasses
+food	parsnip	default	170417	H	SR parsnips raw
+food	ranch dressing	default	173592	H	SR ranch dressing regular
+food	winter squash	default	170489	H	SR winter squash all varieties raw
+food	asparagus	default	168389	H	SR asparagus raw
+food	beet	default	169145	H	SR beets raw
+food	cranberry juice	default	171903	M	SR cranberry juice cocktail bottled (sweetened)
+food	cream of chicken soup	default	171146	H	SR condensed cream of chicken soup
+food	grapefruit	default	174673	H	SR pink and red grapefruit all areas
+food	pie crust	default	175024	M	SR frozen ready-to-bake standard pie crust, one crust 173 g
+food	pomegranate	default	169134	H	SR pomegranates raw
+food	pumpkin puree	default	168450	H	SR canned pumpkin without salt
+food	sunflower seeds	default	170562	H	SR sunflower seed kernels dried
+food	tilapia	default	175176	H	SR tilapia raw
+food	turkey breast	default	171098	H	SR turkey breast meat only raw
+food	vinaigrette	default	171417	M	SR home-recipe vinegar and oil dressing; bottled low-calorie vinaigrettes are lighter
+food	walleye	default	175128	H	SR walleye raw
+food	wild rice	default	169726	H	SR wild rice raw
+food	wild rice	cooked	168897	H	SR wild rice cooked
+food	blue cheese	default	172175	H	SR blue cheese
+food	bread flour	default	168896	H	SR bread flour enriched
+food	coffee	default	171890	H	SR brewed coffee
+food	cream of tartar	default	175041	H	SR cream of tartar
+food	dried apricots	default	173941	H	SR dried sulfured apricots
+food	dried figs	default	174665	H	SR dried figs
+food	english muffin	default	174994	H	SR plain English muffin; one muffin 57 g
+food	fennel	default	169385	H	SR fennel bulb raw
+food	fruit cocktail	default	174668	H	SR canned fruit cocktail juice pack
+food	granola	default	171646	M	SR homemade-style granola
+food	grape juice	default	173042	H	SR grape juice unsweetened
+food	lasagna noodles	default	169736	H	SR dry enriched pasta
+food	marinara sauce	default	171192	H	SR ready-to-serve marinara sauce
+food	napa cabbage	default	169979	H	SR Chinese cabbage pe-tsai raw (napa)
+food	papaya	default	169926	H	SR papayas raw
+food	pizza sauce	default	172880	H	SR canned pizza sauce

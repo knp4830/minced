@@ -1,0 +1,55 @@
+kind	ingredient	form	value	conf	note
+food	matzo meal	default	172740	M	Proxy: SR plain matzo cracker (matzo meal is ground matzo); no cup weight in USDA
+food	chili peppers	default	170106	M	SR hot red chili peppers raw
+food	poppy seeds	default	171330	H	SR poppy seed
+food	pork chops	default	168238	M	SR center loin chop bone-in lean and fat raw; USDA edible-portion weights, bone excluded
+food	pork tenderloin	default	168312	H	SR pork tenderloin lean and fat raw
+food	powdered sugar	default	169656	H	SR powdered sugar
+food	pumpkin seeds	default	170556	H	SR pumpkin and squash seed kernels dried
+food	red cabbage	default	169977	H	SR red cabbage raw
+food	shortening	default	172332	H	SR household shortening
+food	split peas	default	172428	H	SR green split peas raw
+food	strawberry yogurt	default	170889	M	SR low-fat fruit yogurt (sweetened)
+food	sweet onion	default	170008	H	SR sweet onions raw
+food	swiss chard	default	169991	H	SR Swiss chard raw
+food	swiss cheese	default	171251	H	SR Swiss cheese
+food	almond butter	default	168588	H	SR almond butter plain without salt
+food	apricot jam	default	170645	H	SR apricot jam and preserves
+food	arugula	default	169387	H	SR arugula raw
+food	beef stew meat	default	168668	M	Proxy: SR chuck arm pot roast lean and fat raw (stew meat is cubed chuck)
+food	bok choy	default	170390	H	SR pak-choi raw
+food	canned peaches	default	169930	H	SR canned peaches juice pack solids and liquids
+food	canned pears	default	169936	H	SR canned pears juice pack solids and liquids
+food	caraway seeds	default	170918	H	SR caraway seed
+food	celery seed	default	170920	H	SR celery seed
+food	cherries	default	171719	H	SR sweet cherries raw
+food	corn flakes	default	174648	M	SR corn flakes ready-to-eat (brand record, generic product)
+food	croutons	default	172751	H	SR plain croutons
+food	dates	default	171726	H	SR deglet noor dates
+food	edamame	default	168411	M	SR frozen edamame prepared
+food	evaporated skim milk	default	170878	H	SR evaporated nonfat milk
+food	fresh rosemary	default	173473	H	SR rosemary fresh
+food	frozen yogurt	default	168815	M	SR vanilla soft-serve frozen yogurt
+food	fusilli	default	169736	H	SR dry enriched pasta
+food	fusilli	cooked	169737	H	SR cooked enriched pasta
+food	grits	default	171654	H	SR corn grits white dry
+food	grits	cooked	171655	H	SR corn grits cooked with water
+food	hamburger buns	default	172796	H	SR plain hamburger or hot dog roll; one roll 44 g
+food	marshmallows	default	167995	H	SR marshmallows
+food	pancake mix	default	172772	H	SR complete pancake dry mix (buttermilk included)
+food	pepper jack	default	170844	M	Proxy: SR Monterey cheese (pepper jack is Monterey with chiles)
+food	pistachios	default	170184	H	SR pistachios raw
+food	pollock	default	173725	H	SR Alaska pollock raw
+food	pretzels	default	167555	H	SR hard plain salted pretzels
+food	prunes	default	168162	H	SR dried plums uncooked
+food	raisin bran	default	171650	M	SR Raisin Bran ready-to-eat cereal
+food	seasoned breadcrumbs	default	172806	H	SR seasoned dry bread crumbs
+food	semisweet chocolate	default	167976	H	SR semisweet chocolate
+food	sun-dried tomatoes	default	168567	H	SR sun-dried tomatoes (dry, not oil-packed)
+food	whole grain mustard	default	172234	M	Proxy: SR prepared yellow mustard
+skip	plantain	generic plantain is ambiguous between green (starchy) and ripe; map via green plantain / ripe plantain
+skip	fresh tarragon	SR has only dried tarragon (about 4x denser); no fresh record
+skip	fresh oregano	SR has only dried oregano; no fresh record
+skip	fresh sage	SR has only dried sage; no fresh record
+skip	ham hocks	not in SR/Foundation as a cooked-meat record; bone-in and fat variable
+skip	anaheim chile	no Anaheim record; hot (40 kcal) and sweet (20 kcal) peppers bracket it

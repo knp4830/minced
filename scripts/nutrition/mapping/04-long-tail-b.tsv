@@ -1,0 +1,107 @@
+kind	ingredient	form	value	conf	note
+food	whipped topping	default	170868	M	SR frozen semi-solid dessert topping (Cool Whip type)
+food	skirt steak	default	172158	M	SR inside skirt steak boneless lean and fat raw
+food	snap peas	default	170010	H	SR edible-podded peas raw
+food	spaghetti squash	default	169298	H	SR spaghetti squash raw
+food	taco shells	default	172800	H	SR baked taco shells
+food	tomatillo	default	168566	H	SR tomatillos raw
+food	tomato soup	default	172882	H	SR condensed tomato soup
+food	tortilla chips	default	167558	H	SR salted white-corn tortilla chips
+food	trout	default	173717	H	SR farmed rainbow trout raw
+food	water chestnuts	default	170066	H	SR Chinese waterchestnuts raw
+food	almond milk	default	174832	H	SR unsweetened almond milk
+food	anchovies	default	174183	H	SR European anchovy canned in oil drained
+food	artichoke	default	169205	H	SR globe artichoke raw
+food	avocado oil	default	173573	H	SR avocado oil
+food	bagel	default	174899	H	SR plain enriched bagel; one bagel 99 g
+food	blackberries	default	173946	H	SR blackberries raw
+food	bran cereal	default	173888	M	SR Post Bran Flakes ready-to-eat cereal
+food	brisket	default	168666	M	SR brisket flat half lean and fat trimmed 1/8 in raw
+food	broccoli rabe	default	170381	H	SR broccoli raab raw
+food	butternut squash puree	default	169296	M	SR butternut squash baked without salt (mashed)
+food	capers	default	172238	H	SR capers canned
+food	chia seeds	default	170554	H	SR chia seeds dried
+food	chicken wings	default	172390	H	SR chicken wing meat and skin raw
+food	chorizo	default	173859	H	SR pork chorizo raw
+food	clams	default	174214	H	SR clams mixed species raw
+food	crab	default	171966	M	SR canned blue crab meat (crab in recipes is usually picked meat)
+food	deli turkey	default	174572	M	SR deli turkey breast
+food	dry red wine	default	173190	H	SR table red wine
+food	farro	default	2710828	M	Foundation pearled farro dry raw
+food	figs	default	173021	H	SR figs raw
+food	flaxseed	default	169414	H	SR flaxseed
+food	fresh mozzarella	default	170845	M	SR whole-milk mozzarella
+food	goat cheese	default	173435	H	SR soft goat cheese
+food	grape jelly	default	169642	H	SR jellies
+food	ground chicken	default	171116	H	SR ground chicken raw
+food	gruyere	default	171242	H	SR gruyere
+food	half-and-half	default	171255	H	SR half and half fluid
+food	hazelnuts	default	170581	H	SR hazelnuts
+food	hot dogs	default	173862	M	SR beef frankfurter unheated (pork or chicken franks differ)
+food	imitation crab	default	173702	H	SR surimi
+food	italian bread	default	174913	H	SR Italian bread
+food	italian sausage	default	171631	H	SR mild Italian pork sausage raw; one link 101 g
+food	lamb chops	default	174377	M	SR lamb rib lean and fat trimmed 1/8 in choice raw
+food	leek	default	169246	H	SR leeks raw
+food	lettuce	default	169249	H	SR green leaf lettuce raw
+food	mixed greens	default	169249	M	SR green leaf lettuce (spring-mix is slightly denser)
+food	lobster	default	174208	H	SR northern lobster raw
+food	mussels	default	174216	H	SR blue mussels raw
+food	mustard greens	default	169256	H	SR mustard greens raw
+food	naan	default	171845	H	SR plain naan; one piece 90 g
+food	oat milk	default	2257046	M	Foundation oat milk unsweetened plain refrigerated
+food	steel-cut oats	default	169705	H	SR oats (whole grain, includes steel-cut)
+food	peanut oil	default	171410	H	SR peanut oil
+food	pesto	default	171579	H	SR refrigerated pesto
+food	phyllo dough	default	172791	H	SR phyllo dough
+food	plum	default	169949	H	SR plums raw
+food	portobello mushrooms	default	169255	H	SR portabella raw
+food	provolone	default	170850	H	SR provolone
+food	puff pastry	default	172790	H	SR frozen puff pastry
+food	roasted red peppers	default	168546	H	SR canned red sweet peppers
+food	rutabaga	default	168454	H	SR rutabagas raw
+food	sardines	default	175139	H	SR Atlantic sardines in oil drained with bone
+food	sauerkraut	default	169279	H	SR canned sauerkraut
+food	scallops	default	174220	H	SR scallops raw
+food	smoked salmon	default	171985	H	SR chinook smoked (lox)
+food	soba noodles	default	168906	H	SR soba dry
+food	soba noodles	cooked	168907	H	SR soba cooked
+food	sourdough bread	default	172675	M	SR French/Vienna bread (includes sourdough); slice size is per loaf slice, set by recipe weight
+food	soy milk	default	172446	H	SR soymilk original unfortified
+food	squid	default	174223	H	SR squid raw
+food	strawberry jam	default	169641	H	SR jams and preserves
+food	sweetened condensed milk	default	171275	H	SR sweetened condensed milk
+food	tamari	default	174278	H	SR tamari
+food	tempeh	default	174272	H	SR tempeh
+food	tuna steak	default	175159	H	SR yellowfin tuna raw
+food	vegetable juice	default	170063	H	SR vegetable juice cocktail
+food	watercress	default	170068	H	SR watercress raw
+food	wonton wrappers	default	172802	H	SR wonton wrappers
+food	sriracha	default	171186	H	SR sriracha sauce
+food	rotisserie chicken	default	171450	M	SR broiler chicken meat and skin cooked roasted
+skip	nori	SR has only raw (wet) laver at 35 kcal; dried nori sheets are about 8x denser; needs a dried-seaweed record
+skip	pancetta	no SR/Foundation record for cured unsmoked pork belly; bacon is smoked and different
+skip	prosciutto	no SR/Foundation record
+skip	mascarpone	no SR/Foundation record
+skip	seitan	no SR/Foundation record
+skip	pizza dough	no generic SR record; brands vary widely
+skip	bread dough	no generic SR record
+skip	crescent rolls	only brand records in SR
+skip	udon noodles	no udon record in SR/Foundation
+skip	sherry vinegar	no sherry vinegar record
+skip	white fish	generic and ambiguous
+skip	ground meat	generic and ambiguous
+same	bell pepper	green bell pepper	M	Generic bell pepper follows green bell pepper
+same	onion	yellow onion	M	Generic onion follows yellow onion
+same	potato	russet potato	M	Generic potato follows russet potato
+same	cabbage	green cabbage	M	Generic cabbage follows green cabbage
+same	hamburger	ground beef	M	Hamburger is ground beef
+same	hot dog buns	hamburger buns	M	Hot dog bun follows hamburger bun
+same	rice	white rice	M	Generic rice follows white rice
+same	basmati rice	white rice	M	Basmati is a long-grain white rice (aromatic; nutrients like long-grain)
+same	fettuccine	pasta	H	Dry pasta
+same	linguine	pasta	H	Dry pasta
+same	penne	pasta	H	Dry pasta
+same	rigatoni	pasta	H	Dry pasta
+same	orzo	pasta	H	Dry pasta
+same	polenta	cornmeal	M	Polenta is cooked cornmeal; dry polenta line follows cornmeal

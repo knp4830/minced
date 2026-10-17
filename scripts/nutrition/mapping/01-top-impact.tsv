@@ -1,0 +1,124 @@
+kind	ingredient	form	value	conf	note
+food	milk	default	171267	M	SR 2% reduced-fat fluid milk; recipes say "milk" with no fat level, 2% sits between whole and 1%
+alt	milk	default	171265	H	SR whole 3.25% milk
+alt	milk	default	172205	H	SR 2% milk without added vitamins A and D
+alt	milk	default	170872	H	SR 1% lowfat milk
+alt	milk	default	171269	H	SR nonfat (skim) milk
+food	margarine	default	172346	M	SR regular 80% fat stick margarine with salt; spreads (35-60% fat) are lower in kcal
+food	raisins	default	168165	H	SR raisins dark seedless
+food	banana	default	173944	H	SR bananas raw; medium = 118 g
+food	vanilla yogurt	default	170888	M	SR low-fat vanilla yogurt; sweetened (added sugar present)
+food	cheddar cheese	default	328637	H	Foundation cheddar (lab analysed, full panel)
+food	broccoli	default	170379	H	SR broccoli raw
+food	orange juice	default	169098	H	SR orange juice raw; from-concentrate differs by under 5 percent
+food	black beans	default	2644285	H	Foundation canned black beans, sodium added, drained and rinsed (recipes say drained and rinsed)
+food	black beans	dried	173734	H	SR black beans mature seeds raw
+food	black beans	cooked	173735	H	SR black beans cooked boiled without salt
+food	cooking spray	default	171430	H	SR PAM original; 0.3 g per spray
+food	chicken	default	171054	M	SR cooked roasted chicken meat only (cup lines are cooked diced chicken); raw-weight lb lines overstate by about 30 percent
+food	rolled oats	default	173904	H	SR regular and quick oats dry
+food	mixed vegetables	default	170472	M	SR frozen mixed vegetables cooked boiled drained without salt
+food	diced tomatoes	default	170051	H	SR canned red tomatoes in juice (full nutrient panel; Foundation diced record reports only 10 nutrients)
+food	pasta	default	169736	H	SR dry enriched pasta
+food	pasta	cooked	169737	H	SR pasta cooked enriched without salt
+food	macaroni	default	169736	H	SR dry enriched pasta (elbow macaroni)
+food	macaroni	cooked	169737	H	SR pasta cooked enriched without salt
+food	yellow mustard	default	172234	H	SR prepared yellow mustard
+food	mozzarella	default	171244	M	SR low-moisture part-skim mozzarella
+food	flour tortillas	default	175037	M	SR refrigerated flour tortilla; one tortilla 48 g (size not stated in recipes)
+food	strawberries	default	167762	H	SR strawberries raw
+food	vanilla extract	default	173471	H	SR vanilla extract
+food	whole wheat flour	default	168893	H	SR whole-grain wheat flour
+food	orange	default	169097	H	SR oranges raw all commercial varieties
+food	canola oil	default	172336	H	SR canola oil
+food	dried basil	default	171317	H	SR basil dried
+food	greek yogurt	default	170894	M	SR plain nonfat Greek yogurt
+food	dry milk powder	default	170877	H	SR nonfat dry milk
+food	salsa	default	174524	H	SR ready-to-serve salsa
+food	dried parsley	default	170930	H	SR parsley dried
+food	hot sauce	default	174527	H	SR pepper or hot sauce ready-to-serve
+food	sour cream	default	171257	H	SR sour cream cultured
+food	cornmeal	default	169697	H	SR whole-grain yellow cornmeal
+food	crushed red pepper	default	170932	M	Proxy: SR cayenne/red pepper dried (flakes are the same dried chile)
+food	kale	default	168421	H	SR kale raw
+food	pear	default	169118	H	SR pears raw
+food	breadcrumbs	default	174928	H	SR dry grated plain bread crumbs
+food	dried cranberries	default	171723	H	SR cranberries dried sweetened
+food	egg whites	default	172183	H	SR egg white raw fresh
+food	beef broth	default	171538	H	SR canned beef broth ready-to-serve
+food	blueberries	default	171711	H	SR blueberries raw
+food	canned tuna	default	334194	M	Foundation light tuna in water drained solids; one 5 oz can drains to 107 g
+food	ground turkey	default	171505	H	SR ground turkey raw
+food	italian dressing	default	171019	H	SR commercial Italian dressing regular
+food	peach	default	169928	H	SR peaches yellow raw
+food	cod	default	171955	H	SR Atlantic cod raw
+food	cream cheese	default	173418	H	SR cream cheese
+food	dried sage	default	170935	H	SR sage ground
+food	red potato	default	170029	H	SR red potato flesh and skin raw
+food	apple cider vinegar	default	173469	H	SR cider vinegar
+food	applesauce	default	171695	H	SR applesauce canned unsweetened
+food	almonds	default	170567	H	SR almonds
+food	grapes	default	174683	H	SR grapes European type raw
+food	green chiles	default	170426	M	SR canned green chili pods solids and liquids (diced canned green chiles)
+food	mandarin orange	default	168184	M	SR canned mandarin oranges juice pack drained (recipes drain the can)
+food	summer squash	default	170487	H	SR summer squash raw
+food	yellow squash	default	170487	H	SR summer squash raw
+food	active dry yeast	default	175043	H	SR baker's active dry yeast; packet 7.2 g
+food	chicken bouillon	default	171562	H	SR chicken broth or bouillon dry
+food	cottage cheese	default	172182	H	SR lowfat 2% cottage cheese
+food	graham crackers	default	174957	H	SR graham crackers plain or honey
+food	spaghetti sauce	default	171192	H	SR ready-to-serve marinara spaghetti sauce
+food	unsalted butter	default	173430	H	SR butter without salt
+food	buttermilk	default	170874	H	SR lowfat cultured buttermilk
+food	tomato juice	default	170545	H	SR canned tomato juice without salt added
+food	white beans	default	175204	H	SR canned white beans (recipes use drained canned)
+food	white beans	dried	175202	H	SR white beans raw
+food	great northern beans	default	175192	H	SR great northern beans canned
+food	cannellini beans	default	175204	M	SR canned white beans (cannellini are white kidney beans)
+food	navy beans	default	173747	H	SR navy beans canned
+food	brussels sprouts	default	170383	H	SR Brussels sprouts raw
+food	egg substitute	default	173462	H	SR liquid fat-free egg substitute
+food	kosher salt	default	173468	M	Proxy: SR table salt (same sodium per 100 g); density curated below because flakes are lighter
+food	mango	default	169910	H	SR mangos raw
+food	pecans	default	170182	H	SR pecans
+food	pine nuts	default	170591	H	SR pine nuts dried
+food	ricotta	default	171248	M	SR part-skim ricotta
+food	turkey ham	default	168092	H	SR turkey ham sliced extra lean
+food	acorn squash	default	168472	H	SR acorn squash raw
+food	apple juice	default	173933	H	SR apple juice unsweetened
+food	maple syrup	default	169661	H	SR maple syrup
+food	raspberries	default	167755	H	SR raspberries raw
+food	cocoa powder	default	169593	H	SR unsweetened cocoa
+food	cream of mushroom soup	default	171155	H	SR canned condensed cream of mushroom soup
+food	kiwi	default	168153	H	SR kiwifruit green raw
+food	refried beans	default	172438	M	SR canned traditional refried beans
+food	watermelon	default	167765	H	SR watermelon raw
+food	yellow bell pepper	default	169383	H	SR sweet yellow peppers raw
+food	balsamic vinegar	default	172241	H	SR balsamic vinegar
+food	barley	default	170284	H	SR pearled barley raw
+food	butternut squash	default	169295	H	SR butternut squash raw
+food	cantaloupe	default	169092	H	SR cantaloupe raw
+food	chocolate chips	default	167976	H	SR semisweet chocolate chips
+food	chuck roast	default	168668	M	SR chuck arm pot roast lean and fat trimmed 1/8 inch choice, raw
+food	dried dill	default	171322	H	SR dill weed dried
+food	egg noodles	default	169731	H	SR egg noodles dry enriched
+food	egg noodles	cooked	169732	H	SR egg noodles cooked enriched
+food	quinoa	default	168874	H	SR quinoa uncooked
+food	sweet pickle relish	default	168561	H	SR sweet pickle relish
+food	turnip	default	170465	H	SR turnips raw
+food	american cheese	default	325198	M	Foundation pasteurized process American cheese
+food	barbecue sauce	default	174523	H	SR barbecue sauce
+food	beef bouillon	default	171560	H	SR beef bouillon powder dry
+food	chives	default	169994	H	SR chives raw
+density	kosher salt	0.974	curated	M	Morton kosher label: 1/4 tsp = 1.2 g (4.8 g/tsp); Diamond Crystal is lighter (about 2.8 g/tsp) so sodium is an upper bound
+portion	black beans	can	255	curated	M	15 oz can drained solids (same convention as kidney beans in the existing map)
+portion	white beans	can	255	curated	M	15 oz can drained solids
+portion	great northern beans	can	255	curated	M	15 oz can drained solids
+portion	cannellini beans	can	255	curated	M	15 oz can drained solids
+portion	navy beans	can	255	curated	M	15 oz can drained solids
+portion	diced tomatoes	can	411	us_can_size	M	14.5 oz can, contents including juice
+portion	cream of mushroom soup	can	305	us_can_size	M	10.75 oz condensed soup can
+portion	beef broth	can	435	usda	H	SR 14.5 oz can
+portion	canned tuna	can	107	usda	M	Foundation: one 5 oz can drained solids
+portion	refried beans	can	444	usda	M	SR one can (16 oz)
+portion	greek yogurt	cup	245	curated	L	Greek yogurt cup weight not in USDA record; regular yogurt cup used (+-8 percent)
