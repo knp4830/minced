@@ -356,3 +356,27 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 **PKCE sign-in must start and finish on the same host.** The verifier cookie is host-bound, so Google sign-in and emailed `?code=` links break across hosts. The canonical 308 redirect and Supabase Site URL must agree, and email templates should use `token_hash` links, which work from any browser.
 
 **A malformed cookie must not 500 a page.** `decodeURIComponent` throws on a stray `%`; wrap it (the `me_tz` cookie on `/me`).
+
+## 10. Wave 9 (2026-10-17)
+
+**Standard way to test a signed-in feature: a local Supabase stack built from the live snapshot.** (1) Copy `supabase/config.toml` to a temporary one with a UNIQUE `project_id` and ports; never stop a stack you did not start. (2) Move `supabase/migrations` and `seed.sql` aside (plain `supabase start` fails on the `20261010100000` family assertion), run `pnpm exec supabase start -x vector,logflare,imgproxy,edge-runtime,studio,realtime,storage-api,supavisor,postgres-meta`, then put the folders back. (3) Load `.snapshot/live.sql` into the db container as `supabase_admin` (first `create extension if not exists citext / pg_trgm schema public`, `drop schema supabase_migrations cascade`, strip the `CREATE SCHEMA public;` line). (4) As `supabase_admin`: `alter schema public` and every public table and non-extension function to owner `postgres`; grant usage on `public` and select to `anon`, `authenticated`; DML to `authenticated`, `service_role`; sequences; execute on functions; recreate trigger `on_auth_user_created` on `auth.users` executing `public.handle_new_user()`. (5) Apply your new migrations as `postgres`. (6) Point the app at it with a gitignored `.env.development.local` and create a test user through the admin API with `email_confirm` true. (7) Afterwards delete that env file and run `supabase stop --no-backup` for YOUR project_id.
+
+**The snapshot dump carries no grants.** Blanket grants re-add privileges earlier migrations revoked, so role-based RLS tests (`me_rls_test.sql`) fail a few checks until you replay the migrations' own GRANT/REVOKE lines. Judge them against that, not as code failures.
+
+**`me_targets_touch` overwrites `updated_at` on every UPDATE.** To fake old targets in a test, disable the trigger around the UPDATE.
+
+**`node --experimental-strip-types` cannot resolve the `@/` alias.** `scripts/me-alias-hook.mjs` registers a resolve hook; load source files with dynamic `import()` after `register()`.
+
+**Round percentages before checking bands**, so the number the user sees is the number the decision used.
+
+**Keep streak maths in one TS function.** The RPC returns only days with entries (bounded to 400 days); two implementations drift.
+
+**A diet rule belongs in one query-level function, not in re-tagged data.** `recipe_diets` says what a recipe is; `diet_satisfying()` says what a diet accepts. A PostgREST embed in `browse.ts` had silently bypassed any RPC change, so browse now goes through `filtered_recipes`.
+
+**Changing a function's signature needs a DROP of the old overload.** A second overload makes PostgREST `rpc` calls ambiguous.
+
+**Dead-code cleanup must be re-checked when merged after feature lanes.** Cleanup removed `dayDiff` and `dayMonth`, which the weight and check-in code then needed.
+
+**A date stored as a UTC timestamp compared with a browser-local "today" is off by a day in the evening.** Convert `updated_at` with the `me_tz` cookie before day arithmetic (open: check-in age).
+
+**A clamped target changes the projected date.** The projection must use the pace the floored calories actually give (open).

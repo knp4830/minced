@@ -447,6 +447,10 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-16 | `curl -I -H "Host: minced-app.vercel.app" http://localhost:<port>/recipes?q=x` | Test the canonical 308 on a production build | Set `MSYS_NO_PATHCONV=1` or Git Bash rewrites the path |
 | 2026-10-16 | `python scripts/photos/w8_prove_rejection.py` | Re-inject old rejected rows, expect every one dropped | Legacy note-only rejects are not covered |
 | 2026-10-16 | `gh pr create --base main --head wave8/integration --body-file <file>` | Open the wave 8 PR | Body starts with a MERGE ORDER WARNING |
+| 2026-10-17 | `pnpm exec supabase start -x vector,logflare,imgproxy,edge-runtime,studio,realtime,storage-api,supavisor,postgres-meta` (unique project_id, migrations moved aside) | Local auth stack for signed-in tests | Recipe in LESSONS section 10; plain `supabase start` fails on the family assertion |
+| 2026-10-17 | `pnpm exec supabase stop --no-backup` (your project_id only) | Remove the local stack and volumes | Never stop a stack another agent started |
+| 2026-10-17 | `node --experimental-strip-types scripts/test-me.mts` | Run the Me unit tests | Plain strip-types cannot resolve `@/`; the script registers `scripts/me-alias-hook.mjs` itself |
+| 2026-10-17 | `gh pr create --base main --head wave9/integration --body-file <file>` | Open the wave 9 PR | Body starts with a MERGE ORDER WARNING |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

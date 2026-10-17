@@ -225,13 +225,21 @@ Owner's 19-item desktop review. **Before merging:** back up live, apply `supabas
 - **Owner steps and every open question:** `docs/review/2026-10-16-wave8-questions.md`.
 - **Open from verification:** photos (fish-spinach shows a rejected photo, six swaps worse than before, 80 photos under 1000 px), pescatarian filter excludes vegetarian dishes, Me phone layout fix not re-verified in a browser.
 
+### Wave 9 (2026-10-17): integrated on `wave9/integration`, PR open, NOT applied to live
+
+**MERGE ORDER: back up live, apply `20261017100000_me_dashboard_v2.sql` and `20261017110000_diet_implications.sql` (live then has 37 migrations), merge, then push an empty commit to re-run the Vercel preview (LESSONS section 9).** Merging first breaks `/recipes?diet=` (browse calls the new 3-argument `filtered_recipes`). Types are already regenerated.
+
+- **Shipped:** Me dashboard v2 (behind `NEXT_PUBLIC_ENABLE_ME`): targets from pace x 7,700 kcal/kg with 1,200/1,500 floors and the maths shown, goal-aware goal days with an explainer page (`/me/how-goal-days`), goal weight and projected date, daily weigh-in (`me_weights`) with a 7-day-average SVG chart (30/90 days, weekly), check-ins (DB-stored snoozes), streaks, Monday weeks, muscle legend by weekly sets, workout-plans placeholder. Diet nesting in one place (`diet_satisfying`: pescatarian includes vegetarian and vegan), Google brand colour tokens, /about tap targets, code-health cleanup.
+- **Checked boxes: none.** Me has no issue number and is verified only on a local stack with the flag on; it is not live.
+- **Open from verification:** 28-day check-in age uses the UTC date of `updated_at`; projected date ignores a clamped (floor) target; two copy nits ("a 825", doubled "kg"); body-art credit link 41.7 px tall; Google flag accepts only `true`. Questions: `docs/review/2026-10-17-wave9-questions.md`.
+- **Waves 10 and 11 are specified, not built:** `docs/research/wave10-micronutrients-plan.md`, `docs/research/wave11-settings-spec.md`.
+
 ### Next up
 
-1. **You:** answer the questions file, then say "go" so Claude backs up live, applies the Me migration, and you merge. Review the photos (P1, P2) and M1.5.7.
-2. Small wave: photo fixes from P1, pescatarian, Me phone check, Google colour tokens.
-3. Owner setup: Google Cloud, Resend plus Porkbun DNS, Vercel env vars (steps in the questions file); then turn the flags on.
-4. Paste-a-blog import (needs M5 tables live and your decision on AI rewriting).
-5. Phase 6 launch: Sentry, PostHog, Lighthouse, real phone, three watched users.
-6. Post-MVP, listed at the end of BUILD-PLAN: SEO combo pages, micronutrients on Me, food-science follow-ups, lifting research, workout plans. **Remind the user about the food-science research.**
+1. **You:** read the wave 9 questions file, say "go" so Claude backs up live, applies the two migrations, then merge.
+2. Wave 10 (micronutrients from USDA per ingredient) and wave 11 (settings page with default filters), per the specs.
+3. Small fixes from the verification list above (check-in date, floor-aware projected date, copy nits).
+4. Owner setup: Google Cloud, Resend plus Porkbun DNS, Vercel env vars; then turn the flags on. Paste-a-blog import. Phase 6 launch.
+5. Post-MVP (end of BUILD-PLAN): workout plans and exercise library with photos, SEO combo pages, food-science follow-ups, lifting research. **Remind the user about the food-science research.**
 
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

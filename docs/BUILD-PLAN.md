@@ -882,6 +882,8 @@ A signed-in page tying food, training and sleep together. **Design prompt for Cl
 
 **Wave 8 status (2026-10-16): built, NOT checked.** The dashboard is on branch `wave8/integration` behind `NEXT_PUBLIC_ENABLE_ME` (default off) with migration `20261016100000_me_dashboard.sql`. Verified: targets maths, logging, RLS (55 checks), keyboard, desktop. Not verified: phone layout after the overflow fix, "Log this" in a browser, the mannequin art style of the mockup (we use MIT anatomical art), vitamins and minerals (recipes store only 6 nutrients). Questions: `docs/review/2026-10-16-wave8-questions.md`.
 
+**Wave 9 status (2026-10-17): v2 built on `wave9/integration`, NOT checked.** Added: research-based targets with the maths shown, goal-aware goal days, goal weight and pace, daily weigh-in with a 7-day-average chart, check-ins, streaks, Monday weeks, muscle legend by weekly sets, workout-plans placeholder. Verified on a local stack (93 RLS checks, desktop and 375 px). Still not live, so no box is checked. Questions: `docs/review/2026-10-17-wave9-questions.md`.
+
 **Workout pages (browse/follow plans by style) move to a later wave than v1.5** (user decision 2026-10-13); see v2 below.
 
 ### v1.2 — Nutrition tracking
@@ -933,6 +935,12 @@ Genuinely a second product: `exercises`, `workout_plans`, `plan_days`, `plan_exe
 - **Calorie and macro calculator** — TDEE from Mifflin-St Jeor plus activity level and goal (cut / maintain / bulk) → daily calorie and protein/carb/fat targets. This is v1.2's calculator; v2 links it to the training plan, and recipes can then be filtered or suggested by the day's remaining macros (the recipe catalog already carries per-serving nutrition).
 - **Gym attendance calendar** — a calendar/heatmap of days trained (logged workouts or a simple check-in), with streaks and sessions per week/month.
 All of these need accounts (M4) and are per-user private data, so they inherit the RLS patterns from favorites.
+
+### Post-MVP list (added 2026-10-17)
+
+- **Workout plans + exercise library with photos, researched like the recipe catalog.** Owner will scope: people find a split by days per week and time frame; workouts and exercise photos are gathered from the web the way the recipe catalog was. The Me page shows a "coming soon" card until then.
+- **Micronutrients from USDA per ingredient (wave 10).** Plan: `docs/research/wave10-micronutrients-plan.md`.
+- **User settings page with default filters (wave 11).** Spec: `docs/research/wave11-settings-spec.md`.
 
 ---
 
