@@ -1,4 +1,3 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -18,7 +17,7 @@ type Row = { cookware: { slug: string } | null };
 
 /** Slugs the signed-in cook owns. Empty for signed-out callers (RLS returns no rows). */
 export async function getMyCookwareSlugs(): Promise<string[]> {
-  const supabase = (await createClient()) as unknown as SupabaseClient;
+  const supabase = await createClient();
   const { data, error } = await supabase.from("user_cookware").select("cookware(slug)");
   if (error) throw error;
   return ((data ?? []) as unknown as Row[]).flatMap((r) => (r.cookware ? [r.cookware.slug] : []));
@@ -43,7 +42,7 @@ export async function setMyCookware(slugs: string[]): Promise<SetCookwareResult>
     data: { user },
   } = await server.auth.getUser();
   if (!user) return { ok: false, reason: "signed-out" };
-  const supabase = server as unknown as SupabaseClient;
+  const supabase = server;
 
   let rows: { id: number; slug: string }[] = [];
   if (clean.length) {

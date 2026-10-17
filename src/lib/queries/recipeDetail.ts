@@ -1,4 +1,3 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { cache } from "react";
 
 import { primaryAisle } from "@/lib/placeholderTone";
@@ -167,7 +166,7 @@ const SELECT = `
 export const getRecipeBySlug = cache(async function getRecipeBySlug(
   slug: string,
 ): Promise<RecipeDetail | null> {
-  const sb = createStaticClient() as unknown as SupabaseClient;
+  const sb = createStaticClient();
   const { data, error } = await sb
     .from("recipes")
     .select(SELECT)

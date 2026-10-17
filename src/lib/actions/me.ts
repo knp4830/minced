@@ -23,6 +23,7 @@ import {
 } from "@/lib/queries/me";
 import type { DayDetail } from "@/lib/me/types";
 import { CHECKIN_KINDS, type CheckInKind } from "@/lib/me/checkin";
+import { SLUG_RE } from "@/lib/validate";
 import {
   intIn,
   logDate,
@@ -32,7 +33,6 @@ import {
   oneOf,
   r1,
   session,
-  SLUG,
   targetsInput,
   text,
   uuid,
@@ -92,7 +92,7 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput): Promise<
   if (!m.ok) return fail(m.error);
 
   if (input.kind === "recipe") {
-    if (typeof input.slug !== "string" || !SLUG.test(input.slug)) return fail("That recipe could not be found.");
+    if (typeof input.slug !== "string" || !SLUG_RE.test(input.slug)) return fail("That recipe could not be found.");
     const servings = num(input.servings, 0.25, 50, "Servings");
     if (!servings.ok) return fail(servings.error);
     // Nutrition comes from the database, never from the browser.

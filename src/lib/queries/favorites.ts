@@ -1,4 +1,3 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 import type { RecipeCardProps } from "@/components/recipe/recipeCard";
 import { getCardExtras } from "@/lib/queries/browse";
@@ -50,7 +49,7 @@ export async function setFavorite(slug: string, on: boolean): Promise<FavoriteRe
   } = await supabase.auth.getUser();
   if (!user) return { ok: false, reason: "signed-out" };
 
-  const { data: recipe } = await (supabase as unknown as SupabaseClient)
+  const { data: recipe } = await supabase
     .from("recipes")
     .select("id")
     .eq("slug", slug)

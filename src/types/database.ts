@@ -353,6 +353,24 @@ export type Database = {
           },
         ]
       }
+      me_checkin_dismissals: {
+        Row: {
+          kind: string
+          log_date: string
+          user_id: string
+        }
+        Insert: {
+          kind: string
+          log_date: string
+          user_id: string
+        }
+        Update: {
+          kind?: string
+          log_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       me_food_log: {
         Row: {
           calories: number
@@ -437,6 +455,7 @@ export type Database = {
           carbs_g: number
           fat_g: number
           goal: string
+          goal_weight_kg: number | null
           height_cm: number
           kcal: number
           pace_kg: number
@@ -453,6 +472,7 @@ export type Database = {
           carbs_g: number
           fat_g: number
           goal: string
+          goal_weight_kg?: number | null
           height_cm: number
           kcal: number
           pace_kg?: number
@@ -469,6 +489,7 @@ export type Database = {
           carbs_g?: number
           fat_g?: number
           goal?: string
+          goal_weight_kg?: number | null
           height_cm?: number
           kcal?: number
           pace_kg?: number
@@ -476,6 +497,24 @@ export type Database = {
           sex?: string
           units?: string
           updated_at?: string
+          user_id?: string
+          weight_kg?: number
+        }
+        Relationships: []
+      }
+      me_weights: {
+        Row: {
+          log_date: string
+          user_id: string
+          weight_kg: number
+        }
+        Insert: {
+          log_date: string
+          user_id: string
+          weight_kg: number
+        }
+        Update: {
+          log_date?: string
           user_id?: string
           weight_kg?: number
         }
@@ -1184,10 +1223,15 @@ export type Database = {
       }
       delete_my_account: { Args: never; Returns: undefined }
       delete_my_recipe: { Args: { p_recipe_id: string }; Returns: string }
+      diet_satisfying: { Args: { diet_slug: string }; Returns: string[] }
       expand_ingredient_family: { Args: { ids: number[] }; Returns: number[] }
       feature_enabled: { Args: { p_name: string }; Returns: boolean }
       filtered_recipes: {
-        Args: { include_ids?: number[]; owned?: string[] }
+        Args: {
+          diet_slugs?: string[]
+          include_ids?: number[]
+          owned?: string[]
+        }
         Returns: {
           author_id: string | null
           calories: number | null
@@ -1329,6 +1373,13 @@ export type Database = {
         }
         Returns: string
       }
+      me_logged_days: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          kind: string
+          log_date: string
+        }[]
+      }
       me_month_summary: {
         Args: { p_from: string; p_to: string }
         Returns: {
@@ -1339,6 +1390,7 @@ export type Database = {
           sets: number
           sleep_hours: number
           trained: string[]
+          weight_kg: number
         }[]
       }
       me_week_muscles: {

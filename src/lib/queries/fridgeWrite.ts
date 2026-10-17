@@ -17,7 +17,7 @@ async function session(): Promise<{ db: SupabaseClient; userId: string } | null>
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return null;
-  return { db: supabase as unknown as SupabaseClient, userId: user.id };
+  return { db: supabase, userId: user.id };
 }
 
 /** Add ingredients that are not yet in the fridge, dated from `today` + the shelf-life suggestion. */

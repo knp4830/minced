@@ -1,4 +1,4 @@
-import type { SupabaseClient, User } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -48,7 +48,6 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 /** Irreversibly deletes the caller's account (profile and favourites cascade). */
 export async function deleteMyAccount(): Promise<boolean> {
   const supabase = await createClient();
-  // Cast: src/types/database.ts is regenerated at integration, after this migration is applied.
-  const { error } = await (supabase as unknown as SupabaseClient).rpc("delete_my_account");
+  const { error } = await supabase.rpc("delete_my_account");
   return !error;
 }

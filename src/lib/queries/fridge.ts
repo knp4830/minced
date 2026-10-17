@@ -1,13 +1,10 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
-
 import { MAX_INT4 } from "@/lib/filters";
 import { createClient } from "@/lib/supabase/server";
 
 /*
  * The saved fridge (wave 6). Private: RLS (20261013140000_fridge.sql) lets a
  * user see and change only their own rows, so everything here uses the
- * cookie-bound client. `fridge_items` is not in the generated types yet (that
- * file is regenerated at integration), hence the untyped handle.
+ * cookie-bound client.
  */
 
 export type FridgeRow = {
@@ -33,8 +30,8 @@ type Raw = {
   ingredients: { canonical_name: string; aisle_category: string } | null;
 };
 
-async function db(): Promise<SupabaseClient> {
-  return (await createClient()) as unknown as SupabaseClient;
+async function db() {
+  return createClient();
 }
 
 /** The signed-in user's fridge, soonest expiry first (no date last). Empty when signed out. */

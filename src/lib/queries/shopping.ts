@@ -1,7 +1,6 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
-
 import { batchCount, type ShopLine, type UnitKind } from "@/lib/shopping";
 import { createClient } from "@/lib/supabase/server";
+import type { Json } from "@/types/database";
 
 /*
  * Shopping list queries. Private data: RLS (20261013150000_shopping_list.sql)
@@ -25,8 +24,8 @@ type Row = {
 const SELECT =
   "id, quantity, checked, ingredients(id, canonical_name, aisle_category), units(name, kind, to_base_factor), recipes(slug, title)";
 
-async function db(): Promise<SupabaseClient> {
-  return (await createClient()) as unknown as SupabaseClient;
+async function db() {
+  return createClient();
 }
 
 /** The caller's raw lines, oldest first. Empty for signed-out callers (RLS returns no rows). */
@@ -153,7 +152,7 @@ export async function clearAll(): Promise<boolean> {
 /** Hand the signed-out list to the account. Returns the number of lines kept, or null on failure. */
 export async function importLocal(items: unknown[]): Promise<number | null> {
   const sb = await db();
-  const { data, error } = await sb.rpc("import_local_shopping_list", { p_items: items });
+  const { data, error } = await sb.rpc("import_local_shopping_list", { p_items: items as Json });
   if (error) return null;
   return typeof data === "number" ? data : 0;
 }
