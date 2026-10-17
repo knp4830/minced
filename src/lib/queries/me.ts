@@ -85,8 +85,20 @@ type FoodRow = {
   fat_g: number | string;
   fiber_g: number | string | null;
   sodium_mg: number | string | null;
+  nutrients: Record<string, unknown> | null;
   recipes: LoggedRecipe | LoggedRecipe[] | null;
 };
+
+/** The jsonb snapshot, keeping only finite numbers: anything else in it is ignored, never trusted. */
+function snapshotOf(v: Record<string, unknown> | null): Record<string, number> | null {
+  if (!v || typeof v !== "object") return null;
+  const out: Record<string, number> = {};
+  for (const [k, x] of Object.entries(v)) {
+    const n = typeof x === "number" ? x : Number(x);
+    if (Number.isFinite(n) && n >= 0) out[k] = n;
+  }
+  return Object.keys(out).length > 0 ? out : null;
+}
 
 type PhotoRow = { storage_path: string; thumb_path: string | null };
 type LoggedRecipe = { slug: string; image_url: string | null; recipe_photos: PhotoRow | PhotoRow[] | null };
@@ -101,11 +113,12 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
   const db = await createClient();
   const { data } = await db
     .from("me_food_log")
-    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
+    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
     .eq("log_date", date)
     .order("created_at", { ascending: true })
     .limit(80);
-  return ((data ?? []) as FoodRow[]).map((r) => {
+  // `nutrients` is new (migration 20261017150000); the generated types learn it at the next pnpm db:types.
+  return ((data ?? []) as unknown as FoodRow[]).map((r) => {
     const rec = Array.isArray(r.recipes) ? (r.recipes[0] ?? null) : r.recipes;
     return {
       id: r.id,
@@ -118,6 +131,7 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
       fatG: num(r.fat_g),
       fiberG: numOrNull(r.fiber_g),
       sodiumMg: numOrNull(r.sodium_mg),
+      nutrients: snapshotOf(r.nutrients),
       recipe: rec ? { slug: rec.slug, imageUrl: recipeThumb(rec.image_url, rec.recipe_photos) } : null,
     };
   });
@@ -430,6 +444,8 @@ export type NewFood = {
   fatG: number;
   fiberG: number | null;
   sodiumMg: number | null;
+  /** Per-nutrient totals for the entry, keyed by nutrient `key`; null when nothing is known beyond the columns. */
+  nutrients?: Record<string, number> | null;
 };
 
 export async function writeFood(f: NewFood): Promise<WriteResult> {
@@ -448,7 +464,9 @@ export async function writeFood(f: NewFood): Promise<WriteResult> {
     fat_g: f.fatG,
     fiber_g: f.fiberG,
     sodium_mg: f.sodiumMg,
-  });
+    nutrients: f.nutrients ?? null,
+    // `nutrients` is new (migration 20261017150000); drop this cast after the next pnpm db:types.
+  } as never);
   if (error) return error.code === "54000" ? { ok: false, error: "That is a lot of entries for one day. Remove one first." } : FAILED;
   return { ok: true };
 }

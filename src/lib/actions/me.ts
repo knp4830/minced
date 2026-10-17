@@ -24,6 +24,10 @@ import {
 import type { DayDetail } from "@/lib/me/types";
 import { CHECKIN_KINDS, type CheckInKind } from "@/lib/me/checkin";
 import { SLUG_RE } from "@/lib/validate";
+import { checkFoodInput } from "@/lib/foodInput";
+import { FDC, MACRO_COLUMNS, byFdc } from "@/lib/nutrients";
+import { computeFood } from "@/lib/queries/foods";
+import { getNutrients, getRecipeNutrientSnapshot } from "@/lib/queries/recipeNutrients";
 import {
   intIn,
   logDate,
@@ -37,6 +41,9 @@ import {
   text,
   uuid,
 } from "@/lib/me/validate";
+
+/** USDA numbers of the nutrients that have their own diary columns (calories, protein, carbs, fat, fiber, sodium). */
+const MACRO_FDC: ReadonlySet<number> = new Set(MACRO_COLUMNS.map((m) => m.fdc));
 
 /*
  * Server Actions for the Me dashboard. Each one is a public endpoint: it re-validates every argument,
@@ -76,6 +83,26 @@ type QuickFoodInput = {
   sodiumMg?: unknown;
 };
 type RecipeFoodInput = { kind: "recipe"; date: unknown; meal: unknown; slug: unknown; servings: unknown };
+/** An ingredient or brand (picked from the type-ahead) and an amount of it. The server works out the nutrition. */
+type PickedFoodInput = {
+  kind: "food";
+  date: unknown;
+  meal: unknown;
+  ingredientId: unknown;
+  fdcId: unknown;
+  quantity: unknown;
+  unit: unknown;
+  /** Display name; only used as the diary label, bounded below. Never used for nutrition. */
+  name: unknown;
+};
+
+/** Multiplies a per-serving snapshot by the servings eaten, to one decimal at most. */
+function scaleSnapshot(s: Record<string, number> | null, n: number): Record<string, number> | null {
+  if (!s) return null;
+  const out: Record<string, number> = {};
+  for (const [k, v] of Object.entries(s)) out[k] = Math.round(v * n * 100) / 100;
+  return out;
+}
 
 /** Optional numeric field: blank means "unknown" (null), anything else must be a valid number. */
 function optional(v: unknown, min: number, max: number, label: string): { ok: true; value: number | null } | { ok: false; error: string } {
@@ -83,7 +110,7 @@ function optional(v: unknown, min: number, max: number, label: string): { ok: tr
   return num(v, min, max, label);
 }
 
-export async function logFood(input: QuickFoodInput | RecipeFoodInput): Promise<ActionResult> {
+export async function logFood(input: QuickFoodInput | RecipeFoodInput | PickedFoodInput): Promise<ActionResult> {
   if (!ME_ENABLED) return OFF;
   if (!input || typeof input !== "object") return fail("Nothing to log.");
   const date = logDate(input.date);
@@ -100,6 +127,8 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput): Promise<
     if (!rec) return fail("That recipe could not be found.");
     if (rec.calories === null) return fail("This recipe has no nutrition information yet, so it cannot be added up. Use a quick add instead.");
     const n = servings.value;
+    // Every other nutrient (vitamins, minerals, sugars...) is frozen from the computed per-serving rows.
+    const snapshot = scaleSnapshot(await getRecipeNutrientSnapshot(rec.id), n);
     const r = await writeFood({
       date: date.value,
       meal: m.value,
@@ -113,6 +142,54 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput): Promise<
       fatG: r1((rec.fatG ?? 0) * n),
       fiberG: rec.fiberG === null ? null : r1(rec.fiberG * n),
       sodiumMg: rec.sodiumMg === null ? null : r1(rec.sodiumMg * n),
+      nutrients: snapshot,
+    });
+    if (r.ok) refresh();
+    return r;
+  }
+
+  if (input.kind === "food") {
+    const v = checkFoodInput(input);
+    if (!v.ok) return fail(v.error);
+    const name = text(input.name, 120, "Name");
+    if (!name.ok) return fail(name.error);
+    // Nutrition is computed here from the database, never taken from the browser.
+    const c = await computeFood(v);
+    if (!c.ok) {
+      return fail(
+        c.reason === "unit"
+          ? "That unit is not recognised."
+          : c.reason === "no_data"
+            ? "We have no nutrition data for that amount, so it cannot be added up. Try grams, or use a quick add."
+            : "The calculation is not available right now. Try a quick add instead.",
+      );
+    }
+    const nutrients = await getNutrients();
+    const val = (fdc: number): number | null => {
+      const n = byFdc(nutrients, fdc);
+      return n && n.key in c.food.byKey ? c.food.byKey[n.key] : null;
+    };
+    const kcal = val(FDC.energy);
+    if (kcal === null) return fail("We have no calorie figure for that food, so it cannot be added up. Use a quick add instead.");
+    const r = await writeFood({
+      date: date.value,
+      meal: m.value,
+      recipeId: null,
+      name: name.value,
+      servings: null,
+      calories: r1(kcal),
+      proteinG: r1(val(FDC.protein) ?? 0),
+      carbsG: r1(val(FDC.carbs) ?? 0),
+      fatG: r1(val(FDC.fat) ?? 0),
+      fiberG: val(FDC.fiber) === null ? null : r1(val(FDC.fiber) as number),
+      sodiumMg: val(FDC.sodium) === null ? null : r1(val(FDC.sodium) as number),
+      // The macro columns above are the source of truth for those six; the snapshot holds the rest.
+      nutrients: scaleSnapshot(
+        Object.fromEntries(
+          c.food.rows.filter((r) => r.nutrient.fdcNumber === null || !MACRO_FDC.has(r.nutrient.fdcNumber)).map((r) => [r.nutrient.key, r.amount]),
+        ),
+        1,
+      ),
     });
     if (r.ok) refresh();
     return r;

@@ -11,7 +11,6 @@ register("./me-alias-hook.mjs", import.meta.url);
 
 const { localDateOf, addDays, daysInMonth, dayMonthYear, isIsoDate, mondayIndex, monthGrid, parseMonthParam, shiftMonth, todayInZone, weekRange, weekLabel, longDate } =
   await import("../src/lib/me/dates.ts");
-const { nutrientLines } = await import("../src/lib/me/dv.ts");
 const { dayFoodStatus, GOAL_BANDS } = await import("../src/lib/me/foodStatus.ts");
 const { SESSION_MUSCLES, distributeSets, intensity } = await import("../src/lib/me/muscles.ts");
 const { cmToFtIn, computeTargets, dailyAdjustment, daysToGoal, effectivePaceKg, round1, explainTargets, formatWeight, ftInToCm, kgToLb, kgToLb1, lbToKg, paceLabel, paceNote } =
@@ -150,15 +149,26 @@ assert.equal(todayInZone("Pacific/Auckland", instant), "2026-10-13");
 assert.equal(todayInZone("not a zone", instant), "2026-10-13"); // falls back to UTC
 assert.equal(todayInZone(undefined, instant), "2026-10-13");
 
-// ---- daily values ----
-const lines = nutrientLines({ sodium: 2610, fiber: 21, protein: 121, fat: 52, carbs: 172 });
-const sodium = lines.find((l) => l.id === "sodium")!;
+// ---- daily values: the nutrients table is the source (src/lib/me/nutrientTotals.ts) ----
+const { FALLBACK_NUTRIENTS } = await import("../src/lib/nutrients.ts");
+const { dayNutrientLines } = await import("../src/lib/me/nutrientTotals.ts");
+const entry = (over: Record<string, unknown>) => ({
+  id: "x", meal: "lunch", name: "x", servings: null, calories: 0, proteinG: 0, carbsG: 0, fatG: 0, fiberG: 0, sodiumMg: 0, nutrients: null, recipe: null, ...over,
+});
+const day = [entry({ sodiumMg: 2610, fiberG: 21, proteinG: 121, fatG: 52, carbsG: 172 })];
+const lines = dayNutrientLines(day as never, FALLBACK_NUTRIENTS);
+const sodium = lines.find((l) => l.key === "sodium_mg")!;
 assert.equal(sodium.pct, 113);
 assert.equal(sodium.over, true); // a limit nutrient past 100%
-assert.equal(lines.find((l) => l.id === "fiber")!.pct, 75);
-assert.equal(lines.find((l) => l.id === "fiber")!.name, "Fiber"); // US spelling
-assert.equal(lines.find((l) => l.id === "protein")!.over, false); // a target nutrient is never "over"
-assert.deepEqual(nutrientLines({}), []);
+assert.equal(lines.find((l) => l.key === "fiber_g")!.pct, 75);
+assert.equal(lines.find((l) => l.key === "fiber_g")!.name, "Dietary fiber");
+assert.equal(lines.find((l) => l.key === "protein_g")!.over, false); // a target nutrient is never "over"
+assert.equal(lines.some((l) => l.key === "calories"), false); // calories have their own card
+assert.equal(dayNutrientLines([] as never, FALLBACK_NUTRIENTS).every((l) => l.amount === null), true); // no entries: nothing reported
+// A quick add that left sodium unknown is "missing", not zero, so the total is flagged as a lower bound.
+const mixed = dayNutrientLines([entry({ sodiumMg: 500 }), entry({ sodiumMg: null })] as never, FALLBACK_NUTRIENTS).find((l) => l.key === "sodium_mg")!;
+assert.equal(mixed.amount, 500);
+assert.equal(mixed.partial, true);
 
 // ---- goal days: calories band by goal AND protein at least 90% ----
 assert.deepEqual(GOAL_BANDS.lose, { min: 85, max: 105, word: "losing" });

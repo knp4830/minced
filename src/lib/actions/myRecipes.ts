@@ -9,6 +9,7 @@ import {
   deleteMyRecipe,
   resolveIngredientName,
   saveMyRecipe,
+  setMyRecipeFoods,
   withdrawMyRecipe,
   type SaveResult,
 } from "@/lib/queries/myRecipes";
@@ -24,7 +25,7 @@ import { UUID_RE } from "@/lib/validate";
  */
 
 export type ActionResult =
-  | { ok: true; id?: string; slug?: string; status?: "draft" | "in_review" }
+  | { ok: true; id?: string; slug?: string; status?: "draft" | "in_review"; warning?: string }
   | { ok: false; message: string; field?: string };
 
 const OFF = "That recipe could not be found.";
@@ -68,7 +69,11 @@ function shapeOk(v: unknown): v is RecipeFormValues {
         str((i as Record<string, unknown>).unit, 40) &&
         str((i as Record<string, unknown>).name, 300) &&
         str((i as Record<string, unknown>).note, 400) &&
-        typeof (i as Record<string, unknown>).optional === "boolean",
+        typeof (i as Record<string, unknown>).optional === "boolean" &&
+        // Optional: the specific food picked for the line. Anything but a positive integer is refused.
+        ((i as Record<string, unknown>).fdcId === undefined ||
+          (i as Record<string, unknown>).fdcId === null ||
+          (Number.isInteger((i as Record<string, unknown>).fdcId) && ((i as Record<string, unknown>).fdcId as number) > 0)),
     ) &&
     Array.isArray(o.steps) &&
     o.steps.length <= LIMITS.steps + 20 &&
@@ -152,8 +157,28 @@ export async function saveRecipe(id: string | null, values: RecipeFormValues, su
 
   const res = await saveMyRecipe(id, payload.data, submit);
   if (!res.ok) return describe(res);
+
+  // Which specific food (a brand, say) was picked for a line. Positions count the non-blank lines, the
+  // same way save_my_recipe numbers them. The database re-checks that each food really belongs to the
+  // line's ingredient, so a forged id simply attaches nothing.
+  let pos = 0;
+  const picks: { pos: number; fdc_id: number }[] = [];
+  for (const row of values.ingredients) {
+    if (row.name.trim() === "") continue;
+    if (typeof row.fdcId === "number") picks.push({ pos, fdc_id: row.fdcId });
+    pos++;
+  }
+  let foodsSaved = true;
+  if (picks.length > 0) foodsSaved = await setMyRecipeFoods(res.id, picks);
+
   refresh(res.slug);
-  return { ok: true, id: res.id, slug: res.slug, status: res.status };
+  return {
+    ok: true,
+    id: res.id,
+    slug: res.slug,
+    status: res.status,
+    ...(foodsSaved ? {} : { warning: "Saved, but the brand choices could not be stored. Open the recipe and pick them again." }),
+  };
 }
 
 export async function deleteRecipe(id: string): Promise<ActionResult> {

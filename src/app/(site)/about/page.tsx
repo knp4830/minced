@@ -136,6 +136,18 @@ export default async function AboutPage() {
           all move the real numbers. Treat them as a guide, not a label.
         </p>
         <p>
+          Nutrient data: U.S. Department of Agriculture, Agricultural Research
+          Service, FoodData Central (fdc.nal.usda.gov). That includes its
+          Foundation, SR Legacy and Survey (FNDDS) foods, and the manufacturer
+          label data in its Branded Foods set, which is where brand names such as
+          a particular soy sauce come from. FoodData Central is public domain
+          (CC0 1.0). Vitamin and mineral figures are worked out from the
+          ingredients before cooking, so they can be higher than what is left
+          after boiling or baking. A nutrient is shown only when enough of a
+          recipe&apos;s ingredients report it, and an ingredient with no nutrition
+          data is listed as not counted rather than guessed.
+        </p>
+        <p>
           Minced is not medical or dietary advice. If you are pregnant, managing a
           medical condition or on a prescribed diet, check with a qualified
           professional.

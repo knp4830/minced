@@ -12,6 +12,7 @@ import { MealsPanel } from "@/components/me/mealsPanel";
 import { MorningPrompt } from "@/components/me/morningPrompt";
 import { MuscleCard } from "@/components/me/muscleCard";
 import { NutrientsPanel } from "@/components/me/nutrientsPanel";
+import { getNutrients } from "@/lib/queries/recipeNutrients";
 import { StreakStrip } from "@/components/me/streakStrip";
 import { TimezoneSync } from "@/components/me/timezoneSync";
 import { TodayFood } from "@/components/me/todayFood";
@@ -79,7 +80,7 @@ export default async function MePage({ searchParams }: Props) {
   const rawRange = Array.isArray(sp.wr) ? sp.wr[0] : sp.wr;
   const wRange: WeightRange = rawRange === "90" || rawRange === "weekly" ? rawRange : "30";
 
-  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed] = await Promise.all([
+  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList] = await Promise.all([
     getTargets(zone),
     getFoodForDate(today),
     getSleepForDate(today),
@@ -88,6 +89,7 @@ export default async function MePage({ searchParams }: Props) {
     getWeights(addDays(today, -(WEIGHT_FETCH_DAYS - 1)), today),
     getLoggedDays(today),
     getDismissedCheckIns(),
+    getNutrients(),
   ]);
 
   const totals = sumFood(food);
@@ -168,7 +170,7 @@ export default async function MePage({ searchParams }: Props) {
               <TodayFood dateLabel={longDate(today).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} />
             </div>
             <div className="max-lg:order-7">
-              <NutrientsPanel totals={totals} entries={food} />
+              <NutrientsPanel entries={food} nutrients={nutrientList} />
             </div>
             <div className="max-lg:order-2">
               <MealsPanel food={food} totals={totals} />
