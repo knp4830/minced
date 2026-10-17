@@ -29,7 +29,7 @@ import { matchRecipes } from "@/lib/queries/matcher";
 import { usableImageUrl } from "@/lib/photos";
 
 export const metadata: Metadata = {
-  title: "What's in my fridge",
+  title: "What’s in my fridge",
   description: "Every recipe that uses what you have, closest match first.",
   robots: { index: false, follow: true },
 };
@@ -176,7 +176,7 @@ export default async function PantryPage({
         <RememberList />
       </Suspense>
       <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
-      <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What&apos;s in my fridge</h1>
+      <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What&rsquo;s in my fridge</h1>
       <p className="mt-2 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
         Tap what you have and see every recipe that uses any of it, closest match first. Salt,
         pepper, oil, butter, sugar, flour and water are assumed.

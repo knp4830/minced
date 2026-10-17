@@ -8,10 +8,14 @@ Checks (all offline):
   2. rejected photos never return: no (slug, file) pair from commons_r2_rejected.json is in photos.json or in ANY *picks*.json,
      and no USDA photo whose slug is in myplate_review_excludes.json is in photos.json;
   3. no recipe appears twice;
+  3b. legacy NOTE-ONLY rejects (an entry with no file name, e.g. "verifier r1: no visible fish") cannot be matched against a
+      file, so a slug with such an entry may only keep a photo that is listed in manifest/note_only_rejects_reviewed.json
+      (slug -> the file a human re-reviewed). A different photo for that slug fails until it is re-reviewed;
   4. with --recipes (export_details.py output): every slug in photos.json is a recipe that exists.
 """
 import collections
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -23,6 +27,21 @@ M = Path(__file__).resolve().parent / "manifest"
 
 def load(name):
     return json.loads((M / name).read_text(encoding="utf8"))
+
+
+def looks_like_file(ref: str) -> bool:
+    return ref.startswith(("File:", "http")) or bool(re.search(r"\.(jpe?g|png|webp|gif|tiff?)", ref, re.I))
+
+
+def note_only_slugs() -> set[str]:
+    """Slugs with a reject entry whose text before the first ': ' is a note, not a file name or URL."""
+    out = set()
+    for key, v in load("commons_r2_rejected.json").items():
+        pairs = v.items() if isinstance(v, dict) else [(key, v)] if isinstance(v, str) and not key.startswith("_") else []
+        for slug, why in pairs:
+            if not looks_like_file(str(why).split(": ")[0]):
+                out.add(slug)
+    return out
 
 
 def main():
@@ -51,6 +70,16 @@ def main():
     for slug in load("myplate_review_excludes.json"):   # only the USDA photo was rejected; another source may fill the slug
         if slug in usda:
             problems.append(f"MyPlate review-excluded photo is back: {slug}")
+
+    reviewed = load("note_only_rejects_reviewed.json")
+    for slug in note_only_slugs():
+        r = next((p for p in photos if p["slug"] == slug), None)
+        if r is None:
+            continue
+        ref = r.get("file") or r.get("attribution_url")
+        if reviewed.get(slug) != ref:
+            problems.append(f"note-only reject slug has a photo that was not re-reviewed: {slug} {ref} "
+                            f"(add it to note_only_rejects_reviewed.json after looking, or put the rejected file name in the reject entry)")
 
     if "--recipes" in sys.argv:
         path = Path(sys.argv[sys.argv.index("--recipes") + 1])

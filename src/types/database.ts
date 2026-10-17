@@ -353,6 +353,196 @@ export type Database = {
           },
         ]
       }
+      me_food_log: {
+        Row: {
+          calories: number
+          carbs_g: number
+          created_at: string
+          fat_g: number
+          fiber_g: number | null
+          id: string
+          log_date: string
+          meal: string
+          name: string
+          protein_g: number
+          recipe_id: string | null
+          servings: number | null
+          sodium_mg: number | null
+          user_id: string
+        }
+        Insert: {
+          calories: number
+          carbs_g?: number
+          created_at?: string
+          fat_g?: number
+          fiber_g?: number | null
+          id?: string
+          log_date: string
+          meal: string
+          name: string
+          protein_g?: number
+          recipe_id?: string | null
+          servings?: number | null
+          sodium_mg?: number | null
+          user_id: string
+        }
+        Update: {
+          calories?: number
+          carbs_g?: number
+          created_at?: string
+          fat_g?: number
+          fiber_g?: number | null
+          id?: string
+          log_date?: string
+          meal?: string
+          name?: string
+          protein_g?: number
+          recipe_id?: string | null
+          servings?: number | null
+          sodium_mg?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "me_food_log_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      me_sleep: {
+        Row: {
+          hours: number
+          log_date: string
+          user_id: string
+        }
+        Insert: {
+          hours: number
+          log_date: string
+          user_id: string
+        }
+        Update: {
+          hours?: number
+          log_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      me_targets: {
+        Row: {
+          activity: number
+          age_years: number
+          carbs_g: number
+          fat_g: number
+          goal: string
+          height_cm: number
+          kcal: number
+          pace_kg: number
+          protein_g: number
+          sex: string
+          units: string
+          updated_at: string
+          user_id: string
+          weight_kg: number
+        }
+        Insert: {
+          activity: number
+          age_years: number
+          carbs_g: number
+          fat_g: number
+          goal: string
+          height_cm: number
+          kcal: number
+          pace_kg?: number
+          protein_g: number
+          sex: string
+          units?: string
+          updated_at?: string
+          user_id: string
+          weight_kg: number
+        }
+        Update: {
+          activity?: number
+          age_years?: number
+          carbs_g?: number
+          fat_g?: number
+          goal?: string
+          height_cm?: number
+          kcal?: number
+          pace_kg?: number
+          protein_g?: number
+          sex?: string
+          units?: string
+          updated_at?: string
+          user_id?: string
+          weight_kg?: number
+        }
+        Relationships: []
+      }
+      me_workout_muscles: {
+        Row: {
+          muscle: string
+          sets: number
+          user_id: string
+          workout_id: string
+        }
+        Insert: {
+          muscle: string
+          sets: number
+          user_id: string
+          workout_id: string
+        }
+        Update: {
+          muscle?: string
+          sets?: number
+          user_id?: string
+          workout_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "me_workout_muscles_workout_id_user_id_fkey"
+            columns: ["workout_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "me_workouts"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
+      }
+      me_workouts: {
+        Row: {
+          created_at: string
+          custom_name: string | null
+          id: string
+          log_date: string
+          minutes: number | null
+          session: string
+          sets: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          custom_name?: string | null
+          id?: string
+          log_date: string
+          minutes?: number | null
+          session: string
+          sets: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          custom_name?: string | null
+          id?: string
+          log_date?: string
+          minutes?: number | null
+          session?: string
+          sets?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -1127,6 +1317,36 @@ export type Database = {
           time_key: number
           title: string
           total_time_min: number
+        }[]
+      }
+      me_log_workout: {
+        Args: {
+          p_custom_name: string
+          p_date: string
+          p_minutes: number
+          p_muscles: Json
+          p_session: string
+        }
+        Returns: string
+      }
+      me_month_summary: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          calories: number
+          food_entries: number
+          log_date: string
+          protein_g: number
+          sets: number
+          sleep_hours: number
+          trained: string[]
+        }[]
+      }
+      me_week_muscles: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          days: string[]
+          muscle: string
+          sets: number
         }[]
       }
       my_recipe_for_edit: { Args: { p_recipe_id: string }; Returns: Json }

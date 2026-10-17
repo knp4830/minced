@@ -1609,4 +1609,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 37 - [next entry goes here]
+## Entry 37 - Wave 8: Me dashboard, Google sign-in, domain, sharper photos
+
+**What we built.** Three lanes. (1) The Me dashboard from your mockup: targets wizard, today's food with a calorie ring and percent of Daily Value, a quick-log sheet for workouts, food and sleep, a month calendar, and a muscle map for men and women, front and back. It is built but off behind `NEXT_PUBLIC_ENABLE_ME`. (2) Auth and domain: Continue with Google (off behind a flag), four branded email templates, setup docs for Google and Resend, and a 308 redirect from the two old hostnames to `minced.kevinpham.page`. (3) Photos: the blurry hero was fixed at its root, all 423 photos were audited, 21 were swapped and 24 removed.
+
+**Key files.** `src/components/me/*`, `src/lib/me/*`, `src/lib/queries/me.ts`, `src/lib/actions/me.ts`, `supabase/migrations/20261016100000_me_dashboard.sql`, `supabase/tests/me_rls_test.sql`, `src/components/account/googleButton.tsx`, `src/app/auth/callback/route.ts`, `next.config.ts`, `supabase/templates/*`, `docs/setup/*`, `src/lib/queries/landing.ts`, `scripts/photos/*`. Questions: `docs/review/2026-10-16-wave8-questions.md`.
+
+**How it works and why.** Me keeps one owner per row with RLS, snapshots recipe nutrition at log time (so editing a recipe never rewrites someone's diary), and stores sets per muscle at log time (so editing the session-to-muscle table never rewrites history). "Today" is the person's local date: a `me_tz` cookie lets the server render the right day. The body map is MIT-licensed art from react-native-body-highlighter converted to typed TypeScript, because redrawing accurate anatomy for both sexes ourselves was the risky option; the credit is on /about. Google sign-in is a plain form posting to a Server Action, so it works without JavaScript; the PKCE cookie is host-bound, which is why the canonical redirect exists. Email links use `token_hash` so confirming works on another device. Rejected: hand-drawing the mannequin, Zod for the new validators (not a dependency, and no new packages are allowed), and Brevo as the default mail provider (its verification TXT clashes with the subdomain CNAME).
+
+**Concepts.** SECURITY INVOKER functions (RLS still applies inside an RPC); composite foreign keys that stop a child row pointing at someone else's parent; PKCE and why a cookie ties a login to one host; device pixel ratio (a 379 px tile on a 2x screen needs 758 px).
+
+**Gotchas.** The hero was blurry because a 400 px thumb was shown at 2x, not because the photo was bad. Vercel previews build against live data. Phone `/me` overflowed until the grid used `minmax(0,1fr)`. Six SQL suites error on a snapshot restore (no grants or private schema; identical on main), so they need a real local Supabase stack. Legacy photo rejections without filenames let `fish-spinach` return; see questions P1.
+
+---
+
+## Entry 38 - [next entry goes here]

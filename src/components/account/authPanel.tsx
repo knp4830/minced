@@ -2,8 +2,10 @@ import { BookmarkCheck, CookingPot, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 
 import { ForgotPasswordForm, LoginForm, SignupForm } from "@/components/account/authForms";
+import { GoogleButton } from "@/components/account/googleButton";
 import { buttonVariants } from "@/components/ui/button";
 import { safeNext } from "@/lib/auth/validate";
+import { GOOGLE_SIGNIN_ENABLED } from "@/lib/flags";
 
 /*
  * One definition of the sign-in screens, rendered two ways: as the full pages
@@ -34,11 +36,11 @@ const TITLES: Record<AuthView, { title: string; lead: string }> = {
   forgot: { title: "Reset your password", lead: "Enter your email and we'll send a link to choose a new one." },
 };
 
-function Divider() {
+function Divider({ label = "or" }: { label?: string }) {
   return (
     <div className="my-5 flex items-center gap-3 text-xs text-ink-subtle" aria-hidden>
       <span className="h-px flex-1 bg-line-strong" />
-      or
+      {label}
       <span className="h-px flex-1 bg-line-strong" />
     </div>
   );
@@ -48,16 +50,26 @@ export function AuthPanel({ view, searchParams, headingTag = "h1" }: { view: Aut
   const next = readNext(searchParams);
   const nextQuery = next ? `?next=${encodeURIComponent(next)}` : "";
   const Heading = headingTag;
-  const { title, lead } = TITLES[view];
+  const { title } = TITLES[view];
+  const lead =
+    view === "signup" && GOOGLE_SIGNIN_ENABLED
+      ? "Save recipes, keep your fridge, and take your shopping list anywhere. Use your Google account, or just an email and a password."
+      : TITLES[view].lead;
 
   const notice =
     view === "login" && one(searchParams.notice) === "deleted"
       ? "Your account is deleted. Your login and saved recipes are gone."
       : null;
+  const errorCode = view === "login" ? one(searchParams.error) : undefined;
   const linkError =
-    view === "login" && one(searchParams.error) === "link"
+    errorCode === "link"
       ? "That link has expired or was already used. Log in, or request a new one."
-      : null;
+      : errorCode === "oauth_cancelled"
+        ? "Google sign-in was cancelled, so nothing changed. You can try again, or use your email."
+        : errorCode === "oauth"
+          ? "We couldn't sign you in with Google just now. Try again, or use your email and password."
+          : null;
+  const showGoogle = GOOGLE_SIGNIN_ENABLED && view !== "forgot";
 
   return (
     <>
@@ -75,6 +87,26 @@ export function AuthPanel({ view, searchParams, headingTag = "h1" }: { view: Aut
         <p role="alert" className="mb-4 rounded-lg border border-paprika/40 bg-paprika/5 px-3.5 py-2.5 text-[0.875rem] leading-snug text-paprika-deep">
           {linkError}
         </p>
+      )}
+
+      {showGoogle && (
+        <>
+          <GoogleButton next={next} />
+          {view === "signup" && (
+            <p className="mt-2 text-center text-[0.75rem] leading-relaxed text-ink-subtle">
+              By continuing with Google you agree to the{" "}
+              <Link href="/terms" className="underline underline-offset-2 hover:text-herb">
+                Terms
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy" className="underline underline-offset-2 hover:text-herb">
+                Privacy Policy
+              </Link>
+              .
+            </p>
+          )}
+          <Divider label="or use your email" />
+        </>
       )}
 
       {view === "login" && <LoginForm next={next} />}

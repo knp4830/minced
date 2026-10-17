@@ -17,6 +17,11 @@ const EDIT_ROUTE = /^\/recipes\/[^/]+\/edit$/;
 
 export async function middleware(request: NextRequest) {
   const { pathname: path } = request.nextUrl;
+  // /recipe-not-found is only ever a rewrite TARGET (which does not pass through here).
+  // Someone typing it directly gets the ordinary 404 instead of a 200 "not found" page.
+  if (path === "/recipe-not-found") {
+    return NextResponse.rewrite(new URL("/page-not-found", request.url), { status: 404 });
+  }
   const recipe = RECIPE_PATH.exec(path);
   // /recipes/new is the create form, not a slug. No recipe can have it as a slug (user
   // slugs end in a hash), so it falls through to the signed-in handling below.
@@ -66,5 +71,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/recipes/:slug", "/recipes/:slug/edit", "/account/:path*", "/fridge/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
+  matcher: ["/recipe-not-found", "/recipes/:slug", "/recipes/:slug/edit", "/account/:path*", "/fridge/:path*", "/admin/:path*", "/login", "/signup", "/forgot-password", "/reset-password"],
 };

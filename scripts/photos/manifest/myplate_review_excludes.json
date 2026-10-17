@@ -33,5 +33,19 @@
   "potato-soup-0": "wave7: recipe no longer exists (removed in duplicate merge)",
   "red-beans-and-rice": "wave7: recipe no longer exists (removed in duplicate merge)",
   "rice-pudding": "wave7: recipe no longer exists (removed in duplicate merge)",
-  "wonderful-stuffed-potatoes": "wave7: recipe no longer exists (removed in duplicate merge)"
+  "wonderful-stuffed-potatoes": "wave7: recipe no longer exists (removed in duplicate merge)",
+  "cafe-mocha": "newspaper and napkin in frame, harsh light (replaced by a better photo of the same dish, wave 8 quality audit)",
+  "cuban-salad": "tiny (384x480) (no better free photo of this dish found; the placeholder beats a poor photo)",
+  "sarahs-spicy-curry-turkey-soup": "tiny (310x200) and soft (no better free photo of this dish found; the placeholder beats a poor photo)",
+  "tasty-chicken-and-veggie-packets": "blurry (lap 45), does not show packets (no better free photo of this dish found; the placeholder beats a poor photo)",
+  "banana-berry-muffins": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "breakfast-burrito-salsa": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "chicken-salad-and-peach-sandwich": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "collard-green-gumbo-ham-hock": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "corn-soup": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "dirty-rice": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "garden-pan-bread": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "great-northern-bean-soup": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "kale-salad-yogurt-dressing": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)",
+  "peanut-butter-n-fruit-wich": "only 480 px on the long side; upscaled about 1.2x on the recipe page; no sharper free photo of this dish found (wave 8 fixer)"
 }

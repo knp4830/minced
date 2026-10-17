@@ -1,5 +1,6 @@
 "use client";
 
+import { ACCOUNT_HINT_KEY, ACCOUNT_HOLD_ID } from "@/lib/accountHint";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -69,6 +70,22 @@ export function hasAuthCookie(): boolean {
   return true;
 }
 
+/**
+ * A one-bit, non-sensitive hint ("this browser was signed in last time") that lets the site layout
+ * hold the header's account controls back before first paint, so a signed-in person does not see
+ * the signed-out header flash. The server HTML is shared and cached, so it cannot know. Cleared
+ * (and the hold released) as soon as /api/me answers.
+ */
+
+function rememberSignedIn(signedIn: boolean): void {
+  try {
+    localStorage.setItem(ACCOUNT_HINT_KEY, signedIn ? "1" : "0");
+  } catch {
+    /* blocked storage: the hint is only a nicety */
+  }
+  document.getElementById(ACCOUNT_HOLD_ID)?.remove();
+}
+
 export function useAccount(): AccountContext {
   const ctx = useContext(Ctx);
   if (!ctx) throw new Error("useAccount must be used inside <AccountProvider>");
@@ -91,6 +108,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
   const lastPath = useRef<string | null>(null);
 
   const apply = useCallback((s: Status, who: Me | null, slugs: string[]) => {
+    if (s !== "loading") rememberSignedIn(s === "in");
     setStatus(s);
     setMe(who);
     setSaved((prev) => {

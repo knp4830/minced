@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy policy"
-      updated="October 14, 2026"
+      updated="October 16, 2026"
       intro="Minced is a small personal project. You can browse every recipe without an account and without giving us anything. If you make an account, this page says exactly what we keep and how to remove it."
     >
       <LegalSection id="who" title="Who runs this">
@@ -42,6 +42,11 @@ export default function PrivacyPage() {
         <ul>
           <li>Your email address, so you can log in and recover your password.</li>
           <li>A hashed password. We never see or store the password itself.</li>
+          <li>
+            If you choose &ldquo;Continue with Google&rdquo; instead of a password: the email address and Google account
+            id Google shares with us. We ask only for who you are (openid, email, profile), never for your mail, files
+            or contacts, and we do not store a password for that login.
+          </li>
           <li>The recipes you save (your favourites).</li>
           <li>The cookware you say you own, if you set &ldquo;My cookware&rdquo; while signed in.</li>
           <li>
@@ -51,6 +56,10 @@ export default function PrivacyPage() {
           <li>
             Your shopping list, if you use it while signed in: the ingredients
             and amounts, which recipe they came from, and what you have ticked off.
+          </li>
+          <li>
+            Your <strong className="font-semibold text-ink">Me page</strong> data, if you use it while signed in. This is
+            health-related, so it is listed in full under &ldquo;Health and fitness data&rdquo; below.
           </li>
           <li>When the account was created.</li>
           <li>
@@ -64,8 +73,34 @@ export default function PrivacyPage() {
         </p>
         <p>
           We do not run analytics, advertising, or tracking scripts, and we do not
-          collect your date of birth, location, or payment details. We do not sell
+          collect your date of birth, precise location, or payment details. We do not sell
           or share personal information.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="health" title="Health and fitness data">
+        <p>
+          The Me page is optional. Only if you use it, and only while signed in, we store the following, tied to your
+          account:
+        </p>
+        <ul>
+          <li>
+            Your targets: sex (female or male), age, height, weight, activity level, goal, and the calorie and
+            macronutrient targets worked out from them.
+          </li>
+          <li>
+            Your food log: what you ate, the meal and date, and the calories, protein, carbohydrate, fat, and where
+            given, fibre and sodium.
+          </li>
+          <li>Your workouts: the date, the session type, minutes, sets, and which muscle groups you trained.</li>
+          <li>Your sleep: hours slept on each date you enter.</li>
+        </ul>
+        <p>
+          This is sensitive, so: it is used only to show you your own page. It is not used for advertising or analytics,
+          not combined with anything else, and not shared or sold. Only you can read it (the database enforces that for
+          each row), and it is never public. You can delete any single entry on the page, download all of it with
+          &ldquo;Download my data&rdquo;, or delete the account to remove all of it at once. Minced is not a medical
+          service, and the targets are general estimates, not medical advice.
         </p>
       </LegalSection>
 
@@ -75,13 +110,21 @@ export default function PrivacyPage() {
           <code className="font-mono text-[0.875em]">sb-</code>). They exist only to
           remember that you are logged in, and are removed when you log out (at the
           latest they expire after about 13 months). Because they are strictly necessary for the login you asked
-          for, there is no cookie banner. Nothing else on Minced sets cookies. (Your fridge picks are saved in browser storage on your device, not in cookies.)
+          for, there is no cookie banner. If you use the Me page, one more small cookie,{" "}
+          <code className="font-mono text-[0.875em]">me_tz</code>, remembers your time zone (for example America/New_York) for one year so
+          the page can tell which day it is for you. It holds no other information, and it is removed when you log out or delete your account.
+          Nothing else on Minced sets cookies. (Your fridge picks are saved in browser storage on your device, not in cookies.)
         </p>
       </LegalSection>
 
       <LegalSection id="processors" title="Who handles the data">
         <p>These services process data on our behalf. We have no other recipients.</p>
         <ul>
+          <li>
+            <strong className="font-semibold text-ink">Google</strong>, only if you use &ldquo;Continue with
+            Google&rdquo;. Google handles that sign-in under its own privacy policy and tells us your email address
+            and name; we do not send it anything about what you do on Minced.
+          </li>
           <li>
             <strong className="font-semibold text-ink">Supabase</strong> stores
             accounts and saved recipes in a database hosted in the United States and
@@ -105,7 +148,7 @@ export default function PrivacyPage() {
         <ul>
           <li>
             <strong className="font-semibold text-ink">Running your account</strong>{" "}
-            (email, password hash, saved recipes, cookware, fridge, shopping list): needed to provide the account
+            (email, password hash, saved recipes, cookware, fridge, shopping list, and Me page data): needed to provide the account
             you asked for (contract).
           </li>
           <li>
@@ -124,7 +167,7 @@ export default function PrivacyPage() {
       <LegalSection id="keep" title="How long we keep it">
         <p>
           For as long as the account exists. When you delete the account, your
-          email, password hash, saved recipes, cookware, fridge and shopping list are removed immediately. Security
+          email, password hash, saved recipes, cookware, fridge, shopping list and Me page data (targets, food log, workouts, sleep) are removed immediately. Security
           logs (which can include your email and IP address) and routine backups
           age out on the host&apos;s own schedule, and are never restored for any purpose except recovering the whole site.
         </p>
@@ -139,7 +182,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="font-semibold text-ink">See or correct your data:</strong>{" "}
-            your email, saved recipes, cookware, fridge and shopping list are all there is. Your email and saved recipes are visible on
+            your email, saved recipes, cookware, fridge, shopping list and Me page data are all there is. Your email and saved recipes are visible on
             your <Link href="/account" className={legalLink}>account page</Link>, your cookware in the
             &ldquo;My cookware&rdquo; filter, your fridge on <Link href="/fridge" className={legalLink}>My fridge</Link> and your list on the <Link href="/shopping" className={legalLink}>shopping list</Link>. You
             can download a copy from Settings (&ldquo;Download my data&rdquo;). To

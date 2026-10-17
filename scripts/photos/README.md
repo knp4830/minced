@@ -120,6 +120,22 @@ ingredients). Different dish or style, raw ingredient, logos, people, stock-phot
   `commons_picks_w7.json` is NOT cleaned by `remove_photo.py`: drop the slug there too, or `commons_w4.py build` re-adds it.
 - Re-running `process_images.py` after the removals leaves no rejected slug in `photos.json` (checked).
 
+## Wave 8 (quality audit, sharper rendering, curated landing photos)
+**Why the hero looked blurry (measured):** `getLandingPhotos` served the 400 px `sm` file into a 379 px tile (426 px at 2560 wide), so a 2x
+screen stretched it 2x; `process_images.py` capped `md` at 800 px, too small for a 590 px recipe-page photo at 2x. The source (Agedashi Tofu,
+1280 px, Laplacian variance 572) was not soft. Fixes: sizes are now `md` 1200 / `sm` 640 (q82); landing slots 0 and 6-8 read `md`, the other
+six read `sm`; the nine landing photos are curated (`CURATED_SLUGS` in `landing.ts`, rationale in `manifest/landing_curated.json`), sources
+1920 px. `landing_check.py` prints per slot the file served, the tile size (measured in the browser at 1920/2560) and OK/SOFT at 2x.
+- `quality_audit.py measure|csv|sheets` -> `manifest/quality-audit.csv`. Numbers only choose what to look at; every photo was also rated 1-5 by eye on
+  contact sheets (`import_scores.py` -> `manifest/quality_decisions.json`), then everything rated 1-2 got a second look at full size
+  (`w8_second_look.py`). Smooth soups and deliberate shallow depth of field score low on the number and are fine to the eye.
+- `orig_sizes.py`, `hires.py fetch|apply` (re-fetch a 1920 px rendition for a photo already in the manifest; Commons rows held the 1280 px thumbnail).
+- `w8_search.py search|sheets|build`: commons_w4 plus a size floor (1000 px) and a sharpness floor (Laplacian >= 90 at 480 px) applied BEFORE the
+  reviewer sees a candidate; `openverse.py` honours `OV_MIN_LONG` / `OV_SHARP`. Also `w8_lists.py`, `w8_pick_photoless.py`, `w8_make_picks.py`,
+  `w8_bulk_remove.py` (bucket `wave8_quality_2026_10_16`), `w8_lowlist.py`, `w8_owner_sheets.py`, `w8_prove_rejection.py` (re-injects every removed row;
+  PASS = all dropped, photos.json unchanged).
+- Matching standard unchanged: the photo must show the recipe's ingredients, not only its name. Generic USDA titles produced no honest match.
+
 ## Review 2026-10-15 (duplicates, USDA restore, more photos)
 - Five photos were shared by two recipes (see `NEAR-DUPLICATES.md`): each pair compared by hand. Same dish -> the weaker RECIPE is deleted
   by `scripts/dedupe-near-duplicates.sql` (dry-run mode, idempotent, re-points favourites and shopping links); different dish -> the photo

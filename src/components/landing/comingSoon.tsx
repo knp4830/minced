@@ -1,4 +1,7 @@
 import { Dumbbell, LineChart, Users } from "lucide-react";
+import Link from "next/link";
+
+import { ME_ENABLED } from "@/lib/me/flag";
 
 /*
  * Honest roadmap cards. None of these are built, so they are not links, have no
@@ -24,6 +27,8 @@ const ITEMS = [
 ] as const;
 
 export function ComingSoon() {
+  // Me is live: its two roadmap cards become one real card that links to it.
+  const items = ME_ENABLED ? ITEMS.filter((i) => i.title === "Share your own recipes") : ITEMS;
   return (
     <section aria-labelledby="soon-h" className="px-(--gutter) py-14 md:py-20">
       <div className="mx-auto max-w-[var(--page-max)]">
@@ -35,12 +40,32 @@ export function ComingSoon() {
             Finding the recipe is the start. We’re building the rest of the week around it.
           </p>
           <p className="text-base leading-[1.55] text-ink-muted">
-            None of this is live yet. It’s what we’re working on next, so you can see where
-            Minced is headed.
+            {ME_ENABLED
+              ? "Me is live. The rest is what we’re working on next, so you can see where Minced is headed."
+              : "None of this is live yet. It’s what we’re working on next, so you can see where Minced is headed."}
           </p>
         </div>
         <ul className="grid gap-4 md:grid-cols-3 md:gap-[22px]">
-          {ITEMS.map(({ icon: Icon, title, body }) => (
+          {ME_ENABLED && (
+            <li>
+              <Link
+                href="/me"
+                className="relative flex h-full flex-col overflow-hidden rounded-xl border border-outline bg-surface p-6 pt-7 transition-colors hover:border-herb"
+              >
+                <span className="absolute top-4 right-4 rounded-full border border-herb/30 bg-band px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.08em] text-herb uppercase">
+                  Live now
+                </span>
+                <span aria-hidden className="mb-5 flex size-11 items-center justify-center rounded-xl bg-band text-herb">
+                  <LineChart className="size-5" />
+                </span>
+                <h3 className="mb-2 text-xl tracking-[-0.01em]">Track your day on Me</h3>
+                <p className="text-sm leading-normal text-ink-muted">
+                  Log what you cook, set calorie and protein targets, and note your workouts and sleep. Sign in to start.
+                </p>
+              </Link>
+            </li>
+          )}
+          {items.map(({ icon: Icon, title, body }) => (
             <li
               key={title}
               className="relative flex flex-col overflow-hidden rounded-xl border border-dashed border-outline bg-surface/60 p-6 pt-7"

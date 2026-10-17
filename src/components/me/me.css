@@ -1,0 +1,125 @@
+/*
+ * Me dashboard styles that Tailwind utilities cannot express (SVG fills by data attribute, the calorie ring).
+ *
+ * No colour literals: every value is a design token from globals.css, or a mix of tokens.
+ *
+ * TOKEN REQUEST for globals.css (wave 8 integrator): the design uses three herb tints and a slate for
+ * protein. They are derived here with color-mix so the lane did not touch the token file. If the owner
+ * wants exact design values, promote these to real tokens:
+ *   --me-herb-1  design #A9C1B3   (1 set; also the lightest tint)
+ *   --me-herb-2  design #6B8C79   (2-3 sets; also fat in the ring)
+ *   --me-slate   design #93A4AD   (protein in the ring)
+ */
+
+.me-scope {
+  --me-herb-1: color-mix(in srgb, var(--color-herb) 25%, var(--color-ph-herb));
+  --me-herb-2: color-mix(in srgb, var(--color-herb) 58%, var(--color-ph-herb));
+  --me-herb-3: var(--color-herb);
+  --me-slate: color-mix(in srgb, var(--color-ph-slate-ink) 40%, var(--color-ph-slate));
+  --me-idle: var(--color-track);
+  --me-context: var(--color-stage);
+}
+
+/* ---- body map ---- */
+.me-body-m {
+  fill: var(--me-idle);
+  stroke: var(--color-surface);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  transition: fill 120ms ease-out;
+}
+.me-body-m[data-i="1"] { fill: var(--me-herb-1); }
+.me-body-m[data-i="2"] { fill: var(--me-herb-2); }
+.me-body-m[data-i="3"] { fill: var(--me-herb-3); }
+.me-body-c {
+  fill: var(--me-context);
+  stroke: var(--color-surface);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.me-body-outline {
+  fill: none;
+  stroke: var(--color-stone-line);
+  stroke-width: 1.5;
+}
+/* Hover / keyboard focus: a darker rim so the muscle under the pointer is unmistakable. */
+.me-body-g[data-hot="true"] .me-body-m {
+  stroke: var(--color-ink);
+  stroke-width: 4;
+}
+.me-body-g:focus-visible {
+  outline: none;
+}
+.me-body-g:focus-visible .me-body-m {
+  stroke: var(--color-ink);
+  stroke-width: 5;
+}
+.me-body-g[data-live="true"] {
+  cursor: pointer;
+}
+
+/* ---- calorie ring ---- */
+.me-ring-track { stroke: var(--color-band); }
+.me-seg-carb { stroke: var(--me-herb-3); }
+.me-seg-fat { stroke: var(--me-herb-2); }
+.me-seg-protein { stroke: var(--me-slate); }
+.me-seg {
+  transition: stroke-dasharray 400ms var(--ease-out-expo), stroke-dashoffset 400ms var(--ease-out-expo);
+}
+@media (prefers-reduced-motion: reduce) {
+  .me-seg { transition: none; }
+}
+
+.me-bar-carb { background: var(--me-herb-3); }
+.me-bar-fat { background: var(--me-herb-2); }
+.me-bar-protein { background: var(--me-slate); }
+
+/* Hide the phone swipe scrollbar. */
+.me-swipe { scrollbar-width: none; }
+.me-swipe::-webkit-scrollbar { display: none; }
+
+/* A native dialog that is a centred card on desktop and a bottom sheet on a phone. */
+.me-dialog {
+  position: fixed;
+  inset: auto 0 0 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  max-height: 92dvh;
+  padding: 0;
+  overflow-y: auto;
+  border: 0;
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sheet);
+}
+.me-dialog::backdrop { background: var(--color-scrim); }
+@media (min-width: 48rem) {
+  .me-dialog {
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    max-height: 90dvh;
+    width: min(calc(100% - 2rem), var(--me-dialog-w, 47.5rem));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-frame);
+  }
+}
+
+/* The primary action stays in view at the bottom of a scrolling sheet (it sat below the fold on a phone). */
+.me-dialog-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  margin: 1.25rem -1.25rem -1.25rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}
+@media (min-width: 48rem) {
+  .me-dialog-actions {
+    margin: 1.25rem -1.75rem -1.5rem;
+    padding: 0.75rem 1.75rem;
+  }
+}

@@ -120,9 +120,9 @@ export default async function Home() {
                 [String(filterCount), "filters"],
                 ["No sign-up", "to search"],
               ].map(([n, label]) => (
-                <div key={label} className="px-2 py-3">
+                <div key={label} className="px-1.5 py-3 sm:px-2">
                   <dt className="sr-only">{label}</dt>
-                  <dd className="font-display text-xl leading-none whitespace-nowrap font-semibold text-ink md:text-2xl">
+                  <dd className="font-display text-base leading-none whitespace-nowrap font-semibold text-ink sm:text-xl md:text-2xl">
                     {n}
                     <span aria-hidden className="mt-1 block font-mono text-[0.6875rem] font-normal tracking-normal text-ink-subtle">
                       {label}

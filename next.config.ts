@@ -11,6 +11,9 @@ const supabaseHost = (() => {
   }
 })();
 
+const CANONICAL_ORIGIN = "https://minced.kevinpham.page";
+const CANONICAL_REDIRECT_HOSTS = ["minced-app.vercel.app", "mise-two-xi.vercel.app"];
+
 const csp = [
   "frame-ancestors 'none'",
   "base-uri 'self'",
@@ -20,6 +23,18 @@ const csp = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // One canonical host. The two old production hostnames send everything (path and query kept)
+  // to the real domain with a 308. A `host` condition matches the exact name only, so preview
+  // deployments (minced-git-<branch>-….vercel.app) and localhost are never redirected. Next
+  // applies redirects before middleware, so the middleware matcher is untouched.
+  async redirects() {
+    return CANONICAL_REDIRECT_HOSTS.map((host) => ({
+      source: "/:path*",
+      has: [{ type: "host" as const, value: host }],
+      destination: `${CANONICAL_ORIGIN}/:path*`,
+      permanent: true, // 308
+    }));
+  },
   async headers() {
     return [
       {

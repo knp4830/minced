@@ -151,7 +151,7 @@ export default async function AccountPage({ searchParams }: Props) {
               <div>
                 <h3 className="text-base font-semibold">Your data</h3>
                 <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Minced stores your email, the recipes you save, your cookware, your fridge (with dates and amounts), your shopping list, and security sign-in logs. Without an account, your shopping list stays in this browser only.{" "}
+                  Minced stores your email, the recipes you save, your cookware, your fridge (with dates and amounts), your shopping list, and security sign-in logs. If you use Me, it also stores your targets (sex, age, height, weight, goal), food log, workouts and sleep; they are included in the download below. Without an account, your shopping list stays in this browser only.{" "}
                   <Link href="/privacy" className="underline underline-offset-4 hover:text-herb">
                     Read the privacy policy
                   </Link>
@@ -168,7 +168,7 @@ export default async function AccountPage({ searchParams }: Props) {
               <div>
                 <h3 className="text-base font-semibold">Delete your account</h3>
                 <p className="mt-1.5 mb-4 text-[0.9375rem] leading-relaxed text-ink-muted">
-                  Removes your login, saved recipes, fridge and shopping list right away. This can&apos;t be undone.
+                  Removes your login, saved recipes, fridge, shopping list and everything you logged on Me (targets, meals, workouts, sleep) right away. This can&apos;t be undone.
                 </p>
                 <DeleteAccountForm />
               </div>

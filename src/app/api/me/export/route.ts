@@ -2,6 +2,7 @@ import { getCurrentUser } from "@/lib/queries/account";
 import { getFavoriteSlugs } from "@/lib/queries/favorites";
 import { getFridge } from "@/lib/queries/fridge";
 import { getShoppingLines } from "@/lib/queries/shopping";
+import { getMyHealthExport } from "@/lib/queries/me";
 import { getMyCookwareSlugs } from "@/lib/queries/userCookware";
 import { createClient } from "@/lib/supabase/server";
 
@@ -17,12 +18,13 @@ export async function GET() {
   if (!user) {
     return Response.json({ error: "Not signed in" }, { status: 401, headers: { "Cache-Control": "private, no-store" } });
   }
-  const [me, favorites, cookware, fridge, shopping] = await Promise.all([
+  const [me, favorites, cookware, fridge, shopping, health] = await Promise.all([
     getCurrentUser(),
     getFavoriteSlugs(),
     getMyCookwareSlugs(),
     getFridge(),
     getShoppingLines(),
+    getMyHealthExport(),
   ]);
   const body = {
     exported_at: new Date().toISOString(),
@@ -47,6 +49,11 @@ export async function GET() {
       from_recipe: l.recipeTitle,
       checked: l.checked,
     })),
+    // The Me page. Empty (or null) when you have never used it.
+    me_targets: health.targets,
+    me_food_log: health.food_log,
+    me_workouts: health.workouts,
+    me_sleep: health.sleep,
   };
   return new Response(JSON.stringify(body, null, 2), {
     headers: {

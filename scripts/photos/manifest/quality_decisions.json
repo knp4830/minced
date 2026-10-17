@@ -1,0 +1,2126 @@
+{
+  "agedashi-tofu": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "restaurant table, napkin+spoon in frame"
+  },
+  "aji-de-gallina": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "cluttered table cutlery"
+  },
+  "aloo-gobi": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "ambrosia": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft (lap 96)"
+  },
+  "angel-food-cake": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "apple-cake": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "apple-carrot-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "apple-chicken-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "apple-coffee-cake": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "apple-cranberry-salad-toss": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "apple-crisp-0": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "dark stovetop background"
+  },
+  "apple-stuffed-squash": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "washed-out flash, odd 1024x496 crop, bottles behind"
+  },
+  "apple-wedges-pumpkin-almond-butter": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "applesauce": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "applesauce-pancakes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "arroz-caldo": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "cola can and newspaper in frame"
+  },
+  "arroz-con-pollo-chicken-and-rice": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "MyPlate logo allowed"
+  },
+  "arroz-rojo": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dark, soft (lap 120), dish cropped on portrait frame"
+  },
+  "au-gratin-potatoes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "avgolemono": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baba-ghanoush": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft, garish plate"
+  },
+  "baingan-bharta": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "busy floral cloth"
+  },
+  "baked-beans": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-chicken": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-chicken-vegetables": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-fish-tomatoes-peppers-onions": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-lemon-chicken": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-meatballs": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-salmon-herbs-lemon": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-tofu": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "baked-trout": {
+    "score": 3,
+    "verdict": "keep",
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
+  },
+  "banana-berry-muffins": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x480"
+  },
+  "banana-bread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "foil, cluttered corner"
+  },
+  "banana-cupcakes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft (lap 147)"
+  },
+  "banana-pudding": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "640px jar of baked custard, does not read as banana pudding"
+  },
+  "banana-walnut-oatmeal": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "banh-mi": {
+    "score": 1,
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (bottle and paper clutter around the sandwich); no acceptable free photo, placeholder instead"
+  },
+  "barley-jambalaya": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "barley-pilaf": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft"
+  },
+  "basic-custard": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "basic-quiche": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "portrait, soft (lap 166), washed out, two plates"
+  },
+  "batido-smoothie": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "bbq-chicken-pizza": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "bean-and-rice-burritos": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "flash"
+  },
+  "bean-and-vegetable-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "744px close-up"
+  },
+  "bean-dip": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft"
+  },
+  "bean-enchiladas": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "beef-and-vegetable-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "beef-and-vegetables": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "beef-potatoes": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "beef-pozole-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "beef-stroganoff": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "beef-suya": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "newspaper, red tabletop, harsh flash"
+  },
+  "beef-vegetable-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "bibimbap": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "black-bean-burgers": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "704px soft"
+  },
+  "black-bean-quesadillas": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: appetising close-up, sharp"
+  },
+  "black-bean-soup-0": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "black-beans": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "blueberry-coffee-cake": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: close-up; the crumb is in focus, the upper blur is depth of field"
+  },
+  "blueberry-muffins": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "braised-chicken-thighs-spinach": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "bran-muffins": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "bread-pudding-vanilla-sauce": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "640px"
+  },
+  "breakfast-burrito-salsa": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x373"
+  },
+  "breakfast-potato-egg-burritos": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "broccoli-omelet": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "broccoli-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "brown-rice-tabbouleh": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "bulgogi": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "bun-cha": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "butter-chicken": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft (lap 128)"
+  },
+  "buttermilk-scones": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "butternut-squash-apple-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: smooth puree soup: low edge detail is the dish, the bowl and cream swirl are sharp"
+  },
+  "butternut-squash-pasta-bake": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cabbage-salad": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dim, soft (lap 85), plain white plate, unappetising"
+  },
+  "cabbage-stir-fry": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cacio-e-pepe": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cafe-mocha": {
+    "score": 1,
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (beer bottle in the frame, not clearly a mocha); no acceptable free photo, placeholder instead"
+  },
+  "candied-yams": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "mushy puree on plaid cloth, harsh flash"
+  },
+  "canh-chua": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "caribbean-bean-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chana-masala": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chapatis-flatbread": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cheese-stuffed-potatoes": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "foil cups on picnic cloth, unappetising"
+  },
+  "chicken-adobo": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-and-beans": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-and-cranberry-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-and-dumplings": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-cacciatore": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-chettinad": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "saucy mass, no plate or context, unappetising"
+  },
+  "chicken-katsu": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-mole": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft (lap 158)"
+  },
+  "chicken-noodle-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-pot-pie": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-pozole-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "MyPlate logo allowed"
+  },
+  "chicken-ratatouille": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-rice-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-salad": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "plastic tub, chopsticks in frame"
+  },
+  "chicken-salad-and-peach-sandwich": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x320"
+  },
+  "chicken-shawarma": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "styrofoam takeaway clamshell"
+  },
+  "chicken-stew": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-stir-fry": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-tagine": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chicken-vegetable-soup-kale": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chickpea-dip": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chickpeas-and-spinach-saute": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "chilaquiles-rojos": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "900x420 wide crop"
+  },
+  "chimichurri-sauce": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dated, spoon in dish, floral plate, dim"
+  },
+  "chocolate-chip-yogurt-cookies": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "citrus-chicken": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "citrus-tuna-melt": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "citrus-vegetables": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "classic-honey-flan": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft (lap 88), 600x400"
+  },
+  "classic-macaroni-and-cheese": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cobb-salad-pears": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "coffee-cooler": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "foam and ice in a plastic tub, unclear subject"
+  },
+  "collard-green-gumbo-ham-hock": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x392"
+  },
+  "colorful-quesadillas": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "confetti-bean-salsa": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "congee": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cooked-beans": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "corn-and-bean-medley": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "corn-blueberry-wild-rice-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "MyPlate logo allowed"
+  },
+  "corn-bread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "corn-casserole-0": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "corn-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x480"
+  },
+  "corn-toasties": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: stack of fritters, deliberate shallow depth of field, clean white ground (USDA 600x400)"
+  },
+  "corn-tortillas": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cornbread-dressing": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cornmeal-pancakes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "country-style-potato-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cowboy-caviar-bean-salsa": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cranberry-nut-bread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cranberry-pumpkin-muffins": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cranberry-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cream-broccoli-soup": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "soft (lap 161), grey and dull"
+  },
+  "crusty-rice-tofu-and-vegetables": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cuban-salad": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "tiny (384x480)"
+  },
+  "cucumber-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "cucumber-salad-tomatoes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: fresh close-up, sharp enough"
+  },
+  "curried-chicken-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "curried-squash-stew": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "curtido-salvadoreno-cabbage-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "dal-tadka": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "dan-dan-noodles": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "daves-herb-stuffed-mushrooms": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "deep-dish-apple-cranberry-pie": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "deviled-eggs": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "dirty-rice": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x480"
+  },
+  "doro-wat": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "easy-beef-supper": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "easy-mix-pizza-better-baking-mix": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "egg-foo-young": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "egg-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: tight macro but clear and honest"
+  },
+  "enchilada-bake": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "escovitch-fish": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: shows the pickled fish with onion and carrot, as the recipe does"
+  },
+  "esquites": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "held in a hand over pavement"
+  },
+  "falafel-yogurt-sandwich": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: falafel pita with background blur by design"
+  },
+  "farmers-market-gazpacho": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft (lap 113)"
+  },
+  "fattoush": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fish-spinach": {
+    "score": 3,
+    "verdict": "keep",
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
+  },
+  "fish-tacos": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dark restaurant, cluttered, sign text"
+  },
+  "flour-tortillas": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "soft (lap 153)"
+  },
+  "french-spinach-frittata": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fresh-salsa": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fresh-tomato-salsa": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fresh-tomato-sauce": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "frijoles-de-la-olla": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dim flash, hand squeezing lime, cluttered"
+  },
+  "frosted-cake": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: clean cake on stand"
+  },
+  "fruit-crisp": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fruit-dippers": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fruit-pizza": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fruit-salad-yogurt": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "fruit-smoothie": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "phone snap of a blender jug held in a hand"
+  },
+  "ful-medames": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "garden-pan-bread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x480"
+  },
+  "garden-pasta-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "garlic-bok-choy": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "gazpacho": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "gazpacho-soup": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "newspaper, pouring shot, odd portrait crop"
+  },
+  "gigantes-plaki": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "glazed-carrots": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "689x546"
+  },
+  "glazed-meatloaf": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "goi-cuon": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "granola-bars": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "1280x331 strip cut-out"
+  },
+  "granola-oatmeal-coconut-pecan": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "great-northern-bean-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x480"
+  },
+  "greek-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "green-onion-omelet": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "grilled-cheese-peaches": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "grilled-vegetables": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "gujarati-kadhi": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "soft (lap 106), flash glare, top-down in a pot"
+  },
+  "gyeran-jjim": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "gyudon": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "harira": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "hearty-beef-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "homemade-mashed-potatoes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: plain but clean and sharp enough"
+  },
+  "homemade-ranch-dressing": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "homestyle-biscuits": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "horchata": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "soft (lap 98), hand and clutter in frame"
+  },
+  "huevos-motulenos": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "very soft (lap 47), blurry"
+  },
+  "huevos-rancheros-fresh-salsa": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "hummus": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "italian-bean-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "jamaican-jerk-chicken": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "jamaican-rice-and-peas": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "japanese-curry-rice": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "japchae": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "jollof-rice": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "julias-sauteed-steamed-collards": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "kale-salad-yogurt-dressing": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "only 480x294"
+  },
+  "kanda-poha": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "paper plate, busy pattern"
+  },
+  "kelewele": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "kerala-fish-curry": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "khao-pad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "kimchi-jjigae": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "kofta-kebab": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "kongnamul-muchim": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "kung-pao-chicken": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lemon-potatoes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lemon-rice": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lemonade": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "soft (lap 178), jar and straw on a patterned table"
+  },
+  "lentil-minestrone": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lentil-soup": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "pot on a stove, dull"
+  },
+  "lentil-stew": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lentil-vegetable-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lentil-vegetable-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lite-fried-okra": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lomo-saltado": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "lumpia-shanghai": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "maafe": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "macaroni-chick-pea-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "magic-crust-quiche": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mango-salsa": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mango-shake": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "maple-sweet-potatoes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mapo-tofu": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mashed-sweet-potatoes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "masoor-dal-red-lentils-onion": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "MyPlate logo allowed"
+  },
+  "massaman-curry": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "meatball-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mediterranean-chicken-and-white-bean-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "melissas-slow-cooker-stuffing": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "menemen": {
+    "score": 3,
+    "verdict": "keep",
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 swap showed no egg; the previous Commons photo is back (752 px, parsley and egg visible)"
+  },
+  "mercimek-corbasi": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: clean soup on white, nothing wrong"
+  },
+  "microwave-baked-potato": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "microwave-potato-corn-chowder": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "minestrone-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "miso-mushroom-ramen": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "miso-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mixed-fruit-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: colourful, appetising"
+  },
+  "mock-southern-sweet-potato-pie": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: clean slice on plate"
+  },
+  "mousse-la-banana": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: clear jar shot with banana slice, attractive (USDA 600x400)"
+  },
+  "muffins-better-baking-mix": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mujadara": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mushroom-barley-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "mushroom-beef-sloppy-joes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "naan": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "new-orleans-red-beans": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "nikujaga": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "no-bake-cookies": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "oatmeal-bread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "okonomiyaki": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "old-fashioned-bread-pudding": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "orange-delight-juice": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: bright, clean (USDA 600x400)"
+  },
+  "oven-baked-potato-pancakes": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "oven-baked-sweet-potato-fries": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "oven-roasted-vegetables": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "overnight-oatmeal": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "overnight-oatmeal-berries": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "oyakodon": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pad-kra-pao": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pad-thai": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "palak-paneer": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pancit-bihon": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "papa-a-la-huancaina": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "parsley-almond-and-lemon-pesto": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "blender jug with a spoon, unappetising"
+  },
+  "parsnip-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: plain soup, clean"
+  },
+  "pasta-chickpeas-tomato-and-spinach": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pasta-frittata-peas": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dish far away on a table, tall 900x1600 crop"
+  },
+  "pasta-primavera": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pasta-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pasta-vegetables": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pav-bhaji": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "peach-sauce": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "peanut-butter-banana-smoothie": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: attractive, subject sharp (USDA 600x400)"
+  },
+  "peanut-butter-n-fruit-wich": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pear-orange-sauce": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: pear in sauce, subject sharp, background blur is deliberate (USDA 600x400)"
+  },
+  "pear-quesadillas": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pear-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "perfect-pumpkin-pancakes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "peruvian-ceviche": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pho-ga": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "picadillo-0": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pico-de-gallo": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pineapple-chicken": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pot-roasted-beef": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "potato-cakes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "potato-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "potato-skins-buffalo-chicken": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "potato-soup": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "poulet-yassa": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pretzel-shapes": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pumpkin-bread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pumpkin-cheese-pie": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pumpkin-cookies": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "pumpkin-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "quick-black-eyed-peas": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "quick-chili": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "quick-peach-cobbler": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dark kitchen, harsh light"
+  },
+  "quinoa-and-black-bean-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "rajma-masala": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "soft (lap 164), flash glare"
+  },
+  "ratatouille-0": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "red-beans-and-rice-0": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "red-red": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "refried-beans": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: clean bowl"
+  },
+  "rice-chicken-arroz-con-pollo": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "rice-pudding1": {
+    "score": 1,
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (scribbled napkin in the frame); no acceptable free photo, placeholder instead"
+  },
+  "rice-salad": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "roast-chicken": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "person and bag in frame"
+  },
+  "roasted-bell-peppers": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "roasted-brussels-sprouts": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "roasted-cauliflower": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "roasted-pork-tacos-pico-de-gallo": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "roasted-potatoes": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "roasted-tomatoes-herbs": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "ropa-vieja": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "salmon-burgers": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: clear burger plate"
+  },
+  "salmon-patties": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "sambar": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "sarahs-spicy-curry-turkey-soup": {
+    "score": 1,
+    "verdict": "replace",
+    "reason": "tiny (310x200) and soft"
+  },
+  "savory-bread-pudding-kale-and-butternut-squash": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "savory-meatloaf-muffins": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "scalloped-potatoes": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "pale and dull, unappetising"
+  },
+  "scrambled-tofu": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "seared-greens": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "shakshuka": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "shepherds-pie": {
+    "score": 1,
+    "verdict": "remove",
+    "final": "removed",
+    "reason": "verifier round 2: wave 8 replacement rejected (gas stove with a visible brand in the frame); no acceptable free photo, placeholder instead"
+  },
+  "shiro-wat": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "simple-fish-tacos": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "simple-stuffed-peppers": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "sinigang-na-baboy": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "skillet-catfish": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "MyPlate logo allowed"
+  },
+  "skillet-pasta-dinner": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: clean bowl"
+  },
+  "soft-chicken-taco": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "soft-pretzels": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "som-tam": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "sopa-de-tortilla": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "soul-healthy-cornbread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spaghetti-quick-meat-sauce": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spanakorizo": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spanish-frittata": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spanish-rice": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spicy-okra": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spicy-oven-baked-chicken": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spicy-southern-barbecued-chicken": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "split-pea-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "spring-vegetable-saute": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "squash-soup": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "tiny bowl in a big dull frame"
+  },
+  "stir-fried-beef": {
+    "score": 3,
+    "verdict": "keep",
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
+  },
+  "stir-fry-vegetables-and-beef": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "stove-top-green-chile-chicken-enchiladas": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dish small in a tall frame, clothing at the top edge"
+  },
+  "strawberries-watermelon-pineapple-": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "stuffed-baked-potatoes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "stuffed-bell-peppers": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "stuffed-pasta-shells": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "stuffed-summer-squash": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "stuffed-tomatoes": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "supermarket tray with a printed label"
+  },
+  "sugar-and-spice-cookies-better-baking-mix": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: soft pastel cookies, nothing wrong"
+  },
+  "summer-squash-squares": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "sweet-potato-hash-egg": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "sweet-potato-pie": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tabbouleh": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "taco-soup": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "product label text (sour cream) in frame"
+  },
+  "tacos-al-pastor": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tallarines-verdes": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tamagoyaki": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tartar-sauce": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tasty-chicken-and-veggie-packets": {
+    "score": 1,
+    "verdict": "replace",
+    "reason": "blurry (lap 45), does not show packets"
+  },
+  "thai-green-curry": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "thit-kho-trung": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "thousand-island-dressing": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "soft (lap 138), dull"
+  },
+  "tinga-de-pollo": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tofu-broccoli": {
+    "score": 3,
+    "verdict": "keep",
+    "final": "restored",
+    "reason": "verifier round 2: the wave 8 Commons swap was worse; the original USDA MyPlate photo is back (smaller, but it shows the dish)"
+  },
+  "tom-kha-gai": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tom-yum-goong": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "person, beer bottle and clutter in frame"
+  },
+  "tomato-and-cucumber-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tomato-basil-bruschetta": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tomato-basil-soup": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "restaurant brand name printed on the tray mat"
+  },
+  "tomato-egg-stir-fry": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tomato-n-cheese-pasta": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tortang-talong": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tostones": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "trinidad-pelau": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tteokbokki": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tuna-melt-burger": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tuna-pasta": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "tuna-salad-greens": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dark, does not read as tuna"
+  },
+  "turkey-burgers": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "turkey-meatloaf": {
+    "score": 2,
+    "verdict": "replace",
+    "reason": "dated cut-out illustration look on white, not a real plate"
+  },
+  "turkey-patties": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "turkey-stew": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "two-bean-chili": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "vegetable-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: fresh salad, clear"
+  },
+  "vegetable-soup-chicken": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "vegetable-stew": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "vegetable-stroganoff": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "vegetarian-matzo-ball-soup": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: subject sharp, background blur deliberate; appetising"
+  },
+  "vegetarian-spaghetti-sauce": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "vegetarian-stuffed-peppers": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "veggie-burgers": {
+    "score": 1,
+    "verdict": "replace",
+    "reason": "small (536x382), soft, cork trivet"
+  },
+  "veggie-chow-mein": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "veggie-noodles": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "veggie-quesadillas": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "second look at full size: close, appetising"
+  },
+  "waldorf-salad": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "watermelon-gazpacho": {
+    "score": 4,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "white-chili": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "whole-grain-strawberry-pancakes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "winter-crisp": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "yakisoba": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "zucchini-bread": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  },
+  "zucchini-pancakes": {
+    "score": 3,
+    "verdict": "keep",
+    "reason": "reviewed: no defect"
+  }
+}

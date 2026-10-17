@@ -28,7 +28,7 @@ export function BackToResults() {
       className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-md px-2 text-sm text-ink-muted hover:text-herb"
     >
       <ChevronLeft aria-hidden className="size-4" />
-      {href.startsWith("/pantry") ? "Fridge matches" : "All recipes"}
+      {href.startsWith("/pantry") ? "Fridge matches" : href === "/recipes" ? "All recipes" : "Back to results"}
     </Link>
   );
 }

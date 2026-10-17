@@ -294,7 +294,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
           className="w-full sm:w-auto"
         >
           <Refrigerator aria-hidden className="size-[18px]" />
-          What&apos;s in my fridge?
+          What&rsquo;s in my fridge?
           {count > 0 && (
             <>
               <span aria-hidden className="rounded-full bg-herb px-2 py-0.5 font-mono text-[0.6875rem] text-on-herb">
@@ -395,7 +395,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
       >
         <div className="flex items-center justify-between gap-3 border-b border-line px-(--gutter) py-3">
           <h2 id={`${uid}-title`} className="text-[1.0625rem] md:text-[1.25rem]">
-            What&apos;s in my fridge?
+            What&rsquo;s in my fridge?
           </h2>
           <button
             type="button"

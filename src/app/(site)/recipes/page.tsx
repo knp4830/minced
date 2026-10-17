@@ -124,7 +124,7 @@ async function Results({ filters }: { filters: RecipeFilters }) {
     <>
       {page.fuzzy && (
         <p className="mb-4 rounded-md bg-band px-3 py-2 text-sm text-ink-muted">
-          No recipe has those exact words. Showing similar spellings.
+          No recipe has those exact words. Showing the closest titles.
         </p>
       )}
 

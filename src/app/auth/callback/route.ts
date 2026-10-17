@@ -45,6 +45,23 @@ export async function GET(request: NextRequest) {
     : null;
   const requested = safeNext(searchParams.get("next"), "/account");
 
+  // `via=google` is set by signInWithGoogle. A Google failure gets its own message, because
+  // "that link has expired" makes no sense to someone who never opened an email.
+  const viaGoogle = searchParams.get("via") === "google";
+  const failure = (reason: "link" | "oauth" | "oauth_cancelled") => {
+    const qs = new URLSearchParams({ error: reason });
+    if (requested !== "/account") qs.set("next", requested);
+    return NextResponse.redirect(new URL(`/login?${qs}`, origin));
+  };
+
+  // The provider (or Supabase) reports its own failure as ?error=…&error_description=….
+  // Only the machine code is looked at; the description is text we did not write, so it is
+  // never echoed back into the page.
+  const providerError = searchParams.get("error");
+  if (providerError) {
+    return failure(providerError === "access_denied" ? "oauth_cancelled" : "oauth");
+  }
+
   const supabase = await createClient();
   let ok = false;
   if (tokenHash && type) {
@@ -53,7 +70,7 @@ export async function GET(request: NextRequest) {
     ok = !(await supabase.auth.exchangeCodeForSession(code)).error;
   }
 
-  if (!ok) return NextResponse.redirect(new URL("/login?error=link", origin));
+  if (!ok) return failure(viaGoogle ? "oauth" : "link");
 
   const destination = type === "recovery" ? "/reset-password" : requested;
   return NextResponse.redirect(new URL(destination, origin));
