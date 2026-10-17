@@ -27,6 +27,8 @@ type Props = {
   /** One sentence for the picture's description. */
   summary: string;
   label: string;
+  /** What a "week" spans in words, e.g. "Sunday to Saturday" (Settings > Week starts on). */
+  weekSpan?: string;
 };
 
 const toUnit = (kg: number, units: Units) => (units === "imperial" ? kg / KG_PER_LB : kg);
@@ -43,7 +45,7 @@ function niceTicks(min: number, max: number): number[] {
   return ticks;
 }
 
-export function WeightChart({ mode, from, to, daily, weekly, goalKg, units, summary, label }: Props) {
+export function WeightChart({ mode, from, to, daily, weekly, goalKg, units, summary, label, weekSpan = "Monday to Sunday" }: Props) {
   const pts =
     mode === "daily"
       ? daily.map((p) => ({ date: p.date, v: toUnit(p.kg, units), avg: toUnit(p.avg, units) }))
@@ -113,7 +115,7 @@ export function WeightChart({ mode, from, to, daily, weekly, goalKg, units, summ
           </>
         ) : (
           <span className="flex items-center gap-1.5">
-            <span aria-hidden className="size-2 rounded-full bg-herb" /> Average for each week (Monday to Sunday)
+            <span aria-hidden className="size-2 rounded-full bg-herb" /> Average for each week ({weekSpan})
           </span>
         )}
         {inRangeGoal !== null && (

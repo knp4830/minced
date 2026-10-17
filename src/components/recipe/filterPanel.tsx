@@ -7,9 +7,12 @@ import {
   filtersToQuery,
   hasActiveFilters,
   toggleInclude,
+  toggleFoodChip,
   toggleInList,
+  withDefaults,
   withFilters,
   withoutNarrowing,
+  type DefaultsState,
   type RecipeFilters,
 } from "@/lib/filters";
 import type { FilterOptions } from "@/lib/queries/browse";
@@ -189,13 +192,23 @@ export function FilterControls({
   filters,
   options,
   base = BASE,
+  defaults,
 }: {
+  /** The URL's own filters (links are built from these). */
   filters: RecipeFilters;
   options: FilterOptions;
   base?: string;
+  /**
+   * Saved diet / allergen defaults merged for this request (withDefaults). The Diet and Free-of chips show the
+   * EFFECTIVE selection, so what is highlighted is what is being applied; tapping one materialises it.
+   */
+  defaults?: DefaultsState;
 }) {
   const f = filters;
+  const ds = defaults ?? withDefaults(f, null);
   const href = (next: RecipeFilters) => hrefTo(next, base);
+  const fromDefaults = (key: "diet" | "exclude", slug: string) =>
+    !!ds.applied?.[key]?.includes(slug) && !f[key]?.includes(slug);
   return (
     <div>
       <fieldset className="mb-5 min-w-0">
@@ -227,10 +240,11 @@ export function FilterControls({
         {options.diets.map((d) => (
           <Option
             key={d.slug}
-            selected={!!f.diet?.includes(d.slug)}
-            to={href(toggleInList(f, "diet", d.slug))}
+            selected={!!ds.effective.diet?.includes(d.slug)}
+            to={href(toggleFoodChip(f, ds, "diet", d.slug))}
           >
             {d.name}
+            {fromDefaults("diet", d.slug) && <span className="sr-only"> (from your defaults)</span>}
           </Option>
         ))}
       </Group>
@@ -239,10 +253,11 @@ export function FilterControls({
         {options.allergens.map((a) => (
           <Option
             key={a.slug}
-            selected={!!f.exclude?.includes(a.slug)}
-            to={href(toggleInList(f, "exclude", a.slug))}
+            selected={!!ds.effective.exclude?.includes(a.slug)}
+            to={href(toggleFoodChip(f, ds, "exclude", a.slug))}
           >
             {a.name.toLowerCase()}
+            {fromDefaults("exclude", a.slug) && <span className="sr-only"> (from your defaults)</span>}
           </Option>
         ))}
       </Group>

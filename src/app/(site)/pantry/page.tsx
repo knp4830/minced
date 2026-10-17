@@ -11,9 +11,16 @@ import {
   hasActiveFilters,
   parseFilters,
   resultFilters,
+  withFilters,
+  type DefaultsState,
   type RecipeFilters,
   type SearchParamsInput,
 } from "@/lib/filters";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { DefaultsChip, PrefsMarker } from "@/components/recipe/defaultsChip";
+import { resolveDefaults } from "@/lib/prefsCookie";
+import { cn } from "@/lib/utils";
 import { RecipeGridSkeleton } from "@/components/shell/skeletons";
 import {
   activeFilterCount,
@@ -45,10 +52,16 @@ const NO_MISSING_CAP = 1000;
 /** The part that waits on the matcher. Rendered inside a keyed <Suspense>. */
 async function Results({
   filters,
+  urlFilters,
+  defaults,
   fridgeParam,
   hasFridge,
 }: {
+  /** What is queried: the URL's filters with the signed-in person's saved diet / allergen defaults merged in. */
   filters: RecipeFilters;
+  /** What the address bar says; every link we build keeps this, never the defaults. */
+  urlFilters: RecipeFilters;
+  defaults: DefaultsState;
   fridgeParam: string;
   hasFridge: boolean;
 }) {
@@ -109,7 +122,7 @@ async function Results({
   }));
 
   const nextHref = !byExpiry && result.nextCursor
-    ? `/pantry${filtersToQuery({ ...filters, cursor: result.nextCursor })}`
+    ? `/pantry${filtersToQuery({ ...urlFilters, cursor: result.nextCursor })}`
     : null;
 
   return (
@@ -135,10 +148,22 @@ async function Results({
         nextHref={nextHref}
         empty={
           hasFridge ? (
-            <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-              None of the recipes fit these filters. Try adding something else from the
-              fridge, or loosen a filter.
-            </p>
+            <div>
+              <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
+                {defaults.applied
+                  ? "None of the recipes fit these filters and your defaults. Turn off your defaults, add something else from the fridge, or loosen a filter."
+                  : "None of the recipes fit these filters. Try adding something else from the fridge, or loosen a filter."}
+              </p>
+              {defaults.applied && (
+                <Link
+                  href={`/pantry${filtersToQuery(withFilters(urlFilters, { defaults: "off" }))}`}
+                  scroll={false}
+                  className={cn(buttonVariants({ variant: "primary", size: "md" }), "mt-4")}
+                >
+                  Turn off my defaults
+                </Link>
+              )}
+            </div>
           ) : (
             <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
               Pick one thing or ten. Each recipe shows how many of its ingredients you have
@@ -156,14 +181,18 @@ export default async function PantryPage({
 }: {
   searchParams: Promise<Exclude<SearchParamsInput, URLSearchParams>>;
 }) {
-  const filters = parseFilters(await searchParams);
-  const wanted = [...new Set([...(filters.pantry ?? []), ...(filters.use ?? [])])];
+  // `url` = the address bar; `filters` = what is queried (saved diet / allergen defaults merged in on the
+  // server, the same call the browse page makes, so a default applies to both doors).
+  const url = parseFilters(await searchParams);
+  const wanted = [...new Set([...(url.pantry ?? []), ...(url.use ?? [])])];
 
   const [catalog, options, names] = await Promise.all([
     getIngredientCatalog(),
     getFilterOptions(),
     getIngredientNames(wanted),
   ]);
+  const defaults = await resolveDefaults(url, options);
+  const filters = defaults.effective;
   const hasFridge = names.length > 0;
   const fridgeParam = names.map((n) => n.id).join(",");
   // Fridge edits and cookware taps are same-route navigations, which do not
@@ -175,7 +204,8 @@ export default async function PantryPage({
       <Suspense fallback={null}>
         <RememberList />
       </Suspense>
-      <CookwareSync owned={filters.ownedCookware ?? []} only={filters.ownedOnly === true} />
+      <CookwareSync owned={url.ownedCookware ?? []} only={url.ownedOnly === true} />
+      <PrefsMarker state={defaults} />
       <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What&rsquo;s in my fridge</h1>
       <p className="mt-2 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
         Tap what you have and see every recipe that uses any of it, closest match first. Salt,
@@ -196,9 +226,9 @@ export default async function PantryPage({
           >
             <div className="mb-4 flex items-baseline justify-between">
               <h2 className="text-[1.0625rem]">Filters</h2>
-              <ClearFilters filters={filters} base="/pantry" />
+              <ClearFilters filters={url} base="/pantry" />
             </div>
-            <FilterControls filters={filters} options={options} base="/pantry" />
+            <FilterControls filters={url} options={options} base="/pantry" defaults={defaults} />
           </aside>
         )}
 
@@ -208,16 +238,25 @@ export default async function PantryPage({
           className={hasFridge ? "min-w-0 lg:pl-8" : "min-w-0"}
         >
           {hasFridge && (
-            <FilterSheet activeCount={activeFilterCount(filters)} showLabel="Show recipes">
+            <DefaultsChip state={defaults} filters={url} options={options} base="/pantry" className="mb-4" />
+          )}
+          {hasFridge && (
+            <FilterSheet activeCount={activeFilterCount(url)} showLabel="Show recipes">
               <div className="mb-3 flex justify-end">
-                <ClearFilters filters={filters} base="/pantry" />
+                <ClearFilters filters={url} base="/pantry" />
               </div>
-              <FilterControls filters={filters} options={options} base="/pantry" />
+              <FilterControls filters={url} options={options} base="/pantry" defaults={defaults} />
             </FilterSheet>
           )}
           <div data-results>
             <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={6} />}>
-              <Results filters={filters} fridgeParam={fridgeParam} hasFridge={hasFridge} />
+              <Results
+                filters={filters}
+                urlFilters={url}
+                defaults={defaults}
+                fridgeParam={fridgeParam}
+                hasFridge={hasFridge}
+              />
             </Suspense>
           </div>
         </section>

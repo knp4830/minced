@@ -80,6 +80,11 @@ export default function PrivacyPage() {
 
       <LegalSection id="health" title="Health and fitness data">
         <p>
+          Settings (also optional) stores your units, the first day of your week, your sex (female or male, used only for the
+          Me calorie estimate and the body we draw), and the diet and allergen choices you want applied to recipe lists. Like
+          everything below, it is tied to your account, only you can read it, and it is included in &ldquo;Download my data&rdquo;.
+        </p>
+        <p>
           The Me page is optional. Only if you use it, and only while signed in, we store the following, tied to your
           account:
         </p>
@@ -114,6 +119,11 @@ export default function PrivacyPage() {
           for, there is no cookie banner. If you use the Me page, one more small cookie,{" "}
           <code className="font-mono text-[0.875em]">me_tz</code>, remembers your time zone (for example America/New_York) for one year so
           the page can tell which day it is for you. It holds no other information, and it is removed when you log out or delete your account.
+          If you save default diet or allergen filters in Settings, a further small cookie,{" "}
+          <code className="font-mono text-[0.875em]">minced_prefs</code>, holds those choices (for example &ldquo;vegetarian&rdquo; and
+          &ldquo;nuts&rdquo;) for up to a week, so recipe lists can leave out what you avoid before the page is drawn. It is strictly
+          functional, is read only by Minced&apos;s servers, is used only while you are logged in, and is removed when you log out or
+          delete your account.
           Nothing else on Minced sets cookies. (Your fridge picks are saved in browser storage on your device, not in cookies.)
         </p>
       </LegalSection>

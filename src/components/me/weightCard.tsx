@@ -3,7 +3,7 @@ import Link from "next/link";
 import { TargetsButton } from "@/components/me/meButtons";
 import { WeightChart } from "@/components/me/weightChart";
 import { WeightLogForm } from "@/components/me/weightLogForm";
-import { addDays, dayMonthYear, weekRange } from "@/lib/me/dates";
+import { addDays, dayMonthYear, weekRange, weekSpanWords, type WeekStart } from "@/lib/me/dates";
 import { daysToGoal, effectivePaceKg, formatWeight, kgToLb1, round1, type Units } from "@/lib/me/targets";
 import type { MeTargets } from "@/lib/me/types";
 import { averageOn, changeVsWeekAgo, toGoal, weeklyAverages, withRollingAverage, type WeightPoint } from "@/lib/me/weight";
@@ -32,22 +32,28 @@ export function WeightCard({
   range,
   hrefs,
   targets,
+  units: unitsSetting,
+  weekStart = "monday",
 }: {
+  /** Settings > Units. Falls back to the targets' copy, then metric. */
+  units?: Units;
+  /** Settings > Week starts on. */
+  weekStart?: WeekStart;
   weights: WeightPoint[];
   today: string;
   range: WeightRange;
   hrefs: Record<WeightRange, string>;
   targets: MeTargets | null;
 }) {
-  const units: Units = targets?.units ?? "metric";
+  const units: Units = unitsSetting ?? targets?.units ?? "metric";
   const avg = averageOn(weights, today);
   const change = changeVsWeekAgo(weights, today);
   const todays = weights.find((w) => w.date === today)?.kg ?? null;
 
   const days = range === "30" ? 30 : 90;
-  const from = range === "weekly" ? weekRange(addDays(today, -175)).from : addDays(today, -(days - 1));
+  const from = range === "weekly" ? weekRange(addDays(today, -175), weekStart).from : addDays(today, -(days - 1));
   const daily = withRollingAverage(weights).filter((p) => p.date >= from);
-  const weekly = weeklyAverages(weights.filter((p) => p.date >= from));
+  const weekly = weeklyAverages(weights.filter((p) => p.date >= from), weekStart);
   const hasData = range === "weekly" ? weekly.length > 0 : daily.length > 0;
 
   // Goal: distance from the current average (or the latest reading when there is no average yet).
@@ -132,6 +138,7 @@ export function WeightCard({
           goalKg={goalKg}
           units={units}
           label={label}
+          weekSpan={weekSpanWords(weekStart)}
           summary={`${label}. ${summaryBits.filter(Boolean).join(" ")}`}
         />
       ) : (

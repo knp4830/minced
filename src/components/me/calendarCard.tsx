@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { useMeUi } from "@/components/me/meUi";
 import { clearSleep, clearWeight, deleteWorkout, loadDay } from "@/lib/actions/me";
-import { addDays, longDate, shortDate, type CalCell } from "@/lib/me/dates";
+import { addDays, longDate, shortDate, weekdayNames, type CalCell, type WeekStart } from "@/lib/me/dates";
 import { dayFoodStatus, type FoodStatus } from "@/lib/me/foodStatus";
 import { sessionLabel } from "@/lib/me/muscles";
 import { formatWeight } from "@/lib/me/targets";
@@ -15,7 +15,7 @@ import type { DayDetail, MeTargets } from "@/lib/me/types";
 import { cn } from "@/lib/utils";
 
 /*
- * Month calendar, weeks start on Monday. Under each date: a dumbbell if you trained, a plate for nutrition (filled = goal hit,
+ * Month calendar, weeks start on Monday (or Sunday, a Setting). Under each date: a dumbbell if you trained, a plate for nutrition (filled = goal hit,
  * ring = partly, see src/lib/me/foodStatus.ts) and the hours slept. Pick a date for the day's detail with
  * edit buttons. The month is in the URL (?m=2026-10) and the arrows are links, so it is shareable and the
  * back button works. Arrow keys move between dates.
@@ -28,8 +28,6 @@ export type CalDay = {
   sleep: number | null;
   weight: number | null;
 };
-
-const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 function dayLabel(iso: string, d: CalDay | undefined): string {
   const bits: string[] = [];
@@ -55,7 +53,10 @@ export function CalendarCard({
   days,
   today,
   targets,
+  weekStart = "monday",
 }: {
+  /** The first column's weekday (Settings > Week starts on). `cells` must be built with the same value. */
+  weekStart?: WeekStart;
   monthLabel: string;
   prevHref: string;
   nextHref: string;
@@ -135,7 +136,7 @@ export function CalendarCard({
       </div>
 
       <div className="label-mono mt-3.5 grid grid-cols-7 text-center" aria-hidden>
-        {WEEKDAYS.map((d) => (
+        {weekdayNames(weekStart).map((d) => (
           <span key={d}>
             <span className="sm:hidden">{d[0]}</span>
             <span className="hidden sm:inline">{d}</span>
@@ -279,6 +280,7 @@ function DayRows({
   onRemoveWorkout: (id: string) => void;
   onClear: (what: "sleep" | "weight") => void;
 }) {
+  const ui = useMeUi();
   const nf = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
   const status = dayFoodStatus(detail.totals, targets);
   const trained = detail.workouts.length > 0;
@@ -327,7 +329,7 @@ function DayRows({
         <p className="mt-1 font-mono text-[0.8125rem]">{detail.sleep != null ? `${detail.sleep}h slept` : "Not logged"}</p>
       </Row>
       <Row icon={<ScaleMark />} label="Weight" button={detail.weightKg != null ? "Edit" : "Add"} onClick={onAddWorkout} onClear={detail.weightKg != null ? () => onClear("weight") : undefined} clearLabel="Clear weight">
-        <p className="mt-1 font-mono text-[0.8125rem]">{detail.weightKg != null ? formatWeight(detail.weightKg, targets?.units ?? "metric") : "Not logged"}</p>
+        <p className="mt-1 font-mono text-[0.8125rem]">{detail.weightKg != null ? formatWeight(detail.weightKg, ui.settings.units) : "Not logged"}</p>
       </Row>
     </div>
   );

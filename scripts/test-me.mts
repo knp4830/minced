@@ -141,6 +141,53 @@ const sunStart = monthGrid(2026, 11); // 1 Nov 2026 is a Sunday: the last column
 assert.equal(sunStart.findIndex((c) => c.day === 1), 6);
 const monStart = monthGrid(2026, 6); // 1 Jun 2026 is a Monday: first column
 assert.equal(monStart.findIndex((c) => c.day === 1), 0);
+// ---- week start (Settings): Sunday-first weeks. Monday stays the default, so every call above is unchanged. ----
+{
+  const { weekdayIndex, weekdayNames, weekSpanWords } = await import("../src/lib/me/dates.ts");
+  assert.equal(weekdayIndex("2026-10-18"), 6); // default Monday: a Sunday is the last day
+  assert.equal(weekdayIndex("2026-10-18", "sunday"), 0); // Sunday-first: it is the first
+  assert.equal(weekdayIndex("2026-10-17", "sunday"), 6); // Saturday is the last
+  assert.deepEqual(weekRange("2026-10-18", "sunday"), { from: "2026-10-18", to: "2026-10-24" }); // a Sunday starts its own week
+  assert.deepEqual(weekRange("2026-10-17", "sunday"), { from: "2026-10-11", to: "2026-10-17" }); // a Saturday ends the week before
+  assert.deepEqual(weekRange("2026-10-14", "sunday"), { from: "2026-10-11", to: "2026-10-17" }); // a Wednesday
+  assert.deepEqual(weekRange("2026-10-13", "monday"), weekRange("2026-10-13")); // explicit Monday == default
+  // across a month boundary and a leap day
+  assert.deepEqual(weekRange("2026-11-01", "sunday"), { from: "2026-11-01", to: "2026-11-07" });
+  assert.deepEqual(weekRange("2026-10-31", "sunday"), { from: "2026-10-25", to: "2026-10-31" });
+  assert.deepEqual(weekRange("2028-02-29", "sunday"), { from: "2028-02-27", to: "2028-03-04" }); // Tue 29 Feb 2028
+  assert.deepEqual(weekRange("2028-02-29"), { from: "2028-02-28", to: "2028-03-05" });
+  // every day belongs to exactly one week and the week has seven days, for both starts
+  for (const ws of ["monday", "sunday"] as const) {
+    for (let i = 0; i < 400; i++) {
+      const d = addDays("2027-12-20", i);
+      const w = weekRange(d, ws);
+      assert.ok(w.from <= d && d <= w.to, `${d} in ${ws} week`);
+      assert.equal(weekdayIndex(w.from, ws), 0, `${ws} week starts on index 0`);
+      assert.equal(addDays(w.from, 6), w.to);
+    }
+  }
+  // the month grid: 1 Oct 2026 is a Thursday -> column 4 when Sunday is first
+  const sg = monthGrid(2026, 10, "sunday");
+  assert.equal(sg.length % 7, 0);
+  assert.equal(sg.findIndex((c) => c.day === 1), 4);
+  assert.equal(sg.filter((c) => c.day !== null).length, 31);
+  // 1 Nov 2026 is a Sunday -> column 0 with Sunday first, column 6 with Monday first
+  assert.equal(monthGrid(2026, 11, "sunday").findIndex((c) => c.day === 1), 0);
+  assert.equal(monthGrid(2026, 11).findIndex((c) => c.day === 1), 6);
+  assert.deepEqual(weekdayNames("sunday"), ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
+  assert.deepEqual(weekdayNames(), ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]);
+  assert.equal(weekSpanWords("sunday"), "Sunday to Saturday");
+  assert.equal(weekSpanWords(), "Monday to Sunday");
+  // weekly weight averages follow the start day: 10-11 (Sun) joins the week of 10-11 when Sunday starts weeks
+  const pts = [
+    { date: "2026-10-10", kg: 84 },
+    { date: "2026-10-11", kg: 83 },
+    { date: "2026-10-12", kg: 82 },
+  ];
+  assert.deepEqual(weeklyAverages(pts, "monday").map((w) => [w.weekStart, w.count]), [["2026-10-05", 2], ["2026-10-12", 1]]);
+  assert.deepEqual(weeklyAverages(pts, "sunday").map((w) => [w.weekStart, w.count]), [["2026-10-04", 1], ["2026-10-11", 2]]);
+  assert.deepEqual(weeklyAverages(pts), weeklyAverages(pts, "monday"));
+}
 // Time zones: the same instant is two different dates.
 const instant = new Date("2026-10-13T02:30:00Z");
 assert.equal(todayInZone("UTC", instant), "2026-10-13");

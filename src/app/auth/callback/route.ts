@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { safeNext } from "@/lib/auth/validate";
+import { syncPrefsCookie } from "@/lib/prefsCookie";
 import { createClient } from "@/lib/supabase/server";
 
 const OTP_TYPES = ["signup", "recovery", "email", "email_change", "invite", "magiclink"] as const;
@@ -71,6 +72,7 @@ export async function GET(request: NextRequest) {
   }
 
   if (!ok) return failure(viaGoogle ? "oauth" : "link");
+  await syncPrefsCookie(supabase);
 
   const destination = type === "recovery" ? "/reset-password" : requested;
   return NextResponse.redirect(new URL(destination, origin));
