@@ -176,7 +176,7 @@ export function CalendarCard({
                 {d?.sleep != null ? (
                   <span className="flex items-center gap-[2px] font-mono text-[0.5625rem] text-ink-muted md:text-[0.625rem]">
                     <Moon />
-                    {d.sleep}h
+                    <span className="hidden sm:inline">{d.sleep}h</span>
                   </span>
                 ) : null}
               </span>

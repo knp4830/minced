@@ -275,7 +275,7 @@ export function TargetsWizard({
               <p id={`${id}-gw-note`} className={cn("mt-2 text-[0.875rem]", goalProblem ? "text-paprika-deep" : "text-ink-muted")} aria-live="polite">
                 {goalProblem ??
                   (days !== null && body && goalKg !== null
-                    ? `At ${paceLabel(pace, units)} a week, from ${showWeight(body.weightKg, units)} ${wUnit} to ${showWeight(goalKg, units)} ${wUnit} takes about ${Math.max(1, Math.round(days / 7))} ${Math.round(days / 7) === 1 ? "week" : "weeks"}: about ${dayMonthYear(addDays(today, days))}. It is an estimate, because weight does not drop in a straight line.`
+                    ? `At ${paceLabel(pace, units)} a week, from ${showWeight(body.weightKg, units)} ${wUnit} to ${showWeight(goalKg, units)} ${wUnit} takes about ${Math.max(1, Math.round(days / 7))} ${Math.round(days / 7) === 1 ? "week" : "weeks"}: about ${dayMonthYear(addDays(today, days))}. It is an estimate, because weight does not ${goal === "gain" ? "rise" : "drop"} in a straight line.`
                     : "Add a goal weight to see roughly when you would get there.")}
               </p>
             </>

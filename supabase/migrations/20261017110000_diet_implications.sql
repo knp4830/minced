@@ -8,6 +8,9 @@
 -- records what the recipe IS, the query records what a diet ACCEPTS. Other diets
 -- (gluten-free, ...) map to themselves, so multi-diet "ALL of" semantics are unchanged.
 
+-- Load pg_trgm in THIS session before CREATE FUNCTION ... SET "pg_trgm.*" (non-superuser safe).
+select similarity('a', 'a');
+
 create or replace function public.diet_satisfying(diet_slug text)
 returns text[]
 language sql

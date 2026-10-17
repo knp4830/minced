@@ -51,7 +51,8 @@ export function WeightChart({ mode, from, to, daily, weekly, goalKg, units, summ
 
   const goal = goalKg === null ? null : toUnit(goalKg, units);
   const values = pts.flatMap((p) => [p.v, p.avg]);
-  const inRangeGoal = goal !== null && values.length > 0 && goal >= Math.min(...values) - 6 && goal <= Math.max(...values) + 6 ? goal : null;
+  const toKg = (v: number) => (units === "imperial" ? v * KG_PER_LB : v);
+  const inRangeGoal = goal !== null && goalKg !== null && values.length > 0 && goalKg >= toKg(Math.min(...values)) - 6 && goalKg <= toKg(Math.max(...values)) + 6 ? goal : null;
   const all = inRangeGoal === null ? values : [...values, inRangeGoal];
   const ticks = all.length ? niceTicks(Math.min(...all), Math.max(...all)) : [0, 1];
   const yLo = ticks[0];
