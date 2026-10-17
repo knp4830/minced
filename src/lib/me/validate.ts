@@ -111,10 +111,12 @@ export function targetsInput(v: unknown): Parsed<TargetsInput> {
   if (!carbs.ok) return carbs;
   const fat = intIn(o.fatG, 0, 400, "Fat");
   if (!fat.ok) return fat;
-  // Goal weight: only for lose / gain, optional, and on the right side of the current weight.
-  let goalWeightKg: number | null = null;
+  // Goal weight: maintain keeps today's weight as the goal; lose / gain must give one on the right
+  // side of the current weight (the owner wants the projected date always shown for those goals).
+  let goalWeightKg: number | null = r1(weight.value);
   const gw = o.goalWeightKg;
-  if (goal.value !== "maintain" && gw !== undefined && gw !== null && gw !== "") {
+  if (goal.value !== "maintain") {
+    if (gw === undefined || gw === null || gw === "") return bad("Enter your goal weight.");
     const g = num(gw, 30, 300, "Goal weight");
     if (!g.ok) return g;
     goalWeightKg = r1(g.value);
