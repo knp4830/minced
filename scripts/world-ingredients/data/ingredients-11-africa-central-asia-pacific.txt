@@ -1,0 +1,84 @@
+# More Africa, Central Asia and Caucasus, Caribbean, Pacific and Indigenous Americas
+iru | Pantry | pantry | WAF | fermented locust bean cake;ogiri | - | -
+ugba | Pantry | legumes | WAF | oil bean seed;ukpaka;ugba oil bean | - | -
+bambara groundnut | Pantry | legumes | WAF,SAF | bambara beans;okpa flour;nyimo;jugo beans | - | -
+stockfish | Protein | seafood | WAF,EUN | dried cod;okporoko;titus | fish | fish cod atlantic dried_and_salted //
+smoked turkey | Protein | meat | WAF,NAM | smoked turkey wings;smoked turkey necks | - | -
+ponmo | Protein | meat | WAF | cow skin;kpomo;cowhide;pomo | - | -
+garden egg | Produce | vegetables | WAF | african eggplant;ngwa;nsukka garden egg;nakati | - | proxy: eggplant raw //
+scent leaf | Produce | herbs | WAF | efirin;nchanwu;african basil;clove basil | - | proxy: basil fresh //
+utazi | Produce | herbs | WAF | gongronema latifolium | - | -
+waterleaf | Produce | vegetables | WAF | talinum;gbure | - | proxy: spinach raw //
+afang leaves | Produce | vegetables | WAF | okazi;ukazi | - | -
+palm kernel oil | Pantry | pantry | WAF,SEA | - | - | oil palm_kernel //
+shea butter | Pantry | pantry | WAF | karite butter;nkuto | - | -
+groundnut oil | Pantry | pantry | WAF,SA | african peanut oil | nuts | oil peanut salad_or_cooking //
+palm wine | Other | pantry | WAF | emu;nsafufuo | - | -
+pepper soup spice | Spices | spices | WAF | nigerian pepper soup mix | - | -
+kuli kuli | Pantry | nuts | WAF | peanut snack;kulikuli | nuts | -
+fura | Pantry | grains | WAF | millet balls;fura da nono | - | millet raw //
+millet flour | Pantry | grains | WAF,SA | - | - | millet raw //
+abacha | Pantry | grains | WAF | african salad cassava;ugba cassava flakes | - | -
+maafe sauce | Pantry | pantry | WAF | senegalese peanut sauce;mafe | nuts | proxy: peanut_butter smooth -reduced -vitamin //
+thieb spice | Spices | spices | WAF | senegalese fish seasoning;nokoss | - | -
+pilau masala | Spices | spices | EAF | swahili pilau spice;pilau spice | - | proxy: spices curry_powder //
+xawaash | Spices | spices | EAF | somali spice mix;hawaash | - | proxy: spices curry_powder //
+mchicha | Produce | vegetables | EAF | tanzanian amaranth;mchicha leaves | - | amaranth_leaves raw //
+mukimo | Pantry | vegetables | EAF | kenyan mashed greens;irio | - | -
+ugali flour | Pantry | grains | EAF | sima;nshima;mealie meal;posho | - | cornmeal degermed enriched white //
+smen | Dairy | - | NAF | preserved butter;samn;moroccan aged butter | dairy | butter oil anhydrous //
+tagine spice | Spices | spices | NAF | moroccan spice mix;tangia spices | - | proxy: spices curry_powder //
+tunisian brik pastry | Pantry | grains | NAF | brik sheets;feuilles de brik | gluten | -
+koshari lentils | Pantry | legumes | NAF | egyptian brown lentils | - | lentils raw //
+ful medames | Pantry | legumes | NAF,ME | fava bean stew;foul | - | broadbeans_(fava_beans) mature_seeds cooked boiled -salt //
+morogo | Produce | vegetables | SAF | wild spinach;African wild greens;imifino | - | proxy: spinach raw //
+amadumbe | Produce | vegetables | SAF | african taro | - | proxy: taro raw //
+samp | Pantry | grains | SAF | stamped corn;dried corn kernels;mielie rice | - | proxy: corn_flour masa_harina //
+cape malay curry powder | Spices | spices | SAF | - | - | proxy: spices curry_powder //
+buchu | Spices | spices | SAF | - | - | -
+marula | Produce | fruit | SAF | marula fruit | - | -
+lagman noodles | Pantry | grains | CA | uyghur noodles;laghman | gluten | proxy: noodles chinese chow_mein //
+nan bread | Pantry | grains | CA | uzbek bread;non;lepyoshka;tandoor bread | gluten | bread pita white enriched //
+zira | Spices | spices | CA | central asian cumin | - | spices cumin_seed //
+kuraga | Pantry | fruit | CA | dried apricots with pit;uruk | - | apricots dried sulfured uncooked //
+suluguni | Dairy | - | CA | georgian string cheese;imeruli | dairy | proxy: cheese mozzarella low_moisture part-skim //
+narsharab | Pantry | pantry | CA | pomegranate sauce;pomegranate reduction | - | proxy: molasses //
+utskho suneli | Spices | spices | CA | blue fenugreek | - | proxy: spices fenugreek_seed //
+sumalak | Pantry | grains | CA | wheat sprout pudding | gluten | -
+cassava bammy | Pantry | grains | CAR | bammy;bami | - | -
+ginger beer | Other | pantry | CAR | jamaican ginger beer | - | -
+angostura bitters | Other | pantry | CAR | aromatic bitters | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+mauby bark | Spices | spices | CAR | mauby | - | -
+seasoning peppers | Produce | vegetables | CAR | cachucha;ají dulce peppers;sweet peppers caribbean | - | peppers sweet green raw //
+grace browning | Pantry | pantry | CAR | caribbean caramel seasoning | - | -
+coconut bread | Pantry | grains | CAR | bakes;festival | gluten | -
+sea grapes | Produce | vegetables | PAC,CAR | umibudo;latok;caulerpa | - | -
+limu | Pantry | pantry | PAC | hawaiian seaweed;ogo | - | seaweed laver raw //
+noni | Produce | fruit | PAC | indian mulberry;noni fruit | - | -
+haupia | Pantry | pantry | PAC | coconut pudding | - | -
+ulu | Produce | fruit | PAC | breadfruit hawaiian | - | breadfruit raw //
+kava | Pantry | pantry | PAC | awa;yaqona | - | -
+huauzontle | Produce | vegetables | IND,LAT | aztec broccoli | - | proxy: broccoli raw //
+quelites | Produce | vegetables | IND,LAT | wild greens mexican;lamb's quarters;pigweed | - | proxy: amaranth_leaves raw //
+camas root | Produce | vegetables | IND | camassia | - | -
+chokecherries | Produce | fruit | IND,NAM | - | - | -
+buffaloberries | Produce | fruit | IND | - | - | -
+chaya | Produce | vegetables | LAT | tree spinach;mayan spinach | - | proxy: spinach raw //
+pozole corn | Pantry | grains | LAT,IND | maiz cacahuazintle;hominy corn dried | - | -
+tamale dough | Pantry | grains | LAT | masa para tamales | - | -
+cacao paste | Pantry | pantry | LAT | cacao liquor;cocoa mass;unsweetened chocolate liquor | - | baking_chocolate unsweetened squares //
+cacao butter | Pantry | pantry | LAT | cocoa butter food grade | - | oil cocoa_butter //
+ají charapita | Spices | spices | LAT | peruvian pearl chile | - | proxy: peppers hot_chili raw red //
+ají mirasol | Spices | spices | LAT | dried aji amarillo;aji mirasol | - | proxy: spices pepper red_or_cayenne //
+cancha | Pantry | grains | LAT | peruvian toasted corn;maiz tostado | - | -
+tuna cactus fruit | Produce | fruit | LAT | prickly pear fruit | - | prickly_pears raw //
+cupuacu | Produce | fruit | LAT | cupuaçu | - | -
+camu camu | Pantry | fruit | LAT | camu camu powder | - | -
+guarana | Pantry | pantry | LAT | guaraná powder | - | -
+yerba buena | Produce | herbs | LAT,CAR | cuban mint;hierba buena | - | spearmint fresh //
+tamarind pods | Produce | fruit | LAT,SA,WAF,SEA | whole tamarind;fresh tamarind | - | tamarinds raw //
+pigeon peas green | Produce | legumes | CAR,SA | fresh gandules;frozen green pigeon peas | - | pigeonpeas immature_seeds raw //
+chicharrones | Protein | meat | LAT | fried pork rinds;pork cracklings | - | snacks pork_skins plain //
+dende palm oil | Pantry | pantry | LAT,WAF | azeite de dende | - | oil palm //
+tucupi | Pantry | pantry | LAT | brazilian cassava juice | - | -
+manioc starch | Pantry | pantry | LAT | cassava starch brazilian | - | tapioca pearl dry //

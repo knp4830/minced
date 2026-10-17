@@ -1,0 +1,117 @@
+# South Asia: India, Pakistan, Bangladesh, Sri Lanka, Nepal
+moong dal | Pantry | legumes | SA | split yellow mung beans;yellow moong dal;mung dal;pesara pappu | - | mung_beans mature_seeds,_raw //
+whole mung beans | Pantry | legumes | SA | green moong;sabut moong;whole green gram | - | mung_beans mature_seeds,_raw //
+masoor dal | Pantry | legumes | SA | split red lentils;orange lentils;red masoor | - | lentils raw //
+whole masoor | Pantry | legumes | SA | brown lentils;sabut masoor;whole brown lentils | - | lentils raw //
+green lentils | Pantry | legumes | EUM,SA | french green lentils;puy lentils;lentilles du puy | - | lentils raw //
+black lentils | Pantry | legumes | GLO | beluga lentils;black beluga lentils | - | lentils raw //
+kala chana | Pantry | legumes | SA | black chickpeas;desi chana;bengal gram | - | chickpeas mature_seeds,_raw //
+whole urad | Pantry | legumes | SA | black gram;sabut urad;whole black lentils;urad whole | - | proxy: lentils raw //
+dried green peas | Pantry | legumes | SA,EUN | matar;dried peas whole;marrowfat peas | - | peas green,_split,_mature_seeds,_raw //
+yellow split peas | Pantry | legumes | SA,EUN | matar dal;dried yellow peas | - | peas green,_split,_mature_seeds,_raw //
+horse gram | Pantry | legumes | SA | kulthi;kollu;ulavalu | - | proxy: // horse gram
+moth beans | Pantry | legumes | SA | matki;mat beans;dew beans | - | proxy: lentils raw //
+cluster beans | Produce | vegetables | SA | gavar;guar beans;gawar | - | proxy: beans snap green raw //
+flat beans | Produce | vegetables | SA | papdi;sem beans;indian beans;hyacinth beans | - | hyacinth-beans mature_seeds,_raw //
+fenugreek leaves | Produce | herbs | SA | fresh methi;methi leaves | - | proxy: spinach raw //
+amaranth leaves | Produce | vegetables | SA,SEA,EAF,CAR | chaulai;thotakura;callaloo;edible amaranth;tampala | - | amaranth_leaves raw //
+colocasia leaves | Produce | vegetables | SA,CAR,PAC | arbi leaves;taro leaves;patra leaves;callaloo leaves;dasheen leaves | - | taro leaves,_raw //
+raw mango | Produce | fruit | SA,SEA | green mango;kachha aam;unripe mango | - | proxy: mangos raw //
+ivy gourd | Produce | vegetables | SA | tindora;tondli;kundru;coccinia | - | proxy: balsam-pear pods raw //
+pointed gourd | Produce | vegetables | SA | parwal;patal;potol | - | proxy: gourd dishcloth raw //
+snake gourd | Produce | vegetables | SA | chichinda;padwal | - | proxy: gourd dishcloth raw //
+raw banana | Produce | vegetables | SA | green banana;kachcha kela;plantain raw | - | plantains raw //
+banana stem | Produce | vegetables | SA | banana pith;vazhaithandu;thor | - | proxy: // banana stem
+elephant foot yam | Produce | vegetables | SA | suran;jimikand;senai kizhangu;ol | - | yam raw //
+indian eggplant | Produce | vegetables | SA | baingan;brinjal;small round eggplant;baby eggplant | - | eggplant raw //
+bhut jolokia | Produce | vegetables | SA | ghost pepper;naga jolokia | - | peppers hot_chili raw red //
+kashmiri chili powder | Spices | spices | SA | kashmiri mirch;kashmiri red chili | - | spices pepper,_red_or_cayenne //
+degi mirch | Spices | spices | SA | deghi mirch | - | proxy: spices pepper red_or_cayenne //
+chaat masala | Spices | spices | SA | chat masala | - | // chaat masala
+tandoori masala | Spices | spices | SA | tandoori spice mix | - | // tandoori masala
+chana masala | Spices | spices | SA | chole masala;channa masala | - | // chana masala cat=herbs
+biryani masala | Spices | spices | SA | biriyani masala | - | // biryani masala
+kitchen king masala | Spices | spices | SA | - | - | proxy: spices curry_powder //
+panch phoron | Spices | spices | SA | bengali five spice;panch phoran | - | proxy: spices curry_powder //
+rasam powder | Spices | spices | SA | - | - | proxy: spices curry_powder //
+goda masala | Spices | spices | SA | kala masala | - | proxy: spices curry_powder //
+tikka masala spice | Spices | spices | SA | - | - | // tikka masala seasoning
+meat masala | Spices | spices | SA | - | - | proxy: spices curry_powder //
+kala namak | Spices | spices | SA | black salt;indian black salt;himalayan black salt | - | salt table //
+rock salt | Spices | spices | GLO | sendha namak;halite;himalayan pink salt;pink salt | - | salt table //
+sea salt | Spices | spices | GLO | fine sea salt;coarse sea salt;flaky sea salt;maldon salt | - | salt table //
+ajwain | Spices | spices | SA,ME | carom seeds;bishop's weed;ajowan;trachyspermum | - | proxy: spices thyme,_dried //
+nigella seeds | Spices | spices | SA,ME | kalonji;black cumin;black seed;charnushka | - | proxy: spices cumin_seed //
+black cardamom | Spices | spices | SA,EA | badi elaichi;brown cardamom;kala elaichi | - | spices cardamom //
+indian bay leaf | Spices | spices | SA | tej patta;malabar leaf;tejpat | - | spices bay_leaf //
+white poppy seeds | Spices | spices | SA | khus khus;posto;khas khas | - | poppy_seed //
+kokum | Spices | spices | SA | garcinia indica;kokam;amsul | - | proxy: tamarinds raw //
+anardana | Spices | spices | SA | dried pomegranate seeds;pomegranate powder | - | -
+long pepper | Spices | spices | SA,SEA | pippali;pipli;piper longum | - | spices pepper,_black //
+cubeb pepper | Spices | spices | SEA,NAF | tailed pepper;cubebs | - | spices pepper,_black //
+rose water | Pantry | pantry | SA,ME | gulab jal;rosewater | - | -
+kewra water | Pantry | pantry | SA | kewda water;pandanus flower water | - | // kewra
+dried rose petals | Spices | spices | SA,ME | edible rose petals;gulab | - | -
+mango pickle | Pantry | pantry | SA | aam ka achar;indian mango pickle;achar | - | // mango pickle
+lime pickle | Pantry | pantry | SA | nimbu achar;indian lime pickle | - | // lime pickle
+mixed vegetable pickle | Pantry | pantry | SA | indian mixed pickle | - | // mixed pickle
+mint chutney | Pantry | pantry | SA | pudina chutney;green chutney;cilantro mint chutney | - | // mint chutney, green chutney
+tamarind chutney | Pantry | pantry | SA | imli chutney;sweet chutney;date tamarind chutney | - | // tamarind chutney
+mango chutney | Pantry | pantry | SA,CAR | major grey chutney | - | // mango chutney
+coconut chutney | Pantry | pantry | SA | - | dairy | // coconut chutney
+raita | Dairy | - | SA | yogurt raita;cucumber raita | dairy | // raita
+khoya | Dairy | - | SA | mawa;khoa;milk solids;dried whole milk | dairy | // khoya, mawa
+chhena | Dairy | - | SA | chenna;indian cottage cheese;paneer fresh | dairy | proxy: cheese cottage creamed small_curd //
+malai | Dairy | - | SA | indian clotted cream;kaymak;cream skimmings | dairy | cream fluid,_heavy_whipping //
+dahi | Dairy | - | SA | curd;indian yogurt;set yogurt | dairy | yogurt plain whole_milk //
+lassi | Dairy | - | SA | sweet lassi;mango lassi;salted lassi | dairy | -
+white butter | Dairy | - | SA | makhan;desi makhan;homemade butter | dairy | butter without_salt //
+papadum | Pantry | grains | SA | papad;appalam;pappadam;pappad | - | // papadum, papad
+sev | Pantry | pantry | SA | besan sev;chickpea noodles snack;nylon sev | - | // sev
+bhujia | Pantry | pantry | SA | bikaneri bhujia;aloo bhujia | - | // bhujia cat=popcorn
+chivda | Pantry | pantry | SA | chiwda;bombay mix;namkeen;chevda | nuts | // bombay mix cat=popcorn
+murmura | Pantry | grains | SA | puffed rice indian;mamra;borugulu;muri | - | // murmura cat=rice
+semolina | Pantry | grains | SA,EUM,NAF | suji;rava;sooji;durum semolina;cream of wheat | gluten | semolina enriched //
+idli rice | Pantry | grains | SA | parboiled rice;idli parboiled rice;ukda chawal | - | rice white long-grain parboiled enriched dry //
+sona masoori rice | Pantry | grains | SA | sona masuri;ponni rice;samba rice | - | rice white,_medium-grain,_raw //
+ragi flour | Pantry | grains | SA,EAF | finger millet flour;nachni;mandua;kurakkan | - | millet raw //
+bajra flour | Pantry | grains | SA,WAF | pearl millet flour;bajri | - | millet raw //
+jowar flour | Pantry | grains | SA,EAF,WAF | sorghum flour;jola;cholam | - | sorghum_flour //
+sorghum | Pantry | grains | SA,WAF,EAF | milo;jowar grain;sorghum grain | - | sorghum_grain //
+foxtail millet | Pantry | grains | SA,EA | kangni;thinai;italian millet | - | millet raw //
+millet | Pantry | grains | SA,WAF,EA | proso millet;hulled millet | - | millet raw //
+makki ka atta | Pantry | grains | SA | maize flour;corn flour yellow;makkai atta | - | cornmeal whole-grain,_yellow //
+singhara flour | Pantry | grains | SA | water chestnut flour;singhare ka atta | - | -
+buckwheat flour | Pantry | grains | SA,EUE | kuttu atta;kuttu ka atta | - | buckwheat_flour whole-groat //
+buckwheat groats | Pantry | grains | EUE,SA | kasha;buckwheat;kasha groats | - | buckwheat_groats roasted,_dry //
+sabudana | Pantry | grains | SA | sago;tapioca pearls indian;javvarisi | - | tapioca,_pearl,_dry //
+besan roasted | Pantry | grains | SA | roasted gram flour | - | chickpea_flour //
+roasted chana | Pantry | legumes | SA | bhuna chana;roasted gram;dalia;pottukadalai | - | chickpeas mature_seeds,_raw //
+dalia | Pantry | grains | SA | broken wheat;cracked wheat;lapsi | gluten | proxy: bulgur dry //
+vermicelli sweet | Pantry | grains | SA | seviyan;semiya;indian vermicelli | gluten | // vermicelli
+atta | Pantry | grains | SA | chapati flour;whole wheat atta;roti flour | gluten | wheat_flour whole-grain //
+chapati | Pantry | grains | SA | roti;phulka;indian flatbread | gluten | proxy: bread pita whole-wheat //
+paratha | Pantry | grains | SA | frozen paratha;aloo paratha | gluten,dairy | // paratha
+dosa batter | Pantry | grains | SA | idli batter;dosa mix | - | // dosa mix, idli mix
+poha thick | Pantry | grains | SA | thick poha;jada poha | - | // poha
+goat meat | Protein | meat | SA,NAF,ME,CAR,EAF | mutton;curry goat;chevon | - | game_meat goat raw //
+lamb leg | Protein | meat | ME,EUM,SA | leg of lamb | - | lamb leg whole separable_lean_and_fat raw -new_zealand //
+oxtail | Protein | meat | CAR,WAF,EA,LAT | ox tail | - | -
+tripe | Protein | meat | LAT,EA,EUM,CAR | beef tripe;mondongo;menudo;tripas | - | beef tripe raw //
+beef tongue | Protein | meat | LAT,EUE,EA | lengua | - | beef tongue raw //
+beef liver | Protein | meat | GLO | calf liver | - | beef liver raw //
+chicken liver | Protein | meat | GLO | chicken livers | - | chicken liver raw //
+chicken gizzards | Protein | meat | GLO | gizzards | - | chicken gizzard raw //
+chicken feet | Protein | meat | EA,LAT,CAR,SAF | chicken paws;phoenix claws | - | chicken feet //
+lamb kidney | Protein | meat | EUN,ME | - | - | lamb kidneys raw //
+beef heart | Protein | meat | LAT | anticuchos | - | beef heart raw //
+pork liver | Protein | meat | EUE,EA | - | - | pork liver raw //
+pork blood | Protein | meat | EA,EUE | blood sausage blood;duck blood | - | -
+pork rinds | Protein | meat | LAT,SEA,NAM | chicharron;cracklings;pork scratchings | - | pork skin //
+hilsa | Protein | seafood | SA | ilish;hilsa fish;ilisha | fish | proxy: fish herring atlantic raw //
+rohu | Protein | seafood | SA | rui;labeo rohita | fish | proxy: fish carp raw //
+pomfret | Protein | seafood | SA,EA,SEA | pompano;butterfish;silver pomfret | fish | fish pompano florida raw //
+bombay duck | Protein | seafood | SA | bombil;bummalo | fish | -
+kingfish | Protein | seafood | SA,SEA | surmai;seer fish;king mackerel | fish | fish mackerel king raw //
+dried fish | Protein | seafood | SA,SEA,WAF,EAF | sukhi machli;karuvadu;stockfish | fish | fish cod atlantic dried_and_salted //
+maldive fish | Protein | seafood | SA | umbalakada;dried bonito sri lanka | fish | -

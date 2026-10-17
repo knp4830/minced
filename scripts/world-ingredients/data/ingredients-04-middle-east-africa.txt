@@ -1,0 +1,137 @@
+# Middle East, Central Asia, Caucasus, North Africa, West/East/Southern Africa
+baharat | Spices | spices | ME | arabic seven spice;lebanese seven spice;bahārāt | - | proxy: spices curry_powder //
+ras el hanout | Spices | spices | NAF | moroccan spice blend;rass el hanout | - | proxy: spices curry_powder //
+advieh | Spices | spices | ME | persian spice mix;persian advieh | - | proxy: spices curry_powder //
+hawaij | Spices | spices | ME | yemenite spice mix;hawayej | - | proxy: spices curry_powder //
+dukkah | Spices | spices | ME,NAF | duqqa;egyptian nut spice mix | nuts,sesame | proxy: spices curry_powder //
+shawarma spice | Spices | spices | ME | shawarma seasoning | - | proxy: spices curry_powder //
+kabsa spice | Spices | spices | ME | saudi spice mix;bokhoor spices | - | proxy: spices curry_powder //
+chermoula | Pantry | pantry | NAF | charmoula;moroccan marinade | - | -
+tabil | Spices | spices | NAF | tunisian spice mix;tabel | - | proxy: spices curry_powder //
+zhug | Pantry | pantry | ME | zhoug;schug;yemenite hot sauce;skhug | - | -
+shatta | Pantry | pantry | ME | middle eastern hot sauce;shatta sauce | - | // shatta
+amba | Pantry | pantry | ME | iraqi mango pickle sauce;amba sauce | - | // amba sauce, mango amba
+mahleb | Spices | spices | ME | mahlab;mahlepi;st lucie cherry kernels | - | // mahleb, mahlab
+mastic | Spices | spices | ME,EUM | mastika;mastiha;masticha | - | // mastic
+black lime | Spices | spices | ME | loomi;dried lime;omani lime;noomi basra | - | proxy: // dried lime
+urfa biber | Spices | spices | ME | urfa pepper;isot pepper;urfa chili | - | spices pepper,_red_or_cayenne //
+maras biber | Spices | spices | ME | marash pepper;turkish red pepper flakes;pul biber | - | spices pepper,_red_or_cayenne //
+biber salcasi | Pantry | pantry | ME | turkish pepper paste;red pepper paste turkish;hot pepper paste | - | // pepper paste, biber salcasi
+muhammara | Pantry | pantry | ME | red pepper walnut dip;muhammara dip | nuts | // muhammara
+ajvar | Pantry | pantry | EUE,ME | roasted red pepper spread;pindjur | - | // ajvar
+toum | Pantry | pantry | ME | lebanese garlic sauce;garlic paste lebanese | egg | -
+labneh | Dairy | - | ME | strained yogurt;yogurt cheese;labne;labaneh | dairy | // labneh -everything -bagel -pepper -oil -herb -garlic cat=cheese
+kefir | Dairy | - | EUE,ME | plain kefir;kefir milk | dairy | // kefir -strawberry -blueberry -peach -mango -raspberry -vanilla -honey -cherry -fruit -flavored
+ayran | Dairy | - | ME,CA | doogh;salted yogurt drink;dugh | dairy | // ayran d=1.02
+kaymak | Dairy | - | ME,EUE | clotted cream;qaimar;ashta;mascarpone substitute | dairy | proxy: cream fluid heavy_whipping //
+akkawi cheese | Dairy | - | ME | akawi;nabulsi cheese;syrian white cheese | dairy | // akkawi, nabulsi
+sheep cheese | Dairy | - | EUM,ME | sheep's milk cheese;pecorino pepato | dairy | cheese romano //
+kasseri | Dairy | - | EUM | kasseri cheese;kefalotyri;graviera | dairy | // kasseri, kefalotyri
+beyaz peynir | Dairy | - | ME | turkish white cheese;turkish feta | dairy | cheese feta //
+hummus | Pantry | pantry | ME | houmous;chickpea dip;hommos | sesame | hummus commercial //
+baba ganoush | Pantry | pantry | ME | baba ghanoush;eggplant dip;mutabal | sesame | // baba ganoush -hummus
+falafel | Pantry | legumes | ME | falafel patties;ta'amiya | - | falafel home-prepared //
+date syrup | Pantry | pantry | ME | silan;dibs;date molasses;date honey | - | // date syrup, silan
+carob molasses | Pantry | pantry | ME,EUM | dibs il kharroub;carob syrup;harnup pekmezi | - | proxy: molasses //
+grape molasses | Pantry | pantry | ME,EUM | pekmez;dibs enab;petimezi;sapa;mosto cotto | - | proxy: molasses //
+halva | Pantry | pantry | ME,EUE,SA | halvah;halawa;tahini halva;sesame halva | sesame,nuts | // halva, halvah cat=cookies
+turkish delight | Pantry | pantry | ME | lokum;rahat lokum | - | // turkish delight cat=candy
+orange blossom water | Pantry | pantry | ME,NAF | orange flower water;mazahar | - | // orange blossom water
+pickled turnips | Pantry | pantry | ME | lebanese pickled turnips;lift | - | // pickled turnips
+grape leaves | Pantry | vegetables | ME,EUM | vine leaves;dolma leaves;vine leaves jarred | - | grape_leaves raw //
+stuffed grape leaves | Pantry | pantry | ME,EUM | dolma;dolmades;yaprak sarma | - | // stuffed grape leaves
+freekeh | Pantry | grains | ME,NAF | farik;green wheat;smoked green wheat | gluten | proxy: bulgur dry //
+maftoul | Pantry | grains | ME | palestinian couscous;moghrabieh;pearl couscous;israeli couscous;ptitim | gluten | couscous dry //
+fregola | Pantry | grains | EUM | fregula;sardinian couscous | gluten | couscous dry //
+lavash | Pantry | grains | ME,CA | armenian flatbread;lavash bread | gluten | // lavash
+khubz | Pantry | grains | ME | arabic bread;arab bread;pita arabic;baladi bread | gluten | bread pita,_white //
+yufka | Pantry | grains | ME | turkish flatbread dough;yufka sheets | gluten | // yufka
+kataifi | Pantry | grains | ME,EUM | kadayif;kunafa dough;shredded phyllo | gluten | // kataifi, kadaif
+simit | Pantry | grains | ME | turkish sesame bagel | gluten,sesame | proxy: bagels plain //
+sucuk | Protein | meat | ME | sujuk;sudjuk;turkish sausage;soujouk | - | // sucuk
+pastirma | Protein | meat | ME | basturma;pastrami turkish;basterma | - | // pastirma, basturma
+merguez | Protein | meat | NAF,EUM | merguez sausage | - | // merguez
+mortadella | Protein | meat | EUM | mortadella bologna | - | mortadella //
+lamb shank | Protein | meat | ME,EUM,SA | lamb shanks | - | lamb foreshank separable_lean_and_fat raw -new_zealand //
+lamb neck | Protein | meat | ME,NAF | - | - | lamb neck_chops separable_lean_and_fat raw //
+lamb fat | Protein | meat | ME,CA | tail fat;dumba;sheep tail fat | - | proxy: lamb domestic,_composite_of_trimmed_retail_cuts,_separable_fat raw //
+pigeon | Protein | meat | NAF,ME,EUM,EA | squab;pigeon meat | - | squab meat_and_skin raw //
+zereshk | Pantry | fruit | ME | dried barberries;barberries;berberis | - | // barberries
+dried sour cherries | Pantry | fruit | ME,EUE | tart cherries dried;albaloo | - | -
+dried mulberries | Pantry | fruit | ME,CA | white mulberries;tut | - | -
+dried plums persian | Pantry | fruit | ME,CA | aloo bokhara;alu bukhara;yellow plums dried | - | plums dried_(prunes) uncooked //
+mulberries | Produce | fruit | ME,CA | fresh mulberries | - | mulberries raw //
+green almonds | Produce | nuts | ME | fresh green almonds;jajeh;badam sabz | nuts | -
+fresh chickpeas | Produce | legumes | ME,SA | green chickpeas;hara chana;hummus balila | - | -
+molokhia | Produce | vegetables | ME,NAF | mulukhiyah;jute leaves;saluyot;egyptian spinach;ewedu | - | jute potherb raw -cooked //
+purslane | Produce | vegetables | ME,EUM,LAT | verdolaga;portulaca;baqla | - | purslane raw //
+persian cucumber | Produce | vegetables | ME | mini cucumber;lebanese cucumber;baby cucumber | - | cucumber with_peel,_raw //
+lebanese eggplant | Produce | vegetables | ME | baby eggplant;sicilian eggplant | - | eggplant raw //
+sabzi khordan | Produce | herbs | ME | persian fresh herbs;herb platter | - | proxy: parsley fresh //
+fresh fenugreek | Produce | herbs | ME,SA | shanbalileh | - | proxy: spinach raw //
+sorrel | Produce | herbs | EUE,ME,WAF | sourgrass;dock;garden sorrel;roselle leaves | - | proxy: spinach raw //
+winter savory | Spices | spices | EUM,ME | summer savory;savory | - | spices savory,_ground //
+wild thyme | Spices | spices | ME,EUM | zahtar;thyme wild | - | spices thyme,_dried //
+sesame oil untoasted | Pantry | pantry | ME,SA | gingelly oil;til oil;sesame cooking oil | sesame | oil sesame,_salad_or_cooking //
+nigella oil | Pantry | pantry | ME,SA | black seed oil | - | proxy: oil sesame,_salad_or_cooking //
+manti wrappers | Pantry | grains | CA,ME | manti dough;turkish dumpling dough | gluten | // manti
+devzira rice | Pantry | grains | CA | plov rice;uzbek rice;lazer rice | - | rice white long-grain regular raw enriched //
+khmeli suneli | Spices | spices | CA | georgian spice blend;svaneti salt | - | proxy: spices curry_powder //
+tkemali | Pantry | pantry | CA,EUE | georgian plum sauce;sour plum sauce | - | // tkemali
+adjika | Pantry | pantry | CA,EUE | abkhazian chili paste;adjika paste | - | // adjika
+walnut paste | Pantry | pantry | CA | bazhe;georgian walnut sauce | nuts | proxy: nuts walnuts,_english //
+mitmita | Spices | spices | EAF | ethiopian chili powder | - | proxy: spices pepper,_red_or_cayenne //
+niter kibbeh | Pantry | pantry | EAF | ethiopian spiced butter;nitir qibe;spiced clarified butter | dairy | butter oil,_anhydrous //
+teff | Pantry | grains | EAF | teff grain;ivory teff;brown teff;ethiopian millet | - | teff uncooked //
+teff flour | Pantry | grains | EAF | - | - | teff uncooked //
+injera | Pantry | grains | EAF | ethiopian flatbread;enjera | - | -
+shiro powder | Pantry | legumes | EAF | shiro;shiro wat powder;ground chickpea powder | - | chickpea_flour //
+awaze | Pantry | pantry | EAF | ethiopian hot sauce | - | // awaze
+korarima | Spices | spices | EAF | ethiopian cardamom;false cardamom;aframomum | - | spices cardamom //
+suya spice | Spices | spices | WAF | yaji;yaji spice;suya pepper;kuli kuli powder | nuts | proxy: spices curry_powder //
+egusi | Pantry | nuts | WAF | melon seeds;egusi seeds;ground egusi | - | proxy: seeds watermelon_seed_kernels,_dried //
+palm oil | Pantry | pantry | WAF,SEA | red palm oil unrefined;dende oil;zomi | - | oil palm //
+palm nut cream | Pantry | pantry | WAF | palm nut soup base;sauce graine;noix de palme | - | -
+fufu flour | Pantry | grains | WAF | fufu;pounded yam flour;poundo yam;amala;cassava fufu | - | // fufu flour
+garri | Pantry | grains | WAF | gari;cassava flakes;eba;farina | - | // gari cat=flours
+yam flour | Pantry | grains | WAF | elubo | - | -
+white yam | Produce | vegetables | WAF,CAR | african yam;puna yam;name;ñame | - | yam raw //
+cocoyam | Produce | vegetables | WAF,CAR | malanga;yautia;tannia;taro african | - | yautia_(tannier) raw //
+cassava | Produce | vegetables | WAF,LAT,CAR,SEA | yuca;manioc;mandioca;tapioca root | - | cassava raw //
+cassava flour | Pantry | grains | WAF,LAT | yuca flour;manioc flour;farinha de mandioca;farofa flour | - | // cassava flour
+ogbono | Pantry | nuts | WAF | wild mango seeds;ogbono seeds;apon | - | // ogbono
+locust beans | Pantry | pantry | WAF | iru;dawadawa;soumbala;fermented locust bean | - | proxy: // locust bean
+scotch bonnet pepper | Produce | vegetables | WAF,CAR | - | - | peppers hot_chili raw red //
+grains of paradise | Spices | spices | WAF | melegueta pepper;alligator pepper;guinea pepper | - | proxy: spices pepper,_black //
+uziza | Spices | spices | WAF | uziza seeds;ashanti pepper;benin pepper | - | proxy: spices pepper,_black //
+calabash nutmeg | Spices | spices | WAF | ehuru;ariwo;african nutmeg | - | proxy: spices nutmeg,_ground //
+smoked fish | Protein | seafood | WAF | dried smoked fish;smoked catfish;bonga fish;stockfish | fish | proxy: fish haddock smoked //
+crayfish ground | Pantry | seafood | WAF | ground crayfish;dried crayfish;crayfish powder | shellfish | crustaceans crayfish,_mixed_species,_wild,_raw //
+dried shrimp powder | Pantry | seafood | WAF,SEA | - | shellfish | // dried shrimp
+bitterleaf | Produce | vegetables | WAF | ewuro;vernonia;onugbu;bitter leaf | - | proxy: spinach raw //
+ugu | Produce | vegetables | WAF | fluted pumpkin leaves;pumpkin leaves | - | pumpkin_leaves raw //
+efo | Produce | vegetables | WAF | amaranth african;tete;green amaranth | - | amaranth_leaves raw //
+tiger nuts | Pantry | nuts | WAF,EUM | chufa;earth almonds;horchata nuts;ofio | - | proxy: // tiger nut flour
+kenkey | Pantry | grains | WAF | ghanaian fermented corn dough;banku | - | // kenkey
+shito | Pantry | pantry | WAF | ghanaian black pepper sauce;shito sauce | fish,shellfish | // shito
+cowpea flour | Pantry | legumes | WAF | black-eyed pea flour;moi moi flour | - | proxy: cowpeas mature_seeds raw //
+rooibos | Pantry | pantry | SAF | red bush tea;redbush | - | // rooibos
+biltong | Protein | meat | SAF | south african dried beef;droewors | - | beef jerky //
+boerewors | Protein | meat | SAF | south african sausage | - | // boerewors
+chakalaka | Pantry | pantry | SAF | south african relish | - | // chakalaka
+peri-peri sauce | Pantry | pantry | SAF,EUM | piri piri sauce;pili pili;peri peri | - | // peri peri sauce, piri piri sauce
+rusks | Pantry | grains | SAF | buttermilk rusks;beskuit | gluten,dairy | -
+maize meal | Pantry | grains | SAF,EAF | mealie meal;pap;ugali flour;sima;nshima;white maize meal | - | cornmeal degermed,_enriched,_white //
+matoke | Produce | vegetables | EAF | green cooking bananas;east african plantains | - | plantains raw //
+sukuma wiki | Produce | vegetables | EAF | collard greens kenya;kale kenya | - | collards raw //
+pigeon peas dried | Pantry | legumes | EAF,CAR,SA | gandules;gungo peas;congo peas | - | pigeon_peas_(red_gram) mature_seeds,_raw //
+hibiscus flowers | Pantry | pantry | WAF,LAT,CAR | flor de jamaica;sorrel flowers;bissap;roselle | - | // hibiscus
+baobab powder | Pantry | pantry | WAF,SAF | monkey bread powder | - | proxy: // baobab
+moringa powder | Pantry | pantry | WAF,SA | - | - | moringa leaves,_raw //
+argan oil | Pantry | pantry | NAF | culinary argan oil | nuts | proxy: oil olive,_salad_or_cooking //
+amlou | Pantry | pantry | NAF | moroccan almond dip | nuts | // amlou
+msemen | Pantry | grains | NAF | moroccan layered flatbread;rghaif | gluten | // msemen
+warqa | Pantry | grains | NAF | brik pastry;tunisian brik;malsouka | gluten | // warqa
+couscous medium | Pantry | grains | NAF | moroccan couscous;hand-rolled couscous | gluten | couscous dry //
+dried dates deglet | Pantry | fruit | NAF,ME | deglet noor dates | - | dates deglet_noor //
+medjool dates | Pantry | fruit | ME,NAF | medjool | - | dates medjool //

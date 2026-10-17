@@ -1,0 +1,97 @@
+# ingredient | brand tokens (a/b/c) | description phrase (blank = ingredient) | options
+soy sauce | kikkoman | soy sauce | n=4 d=1.1
+soy sauce | lee kum kee | soy sauce | n=3 d=1.1
+soy sauce | la choy | soy sauce | n=2 d=1.1
+soy sauce | pearl river bridge/yamasa/silver swan/healthy boy/kimlan/sempio | soy sauce | n=4 d=1.1
+soy sauce | bragg/coconut secret | aminos | n=2 d=1.1
+soy sauce | san-j/san j/eden | soy sauce | n=3 d=1.1
+tamari | san-j/san j/kikkoman/eden/ohsawa | tamari | n=4 d=1.1
+dark soy sauce | lee kum kee/pearl river/kikkoman | dark soy sauce | n=3 d=1.1
+light soy sauce | lee kum kee/pearl river | soy sauce | n=2 d=1.1
+oyster sauce | lee kum kee | oyster sauce | n=3 d=1.15
+oyster sauce | megachef/mae ploy/dynasty/kikkoman/sun luck/maekrua | oyster sauce | n=4 d=1.15
+fish sauce | red boat/three crabs/squid/tiparos/thai kitchen/megachef/lucky/rfindings | fish sauce | n=6 d=1.2
+hoisin sauce | lee kum kee/koon chun/kikkoman/sun luck/dynasty | hoisin | n=4 d=1.2
+sriracha | huy fong/tuong ot/flying goose/lee kum kee/mae ploy/dynasty | sriracha | n=4 d=1.1
+chili garlic sauce | huy fong | chili garlic | n=2 d=1.1
+sambal oelek | huy fong | sambal oelek | n=2 d=1.1
+sweet chili sauce | mae ploy/thai kitchen/lee kum kee/mae pranom/dynasty | sweet chili | n=3 d=1.2
+teriyaki sauce | kikkoman/lawry's/soy vay/mr yoshida/panda | teriyaki | n=5 d=1.15
+ponzu | kikkoman/mizkan/ken's | ponzu | n=3 d=1.1
+mirin | kikkoman/mizkan/eden/takara/hon-mirin/aji-mirin | mirin | n=3 d=1.2
+rice vinegar | marukan/mizkan/kikkoman/nakano/napa valley/spectrum | rice vinegar | n=4 d=1.0
+rice vinegar | marukan/mizkan | seasoned rice vinegar | n=2 d=1.05
+toasted sesame oil | kadoya/kikkoman/lee kum kee/dynasty/la tourangelle/wel pac | sesame oil | n=4 d=0.92
+white miso | hikari/marukome/miko/shirakiku/eden/miso master/cold mountain | miso | n=4
+red miso | hikari/marukome/miko/miso master | red miso | n=2
+dashi | ajinomoto/hondashi/shirakiku/yamaki | dashi | n=3
+bonito flakes | yamaki/shirakiku/eden/kobe | bonito | n=3
+nori | nagai/yamamotoyama/sushi nori/gimme/kim/eden | nori | n=4
+kombu | eden/emerald cove/shirakiku | kombu | n=2
+wakame | eden/emerald cove/shirakiku/miyako | wakame | n=3
+wasabi paste | s&b/s & b/house foods/roland | wasabi | n=3
+pickled ginger | shirakiku/kikkoman/roland/sushi chef | ginger | n=3
+panko breadcrumbs | kikkoman/ian's/progresso/shirakiku/panko | panko | n=4
+udon noodles | myojo/nissin/hime/shirakiku/sun noodle/kame | udon | n=4 kmin=250
+soba noodles | hakubaku/hime/eden/king soba/nishiki/ocean's halo | soba | n=4 kmin=250
+ramen noodles | nissin/maruchan/sapporo ichiban/nongshin/samyang/indomie/top ramen/mama/lucky me/myojo | ramen noodles | n=8 -soup -bowl -cup -flavor kmin=250
+ramen noodles | sun noodle/annie chun/lotus foods | ramen | n=3 kmin=250
+rice noodles | three ladies/erawan/thai kitchen/annie chun/simply asia/rose brand | rice noodles | n=4 kmin=250
+rice noodles | thai kitchen/mama | rice stick | n=2 kmin=250
+rice vermicelli | three ladies/erawan/ground | vermicelli | n=2 -pasta kmin=250
+cellophane noodles | longkou/dragonfly/lotus/mung bean | cellophane | n=2 kmin=250
+cellophane noodles | longkou/mung bean | bean thread | n=2 kmin=250
+chow mein noodles | la choy/china mist/wel pac | chow mein | n=3 kmin=250
+lo mein noodles | wel pac/roland/simply asia | lo mein | n=2 kmin=250
+egg noodles | no yolks/reames/manischewitz/pennsylvania dutch/mrs. weiss | egg noodles | n=4 kmin=250
+buckwheat noodles | hakubaku/eden/hime | soba | n=2 kmin=250
+korean rice cakes | assi/chung jung/nongshim/ottogi | rice cake | n=3
+gochujang | sempio/chung jung one/o'food/cj/haechandle/mother-in-law/bibigo/annie chun | gochujang | n=5
+doenjang | sempio/chung jung one/o'food/cj/haechandle | soybean paste | n=3
+kimchi | mother-in-law/bibigo/jongga/wang/sunja/tobagi/pulmuone/ncheonn | kimchi | n=6
+kimchi | cj/haechandle/chung jung/mother | kimchi | n=2
+tahini | joyva/soom/ziyad/al wadi/har bracha/haddar/sadaf/pecos | tahini | n=5
+coconut milk | chaokoh/aroy-d/thai kitchen/goya/mae ploy/savoy/native forest/arrowhead/trader joe | coconut milk | n=8 d=0.97
+coconut milk | taste of thai/kara/sun luck | coconut milk | n=2 d=0.97
+coconut water | vita coco/zico/harmless harvest/c2o/goya | coconut water | n=4 d=1.0
+red curry paste | mae ploy/maesri/thai kitchen/aroy-d/thai taste/taste of thai/cock brand | red curry | n=6
+green curry paste | mae ploy/maesri/thai kitchen/aroy-d/thai taste/taste of thai/cock brand | green curry | n=6
+yellow curry paste | mae ploy/maesri/thai kitchen/aroy-d/taste of thai | yellow curry | n=4
+massaman curry paste | mae ploy/maesri/thai kitchen/aroy-d/taste of thai | massaman | n=3
+panang curry paste | mae ploy/maesri/thai kitchen/aroy-d/taste of thai | panang | n=3
+tom yum paste | mae ploy/maesri/thai kitchen/por kwan/aroy-d | tom yum | n=3
+tamarind paste | tamicon/neera/laxmi/kewpie/ashoka/swad/deep | tamarind | n=4
+palm sugar | thai kitchen/mae ploy/tiger/nipah/coconut secret/wholesome | palm sugar | n=3
+kecap manis | abc/bango/sarasa/cap | sweet soy | n=3 d=1.3
+shrimp paste | lobo/tra chang/maesri/pantai/barrio fiesta | shrimp paste | n=3
+rice paper | three ladies/banh trang/tufoco/ac fresh | rice paper | n=3
+spring roll wrappers | spring home/tyj/wel pac/twin dragon | spring roll | n=3
+wonton wrappers | nasoya/twin dragon/wel pac/hinode | wonton | n=3
+egg roll wrappers | nasoya/twin dragon/wel pac | egg roll | n=3
+firm tofu | nasoya/house foods/pulmuone/wildwood/hodo/mori-nu | firm tofu | n=6
+silken tofu | nasoya/house foods/mori-nu/pulmuone | silken | n=5
+tempeh | lightlife/tofurky/trader joe/henry's/soy boy | tempeh | n=4
+seitan | upton's/westsoy/field roast/tofurky | seitan | n=3
+black bean sauce | lee kum kee/kikkoman | black bean | n=2 d=1.15
+xo sauce | lee kum kee | xo | n=1
+chili oil | lee kum kee/lao gan ma/fly by jing/momofuku/mala market | chili | n=4 d=0.92 -sweet -sauce
+chili crisp | lao gan ma/fly by jing/momofuku/trader joe/lee kum kee | chili crisp | n=4
+chinese five spice | mccormick/spice islands/badia/frontier | five spice | n=2
+sichuan peppercorns | mala market/sichuan pepper/the spice house/sunrise | sichuan | n=2
+curry powder | mccormick/spice islands/badia/s&b/s & b/vadilal/madras/frontier/simply organic | curry powder | n=6
+japanese curry roux | s&b/s & b/house foods/vermont curry/golden curry/java curry | curry | n=5
+furikake | nori komi/ajishima/shirakiku/marumiya | furikake | n=3
+matcha | encha/ito en/aiya/jade leaf/ippodo/maeda-en | matcha | n=4
+green tea | ito en/lipton/bigelow/twinings/tazo/yogi/celestial/numi/harney | green tea | n=6
+wasabi powder | s&b/s & b/sushi chef | wasabi | n=2
+tempura flour | nissin/kikkoman/shirakiku/hime/ajinomoto | tempura | n=3
+sushi rice | nishiki/kokuho/botan/tamanishiki/koshihikari/lundberg/yume/nigiri | rice | n=6 kmin=250
+glutinous rice | koda farms/erawan/three ladies/white rose/mahatma/thai | glutinous | n=3 kmin=250
+jasmine rice | mahatma/royal/lotus foods/lundberg/dynasty/golden star/three ladies/uncle ben/ben's original | jasmine | n=8 -tea kmin=250
+basmati rice | tilda/india gate/royal/daawat/lundberg/pride of india/kohinoor/ben's original/mahatma | basmati | n=8 kmin=250
+mung beans | swad/laxmi/deep/ashoka/bob's red mill | mung | n=3 kmin=250
+azuki beans | bob's red mill/eden/shirakiku/roland | adzuki | n=3 kmin=250
+anko | shirakiku/yamamotoyama/kikkoman/roland | red bean | n=2
+tapioca pearls | bob's red mill/thai kitchen/tapioca/boba/wel pac | tapioca | n=4
+mochiko | koda farms/blue star/mochiko | sweet rice flour | n=2
+rice flour | bob's red mill/erawan/three ladies/koda/mochiko/king arthur | rice flour | n=5

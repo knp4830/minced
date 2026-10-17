@@ -1,0 +1,20 @@
+region_code,region,new_ingredients,with_nutrition,no_nutrition
+EA,East Asia,230,197,33
+EUM,Mediterranean Europe,184,169,15
+EUW,Western Europe and British Isles,163,149,14
+NAM,North America,161,154,7
+SEA,Southeast Asia,151,118,33
+SA,South Asia,151,132,19
+LAT,Latin America,150,122,28
+GLO,Global staples,122,114,8
+ME,Middle East,92,72,20
+WAF,West Africa,67,45,22
+CAR,Caribbean,65,55,10
+EUE,Eastern Europe and Balkans,56,51,5
+EUN,Nordic,36,33,3
+PAC,Pacific and Oceania,34,23,11
+EAF,East Africa,25,21,4
+NAF,North Africa,25,18,7
+CA,Central Asia and Caucasus,20,15,5
+IND,Indigenous Americas,17,10,7
+SAF,Southern Africa,16,9,7

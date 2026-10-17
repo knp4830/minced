@@ -1,0 +1,117 @@
+# Global produce, fruit, herbs, mushrooms (those not already in the catalog)
+apricot | Produce | fruit | GLO | fresh apricots | - | apricots raw //
+nectarine | Produce | fruit | GLO | - | - | nectarines raw //
+persimmon | Produce | fruit | EA,ME,NAM | kaki;sharon fruit;hachiya persimmon;fuyu persimmon | - | persimmons japanese,_raw //
+kumquat | Produce | fruit | EA,SEA | - | - | kumquats raw //
+tangerine | Produce | fruit | GLO | clementine;satsuma;tangelo | - | tangerines mandarin_oranges raw -juice -canned //
+blood orange | Produce | fruit | EUM | - | - | oranges raw,_all_commercial_varieties //
+key lime | Produce | fruit | CAR,NAM | mexican lime;west indian lime | - | limes raw //
+meyer lemon | Produce | fruit | NAM | - | - | lemons raw,_without_peel //
+bergamot | Produce | fruit | EUM | - | - | proxy: lemons raw,_without_peel //
+citron | Produce | fruit | EUM,ME,SA | etrog;buddha's hand | - | proxy: lemons raw,_without_peel //
+fresh cranberries | Produce | fruit | NAM | cranberry | - | cranberries raw //
+boysenberries | Produce | fruit | NAM | marionberries;loganberries;tayberries | - | boysenberries frozen //
+honeydew | Produce | fruit | GLO | honeydew melon | - | melons honeydew //
+casaba melon | Produce | fruit | GLO | galia melon;crenshaw melon | - | melons casaba //
+bitter orange | Produce | fruit | ME,EUM,CAR | seville orange;naranja agria;sour orange | - | proxy: oranges raw,_all_commercial_varieties //
+fresh dates | Produce | fruit | ME | khalal dates;rutab | - | dates medjool //
+prune plums | Produce | fruit | EUE,EUW | damson plums;italian plums;greengage;mirabelle | - | plums raw //
+crabapples | Produce | fruit | EUW,NAM | - | - | crabapples raw //
+green apple | Produce | fruit | GLO | granny smith apple;tart apple | - | apples raw,_with_skin //
+dried apple | Pantry | fruit | GLO | apple rings dried | - | apples dried,_sulfured,_uncooked //
+dried banana | Pantry | fruit | SEA,LAT | banana chips;dried plantain chips | - | bananas dehydrated //
+dried papaya | Pantry | fruit | SEA | - | - | // dried papaya cat=wholesome
+dried pineapple | Pantry | fruit | SEA | - | - | // dried pineapple cat=fruit
+dried cherries | Pantry | fruit | NAM,EUE | - | - | // dried cherries cat=wholesome -chocolate -yogurt -mix -trail -bar -coated -almond -nut
+dried blueberries | Pantry | fruit | NAM | - | - | // dried blueberries cat=wholesome -chocolate -yogurt -mix -trail -bar -coated -almond -nut
+dried currants | Pantry | fruit | EUM | zante currants | - | currants zante,_dried //
+golden raisins | Pantry | fruit | ME,EUM | sultanas | - | raisins seedless //
+dried peaches | Pantry | fruit | GLO | - | - | peaches dried,_sulfured,_uncooked //
+dried pears | Pantry | fruit | GLO | - | - | pears dried,_sulfured,_uncooked //
+candied ginger | Pantry | fruit | EA,EUW | crystallized ginger;stem ginger | - | // crystallized ginger cat=candy
+candied orange peel | Pantry | fruit | EUM | candied citrus peel | - | -
+fruit leather | Pantry | fruit | NAM | fruit roll | - | snacks fruit_leather rolls //
+beet greens | Produce | vegetables | GLO | - | - | beet_greens raw //
+turnip greens | Produce | vegetables | NAM | - | - | turnip_greens raw //
+lacinato kale | Produce | vegetables | EUM | dinosaur kale;tuscan kale;cavolo nero;black kale | - | kale raw //
+baby spinach | Produce | vegetables | GLO | - | - | spinach raw //
+rainbow chard | Produce | vegetables | GLO | - | - | chard swiss raw //
+mizuna | Produce | vegetables | EA | japanese mustard greens | - | mustard_greens raw //
+tatsoi | Produce | vegetables | EA | rosette bok choy | - | proxy: cabbage chinese_(pak-choi) raw //
+pea shoots | Produce | vegetables | EA,GLO | dou miao;pea tendrils | - | proxy: peas edible-podded raw //
+alfalfa sprouts | Produce | vegetables | GLO | - | - | alfalfa_seeds,_sprouted,_raw //
+microgreens | Produce | vegetables | GLO | - | - | proxy: lettuce green_leaf raw //
+dandelion greens | Produce | vegetables | EUM,NAM | - | - | dandelion_greens raw //
+savoy cabbage | Produce | vegetables | EUW | - | - | cabbage savoy,_raw //
+romanesco | Produce | vegetables | EUM | romanesco broccoli | - | proxy: cauliflower raw //
+broccolini | Produce | vegetables | GLO | baby broccoli;tenderstem | - | broccoli raw //
+spring onions | Produce | vegetables | EUW | - | - | onions spring_or_scallions_(includes_tops_and_bulb),_raw //
+pearl onions | Produce | vegetables | GLO | cipollini onions;boiling onions | - | onions raw //
+garlic scapes | Produce | vegetables | GLO | - | - | proxy: garlic raw //
+black garlic | Produce | vegetables | EA | fermented garlic | - | proxy: garlic raw //
+fingerling potatoes | Produce | vegetables | GLO | new potatoes;baby potatoes;purple potatoes | - | potatoes flesh_and_skin,_raw //
+purple sweet potato | Produce | vegetables | EA,PAC | okinawan sweet potato | - | sweet_potato raw unprepared //
+jerusalem artichokes | Produce | vegetables | NAM | - | - | jerusalem-artichokes raw //
+golden beets | Produce | vegetables | GLO | - | - | beets raw //
+watermelon radish | Produce | vegetables | GLO | - | - | radishes raw //
+delicata squash | Produce | vegetables | NAM | - | - | squash winter,_all_varieties,_raw //
+buttercup squash | Produce | vegetables | NAM | kuri squash;red kuri;hubbard squash | - | squash winter,_all_varieties,_raw //
+pattypan squash | Produce | vegetables | NAM | crookneck squash | - | squash summer,_all_varieties,_raw //
+sugar pumpkin | Produce | vegetables | NAM | pie pumpkin | - | pumpkin raw //
+grape tomatoes | Produce | vegetables | GLO | heirloom tomatoes;beefsteak tomato | - | tomatoes red,_ripe,_raw //
+banana peppers | Produce | vegetables | NAM | pepperoncini;hungarian wax pepper;cubanelle | - | peppers banana raw //
+shishito peppers | Produce | vegetables | EA | - | - | peppers sweet green raw //
+fresno chile | Produce | vegetables | NAM | red jalapeno | - | peppers jalapeno raw //
+cherry peppers | Produce | vegetables | EUM,NAM | peppadew | - | peppers sweet red raw //
+japanese eggplant | Produce | vegetables | EA | - | - | eggplant raw //
+sugar snap peas | Produce | vegetables | GLO | - | - | peas edible-podded,_raw //
+wax beans | Produce | vegetables | NAM | yellow beans | - | beans snap,_yellow,_raw //
+runner beans | Produce | vegetables | EUW | romano beans;scarlet runner beans | - | beans snap,_green,_raw //
+corn on the cob | Produce | vegetables | NAM | ear of corn;fresh sweet corn | - | corn sweet,_yellow,_raw //
+button mushrooms | Produce | vegetables | GLO | white mushrooms;champignons | - | mushrooms white,_raw //
+trumpet mushrooms | Produce | vegetables | EUW | - | - | mushroom king_oyster //
+morning glory | Produce | vegetables | SEA | ong choy | - | proxy: spinach raw //
+celtuce | Produce | vegetables | EA | stem lettuce;wosun | - | proxy: lettuce green_leaf,_raw //
+red leaf lettuce | Produce | vegetables | GLO | green leaf lettuce | - | lettuce red_leaf,_raw //
+little gem lettuce | Produce | vegetables | EUW | bibb lettuce;boston lettuce | - | lettuce butterhead raw //
+fresh bay leaves | Produce | herbs | EUM | - | - | proxy: spices bay_leaf //
+lemon balm | Produce | herbs | EUW | melissa | - | proxy: peppermint fresh //
+lemon verbena | Produce | herbs | LAT,EUW | - | - | proxy: peppermint fresh //
+borage | Produce | herbs | EUW | - | - | proxy: // borage
+nasturtium | Produce | herbs | LAT,EUW | edible flowers | - | proxy: watercress raw //
+peppermint | Produce | herbs | GLO | - | - | peppermint fresh //
+spearmint | Produce | herbs | GLO | - | - | spearmint fresh //
+dried chives | Spices | spices | EUW | - | - | chives freeze-dried //
+dried tarragon | Spices | spices | EUW | - | - | spices tarragon,_dried //
+dried cilantro | Spices | spices | GLO | - | - | proxy: spices coriander_leaf dried //
+dried lemon peel | Spices | spices | GLO | - | - | -
+dried onion flakes | Spices | spices | GLO | minced onion;dehydrated onion;onion flakes | - | onions dehydrated_flakes //
+dried garlic flakes | Spices | spices | GLO | minced garlic dried;garlic granules | - | spices garlic_powder //
+garlic salt | Spices | spices | NAM | - | - | // garlic salt
+onion salt | Spices | spices | NAM | - | - | // onion salt
+celery salt | Spices | spices | NAM | - | - | // celery salt
+seasoned salt | Spices | spices | NAM | lawry's seasoned salt | - | // seasoned salt
+cajun seasoning | Spices | spices | NAM | creole seasoning;blackened seasoning;tony chachere's | - | // cajun seasoning
+fajita seasoning | Spices | spices | LAT,NAM | - | - | // fajita seasoning
+chili seasoning mix | Spices | spices | NAM | - | - | // chili seasoning
+steak seasoning | Spices | spices | NAM | montreal steak seasoning;grill seasoning | - | // steak seasoning
+bbq rub | Spices | spices | NAM | barbecue rub;dry rub | - | // bbq rub, barbecue rub
+ranch seasoning | Spices | spices | NAM | ranch dip mix | dairy | // ranch seasoning -fries -cauliflower
+onion soup mix | Spices | spices | NAM | lipton onion soup mix | gluten | // onion soup mix
+pickling spice | Spices | spices | NAM,EUW | - | - | proxy: spices curry_powder //
+mulling spices | Spices | spices | EUW | mulled wine spices | - | // mulling spice
+madras curry powder | Spices | spices | SA | hot curry powder | - | curry_powder //
+japanese curry powder | Spices | spices | EA | s&b curry powder | - | curry_powder //
+whole nutmeg | Spices | spices | SEA,CAR | - | - | spices nutmeg,_ground //
+ground mace | Spices | spices | SEA | - | - | spices mace,_ground //
+anise seed | Spices | spices | EUM,ME | aniseed | - | spices anise_seed //
+dill seed | Spices | spices | EUE | - | - | spices dill_seed //
+black sesame seeds | Spices | spices | EA | - | sesame | seeds sesame_seeds,_whole,_dried //
+mustard powder | Spices | spices | GLO | dry mustard;ground mustard | - | spices mustard_seed,_ground //
+yellow mustard seeds | Spices | spices | SA | brown mustard seeds | - | spices mustard_seed,_ground //
+green peppercorns | Spices | spices | EUW | pink peppercorns | - | spices pepper,_black //
+monosodium glutamate | Spices | spices | EA | msg;ajinomoto;accent | - | // monosodium glutamate
+nutritional yeast | Pantry | pantry | NAM | nooch | - | // nutritional yeast
+liquid smoke | Pantry | pantry | NAM | - | - | // liquid smoke d=1.0
+smoked salt | Spices | spices | NAM | - | - | salt table //
+fleur de sel | Spices | spices | EUW | - | - | salt table //
