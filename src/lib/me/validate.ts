@@ -6,6 +6,7 @@
  */
 
 import { isIsoDate } from "@/lib/me/dates";
+import { UUID_RE } from "@/lib/validate";
 import { MEAL_VALUES, type Meal } from "@/lib/me/types";
 import { ACTIVITY, PACES_KG, type Goal, type Sex, type Units } from "@/lib/me/targets";
 import { MUSCLE_SLUGS, SESSION_VALUES, type MuscleSlug, type Session } from "@/lib/me/muscles";
@@ -59,11 +60,8 @@ export const meal = (v: unknown) => oneOf<Meal>(v, MEAL_VALUES, "Meal");
 export const session = (v: unknown) => oneOf<Session>(v, SESSION_VALUES, "Session");
 export const muscle = (v: unknown) => oneOf<MuscleSlug>(v, MUSCLE_SLUGS, "Muscle");
 
-export const SLUG = /^[a-z0-9][a-z0-9-]{0,150}$/;
-export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
 export function uuid(v: unknown): Parsed<string> {
-  return typeof v === "string" && UUID.test(v) ? ok(v) : bad("That entry could not be found.");
+  return typeof v === "string" && UUID_RE.test(v) ? ok(v) : bad("That entry could not be found.");
 }
 
 /** Rounds to one decimal, which is what the database columns store. */

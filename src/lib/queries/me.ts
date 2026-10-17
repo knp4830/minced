@@ -20,10 +20,6 @@ import {
 
 type Db = Awaited<ReturnType<typeof createClient>>;
 
-async function loose() {
-  return createClient();
-}
-
 const num = (v: unknown): number => (v === null || v === undefined ? 0 : Number(v));
 const numOrNull = (v: unknown): number | null => (v === null || v === undefined ? null : Number(v));
 
@@ -45,7 +41,7 @@ type TargetRow = {
 };
 
 export async function getTargets(): Promise<MeTargets | null> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("me_targets")
     .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g")
@@ -94,7 +90,7 @@ function recipeThumb(imageUrl: string | null, photos: PhotoRow | PhotoRow[] | nu
 }
 
 export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("me_food_log")
     .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
@@ -129,7 +125,7 @@ type WorkoutRow = {
 };
 
 export async function getWorkoutsForDate(date: string): Promise<WorkoutEntry[]> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("me_workouts")
     .select("id, session, custom_name, minutes, sets, me_workout_muscles(muscle, sets)")
@@ -147,7 +143,7 @@ export async function getWorkoutsForDate(date: string): Promise<WorkoutEntry[]> 
 }
 
 export async function getSleepForDate(date: string): Promise<number | null> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db.from("me_sleep").select("hours").eq("log_date", date).maybeSingle();
   return data ? numOrNull((data as { hours: number | string }).hours) : null;
 }
@@ -161,7 +157,7 @@ export async function getDayDetail(date: string): Promise<DayDetail> {
 
 export async function getWeekMuscles(date: string): Promise<{ from: string; to: string; muscles: WeekMuscle[] }> {
   const { from, to } = weekRange(date);
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db.rpc("me_week_muscles", { p_from: from, p_to: to });
   const muscles = ((data ?? []) as { muscle: string; sets: number | string; days: string[] }[]).map((r) => ({
     muscle: r.muscle,
@@ -182,7 +178,7 @@ type SummaryRow = {
 };
 
 export async function getMonthSummary(from: string, to: string): Promise<DaySummary[]> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db.rpc("me_month_summary", { p_from: from, p_to: to });
   return ((data ?? []) as SummaryRow[]).map((r) => ({
     date: r.log_date,
@@ -193,17 +189,6 @@ export async function getMonthSummary(from: string, to: string): Promise<DaySumm
     sets: r.sets ?? 0,
     sleepHours: numOrNull(r.sleep_hours),
   }));
-}
-
-/** Whether the person has logged anything, ever (drives the brand-new empty state). */
-export async function hasAnyLog(): Promise<boolean> {
-  const db = await loose();
-  const [f, w, s] = await Promise.all([
-    db.from("me_food_log").select("id", { count: "exact", head: true }).limit(1),
-    db.from("me_workouts").select("id", { count: "exact", head: true }).limit(1),
-    db.from("me_sleep").select("log_date", { count: "exact", head: true }).limit(1),
-  ]);
-  return (f.count ?? 0) + (w.count ?? 0) + (s.count ?? 0) > 0;
 }
 
 /** Calendar range for a month grid: whole weeks, but capped to the 62 days the RPC allows. */
@@ -241,7 +226,7 @@ function likeEscape(s: string): string {
 export async function findRecipesToLog(query: string, limit = 8): Promise<LoggableRecipe[]> {
   const q = query.trim().slice(0, 60);
   if (q.length < 2) return [];
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("recipes")
     .select("id, slug, title, servings, calories, image_url, recipe_photos(storage_path, thumb_path)")
@@ -274,7 +259,7 @@ export type RecipeNutrition = {
 
 /** Per-serving nutrition read from the database, never from the client. */
 export async function getRecipeNutrition(slug: string): Promise<RecipeNutrition | null> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("recipes")
     .select("id, slug, title, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg")
@@ -443,7 +428,7 @@ export async function removeSleep(date: string): Promise<WriteResult> {
  * is far above any real diary and exists so a runaway account cannot build an unbounded response.
  */
 export async function getMyHealthExport() {
-  const db = await loose();
+  const db = await createClient();
   const cap = 20000;
   const [targets, food, workouts, sleep] = await Promise.all([
     db

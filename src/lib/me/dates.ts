@@ -37,10 +37,6 @@ export function addDays(iso: string, n: number): string {
   return fromUtc(toUtc(iso) + n * 86_400_000);
 }
 
-export function dayDiff(a: string, b: string): number {
-  return Math.round((toUtc(a) - toUtc(b)) / 86_400_000);
-}
-
 /** Today's date in an IANA time zone; falls back to UTC for a missing or invalid zone name. */
 export function todayInZone(tz: string | undefined | null, now: Date = new Date()): string {
   const zone = tz && /^[A-Za-z_]+(?:\/[A-Za-z0-9_+-]+){0,2}$/.test(tz) ? tz : "UTC";
@@ -57,10 +53,6 @@ export function weekRange(iso: string): { from: string; to: string } {
   const dow = new Date(toUtc(iso)).getUTCDay(); // 0 = Sunday
   const from = addDays(iso, -dow);
   return { from, to: addDays(from, 6) };
-}
-
-export function dayOfWeek(iso: string): number {
-  return new Date(toUtc(iso)).getUTCDay();
 }
 
 /** `2026-10` or null. */
@@ -104,7 +96,6 @@ const fmt = (opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat("en-GB
 const F_LONG = fmt({ weekday: "long", day: "numeric", month: "long" });
 const F_WEEKDAY_DAY_MONTH = fmt({ weekday: "short", day: "numeric", month: "short" });
 const F_MONTH_YEAR = fmt({ month: "long", year: "numeric" });
-const F_SHORT_DAY = fmt({ day: "numeric", month: "short" });
 const F_DAY = fmt({ day: "numeric" });
 const F_WEEKDAY = fmt({ weekday: "short" });
 
@@ -128,7 +119,4 @@ export function weekLabel(from: string, to: string): string {
 }
 export function dayNumber(iso: string): string {
   return F_DAY.format(toUtc(iso));
-}
-export function dayMonth(iso: string): string {
-  return F_SHORT_DAY.format(toUtc(iso));
 }

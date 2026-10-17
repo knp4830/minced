@@ -18,7 +18,8 @@
  * never a wrongly rejected real recipe.
  */
 
-const SLUG = /^[a-z0-9][a-z0-9-]{0,150}$/;
+import { SLUG_RE } from "@/lib/validate";
+
 const KNOWN_TTL_MS = 60 * 60 * 1000;
 const KNOWN_MAX = 2000;
 const LOOKUP_TIMEOUT_MS = 1500;
@@ -26,7 +27,7 @@ const LOOKUP_TIMEOUT_MS = 1500;
 const known = new Map<string, number>();
 
 export async function recipeExists(slug: string): Promise<boolean> {
-  if (!SLUG.test(slug)) return false;
+  if (!SLUG_RE.test(slug)) return false;
 
   const until = known.get(slug);
   if (until !== undefined && until > Date.now()) return true;
