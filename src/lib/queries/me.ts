@@ -4,9 +4,10 @@
  * may be called from a cached (ISR) page.
  */
 
+
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createClient } from "@/lib/supabase/server";
-import { addDays, weekRange } from "@/lib/me/dates";
+import { addDays, localDateOf, weekRange } from "@/lib/me/dates";
 import {
   sumFood,
   type DayDetail,
@@ -17,12 +18,10 @@ import {
   type WeekMuscle,
   type WorkoutEntry,
 } from "@/lib/me/types";
+import { CHECKIN_KINDS, type CheckInKind } from "@/lib/me/checkin";
+import type { WeightPoint } from "@/lib/me/weight";
 
 type Db = Awaited<ReturnType<typeof createClient>>;
-
-async function loose() {
-  return createClient();
-}
 
 const num = (v: unknown): number => (v === null || v === undefined ? 0 : Number(v));
 const numOrNull = (v: unknown): number | null => (v === null || v === undefined ? null : Number(v));
@@ -42,13 +41,16 @@ type TargetRow = {
   protein_g: number;
   carbs_g: number;
   fat_g: number;
+  goal_weight_kg: number | string | null;
+  updated_at: string;
 };
 
-export async function getTargets(): Promise<MeTargets | null> {
-  const db = await loose();
+/** `zone` is the person's IANA time zone, so `updatedOn` is the LOCAL date the targets were saved. */
+export async function getTargets(zone?: string | null): Promise<MeTargets | null> {
+  const db = await createClient();
   const { data } = await db
     .from("me_targets")
-    .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g")
+    .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, goal_weight_kg, updated_at")
     .maybeSingle();
   const r = data as TargetRow | null;
   if (!r) return null;
@@ -65,6 +67,8 @@ export async function getTargets(): Promise<MeTargets | null> {
     proteinG: r.protein_g,
     carbsG: r.carbs_g,
     fatG: r.fat_g,
+    goalWeightKg: numOrNull(r.goal_weight_kg),
+    updatedOn: localDateOf(r.updated_at, zone),
   };
 }
 
@@ -94,7 +98,7 @@ function recipeThumb(imageUrl: string | null, photos: PhotoRow | PhotoRow[] | nu
 }
 
 export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("me_food_log")
     .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
@@ -129,7 +133,7 @@ type WorkoutRow = {
 };
 
 export async function getWorkoutsForDate(date: string): Promise<WorkoutEntry[]> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("me_workouts")
     .select("id, session, custom_name, minutes, sets, me_workout_muscles(muscle, sets)")
@@ -147,21 +151,64 @@ export async function getWorkoutsForDate(date: string): Promise<WorkoutEntry[]> 
 }
 
 export async function getSleepForDate(date: string): Promise<number | null> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db.from("me_sleep").select("hours").eq("log_date", date).maybeSingle();
   return data ? numOrNull((data as { hours: number | string }).hours) : null;
 }
 
+export async function getWeightForDate(date: string): Promise<number | null> {
+  const db = await createClient();
+  const { data } = await db.from("me_weights").select("weight_kg").eq("log_date", date).maybeSingle();
+  return data ? numOrNull((data as { weight_kg: number | string }).weight_kg) : null;
+}
+
 export async function getDayDetail(date: string): Promise<DayDetail> {
-  const [food, workouts, sleep] = await Promise.all([getFoodForDate(date), getWorkoutsForDate(date), getSleepForDate(date)]);
-  return { date, food, workouts, sleep, totals: sumFood(food) };
+  const [food, workouts, sleep, weightKg] = await Promise.all([
+    getFoodForDate(date),
+    getWorkoutsForDate(date),
+    getSleepForDate(date),
+    getWeightForDate(date),
+  ]);
+  return { date, food, workouts, sleep, weightKg, totals: sumFood(food) };
+}
+
+// ---------- weight, streaks, check-ins ----------
+
+/** Weigh-ins from `from` to `to` (inclusive), oldest first. Bounded: at most 400 rows. */
+export async function getWeights(from: string, to: string): Promise<WeightPoint[]> {
+  const db = await createClient();
+  const { data } = await db
+    .from("me_weights")
+    .select("log_date, weight_kg")
+    .gte("log_date", from)
+    .lte("log_date", to)
+    .order("log_date", { ascending: true })
+    .limit(400);
+  return ((data ?? []) as { log_date: string; weight_kg: number | string }[]).map((r) => ({ date: r.log_date, kg: num(r.weight_kg) }));
+}
+
+/** Days with at least one entry of each kind over the last 400 days (the streak counters work from this). */
+export async function getLoggedDays(today: string): Promise<{ kind: string; date: string }[]> {
+  const db = await createClient();
+  const { data } = await db.rpc("me_logged_days", { p_from: addDays(today, -399), p_to: today });
+  return ((data ?? []) as { kind: string; log_date: string }[]).map((r) => ({ kind: r.kind, date: r.log_date }));
+}
+
+export async function getDismissedCheckIns(): Promise<Partial<Record<CheckInKind, string>>> {
+  const db = await createClient();
+  const { data } = await db.from("me_checkin_dismissals").select("kind, log_date").limit(10);
+  const out: Partial<Record<CheckInKind, string>> = {};
+  for (const r of (data ?? []) as { kind: string; log_date: string }[]) {
+    if (CHECKIN_KINDS.includes(r.kind)) out[r.kind as CheckInKind] = r.log_date;
+  }
+  return out;
 }
 
 // ---------- week and month ----------
 
 export async function getWeekMuscles(date: string): Promise<{ from: string; to: string; muscles: WeekMuscle[] }> {
   const { from, to } = weekRange(date);
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db.rpc("me_week_muscles", { p_from: from, p_to: to });
   const muscles = ((data ?? []) as { muscle: string; sets: number | string; days: string[] }[]).map((r) => ({
     muscle: r.muscle,
@@ -179,10 +226,11 @@ type SummaryRow = {
   trained: string[] | null;
   sets: number | null;
   sleep_hours: number | string | null;
+  weight_kg: number | string | null;
 };
 
 export async function getMonthSummary(from: string, to: string): Promise<DaySummary[]> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db.rpc("me_month_summary", { p_from: from, p_to: to });
   return ((data ?? []) as SummaryRow[]).map((r) => ({
     date: r.log_date,
@@ -192,18 +240,8 @@ export async function getMonthSummary(from: string, to: string): Promise<DaySumm
     trained: r.trained ?? [],
     sets: r.sets ?? 0,
     sleepHours: numOrNull(r.sleep_hours),
+    weightKg: numOrNull(r.weight_kg),
   }));
-}
-
-/** Whether the person has logged anything, ever (drives the brand-new empty state). */
-export async function hasAnyLog(): Promise<boolean> {
-  const db = await loose();
-  const [f, w, s] = await Promise.all([
-    db.from("me_food_log").select("id", { count: "exact", head: true }).limit(1),
-    db.from("me_workouts").select("id", { count: "exact", head: true }).limit(1),
-    db.from("me_sleep").select("log_date", { count: "exact", head: true }).limit(1),
-  ]);
-  return (f.count ?? 0) + (w.count ?? 0) + (s.count ?? 0) > 0;
 }
 
 /** Calendar range for a month grid: whole weeks, but capped to the 62 days the RPC allows. */
@@ -241,7 +279,7 @@ function likeEscape(s: string): string {
 export async function findRecipesToLog(query: string, limit = 8): Promise<LoggableRecipe[]> {
   const q = query.trim().slice(0, 60);
   if (q.length < 2) return [];
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("recipes")
     .select("id, slug, title, servings, calories, image_url, recipe_photos(storage_path, thumb_path)")
@@ -274,7 +312,7 @@ export type RecipeNutrition = {
 
 /** Per-serving nutrition read from the database, never from the client. */
 export async function getRecipeNutrition(slug: string): Promise<RecipeNutrition | null> {
-  const db = await loose();
+  const db = await createClient();
   const { data } = await db
     .from("recipes")
     .select("id, slug, title, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg")
@@ -326,10 +364,11 @@ async function signedIn(): Promise<{ db: Db; uid: string } | null> {
   return { db: supabase, uid: user.id };
 }
 
-export async function writeTargets(t: MeTargets): Promise<WriteResult> {
+export async function writeTargets(t: Omit<MeTargets, "updatedOn">): Promise<WriteResult> {
   const s = await signedIn();
   if (!s) return SIGN_IN;
-  const { error } = await s.db.from("me_targets").upsert(
+  const db = s.db;
+  const { error } = await db.from("me_targets").upsert(
     {
       user_id: s.uid,
       sex: t.sex,
@@ -344,9 +383,38 @@ export async function writeTargets(t: MeTargets): Promise<WriteResult> {
       protein_g: t.proteinG,
       carbs_g: t.carbsG,
       fat_g: t.fatG,
+      goal_weight_kg: t.goalWeightKg,
     },
     { onConflict: "user_id" },
   );
+  if (error) return FAILED;
+  // New targets answer every "update your targets?" card, so any "not now" is cleared. Best effort: a
+  // failure here only means a card may come back sooner.
+  await db.from("me_checkin_dismissals").delete().eq("user_id", s.uid);
+  return { ok: true };
+}
+
+export async function writeWeight(date: string, kg: number): Promise<WriteResult> {
+  const s = await signedIn();
+  if (!s) return SIGN_IN;
+  const db = s.db;
+  const { error } = await db.from("me_weights").upsert({ user_id: s.uid, log_date: date, weight_kg: kg }, { onConflict: "user_id,log_date" });
+  return error ? FAILED : { ok: true };
+}
+
+export async function removeWeight(date: string): Promise<WriteResult> {
+  const s = await signedIn();
+  if (!s) return SIGN_IN;
+  const db = s.db;
+  const { data, error } = await db.from("me_weights").delete().eq("log_date", date).select("log_date");
+  return error || !data || data.length === 0 ? FAILED : { ok: true };
+}
+
+export async function writeDismissal(kind: CheckInKind, date: string): Promise<WriteResult> {
+  const s = await signedIn();
+  if (!s) return SIGN_IN;
+  const db = s.db;
+  const { error } = await db.from("me_checkin_dismissals").upsert({ user_id: s.uid, kind, log_date: date }, { onConflict: "user_id,kind" });
   return error ? FAILED : { ok: true };
 }
 
@@ -443,12 +511,13 @@ export async function removeSleep(date: string): Promise<WriteResult> {
  * is far above any real diary and exists so a runaway account cannot build an unbounded response.
  */
 export async function getMyHealthExport() {
-  const db = await loose();
+  const db = await createClient();
   const cap = 20000;
-  const [targets, food, workouts, sleep] = await Promise.all([
-    db
+  const wdb = await createClient();
+  const [targets, food, workouts, sleep, weights] = await Promise.all([
+    wdb
       .from("me_targets")
-      .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, updated_at")
+      .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, goal_weight_kg, updated_at")
       .maybeSingle(),
     db
       .from("me_food_log")
@@ -461,6 +530,7 @@ export async function getMyHealthExport() {
       .order("log_date", { ascending: true })
       .limit(cap),
     db.from("me_sleep").select("log_date, hours").order("log_date", { ascending: true }).limit(cap),
+    wdb.from("me_weights").select("log_date, weight_kg").order("log_date", { ascending: true }).limit(cap),
   ]);
   return {
     targets: targets.data ?? null,
@@ -474,5 +544,6 @@ export async function getMyHealthExport() {
       return { ...rest, muscles: me_workout_muscles ?? [] };
     }),
     sleep: sleep.data ?? [],
+    weights: weights.data ?? [],
   };
 }

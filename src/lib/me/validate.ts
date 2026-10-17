@@ -6,6 +6,7 @@
  */
 
 import { isIsoDate } from "@/lib/me/dates";
+import { UUID_RE } from "@/lib/validate";
 import { MEAL_VALUES, type Meal } from "@/lib/me/types";
 import { ACTIVITY, PACES_KG, type Goal, type Sex, type Units } from "@/lib/me/targets";
 import { MUSCLE_SLUGS, SESSION_VALUES, type MuscleSlug, type Session } from "@/lib/me/muscles";
@@ -59,11 +60,8 @@ export const meal = (v: unknown) => oneOf<Meal>(v, MEAL_VALUES, "Meal");
 export const session = (v: unknown) => oneOf<Session>(v, SESSION_VALUES, "Session");
 export const muscle = (v: unknown) => oneOf<MuscleSlug>(v, MUSCLE_SLUGS, "Muscle");
 
-export const SLUG = /^[a-z0-9][a-z0-9-]{0,150}$/;
-export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
 export function uuid(v: unknown): Parsed<string> {
-  return typeof v === "string" && UUID.test(v) ? ok(v) : bad("That entry could not be found.");
+  return typeof v === "string" && UUID_RE.test(v) ? ok(v) : bad("That entry could not be found.");
 }
 
 /** Rounds to one decimal, which is what the database columns store. */
@@ -82,6 +80,7 @@ export type TargetsInput = {
   proteinG: number;
   carbsG: number;
   fatG: number;
+  goalWeightKg: number | null;
 };
 
 export function targetsInput(v: unknown): Parsed<TargetsInput> {
@@ -112,6 +111,18 @@ export function targetsInput(v: unknown): Parsed<TargetsInput> {
   if (!carbs.ok) return carbs;
   const fat = intIn(o.fatG, 0, 400, "Fat");
   if (!fat.ok) return fat;
+  // Goal weight: maintain keeps today's weight as the goal; lose / gain must give one on the right
+  // side of the current weight (the owner wants the projected date always shown for those goals).
+  let goalWeightKg: number | null = r1(weight.value);
+  const gw = o.goalWeightKg;
+  if (goal.value !== "maintain") {
+    if (gw === undefined || gw === null || gw === "") return bad("Enter your goal weight.");
+    const g = num(gw, 30, 300, "Goal weight");
+    if (!g.ok) return g;
+    goalWeightKg = r1(g.value);
+    if (goal.value === "lose" && goalWeightKg >= r1(weight.value)) return bad("To lose weight, the goal weight needs to be below your current weight.");
+    if (goal.value === "gain" && goalWeightKg <= r1(weight.value)) return bad("To gain weight, the goal weight needs to be above your current weight.");
+  }
   return ok({
     sex: sex.value,
     age: age.value,
@@ -125,5 +136,6 @@ export function targetsInput(v: unknown): Parsed<TargetsInput> {
     proteinG: protein.value,
     carbsG: carbs.value,
     fatG: fat.value,
+    goalWeightKg,
   });
 }

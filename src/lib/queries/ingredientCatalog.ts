@@ -1,4 +1,3 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { unstable_cache } from "next/cache";
 import { createStaticClient } from "@/lib/supabase/static";
 
@@ -50,7 +49,7 @@ type CatalogRow = {
  * Cached for an hour with the cookie-free client: it changes only on import.
  */
 async function loadIngredientCatalog(): Promise<IngredientCatalog> {
-  const sb = createStaticClient() as unknown as SupabaseClient;
+  const sb = createStaticClient();
   const { data, error } = await sb
     .from("ingredients")
     .select(

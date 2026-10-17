@@ -10,6 +10,9 @@ import {
   getRecipeNutrition,
   removeFood,
   removeSleep,
+  removeWeight,
+  writeDismissal,
+  writeWeight,
   removeWorkout,
   writeFood,
   writeSleep,
@@ -19,15 +22,17 @@ import {
   type WriteResult,
 } from "@/lib/queries/me";
 import type { DayDetail } from "@/lib/me/types";
+import { CHECKIN_KINDS, type CheckInKind } from "@/lib/me/checkin";
+import { SLUG_RE } from "@/lib/validate";
 import {
   intIn,
   logDate,
   meal,
   muscle,
   num,
+  oneOf,
   r1,
   session,
-  SLUG,
   targetsInput,
   text,
   uuid,
@@ -87,7 +92,7 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput): Promise<
   if (!m.ok) return fail(m.error);
 
   if (input.kind === "recipe") {
-    if (typeof input.slug !== "string" || !SLUG.test(input.slug)) return fail("That recipe could not be found.");
+    if (typeof input.slug !== "string" || !SLUG_RE.test(input.slug)) return fail("That recipe could not be found.");
     const servings = num(input.servings, 0.25, 50, "Servings");
     if (!servings.ok) return fail(servings.error);
     // Nutrition comes from the database, never from the browser.
@@ -121,7 +126,7 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput): Promise<
   const protein = optional(input.proteinG, 0, 2000, "Protein");
   const carbs = optional(input.carbsG, 0, 3000, "Carbs");
   const fat = optional(input.fatG, 0, 1500, "Fat");
-  const fiber = optional(input.fiberG, 0, 500, "Fibre");
+  const fiber = optional(input.fiberG, 0, 500, "Fiber");
   const sodium = optional(input.sodiumMg, 0, 50000, "Sodium");
   for (const f of [protein, carbs, fat, fiber, sodium]) if (!f.ok) return fail(f.error);
   const val = (f: typeof protein): number | null => (f.ok ? f.value : null);
@@ -232,6 +237,39 @@ export async function clearSleep(dateIn: unknown): Promise<ActionResult> {
   const date = logDate(dateIn);
   if (!date.ok) return fail(date.error);
   const r = await removeSleep(date.value);
+  if (r.ok) refresh();
+  return r;
+}
+
+/** A morning weigh-in. The input is in kilograms; the browser converts from pounds first. Stored to 0.1 kg. */
+export async function logWeight(dateIn: unknown, kgIn: unknown): Promise<ActionResult> {
+  if (!ME_ENABLED) return OFF;
+  const date = logDate(dateIn);
+  if (!date.ok) return fail(date.error);
+  const kg = num(kgIn, 30, 300, "Weight");
+  if (!kg.ok) return fail(kg.error);
+  const r = await writeWeight(date.value, r1(kg.value));
+  if (r.ok) refresh();
+  return r;
+}
+
+export async function clearWeight(dateIn: unknown): Promise<ActionResult> {
+  if (!ME_ENABLED) return OFF;
+  const date = logDate(dateIn);
+  if (!date.ok) return fail(date.error);
+  const r = await removeWeight(date.value);
+  if (r.ok) refresh();
+  return r;
+}
+
+/** "Not now" on an "Update your targets?" card. Remembered in the database, so it follows the person between devices. */
+export async function dismissCheckIn(kindIn: unknown, dateIn: unknown): Promise<ActionResult> {
+  if (!ME_ENABLED) return OFF;
+  const kind = oneOf<CheckInKind>(kindIn, CHECKIN_KINDS, "Check-in");
+  if (!kind.ok) return fail(kind.error);
+  const date = logDate(dateIn);
+  if (!date.ok) return fail(date.error);
+  const r = await writeDismissal(kind.value, date.value);
   if (r.ok) refresh();
   return r;
 }

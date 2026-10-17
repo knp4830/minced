@@ -1623,4 +1623,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 38 - [next entry goes here]
+## Entry 38 - Wave 9: Me dashboard v2, diet nesting
+
+**What we built.** Your wave 8 answers turned into code. Me now computes targets from a pace (0.5 kg a week is 550 kcal a day, from 7,700 kcal per kg) with floors of 1,200 (female) and 1,500 (male) and shows every step of the maths. Goal days are goal-aware (lose 85 to 105 percent, maintain 90 to 110, gain 95 to 115, plus protein at least 90 percent) and every verdict is explained in numbers, with an explainer page. New: goal weight and a projected date, a daily weigh-in with a 7-day-average chart (30 days, 90 days, weekly), check-ins with snoozes stored in the database, streaks for food, sleep and weight, Monday weeks, a muscle legend by weekly sets, and a "workout plans coming soon" card. Separately: pescatarian now includes vegetarian and vegan dishes (13 to 55 recipes), Google brand colours became tokens, /about tap targets grew, and a code-health pass removed dead code.
+
+**Key files.** `src/lib/me/{targets,foodStatus,weight,streaks,checkin,dates}.ts`, `src/components/me/{weightCard,weightChart,checkInCard,streakStrip,howCalculated}.tsx`, `src/app/(site)/me/how-goal-days/page.tsx`, migrations `20261017100000_me_dashboard_v2.sql` and `20261017110000_diet_implications.sql`, `scripts/test-me.mts`, `supabase/tests/me_rls_test.sql`.
+
+**How it works and why.** Percentages are rounded before the band check so the number shown is the number used. Streak counting is one TypeScript function over days returned by `me_logged_days`, so there is one implementation to test. Check-in snoozes are a table, not localStorage, so they follow the person; saving targets clears them. Diet nesting is a query rule (`diet_satisfying`) rather than re-tagging recipes: the data says what a recipe is, the rule says what a diet accepts. Rejected: a chart library (no new packages), an SQL streak function (two implementations), making goal weight required.
+
+**Concepts.** A trailing 7-day average smooths daily water-weight noise. Streaks use "alive if the last day is today or yesterday". Monday-first weeks come from `(getUTCDay() + 6) % 7`. A function overload is identified by its argument types, so changing a signature means dropping the old one.
+
+**Gotchas.** Browse had its own PostgREST diet embed that bypassed the RPC change. The cleanup lane deleted two helpers the feature lanes needed. The snapshot has no grants, so RLS tests fail a few checks until the migrations' grants are replayed. Check-in age uses the UTC date of `updated_at`. Apply both migrations before merging the code.
+
+---
+
+## Entry 39 - [next entry goes here]

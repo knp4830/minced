@@ -269,11 +269,11 @@ function QuickTab({ date, meal, pending, startTransition, setMessage, onDone }: 
       <details className="mt-4">
         <summary className="min-h-11 cursor-pointer py-2.5 text-[0.8125rem] font-medium text-herb">More nutrients</summary>
         <div className="mt-1 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <Num id={`${id}-fib`} label="Fibre" unit="g" value={f.fiberG} onChange={set("fiberG")} />
+          <Num id={`${id}-fib`} label="Fiber" unit="g" value={f.fiberG} onChange={set("fiberG")} />
           <Num id={`${id}-na`} label="Sodium" unit="mg" value={f.sodiumMg} onChange={set("sodiumMg")} />
         </div>
       </details>
-      <FieldHint>Only calories are required. Empty protein, carbs or fat count as 0 g. Empty fibre or sodium stay unknown, so they are left out of your totals rather than counted as zero.</FieldHint>
+      <FieldHint>Only calories are required. Empty protein, carbs or fat count as 0 g. Empty fiber or sodium stay unknown, so they are left out of your totals rather than counted as zero.</FieldHint>
       <div className="mt-5 flex justify-end">
         <Button type="submit" size="sm" disabled={pending || !f.name.trim() || f.calories.trim() === ""}>
           {pending ? "Adding…" : "Add"}

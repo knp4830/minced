@@ -160,9 +160,9 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
   if (f.calMax !== undefined) q = q.or(`calories.is.null,calories.lte.${f.calMax}`);
   if (f.proteinMin !== undefined) q = q.or(`protein_g.is.null,protein_g.gte.${f.proteinMin}`);
   if (f.cuisine?.length) q = q.in("cuisines.slug", f.cuisine);
-  (f.diet ?? []).forEach((slug, i) => {
-    q = q.eq(`diet${i}.diets.slug`, slug);
-  });
+  // Diets are NOT filtered here: pescatarian accepts vegetarian and vegan recipes, a rule that
+  // lives in Postgres (diet_satisfying) and is applied by filtered_recipes(), which loadBrowse
+  // reads whenever a diet is set.
   if (f.exclude?.length) {
     q = q.in("ex.allergens.slug", f.exclude).filter("ex", "is", "null");
   }
@@ -179,7 +179,6 @@ function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters)
 
 function selectFor(f: RecipeFilters): string {
   const parts = [CARD_COLUMNS.replace("cuisines(name)", f.cuisine?.length ? "cuisines!inner(name)" : "cuisines(name)")];
-  (f.diet ?? []).forEach((_, i) => parts.push(`diet${i}:recipe_diets!inner(diets!inner(slug))`));
   if (f.exclude?.length) parts.push("ex:recipe_allergens(allergens!inner(slug))");
   if (f.cookware?.length) parts.push("cw:recipe_cookware!inner(cookware!inner(slug))");
   return parts.join(", ");
@@ -198,7 +197,7 @@ async function loadBrowse(
   // Likewise "contains these ingredients" (family-expanded). One RPC does both, and
   // PostgREST still filters, embeds, orders and pages on top of its rows.
   const countOpt = cursor ? undefined : { count: "exact" as const };
-  const useRpc = filters.ownedOnly || !!filters.include?.length;
+  const useRpc = filters.ownedOnly || !!filters.include?.length || !!filters.diet?.length;
   let query = useRpc
     ? sb
         .rpc(
@@ -206,6 +205,7 @@ async function loadBrowse(
           {
             owned: filters.ownedOnly ? (filters.ownedCookware ?? []) : null,
             include_ids: filters.include?.length ? filters.include : null,
+            diet_slugs: filters.diet?.length ? filters.diet : null,
           },
           countOpt,
         )

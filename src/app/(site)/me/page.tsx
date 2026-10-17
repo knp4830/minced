@@ -5,29 +5,39 @@ import Link from "next/link";
 import "@/components/me/me.css";
 
 import { CalendarCard, type CalDay } from "@/components/me/calendarCard";
+import { CheckInCard } from "@/components/me/checkInCard";
 import { LogButton, LogFab } from "@/components/me/meButtons";
 import { MeUiProvider } from "@/components/me/meUi";
 import { MealsPanel } from "@/components/me/mealsPanel";
 import { MorningPrompt } from "@/components/me/morningPrompt";
 import { MuscleCard } from "@/components/me/muscleCard";
 import { NutrientsPanel } from "@/components/me/nutrientsPanel";
+import { StreakStrip } from "@/components/me/streakStrip";
 import { TimezoneSync } from "@/components/me/timezoneSync";
 import { TodayFood } from "@/components/me/todayFood";
+import { WEIGHT_FETCH_DAYS, WeightCard, type WeightRange } from "@/components/me/weightCard";
+import { WorkoutPlansSoon } from "@/components/me/workoutPlansSoon";
 import { ComingSoon } from "@/components/shell/comingSoon";
 import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/queries/account";
 import {
+  getDismissedCheckIns,
   getFoodForDate,
+  getLoggedDays,
   getMonthSummary,
   getSleepForDate,
   getTargets,
   getWeekMuscles,
+  getWeights,
   monthRange,
 } from "@/lib/queries/me";
-import { TZ_COOKIE, longDate, monthGrid, monthLabel, monthParam, parseMonthParam, shiftMonth, todayInZone, weekLabel } from "@/lib/me/dates";
+import { pickCheckIn } from "@/lib/me/checkin";
+import { TZ_COOKIE, addDays, longDate, monthGrid, monthLabel, monthParam, parseMonthParam, shiftMonth, todayInZone, weekLabel } from "@/lib/me/dates";
 import { dayFoodStatus } from "@/lib/me/foodStatus";
 import { ME_ENABLED } from "@/lib/me/flag";
+import { computeStreaks } from "@/lib/me/streaks";
 import { sumFood } from "@/lib/me/types";
+import { averageOn } from "@/lib/me/weight";
 
 export const metadata: Metadata = {
   title: "Me",
@@ -66,49 +76,82 @@ export default async function MePage({ searchParams }: Props) {
   const ym = parseMonthParam(rawMonth) ?? todayYm;
   const range = monthRange(ym.year, ym.month);
 
-  const [targets, food, sleepToday, week, summaries] = await Promise.all([
-    getTargets(),
+  const rawRange = Array.isArray(sp.wr) ? sp.wr[0] : sp.wr;
+  const wRange: WeightRange = rawRange === "90" || rawRange === "weekly" ? rawRange : "30";
+
+  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed] = await Promise.all([
+    getTargets(zone),
     getFoodForDate(today),
     getSleepForDate(today),
     getWeekMuscles(today),
     getMonthSummary(range.from, range.to),
+    getWeights(addDays(today, -(WEIGHT_FETCH_DAYS - 1)), today),
+    getLoggedDays(today),
+    getDismissedCheckIns(),
   ]);
 
   const totals = sumFood(food);
   const days: Record<string, CalDay> = {};
   for (const s of summaries) {
     const f = dayFoodStatus({ calories: s.calories, proteinG: s.proteinG, entries: s.foodEntries }, targets);
-    days[s.date] = { trained: s.trained, food: f.status, foodNote: f.note, sleep: s.sleepHours };
+    days[s.date] = { trained: s.trained, food: f.status, foodNote: f.note, sleep: s.sleepHours, weight: s.weightKg };
   }
   const weekMap = Object.fromEntries(week.muscles.map((m) => [m.muscle, { sets: m.sets, days: m.days }]));
 
+  const avgWeightKg = averageOn(weights, today);
+  const weightToday = weights.some((w) => w.date === today);
+  const checkin = pickCheckIn({ targets, avgKg: avgWeightKg, today, dismissed });
+  const streaks = computeStreaks(loggedDays, today);
+
+  // Month and weight-range links keep each other's choice in the URL.
+  const link = (m: { year: number; month: number } | null, wr: WeightRange) => {
+    const q = new URLSearchParams();
+    const month = m ?? ym;
+    if (!(month.year === todayYm.year && month.month === todayYm.month)) q.set("m", monthParam(month.year, month.month));
+    if (wr !== "30") q.set("wr", wr);
+    const s = q.toString();
+    return s ? `/me?${s}` : "/me";
+  };
   const prev = shiftMonth(ym.year, ym.month, -1);
   const next = shiftMonth(ym.year, ym.month, 1);
-  const href = (m: { year: number; month: number }) => (m.year === todayYm.year && m.month === todayYm.month ? "/me" : `/me?m=${monthParam(m.year, m.month)}`);
+  const href = (m: { year: number; month: number }) => link(m, wRange);
+  const wrHrefs: Record<WeightRange, string> = { "30": link(null, "30"), "90": link(null, "90"), weekly: link(null, "weekly") };
 
   return (
     <div className="me-scope page-w py-6 md:py-8">
       <TimezoneSync serverToday={today} />
-      <MeUiProvider today={today} targets={targets}>
+      <MeUiProvider today={today} targets={targets} avgWeightKg={avgWeightKg}>
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <h1 className="text-[1.75rem] leading-none font-medium md:text-[2rem]">Me</h1>
+          <h1 id="me-title" tabIndex={-1} className="text-[1.75rem] leading-none font-medium outline-none md:text-[2rem]">
+            Me
+          </h1>
           <p className="font-mono text-[0.8125rem] text-ink-muted">{longDate(today)}</p>
           <div className="hidden flex-1 md:block" />
           <LogButton className="hidden self-center md:inline-flex" />
         </div>
 
-        {sleepToday === null && (
+        <StreakStrip streaks={streaks} />
+
+        {(sleepToday === null || !weightToday) && (
           <div className="mt-4">
-            <MorningPrompt sleepLogged={false} />
+            <MorningPrompt sleepLogged={sleepToday !== null} weightLogged={weightToday} units={targets?.units ?? "metric"} />
+          </div>
+        )}
+        {checkin && (
+          <div className="mt-4">
+            <CheckInCard key={checkin.kind} checkin={checkin} />
           </div>
         )}
 
         <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-5 md:mt-6 md:gap-6 lg:grid-cols-12">
           <div className="contents lg:col-span-5 lg:flex lg:flex-col lg:gap-6">
-            <div className="max-lg:order-3">
+            <div className="max-lg:order-4">
               <MuscleCard key={targets?.sex ?? "male"} weekLabel={weekLabel(week.from, week.to)} week={weekMap} defaultSex={targets?.sex ?? "male"} />
             </div>
-            <div className="max-lg:order-4">
+            <div className="max-lg:order-5">
+              <WorkoutPlansSoon />
+            </div>
+            <div className="max-lg:order-6">
               <CalendarCard
                 monthLabel={monthLabel(ym.year, ym.month)}
                 prevHref={href(prev)}
@@ -124,11 +167,14 @@ export default async function MePage({ searchParams }: Props) {
             <div className="max-lg:order-1">
               <TodayFood dateLabel={longDate(today).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} />
             </div>
-            <div className="max-lg:order-5">
+            <div className="max-lg:order-7">
               <NutrientsPanel totals={totals} entries={food} />
             </div>
             <div className="max-lg:order-2">
               <MealsPanel food={food} totals={totals} />
+            </div>
+            <div className="max-lg:order-3">
+              <WeightCard weights={weights} today={today} range={wRange} hrefs={wrHrefs} targets={targets} />
             </div>
           </div>
         </div>

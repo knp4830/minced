@@ -1,3 +1,4 @@
+import { PhoneCollapse } from "@/components/me/phoneCollapse";
 import { nutrientLines } from "@/lib/me/dv";
 import type { DayTotals, FoodEntry } from "@/lib/me/types";
 import { cn } from "@/lib/utils";
@@ -5,7 +6,7 @@ import { cn } from "@/lib/utils";
 /*
  * "All nutrients today": each nutrient with an amount, a bar and its % of the FDA Daily Value (reference
  * table and source in src/lib/me/dv.ts). A nutrient with a daily limit (sodium, fat) turns paprika once it
- * passes 100%. Only nutrients that Minced stores for recipes appear: calories, protein, carbs, fat, fibre
+ * passes 100%. Only nutrients that Minced stores for recipes appear: calories, protein, carbs, fat, fiber
  * and sodium. Vitamins and minerals are not invented; the panel says so.
  */
 
@@ -37,7 +38,7 @@ export function NutrientsPanel({ totals, entries }: { totals: DayTotals; entries
       {empty ? (
         <p className="mt-4 text-[0.875rem] text-ink-muted">Nutrients from your meals will be listed here once you&rsquo;ve logged something.</p>
       ) : (
-        <>
+        <PhoneCollapse label="All nutrients">
           <div className="mt-2.5 grid gap-x-9 md:grid-cols-2">
             {columns.map((col, i) => (
               <ul key={i}>
@@ -60,9 +61,9 @@ export function NutrientsPanel({ totals, entries }: { totals: DayTotals; entries
           </div>
           <p className="mt-3 text-xs leading-relaxed text-ink-muted">
             % Daily Value is the FDA label reference for a 2,000-calorie diet, not a personal goal.
-            {unknown ? " Quick adds without fibre or sodium count as zero for those two." : ""} Vitamins and minerals are not tracked yet, because recipes here store calories, protein, carbs, fat, fibre and sodium.
+            {unknown ? " Quick adds without fiber or sodium count as zero for those two." : ""} Vitamins and minerals are not tracked yet, because recipes here store calories, protein, carbs, fat, fiber and sodium.
           </p>
-        </>
+        </PhoneCollapse>
       )}
     </section>
   );
