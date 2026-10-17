@@ -7,15 +7,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { saveTargets } from "@/lib/actions/me";
+import { addDays, dayMonthYear } from "@/lib/me/dates";
 import {
   ACTIVITY,
   GOALS,
+  MIN_KCAL,
   PACES_KG,
   cmToFtIn,
   computeTargets,
+  daysToGoal,
+  explainTargets,
   ftInToCm,
-  kgToLb,
+  kgToLb1,
   lbToKg,
+  paceLabel,
   paceNote,
   type Goal,
   type Sex,
@@ -25,15 +30,29 @@ import type { MeTargets } from "@/lib/me/types";
 import { cn } from "@/lib/utils";
 
 /*
- * First-time setup, four short steps (the design's 1c-1f): body, activity, goal and pace, then the result.
- * The result is Mifflin-St Jeor x activity, adjusted for the goal (src/lib/me/targets.ts), and every number
- * is editable before saving. "Skip for now" leaves no targets and the dashboard simply has no goal.
+ * First-time setup, four short steps: body, activity, goal (with pace and goal weight), then the result.
+ * The result is Mifflin-St Jeor x activity, adjusted for the pace (src/lib/me/targets.ts), the maths is shown
+ * in words, and every number is editable before saving. "Skip for now" leaves no targets and the dashboard
+ * simply has no goal. The same dialog is used to edit and to answer a check-in.
  */
 
 const STEPS = 4;
 const nf = new Intl.NumberFormat("en-GB");
 
-export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null; onClose: () => void }) {
+/** A weight in kg, shown in the person's units for a text field. */
+const showWeight = (kg: number, units: Units) => String(units === "imperial" ? kgToLb1(kg) : Math.round(kg * 10) / 10);
+
+export function TargetsWizard({
+  initial,
+  today,
+  avgWeightKg,
+  onClose,
+}: {
+  initial: MeTargets | null;
+  today: string;
+  avgWeightKg: number | null;
+  onClose: () => void;
+}) {
   const id = useId();
   const [step, setStep] = useState(1);
   const [units, setUnits] = useState<Units>(initial?.units ?? "metric");
@@ -41,10 +60,13 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
   const [age, setAge] = useState(initial ? String(initial.age) : "");
 
   const initFt = initial ? cmToFtIn(initial.heightCm) : null;
-  const [heightCm, setHeightCm] = useState(initial && initial.units === "metric" ? String(initial.heightCm) : initial ? "" : "");
+  const [heightCm, setHeightCm] = useState(initial && initial.units === "metric" ? String(initial.heightCm) : "");
   const [ft, setFt] = useState(initFt && initial?.units === "imperial" ? String(initFt.ft) : "");
   const [inch, setInch] = useState(initFt && initial?.units === "imperial" ? String(initFt.inch) : "");
-  const [weight, setWeight] = useState(initial ? String(initial.units === "imperial" ? kgToLb(initial.weightKg) : initial.weightKg) : "");
+  // When there is a 7-day average from daily weigh-ins, start from it: it is where the person is now.
+  const fromAverage = initial !== null && avgWeightKg !== null;
+  const [weight, setWeight] = useState(initial ? showWeight(avgWeightKg ?? initial.weightKg, initial.units) : "");
+  const [goalWeight, setGoalWeight] = useState(initial?.goalWeightKg ? showWeight(initial.goalWeightKg, initial.units) : "");
 
   const [activity, setActivity] = useState<number>(initial?.activity ?? 2);
   const [goal, setGoal] = useState<Goal>(initial?.goal ?? "maintain");
@@ -63,10 +85,23 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
     return good ? { age: a, heightCm: Math.round(cm * 10) / 10, weightKg: Math.round(kg * 10) / 10 } : null;
   }, [age, heightCm, ft, inch, weight, units]);
 
-  const computed = useMemo(
-    () => (body && sex ? computeTargets({ sex, age: body.age, heightCm: body.heightCm, weightKg: body.weightKg, activity, goal, paceKg: goal === "maintain" ? 0 : pace }) : null),
+  const input = useMemo(
+    () => (body && sex ? { sex, age: body.age, heightCm: body.heightCm, weightKg: body.weightKg, activity, goal, paceKg: goal === "maintain" ? 0 : pace } : null),
     [body, sex, activity, goal, pace],
   );
+  const computed = useMemo(() => (input ? computeTargets(input) : null), [input]);
+  const explained = useMemo(() => (input && computed ? explainTargets(input, computed) : null), [input, computed]);
+
+  // Goal weight in kg: null when blank, NaN when typed but not usable.
+  const goalKg = useMemo(() => {
+    if (goal === "maintain" || goalWeight.trim() === "") return null;
+    const n = Number(goalWeight);
+    const kg = units === "metric" ? n : lbToKg(n);
+    return Number.isFinite(kg) && kg >= 30 && kg <= 300 ? Math.round(kg * 10) / 10 : Number.NaN;
+  }, [goal, goalWeight, units]);
+  const wrongSide = body !== null && goalKg !== null && !Number.isNaN(goalKg) && (goal === "lose" ? goalKg >= body.weightKg : goal === "gain" ? goalKg <= body.weightKg : false);
+  const goalProblem = goalKg !== null && Number.isNaN(goalKg) ? "Enter a goal weight between 30 and 300 kg." : wrongSide ? (goal === "lose" ? "To lose weight, the goal needs to be below your current weight." : "To gain weight, the goal needs to be above your current weight.") : null;
+  const days = body && goalKg !== null && !Number.isNaN(goalKg) && !wrongSide ? daysToGoal(body.weightKg, goalKg, goal, goal === "maintain" ? 0 : pace) : null;
 
   function switchUnits(next: Units) {
     if (next === units) return;
@@ -75,12 +110,13 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
         const f = cmToFtIn(body.heightCm);
         setFt(String(f.ft));
         setInch(String(f.inch));
-        setWeight(String(kgToLb(body.weightKg)));
+        setWeight(showWeight(body.weightKg, "imperial"));
       } else {
         setHeightCm(String(body.heightCm));
-        setWeight(String(body.weightKg));
+        setWeight(showWeight(body.weightKg, "metric"));
       }
     }
+    if (goalKg !== null && !Number.isNaN(goalKg)) setGoalWeight(showWeight(goalKg, next));
     setUnits(next);
   }
 
@@ -119,6 +155,7 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
         proteinG: Number(edit.proteinG),
         carbsG: Number(edit.carbsG),
         fatG: Number(edit.fatG),
+        goalWeightKg: goal === "maintain" || goalKg === null || Number.isNaN(goalKg) ? null : goalKg,
       });
       if (r.ok) onClose();
       else setMessage(r.error);
@@ -126,8 +163,12 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
   }
 
   const step1Ready = sex !== null && body !== null;
+  const step3Ready = goalProblem === null;
   const macroKcal = edit ? Number(edit.proteinG) * 4 + Number(edit.carbsG) * 4 + Number(edit.fatG) * 9 : 0;
   const mismatch = edit && Number.isFinite(macroKcal) && Math.abs(macroKcal - Number(edit.kcal)) > 100;
+  const floor = sex ? MIN_KCAL[sex] : 1200;
+  const belowFloor = edit !== null && Number(edit.kcal) > 0 && Number(edit.kcal) < floor;
+  const wUnit = units === "metric" ? "kg" : "lb";
 
   return (
     <MeDialog eyebrow={`Step ${step} of ${STEPS}`} title={["Let’s set your targets", "How active are you?", "What’s the goal?", "Your daily targets"][step - 1]} onClose={onClose} widthRem={34}>
@@ -169,10 +210,11 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
               </div>
             )}
             <div>
-              <Label htmlFor={`${id}-w`}>Weight ({units === "metric" ? "kg" : "lb"})</Label>
-              <Input id={`${id}-w`} mono inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value.replace(/[^\d.]/g, "").slice(0, 5))} placeholder={units === "metric" ? "kg" : "lb"} />
+              <Label htmlFor={`${id}-w`}>Weight ({wUnit})</Label>
+              <Input id={`${id}-w`} mono inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value.replace(/[^\d.]/g, "").slice(0, 5))} placeholder={wUnit} />
             </div>
           </div>
+          {fromAverage && <p className="mt-3 text-[0.8125rem] text-ink-muted">Weight starts from your 7-day average, so the new targets fit where you are now. Change it if that is not right.</p>}
         </div>
       )}
 
@@ -209,23 +251,44 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
             <Seg label="Goal" value={goal} options={GOALS.map((g) => [g.v, g.label] as [string, string])} onChange={(v) => setGoal(v as Goal)} wide />
           </div>
           {goal !== "maintain" && (
-            <div className="mt-5">
-              <span className="text-[0.8125rem] font-semibold">Pace</span>
-              <div className="mt-1.5 flex flex-wrap items-center gap-2">
-                <Seg label="Pace per week" value={String(pace)} options={PACES_KG.map((p) => [String(p), `${p} kg`] as [string, string])} onChange={(v) => setPace(Number(v))} />
-                <span className="text-[0.8125rem] text-ink-muted">per week</span>
+            <>
+              <div className="mt-5">
+                <span className="text-[0.8125rem] font-semibold">Pace</span>
+                <div className="mt-1.5 flex flex-wrap items-center gap-2">
+                  <Seg label="Pace per week" value={String(pace)} options={PACES_KG.map((p) => [String(p), paceLabel(p, units)] as [string, string])} onChange={(v) => setPace(Number(v))} />
+                  <span className="text-[0.8125rem] text-ink-muted">per week</span>
+                </div>
               </div>
-            </div>
+              <div className="mt-5 max-w-56">
+                <Label htmlFor={`${id}-gw`}>Goal weight ({wUnit}, optional)</Label>
+                <Input
+                  id={`${id}-gw`}
+                  mono
+                  inputMode="decimal"
+                  value={goalWeight}
+                  onChange={(e) => setGoalWeight(e.target.value.replace(/[^\d.]/g, "").slice(0, 5))}
+                  placeholder={wUnit}
+                  aria-invalid={goalProblem !== null}
+                  aria-describedby={`${id}-gw-note`}
+                />
+              </div>
+              <p id={`${id}-gw-note`} className={cn("mt-2 text-[0.875rem]", goalProblem ? "text-paprika-deep" : "text-ink-muted")} aria-live="polite">
+                {goalProblem ??
+                  (days !== null && body && goalKg !== null
+                    ? `At ${paceLabel(pace, units)} a week, from ${showWeight(body.weightKg, units)} ${wUnit} to ${showWeight(goalKg, units)} ${wUnit} takes about ${Math.max(1, Math.round(days / 7))} ${Math.round(days / 7) === 1 ? "week" : "weeks"}: about ${dayMonthYear(addDays(today, days))}. It is an estimate, because weight does not drop in a straight line.`
+                    : "Add a goal weight to see roughly when you would get there.")}
+              </p>
+            </>
           )}
           <p className="mt-4 text-[0.875rem] text-ink-muted" aria-live="polite">
-            {paceNote(goal, goal === "maintain" ? 0 : pace)}
+            {paceNote(goal, goal === "maintain" ? 0 : pace, units)}
           </p>
         </div>
       )}
 
-      {step === 4 && edit && computed && (
+      {step === 4 && edit && computed && explained && (
         <div>
-          <p className="mt-4 text-[0.9375rem] text-ink-muted">Mifflin-St Jeor, adjusted for activity and goal. Edit anything before saving.</p>
+          <p className="mt-4 text-[0.9375rem] text-ink-muted">Here is how we got there. Edit anything before saving.</p>
           <div className="mt-5 flex items-end gap-3 rounded-xl bg-band px-5 py-4">
             <label className="sr-only" htmlFor={`${id}-kcal`}>
               Calories per day
@@ -233,6 +296,15 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
             <input id={`${id}-kcal`} inputMode="numeric" value={edit.kcal === "" ? "" : Number(edit.kcal).toLocaleString("en-GB")} onChange={(e) => onKcalEdit(e.target.value.replace(/\D/g, "").slice(0, 4))} className="w-32 bg-transparent font-mono text-[2.5rem] leading-none font-medium outline-none focus-visible:underline" />
             <span className="pb-1 font-mono text-xs text-ink-muted">kcal per day</span>
           </div>
+          <p className="mt-3 text-[0.875rem] leading-relaxed">{explained.oneLine}.</p>
+          <details className="mt-2 text-[0.8125rem] text-ink-muted">
+            <summary className="min-h-11 cursor-pointer py-2 font-medium text-herb sm:min-h-0 sm:py-0">Show each step</summary>
+            <ol className="mt-2 list-decimal space-y-1.5 pl-5 leading-relaxed">
+              {explained.lines.map((l) => (
+                <li key={l}>{l}</li>
+              ))}
+            </ol>
+          </details>
           <div className="mt-4 grid grid-cols-3 gap-3">
             {(
               [
@@ -247,9 +319,11 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
               </div>
             ))}
           </div>
-          <p className="mt-4 text-[0.8125rem] leading-relaxed text-ink-muted">
-            Resting rate <span className="font-mono">{nf.format(computed.bmr)} kcal</span> &middot; {ACTIVITY[activity].label.toLowerCase()} &middot; protein 1.9 g/kg, fat 0.9 g/kg, carbs fill the rest.
-          </p>
+          {belowFloor && (
+            <p className="mt-3 text-[0.8125rem] text-saffron-ink">
+              {nf.format(Number(edit.kcal))} kcal is below the {nf.format(floor)} kcal we suggest as a minimum. You can keep it, but a very low target is worth talking over with a doctor or dietitian.
+            </p>
+          )}
           {mismatch && <p className="mt-2 text-[0.8125rem] text-saffron-ink">Those macros add up to about {nf.format(Math.round(macroKcal))} kcal, not {nf.format(Number(edit.kcal) || 0)}. That is fine if you meant it.</p>}
         </div>
       )}
@@ -269,7 +343,7 @@ export function TargetsWizard({ initial, onClose }: { initial: MeTargets | null;
           </Button>
         )}
         {step < STEPS ? (
-          <Button size="sm" onClick={goNext} disabled={step === 1 && !step1Ready}>
+          <Button size="sm" onClick={goNext} disabled={(step === 1 && !step1Ready) || (step === 3 && !step3Ready)}>
             Continue
           </Button>
         ) : (

@@ -82,6 +82,7 @@ export type TargetsInput = {
   proteinG: number;
   carbsG: number;
   fatG: number;
+  goalWeightKg: number | null;
 };
 
 export function targetsInput(v: unknown): Parsed<TargetsInput> {
@@ -112,6 +113,16 @@ export function targetsInput(v: unknown): Parsed<TargetsInput> {
   if (!carbs.ok) return carbs;
   const fat = intIn(o.fatG, 0, 400, "Fat");
   if (!fat.ok) return fat;
+  // Goal weight: only for lose / gain, optional, and on the right side of the current weight.
+  let goalWeightKg: number | null = null;
+  const gw = o.goalWeightKg;
+  if (goal.value !== "maintain" && gw !== undefined && gw !== null && gw !== "") {
+    const g = num(gw, 30, 300, "Goal weight");
+    if (!g.ok) return g;
+    goalWeightKg = r1(g.value);
+    if (goal.value === "lose" && goalWeightKg >= r1(weight.value)) return bad("To lose weight, the goal weight needs to be below your current weight.");
+    if (goal.value === "gain" && goalWeightKg <= r1(weight.value)) return bad("To gain weight, the goal weight needs to be above your current weight.");
+  }
   return ok({
     sex: sex.value,
     age: age.value,
@@ -125,5 +136,6 @@ export function targetsInput(v: unknown): Parsed<TargetsInput> {
     proteinG: protein.value,
     carbsG: carbs.value,
     fatG: fat.value,
+    goalWeightKg,
   });
 }

@@ -6,7 +6,9 @@ import { MeDialog } from "@/components/me/meDialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FieldHint, Label } from "@/components/ui/label";
-import { logSleep, logWorkout } from "@/lib/actions/me";
+import { useMeUi } from "@/components/me/meUi";
+import { logSleep, logWeight, logWorkout } from "@/lib/actions/me";
+import { lbToKg } from "@/lib/me/targets";
 import { longDate } from "@/lib/me/dates";
 import { DEFAULT_MINUTES, DEFAULT_SETS, MUSCLES, SESSIONS, type Session } from "@/lib/me/muscles";
 import { cn } from "@/lib/utils";
@@ -17,6 +19,7 @@ import { cn } from "@/lib/utils";
  *             muscles and the sets for each. Cardio is minutes only.
  *   Food    - opens the add-food dialog (recipes and quick adds write immediately from there).
  *   Sleep   - hours slept, in half hours. The slider only logs once you move it.
+ *   Weight  - this morning's weigh-in. Logs only when a number is typed.
  * "Log" saves the workout and the sleep you set; food is added from its own dialog.
  */
 
@@ -40,13 +43,19 @@ export function LogSheet({
   const [custom, setCustom] = useState<Record<string, CustomRow>>({});
   const [sleep, setSleep] = useState(7.5);
   const [sleepTouched, setSleepTouched] = useState(false);
+  const ui = useMeUi();
+  const units = ui.targets?.units ?? "metric";
+  const unitWord = units === "imperial" ? "lb" : "kg";
+  const [weight, setWeight] = useState("");
+  const weightKg = units === "imperial" ? lbToKg(Number(weight)) : Number(weight);
+  const weightReady = weight.trim() !== "" && Number.isFinite(weightKg) && weightKg >= 30 && weightKg <= 300;
   const [message, setMessage] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const id = useId();
 
   const pickedMuscles = Object.entries(custom).filter(([, r]) => r.on);
   const workoutReady = session !== null && (session === "cardio" ? minutes >= 1 : session === "custom" ? pickedMuscles.length > 0 : sets >= 1);
-  const canLog = workoutReady || sleepTouched;
+  const canLog = workoutReady || sleepTouched || weightReady;
 
   function save() {
     setMessage(null);
@@ -66,6 +75,10 @@ export function LogSheet({
         const r = await logSleep(date, sleep);
         if (!r.ok) return setMessage(r.error);
       }
+      if (weightReady) {
+        const r = await logWeight(date, weightKg);
+        if (!r.ok) return setMessage(r.error);
+      }
       onClose();
     });
   }
@@ -74,7 +87,7 @@ export function LogSheet({
     <MeDialog eyebrow={date === today ? "Quick log" : `Quick log · ${longDate(date)}`} title="What are you logging?" onClose={onClose}>
       <div className="mt-5 grid gap-4 md:grid-cols-[1.35fr_1fr_1fr]">
         {/* Workout */}
-        <section aria-labelledby={`${id}-w`} className="flex flex-col gap-3 rounded-xl bg-band p-4 md:p-[1.125rem]">
+        <section aria-labelledby={`${id}-w`} className="flex flex-col gap-3 rounded-xl bg-band p-4 md:row-span-2 md:p-[1.125rem]">
           <div>
             <h3 id={`${id}-w`} className="text-lg font-medium">
               Workout
@@ -148,7 +161,7 @@ export function LogSheet({
         </section>
 
         {/* Food */}
-        <section aria-labelledby={`${id}-f`} className="flex flex-col gap-3 rounded-xl bg-band p-4 md:p-[1.125rem]">
+        <section aria-labelledby={`${id}-f`} className="flex flex-col gap-3 rounded-xl bg-band p-4 md:col-span-2 md:p-[1.125rem]">
           <div>
             <h3 id={`${id}-f`} className="text-lg font-medium">
               Food
@@ -192,6 +205,34 @@ export function LogSheet({
             <span>12h</span>
           </div>
           {!sleepTouched && <FieldHint>Move the slider to log your sleep.</FieldHint>}
+        </section>
+
+        {/* Weight */}
+        <section aria-labelledby={`${id}-g`} className="flex flex-col gap-3 rounded-xl bg-band p-4 md:p-[1.125rem]">
+          <div>
+            <h3 id={`${id}-g`} className="text-lg font-medium">
+              Weight
+            </h3>
+            <p className="mt-1 text-xs leading-snug text-ink-muted">Your weigh-in{date === today ? " this morning" : ""}. We chart the 7-day average.</p>
+          </div>
+          <div>
+            <Label htmlFor={`${id}-wt`} className="sr-only">
+              Weight in {unitWord}
+            </Label>
+            <div className="flex items-end gap-2">
+              <Input
+                id={`${id}-wt`}
+                mono
+                inputMode="decimal"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value.replace(/[^\d.]/g, "").slice(0, 5))}
+                placeholder="0.0"
+                className="w-28"
+              />
+              <span className="pb-2.5 font-mono text-xs text-ink-muted">{unitWord}</span>
+            </div>
+          </div>
+          {!weightReady && <FieldHint>Type your weight to log it.</FieldHint>}
         </section>
       </div>
 

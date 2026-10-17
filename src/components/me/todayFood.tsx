@@ -1,3 +1,4 @@
+import { HowCalculated } from "@/components/me/howCalculated";
 import { TargetsButton } from "@/components/me/meButtons";
 import { KCAL_PER_G } from "@/lib/me/targets";
 import type { DayTotals, MeTargets } from "@/lib/me/types";
@@ -132,6 +133,7 @@ export function TodayFood({ dateLabel, totals, targets }: { dateLabel: string; t
           <MacroBar key={m.key} label={m.label} got={m.got} goal={m.goal} />
         ))}
       </div>
+      {targets && <HowCalculated targets={targets} />}
     </section>
   );
 }

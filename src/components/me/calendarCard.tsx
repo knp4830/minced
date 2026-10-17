@@ -6,15 +6,16 @@ import { useId, useRef, useState, useTransition, type KeyboardEvent } from "reac
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { useMeUi } from "@/components/me/meUi";
-import { deleteWorkout, loadDay } from "@/lib/actions/me";
+import { clearSleep, clearWeight, deleteWorkout, loadDay } from "@/lib/actions/me";
 import { addDays, longDate, shortDate, type CalCell } from "@/lib/me/dates";
 import { dayFoodStatus, type FoodStatus } from "@/lib/me/foodStatus";
 import { sessionLabel } from "@/lib/me/muscles";
+import { formatWeight } from "@/lib/me/targets";
 import type { DayDetail, MeTargets } from "@/lib/me/types";
 import { cn } from "@/lib/utils";
 
 /*
- * Month calendar. Under each date: a dumbbell if you trained, a plate for nutrition (filled = goal hit,
+ * Month calendar, weeks start on Monday. Under each date: a dumbbell if you trained, a plate for nutrition (filled = goal hit,
  * ring = partly, see src/lib/me/foodStatus.ts) and the hours slept. Pick a date for the day's detail with
  * edit buttons. The month is in the URL (?m=2026-10) and the arrows are links, so it is shareable and the
  * back button works. Arrow keys move between dates.
@@ -25,9 +26,10 @@ export type CalDay = {
   food: FoodStatus;
   foodNote: string;
   sleep: number | null;
+  weight: number | null;
 };
 
-const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 function dayLabel(iso: string, d: CalDay | undefined): string {
   const bits: string[] = [];
@@ -36,6 +38,7 @@ function dayLabel(iso: string, d: CalDay | undefined): string {
   else if (d?.food === "part") bits.push(`nutrition partly: ${d.foodNote.toLowerCase()}`);
   else if (d?.food === "logged") bits.push("food logged");
   if (d?.sleep != null) bits.push(`slept ${d.sleep} hours`);
+  if (d?.weight != null) bits.push("weighed in");
   return `${shortDate(iso)}${bits.length ? `, ${bits.join(", ")}` : ", nothing logged"}`;
 }
 
@@ -195,6 +198,11 @@ export function CalendarCard({
         <li className="flex items-center gap-1.5">
           <Moon /> <span className="font-mono text-[0.6875rem]">7h</span> Sleep
         </li>
+        <li className="w-full">
+          <Link href="/me/how-goal-days" className="inline-flex min-h-11 items-center font-medium text-herb underline-offset-2 hover:underline sm:min-h-0">
+            How goal days work
+          </Link>
+        </li>
       </ul>
       {nothingLogged && <p className="mt-3 text-[0.8125rem] text-ink-muted">Workouts, nutrition and sleep will appear under each day as you log them.</p>}
 
@@ -241,6 +249,13 @@ export function CalendarCard({
                   else setError(r.error);
                 })
               }
+              onClear={(what) =>
+                startTransition(async () => {
+                  const r = what === "sleep" ? await clearSleep(detail.date) : await clearWeight(detail.date);
+                  if (r.ok) load(detail.date);
+                  else setError(r.error);
+                })
+              }
             />
           )}
         </div>
@@ -255,12 +270,14 @@ function DayRows({
   onAddWorkout,
   onAddFood,
   onRemoveWorkout,
+  onClear,
 }: {
   detail: DayDetail;
   targets: MeTargets | null;
   onAddWorkout: () => void;
   onAddFood: () => void;
   onRemoveWorkout: (id: string) => void;
+  onClear: (what: "sleep" | "weight") => void;
 }) {
   const nf = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
   const status = dayFoodStatus(detail.totals, targets);
@@ -295,16 +312,44 @@ function DayRows({
               ? `${nf.format(detail.totals.calories)} / ${nf.format(targets.kcal)} kcal · protein ${nf.format(detail.totals.proteinG)} / ${nf.format(targets.proteinG)} g`
               : `${nf.format(detail.totals.calories)} kcal · protein ${nf.format(detail.totals.proteinG)} g`}
         </p>
-        <p className={cn("mt-0.5 font-mono text-[0.6875rem]", status.status === "part" ? "text-paprika-deep" : "text-ink-muted")}>{status.note}</p>
+        {status.detail ? (
+          <>
+            <p className="mt-1 text-[0.75rem] leading-snug text-ink-muted">{status.detail}</p>
+            <Link href="/me/how-goal-days" className="mt-1 inline-flex min-h-11 items-center text-[0.75rem] font-medium text-herb underline-offset-2 hover:underline sm:min-h-0">
+              How goal days work
+            </Link>
+          </>
+        ) : (
+          <p className="mt-0.5 font-mono text-[0.6875rem] text-ink-muted">{status.note}</p>
+        )}
       </Row>
-      <Row icon={<Moon />} label="Sleep" button={detail.sleep != null ? "Edit" : "Add"} onClick={onAddWorkout}>
+      <Row icon={<Moon />} label="Sleep" button={detail.sleep != null ? "Edit" : "Add"} onClick={onAddWorkout} onClear={detail.sleep != null ? () => onClear("sleep") : undefined} clearLabel="Clear sleep">
         <p className="mt-1 font-mono text-[0.8125rem]">{detail.sleep != null ? `${detail.sleep}h slept` : "Not logged"}</p>
+      </Row>
+      <Row icon={<ScaleMark />} label="Weight" button={detail.weightKg != null ? "Edit" : "Add"} onClick={onAddWorkout} onClear={detail.weightKg != null ? () => onClear("weight") : undefined} clearLabel="Clear weight">
+        <p className="mt-1 font-mono text-[0.8125rem]">{detail.weightKg != null ? formatWeight(detail.weightKg, targets?.units ?? "metric") : "Not logged"}</p>
       </Row>
     </div>
   );
 }
 
-function Row({ icon, label, button, onClick, children }: { icon: React.ReactNode; label: string; button: string; onClick: () => void; children: React.ReactNode }) {
+function Row({
+  icon,
+  label,
+  button,
+  onClick,
+  onClear,
+  clearLabel,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  button: string;
+  onClick: () => void;
+  onClear?: () => void;
+  clearLabel?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex items-center gap-3 border-t border-line py-2.5">
       <span className="grid w-3.5 shrink-0 place-items-center" aria-hidden>
@@ -314,6 +359,11 @@ function Row({ icon, label, button, onClick, children }: { icon: React.ReactNode
         <p className="label-mono">{label}</p>
         {children}
       </div>
+      {onClear && (
+        <button type="button" aria-label={clearLabel} onClick={onClear} className="inline-flex size-11 shrink-0 items-center justify-center rounded-sm text-ink-subtle hover:bg-band hover:text-paprika-deep sm:size-8">
+          <X aria-hidden className="size-3.5" />
+        </button>
+      )}
       <button type="button" onClick={onClick} aria-label={`${button} ${label.toLowerCase()}`} className="inline-flex min-h-11 items-center rounded-md border border-line-strong px-2.5 text-xs font-medium text-herb transition-colors hover:bg-band sm:min-h-7">
         {button}
       </button>
@@ -340,6 +390,16 @@ function Plate({ hit, dim }: { hit: boolean; dim?: boolean }) {
     <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden className={dim ? "text-ink/25" : "text-herb"}>
       <circle cx="6" cy="6" r="5.2" fill={hit ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.2" />
       <circle cx="6" cy="6" r="2.2" fill={hit ? "var(--color-surface)" : "none"} stroke={hit ? "none" : "currentColor"} strokeWidth="1" />
+    </svg>
+  );
+}
+
+function ScaleMark() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden className="text-ink-muted" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <rect x="1.2" y="1.2" width="9.6" height="9.6" rx="2" />
+      <path d="M3.6 5.2 A2.4 2.4 0 0 1 8.4 5.2" strokeLinecap="round" />
+      <path d="M6 5.2 L6.8 3.8" strokeLinecap="round" />
     </svg>
   );
 }

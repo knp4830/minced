@@ -54,6 +54,7 @@ export async function GET() {
     me_food_log: health.food_log,
     me_workouts: health.workouts,
     me_sleep: health.sleep,
+    me_weights: health.weights,
   };
   return new Response(JSON.stringify(body, null, 2), {
     headers: {

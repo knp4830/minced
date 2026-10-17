@@ -52,15 +52,15 @@ export function todayInZone(tz: string | undefined | null, now: Date = new Date(
   }
 }
 
-/** Sunday to Saturday week containing `iso` (the design's "Sun 12 - Sat 18 Oct"). */
-export function weekRange(iso: string): { from: string; to: string } {
-  const dow = new Date(toUtc(iso)).getUTCDay(); // 0 = Sunday
-  const from = addDays(iso, -dow);
-  return { from, to: addDays(from, 6) };
+/** Index of the weekday with Monday = 0 ... Sunday = 6. Weeks start on Monday everywhere in Me. */
+export function mondayIndex(iso: string): number {
+  return (new Date(toUtc(iso)).getUTCDay() + 6) % 7;
 }
 
-export function dayOfWeek(iso: string): number {
-  return new Date(toUtc(iso)).getUTCDay();
+/** Monday to Sunday week containing `iso` ("Mon 12 - Sun 18 Oct"). */
+export function weekRange(iso: string): { from: string; to: string } {
+  const from = addDays(iso, -mondayIndex(iso));
+  return { from, to: addDays(from, 6) };
 }
 
 /** `2026-10` or null. */
@@ -89,9 +89,9 @@ export function daysInMonth(year: number, month: number): number {
 
 export type CalCell = { iso: string | null; day: number | null };
 
-/** Month grid, Sunday first, padded with blanks to whole weeks. */
+/** Month grid, Monday first, padded with blanks to whole weeks. */
 export function monthGrid(year: number, month: number): CalCell[] {
-  const first = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
+  const first = mondayIndex(`${year}-${String(month).padStart(2, "0")}-01`);
   const n = daysInMonth(year, month);
   const cells: CalCell[] = [];
   for (let i = 0; i < first; i++) cells.push({ iso: null, day: null });
@@ -106,6 +106,7 @@ const F_WEEKDAY_DAY_MONTH = fmt({ weekday: "short", day: "numeric", month: "shor
 const F_MONTH_YEAR = fmt({ month: "long", year: "numeric" });
 const F_SHORT_DAY = fmt({ day: "numeric", month: "short" });
 const F_DAY = fmt({ day: "numeric" });
+const F_FULL = fmt({ day: "numeric", month: "long", year: "numeric" });
 const F_WEEKDAY = fmt({ weekday: "short" });
 
 /** "Monday 13 October" */
@@ -120,11 +121,15 @@ export function shortDate(iso: string): string {
 export function monthLabel(year: number, month: number): string {
   return F_MONTH_YEAR.format(Date.UTC(year, month - 1, 1));
 }
-/** "Sun 12 – Sat 18 Oct" (the month is written once when both ends share it) */
+/** "Mon 12 – Sun 18 Oct" (the month is written once when both ends share it) */
 export function weekLabel(from: string, to: string): string {
   const sameMonth = new Date(toUtc(from)).getUTCMonth() === new Date(toUtc(to)).getUTCMonth();
   const left = sameMonth ? `${F_WEEKDAY.format(toUtc(from))} ${dayNumber(from)}` : shortDate(from);
   return `${left} – ${shortDate(to)}`;
+}
+/** "12 March 2027" */
+export function dayMonthYear(iso: string): string {
+  return F_FULL.format(toUtc(iso));
 }
 export function dayNumber(iso: string): string {
   return F_DAY.format(toUtc(iso));
