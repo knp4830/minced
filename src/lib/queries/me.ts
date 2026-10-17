@@ -7,7 +7,7 @@
 
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createClient } from "@/lib/supabase/server";
-import { addDays, weekRange } from "@/lib/me/dates";
+import { addDays, localDateOf, weekRange } from "@/lib/me/dates";
 import {
   sumFood,
   type DayDetail,
@@ -45,7 +45,8 @@ type TargetRow = {
   updated_at: string;
 };
 
-export async function getTargets(): Promise<MeTargets | null> {
+/** `zone` is the person's IANA time zone, so `updatedOn` is the LOCAL date the targets were saved. */
+export async function getTargets(zone?: string | null): Promise<MeTargets | null> {
   const db = await createClient();
   const { data } = await db
     .from("me_targets")
@@ -67,7 +68,7 @@ export async function getTargets(): Promise<MeTargets | null> {
     carbsG: r.carbs_g,
     fatG: r.fat_g,
     goalWeightKg: numOrNull(r.goal_weight_kg),
-    updatedOn: r.updated_at.slice(0, 10),
+    updatedOn: localDateOf(r.updated_at, zone),
   };
 }
 

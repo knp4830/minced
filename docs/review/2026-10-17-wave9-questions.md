@@ -34,19 +34,21 @@ Every open question from the lanes and the verifiers, with the default that was 
 
 **Q12. Terms page does not mention health data (S4).** Recommend a lawyer-reviewed pass before the Me flag goes on.
 
-## Bugs found in verification (not fixed; recommend a small wave)
+## Bugs found in verification (B1-B6 fixed 2026-10-17, see below)
 
-**B1. Check-in age uses the UTC date of `updated_at`** (`src/lib/queries/me.ts`) against the browser-local today, so in the evening in a western time zone the 28-day card appears a day late. Same base for the projected date. Fix: convert with the `me_tz` cookie.
+**FIXED B1. Check-in age uses the UTC date of `updated_at`** (`src/lib/queries/me.ts`) against the browser-local today, so in the evening in a western time zone the 28-day card appears a day late. Same base for the projected date. Fix: convert with the `me_tz` cookie.
 
-**B2. The projected date uses the chosen pace even when the calorie target was raised to the floor.** The result step says the pace will be slower, but the date does not. Fix: derive the pace from the floored calories.
+**FIXED B2. The projected date uses the chosen pace even when the calorie target was raised to the floor.** The result step says the pace will be slower, but the date does not. Fix: derive the pace from the floored calories.
 
-**B3. Copy nits:** "a 825 kcal daily deficit" should read "an 825"; the weigh-in input shows "83.2 kg" placeholder next to a separate "kg" suffix; "vs a week ago" -0.85 displays as -0.8 (float rounding).
+**FIXED B3. Copy nits:** "a 825 kcal daily deficit" should read "an 825"; the weigh-in input shows "83.2 kg" placeholder next to a separate "kg" suffix; "vs a week ago" -0.85 displays as -0.8 (float rounding).
 
-**B4. Dismissing a check-in drops keyboard focus to the body** (the card unmounts). Move focus to the next card or heading.
+**FIXED B4. Dismissing a check-in drops keyboard focus to the body** (the card unmounts). Move focus to the next card or heading.
 
-**B5. /about: the body-art credit link has a 41.7 px tap area** (target 44). Use a larger inset.
+**FIXED B5. /about: the body-art credit link has a 41.7 px tap area** (target 44). Use a larger inset.
 
-**B6. `NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN` accepts only `true`; `NEXT_PUBLIC_ENABLE_ME` accepts `true` or `1`.** Recommend making them consistent.
+**FIXED B6. `NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN` accepts only `true`; `NEXT_PUBLIC_ENABLE_ME` accepts `true` or `1`.** Recommend making them consistent.
+
+Fix notes: B1 `localDateOf()` converts `updated_at` with the `me_tz` zone (getTargets takes the zone). B2 `effectivePaceKg()` feeds the wizard, weight card and projected date; the wizard sentence says "about 0.32 kg a week" when clamped. B3 copy is now "a daily deficit of 825 kcal", the placeholder drops the unit, and `round1()` rounds -0.85 to -0.9 for kg and lb. B4 focus moves to the "Me" heading. B5 inset is 16 px (49.7 px area at 375). B6 one `isOn()` helper in `src/lib/flags.ts` accepts "true" or "1" for both flags.
 
 ## Diet nesting
 

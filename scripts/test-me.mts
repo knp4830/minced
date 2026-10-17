@@ -9,12 +9,12 @@ import { register } from "node:module";
 
 register("./me-alias-hook.mjs", import.meta.url);
 
-const { addDays, daysInMonth, dayMonthYear, isIsoDate, mondayIndex, monthGrid, parseMonthParam, shiftMonth, todayInZone, weekRange, weekLabel, longDate } =
+const { localDateOf, addDays, daysInMonth, dayMonthYear, isIsoDate, mondayIndex, monthGrid, parseMonthParam, shiftMonth, todayInZone, weekRange, weekLabel, longDate } =
   await import("../src/lib/me/dates.ts");
 const { nutrientLines } = await import("../src/lib/me/dv.ts");
 const { dayFoodStatus, GOAL_BANDS } = await import("../src/lib/me/foodStatus.ts");
 const { SESSION_MUSCLES, distributeSets, intensity } = await import("../src/lib/me/muscles.ts");
-const { cmToFtIn, computeTargets, dailyAdjustment, daysToGoal, explainTargets, formatWeight, ftInToCm, kgToLb, kgToLb1, lbToKg, paceLabel, paceNote } =
+const { cmToFtIn, computeTargets, dailyAdjustment, daysToGoal, effectivePaceKg, round1, explainTargets, formatWeight, ftInToCm, kgToLb, kgToLb1, lbToKg, paceLabel, paceNote } =
   await import("../src/lib/me/targets.ts");
 const { averageOn, changeVsWeekAgo, toGoal, weeklyAverages, withRollingAverage } = await import("../src/lib/me/weight.ts");
 const { computeStreak, computeStreaks } = await import("../src/lib/me/streaks.ts");
@@ -40,8 +40,8 @@ assert.ok(explainTargets(ex, t).lines.length >= 4);
 assert.equal(dailyAdjustment(0.25), 275);
 assert.equal(dailyAdjustment(0.5), 550);
 assert.equal(dailyAdjustment(0.75), 825);
-assert.equal(paceNote("lose", 0.5), "About 0.5 kg per week · a 550 kcal daily deficit.");
-assert.equal(paceNote("gain", 0.25, "imperial"), "About 0.6 lb per week · a 275 kcal daily surplus.");
+assert.equal(paceNote("lose", 0.5), "About 0.5 kg per week · a daily deficit of 550 kcal.");
+assert.equal(paceNote("gain", 0.25, "imperial"), "About 0.6 lb per week · a daily surplus of 275 kcal.");
 assert.equal(paceNote("maintain", 0), "Eat at maintenance — no deficit or surplus.");
 assert.equal(paceLabel(0.5, "imperial"), "1.1 lb");
 
@@ -282,5 +282,38 @@ assert.equal(pickCheckIn({ targets: base, avgKg: 75.9, today: "2026-10-10", dism
 assert.equal(pickCheckIn({ targets: base, avgKg: 82, today: "2026-10-24", dismissed: { weight: "2026-10-10" } })?.kind, "weight"); // 14 days later it returns
 assert.equal(pickCheckIn({ targets: base, avgKg: 82, today: "2026-10-23", dismissed: { weight: "2026-10-10" } }), null); // 13 days: still snoozed
 assert.equal(pickCheckIn({ targets: { ...base, goal: "maintain", goalWeightKg: null }, avgKg: null, today: "2026-10-10", dismissed: {} }), null);
+
+// ---- review fixes: local check-in age, clamped pace, rounding ----
+// 23:30 on 16 Oct in Los Angeles is already 17 Oct in UTC; the saved date must be the LOCAL one.
+assert.equal(localDateOf("2026-10-17T06:30:00+00:00", "America/Los_Angeles"), "2026-10-16");
+assert.equal(localDateOf("2026-10-17T06:30:00+00:00", "UTC"), "2026-10-17");
+assert.equal(localDateOf("2026-10-17T06:30:00+00:00", null), "2026-10-17");
+assert.equal(localDateOf("2026-10-16T16:30:00+00:00", "Pacific/Auckland"), "2026-10-17");
+// 28 days after a Los Angeles evening save, the age check-in fires on the local day, not a day late.
+const evening = { ...base, updatedOn: localDateOf("2026-10-17T06:30:00+00:00", "America/Los_Angeles"), goal: "maintain", goalWeightKg: null } as const;
+assert.equal(pickCheckIn({ targets: evening, avgKg: 84, today: "2026-11-13", dismissed: {} })?.kind, "age");
+assert.equal(pickCheckIn({ targets: evening, avgKg: 84, today: "2026-11-12", dismissed: {} }), null);
+
+// A clamped target runs slower than the chosen pace, so the projection uses the real pace.
+const slow = { sex: "female", age: 30, heightCm: 160, weightKg: 60, activity: 0, goal: "lose", paceKg: 0.5 } as const;
+const slowT = computeTargets(slow);
+assert.equal(slowT.clamped, true);
+assert.equal(slowT.kcal, 1200);
+const real = effectivePaceKg(slow, slowT.kcal);
+assert.ok(real > 0.3 && real < 0.35, String(real)); // (1550 - 1200) x 7 / 7700 = 0.318
+assert.equal(daysToGoal(60, 55, "lose", real), 110); // not the 70 days the chosen 0.5 kg/week would say
+assert.equal(daysToGoal(60, 55, "lose", 0.5), 70);
+assert.equal(effectivePaceKg(ex, computeTargets(ex).kcal), 0.5); // unclamped: the chosen pace
+assert.equal(effectivePaceKg({ ...ex, goal: "maintain", paceKg: 0 }, 2810), 0);
+const clampedSaved = { ...base, sex: "female", age: 30, heightCm: 160, weightKg: 60, activity: 0, paceKg: 0.5, kcal: 1200, goalWeightKg: 55, updatedOn: "2026-10-01" } as const;
+assert.equal(projectedDateIso(clampedSaved), addDays("2026-10-01", 110));
+
+// Rounding: -0.85 is -0.9 (a binary float would show -0.8); same for lb.
+assert.equal(round1(-0.85), -0.9);
+assert.equal(round1(0.85), 0.9);
+assert.equal(round1(1.005), 1);
+assert.equal(round1(83.25), 83.3);
+assert.equal(formatWeight(83.25, "metric"), "83.3 kg");
+assert.equal(round1(-0.04), 0);
 
 console.log("test-me: all assertions passed");

@@ -377,6 +377,6 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 
 **Dead-code cleanup must be re-checked when merged after feature lanes.** Cleanup removed `dayDiff` and `dayMonth`, which the weight and check-in code then needed.
 
-**A date stored as a UTC timestamp compared with a browser-local "today" is off by a day in the evening.** Convert `updated_at` with the `me_tz` cookie before day arithmetic (open: check-in age).
+**A date stored as a UTC timestamp compared with a browser-local "today" is off by a day in the evening.** Convert `updated_at` with the `me_tz` cookie before day arithmetic.
 
-**A clamped target changes the projected date.** The projection must use the pace the floored calories actually give (open).
+**A clamped target changes the projected date.** The projection must use the pace the floored calories actually give.

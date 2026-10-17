@@ -4,7 +4,7 @@ import { TargetsButton } from "@/components/me/meButtons";
 import { WeightChart } from "@/components/me/weightChart";
 import { WeightLogForm } from "@/components/me/weightLogForm";
 import { addDays, dayMonthYear, weekRange } from "@/lib/me/dates";
-import { daysToGoal, formatWeight, kgToLb1, type Units } from "@/lib/me/targets";
+import { daysToGoal, effectivePaceKg, formatWeight, kgToLb1, round1, type Units } from "@/lib/me/targets";
 import type { MeTargets } from "@/lib/me/types";
 import { averageOn, changeVsWeekAgo, toGoal, weeklyAverages, withRollingAverage, type WeightPoint } from "@/lib/me/weight";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export const WEIGHT_RANGES: { v: WeightRange; label: string }[] = [
 /** How far back the page fetches: 26 weeks for the weekly view plus a week of history for the first averages. */
 export const WEIGHT_FETCH_DAYS = 190;
 
-const diffText = (kg: number, units: Units) => (units === "imperial" ? `${kgToLb1(Math.abs(kg)).toFixed(1)} lb` : `${Math.abs(kg).toFixed(1)} kg`);
+const diffText = (kg: number, units: Units) => (units === "imperial" ? `${kgToLb1(Math.abs(kg)).toFixed(1)} lb` : `${round1(Math.abs(kg)).toFixed(1)} kg`);
 
 export function WeightCard({
   weights,
@@ -55,7 +55,7 @@ export function WeightCard({
   const losingOrGaining = targets !== null && targets.goal !== "maintain";
   const goalKg = losingOrGaining ? targets.goalWeightKg : null;
   const toGo = here !== null && goalKg !== null && targets && targets.goal !== "maintain" ? toGoal(here, goalKg, targets.goal) : null;
-  const eta = here !== null && goalKg !== null && targets ? daysToGoal(here, goalKg, targets.goal, targets.paceKg) : null;
+  const eta = here !== null && goalKg !== null && targets ? daysToGoal(here, goalKg, targets.goal, effectivePaceKg({ sex: targets.sex, age: targets.age, heightCm: targets.heightCm, weightKg: targets.weightKg, activity: targets.activity, goal: targets.goal, paceKg: targets.paceKg }, targets.kcal)) : null;
 
   const summaryBits = [
     avg !== null ? `7-day average ${formatWeight(avg, units)}.` : "No 7-day average yet.",

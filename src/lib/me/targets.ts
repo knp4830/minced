@@ -154,6 +154,24 @@ export function daysToGoal(fromKg: number, goalKg: number | null, goal: Goal, pa
   return Math.ceil((diff / paceKg) * 7);
 }
 
+/**
+ * The pace the saved calories actually give. Normally the chosen pace; when the target was lifted to the
+ * 1,200 / 1,500 kcal floor, the real daily gap is smaller, so the real pace is gap x 7 / 7,700 kg a week.
+ * Projections must use this, not the chosen pace.
+ */
+export function effectivePaceKg(i: TargetInput, kcal: number): number {
+  if (i.goal === "maintain") return 0;
+  const t = computeTargets(i);
+  if (!t.clamped) return i.paceKg;
+  const gap = i.goal === "lose" ? t.maintenance - kcal : kcal - t.maintenance;
+  return Math.max(0, Math.min(i.paceKg, (gap * 7) / KCAL_PER_KG));
+}
+
+/** Round to one decimal without binary-float surprises (-0.85 gives -0.9, not -0.8); rounds half away from zero. */
+export function round1(x: number): number {
+  return (Math.sign(x) * Math.round(Math.abs(x) * 10 + 1e-9)) / 10 || 0;
+}
+
 // ---- unit conversion (metric is what is stored) ----
 const CM_PER_IN = 2.54;
 export const KG_PER_LB = 0.45359237;
@@ -170,7 +188,7 @@ export function kgToLb(kg: number): number {
 }
 /** One decimal, for weigh-ins (a whole pound is too coarse to see a trend). */
 export function kgToLb1(kg: number): number {
-  return Math.round((kg / KG_PER_LB) * 10) / 10;
+  return round1(kg / KG_PER_LB);
 }
 export function lbToKg(lb: number): number {
   return Math.round(lb * KG_PER_LB * 10) / 10;
@@ -178,7 +196,7 @@ export function lbToKg(lb: number): number {
 
 /** A weight in the person's units, e.g. "84.0 kg" or "185.2 lb". */
 export function formatWeight(kg: number, units: Units): string {
-  return units === "imperial" ? `${kgToLb1(kg).toFixed(1)} lb` : `${(Math.round(kg * 10) / 10).toFixed(1)} kg`;
+  return units === "imperial" ? `${kgToLb1(kg).toFixed(1)} lb` : `${round1(kg).toFixed(1)} kg`;
 }
 
 /** The pace chip label. Pace is stored in kg; imperial shows the pounds beside it. */
@@ -190,5 +208,5 @@ export function paceLabel(paceKg: number, units: Units): string {
 export function paceNote(goal: Goal, paceKg: number, units: Units = "metric"): string {
   if (goal === "maintain") return "Eat at maintenance — no deficit or surplus.";
   const kcal = dailyAdjustment(paceKg);
-  return `About ${paceLabel(paceKg, units)} per week · a ${nf.format(kcal)} kcal daily ${goal === "lose" ? "deficit" : "surplus"}.`;
+  return `About ${paceLabel(paceKg, units)} per week · a daily ${goal === "lose" ? "deficit" : "surplus"} of ${nf.format(kcal)} kcal.`;
 }

@@ -40,7 +40,11 @@ export function CheckInCard({ checkin }: { checkin: CheckIn }) {
           onClick={() =>
             startTransition(async () => {
               const r = await dismissCheckIn(checkin.kind, ui.today);
-              if (r.ok) setHidden(true);
+              if (r.ok) {
+                // The button is about to unmount; hand focus to the page heading so it does not fall to <body>.
+                document.getElementById("me-title")?.focus();
+                setHidden(true);
+              }
               else setError(r.error);
             })
           }

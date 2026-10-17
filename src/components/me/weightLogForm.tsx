@@ -46,7 +46,7 @@ export function WeightLogForm({ units, todayLabel }: { units: Units; todayLabel:
             inputMode="decimal"
             value={value}
             onChange={(e) => setValue(e.target.value.replace(/[^\d.]/g, "").slice(0, 5))}
-            placeholder={todayLabel ?? "0.0"}
+            placeholder={todayLabel ? todayLabel.replace(/ (kg|lb)$/, "") : "0.0"}
             className="h-11 w-28 rounded-field border border-field bg-surface px-3 font-mono text-sm outline-none focus-visible:border-herb sm:h-9"
           />
           <span className="font-mono text-xs text-ink-muted">{unit}</span>

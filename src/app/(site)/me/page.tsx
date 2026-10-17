@@ -80,7 +80,7 @@ export default async function MePage({ searchParams }: Props) {
   const wRange: WeightRange = rawRange === "90" || rawRange === "weekly" ? rawRange : "30";
 
   const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed] = await Promise.all([
-    getTargets(),
+    getTargets(zone),
     getFoodForDate(today),
     getSleepForDate(today),
     getWeekMuscles(today),
@@ -122,7 +122,9 @@ export default async function MePage({ searchParams }: Props) {
       <TimezoneSync serverToday={today} />
       <MeUiProvider today={today} targets={targets} avgWeightKg={avgWeightKg}>
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <h1 className="text-[1.75rem] leading-none font-medium md:text-[2rem]">Me</h1>
+          <h1 id="me-title" tabIndex={-1} className="text-[1.75rem] leading-none font-medium outline-none md:text-[2rem]">
+            Me
+          </h1>
           <p className="font-mono text-[0.8125rem] text-ink-muted">{longDate(today)}</p>
           <div className="hidden flex-1 md:block" />
           <LogButton className="hidden self-center md:inline-flex" />

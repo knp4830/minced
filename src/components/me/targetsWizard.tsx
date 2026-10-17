@@ -16,6 +16,7 @@ import {
   cmToFtIn,
   computeTargets,
   daysToGoal,
+  effectivePaceKg,
   explainTargets,
   ftInToCm,
   kgToLb1,
@@ -101,7 +102,9 @@ export function TargetsWizard({
   }, [goal, goalWeight, units]);
   const wrongSide = body !== null && goalKg !== null && !Number.isNaN(goalKg) && (goal === "lose" ? goalKg >= body.weightKg : goal === "gain" ? goalKg <= body.weightKg : false);
   const goalProblem = goalKg !== null && Number.isNaN(goalKg) ? "Enter a goal weight between 30 and 300 kg." : wrongSide ? (goal === "lose" ? "To lose weight, the goal needs to be below your current weight." : "To gain weight, the goal needs to be above your current weight.") : null;
-  const days = body && goalKg !== null && !Number.isNaN(goalKg) && !wrongSide ? daysToGoal(body.weightKg, goalKg, goal, goal === "maintain" ? 0 : pace) : null;
+  // The pace the calories really give: slower than chosen when the target was lifted to the minimum.
+  const realPace = input && computed ? effectivePaceKg(input, computed.kcal) : 0;
+  const days = body && goalKg !== null && !Number.isNaN(goalKg) && !wrongSide ? daysToGoal(body.weightKg, goalKg, goal, realPace) : null;
 
   function switchUnits(next: Units) {
     if (next === units) return;
@@ -275,7 +278,7 @@ export function TargetsWizard({
               <p id={`${id}-gw-note`} className={cn("mt-2 text-[0.875rem]", goalProblem ? "text-paprika-deep" : "text-ink-muted")} aria-live="polite">
                 {goalProblem ??
                   (days !== null && body && goalKg !== null
-                    ? `At ${paceLabel(pace, units)} a week, from ${showWeight(body.weightKg, units)} ${wUnit} to ${showWeight(goalKg, units)} ${wUnit} takes about ${Math.max(1, Math.round(days / 7))} ${Math.round(days / 7) === 1 ? "week" : "weeks"}: about ${dayMonthYear(addDays(today, days))}. It is an estimate, because weight does not ${goal === "gain" ? "rise" : "drop"} in a straight line.`
+                    ? `At ${computed?.clamped ? "about " : ""}${paceLabel(computed?.clamped ? Math.round(realPace * 100) / 100 : pace, units)} a week, from ${showWeight(body.weightKg, units)} ${wUnit} to ${showWeight(goalKg, units)} ${wUnit} takes about ${Math.max(1, Math.round(days / 7))} ${Math.round(days / 7) === 1 ? "week" : "weeks"}: about ${dayMonthYear(addDays(today, days))}. It is an estimate, because weight does not ${goal === "gain" ? "rise" : "drop"} in a straight line.`
                     : "Add a goal weight to see roughly when you would get there.")}
               </p>
             </>

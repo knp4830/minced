@@ -52,6 +52,12 @@ export function todayInZone(tz: string | undefined | null, now: Date = new Date(
   }
 }
 
+/** The local calendar date (in an IANA zone) of a timestamp such as a Postgres `timestamptz` string. */
+export function localDateOf(timestamp: string, tz: string | undefined | null): string {
+  const t = new Date(timestamp);
+  return Number.isNaN(t.getTime()) ? timestamp.slice(0, 10) : todayInZone(tz, t);
+}
+
 /** Index of the weekday with Monday = 0 ... Sunday = 6. Weeks start on Monday everywhere in Me. */
 export function mondayIndex(iso: string): number {
   return (new Date(toUtc(iso)).getUTCDay() + 6) % 7;

@@ -10,7 +10,7 @@
  */
 
 import { addDays, dayDiff } from "@/lib/me/dates";
-import { daysToGoal, kgToLb1 } from "@/lib/me/targets";
+import { daysToGoal, effectivePaceKg, kgToLb1 } from "@/lib/me/targets";
 import type { MeTargets } from "@/lib/me/types";
 
 export const WEIGHT_DRIFT_KG = 2;
@@ -23,8 +23,12 @@ export const CHECKIN_KINDS: readonly string[] = ["goal", "weight", "age"];
 export type CheckIn = { kind: CheckInKind; title: string; body: string };
 
 /** The date the goal weight is reached at the chosen pace, counted from when the targets were saved. */
-export function projectedDateIso(targets: Pick<MeTargets, "weightKg" | "goalWeightKg" | "goal" | "paceKg" | "updatedOn">): string | null {
-  const days = daysToGoal(targets.weightKg, targets.goalWeightKg, targets.goal, targets.paceKg);
+export function projectedDateIso(targets: Pick<MeTargets, "sex" | "age" | "heightCm" | "weightKg" | "activity" | "kcal" | "goalWeightKg" | "goal" | "paceKg" | "updatedOn">): string | null {
+  const pace = effectivePaceKg(
+    { sex: targets.sex, age: targets.age, heightCm: targets.heightCm, weightKg: targets.weightKg, activity: targets.activity, goal: targets.goal, paceKg: targets.paceKg },
+    targets.kcal,
+  );
+  const days = daysToGoal(targets.weightKg, targets.goalWeightKg, targets.goal, pace);
   return days === null ? null : addDays(targets.updatedOn, days);
 }
 
