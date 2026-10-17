@@ -212,10 +212,10 @@ begin
   if sm.gaps <> array['fixture mystery spice (no USDA food linked)'] then raise exception 'FAILED T3: gaps %', sm.gaps; end if;
   if sm.quantified_lines <> 4 or sm.counted_lines <> 3 then raise exception 'FAILED T3: line counts'; end if;
 
-  -- a line with a food but no gram weight (tsp of garlic: no density, no tsp portion) is also a gap
-  plus := base || jsonb_build_array(jsonb_build_object('ingredient_id', g, 'quantity', 1, 'unit_id', tsp));
+  -- a line with a food but no gram weight (a can of garlic: a count unit with no portion) is also a gap
+  plus := base || jsonb_build_array(jsonb_build_object('ingredient_id', g, 'quantity', 1, 'unit_id', (select id from units where name = 'can')));
   select * into sm from nutrition_summary(plus);
-  if sm.gaps <> array['garlic (no gram weight for tsp)'] then raise exception 'FAILED T3b: gaps %', sm.gaps; end if;
+  if sm.gaps <> array['garlic (no gram weight for can)'] then raise exception 'FAILED T3b: gaps %', sm.gaps; end if;
 
   -- fewer than half countable -> unavailable
   plus := jsonb_build_array(jsonb_build_object('ingredient_id', m, 'quantity', 1, 'unit_id', tsp),

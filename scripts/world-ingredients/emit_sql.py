@@ -52,6 +52,28 @@ def stems(s):
     return {w[:4] for w in re.findall(r"[a-z]+", s.lower()) if len(w) > 2 and w not in STOP}
 
 
+PROMOTE_DEFAULTS = r"""
+-- Integration fix: an existing ingredient with no generic USDA food (e.g. seitan) got brand foods only, and the schema
+-- requires exactly one default per (ingredient, form). Promote the brand closest to the group's median energy.
+with grp as (
+  select f.ingredient_id, f.form from ingredient_foods f group by 1, 2 having not bool_or(f.is_default)
+), k as (
+  select f.ingredient_id, f.form, f.fdc_id, coalesce(n.amount_per_100g, 0) as kcal
+  from ingredient_foods f join grp g using (ingredient_id, form)
+  left join usda_food_nutrients n on n.fdc_id = f.fdc_id and n.nutrient_id = 1
+), m as (
+  select ingredient_id, form, percentile_cont(0.5) within group (order by kcal) as med from k group by 1, 2
+), e as (
+  select k.*, m.med from k join m using (ingredient_id, form)
+), pick as (
+  select distinct on (ingredient_id, form) ingredient_id, form, fdc_id
+  from e order by ingredient_id, form, abs(kcal - med), fdc_id
+)
+update ingredient_foods f set is_default = true
+from pick p where f.ingredient_id = p.ingredient_id and f.form = p.form and f.fdc_id = p.fdc_id;
+"""
+
+
 def main():
     resolved = json.load(open(os.path.join(CACHE, "resolved.json"), encoding="utf-8"))
     dupes = json.load(open(os.path.join(CACHE, "dupes.json"), encoding="utf-8"))
@@ -296,6 +318,7 @@ def main():
     for i in range(0, len(fd_vals), 400):
         out.append("update ingredients i set fdc_id = v.fdc_id, density_g_per_ml = coalesce(i.density_g_per_ml, v.d)\nfrom (values\n  "
                    + ",\n  ".join(fd_vals[i:i + 400]) + "\n) v(cn, fdc_id, d) where i.canonical_name = v.cn and i.fdc_id is null;")
+    out.append(PROMOTE_DEFAULTS)
     out.append("commit;")
     open(os.path.join(ROOT, "supabase", "seed-nutrition-world.sql"), "w", encoding="utf-8", newline="\n").write("\n".join(out) + "\n")
 

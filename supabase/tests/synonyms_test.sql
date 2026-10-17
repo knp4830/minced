@@ -113,7 +113,7 @@ insert into t_pairs (term, canonical) values
   ('canned tomatoes',      'diced tomatoes'),
   ('chopped tomatoes',     'diced tomatoes'),
   ('passata',              'tomato sauce'),
-  ('tomato puree',         'tomato paste'),
+  ('tomato puree',         'tomato puree'),   -- wave 10: its own ingredient (different nutrition)
   ('sweetcorn',            'corn'),
   ('maize',                'corn'),
   ('clementine',           'mandarin orange'),
@@ -161,9 +161,9 @@ insert into t_pairs (term, canonical) values
   ('single cream',         'half-and-half'),
   ('light cream',          'half-and-half'),
   ('soured cream',         'sour cream'),
-  ('whole milk',           'milk'),
-  ('skimmed milk',         'milk'),
-  ('semi-skimmed milk',    'milk'),
+  ('whole milk',           'whole milk'),     -- wave 10: milk fat levels are family children of milk
+  ('skimmed milk',         'skim milk'),
+  ('semi-skimmed milk',    'reduced fat milk'),
   ('condensed milk',       'sweetened condensed milk'),
   ('natural yogurt',       'plain yogurt'),
   ('plain yoghurt',        'plain yogurt'),

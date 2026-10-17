@@ -11889,4 +11889,23 @@ from (values
   ('dende palm oil', 171015, 0.913),
   ('manioc starch', 169717, 0.642)
 ) v(cn, fdc_id, d) where i.canonical_name = v.cn and i.fdc_id is null;
+
+-- Integration fix: an existing ingredient with no generic USDA food (e.g. seitan) got brand foods only, and the schema
+-- requires exactly one default per (ingredient, form). Promote the brand closest to the group's median energy.
+with grp as (
+  select f.ingredient_id, f.form from ingredient_foods f group by 1, 2 having not bool_or(f.is_default)
+), k as (
+  select f.ingredient_id, f.form, f.fdc_id, coalesce(n.amount_per_100g, 0) as kcal
+  from ingredient_foods f join grp g using (ingredient_id, form)
+  left join usda_food_nutrients n on n.fdc_id = f.fdc_id and n.nutrient_id = 1
+), m as (
+  select ingredient_id, form, percentile_cont(0.5) within group (order by kcal) as med from k group by 1, 2
+), e as (
+  select k.*, m.med from k join m using (ingredient_id, form)
+), pick as (
+  select distinct on (ingredient_id, form) ingredient_id, form, fdc_id
+  from e order by ingredient_id, form, abs(kcal - med), fdc_id
+)
+update ingredient_foods f set is_default = true
+from pick p where f.ingredient_id = p.ingredient_id and f.form = p.form and f.fdc_id = p.fdc_id;
 commit;

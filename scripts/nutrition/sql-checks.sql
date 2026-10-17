@@ -16,10 +16,10 @@ begin
   from (select fdc_id from usda_food_nutrients where amount_per_100g < 0 limit 20) x;
   if n > 0 then raise exception 'GATE negative amounts: foods %', list; end if;
 
-  -- energy cannot exceed pure fat (884 kcal / 100 g); salt is the sodium ceiling (about 39,300 mg / 100 g)
+  -- energy cannot exceed pure fat (SR oils and tallow are 902; branded labels round up to about 930, so the ceiling is 940); salt is the sodium ceiling (about 39,300 mg / 100 g)
   select count(*), string_agg(fdc_id || ':' || nutrient_id || '=' || amount_per_100g, ', ') into n, list
   from (select fdc_id, nutrient_id, amount_per_100g from usda_food_nutrients
-        where (nutrient_id = 1 and amount_per_100g > 900)
+        where (nutrient_id = 1 and amount_per_100g > 940)
            or (nutrient_id = 13 and amount_per_100g > 40000)
            or (nutrient_id in (2, 3, 4, 5, 6, 7, 8, 9, 10, 11) and amount_per_100g > 100)
         order by fdc_id limit 20) x;
