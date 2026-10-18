@@ -1,203 +1,62 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import { RememberList } from "@/components/recipe/rememberList";
-import { FridgePicker } from "@/components/pantry/fridgePicker";
-import { FridgeDatesLink, LocalFridgeImport } from "@/components/pantry/localFridgeImport";
-import { daysUntilLabel, todayIso, urgencyOf } from "@/lib/fridgeDates";
-import { getRecipeExpiryDays } from "@/lib/queries/fridge";
-import { RecipeList } from "@/components/recipe/recipeList";
-import {
-  filtersToQuery,
-  hasActiveFilters,
-  parseFilters,
-  resultFilters,
-  withFilters,
-  type DefaultsState,
-  type RecipeFilters,
-  type SearchParamsInput,
-} from "@/lib/filters";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { DefaultsChip, PrefsMarker } from "@/components/recipe/defaultsChip";
-import { resolveDefaults } from "@/lib/prefsCookie";
-import { cn } from "@/lib/utils";
-import { RecipeGridSkeleton } from "@/components/shell/skeletons";
-import {
-  activeFilterCount,
-  ClearFilters,
-  FilterControls,
-} from "@/components/recipe/filterPanel";
+import { Suspense } from "react";
+
 import { CookwareSync } from "@/components/recipe/cookwareSync";
+import { DefaultsChip, PrefsMarker } from "@/components/recipe/defaultsChip";
 import { FilterSheet } from "@/components/recipe/filterSheet";
-import { getCardExtras, getFilterOptions } from "@/lib/queries/browse";
+import { RememberList } from "@/components/recipe/rememberList";
+import { FridgeGate } from "@/components/pantry/fridgeGate";
+import { FridgePicker } from "@/components/pantry/fridgePicker";
+import { FridgeResults, isGroupId } from "@/components/pantry/fridgeResults";
+import { MakeNowSwitch } from "@/components/pantry/makeNowSwitch";
+import { activeFilterCount, ClearFilters, FilterControls } from "@/components/recipe/filterPanel";
+import { RecipeGridSkeleton } from "@/components/shell/skeletons";
+import { filtersToQuery, parseFilters, resultFilters, type SearchParamsInput } from "@/lib/filters";
+import { resolveDefaults } from "@/lib/prefsCookie";
+import { getCurrentUser } from "@/lib/queries/account";
+import { getFilterOptions } from "@/lib/queries/browse";
+import { getFridge } from "@/lib/queries/fridge";
 import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
-import { getIngredientNames } from "@/lib/queries/ingredients";
-import { matchRecipes } from "@/lib/queries/matcher";
-import { usableImageUrl } from "@/lib/photos";
 
 export const metadata: Metadata = {
-  title: "What’s in my fridge",
-  description: "Every recipe that uses what you have, closest match first.",
+  title: "Cook from what you have",
+  description: "Every recipe that uses your fridge, grouped by how little you are missing.",
   robots: { index: false, follow: true },
 };
 
 /**
- * One tap on a fridge item is enough, so the matcher is asked for everything
- * that uses at least one picked ingredient: no cap on how much a recipe may be
- * missing. Ranking (coverage, then more items used) does the sorting. `?maxMissing=`
- * in the URL still narrows it for anyone who wants that.
+ * The fridge door (wave 10c). A fridge needs an account, so a signed-out visit gets the explanation and the
+ * sign-in / create-account buttons, with nothing to tap. Signed in, the saved fridge (database, never the
+ * browser) is the source: results are grouped Make now / Missing 1 / Missing 2 / Need a few more, soonest
+ * expiring items first inside each group. Filters and the "only what I can make now" switch live in the URL.
+ * Reads the session, so it is rendered per request and never cached.
  */
-const NO_MISSING_CAP = 1000;
-
-/** The part that waits on the matcher. Rendered inside a keyed <Suspense>. */
-async function Results({
-  filters,
-  urlFilters,
-  defaults,
-  fridgeParam,
-  hasFridge,
-}: {
-  /** What is queried: the URL's filters with the signed-in person's saved diet / allergen defaults merged in. */
-  filters: RecipeFilters;
-  /** What the address bar says; every link we build keeps this, never the defaults. */
-  urlFilters: RecipeFilters;
-  defaults: DefaultsState;
-  fridgeParam: string;
-  hasFridge: boolean;
-}) {
-  const byExpiry = filters.sort === "expiry";
-  const base = { ...filters, maxMissing: filters.maxMissing ?? NO_MISSING_CAP };
-  // "Use these first" is one page of up to 99 (the must-use ids already narrow
-  // it a lot); reordering by expiry needs the whole page at once.
-  const options = { pageSize: byExpiry ? 99 : 24, minHave: 1 };
-  let result = await matchRecipes(byExpiry ? { ...base, cursor: undefined } : base, options);
-  // The link asks for recipes using ALL the urgent items (soonest first). When no
-  // recipe does, give up the later ones one at a time rather than show nothing.
-  let dropped: number[] = [];
-  if (byExpiry) {
-    let use = filters.use ?? [];
-    while (result.matches.length === 0 && use.length > 1) {
-      dropped = [use[use.length - 1], ...dropped];
-      use = use.slice(0, -1);
-      result = await matchRecipes({ ...base, use, cursor: undefined }, options);
-    }
-  }
-  // Signed out (or no dated items) gives an empty map: the order stays as ranked.
-  const expiry = byExpiry
-    ? await getRecipeExpiryDays(
-        result.matches.map((m) => m.recipeId),
-        todayIso(),
-      )
-    : new Map<string, { days: number; items: number }>();
-  // Soonest-expiring first, then recipes that use more of the dated items;
-  // ties keep the matcher's order (sort is stable).
-  const matches = byExpiry
-    ? [...result.matches].sort((a, b) => {
-        const ea = expiry.get(a.recipeId);
-        const eb = expiry.get(b.recipeId);
-        return (ea?.days ?? Infinity) - (eb?.days ?? Infinity) || (eb?.items ?? 0) - (ea?.items ?? 0);
-      })
-    : result.matches;
-  const extras = await getCardExtras(matches.map((m) => m.recipeId));
-  const recipes = matches.map((m) => ({
-    ...extras[m.recipeId],
-    slug: m.slug,
-    title: m.title,
-    href: `/recipes/${m.slug}?pantry=${fridgeParam}`,
-    imageUrl: extras[m.recipeId]?.imageUrl ?? usableImageUrl(m.imageUrl),
-    totalTimeMin: m.totalTimeMin,
-    servings: m.servings,
-    calories: m.calories,
-    coverage: {
-      haveCount: m.haveCount,
-      neededCount: m.neededCount,
-      missingNames: m.missingNames,
-    },
-    useFirst: expiry.has(m.recipeId)
-      ? {
-          label: `Uses something ${daysUntilLabel(expiry.get(m.recipeId)!.days)}`,
-          urgent: ["expired", "urgent"].includes(urgencyOf(expiry.get(m.recipeId)!.days)),
-        }
-      : undefined,
-  }));
-
-  const nextHref = !byExpiry && result.nextCursor
-    ? `/pantry${filtersToQuery({ ...urlFilters, cursor: result.nextCursor })}`
-    : null;
-
-  return (
-    <>
-      {hasFridge && (
-        <h2 id="results-heading" className="mb-4 text-lg md:text-xl">
-          {recipes.length === 0
-            ? hasActiveFilters(filters) ? "No recipe fits these filters" : "No recipe uses these yet"
-            : byExpiry
-              ? `Using up what expires first · ${recipes.length} recipe${recipes.length === 1 ? "" : "s"}`
-              : `Closest first${nextHref ? "" : ` · ${recipes.length} recipe${recipes.length === 1 ? "" : "s"}`}`}
-        </h2>
-      )}
-      {byExpiry && dropped.length > 0 && recipes.length > 0 && (
-        <p className="mb-4 max-w-[34em] text-[0.875rem] text-ink-muted">
-          No recipe uses all of your soonest-expiring items, so these use the first
-          {dropped.length === 1 ? "" : " ones"} and are ordered by what expires next.
-        </p>
-      )}
-      <RecipeList
-        label="Recipes that use what you have"
-        recipes={recipes}
-        nextHref={nextHref}
-        empty={
-          hasFridge ? (
-            <div>
-              <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-                {defaults.applied
-                  ? "None of the recipes fit these filters and your defaults. Turn off your defaults, add something else from the fridge, or loosen a filter."
-                  : "None of the recipes fit these filters. Try adding something else from the fridge, or loosen a filter."}
-              </p>
-              {defaults.applied && (
-                <Link
-                  href={`/pantry${filtersToQuery(withFilters(urlFilters, { defaults: "off" }))}`}
-                  scroll={false}
-                  className={cn(buttonVariants({ variant: "primary", size: "md" }), "mt-4")}
-                >
-                  Turn off my defaults
-                </Link>
-              )}
-            </div>
-          ) : (
-            <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-              Pick one thing or ten. Each recipe shows how many of its ingredients you have
-              and exactly what&apos;s missing.
-            </p>
-          )
-        }
-      />
-    </>
-  );
-}
-
 export default async function PantryPage({
   searchParams,
 }: {
   searchParams: Promise<Exclude<SearchParamsInput, URLSearchParams>>;
 }) {
+  const sp = await searchParams;
+  const user = await getCurrentUser();
+  const catalog = await getIngredientCatalog();
+  if (!user) return <FridgeGate next="/pantry" catalog={catalog} />;
+
   // `url` = the address bar; `filters` = what is queried (saved diet / allergen defaults merged in on the
   // server, the same call the browse page makes, so a default applies to both doors).
-  const url = parseFilters(await searchParams);
-  const wanted = [...new Set([...(url.pantry ?? []), ...(url.use ?? [])])];
+  const url = parseFilters(sp);
+  const rawGroup = Array.isArray(sp.group) ? sp.group[0] : sp.group;
+  const group = isGroupId(rawGroup) ? rawGroup : null;
 
-  const [catalog, options, names] = await Promise.all([
-    getIngredientCatalog(),
-    getFilterOptions(),
-    getIngredientNames(wanted),
-  ]);
+  const [rows, options] = await Promise.all([getFridge(), getFilterOptions()]);
   const defaults = await resolveDefaults(url, options);
   const filters = defaults.effective;
-  const hasFridge = names.length > 0;
-  const fridgeParam = names.map((n) => n.id).join(",");
-  // Fridge edits and cookware taps are same-route navigations, which do not
-  // trigger loading.tsx; a keyed Suspense boundary shows the skeleton instead.
-  const resultsKey = filtersToQuery(resultFilters(filters));
+  const hasFridge = rows.length > 0;
+  const items = rows.map((r) => ({ id: r.ingredientId, name: r.name }));
+  const nowOnly = url.now === true;
+  // Fridge edits and cookware taps are same-route navigations, which do not trigger loading.tsx; a keyed
+  // Suspense boundary shows the skeleton instead.
+  const resultsKey = `${filtersToQuery(resultFilters(filters))}|${group ?? ""}|${rows.map((r) => `${r.ingredientId}:${r.expiresOn ?? ""}`).join(",")}`;
 
   return (
     <div className="page-w py-8 md:py-12">
@@ -206,20 +65,23 @@ export default async function PantryPage({
       </Suspense>
       <CookwareSync owned={url.ownedCookware ?? []} only={url.ownedOnly === true} />
       <PrefsMarker state={defaults} />
-      <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">What&rsquo;s in my fridge</h1>
+      <h1 className="text-[1.75rem] leading-[1.05] md:text-[2.25rem]">Cook from what you have</h1>
       <p className="mt-2 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
-        Tap what you have and see every recipe that uses any of it, closest match first. Salt,
-        pepper, oil, butter, sugar, flour and water are assumed.
+        Every recipe that uses your fridge, grouped by how little you’re missing. Salt, pepper, oil, butter, sugar,
+        flour and water are assumed. Recipes that use food expiring soon come first in each group.
       </p>
 
-      <LocalFridgeImport className="mt-5 max-w-[40rem]" />
+      <FridgePicker className="mt-6 max-w-[40rem]" variant="page" catalog={catalog} initial={items} />
+      <Link
+        href="/fridge"
+        className="mt-1 inline-flex min-h-11 items-center text-[0.8125rem] font-medium underline underline-offset-4 hover:text-herb"
+      >
+        Dates and what to use first
+      </Link>
 
-      <FridgePicker className="mt-6 max-w-[40rem]" variant="page" catalog={catalog} initial={names} />
-      <FridgeDatesLink className="mt-1" />
-
-      <div className="mt-8 lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
-        {/* Same filters as browse: a rail on desktop, a sheet on phones. Nothing to filter until the fridge has something. */}
-        {hasFridge && (
+      {hasFridge ? (
+        <div className="mt-8 lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-0">
+          {/* Same filters as browse: a rail on desktop, a sheet on phones. */}
           <aside
             aria-label="Filters"
             className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto lg:border-r lg:border-line lg:pr-5"
@@ -230,37 +92,29 @@ export default async function PantryPage({
             </div>
             <FilterControls filters={url} options={options} base="/pantry" defaults={defaults} />
           </aside>
-        )}
 
-        <section
-          aria-labelledby={hasFridge ? "results-heading" : undefined}
-          aria-label={hasFridge ? undefined : "Recipes"}
-          className={hasFridge ? "min-w-0 lg:pl-8" : "min-w-0"}
-        >
-          {hasFridge && (
+          <section aria-label="Recipes for your fridge" className="min-w-0 lg:pl-8">
             <DefaultsChip state={defaults} filters={url} options={options} base="/pantry" className="mb-4" />
-          )}
-          {hasFridge && (
             <FilterSheet activeCount={activeFilterCount(url)} showLabel="Show recipes">
               <div className="mb-3 flex justify-end">
                 <ClearFilters filters={url} base="/pantry" />
               </div>
               <FilterControls filters={url} options={options} base="/pantry" defaults={defaults} />
             </FilterSheet>
-          )}
-          <div data-results>
-            <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={6} />}>
-              <Results
-                filters={filters}
-                urlFilters={url}
-                defaults={defaults}
-                fridgeParam={fridgeParam}
-                hasFridge={hasFridge}
-              />
-            </Suspense>
-          </div>
-        </section>
-      </div>
+            <MakeNowSwitch on={nowOnly} className="mb-5" />
+            <div data-results>
+              <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={6} />}>
+                <FridgeResults filters={filters} urlFilters={url} defaults={defaults} rows={rows} group={group} />
+              </Suspense>
+            </div>
+          </section>
+        </div>
+      ) : (
+        <p className="mt-8 max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
+          Your fridge is empty. Pick a few things and Minced shows what you can cook, with exactly what’s missing
+          from each recipe.
+        </p>
+      )}
     </div>
   );
 }

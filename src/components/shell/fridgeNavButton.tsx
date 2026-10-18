@@ -2,44 +2,25 @@
 
 import { CookingPot } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import { useAccount } from "@/components/account/accountProvider";
-import { OPEN_FRIDGE_PICKER } from "@/components/pantry/fridgePicker";
 import { Button } from "@/components/ui/button";
 
 /**
- * The header's fridge button. The door stays open to everyone. Signed in it
- * opens their saved fridge, which is where the dates live. Signed out it opens
- * the picker itself (with the "Sign in to save your fridge" note), so a first
- * visit is one tap to the checklist, not a page to read first.
+ * The header's fridge entry, for signed-in people only (owner decision, wave 10c): a fridge lives in an
+ * account. It opens "Cook from what you have", the grouped results for their saved fridge. Signed-out
+ * visitors reach the explanation from the landing page and the footer instead of a button that promises
+ * a feature they cannot use yet. Renders nothing while the session is still being checked, so the header
+ * does not flash a button at someone about to be signed out.
  */
 export function FridgeNavButton() {
   const { status, me } = useAccount();
-  const pathname = usePathname();
-  const saved = status === "in" && me;
+  if (status !== "in" || !me) return null;
   return (
     <Button asChild size="sm">
-      <Link
-        href={saved ? "/fridge" : "/pantry?pick=1"}
-        onClick={(e) => {
-          // Already on the picker page: a same-URL navigation does nothing, so ask it to open.
-          if (!saved && pathname === "/pantry" && !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
-            e.preventDefault();
-            window.dispatchEvent(new Event(OPEN_FRIDGE_PICKER));
-          }
-        }}
-      >
+      <Link href="/pantry">
         <CookingPot aria-hidden className="size-4" />
-        {saved ? (
-          <span>My fridge</span>
-        ) : (
-          <>
-            <span className="hidden min-[420px]:inline">What’s in my fridge?</span>
-            <span aria-hidden className="min-[420px]:hidden">Fridge search</span>
-            <span className="sr-only min-[420px]:hidden">What’s in my fridge?</span>
-          </>
-        )}
+        <span>My fridge</span>
       </Link>
     </Button>
   );
