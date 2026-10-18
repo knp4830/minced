@@ -9,6 +9,12 @@
 -- auth.uid() reads). A bare snapshot has no Supabase default grants, so the
 -- header below grants SELECT only (what production keeps after security_hardening)
 -- and explicitly revokes writes, so "direct writes are refused" is tested honestly.
+-- SNAPSHOT CAVEAT: pg_dump covers schema public only, so the snapshot has the public wrappers but no
+-- private.* implementations, no feature_flags rows' grants and no revokes. Before running on a bare
+-- snapshot, create private.* from the five functions in 20261014120000_user_recipes.sql (rename to
+-- private.), revoke their execute and user_recipe_text/feature_enabled from public/anon/authenticated,
+-- and grant the public wrappers to authenticated. Prefer a local Supabase stack. Calories are not asserted
+-- null on a new draft: the wave 10 save_my_recipe wrapper computes nutrients on save.
 -- Any failed assertion raises and aborts the run; success prints "ALL PASSED".
 
 begin;
@@ -122,7 +128,7 @@ reset role;
 
 select t_assert((select status = 'draft' and author_id = '00000000-0000-4000-8000-0000000000a1'
                         and source_name = 'User submission' and image_url is null
-                        and published_at is null and calories is null and has_photo = false
+                        and published_at is null and has_photo = false
                    from recipes where id = (select v from ids where k = 'a_draft')), 'draft row shape');
 select t_assert((select slug ~ '^test-scallion-eggs-[0-9a-f]{8}$' from recipes where id = (select v from ids where k = 'a_draft')), 'slug shape');
 select t_assert((select count(*) = 2 from recipe_ingredients where recipe_id = (select v from ids where k = 'a_draft')), '2 ingredient rows');
@@ -157,7 +163,7 @@ select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000a1
 set local role authenticated;
 select count(*) as a_rows_before from recipes where author_id = '00000000-0000-4000-8000-0000000000a1' \gset
 select t_expect($q$select save_my_recipe(null, t_data() || jsonb_build_object('ingredients', jsonb_build_array(
-    jsonb_build_object('name', 'egg'), jsonb_build_object('name', 'dragonfruit zzqx'))), false)$q$, '22023', 'ingredient:2');
+    jsonb_build_object('name', 'egg'), jsonb_build_object('name', 'xqzvkj wpqzx'))), false)$q$, '22023', 'ingredient:2');
 select t_expect($q$select save_my_recipe(null, t_data() || jsonb_build_object('ingredients', jsonb_build_array(
     jsonb_build_object('name', 'egg', 'unit', 'bananas'))), false)$q$, '22023', 'ingredient:1');
 select t_expect($q$select save_my_recipe(null, t_data() || jsonb_build_object('ingredients', jsonb_build_array(
@@ -216,7 +222,7 @@ insert into ids select 'a_sub', (save_my_recipe(null, t_data() || jsonb_build_ob
     'source_license', 'public domain'), true) ->> 'id')::uuid;
 reset role;
 select t_assert((select status = 'in_review' and author_id = '00000000-0000-4000-8000-0000000000a1' and image_url is null
-                        and published_at is null and slug <> 'chosen-slug' and calories is null and has_photo = false
+                        and published_at is null and slug <> 'chosen-slug' and calories is distinct from 1 and has_photo = false
                         and source_name = 'User submission' and source_url is null and source_license = 'user-submitted'
                    from recipes where id = (select v from ids where k = 'a_sub')), 'forged columns ignored');
 select t_assert((select count(*) = 0 from recipes where id = (select v from ids where k = 'a_sub') and status = 'published'), 'not published');
