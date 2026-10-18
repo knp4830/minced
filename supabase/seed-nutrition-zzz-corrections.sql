@@ -161,7 +161,23 @@ insert into _link_actions (action, ingredient, form, fdc_id, reason) values
   ('unmap', 'dried tofu', '*', null, 'pressed/baked tofu: only seasoned baked cubes exist in the data'),
   ('unmap', 'hibiscus flowers', '*', null, 'only flowers in syrup exist in the data; dried calyces are not sweetened'),
   ('unmap', 'fonio', '*', null, 'the only plain fonio record has 20 kcal/100 g beside 82 g carbohydrate (about 356 expected) and a corrupt serving'),
-  ('unmap', 'kaffir lime leaves', '*', null, 'the only link was fresh basil (23 kcal/100 g) as a stand-in; leaves are a different plant, so the line is a gap rather than a made-up number');
+  ('unmap', 'kaffir lime leaves', '*', null, 'the only link was fresh basil (23 kcal/100 g) as a stand-in; leaves are a different plant, so the line is a gap rather than a made-up number'),
+  ('set_default', 'blue cheese dressing', 'default', 173562, 'wave 10c: the default was the LIGHT dressing (86 kcal/100 g); regular blue cheese dressing is 484'),
+  ('set_default', 'pumpkin pie filling', 'default', 169273, 'wave 10c: pumpkin pie filling is "Pumpkin pie mix, canned" (104 kcal/100 g), not plain pumpkin (34)'),
+  ('set_default', 'pork sausage', 'default', 172934, 'wave 10c: pork sausage is pork only (288 kcal/100 g raw); the default was pork AND BEEF, cooked'),
+  ('set_default', 'pork sausage', 'cooked', 174578, 'wave 10c: pork sausage, link/patty, cooked, pan-fried'),
+  ('unmap', 'doubanjiang', '*', null, 'wave 10c: fermented broad-bean chili paste has no USDA record; sriracha is a different sauce (93 kcal, far less sodium)'),
+  ('unmap', 'dashi', '*', null, 'wave 10c: dashi (kombu and bonito stock) has no USDA record; vegetable broth is a different liquid. The dashi base powders are not the prepared stock.'),
+  ('unmap', 'kombu', '*', null, 'wave 10c: kombu is sold dried; the only plain records are RAW kelp (43 kcal/100 g, dried is several times that)'),
+  ('unmap', 'wakame', '*', null, 'wave 10c: wakame is sold dried; the only plain record is RAW wakame (45 kcal/100 g)'),
+  ('set_default', 'sirloin steak', 'default', 168726, 'wave 10c: the default was a COOKED sirloin while every sibling cut is raw; raw top sirloin, 1/8 in fat, all grades'),
+  ('set_default', 'black beans', 'default', 175188, 'owner decision 2026-10-17: black beans default is the canned full-panel SR record (Foundation record had 12 of 35 nutrients)'),
+  ('set_default', 'black beans', 'canned', 175188, 'owner decision 2026-10-17: canned black beans were a branded record'),
+  ('set_default', 'shredded cheese', 'default', 328637, 'owner decision 2026-10-17: a bare cheese is cheddar (the default was a branded "SHREDDED CHEESE" of unknown cheeses)'),
+  ('set_default', 'veal stock', 'default', 172883, 'wave 10c proxy: the default was a DEMI-GLACE CONCENTRATE (500 kcal/100 g); home-prepared beef stock (13 kcal) stands in for veal stock'),
+  ('drop_link', 'mirin', 'default', 2084844, 'wave 10c: the ml to g conversion of this record used density 1.0 while the five other mirin records use 1.2, so every value is 20 percent high'),
+  ('set_default', 'mirin', 'default', 2039206, 'wave 10c: Kikkoman Aji-Mirin (194 kcal/100 g), consistent with the other mirin records'),
+  ('unmap', 'plantain', '*', null, 'wave 10c: the only link was a fried plantain-chip product (500 kcal/100 g); green and ripe plantain are separate ingredients');
 -- END LINK ACTIONS
 
 -- unmap: the ingredient keeps existing (a user can still pick it), it just has no nutrition. Household weights go too:
