@@ -146,7 +146,7 @@ export function TargetsWizard({
         proteinG: Number(edit.proteinG),
         carbsG: Number(edit.carbsG),
         fatG: Number(edit.fatG),
-        goalWeightKg: goal === "maintain" || goalKg === null || Number.isNaN(goalKg) ? null : goalKg,
+        goalWeightKg: goal === "maintain" ? body.weightKg : goalKg === null || Number.isNaN(goalKg) ? null : goalKg,
       });
       if (r.ok) onClose();
       else setMessage(r.error);
@@ -154,7 +154,7 @@ export function TargetsWizard({
   }
 
   const step1Ready = sex !== null && body !== null;
-  const step3Ready = goalProblem === null;
+  const step3Ready = goalProblem === null && (goal === "maintain" || goalKg !== null);
   const macroKcal = edit ? Number(edit.proteinG) * 4 + Number(edit.carbsG) * 4 + Number(edit.fatG) * 9 : 0;
   const mismatch = edit && Number.isFinite(macroKcal) && Math.abs(macroKcal - Number(edit.kcal)) > 100;
   const floor = sex ? MIN_KCAL[sex] : 1200;
@@ -267,7 +267,7 @@ export function TargetsWizard({
                 </div>
               </div>
               <div className="mt-5 max-w-56">
-                <Label htmlFor={`${id}-gw`}>Goal weight ({wUnit}, optional)</Label>
+                <Label htmlFor={`${id}-gw`}>Goal weight ({wUnit})</Label>
                 <Input
                   id={`${id}-gw`}
                   mono
@@ -283,7 +283,7 @@ export function TargetsWizard({
                 {goalProblem ??
                   (days !== null && body && goalKg !== null
                     ? `At ${computed?.clamped ? "about " : ""}${paceLabel(computed?.clamped ? Math.round(realPace * 100) / 100 : pace, units)} a week, from ${showWeight(body.weightKg, units)} ${wUnit} to ${showWeight(goalKg, units)} ${wUnit} takes about ${Math.max(1, Math.round(days / 7))} ${Math.round(days / 7) === 1 ? "week" : "weeks"}: about ${dayMonthYear(addDays(today, days))}. It is an estimate, because weight does not ${goal === "gain" ? "rise" : "drop"} in a straight line.`
-                    : "Add a goal weight to see roughly when you would get there.")}
+                    : "Add your goal weight to continue. We will show roughly when you would get there.")}
               </p>
             </>
           )}

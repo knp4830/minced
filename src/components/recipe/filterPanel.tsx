@@ -57,15 +57,18 @@ function hrefTo(f: RecipeFilters, base: string = BASE): string {
 
 function Group({
   label,
+  hint,
   children,
 }: {
   label: string;
+  hint?: string;
   children: React.ReactNode;
 }) {
   return (
     <fieldset className="mb-5 min-w-0">
       <legend className="label-mono mb-2.5">{label}</legend>
       <div className="flex flex-wrap gap-1.5">{children}</div>
+      {hint && <p className="mt-2 text-[0.8125rem] leading-snug text-ink-muted">{hint}</p>}
     </fieldset>
   );
 }
@@ -236,7 +239,14 @@ export function FilterControls({
         <TimeCustomRange filters={f} base={base} />
       </fieldset>
 
-      <Group label="Diet">
+      <Group
+        label="Diet"
+        hint={
+          options.diets.some((d) => d.slug === "pescatarian")
+            ? "Pescatarian includes vegetarian and vegan dishes, and vegetarian includes vegan."
+            : undefined
+        }
+      >
         {options.diets.map((d) => (
           <Option
             key={d.slug}
