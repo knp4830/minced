@@ -175,4 +175,20 @@ assert.equal(checkFoodInput({ ingredientId: 7, fdcId: null, quantity: 1e9, unit:
 assert.equal(checkFoodInput({ ingredientId: 7, fdcId: null, quantity: 1, unit: "barrel" }).ok, false); // only listed units
 assert.equal(checkFoodInput({ ingredientId: 7, fdcId: null, quantity: 1, unit: "" }).ok, true); // "each"
 
+// ---- wave 10c: footnote credit, fat parts never under vitamins, no doubled "(no ...)" ----
+assert.equal(plain.publishedBy, "other"); // no data: MyPlate is not credited
+assert.equal(m1.publishedBy, "usda_myplate");
+assert.equal(m2.publishedBy, "other"); // computed recipe
+const fats = { status: "complete" as const, source: "computed" as const, gaps: [], rows: [row("fat_g", 20), row("sat_fat_g", 5), row("mono_fat_g", 8), row("poly_fat_g", 4), row("calcium_mg", 100)] };
+const noCols = { calories: null, proteinG: null, carbsG: null, fatG: null, fiberG: null, sodiumMg: null };
+const mf = buildLabel(noCols, fats, nutrients);
+assert.deepEqual(mf.top.map((r) => r.name), ["Total fat", "Saturated fat", "Polyunsaturated fat", "Monounsaturated fat"]);
+assert.deepEqual(mf.micro.map((r) => r.name), ["Calcium"]); // mono/poly never listed under vitamins and minerals
+const fatsHidden = buildLabel({ ...noCols, fatG: 3 }, { ...fats, source: "usda_myplate" as const }, nutrients);
+assert.deepEqual(fatsHidden.micro.map((r) => r.name), ["Calcium"]); // even when the breakdown is hidden
+assert.equal(uncountedText({ name: "pasta (no amount given)", reason: "no data" }), "pasta (no amount given)");
+assert.equal(uncountedText({ name: "pasta", reason: "no data" }), "pasta (no nutrition data)");
+assert.equal(uncountedText({ name: "pasta (no amount given)", reason: "optional" }), "pasta (optional)");
+assert.equal(uncountedText({ name: "salt", reason: "to taste" }), "salt (to taste)");
+
 console.log("test-nutrients: all assertions passed");

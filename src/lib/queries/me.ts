@@ -5,8 +5,13 @@
  */
 
 
+import { unstable_cache } from "next/cache";
+import type { SupabaseClient } from "@supabase/supabase-js";
+
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/static";
+import type { Dri } from "@/lib/me/dailyValues";
 import { addDays, localDateOf, weekRange, type WeekStart } from "@/lib/me/dates";
 import { getMySettings, writeSettings } from "@/lib/queries/settings";
 import {
@@ -90,6 +95,7 @@ type FoodRow = {
   fiber_g: number | string | null;
   sodium_mg: number | string | null;
   nutrients: Record<string, unknown> | null;
+  source: string | null;
   recipes: LoggedRecipe | LoggedRecipe[] | null;
 };
 
@@ -117,12 +123,12 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
   const db = await createClient();
   const { data } = await db
     .from("me_food_log")
-    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
+    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, source, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
     .eq("log_date", date)
     .order("created_at", { ascending: true })
     .limit(80);
   // `nutrients` (migration 20261017150000) is now in the generated types.
-  return ((data ?? []) as FoodRow[]).map((r) => {
+  return ((data ?? []) as unknown as FoodRow[]).map((r) => {
     const rec = Array.isArray(r.recipes) ? (r.recipes[0] ?? null) : r.recipes;
     return {
       id: r.id,
@@ -136,6 +142,7 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
       fiberG: numOrNull(r.fiber_g),
       sodiumMg: numOrNull(r.sodium_mg),
       nutrients: snapshotOf(r.nutrients),
+      source: r.source === "recipe" || r.source === "food" ? r.source : r.source === "quick" ? "quick" : rec ? "recipe" : r.nutrients !== null ? "food" : "quick",
       recipe: rec ? { slug: rec.slug, imageUrl: recipeThumb(rec.image_url, rec.recipe_photos) } : null,
     };
   });
@@ -462,7 +469,8 @@ export type NewFood = {
 export async function writeFood(f: NewFood): Promise<WriteResult> {
   const s = await signedIn();
   if (!s) return SIGN_IN;
-  const { error } = await s.db.from("me_food_log").insert({
+  const source = f.recipeId !== null || f.servings !== null ? "recipe" : f.nutrients != null ? "food" : "quick";
+  const row = {
     user_id: s.uid,
     log_date: f.date,
     meal: f.meal,
@@ -476,8 +484,10 @@ export async function writeFood(f: NewFood): Promise<WriteResult> {
     fiber_g: f.fiberG,
     sodium_mg: f.sodiumMg,
     nutrients: f.nutrients ?? null,
-    // `nutrients` is new (migration 20261017150000); drop this cast after the next pnpm db:types.
-  });
+    // `source` is new (migration 20261018140000) and not in the generated types until the next pnpm db:types.
+    source,
+  };
+  const { error } = await s.db.from("me_food_log").insert(row as never);
   if (error) return error.code === "54000" ? { ok: false, error: "That is a lot of entries for one day. Remove one first." } : FAILED;
   return { ok: true };
 }
@@ -575,4 +585,30 @@ export async function getMyHealthExport() {
     sleep: sleep.data ?? [],
     weights: weights.data ?? [],
   };
+}
+
+
+// ---------- Dietary Reference Intakes ----------
+
+type DriRow = { nutrient_key: string; sex: "female" | "male"; age_min: number; age_max: number; amount: number | string; kind: "rda" | "ai" | "cdrr" };
+
+async function loadDris(): Promise<Dri[]> {
+  // nutrient_dris is public reference data (migration 20261018140000), so the cookie-free client is right and
+  // the result can be cached across requests. Not in the generated types yet, hence the cast.
+  const { data, error } = await (createStaticClient() as unknown as SupabaseClient)
+    .from("nutrient_dris")
+    .select("nutrient_key, sex, age_min, age_max, amount, kind")
+    .limit(1000);
+  if (error) throw error; // thrown so unstable_cache does not store a failure
+  return ((data ?? []) as DriRow[]).map((r) => ({ key: r.nutrient_key, sex: r.sex, ageMin: r.age_min, ageMax: r.age_max, amount: Number(r.amount), kind: r.kind }));
+}
+const cachedDris = unstable_cache(loadDris, ["nutrient-dris-v1"], { revalidate: 3600 });
+
+/** NASEM reference intakes by sex and age. Empty when the table is missing: Me then falls back to FDA values. */
+export async function getDris(): Promise<Dri[]> {
+  try {
+    return await cachedDris();
+  } catch {
+    return [];
+  }
 }
