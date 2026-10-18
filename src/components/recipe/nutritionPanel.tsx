@@ -120,13 +120,19 @@ export function NutritionPanel({
               {m.micro.some((r) => r.noData) && <p>&ldquo;Not enough data&rdquo; means too few of the ingredients report that nutrient to give a fair number.</p>}
               {m.top.some((r) => r.estimated) && <p>Added sugars are estimated from the sweeteners and sweetened foods in the ingredient list.</p>}
               {sodiumMin && <p>Sodium is a minimum: salt and salty sauces listed &ldquo;to taste&rdquo; are not counted.</p>}
+              {m.disagreement !== null && (
+                <p>
+                  The vitamins and minerals are computed from the ingredient list, which comes out about {Math.round(Math.abs(m.disagreement) * 100)}% {m.disagreement > 0 ? "higher" : "lower"} in calories than the published figure, so they may not match the calories shown.
+                </p>
+              )}
               {shownUncounted.length > 0 && (
                 <p>
                   Not counted:{" "}
                   {shownUncounted.map((u, i) => (
                     <span key={`${u.name}-${u.reason}`}>
                       {i > 0 && ", "}
-                      {u.name} ({u.reason === "no data" ? "no nutrition data" : u.reason})
+                      {/* a gap from the database already carries its reason: "pasta (no amount given)" */}
+                      {u.reason === "no data" && u.name.endsWith(")") ? u.name : `${u.name} (${u.reason === "no data" ? "no nutrition data" : u.reason})`}
                     </span>
                   ))}
                   {uncounted.length > shownUncounted.length ? ` and ${uncounted.length - shownUncounted.length} more` : ""}.

@@ -73,7 +73,15 @@ export type LabelModel = {
   basis: "published" | "computed" | "published+computed" | "none";
   partial: boolean;
   unavailable: boolean;
+  /**
+   * Set when the published calories and the calories computed from the ingredients differ by more than
+   * DISAGREE_THRESHOLD (a fraction, signed: positive = computed is higher). Only for USDA MyPlate recipes.
+   */
+  disagreement: number | null;
 };
+
+/** Owner-approved: flag a published-vs-computed calorie disagreement above 20 percent. */
+export const DISAGREE_THRESHOLD = 0.2;
 
 type Found = { amount: number; computed: boolean; coverage: number };
 
@@ -179,7 +187,10 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
 
   const basis: LabelModel["basis"] =
     usedPublished && usedComputed ? "published+computed" : usedPublished ? "published" : usedComputed ? "computed" : "none";
-  return { calories, top, micro, basis, partial, unavailable };
+  const delta = data?.kcalDelta;
+  const disagreement =
+    !unavailable && data?.source === "usda_myplate" && typeof delta === "number" && Math.abs(delta) > DISAGREE_THRESHOLD ? delta : null;
+  return { calories, top, micro, basis, partial, unavailable, disagreement };
 }
 
 /** Ingredient lines that did not add to the numbers, with the reason, for the "not counted" list. */
@@ -198,9 +209,11 @@ export function uncountedLines(
     out.push({ name, reason });
   };
   for (const g of gaps) add(g, "no data");
+  const gapNames = new Set(gaps.map((g) => g.replace(/ \(.*\)$/, "").toLowerCase()));
   for (const l of lines) {
     if (l.optional) add(l.name, "optional");
-    else if (l.quantity === null) add(l.name, "to taste");
+    // a main ingredient with no amount is already listed as a gap ("pasta (no amount given)"), not "to taste"
+    else if (l.quantity === null && !gapNames.has(l.name.toLowerCase())) add(l.name, "to taste");
   }
   return out;
 }

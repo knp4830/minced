@@ -56,6 +56,11 @@ export type RecipeNutrients = {
   source: NutritionSource | null;
   /** Names of ingredients that could not be counted (no food, or no gram weight). */
   gaps: string[];
+  /**
+   * USDA MyPlate recipes: (computed - published) / published calories. Above 0.2 in either direction the label
+   * says the computed vitamins and minerals may not match the published calories. Null when not applicable.
+   */
+  kcalDelta?: number | null;
   rows: RecipeNutrientRow[];
 };
 
@@ -69,6 +74,7 @@ type StatusRow = {
   nutrition_status: NutritionStatus | null;
   nutrition_source: NutritionSource | null;
   nutrition_gaps: string[] | null;
+  nutrition_kcal_delta?: number | string | null;
 };
 
 const asNum = (v: unknown): number | null => {
@@ -91,7 +97,7 @@ export async function getRecipeNutrients(recipeId: string): Promise<RecipeNutrie
         .select("amount_per_serving, coverage, nutrients(id, key, name, unit, fdc_number, dv_amount, dv_unit, display_group, sort)")
         .eq("recipe_id", recipeId)
         .limit(200),
-      sb.from("recipes").select("nutrition_status, nutrition_source, nutrition_gaps").eq("id", recipeId).maybeSingle(),
+      sb.from("recipes").select("nutrition_status, nutrition_source, nutrition_gaps, nutrition_kcal_delta").eq("id", recipeId).maybeSingle(),
     ]);
     if (rn.error || st.error) return null;
 
@@ -106,7 +112,9 @@ export async function getRecipeNutrients(recipeId: string): Promise<RecipeNutrie
     return {
       status: s?.nutrition_status ?? null,
       source: s?.nutrition_source ?? null,
-      gaps: s?.nutrition_gaps ?? [],
+      // a NULL or non-string element must never reach the page (it rendered a blank row)
+      gaps: (s?.nutrition_gaps ?? []).filter((g): g is string => typeof g === "string" && g.trim() !== ""),
+      kcalDelta: asNum(s?.nutrition_kcal_delta),
       rows,
     };
   } catch {

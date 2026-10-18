@@ -138,3 +138,4 @@ unmap	dosa batter	*		only a dry idli/dosa mix exists in the data, not batter
 unmap	dried tofu	*		pressed/baked tofu: only seasoned baked cubes exist in the data
 unmap	hibiscus flowers	*		only flowers in syrup exist in the data; dried calyces are not sweetened
 unmap	fonio	*		the only plain fonio record has 20 kcal/100 g beside 82 g carbohydrate (about 356 expected) and a corrupt serving
+unmap	kaffir lime leaves	*		the only link was fresh basil (23 kcal/100 g) as a stand-in; leaves are a different plant, so the line is a gap rather than a made-up number

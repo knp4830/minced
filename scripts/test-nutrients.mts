@@ -37,6 +37,15 @@ assert.equal(roundForLabel(2.46, { unit: "g", fdcNumber: 204 }), 2.5);
 assert.equal(roundForLabel(0.456, { unit: "g", fdcNumber: 204 }), 0.46);
 assert.equal(formatAmount(0.001, { unit: "g", fdcNumber: 204 }), "<0.01 g"); // never shown as zero
 assert.equal(formatAmount(0, { unit: "g", fdcNumber: 204 }), "0 g"); // a true zero stays zero
+// FDA label rounding (21 CFR 101.9(c))
+assert.equal(roundForLabel(3, { unit: "kcal", fdcNumber: 208 }), 0); // under 5 kcal is 0
+assert.equal(roundForLabel(47, { unit: "kcal", fdcNumber: 208 }), 45); // up to 50: nearest 5
+assert.equal(roundForLabel(52, { unit: "kcal", fdcNumber: 208 }), 50); // above 50: nearest 10
+assert.equal(roundForLabel(4, { unit: "mg", fdcNumber: 307 }), 0);
+assert.equal(roundForLabel(87, { unit: "mg", fdcNumber: 307 }), 85); // sodium up to 140 mg: nearest 5
+assert.equal(roundForLabel(143, { unit: "mg", fdcNumber: 307 }), 140);
+assert.equal(formatAmount(3, { unit: "kcal", fdcNumber: 208 }), "0"); // a trace of energy is 0 on a label
+assert.equal(formatAmount(3, { unit: "mg", fdcNumber: 307 }), "0 mg");
 assert.equal(percentDv(1150, byKey.sodium_mg), 50);
 assert.equal(percentDv(5, toNutrient({ id: 99, key: "sugars_g", name: "Total sugars", unit: "g", fdc_number: 269, dv_amount: null, dv_unit: null, display_group: null, sort: 1 })), null); // no DV, no %
 
@@ -72,6 +81,15 @@ assert.equal(MIN_COVERAGE, 0.9);
 const added = m2.top.find((r) => r.estimated)!;
 assert.equal(added.name, "Added sugars (estimated)");
 
+// published-vs-computed calorie disagreement flag (MyPlate only, more than 20 percent either way)
+const withDelta = (kcalDelta: number | null, source: "usda_myplate" | "computed" = "usda_myplate") => ({ status: "complete" as const, source, gaps: [], kcalDelta, rows: [row("calcium_mg", 260)] });
+assert.equal(buildLabel(cols, withDelta(0.35), nutrients).disagreement, 0.35);
+assert.equal(buildLabel(cols, withDelta(-0.25), nutrients).disagreement, -0.25);
+assert.equal(buildLabel(cols, withDelta(0.2), nutrients).disagreement, null); // exactly 20 percent is not above it
+assert.equal(buildLabel(cols, withDelta(0.1), nutrients).disagreement, null);
+assert.equal(buildLabel(cols, withDelta(0.5, "computed"), nutrients).disagreement, null);
+assert.equal(buildLabel(cols, complete, nutrients).disagreement, null); // no delta on the data: no flag
+
 // a nutrient nobody reports has no row at all (missing is not zero)
 assert.equal(buildLabel(cols, { status: "complete", source: "computed", gaps: [], rows: [row("calcium_mg", null, 0)] }, nutrients).micro.length, 0);
 
@@ -92,6 +110,8 @@ assert.deepEqual(uncountedLines(lines, ["gochujang"]), [
   { name: "salt", reason: "to taste" },
   { name: "parsley", reason: "optional" },
 ]);
+// a main ingredient with no amount is a gap ("pasta (no amount given)"), not "to taste"
+assert.deepEqual(uncountedLines([{ name: "pasta", quantity: null, optional: false }], ["pasta (no amount given)"]), [{ name: "pasta (no amount given)", reason: "no data" }]);
 assert.equal(sodiumIsMinimum(lines), true);
 assert.equal(sodiumIsMinimum([{ name: "salt", quantity: 1, optional: false }]), false);
 assert.equal(sodiumIsMinimum([{ name: "salt", quantity: null, optional: true }]), false);

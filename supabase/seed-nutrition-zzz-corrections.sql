@@ -160,7 +160,8 @@ insert into _link_actions (action, ingredient, form, fdc_id, reason) values
   ('unmap', 'dosa batter', '*', null, 'only a dry idli/dosa mix exists in the data, not batter'),
   ('unmap', 'dried tofu', '*', null, 'pressed/baked tofu: only seasoned baked cubes exist in the data'),
   ('unmap', 'hibiscus flowers', '*', null, 'only flowers in syrup exist in the data; dried calyces are not sweetened'),
-  ('unmap', 'fonio', '*', null, 'the only plain fonio record has 20 kcal/100 g beside 82 g carbohydrate (about 356 expected) and a corrupt serving');
+  ('unmap', 'fonio', '*', null, 'the only plain fonio record has 20 kcal/100 g beside 82 g carbohydrate (about 356 expected) and a corrupt serving'),
+  ('unmap', 'kaffir lime leaves', '*', null, 'the only link was fresh basil (23 kcal/100 g) as a stand-in; leaves are a different plant, so the line is a gap rather than a made-up number');
 -- END LINK ACTIONS
 
 -- unmap: the ingredient keeps existing (a user can still pick it), it just has no nutrition. Household weights go too:

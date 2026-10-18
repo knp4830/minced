@@ -138,12 +138,21 @@ export function percentDv(amount: number, n: Nutrient): number | null {
 }
 
 /**
- * Label-style rounding: calories to the nearest 5, sodium and potassium-sized mg values to the nearest
- * 10 above 140, others to two significant figures. Never invents precision USDA data does not have.
+ * FDA label rounding (21 CFR 101.9(c)): calories under 5 are 0, up to 50 round to the nearest 5, above 50 to the
+ * nearest 10. Sodium under 5 mg is 0, up to 140 mg rounds to the nearest 5, above 140 to the nearest 10. Other mg
+ * values over 140 round to the nearest 10; everything else to two significant figures. Never invents precision
+ * USDA data does not have.
  */
 export function roundForLabel(amount: number, n: Pick<Nutrient, "unit" | "fdcNumber">): number {
   if (!Number.isFinite(amount) || amount <= 0) return 0;
-  if (n.fdcNumber === FDC.energy || n.unit === "kcal") return amount < 5 ? Math.round(amount) : Math.round(amount / 5) * 5;
+  if (n.fdcNumber === FDC.energy || n.unit === "kcal") {
+    if (amount < 5) return 0;
+    return amount <= 50 ? Math.round(amount / 5) * 5 : Math.round(amount / 10) * 10;
+  }
+  if (n.fdcNumber === FDC.sodium) {
+    if (amount < 5) return 0;
+    return amount <= 140 ? Math.round(amount / 5) * 5 : Math.round(amount / 10) * 10;
+  }
   if (n.unit === "mg" && amount >= 140) return Math.round(amount / 10) * 10;
   if (amount >= 10) return Math.round(amount);
   if (amount >= 1) return Math.round(amount * 10) / 10;
@@ -155,7 +164,9 @@ const nf = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
 /** "310 mg", "0.4 g", "<0.01 g" for a non-zero value that rounds away. */
 export function formatAmount(amount: number, n: Pick<Nutrient, "unit" | "fdcNumber">): string {
   const r = roundForLabel(amount, n);
-  if (amount > 0 && r === 0) return `<0.01 ${n.unit}`;
+  // FDA rounding makes a trace of energy or sodium "0" on a label; every other nutrient never shows as zero
+  const fdaZero = n.fdcNumber === FDC.energy || n.unit === "kcal" || n.fdcNumber === FDC.sodium;
+  if (amount > 0 && r === 0) return fdaZero ? (n.unit === "kcal" ? "0" : `0 ${n.unit}`) : `<0.01 ${n.unit}`;
   return n.unit === "kcal" ? nf.format(r) : `${nf.format(r)} ${n.unit}`;
 }
 
