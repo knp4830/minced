@@ -105,6 +105,12 @@ export function FoodDefaultsForm({
             </Chip>
           ))}
         </div>
+        <p className="mt-3 max-w-[34em] text-[0.8125rem] leading-snug text-ink-muted" data-testid="allergen-definitions">
+          Peanuts and tree nuts are separate, and coconut is not counted as a tree nut. Wheat is separate from gluten
+          (gluten also covers barley and rye). Shellfish means crab, shrimp and lobster; mollusks means clams, oysters,
+          scallops and squid. A recipe that has an allergen only in an optional ingredient stays in your list, with a
+          note to leave it out.
+        </p>
         <p id="allergen-note" className="mt-3 max-w-[34em] text-[0.8125rem] leading-snug text-ink-muted">
           Allergen information comes from the ingredients listed and may be incomplete. It doesn&rsquo;t cover brands or
           cross-contact. Always read labels. If you have a serious allergy, don&rsquo;t rely on Minced.

@@ -14,6 +14,7 @@
  * Pure module (no next/headers) so the unit tests can load it; the cookie jar lives in prefsCookie.ts.
  */
 
+import { expandLegacyAllergens } from "@/lib/allergenSlugs";
 import { MAX_ALLERGENS, MAX_DIETS, SLUG, type FoodDefaults } from "@/lib/settingsValidate";
 
 export const PREFS_COOKIE = "minced_prefs";
@@ -77,7 +78,7 @@ export function restrictToVocab(
   if (!d) return null;
   const out = {
     diet: d.diet.filter((s) => vocab.diets.includes(s)),
-    exclude: d.exclude.filter((s) => vocab.allergens.includes(s)),
+    exclude: expandLegacyAllergens(d.exclude).sort().filter((s) => vocab.allergens.includes(s)),
   };
   return isEmptyDefaults(out) ? null : out;
 }

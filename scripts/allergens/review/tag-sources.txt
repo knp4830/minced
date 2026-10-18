@@ -1,0 +1,102 @@
+# Ingredient allergen tags and diet class: the REVIEWED SOURCE (wave 10c).
+# build.py reads this file, checks every name exists, and writes ingredient-allergens.csv (one row per ingredient,
+# with a reason) and supabase/seed-allergen-tags.sql. A correction is a line here, never a hand edit of the CSV.
+#
+# LINE FORMAT     [allergen:basis, ...] {diet_class} reason :: name; name; name
+#   allergen      gluten wheat dairy egg fish soy peanuts tree-nuts shellfish mollusks sesame
+#   basis         I inherent (it IS the thing / is made from it)   T typical (most products)   V varies (some brands / recipes)
+#   {diet_class}  plant honey dairy_egg seafood meat. Optional: derived when omitted (see below).
+#   Several lines may name the same ingredient; allergens merge (strongest basis wins) and reasons join.
+#
+# POLICY
+#   P1  Named source: tagged when the ingredient is the allergen or made from it, including named oils
+#       (peanut oil, sesame oil, walnut oil, soybean oil). Owner decision: peanut oil = peanuts.
+#   P2  Typical formulation: processed / compound items are tagged when the common product contains the allergen
+#       (oyster sauce has wheat, curry pastes have shrimp paste, chocolate chips have milkfat and soy lecithin).
+#       T and V are both tagged: a false "safe" costs more than a false "contains".
+#   P3  "May contain" cross-contact is never modelled. Oats are not tagged for gluten (cross-contact is the risk).
+#   P4  Generic refined oils (vegetable, canola, corn, cooking spray, shortening) are not tagged.
+#   P5  Coconut is NOT a tree nut (FDA 2025). Nutmeg, butternut squash, water chestnut, tiger nut, lupini are not nuts.
+#   P6  shellfish = crustaceans (US major allergen). mollusks (clams, oysters, scallops, squid, snails) are separate.
+#   P7  wheat implies gluten. Barley, rye and malt carry gluten only.
+#
+# DIET CLASS (what the ingredient is, not what a recipe is)
+#   Derived when omitted: a dairy/egg tag -> dairy_egg; a fish/shellfish/mollusks tag -> seafood; otherwise the
+#   ingredient's filter group (meat -> meat, seafood -> seafood, eggs -> dairy_egg) or plant.
+#   plant = no animal product; honey = bee product (vegetarian, not vegan); dairy_egg = vegetarian, not vegan;
+#   seafood = pescatarian, not vegetarian; meat = flesh, organ, animal fat, gelatin, meat stock.
+#   Cheese counts as vegetarian (animal rennet is not modelled; see docs). Wine / beer / sugar fining is not modelled.
+
+# ======================================================================== WHEAT (+ gluten)
+[wheat:I, gluten:I] wheat flour or wheat grain :: all-purpose flour; bread flour; whole wheat flour; cake flour; pastry flour; self-rising flour; 00 flour; semola rimacinata; semolina; atta; vital wheat gluten; wheat germ; wheat bran; wheat berries; dalia; tempura flour; takoyaki flour; okonomiyaki flour; chapati; paratha; cuban bread
+[wheat:I, gluten:I] wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous) :: spelt flour; spelt; kamut; einkorn; emmer; farro; freekeh; bulgur; couscous; couscous medium; maftoul; fregola
+[wheat:I, gluten:I] wheat pasta or noodles :: spaghetti; penne; rigatoni; fusilli; macaroni; lasagna noodles; orzo; linguine; fettuccine; angel hair; pasta; bucatini; pappardelle; farfalle; rotini; ziti; shell pasta; ditalini; orecchiette; paccheri; cavatappi; vermicelli pasta; fideo noodles; campanelle; gemelli; whole wheat pasta; manicotti; hilopites; trahana; ramen noodles; udon noodles; somen noodles; yakisoba noodles; chinese wheat noodles; hand-pulled noodles; lagman noodles; instant noodles; lo mein noodles; chow mein noodles
+[wheat:I, gluten:I] wheat bread, pastry or cracker :: breadcrumbs; panko breadcrumbs; seasoned breadcrumbs; croutons; saltine crackers; graham crackers; water crackers; oyster crackers; matzo; matzo meal; pretzels; bagel; baguette; sandwich bread; sourdough bread; italian bread; pita bread; naan; nan bread; hamburger buns; hot dog buns; english muffin; pizza dough; puff pastry; phyllo dough; pie crust; bread dough; crescent rolls; dinner rolls; hawaiian rolls; challah; croissant; croissant dough; brioche; ciabatta; focaccia; piadina; grissini; ladyfingers; digestive biscuits; crumpets; soda bread; stuffing mix; bolillo; conchas; pandesal; lavash; khubz; yufka; kataifi; simit; whole wheat bread; rusks; flour tortillas; empanada dough; tunisian brik pastry; msemen; warqa
+[wheat:I, gluten:I] wheat wrapper or dumpling skin :: wonton wrappers; egg roll wrappers; spring roll wrappers; dumpling wrappers; manti wrappers; pierogi; pelmeni; spatzle; gnocchi; tortellini; ravioli
+[wheat:I, gluten:I] wheat-based mix or cereal :: baking mix; biscuit mix; pancake mix; cake mix; cornbread mix; cereal; bran cereal; raisin bran; seitan; crispy fried onions; stollen; christmas pudding; tempura flour
+[gluten:T] barley malt flavouring in the common product :: corn flakes
+[gluten:I] barley or rye contains gluten (not wheat) :: barley; barley flour; rye flour; rolled rye; barley malt syrup; malt vinegar; brown sauce
+[gluten:T] brewed from barley (gluten-free beers exist) :: beer
+[wheat:T, gluten:T] rye breads and crackers are usually part wheat :: pumpernickel; rye bread; knackebrod
+[wheat:T, gluten:T] usually made with wheat flour as well as oats :: oatcakes
+[wheat:V, gluten:V] soba is usually part wheat flour :: soba noodles; buckwheat noodles; naengmyeon noodles
+[wheat:V, gluten:V] teff injera is often blended with wheat or barley :: injera
+[wheat:V, gluten:V] often tossed in flour :: fried shallots
+[wheat:V, gluten:V] traditional recipes include rusk or flour filler :: cumberland sausage; boerewors; bakso
+[wheat:T, gluten:T] canned condensed soup is thickened with wheat flour :: cream of mushroom soup; cream of chicken soup; cream of celery soup; chicken noodle soup
+[wheat:V, gluten:V] wheat starch / flour in some brands :: turkish delight; piccalilli; falafel; muhammara; romesco; mole paste; ramen seasoning
+[wheat:T, gluten:T] a flour roux :: japanese curry roux
+[wheat:V, gluten:V] may be thickened with wheat flour :: plum sauce; gochujang; doenjang; ssamjang; tamari; veggie burger; pork floss; chinese sausage
+[wheat:T, gluten:T] brewed or thickened with wheat :: black vinegar; shaoxing wine; shaoxing cooking wine; huangjiu; makgeolli
+
+# ======================================================================== SOY SAUCE FAMILY
+[soy:I, wheat:T, gluten:T] soy sauce is brewed from soybeans and wheat :: soy sauce; mushroom soy sauce; korean soup soy sauce; kecap manis
+[soy:T, wheat:T, gluten:T] made with soy sauce or wheat-and-soy bean paste :: ponzu; mentsuyu; tonkatsu sauce; okonomiyaki sauce; teriyaki sauce; char siu sauce; orange sauce; japanese bbq sauce; tare; yellow bean sauce; sweet bean sauce; black bean sauce; hot bean paste; doubanjiang; hoisin sauce; korean bbq sauce; sha cha sauce; xo sauce; oyster sauce
+[soy:I] soy sauce (wheat-free versions exist) :: tamari
+[soy:I] fermented soybean paste :: doenjang; ssamjang; white miso; red miso; awase miso; yellow miso; natto
+[soy:I] fermented soybeans :: fermented black beans; fermented bean curd; sundubu
+[soy:T, wheat:V, gluten:V] fermented soybean and barley malt / wheat :: gochujang
+[soy:I] soybean or soy product :: soybeans; black soybeans; edamame; firm tofu; silken tofu; tofu puffs; dried tofu; aburaage; atsuage; yuba; tempeh; kinako; soy flour; roasted soybean powder; soybean sprouts; soy milk; soybean oil; textured vegetable protein
+[soy:T] soy sauce or fermented soybean in the common product :: miso soup mix; chili crisp; satay sauce; peanut sauce; sesame ginger dressing; japanese curry roux; tempeh chips
+[soy:V] soy protein or soybean oil is common :: veggie burger; plant-based ground; vegan butter; margarine; protein powder; panko breadcrumbs; breadcrumbs; seasoned breadcrumbs; ramen seasoning; pork floss; chinese sausage
+[soy:T] soy lecithin in the common product :: chocolate chips; semisweet chocolate; peanut butter chips; milk chocolate; white chocolate; hazelnut spread; speculoos spread
+[soy:V, tree-nuts:V] bases vary: soy, cashew or almond :: vegan cheese
+
+# ======================================================================== DAIRY
+[dairy:I] cheese :: cheddar cheese; mozzarella; fresh mozzarella; parmesan; pecorino romano; feta; goat cheese; ricotta; cottage cheese; monterey jack; pepper jack; swiss cheese; provolone; gruyere; blue cheese; queso fresco; cotija; mascarpone; halloumi; american cheese; cream cheese; paneer; shredded cheese; asiago; fontina; taleggio; burrata; stracciatella; scamorza; caciocavallo; ricotta salata; robiola; manchego; mahon cheese; brie; camembert; roquefort; comte; reblochon; boursin; raclette cheese; gouda; edam; havarti; jarlsberg; gjetost; muenster; limburger; colby cheese; neufchatel; stilton; wensleydale; mizithra; graviera; kasseri; beyaz peynir; akkawi cheese; sirene; kajmak; farmer cheese; tvorog; quark; skyr; fromage blanc; oaxaca cheese; queso panela; queso asadero; queso anejo; requeson; cuajada; kesong puti; suluguni; labneh; chhena; khoya; string cheese; processed cheese; cheese powder; sheep cheese; queijo minas; requeijao
+[dairy:I] milk, cream, yogurt or butter :: milk; skim milk; whole milk; reduced fat milk; goat milk; lactose-free milk; buttermilk; evaporated milk; evaporated skim milk; sweetened condensed milk; dry milk powder; heavy cream; half-and-half; sour cream; plain yogurt; greek yogurt; frozen yogurt; vanilla yogurt; strawberry yogurt; mexican crema; crema salvadorena; mexican table cream; creme fraiche; clotted cream; smetana; kaymak; malai; dahi; raita; lassi; ayran; kefir; tzatziki; butter; unsalted butter; ghee; clarified butter; cultured butter; white butter; niter kibbeh; dulce de leche; cajeta; milk chocolate; white chocolate; peanut butter chips; lemon curd; hollandaise sauce; bearnaise sauce; blue cheese dressing
+[dairy:T] cream, milk or butter in the common recipe :: alfredo sauce; butter chicken sauce; korma sauce; tikka masala sauce; ranch dressing; green goddess dressing; caesar dressing; pesto; cream of mushroom soup; cream of chicken soup; cream of celery soup; naan; nan bread; brioche; croissant; croissant dough; hawaiian rolls; conchas; pandesal; pierogi; tortellini; ravioli; manicotti; hazelnut spread
+[dairy:V] milkfat, whey or milk solids in some brands :: chocolate chips; semisweet chocolate; margarine; protein powder; whipped topping; biscuit mix; crescent rolls; puff pastry; pie crust; pao de queijo mix
+
+# ======================================================================== EGG
+[egg:I] egg :: egg; egg whites; egg yolk; liquid egg; goose egg; duck egg; quail egg; century egg; salted duck egg; meringue powder; mayonnaise; hollandaise sauce; bearnaise sauce; lemon curd
+[egg:T] eggs in the usual recipe or product :: egg substitute; alioli; remoulade; thousand island dressing; caesar dressing; green goddess dressing; blue cheese dressing; salad cream; egg noodles; lo mein noodles; egg roll wrappers; egg pasta; dried egg noodles; spatzle; pierogi; pelmeni; gnocchi; tortellini; ravioli; challah; brioche; hawaiian rolls; conchas; pandesal; ladyfingers; turron; amaretti cookies; stollen
+[egg:V] egg in many recipes / brands :: ranch dressing; salad dressing; wonton wrappers; manti wrappers; empanada dough; naan; croissant dough; croissant; chicken noodle soup; takoyaki flour; okonomiyaki flour; pao de queijo mix; hand-pulled noodles
+
+# ======================================================================== SESAME
+[sesame:I] sesame :: sesame seeds; black sesame seeds; toasted sesame oil; sesame oil untoasted; tahini; chinese sesame paste; halva; za'atar; furikake; everything bagel seasoning; shichimi togarashi; dukkah; sesame ginger dressing; korean bbq sauce
+[sesame:T] tahini or sesame seeds in the common recipe :: hummus; baba ganoush; mole paste
+[sesame:V] sesame in some brands / recipes :: hoisin sauce; chili crisp; chili oil; falafel; green mole; hamburger buns
+
+# ======================================================================== FISH
+[fish:I] fish :: salmon; smoked salmon; tuna steak; canned tuna; sashimi tuna; cod; tilapia; halibut; trout; snapper; anchovies; sardines; walleye; catfish; pollock; white fish; mackerel; yellowtail; sea bream; herring; unagi; smoked trout; flounder; haddock; hake; perch; carp; pike; canned salmon; sockeye salmon; arctic char; lake whitefish; walleye fillet; mahi mahi; swordfish; wahoo; ahi poke; catfish fillet; salmon belly; sea bass; monkfish; turbot; dover sole; red mullet; skate wing; skate; sturgeon; lingcod; rockfish; ocean perch; barramundi; pangasius; milkfish; grouper; smelt; pompano; bluefish; shad; orange roughy; hilsa; rohu; pomfret; bombay duck; kingfish; dried fish; maldive fish; smoked fish; stockfish; salt cod; gravlax; lutefisk; pickled herring; smoked sprats; sardines canned; mackerel canned; anchovies fresh; tuna in olive oil; dried anchovies; dried bonito; bonito flakes; dashi; fish stock; fish cakes; fish sauce; korean fish sauce; imitation crab; thai fish ball; colatura di alici; anchovy paste; caviar; cod roe; tobiko; ikura; bottarga; tarama; saeujeot
+[fish:T] anchovy, fish sauce or bonito in the common recipe :: worcestershire sauce; caesar dressing; green goddess dressing; nuoc cham; kimchi; nam prik pao; padaek; ngapi; prahok; sha cha sauce; xo sauce; furikake; miso soup mix; ponzu; mentsuyu; tom yum paste; laksa paste; kroeung; bun bo hue paste; sinigang mix; ramen seasoning
+[fish:V] fish sauce or bonito powder in some pastes / mixes :: takoyaki flour; okonomiyaki flour; red curry paste; green curry paste; yellow curry paste; panang curry paste; massaman curry paste; rendang paste; nam prik pao; sambal; chili paste in oil
+
+# ======================================================================== SHELLFISH (crustaceans) and MOLLUSKS
+[shellfish:I] crustacean :: shrimp; dried shrimp; dried shrimp powder; crayfish ground; crawfish; lobster; spiny lobster; langoustine; soft shell crab; dungeness crab; king crab; canned crab; crab; shrimp paste
+[shellfish:T] shrimp paste or dried shrimp is standard :: nam prik pao; red curry paste; green curry paste; yellow curry paste; panang curry paste; massaman curry paste; laksa paste; tom yum paste; kroeung; bun bo hue paste; sinigang mix; saeujeot; ngapi; padaek; prahok; xo sauce; sha cha sauce; rendang paste
+[shellfish:V] salted shrimp or shrimp paste in many versions :: kimchi; sambal; chili paste in oil
+[mollusks:I] mollusk :: oysters; razor clam; geoduck; clams; canned clams; mussels; scallops; sea scallops; dried scallops; cockles; periwinkles; whelk; abalone; snails; squid; dried squid; squid ink; octopus; cuttlefish
+[mollusks:T] oyster extract or dried scallop :: oyster sauce; xo sauce
+[mollusks:V] may contain dried scallop or oyster extract :: sha cha sauce
+
+# ======================================================================== PEANUTS
+[peanuts:I] peanut :: peanuts; peanut butter; peanut oil; peanut sauce; satay sauce; peanut butter powder; peanut butter chips; kuli kuli; maafe sauce
+[peanuts:T] peanuts are standard in the traditional recipe :: mole paste
+[peanuts:V] some brands / recipes include peanuts :: green mole; panang curry paste; chili crisp; granola
+
+# ======================================================================== TREE NUTS
+[tree-nuts:I] tree nut :: almonds; walnuts; pecans; cashews; pistachios; pine nuts; hazelnuts; macadamia nuts; brazil nuts; chestnuts; walnuts english; marcona almonds; green almonds; pinon nuts; almond butter; cashew butter; hazelnut butter; almond paste; marzipan; praline paste; walnut paste; almond milk; cashew milk; almond flour; hazelnut flour; chestnut flour; almond extract; almond oil; walnut oil; hazelnut oil; macadamia oil; hazelnut spread; turron
+[tree-nuts:T] tree nut in the common recipe / product :: pesto; romesco; korma sauce; amaretto; amlou; amaretti cookies; dukkah; muhammara; mole paste
+[tree-nuts:V] some versions include tree nuts :: granola; turkish delight; candlenuts; kukui nuts; shea butter

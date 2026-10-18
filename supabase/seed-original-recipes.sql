@@ -131,11 +131,11 @@ begin
   if (select count(*) from ingredient_allergens ia
         join ingredients i on i.id = ia.ingredient_id
         join allergens a on a.id = ia.allergen_id
-       where (i.canonical_name, a.name) in
-         (('soy sauce','Gluten'), ('fish sauce','Fish'), ('shrimp','Shellfish'),
-          ('peanuts','Nuts'), ('butter','Dairy'), ('mayonnaise','Egg'),
-          ('tahini','Sesame'), ('firm tofu','Soy'))) < 8 then
-    raise exception 'allergen data missing: apply supabase/seed-allergens.sql before this file';
+       where (i.canonical_name, a.slug) in
+         (('soy sauce','gluten'), ('fish sauce','fish'), ('shrimp','shellfish'),
+          ('peanuts','peanuts'), ('butter','dairy'), ('mayonnaise','egg'),
+          ('tahini','sesame'), ('firm tofu','soy'))) < 8 then
+    raise exception 'allergen data missing: apply supabase/seed-allergen-tags.sql before this file';
   end if;
 end
 $gate$;
@@ -182,9 +182,9 @@ with facts as (
   select
     r.slug,
     bool_or(m.ingredient_id is not null)                                            as has_meat,
-    bool_or(a.name in ('Fish','Shellfish'))                                          as has_fish,
-    bool_or(a.name in ('Dairy','Egg') or i.canonical_name = 'honey')                 as has_animal_other,
-    bool_or(a.name = 'Gluten')                                                       as has_gluten
+    bool_or(a.slug in ('fish','shellfish','mollusks'))                                          as has_fish,
+    bool_or(a.slug in ('dairy','egg') or i.canonical_name = 'honey')                 as has_animal_other,
+    bool_or(a.slug = 'gluten')                                                       as has_gluten
   from _r r
   join _res x on x.slug = r.slug
   join ingredients i on i.id = x.ingredient_id

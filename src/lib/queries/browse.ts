@@ -56,7 +56,9 @@ type CardRow = {
   spice_level: number | null;
   source_name: string | null;
   cuisines: { name: string } | null;
-  recipe_allergens: { allergens: { name: string } | null }[];
+  recipe_allergens: { basis: string; allergens: { slug: string; name: string } | null }[];
+  /** Allergens that come only from optional lines: the recipe is fine without them. */
+  recipe_optional_allergens: { allergens: { slug: string; name: string } | null }[];
   has_photo: boolean;
   /** Embedded one-to-one (recipe_id is the PK); PostgREST returns an object, null when none. */
   recipe_photos: PhotoRow | PhotoRow[] | null;
@@ -68,7 +70,7 @@ type CardRow = {
 };
 
 const CARD_COLUMNS =
-  "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(allergens(name)), has_photo, recipe_photos(storage_path, thumb_path, credit, license), recipe_ingredients(sort_order, is_optional, ingredients(aisle_category, is_pantry_staple))";
+  "id, slug, title, servings, total_time_min, calories, image_url, spice_level, source_name, cuisines(name), recipe_allergens(basis, allergens(slug, name)), recipe_optional_allergens(allergens(slug, name)), has_photo, recipe_photos(storage_path, thumb_path, credit, license), recipe_ingredients(sort_order, is_optional, ingredients(aisle_category, is_pantry_staple))";
 
 export const AI_SOURCE_NAME = "Minced original";
 /** recipes.source_name written by save_my_recipe() for every user-submitted recipe. */
@@ -85,8 +87,16 @@ function cardPhoto(row: CardRow): CardPhoto | null {
   };
 }
 
-function toCard(row: CardRow): RecipeCardProps {
+/**
+ * `exclude` is the allergen filter in force. An optional-only allergen the person is leaving out is named on the
+ * card ("optional peanuts"), because the filter keeps such a recipe in the list on purpose.
+ */
+function toCard(row: CardRow, exclude?: readonly string[]): RecipeCardProps {
   const photo = cardPhoto(row);
+  const lower = (names: (string | undefined)[]) => names.filter((n): n is string => !!n).map((n) => n.toLowerCase());
+  const optionalNamed = lower(
+    row.recipe_optional_allergens.map((a) => (a.allergens && exclude?.includes(a.allergens.slug) ? a.allergens.name : undefined)),
+  );
   return {
     slug: row.slug,
     title: row.title,
@@ -98,9 +108,9 @@ function toCard(row: CardRow): RecipeCardProps {
     servings: row.servings,
     calories: row.calories,
     spiceLevel: row.spice_level,
-    allergens: row.recipe_allergens
-      .map((a) => a.allergens?.name.toLowerCase())
-      .filter((n): n is string => !!n),
+    allergens: lower(row.recipe_allergens.map((a) => (a.basis === "varies" ? undefined : a.allergens?.name))),
+    mayContainAllergens: lower(row.recipe_allergens.map((a) => (a.basis === "varies" ? a.allergens?.name : undefined))),
+    optionalAllergens: optionalNamed,
     aiDrafted: row.source_name === AI_SOURCE_NAME,
   };
 }
@@ -240,7 +250,7 @@ async function loadBrowse(
   const last = page.at(-1);
 
   return {
-    recipes: page.map(toCard),
+    recipes: page.map((r) => toCard(r, filters.exclude)),
     nextCursor: rows.length > limit && last ? encodeBrowseCursor(last.has_photo, last.title, last.id) : null,
     total: cursor ? null : (count ?? page.length),
     totalIsLowerBound: false,
@@ -283,7 +293,7 @@ async function loadSearch(
   const recipes = shown.map((r) => {
     const d = details.get(r.id);
     return d
-      ? toCard(d)
+      ? toCard(d, filters.exclude)
       : ({
           slug: r.slug,
           title: r.title,
@@ -308,13 +318,13 @@ async function loadSearch(
  * credit, cuisine, spice, allergens and the AI-draft flag, keyed by recipe id.
  * Keeps the pantry cards identical to browse/search cards.
  */
-async function loadCardExtras(ids: string[]): Promise<Record<string, RecipeCardProps>> {
+async function loadCardExtras(ids: string[], exclude?: string[]): Promise<Record<string, RecipeCardProps>> {
   const out: Record<string, RecipeCardProps> = {};
   if (ids.length === 0) return out;
   const sb = createStaticClient() as unknown as SupabaseClient;
   const { data, error } = await sb.from("recipes").select(CARD_COLUMNS).in("id", ids);
   if (error) throw error;
-  for (const row of (data ?? []) as unknown as CardRow[]) out[row.id] = toCard(row);
+  for (const row of (data ?? []) as unknown as CardRow[]) out[row.id] = toCard(row, exclude);
   return out;
 }
 

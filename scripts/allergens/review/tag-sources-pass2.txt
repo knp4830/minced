@@ -1,0 +1,46 @@
+# Second pass: additions found by reading the whole ingredient list line by line, and by comparing against the
+# tags the catalog had before this wave (every previous tag that had no replacement was looked at on purpose).
+# Same format as tag-sources.txt.
+
+# --- wheat / gluten found missing
+[wheat:I, gluten:I] wheat pasta or noodle :: egg noodles; egg pasta; dried egg noodles; vermicelli sweet; sumalak; coconut bread; indonesian noodles
+[wheat:V, gluten:V] surimi contains wheat starch :: imitation crab; fish cakes
+[wheat:V, gluten:V] suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks :: suet; haggis; mincemeat; onion soup mix; enchilada sauce; tomato soup; yeast extract; rice crackers; beef jerky; bison jerky; peking duck; adobo sauce
+[gluten:V] barley malt syrup is sometimes the sweetener :: maltose; steak sauce
+[gluten:T] Marmite and Vegemite style yeast extract contain barley or wheat :: yeast extract
+[wheat:T, gluten:T] enriched wheat dough :: trahana; paratha; soda bread; rusks; stollen; christmas pudding; speculoos spread
+
+# --- soy / sesame / egg / fish / shellfish found missing
+[soy:T] soy sauce marinade or glaze :: unagi; peking duck; beef jerky; bison jerky; adobo sauce; mexican chocolate
+[soy:V] soy sauce in many versions :: rice crackers
+[wheat:T, gluten:T, soy:T] kabayaki glaze is soy sauce and mirin :: unagi
+[sesame:T] sesame in the common recipe :: ssamjang; simit; japanese bbq sauce; salsa macha
+[egg:V] egg in many recipes :: coconut bread; rusks; hilopites; pappardelle; indonesian noodles
+[egg:T] egg in the traditional recipe :: hilopites; pappardelle; christmas pudding; indonesian noodles
+[fish:T, shellfish:T] dried fish and shrimp :: shito; kimchi base
+[fish:T] anchovies in the classic recipe :: olive tapenade
+[fish:V] fish sauce :: nem nuong; cha lua
+[fish:V, shellfish:V] prawn or fish flavoured crackers :: kerupuk
+[shellfish:V, mollusks:V] sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it :: uni
+
+# --- dairy found missing
+[dairy:T] cream, milk, butter or cheese in the common product :: ranch seasoning; buffalo sauce; ube halaya; trahana; christmas pudding; stollen; soda bread; rusks; saag; bolognese sauce; coconut bread
+[dairy:I] milk product :: smen
+[dairy:V] some versions add yogurt or milk solids :: coconut chutney; coconut milk powder; paratha
+
+# --- peanuts / tree nuts found missing
+[peanuts:T] peanuts are in the traditional mix / spice :: suya spice; salsa macha; chivda
+[tree-nuts:T] cashew or almond in the common mix :: chivda
+[tree-nuts:V] almonds / pecans in some versions; pistachio halva; pistachios in mortadella; argan is not on the FDA list :: salsa macha; halva; mortadella; argan oil
+[tree-nuts:T] almonds in the traditional stollen :: stollen
+[peanuts:V] bambara groundnut is a different legume, but it is called a groundnut and is cross-reactive with peanut :: bambara groundnut
+[gluten:V] oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease :: rolled oats; steel-cut oats; oat flour; oat bran; oat milk
+[wheat:V, gluten:V] wheat starch: contains wheat, gluten-free only if specially processed :: wheat starch
+
+# --- diet class: animal fat in the usual product, or meat
+[] {meat} contains chicken stock or meat :: chicken noodle soup; cream of chicken soup
+[] {meat} refried beans are traditionally cooked in lard (vegetarian canned versions exist) :: refried beans
+[] {meat} baked beans are usually made with pork or bacon :: baked beans
+[] {meat} tamale dough is made with lard :: tamale dough
+[] {meat} jarred bolognese contains beef or pork :: bolognese sauce
+[] {meat} hot pot broth is a meat-bone broth :: mongolian hot pot broth

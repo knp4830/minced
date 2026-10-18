@@ -1,0 +1,17 @@
+# Diet class overrides: only where the class is not derived from the allergen tags and the filter group.
+# Same line format as tag-sources.txt. Allergen brackets are empty here.
+# plant = no animal product; honey = bee product (vegetarian, not vegan); dairy_egg = vegetarian, not vegan;
+# seafood = pescatarian, not vegetarian; meat = flesh, organ, animal fat, gelatin, meat stock.
+
+[] {meat} meat stock, bouillon, animal fat or gelatin :: chicken broth; beef broth; chicken bouillon; beef bouillon; bone broth; veal stock; lard; beef tallow; suet; duck fat; goose fat; chicken fat; gelatin; marshmallows; liver pate; pork rinds
+[] {meat} flavour packet usually contains meat extract :: ramen seasoning; instant noodles
+[] {meat} traditionally made with suet :: mincemeat; christmas pudding
+[] {meat} cow skin :: ponmo
+[] {meat} frog legs are an amphibian, not seafood :: frog legs
+[] {plant} wheat gluten, tempeh and soy protein are plant protein :: tempeh; seitan; tempeh chips; textured vegetable protein; veggie burger; plant-based ground
+[] {plant} dairy-free by definition (vegetable fat; dark chocolate); the allergen tags stay cautious :: margarine; chocolate chips; semisweet chocolate; vegan butter; vegan cheese
+[] {honey} bee product :: honey; greek honey; manuka honey; honey mustard
+[] {honey} granola is usually bound with honey :: granola
+[] {dairy_egg} commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label) :: sandwich bread; hamburger buns; hot dog buns; dinner rolls; english muffin
+[] {honey} egg white and honey :: turron
+[] {seafood} land snails are not vegetarian :: snails

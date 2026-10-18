@@ -71,6 +71,8 @@
  * are NOT range filters; they keep their own ANY/ALL/NONE rules.
  */
 
+import { expandLegacyAllergens } from "@/lib/allergenSlugs";
+
 export type RecipeFilters = {
   /** Search text (door 2). */
   q?: string;
@@ -196,6 +198,11 @@ function slugList(raw: string | undefined): string[] | undefined {
   return slugs.length ? slugs : undefined;
 }
 
+/** An old `exclude=nuts` link keeps protecting its reader: it now means peanuts AND tree nuts. */
+function legacyExclude(slugs: string[] | undefined): string[] | undefined {
+  return slugs ? expandLegacyAllergens(slugs).slice(0, MAX_LIST) : undefined;
+}
+
 /**
  * URL -> filters. Total: malformed or out-of-range values are dropped or
  * clamped, never thrown, because the input is user-editable.
@@ -223,7 +230,7 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     include: idList(first(sp, "include")),
     cuisine: slugList(first(sp, "cuisine")),
     diet: slugList(first(sp, "diet")),
-    exclude: slugList(first(sp, "exclude")),
+    exclude: legacyExclude(slugList(first(sp, "exclude"))),
     cookware: slugList(first(sp, "cookware")),
     ownedCookware: slugList(first(sp, "ownedCookware")),
     ownedOnly: first(sp, "ownedOnly") === "1" ? true : undefined,
