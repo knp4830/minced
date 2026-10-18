@@ -5,6 +5,7 @@ import { after } from "next/server";
 
 import { stripControlChars } from "@/lib/filters";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
+import { searchFoods } from "@/lib/queries/foods";
 import {
   deleteMyRecipe,
   resolveIngredientName,
@@ -208,5 +209,28 @@ export async function checkIngredientName(name: string): Promise<{ canonical: st
     return { canonical: await resolveIngredientName(clean) };
   } catch {
     return null; // unknown: the form then says nothing instead of a wrong "not found"
+  }
+}
+
+/**
+ * Of the ingredient names on a form that was just reopened, the ones whose default food has no nutrition data
+ * (lowercase). A freshly picked row learns this from the type-ahead; a saved row has to ask. Null when the lookup
+ * failed, so the form then says nothing instead of guessing. Bounded: at most 40 names, 60 characters each.
+ */
+export async function ingredientsWithoutNutrition(names: unknown): Promise<string[] | null> {
+  if (!USER_RECIPES_ENABLED || !Array.isArray(names)) return null;
+  const clean = [...new Set(names.filter((n): n is string => typeof n === "string").map((n) => stripControlChars(n).replace(/\s+/g, " ").trim().toLowerCase().slice(0, 60)).filter((n) => n.length >= 2))].slice(0, 40);
+  try {
+    const out: string[] = [];
+    await Promise.all(
+      clean.map(async (name) => {
+        const hits = await searchFoods(name, 3);
+        const own = hits.find((h) => h.kind === "ingredient" && (h.canonicalName ?? h.label).toLowerCase() === name);
+        if (own && own.hasNutrition === false) out.push(name);
+      }),
+    );
+    return out;
+  } catch {
+    return null;
   }
 }

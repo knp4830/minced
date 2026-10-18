@@ -74,6 +74,11 @@ export type LabelModel = {
   partial: boolean;
   unavailable: boolean;
   /**
+   * True when a computed fat or sugar breakdown was left out because it cannot be reconciled with the
+   * published total next to it (for example 6 g of unsaturated fat under a published 3.5 g of total fat).
+   */
+  breakdownHidden: boolean;
+  /**
    * Set when the published calories and the calories computed from the ingredients differ by more than
    * DISAGREE_THRESHOLD (a fraction, signed: positive = computed is higher). Only for USDA MyPlate recipes.
    */
@@ -99,12 +104,37 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
     const col = MACRO_COLUMNS.find((m) => m.fdc === fdc);
     if (col) {
       const v = columns[COLUMN_VALUE[col.column]];
-      if (v !== null && v !== undefined) return { amount: v, computed: false, coverage: 1 };
+      // The columns hold USDA's published value for MyPlate recipes, but refresh_recipe_nutrients() writes them
+      // for the recipes it computed itself ("Minced original"): then they are computed, and a partial recipe's
+      // value is "at least".
+      if (v !== null && v !== undefined) return { amount: v, computed: data?.source === "computed", coverage: 1 };
     }
     const r = byFdcRow.get(fdc);
     if (r && r.amount !== null) return { amount: r.amount, computed: true, coverage: r.coverage };
     return null;
   };
+
+  // A total sits next to separately computed parts. If the parts cannot fit inside it (a published total, or a
+  // computed one for a recipe where an ingredient's fat parts and its total disagree), showing both makes the label
+  // contradict itself, so the parts are left out and the label says so.
+  const hidden = new Set<number>();
+  const pubFat = found(FDC.fat);
+  if (pubFat) {
+    const parts = [FDC.satFat, FDC.transFat, FDC.monoFat, FDC.polyFat]
+      .map((f) => byFdcRow.get(f)?.amount)
+      .filter((v): v is number => typeof v === "number");
+    const sum = parts.reduce((a, b) => a + b, 0);
+    const tooBig = sum > pubFat.amount * 1.05 + 0.5 || parts.some((v) => v > pubFat.amount + 0.5);
+    if (tooBig) for (const f of [FDC.satFat, FDC.transFat, FDC.monoFat, FDC.polyFat]) if (byFdcRow.has(f)) hidden.add(f);
+  }
+  const pubCarb = found(FDC.carbs);
+  if (pubCarb) {
+    const sugars = byFdcRow.get(FDC.sugars)?.amount;
+    if (typeof sugars === "number" && sugars > pubCarb.amount + 0.5) {
+      hidden.add(FDC.sugars);
+      hidden.add(FDC.addedSugars);
+    }
+  }
 
   let usedPublished = false;
   let usedComputed = false;
@@ -141,6 +171,7 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
   for (const t of LABEL_TOP) {
     const n = byFdc(list, t.fdc) ?? (t.fdc === FDC.addedSugars ? addedRow?.nutrient : undefined);
     if (!n) continue;
+    if (hidden.has(t.fdc)) continue;
     if (t.fdc === FDC.addedSugars) {
       if (addedRow && addedRow.amount !== null && addedRow.coverage > 0) top.push(row(addedRow.nutrient, { amount: addedRow.amount, computed: true, coverage: addedRow.coverage }, t.indent, t.bold, true));
       continue;
@@ -165,7 +196,8 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
   for (const r of rest) {
     const n = r.nutrient;
     if (r.amount === null || r.coverage <= 0) continue; // nobody reports it: no row at all
-    if (r.coverage < MIN_COVERAGE) {
+    // A partial recipe's zero says nothing ("at least 0"), so it is shown as unknown, never as a clean 0.
+    if (r.coverage < MIN_COVERAGE || (partial && r.amount <= 0)) {
       micro.push({ fdc: n.fdcNumber, name: n.name, amountText: "", amount: null, pct: null, indent: 0, bold: false, atLeast: false, estimated: false, noData: true, limit: false });
       continue;
     }
@@ -178,7 +210,7 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
       pct: percentDv(r.amount, n),
       indent: 0,
       bold: false,
-      atLeast: false,
+      atLeast: partial,
       estimated: false,
       noData: false,
       limit: false,
@@ -190,7 +222,7 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
   const delta = data?.kcalDelta;
   const disagreement =
     !unavailable && data?.source === "usda_myplate" && typeof delta === "number" && Math.abs(delta) > DISAGREE_THRESHOLD ? delta : null;
-  return { calories, top, micro, basis, partial, unavailable, disagreement };
+  return { calories, top, micro, basis, partial, unavailable, breakdownHidden: hidden.size > 0, disagreement };
 }
 
 /** Ingredient lines that did not add to the numbers, with the reason, for the "not counted" list. */
@@ -221,4 +253,15 @@ export function uncountedLines(
 /** Sodium is a minimum when salt (or a salty sauce) is listed "to taste", because it counts as zero. */
 export function sodiumIsMinimum(lines: { name: string; quantity: number | null; optional: boolean }[]): boolean {
   return lines.some((l) => !l.optional && l.quantity === null && /\b(salt|soy sauce|fish sauce|broth|stock|bouillon|miso)\b/i.test(l.name));
+}
+
+/**
+ * How one not-counted line reads in the footnote. A gap that comes from the database already names its reason in
+ * brackets ("pasta (no amount given)", "chili sauce (no USDA food linked)"); adding "(no nutrition data)" after
+ * it printed the reason twice.
+ */
+export function uncountedText(u: UncountedLine): string {
+  const name = u.name.trim().replace(/[.\s]+$/, "");
+  if (u.reason === "no data") return /\([^()]*\)$/.test(name) ? name : `${name} (no nutrition data)`;
+  return `${name} (${u.reason})`;
 }

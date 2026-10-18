@@ -65,7 +65,7 @@ export function MealsPanel({ food, totals }: { food: FoodEntry[]; totals: DayTot
                             <div className="truncate text-[0.8125rem] md:text-sm">{e.name}</div>
                           )}
                           <div className={e.recipe ? "label-mono mt-1 text-herb" : "mt-1 font-mono text-[0.6875rem] text-ink-muted"}>
-                            {e.recipe ? `Minced recipe · ${e.servings ?? 1} ${e.servings === 1 ? "serving" : "servings"}` : "Quick add"}
+                            {e.recipe ? `Minced recipe · ${e.servings ?? 1} ${e.servings === 1 ? "serving" : "servings"}` : e.nutrients !== null ? "Ingredient or brand" : "Quick add"}
                           </div>
                         </div>
                         <span className="font-mono text-xs md:text-[0.8125rem]">{nf.format(Math.round(e.calories))}<span className="hidden sm:inline"> kcal</span></span>

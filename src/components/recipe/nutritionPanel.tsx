@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { FDC } from "@/lib/nutrients";
 import type { Nutrient } from "@/lib/nutrients";
 import type { RecipeNutrients } from "@/lib/queries/recipeNutrients";
-import { buildLabel, sodiumIsMinimum, uncountedLines, type Columns, type LabelRow } from "@/lib/recipeLabel";
+import { buildLabel, sodiumIsMinimum, uncountedLines, uncountedText, type Columns, type LabelRow } from "@/lib/recipeLabel";
 import { cn } from "@/lib/utils";
 
 /*
@@ -42,18 +42,43 @@ export function NutritionPanel({
     fat?.amount != null ? { label: "Fat", text: fat.amountText, atLeast: fat.atLeast } : null,
   ].filter((t): t is { label: string; text: string; atLeast: boolean } => t !== null);
 
-  if (tiles.length === 0 && m.top.length === 0) return null;
-
   const uncounted = data ? uncountedLines(lines, data.gaps) : [];
+  const gapNames = uncounted.filter((u) => u.reason === "no data").map((u) => u.name.replace(/ \(.*\)$/, ""));
+  // An unavailable recipe says why, instead of silently having no nutrition section.
+  const unavailableNote = m.unavailable
+    ? `Nutrition is not available for this recipe yet: ${
+        gapNames.length > 0
+          ? `we have no usable nutrition data for ${gapNames.slice(0, 3).join(", ")}${gapNames.length > 3 ? ` and ${gapNames.length - 3} more` : ""}.`
+          : "too few of its ingredients have nutrition data to add up."
+      }`
+    : null;
+
+  if (tiles.length === 0 && m.top.length === 0) {
+    if (!unavailableNote) return null;
+    return (
+      <section aria-labelledby="nutrition-h" className="rounded-xl border border-line bg-band p-4">
+        <h2 id="nutrition-h" className="label-mono">
+          Nutrition per serving
+        </h2>
+        <p className="mt-2 text-[0.8125rem] leading-snug text-ink-muted">{unavailableNote}</p>
+      </section>
+    );
+  }
+
   const shownUncounted = uncounted.slice(0, MAX_UNCOUNTED);
   const sodiumMin = data && !m.unavailable && sodiumIsMinimum(lines);
 
+  // Worded from what the label really holds: published columns only for USDA MyPlate recipes, never for ones we computed.
   const basisNote =
     m.basis === "published+computed"
       ? "Calories, fat, carbohydrate, fiber, sodium and protein are as published by USDA MyPlate. The other values are estimated from USDA FoodData Central ingredient data, before cooking losses."
       : m.basis === "computed"
         ? "Estimated from USDA FoodData Central ingredient data, before cooking losses."
-        : "Amounts are estimated from USDA data.";
+        : m.basis === "published"
+          ? "Values are as published by USDA MyPlate."
+          : "Amounts are estimated from USDA data.";
+  const anyAtLeast = m.partial && (m.calories?.atLeast || m.top.some((r) => r.atLeast) || m.micro.some((r) => r.atLeast));
+  const disagreePct = m.disagreement === null ? null : Math.round(Math.abs(m.disagreement) * 100);
 
   return (
     <section aria-labelledby="nutrition-h" className="rounded-xl border border-line bg-band p-4">
@@ -79,6 +104,13 @@ export function NutritionPanel({
           At least: {uncounted.some((u) => u.reason === "no data") ? "some ingredients have no nutrition data yet" : "not every ingredient could be counted"}, so the real numbers are this or higher.
         </p>
       )}
+
+      {disagreePct !== null && m.disagreement !== null && (
+        <p className="mt-2 text-[0.75rem] leading-snug text-ink-muted">
+          The ingredient list adds up to about {disagreePct}% {m.disagreement > 0 ? "more" : "fewer"} calories than USDA&rsquo;s published figure shown here, so treat these numbers as a rough guide.
+        </p>
+      )}
+      {unavailableNote && <p className="mt-2 text-[0.75rem] leading-snug text-ink-muted">{unavailableNote}</p>}
 
       {(m.top.length > 0 || m.calories) && (
         <details className="group mt-3 border-t border-line pt-2.5">
@@ -117,7 +149,9 @@ export function NutritionPanel({
             )}
             <div className="mt-1.5 space-y-1 border-t-[6px] border-ink pt-1.5 text-[0.6875rem] leading-snug text-ink-muted">
               <p>*Percent daily values use the FDA reference diet of 2,000 calories. {basisNote}</p>
-              {m.micro.some((r) => r.noData) && <p>&ldquo;Not enough data&rdquo; means too few of the ingredients report that nutrient to give a fair number.</p>}
+              {anyAtLeast && <p>&ldquo;At least&rdquo; (&ge;) means some ingredients have no nutrition data and could not be counted, so the real amount is this or higher.</p>}
+              {m.breakdownHidden && <p>A fat or sugar breakdown is left out where the ingredient list does not fit inside USDA&rsquo;s published total.</p>}
+              {(m.micro.some((r) => r.noData) || m.top.some((r) => r.noData)) && <p>&ldquo;Not enough data&rdquo; means too few of the ingredients report that nutrient to give a fair number.</p>}
               {m.top.some((r) => r.estimated) && <p>Added sugars are estimated from the sweeteners and sweetened foods in the ingredient list.</p>}
               {sodiumMin && <p>Sodium is a minimum: salt and salty sauces listed &ldquo;to taste&rdquo; are not counted.</p>}
               {m.disagreement !== null && (
@@ -131,8 +165,7 @@ export function NutritionPanel({
                   {shownUncounted.map((u, i) => (
                     <span key={`${u.name}-${u.reason}`}>
                       {i > 0 && ", "}
-                      {/* a gap from the database already carries its reason: "pasta (no amount given)" */}
-                      {u.reason === "no data" && u.name.endsWith(")") ? u.name : `${u.name} (${u.reason === "no data" ? "no nutrition data" : u.reason})`}
+                      {uncountedText(u)}
                     </span>
                   ))}
                   {uncounted.length > shownUncounted.length ? ` and ${uncounted.length - shownUncounted.length} more` : ""}.

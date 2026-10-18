@@ -177,7 +177,9 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput | PickedFo
       recipeId: null,
       name: name.value,
       servings: null,
-      calories: r1(kcal),
+      // Whole kilocalories, the way the Add dialog previews them (rounding 14.46 to 14.5 and then to 15 is how the
+      // preview and the diary used to disagree).
+      calories: Math.round(kcal),
       proteinG: r1(val(FDC.protein) ?? 0),
       carbsG: r1(val(FDC.carbs) ?? 0),
       fatG: r1(val(FDC.fat) ?? 0),

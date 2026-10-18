@@ -6,7 +6,7 @@ import { register } from "node:module";
 
 register("./me-alias-hook.mjs", import.meta.url);
 
-const { buildLabel, uncountedLines, sodiumIsMinimum } = await import("../src/lib/recipeLabel.ts");
+const { buildLabel, uncountedLines, uncountedText, sodiumIsMinimum } = await import("../src/lib/recipeLabel.ts");
 const { formatAmount, percentDv, roundForLabel, toNutrient, MIN_COVERAGE, FALLBACK_NUTRIENTS } = await import("../src/lib/nutrients.ts");
 const { toFoodHit, tidyLabel } = await import("../src/lib/foodHit.ts");
 const { checkFoodInput } = await import("../src/lib/foodInput.ts");
@@ -24,6 +24,10 @@ const nutrients = [
   N(7, "calcium_mg", "Calcium", "mg", 301, 1300, 7),
   N(8, "vitamin_c_mg", "Vitamin C", "mg", 401, 90, 8),
   N(9, "added_sugars_g", "Added sugars", "g", 539, 50, 9),
+  N(10, "mono_fat_g", "Monounsaturated fat", "g", 645, null, 10),
+  N(11, "poly_fat_g", "Polyunsaturated fat", "g", 646, null, 11),
+  N(12, "sugars_g", "Total sugars", "g", 269, null, 12),
+  N(13, "potassium_mg", "Potassium", "mg", 306, 4700, 13),
 ];
 const byKey = Object.fromEntries(nutrients.map((n) => [n.key, n]));
 const cols = { calories: 410, proteinG: 22, carbsG: 40, fatG: 18, fiberG: null, sodiumMg: 700 };
@@ -89,6 +93,34 @@ assert.equal(buildLabel(cols, withDelta(0.2), nutrients).disagreement, null); //
 assert.equal(buildLabel(cols, withDelta(0.1), nutrients).disagreement, null);
 assert.equal(buildLabel(cols, withDelta(0.5, "computed"), nutrients).disagreement, null);
 assert.equal(buildLabel(cols, complete, nutrients).disagreement, null); // no delta on the data: no flag
+
+// ---- the label must not contradict itself (published total next to computed parts) ----
+const thousand = { status: "partial" as const, source: "usda_myplate" as const, gaps: [], kcalDelta: 0.75, rows: [row("fat_g", 14), row("sat_fat_g", 1.6), row("mono_fat_g", 2.3), row("poly_fat_g", 6.2), row("sugars_g", 30)] };
+const ti = buildLabel({ calories: 59, proteinG: 0.3, carbsG: 4, fatG: 3.5, fiberG: null, sodiumMg: 200 }, thousand, nutrients);
+assert.equal(ti.top.some((r) => r.fdc === 606 || r.fdc === 645 || r.fdc === 646), false); // 10 g of parts under a published 3.5 g total
+assert.equal(ti.top.some((r) => r.fdc === 269), false); // sugars 30 g cannot sit under 4 g of carbohydrate
+assert.equal(ti.breakdownHidden, true);
+assert.equal(ti.top.find((r) => r.fdc === 204)!.amount, 3.5); // the published total is kept
+const fits = buildLabel(cols, { status: "complete", source: "usda_myplate", gaps: [], rows: [row("fat_g", 17), row("sat_fat_g", 5), row("mono_fat_g", 6), row("poly_fat_g", 4)] }, nutrients);
+assert.equal(fits.breakdownHidden, false);
+assert.deepEqual(fits.top.filter((r) => r.indent === 1 && r.fdc !== 291).map((r) => r.name), ["Saturated fat", "Polyunsaturated fat", "Monounsaturated fat"]); // all in the top block, none under "vitamins and minerals"
+assert.equal(fits.micro.some((r) => r.fdc === 645 || r.fdc === 646), false);
+
+// columns written by refresh for a recipe we computed are computed, not "published"
+const own = buildLabel({ calories: 689, proteinG: 30, carbsG: 20, fatG: 52, fiberG: 4, sodiumMg: 300 }, { status: "complete", source: "computed", gaps: [], rows: [row("calcium_mg", 100)] }, nutrients);
+assert.equal(own.basis, "computed");
+const ownPartial = buildLabel({ calories: 120, proteinG: 5, carbsG: 20, fatG: 2, fiberG: 1, sodiumMg: 100 }, { status: "partial", source: "computed", gaps: ["tvp"], rows: [row("potassium_mg", 70), row("calcium_mg", 0), row("vitamin_c_mg", 4)] }, nutrients);
+assert.equal(ownPartial.calories?.atLeast, true);
+assert.equal(ownPartial.micro.find((r) => r.fdc === 306)!.atLeast, true); // micros on a partial recipe are "at least" too
+assert.equal(ownPartial.micro.find((r) => r.fdc === 301)!.noData, true); // "at least 0" says nothing
+// a complete recipe's micros are exact
+assert.equal(buildLabel(cols, complete, nutrients).micro.every((r) => !r.atLeast), true);
+
+// not-counted wording: the reason is never printed twice
+assert.equal(uncountedText({ name: "chili sauce (no USDA food linked)", reason: "no data" }), "chili sauce (no USDA food linked)");
+assert.equal(uncountedText({ name: "chili sauce (no USDA food linked) ", reason: "no data" }), "chili sauce (no USDA food linked)");
+assert.equal(uncountedText({ name: "gochujang", reason: "no data" }), "gochujang (no nutrition data)");
+assert.equal(uncountedText({ name: "salt", reason: "to taste" }), "salt (to taste)");
 
 // a nutrient nobody reports has no row at all (missing is not zero)
 assert.equal(buildLabel(cols, { status: "complete", source: "computed", gaps: [], rows: [row("calcium_mg", null, 0)] }, nutrients).micro.length, 0);

@@ -39,12 +39,18 @@ export const FDC = {
   sodium: 307,
   cholesterol: 601,
   satFat: 606,
+  transFat: 605,
+  monoFat: 645,
+  polyFat: 646,
 } as const;
 
 /** The top block of a Nutrition Facts label, in label order. Everything else is "vitamins and minerals". */
 export const LABEL_TOP: readonly { fdc: number; indent: 0 | 1 | 2; bold: boolean }[] = [
   { fdc: FDC.fat, indent: 0, bold: true },
   { fdc: FDC.satFat, indent: 1, bold: false },
+  { fdc: FDC.transFat, indent: 1, bold: false },
+  { fdc: FDC.polyFat, indent: 1, bold: false },
+  { fdc: FDC.monoFat, indent: 1, bold: false },
   { fdc: FDC.cholesterol, indent: 0, bold: true },
   { fdc: FDC.sodium, indent: 0, bold: true },
   { fdc: FDC.carbs, indent: 0, bold: true },

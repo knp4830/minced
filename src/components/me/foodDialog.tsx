@@ -178,7 +178,7 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
       <div>
         <p className="font-display text-lg leading-snug font-medium">{picked.title}</p>
         <p className="mt-1 font-mono text-xs text-ink-muted">
-          {picked.calories === null ? "No nutrition yet" : `${nf.format(picked.calories)} kcal per serving`} &middot; makes {picked.servings}
+          {picked.calories === null ? "Nutrition incomplete, cannot be logged" : `${nf.format(picked.calories)} kcal per serving`} &middot; makes {picked.servings}
         </p>
         <div className="mt-5 flex items-center gap-3">
           <Label className="mb-0" htmlFor={`${qId}-servings`}>
@@ -234,7 +234,7 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[0.9375rem]">{r.title}</span>
                       <span className="block font-mono text-[0.6875rem] text-ink-muted">
-                        {r.calories === null ? "No nutrition yet" : `${nf.format(r.calories)} kcal per serving`}
+                        {r.calories === null ? "Nutrition incomplete, cannot be logged" : `${nf.format(r.calories)} kcal per serving`}
                       </span>
                     </span>
                   </button>
@@ -250,6 +250,7 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
 }
 
 const kcal0 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+const g1 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
 
 /** Search a food or brand, enter an amount, see what it adds up to, add it. */
 function FoodTab({ date, meal, pending, startTransition, setMessage, onDone }: TabProps) {
@@ -355,9 +356,9 @@ function FoodTab({ date, meal, pending, startTransition, setMessage, onDone }: T
             {preview && preview !== "loading" && preview.ok && (
               <span>
                 {preview.calories !== null ? `${kcal0.format(preview.calories)} kcal` : "calories unknown"}
-                {preview.proteinG !== null ? ` · P ${kcal0.format(preview.proteinG)} g` : ""}
-                {preview.carbsG !== null ? ` · C ${kcal0.format(preview.carbsG)} g` : ""}
-                {preview.fatG !== null ? ` · F ${kcal0.format(preview.fatG)} g` : ""}
+                {preview.proteinG !== null ? ` · P ${g1.format(preview.proteinG)} g` : ""}
+                {preview.carbsG !== null ? ` · C ${g1.format(preview.carbsG)} g` : ""}
+                {preview.fatG !== null ? ` · F ${g1.format(preview.fatG)} g` : ""}
               </span>
             )}
             {preview && preview !== "loading" && !preview.ok && <span className="text-paprika-deep">{preview.error}</span>}

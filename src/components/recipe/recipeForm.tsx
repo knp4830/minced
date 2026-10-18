@@ -12,7 +12,7 @@ import { FieldHint, Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { FoodCombobox } from "@/components/food/foodCombobox";
-import { checkIngredientName, deleteRecipe, saveRecipe, withdrawRecipe } from "@/lib/actions/myRecipes";
+import { checkIngredientName, deleteRecipe, ingredientsWithoutNutrition, saveRecipe, withdrawRecipe } from "@/lib/actions/myRecipes";
 import type { FoodHit } from "@/lib/foodHit";
 import { foodTitle } from "@/lib/foodTitle";
 import {
@@ -192,6 +192,24 @@ export function RecipeForm({
   const snapshot = JSON.stringify(current());
   const savedRef = useRef(JSON.stringify({ ...initial, ingredients: initial.ingredients.map(rowCore) }));
   const dirty = snapshot !== savedRef.current;
+
+  // A reopened recipe: ask once which of its saved ingredients have no nutrition data, so the same hint a fresh
+  // pick shows is there too. Rows with a chosen brand are skipped (they were picked for their data).
+  useEffect(() => {
+    const names = initial.ingredients.filter((i) => i.name.trim() !== "" && typeof i.fdcId !== "number").map((i) => i.name);
+    if (names.length === 0) return;
+    let live = true;
+    void ingredientsWithoutNutrition(names).then((none) => {
+      if (!live || !none || none.length === 0) return;
+      const set = new Set(none);
+      setIngs((rows) => rows.map((r) => (typeof r.fdcId !== "number" && set.has(r.name.trim().toLowerCase()) ? { ...r, noNutrition: true } : r)));
+    });
+    return () => {
+      live = false;
+    };
+    // initial is the saved recipe; this runs once per mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Warn before closing a tab with unsaved work.
   useEffect(() => {

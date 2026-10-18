@@ -52,12 +52,15 @@ export async function previewFood(input: FoodInput): Promise<PreviewResult> {
     const n = byFdc(nutrients, fdc);
     return n && n.key in r.food.byKey ? r.food.byKey[n.key] : null;
   };
+  // Rounded exactly as logFood() stores them (whole kcal, grams to one decimal), so the preview and the diary agree.
+  const kcal = pick(FDC.energy);
+  const g1 = (v: number | null) => (v === null ? null : Math.round(v * 10) / 10);
   return {
     ok: true,
-    calories: pick(FDC.energy),
-    proteinG: pick(FDC.protein),
-    carbsG: pick(FDC.carbs),
-    fatG: pick(FDC.fat),
+    calories: kcal === null ? null : Math.round(kcal),
+    proteinG: g1(pick(FDC.protein)),
+    carbsG: g1(pick(FDC.carbs)),
+    fatG: g1(pick(FDC.fat)),
     nutrientCount: r.food.rows.length,
   };
 }

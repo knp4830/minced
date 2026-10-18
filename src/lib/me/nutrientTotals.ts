@@ -57,7 +57,7 @@ const COLUMN: Record<number, (e: FoodEntry) => number | null> = {
 const topIndex = (n: Nutrient) => LABEL_TOP.findIndex((t) => t.fdc === n.fdcNumber);
 
 export function dayNutrientLines(entries: readonly FoodEntry[], nutrientList: readonly Nutrient[]): NutrientLine[] {
-  const list = (nutrientList.length > 0 ? nutrientList : FALLBACK_NUTRIENTS).filter((n) => n.fdcNumber !== FDC.energy);
+  const list = (nutrientList.length > 0 ? nutrientList : FALLBACK_NUTRIENTS).filter((n) => n.fdcNumber !== FDC.energy && n.displayGroup !== "hidden");
   const ordered = [...list].sort((a, b) => {
     const ta = inLabelTop(a);
     const tb = inLabelTop(b);
