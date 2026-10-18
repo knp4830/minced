@@ -38,7 +38,7 @@ ricotta salata | Dairy | - | EUM | salted ricotta;baked ricotta | dairy | proxy:
 robiola | Dairy | - | EUM | - | dairy | proxy: cheese neufchatel //
 bresaola | Protein | meat | EUM | air-dried beef | - | // bresaola
 speck | Protein | meat | EUM | smoked prosciutto;speck alto adige | - | proxy: ham cured //
-guanciale | Protein | meat | EUM | cured pork jowl;pork cheek | - | pork cured,_bacon,_unprepared //
+guanciale | Protein | meat | EUM | cured pork jowl;pork cheek | - | -
 soppressata | Protein | meat | EUM | sopressata;dry salami | - | salami dry_or_hard //
 genoa salami | Protein | meat | EUM,NAM | salami;hard salami | - | salami dry_or_hard //
 pepperoni | Protein | meat | NAM,EUM | pepperoni slices | - | pepperoni //
@@ -123,7 +123,6 @@ membrillo | Pantry | fruit | EUM | quince paste;dulce de membrillo | - | // quin
 quince | Produce | fruit | EUM,ME | - | - | quinces raw //
 turron | Pantry | pantry | EUM | spanish nougat;torrone | nuts,egg | -
 squid ink | Pantry | seafood | EUM | cuttlefish ink;nero di seppia | shellfish | proxy: mollusks squid raw //
-razor clams | Protein | seafood | EUM | navajas | shellfish | mollusks clam,_mixed_species,_raw //
 octopus | Protein | seafood | EUM,EA | pulpo;polpo | shellfish | mollusks octopus,_common,_raw //
 cuttlefish | Protein | seafood | EUM,EA | sepia;seppia | shellfish | mollusks cuttlefish,_mixed_species,_raw //
 anchovies fresh | Protein | seafood | EUM | boquerones;acciughe | fish | fish anchovy european raw //

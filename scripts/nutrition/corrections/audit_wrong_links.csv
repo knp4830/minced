@@ -1,0 +1,87 @@
+fdc_id,ing,form,is_default,data_type,description,brand_owner,sev,reason,correction
+398834,chicken breast,default,f,branded,CHICKEN BREAST TENDERS,"Applegate Farms, LLC",probable,breaded chicken breast tenders,delete this ingredient_foods row
+2655519,chili crisp,default,f,branded,"FLY BY JING CHILI CRISP, SAUCE AND SPICE MIX VARIETY PACK, 3 COUNT, SI","Glo's Gumbo, LLC",probable,variety pack incl. spice mix,delete this ingredient_foods row
+472155,dosa batter,default,t,branded,IDLI MIX,DEEP,probable,"IDLI MIX is a dry mix, not batter (default)",relink default to a correct food (or remove default and leave ingredient unmapped)
+583846,dried tofu,default,t,branded,GARLIC & HERB TOSS'ABLES SEASONED BAKED TOFU CUBES,Vitasoy USA Inc.,probable,seasoned baked tofu cubes (default),relink default to a correct food (or remove default and leave ingredient unmapped)
+2014105,herbes de provence,default,f,branded,"HERBES DE PROVENCE ROASTED CHICKEN & POTATOES RECIPE & SEASONING MIX, ","McCormick & Company, Inc",probable,roasted chicken-and-potatoes recipe seasoning mix,delete this ingredient_foods row
+1953571,maple syrup,default,f,branded,"HONEY MAPLE SYRUP BLEND, HONEY",North Dallas Honey Compa,probable,honey-maple syrup blend,delete this ingredient_foods row
+2434060,panko breadcrumbs,default,f,branded,PANKO BREADED,"Dulcich, Inc.",probable,PANKO BREADED product (190 kcal vs 349),delete this ingredient_foods row
+2190137,plain yogurt,default,f,branded,"PLAIN NON-DAIRY BLEND, PLAIN","Chobani, Inc.",probable,non-dairy plain blend,delete this ingredient_foods row
+2580460,rice vinegar,default,f,branded,"SEASONED RICE VINEGAR, MANGO","Mizkan America, Inc.",probable,"SEASONED rice vinegar, mango (sugar added)",delete this ingredient_foods row
+2084128,rice vinegar,default,f,branded,"SEASONED RICE VINEGAR, SEASONED","Mizkan America, Inc.",probable,seasoned rice vinegar,delete this ingredient_foods row
+2580461,rice vinegar,default,f,branded,ORGANIC SEASONED RICE VINEGAR,"Mizkan America, Inc.",probable,seasoned rice vinegar (sugar and salt added),delete this ingredient_foods row
+2493047,rice vinegar,default,f,branded,LITE SEASONED RICE VINEGAR,Marukan Vinegar (U.S.A.),probable,lite seasoned rice vinegar,delete this ingredient_foods row
+2569854,rice vinegar,default,f,branded,SEASONED RICE VINEGAR,"Mizkan America, Inc.",probable,seasoned rice vinegar,delete this ingredient_foods row
+2084989,rice vinegar,default,f,branded,SEASONED RICE VINEGAR,"Kikkoman Sales USA, Inc.",probable,seasoned rice vinegar,delete this ingredient_foods row
+2084516,rice vinegar,default,f,branded,RICE VINEGAR DRESSING,Marukan Vinegar (U.S.A.),probable,rice vinegar dressing,delete this ingredient_foods row
+380785,sour cream,default,f,branded,SOUR CREAM DIP,HP Hood LLC,probable,sour cream DIP,delete this ingredient_foods row
+2339759,soy sauce,default,f,branded,LIQUID AMINOS SOY SAUCE ALTERNATIVE ALL PURPOSE SEASONING,Live Food Products Inc.,probable,Liquid Aminos soy-sauce ALTERNATIVE,delete this ingredient_foods row
+2422260,soy sauce,default,f,branded,LIQUID AMINOS SOY PROTEIN SEASONING,Live Food Products Inc.,probable,Liquid Aminos soy protein seasoning,delete this ingredient_foods row
+2117216,wild rice,default,f,branded,MINNESOTA QUICK COOKING WILD RICE,Riviana Foods Inc.,probable,Minnesota quick cooking wild rice at 567 kcal/100 g (about 357 expected),delete this ingredient_foods row
+2673787,adobo seasoning,default,f,branded,CHIPOTLE PEPPERS IN ADOBO SAUCE,"Goya Foods, Inc. ",wrong,chipotle peppers in adobo sauce (canned peppers),delete this ingredient_foods row
+1601794,bacon,default,f,branded,BACON DOGS,Kraft Heinz Foods Compan,wrong,BACON DOGS (hot dogs),delete this ingredient_foods row
+2127483,brown sugar,default,f,branded,"MAPLE BROWN SUGAR SEASONED BUTTER, MAPLE BROWN SUGAR","Wal-Mart Stores, Inc.",wrong,maple brown sugar seasoned BUTTER,delete this ingredient_foods row
+171977,canned clams,default,t,sr_legacy,"Mollusks, clam, mixed species, canned, liquid","",wrong,"SR ""canned, liquid"" is the clam juice (about 2 kcal/100 g), not the clams; use the SR ""canned, drained solids"" record",relink default to a correct food (or remove default and leave ingredient unmapped)
+2655544,chili oil,default,f,branded,"SPICY CHILI NOODLES, SPICY CHILI",L&B Apparel ,wrong,spicy chili NOODLES,delete this ingredient_foods row
+2304756,chili oil,default,f,branded,"CHILI CRISP VINAIGRETTE, CHILI CRISP","1620 Distilling Company,",wrong,chili crisp VINAIGRETTE,delete this ingredient_foods row
+2673788,chipotle in adobo,default,f,branded,"REFRIED BEANS, CHIPOTLE","Goya Foods, Inc. ",wrong,"refried beans, chipotle",delete this ingredient_foods row
+1927470,chorizo,default,f,branded,"SPAM WITH CHORIZO SEASONING, CHORIZO",Hormel Foods Corporation,wrong,SPAM with chorizo seasoning,delete this ingredient_foods row
+1641706,coffee,default,f,branded,"MOCHA + SALTED CARAMEL COFFEE DRINK MIX, MOCHA + SALTED CARAMEL",Kraft Heinz Foods Compan,wrong,mocha + salted caramel drink mix,delete this ingredient_foods row
+1874578,coffee,default,f,branded,"STARBUCKS VIA, LATTE SPECIALITY COFFEE BEVERAGE, CARAMEL, CARAMEL",Starbucks Coffee Company,wrong,latte coffee beverage mix (sweetened),delete this ingredient_foods row
+1641719,coffee,default,f,branded,"MOCHA COFFEE DRINK MIX, MOCHA",Kraft Heinz Foods Compan,wrong,mocha coffee drink mix,delete this ingredient_foods row
+1663676,coffee,default,f,branded,"CAFE CON LECHE INSTANT COFFEE BEVERAGE MIX, CAFE CON LECHE",The J.M. Smucker Company,wrong,cafe con leche instant beverage mix,delete this ingredient_foods row
+2552992,coffee,default,f,branded,"VAINILLA COFFEE BEVERAGE MIX K-CUP PODS, VAINILLA",The J.M. Smucker Company,wrong,vanilla coffee beverage mix pods,delete this ingredient_foods row
+2144058,cumin seeds,default,f,branded,"SOUTHWEST CHICKEN & VEGETABLES CHILI PEPPER, SMOKED PAPRIKA, CUMIN SKI","McCormick & Company, Inc",wrong,chicken-and-vegetables skillet seasoning,delete this ingredient_foods row
+2630463,deli ham,default,f,branded,"HAM & CHEDDAR REAL EGGS, HAM & CHEDDAR CHEESE SIMPLE SCRAMBLES, HAM & ",The Hillshire Brands Com,wrong,ham and cheddar egg scramble kit,delete this ingredient_foods row
+2571642,dried basil,default,f,branded,SWEET BASIL PESTO SAUCE MIX,Frontier Cooperative Her,wrong,pesto sauce mix,delete this ingredient_foods row
+2117204,dried basil,default,f,branded,"TOMATO BASIL CHICKEN & VEGETABLES SLOW COOKERS RECIPE & SEASONING MIX,","McCormick & Company, Inc",wrong,slow-cooker recipe seasoning mix,delete this ingredient_foods row
+2034585,dried basil,default,f,branded,"TOMATO BASIL SALMON RECIPE & SEASONING MIX, TOMATO BASIL SALMON","McCormick & Company, Inc",wrong,salmon recipe seasoning mix,delete this ingredient_foods row
+2540958,dried basil,default,f,branded,"BASIL BALSAMIC VEGGIE MARINADE MIX, BASIL BALSAMIC","McCormick & Company, Inc",wrong,veggie marinade mix,delete this ingredient_foods row
+2144493,dried oregano,default,f,branded,"CHICKEN PARMESAN BASIL, OREGANO, PARMESAN SHEET PAN SEASONING MIX, CHI","McCormick & Company, Inc",wrong,sheet-pan seasoning mix,delete this ingredient_foods row
+2034887,dried oregano,default,f,branded,"BRUSCHETTA SWEET BASIL & OREGANO SEASONING MIX, BRUSCHETTA SWEET BASIL","McCormick & Company, Inc",wrong,bruschetta seasoning mix,delete this ingredient_foods row
+2543097,dried oregano,default,f,branded,"SAVORY TOMATO, BASIL + OREGANO SEASONING MIX, SAVORY","McCormick & Company, Inc",wrong,savory tomato seasoning mix,delete this ingredient_foods row
+2014042,dried oregano,default,f,branded,"SWEET BASIL & OREGANO BRUSCHETTA CHICKEN RECIPE & SEASONING MIX, SWEET","McCormick & Company, Inc",wrong,bruschetta chicken recipe seasoning mix,delete this ingredient_foods row
+2297581,dried parsley,default,f,branded,MINCED GARLIC & PARSLEY,Badia Spices Inc.,wrong,minced garlic and parsley blend (kcal 0 vs 146 median),delete this ingredient_foods row
+2021379,dried rosemary,default,f,branded,"ROASTED GARLIC & ROSEMARY POTATO SEASONING, ROASTED GARLIC & ROSEMARY","McCormick & Company, Inc",wrong,potato seasoning,delete this ingredient_foods row
+2566829,dried rosemary,default,f,branded,ROSEMARY CHICKEN SEASONING MIX,"McCormick & Company, Inc",wrong,rosemary chicken seasoning mix,delete this ingredient_foods row
+2270468,dried thyme,default,f,branded,"CREAMY CHICKEN & VEGETABLES THYME, ROSEMARY, BLACK PEPPER SKILLET SEAS","McCormick & Company, Inc",wrong,creamy chicken skillet seasoning mix,delete this ingredient_foods row
+1937052,everything bagel seasoning,default,t,branded,"EVERYTHING BUT THE BAGEL TOPPED HUMMUS, EVERYTHING BUT THE BAGEL","Safeway, Inc.",wrong,topped hummus is not a seasoning (default food),relink default to a correct food (or remove default and leave ingredient unmapped)
+2640451,everything bagel seasoning,default,f,branded,EVERYTHING BUTTER,"CopperRelief, LLC",wrong,"Everything Butter (nut butter, 600 kcal)",delete this ingredient_foods row
+1022379,fonio,default,t,branded,FONIO,"Rje Trade International,",wrong,FONIO at 20 kcal/100 g with 82 g carbohydrate (FDC label error; about 356 expected),relink default to a correct food (or remove default and leave ingredient unmapped)
+2088925,gochujang,default,f,branded,"KETCHUP SAUCE, GOCHUJANG",In The Bag,wrong,"ketchup sauce, gochujang",delete this ingredient_foods row
+1903053,ground cinnamon,default,f,branded,"VEGETABLE SEASONING MIX, SWEET CINNAMON CHILI",Frontier Cooperative Her,wrong,vegetable seasoning mix,delete this ingredient_foods row
+2316310,ground cinnamon,default,f,branded,"COCOA CINNAMON SMOOTHIE BOOST DRINK MIX PACKETS, COCOA CINNAMON","McCormick & Company, Inc",wrong,cocoa-cinnamon smoothie drink mix,delete this ingredient_foods row
+2034415,ground cinnamon,default,f,branded,"CINNAMON SUGAR, CINNAMON","McCormick & Company, Inc",wrong,CINNAMON SUGAR (mostly sugar),delete this ingredient_foods row
+2210352,ground cinnamon,default,f,branded,"CINNAMON SUGAR TRIO SPICE RIGHT EVERYDAY BLENDS, CINNAMON SUGAR TRIO",Frontier Cooperative Her,wrong,cinnamon sugar blend,delete this ingredient_foods row
+2563568,ground coriander,default,f,branded,CORIANDER & ANNATTO MARINADE & DRESSING,Badia Spices Inc.,wrong,coriander and annatto marinade and dressing,delete this ingredient_foods row
+2664288,ground ginger,default,f,branded,"GINGER SESAME VINAIGRETTE & MARINADE, GINGER SESAME",New Frontier Foods Inc. ,wrong,ginger sesame vinaigrette,delete this ingredient_foods row
+1872754,ground ginger,default,f,branded,"CHILI, LIME & GINGER PORK MARINADE MIX, CHILI, LIME & GINGER","McCormick & Company, Inc",wrong,chili lime ginger pork marinade mix,delete this ingredient_foods row
+2210494,ground ginger,default,f,branded,"SESAME GINGER ORGANIC VEGETABLE SEASONING MIX, SESAME GINGER",Frontier Cooperative Her,wrong,sesame ginger vegetable seasoning mix,delete this ingredient_foods row
+394043,hibiscus flowers,default,t,branded,"WILD HIBISCUS, FLOWERS IN SYRUP",WILD HIBISCUS,wrong,"flowers in syrup (sweetened, 205 kcal/100 g) as the default for dried or fresh flowers (jamaica)",relink default to a correct food (or remove default and leave ingredient unmapped)
+2540794,lemon pepper,default,t,branded,"FISH FRY MIX, LEMON PEPPER","McCormick & Company, Inc",wrong,"FISH FRY MIX, lemon pepper (default)",relink default to a correct food (or remove default and leave ingredient unmapped)
+718136,matcha,default,t,branded,"RAW HONEY + MATCHA, MATCHA",APITERRA,wrong,RAW HONEY + MATCHA blend as the default matcha,relink default to a correct food (or remove default and leave ingredient unmapped)
+2391951,matcha,default,f,branded,"ORIGINAL MATCHA LATTE STICK, ORIGINAL",360 Labs,wrong,matcha latte stick,delete this ingredient_foods row
+2138294,matcha,default,f,branded,"VEGAN DRINK MIX, MATCHA LATTE",360 Labs,wrong,vegan matcha latte drink mix,delete this ingredient_foods row
+806803,matcha,default,f,branded,PREMIUM MATCHA LATTE INFUSIONS,"Jade Leaf Organics, LLC",wrong,matcha latte infusion (sweetened mix),delete this ingredient_foods row
+2373332,matcha,default,f,branded,"ORIGINAL MATCHA LATTE MIX, ORIGINAL","Jade Leaf Organics, LLC",wrong,matcha latte mix,delete this ingredient_foods row
+2043843,old bay seasoning,default,f,branded,"HERR'S, OLD BAY SEASONED POPCORN",Herr Foods Inc.,wrong,Old Bay seasoned popcorn,delete this ingredient_foods row
+404284,old bay seasoning,default,t,branded,"OLD BAY, TUNA CLASSIC, CAKE MIX",Baltimore Spice Co,wrong,Old Bay tuna classic CAKE MIX (default),relink default to a correct food (or remove default and leave ingredient unmapped)
+405755,olive oil,default,f,branded,EXTRA VIRGIN OLIVE OIL,StarKist Co.,wrong,"""EXTRA VIRGIN OLIVE OIL"" by StarKist at 243 kcal/100 g (a tuna record; about 882 expected)",delete this ingredient_foods row
+2155189,paprika,default,f,branded,"JAZZY CAYENNE, PAPRIKA + GARLIC SEASONING MIX, JAZZY","McCormick & Company, Inc",wrong,paprika + garlic seasoning mix,delete this ingredient_foods row
+516569,popcorn,default,f,branded,POPCORN CAKES,SKINNY POP,wrong,popcorn CAKES,delete this ingredient_foods row
+2609449,pumpkin seeds,default,f,branded,"ORGANIC SOYBEANS, SUNFLOWER KERNELS, PUMPKIN SEED KERNELS, DRIED CRANB",BJ's Wholesale Club / Co,wrong,"trail mix (soybeans, sunflower, pumpkin, cranberries)",delete this ingredient_foods row
+2236660,raisins,default,f,branded,Sun-Maid Chocolate Yogurt Covered Raisins 7 oz Bag,Sun-Maid Growers,wrong,chocolate yogurt-covered raisins,delete this ingredient_foods row
+2721165,raisins,default,f,branded,Sun-Maid Vanilla Yogurt Covered Raisins 1.5oz Bag,Sun-Maid Growers,wrong,yogurt-covered raisins,delete this ingredient_foods row
+1728013,semisweet chocolate,default,f,branded,"WHITE CHOCOLATE CHIPS, WHITE CHOCOLATE",Kraft Heinz Foods Compan,wrong,WHITE chocolate chips,delete this ingredient_foods row
+2574272,semisweet chocolate,default,f,branded,"MINT CHOCOLATE CHIPS, MINT",The Hershey Company,wrong,mint chocolate chips,delete this ingredient_foods row
+2574292,semisweet chocolate,default,f,branded,"MILK CHOCOLATE CHIPS, MILK CHOCOLATE",The Hershey Company,wrong,MILK chocolate chips,delete this ingredient_foods row
+2703457,semisweet chocolate,default,f,branded,Nestle Toll House Milk Chocolate Chips,Société des Produits Nes,wrong,milk chocolate chips,delete this ingredient_foods row
+2574289,semisweet chocolate,default,f,branded,ZERO SUGAR CHOCOLATE CHIPS,The Hershey Company,wrong,"zero-sugar chips (sweetener, different energy)",delete this ingredient_foods row
+2672515,sunflower seeds,default,f,branded,"NUTS, SEEDS & CRANBERRIES ROASTED PEANUTS, SUNFLOWER SEED KERNELS, GOL",Nabisco Food Company,wrong,nuts-seeds-cranberries mix,delete this ingredient_foods row
+2285063,tahini,default,f,branded,HUMMUS MIX WITH TAHINI,Soofer Co. Inc.,wrong,hummus mix with tahini,delete this ingredient_foods row
+2565205,teriyaki sauce,default,f,branded,TERIYAKI SEASONING MIX,"Kikkoman Sales USA, Inc.",wrong,teriyaki seasoning MIX (dry),delete this ingredient_foods row
+2545894,tilapia,default,f,branded,TILAPIA BREADED FISH FILLETS,Gorton's of Gloucester ,wrong,breaded fillets,delete this ingredient_foods row
+2471402,tortilla chips,default,f,branded,GUACAMOLE WITH TOSTITOS ROLLS! TORTILLA CHIPS,Sabra Dipping Company LL,wrong,guacamole with Tostitos Rolls,delete this ingredient_foods row
+1930210,whipped topping,default,f,branded,WHIPPED DRESSING,"Wal-Mart Stores, Inc.",wrong,whipped dressing (mayonnaise-type),delete this ingredient_foods row
+2668737,whipped topping,default,f,branded,WHIPPED CHEESECAKE,"Wal-Mart Stores, Inc.",wrong,whipped cheesecake,delete this ingredient_foods row
+2568861,whole grain mustard,default,f,branded,SWEET HONEY MUSTARD,"Beaverton Foods, Inc.",wrong,sweet honey mustard,delete this ingredient_foods row

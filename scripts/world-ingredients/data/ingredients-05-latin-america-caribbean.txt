@@ -29,7 +29,7 @@ agave syrup | Pantry | pantry | LAT | agave nectar;blue agave syrup | - | // aga
 dulce de leche | Pantry | pantry | LAT | doce de leite;cajeta;manjar;arequipe;manjar blanco | dairy | // dulce de leche
 cajeta | Pantry | pantry | LAT | goat milk caramel | dairy | // cajeta
 mexican cinnamon | Spices | spices | LAT | canela;ceylon cinnamon;true cinnamon | - | spices cinnamon,_ground //
-vanilla bean | Spices | spices | LAT | vanilla pod;vanilla beans;mexican vanilla | - | -
+vanilla bean | Spices | spices | LAT | vanilla pod;mexican vanilla | - | -
 oaxaca cheese | Dairy | - | LAT | quesillo;queso oaxaca;oaxacan string cheese | dairy | proxy: cheese mozzarella whole_milk //
 queso panela | Dairy | - | LAT | panela cheese;queso panela | dairy | proxy: cheese fresh queso_fresco //
 queso asadero | Dairy | - | LAT | queso chihuahua;chihuahua cheese;menonita cheese | dairy | cheese mexican queso_asadero //
@@ -92,7 +92,7 @@ chuno | Pantry | vegetables | LAT | freeze-dried potato;tunta;papa seca | - | - 
 oca | Produce | vegetables | LAT | yam oxalis;new zealand yam | - | - // oca
 yacon | Produce | vegetables | LAT | - | - | - // yacon
 arracacha | Produce | vegetables | LAT | peruvian carrot;apio criollo | - | - // arracacha
-guasca | Spices | spices | LAT | gallant soldier;guascas | - | proxy: spices oregano,_dried //
+guasca | Spices | spices | LAT | gallant soldier | - | proxy: spices oregano,_dried //
 cachaca | Other | pantry | LAT | brazilian sugarcane spirit | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
 pisco | Other | pantry | LAT | peruvian brandy;grape brandy | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
 tequila | Other | pantry | LAT | blanco tequila;reposado | - | alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //

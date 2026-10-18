@@ -71,13 +71,16 @@ def volume_unit(p):
 
 
 def volume_grams_per_unit(food):
-    """{unit: median grams for ONE tsp/tbsp/cup/fl oz} from the food's own volume portions."""
+    """{unit: grams for ONE tsp/tbsp/cup/fl oz} from the food's own volume portions.
+
+    median_low, not median: with two portions (carrots: cup sliced 146 g, cup mashed 228 g) the plain median is their mean, 187 g,
+    which is a weight USDA never published (the audit found it). median_low always returns a weight that exists in the data."""
     by = {}
     for p in food["portions"]:
         s = volume_spec(p)
         if s:
             by.setdefault(s[0], []).append(p["grams"] / s[1])
-    return {u: statistics.median(v) for u, v in by.items()}
+    return {u: statistics.median_low(v) for u, v in by.items()}
 
 
 def density(food):

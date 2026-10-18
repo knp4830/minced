@@ -1147,7 +1147,6 @@ insert into _alias_seed (canonical, alias) values
   ('whipped topping',     'whipped cream topping'),
   ('green chiles',        'green chilies'),
   ('green chiles',        'diced green chilies'),
-  ('mandarin orange',     'mandarin oranges'),
   ('salad dressing',      'mayonnaise-type dressing'),
   ('vinaigrette',         'vinaigrette dressing'),
   ('graham crackers',     'graham cracker crumbs'),

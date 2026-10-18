@@ -143,7 +143,7 @@ def main():
             if o.get("kmin") and (m.get(1008) or 0) < o["kmin"]:
                 bad += 1
                 continue
-            if not plausible(m) or (kmax and (m.get(1008) or 0) > kmax) or c["ss"] < MIN_SERVING \
+            if not plausible(m, c["ss"], sp["ingredient"]) or (kmax and (m.get(1008) or 0) > kmax) or c["ss"] < MIN_SERVING \
                     or label_rounded_zero(m, c["ss"], sp["ingredient"]):
                 bad += 1
                 continue

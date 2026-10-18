@@ -81,7 +81,7 @@ sichuan peppercorns | mala market/sichuan pepper/the spice house/sunrise | sichu
 curry powder | mccormick/spice islands/badia/s&b/s & b/vadilal/madras/frontier/simply organic | curry powder | n=6
 japanese curry roux | s&b/s & b/house foods/vermont curry/golden curry/java curry | curry | n=5
 furikake | nori komi/ajishima/shirakiku/marumiya | furikake | n=3
-matcha | encha/ito en/aiya/jade leaf/ippodo/maeda-en | matcha | n=4
+matcha | encha/ito en/aiya/jade leaf/ippodo/maeda-en | matcha | n=4 -latte -mix -drink -stick -booster -infusions -honey
 green tea | ito en/lipton/bigelow/twinings/tazo/yogi/celestial/numi/harney | green tea | n=6
 wasabi powder | s&b/s & b/sushi chef | wasabi | n=2
 tempura flour | nissin/kikkoman/shirakiku/hime/ajinomoto | tempura | n=3

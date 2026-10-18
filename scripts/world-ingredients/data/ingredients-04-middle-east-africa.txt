@@ -23,7 +23,7 @@ toum | Pantry | pantry | ME | lebanese garlic sauce;garlic paste lebanese | egg 
 labneh | Dairy | - | ME | strained yogurt;yogurt cheese;labne;labaneh | dairy | // labneh -everything -bagel -pepper -oil -herb -garlic cat=cheese
 kefir | Dairy | - | EUE,ME | plain kefir;kefir milk | dairy | // kefir -strawberry -blueberry -peach -mango -raspberry -vanilla -honey -cherry -fruit -flavored
 ayran | Dairy | - | ME,CA | doogh;salted yogurt drink;dugh | dairy | // ayran d=1.02
-kaymak | Dairy | - | ME,EUE | clotted cream;qaimar;ashta;mascarpone substitute | dairy | proxy: cream fluid heavy_whipping //
+kaymak | Dairy | - | ME,EUE | clotted cream;qaimar;ashta | dairy | proxy: cream fluid heavy_whipping //
 akkawi cheese | Dairy | - | ME | akawi;nabulsi cheese;syrian white cheese | dairy | // akkawi, nabulsi
 sheep cheese | Dairy | - | EUM,ME | sheep's milk cheese;pecorino pepato | dairy | cheese romano //
 kasseri | Dairy | - | EUM | kasseri cheese;kefalotyri;graviera | dairy | // kasseri, kefalotyri
@@ -52,7 +52,7 @@ sucuk | Protein | meat | ME | sujuk;sudjuk;turkish sausage;soujouk | - | // sucu
 pastirma | Protein | meat | ME | basturma;pastrami turkish;basterma | - | // pastirma, basturma
 merguez | Protein | meat | NAF,EUM | merguez sausage | - | // merguez
 mortadella | Protein | meat | EUM | mortadella bologna | - | mortadella //
-lamb shank | Protein | meat | ME,EUM,SA | lamb shanks | - | lamb foreshank separable_lean_and_fat raw -new_zealand //
+lamb shank | Protein | meat | ME,EUM,SA | - | - | lamb foreshank separable_lean_and_fat raw -new_zealand //
 lamb neck | Protein | meat | ME,NAF | - | - | lamb neck_chops separable_lean_and_fat raw //
 lamb fat | Protein | meat | ME,CA | tail fat;dumba;sheep tail fat | - | proxy: lamb domestic,_composite_of_trimmed_retail_cuts,_separable_fat raw //
 pigeon | Protein | meat | NAF,ME,EUM,EA | squab;pigeon meat | - | squab meat_and_skin raw //
@@ -70,7 +70,7 @@ lebanese eggplant | Produce | vegetables | ME | baby eggplant;sicilian eggplant 
 sabzi khordan | Produce | herbs | ME | persian fresh herbs;herb platter | - | proxy: parsley fresh //
 fresh fenugreek | Produce | herbs | ME,SA | shanbalileh | - | proxy: spinach raw //
 sorrel | Produce | herbs | EUE,ME,WAF | sourgrass;dock;garden sorrel;roselle leaves | - | proxy: spinach raw //
-winter savory | Spices | spices | EUM,ME | summer savory;savory | - | spices savory,_ground //
+winter savory | Spices | spices | EUM,ME | savory | - | spices savory,_ground //
 wild thyme | Spices | spices | ME,EUM | zahtar;thyme wild | - | spices thyme,_dried //
 sesame oil untoasted | Pantry | pantry | ME,SA | gingelly oil;til oil;sesame cooking oil | sesame | oil sesame,_salad_or_cooking //
 nigella oil | Pantry | pantry | ME,SA | black seed oil | - | proxy: oil sesame,_salad_or_cooking //
@@ -88,7 +88,7 @@ injera | Pantry | grains | EAF | ethiopian flatbread;enjera | - | -
 shiro powder | Pantry | legumes | EAF | shiro;shiro wat powder;ground chickpea powder | - | chickpea_flour //
 awaze | Pantry | pantry | EAF | ethiopian hot sauce | - | // awaze
 korarima | Spices | spices | EAF | ethiopian cardamom;false cardamom;aframomum | - | spices cardamom //
-suya spice | Spices | spices | WAF | yaji;yaji spice;suya pepper;kuli kuli powder | nuts | proxy: spices curry_powder //
+suya spice | Spices | spices | WAF | yaji;yaji spice;suya pepper;kuli kuli powder | nuts | -
 egusi | Pantry | nuts | WAF | melon seeds;egusi seeds;ground egusi | - | proxy: seeds watermelon_seed_kernels,_dried //
 palm oil | Pantry | pantry | WAF,SEA | red palm oil unrefined;dende oil;zomi | - | oil palm //
 palm nut cream | Pantry | pantry | WAF | palm nut soup base;sauce graine;noix de palme | - | -
@@ -125,7 +125,7 @@ maize meal | Pantry | grains | SAF,EAF | mealie meal;pap;ugali flour;sima;nshima
 matoke | Produce | vegetables | EAF | green cooking bananas;east african plantains | - | plantains raw //
 sukuma wiki | Produce | vegetables | EAF | collard greens kenya;kale kenya | - | collards raw //
 pigeon peas dried | Pantry | legumes | EAF,CAR,SA | gandules;gungo peas;congo peas | - | pigeon_peas_(red_gram) mature_seeds,_raw //
-hibiscus flowers | Pantry | pantry | WAF,LAT,CAR | flor de jamaica;sorrel flowers;bissap;roselle | - | // hibiscus
+hibiscus flowers | Pantry | pantry | WAF,LAT,CAR | flor de jamaica;sorrel flowers;bissap;roselle | - | -
 baobab powder | Pantry | pantry | WAF,SAF | monkey bread powder | - | proxy: // baobab
 moringa powder | Pantry | pantry | WAF,SA | - | - | moringa leaves,_raw //
 argan oil | Pantry | pantry | NAF | culinary argan oil | nuts | proxy: oil olive,_salad_or_cooking //

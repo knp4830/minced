@@ -47,11 +47,10 @@ romanesco | Produce | vegetables | EUM | romanesco broccoli | - | proxy: caulifl
 broccolini | Produce | vegetables | GLO | baby broccoli;tenderstem | - | broccoli raw //
 spring onions | Produce | vegetables | EUW | - | - | onions spring_or_scallions_(includes_tops_and_bulb),_raw //
 pearl onions | Produce | vegetables | GLO | cipollini onions;boiling onions | - | onions raw //
-garlic scapes | Produce | vegetables | GLO | - | - | proxy: garlic raw //
+garlic scapes | Produce | vegetables | GLO | - | - | -
 black garlic | Produce | vegetables | EA | fermented garlic | - | proxy: garlic raw //
 fingerling potatoes | Produce | vegetables | GLO | new potatoes;baby potatoes;purple potatoes | - | potatoes flesh_and_skin,_raw //
 purple sweet potato | Produce | vegetables | EA,PAC | okinawan sweet potato | - | sweet_potato raw unprepared //
-jerusalem artichokes | Produce | vegetables | NAM | - | - | jerusalem-artichokes raw //
 golden beets | Produce | vegetables | GLO | - | - | beets raw //
 watermelon radish | Produce | vegetables | GLO | - | - | radishes raw //
 delicata squash | Produce | vegetables | NAM | - | - | squash winter,_all_varieties,_raw //

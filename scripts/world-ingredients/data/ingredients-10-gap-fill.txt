@@ -1,5 +1,5 @@
 # Gap fill: grains and seeds, game and poultry, fish and shellfish, fruit, spice and seasoning blends from regions under-covered above
-fonio | Pantry | grains | WAF | acha;digitaria | - | // fonio
+fonio | Pantry | grains | WAF | acha;digitaria | - | -
 einkorn | Pantry | grains | EUM | einkorn berries;einkorn flour | gluten | // einkorn -pasta -linguine -spaghetti -cookie -cracker -bread
 emmer | Pantry | grains | EUM | farro emmer;emmer wheat | gluten | // emmer
 psyllium husk | Pantry | pantry | SA | isabgol;psyllium | - | // psyllium husk
@@ -69,7 +69,7 @@ indonesian noodles | Pantry | grains | SEA | mie;bakmi;mi goreng noodles | glute
 dried coconut chips | Pantry | nuts | SEA | toasted coconut chips | - | // coconut chips
 coconut aminos | Pantry | pantry | SEA | - | - | // coconut aminos
 peanut butter powder | Pantry | nuts | NAM | pb2 | nuts | // peanut powder
-garlic paste | Pantry | pantry | SA,GLO | ginger garlic paste | - | // garlic paste
+garlic paste | Pantry | pantry | SA,GLO | - | - | // garlic paste
 ginger paste | Pantry | pantry | SA | - | - | // ginger paste
 tikka masala sauce | Pantry | pantry | SA | - | dairy | // tikka masala sauce
 butter chicken sauce | Pantry | pantry | SA | makhani sauce | dairy | // butter chicken sauce

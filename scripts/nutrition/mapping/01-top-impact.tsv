@@ -15,7 +15,8 @@ food	black beans	default	2644285	H	Foundation canned black beans, sodium added, 
 food	black beans	dried	173734	H	SR black beans mature seeds raw
 food	black beans	cooked	173735	H	SR black beans cooked boiled without salt
 food	cooking spray	default	171430	H	SR PAM original; 0.3 g per spray
-food	chicken	default	171054	M	SR cooked roasted chicken meat only (cup lines are cooked diced chicken); raw-weight lb lines overstate by about 30 percent
+food	chicken	default	171052	M	SR chicken meat only RAW: the usual recipe state is raw weight (lb lines); the audit found the cooked default overstated raw lines by about 40 percent
+food	chicken	cooked	171054	M	SR cooked roasted chicken meat only: prep notes saying cooked, shredded or roasted route here (the 'cooked' prep rule)
 food	rolled oats	default	173904	H	SR regular and quick oats dry
 food	mixed vegetables	default	170472	M	SR frozen mixed vegetables cooked boiled drained without salt
 food	diced tomatoes	default	170051	H	SR canned red tomatoes in juice (full nutrient panel; Foundation diced record reports only 10 nutrients)

@@ -25,7 +25,7 @@ icing sugar | Pantry | pantry | EUW | confectioners sugar;10x sugar | - | sugars
 custard powder | Pantry | pantry | EUW | bird's custard | - | // custard powder
 mincemeat | Pantry | fruit | EUW | - | gluten | // mincemeat
 christmas pudding | Pantry | pantry | EUW | plum pudding | gluten,egg,dairy | // christmas pudding
-digestive biscuits | Pantry | grains | EUW | graham cracker substitute | gluten | // digestive biscuit cat=cookies
+digestive biscuits | Pantry | grains | EUW | - | gluten | // digestive biscuit cat=cookies
 oatcakes | Pantry | grains | EUW | scottish oatcakes | gluten | // oatcakes
 crumpets | Pantry | grains | EUW | - | gluten | // crumpets
 soda bread | Pantry | grains | EUW | irish soda bread | gluten,dairy | // soda bread
@@ -107,7 +107,7 @@ dungeness crab | Protein | seafood | NAM | - | shellfish | crustaceans crab,_dun
 king crab | Protein | seafood | NAM | alaskan king crab | shellfish | crustaceans crab,_alaska_king,_raw //
 crab meat | Protein | seafood | NAM | lump crab;jumbo lump crabmeat | shellfish | crustaceans crab,_blue,_raw //
 oysters | Protein | seafood | NAM,EUW,EA | fresh oysters;shucked oysters | shellfish | mollusks oyster,_eastern,_wild,_raw //
-razor clam | Protein | seafood | NAM | - | shellfish | mollusks clam,_mixed_species,_raw //
+razor clam | Protein | seafood | NAM | navajas | shellfish | mollusks clam,_mixed_species,_raw //
 geoduck | Protein | seafood | NAM,EA | - | shellfish | proxy: mollusks clam mixed_species raw //
 cod roe | Protein | seafood | EUN,EA | mentaiko;karashi mentaiko | fish | fish roe mixed_species raw //
 salmon belly | Protein | seafood | NAM,EA | - | fish | fish salmon,_atlantic,_farmed,_raw //

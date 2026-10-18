@@ -35,7 +35,7 @@ natto | Pantry | legumes | EA | fermented soybeans | soy | natto //
 aburaage | Pantry | pantry | EA | fried tofu pouches;inari age;abura age | soy | tofu fried //
 atsuage | Pantry | pantry | EA | thick fried tofu | soy | tofu fried //
 yuba | Pantry | pantry | EA | tofu skin;bean curd skin;tofu sheets;bean curd sheet | soy | // yuba, bean curd skin, tofu skin, bean curd sheet
-dried tofu | Pantry | pantry | EA | pressed tofu;baked tofu;tofu gan;five spice tofu | soy | // dried tofu, pressed tofu, baked tofu
+dried tofu | Pantry | pantry | EA | pressed tofu;baked tofu;tofu gan;five spice tofu | soy | -
 fermented bean curd | Pantry | pantry | EA | nanru;furu;tofu cheese;preserved tofu | soy | // fermented bean curd
 kinako | Pantry | pantry | EA | roasted soybean flour;toasted soy flour | soy | flour soy -defatted //
 soy flour | Pantry | pantry | GLO | soybean flour | soy | flour soy full-fat //
@@ -53,7 +53,7 @@ lion's mane mushrooms | Produce | vegetables | EA | lions mane;yamabushitake | -
 straw mushrooms | Produce | vegetables | EA,SEA | paddy straw mushrooms | - | mushrooms straw //
 dried goji berries | Pantry | fruit | EA | goji berries;wolfberries;gouqizi | - | goji_berries dried //
 red dates | Pantry | fruit | EA | jujube;chinese dates;hong zao;dried jujube | - | jujube chinese //
-longan | Produce | fruit | EA,SEA | dragon eye;dried longan | - | longans raw //
+longan | Produce | fruit | EA,SEA | dragon eye | - | longans raw //
 lychee | Produce | fruit | EA,SEA | litchi | - | litchis raw //
 lotus root | Produce | vegetables | EA | lian ou | - | lotus_root raw //
 lotus seeds | Pantry | nuts | EA | lotus nuts;lian zi | - | seeds lotus raw //
@@ -107,7 +107,7 @@ sea vegetables | Pantry | pantry | GLO | mixed sea vegetables | - | proxy: seawe
 century egg | Protein | eggs | EA | preserved egg;thousand year egg;pidan | egg | // century egg, preserved egg, thousand year egg
 salted duck egg | Protein | eggs | EA,SEA | salted egg;xian dan | egg | proxy: egg duck whole fresh raw //
 duck egg | Protein | eggs | EA,SEA | - | egg | egg duck,_whole,_fresh,_raw //
-quail egg | Protein | eggs | EA,EUE | quail eggs | egg | egg quail,_whole,_fresh,_raw //
+quail egg | Protein | eggs | EA,EUE | - | egg | egg quail,_whole,_fresh,_raw //
 chinese sausage | Protein | meat | EA | lap cheong;lap chong;chinese pork sausage;waxed sausage | - | // chinese sausage, lap cheong, lap chong
 pork floss | Protein | meat | EA,SEA | rousong;meat floss;yuk sung | soy,gluten | // pork floss, meat floss
 peking duck | Protein | meat | EA | roast duck;chinese roast duck | soy | duck roasted //
@@ -131,7 +131,7 @@ black rice | Pantry | grains | EA,SEA | forbidden rice;purple rice | - | // blac
 red rice | Pantry | grains | GLO | red cargo rice;bhutanese red rice | - | rice brown,_long-grain,_raw //
 rice bran | Pantry | grains | GLO | - | - | rice_bran crude //
 hojicha | Pantry | pantry | EA | roasted green tea | - | // hojicha
-matcha | Pantry | pantry | EA | matcha powder;green tea powder | - | // matcha
+matcha | Pantry | pantry | EA | matcha powder;green tea powder | - | // matcha -latte -mix -drink -stick -booster -infusions -honey
 green tea | Pantry | pantry | EA | sencha;green tea leaves | - | beverages tea green,_brewed //
 jasmine tea | Pantry | pantry | EA | - | - | // jasmine tea
 oolong tea | Pantry | pantry | EA | wulong | - | // oolong tea

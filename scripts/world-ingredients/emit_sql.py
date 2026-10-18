@@ -17,6 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fdcdb import rows, lit, nutrients_for  # noqa: E402
+from quality import sane_nutrients  # noqa: E402
 import portions as P  # noqa: E402
 from resolve import slugify  # noqa: E402
 
@@ -134,7 +135,7 @@ def main():
             port_rows.setdefault(p["fdc_id"], []).append(p)
 
     def food_nutrients(fdc_id, density):
-        m = {k: v for k, v in nut.get(fdc_id, {}).items() if v is not None}
+        m = sane_nutrients({k: v for k, v in nut.get(fdc_id, {}).items() if v is not None})
         meta_ = meta[fdc_id]
         if meta_["data_type"] == "branded" and (meta_["su"] in ("ml", "mlt")):
             if not density:
@@ -230,7 +231,7 @@ def main():
         if fid in food_ids_needed:
             fn = food_ids_needed[fid]
         else:
-            fn = {str(k): round(v, 4) for k, v in b["nutrients"].items() if v is not None}
+            fn = {str(k): round(v, 4) for k, v in sane_nutrients({k: v for k, v in b["nutrients"].items() if v is not None}).items()}
             food_ids_needed[fid] = fn
         is_default = False
         if b["form"] != "default":

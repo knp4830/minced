@@ -27,7 +27,14 @@ Both files are idempotent (`ON CONFLICT DO NOTHING`, guarded updates).
 ## Quality rules (quality.py)
 
 * US market, serving size in g or ml, energy + protein + fat + carbohydrate + sodium all reported.
-* Energy within the Atwater band of 4P + 4C + 9F (alcohol, fibre and polyols are allowed for by a generous band), macros not above 105 g/100 g.
+* Energy consistent with 4P + 4C + 9F (wave 10 fixer, `quality.plausible`): a deviation over 25 percent AND 15 kcal AND the label-rounding allowance
+  for the serving (675 / serving_g per 100 g) rejects the food; 0 kcal beside macros worth 40+ kcal is label rounding, not a true zero; polyol
+  sweeteners and alcohol or vinegar foods are exempt by ingredient name (`ENERGY_EXEMPT`, polyols and alcohol are not tracked nutrients); more
+  than 902 kcal is physically impossible (oils are capped at 900). Macros not above 105 g/100 g.
+* All 38 tracked FDC ids are loaded for branded foods (`compact_fdc.WANT`), so a true zero (trans fat 0) is a stored 0, not a missing value.
+* A brand link must be the ingredient itself, never a mix, kit, drink, snack or meal that contains it. The `matcha` specs exclude latte mixes;
+  old bay, lemon pepper and everything bagel seasoning have no brand specs (their labels round to 0 kcal). Known-wrong links are listed in
+  `scripts/nutrition/corrections/link_corrections.tsv` and removed by `supabase/seed-nutrition-zzz-corrections.sql`.
 * Serving at least 1.5 g or ml. Labels round, so a 0.4 g spice serving that rounds to 0 kcal is not a true zero (unless the ingredient really
   is zero energy: salt, water, vinegar, tea, coffee, food colouring).
 * Liquids sold by volume (ml serving) are converted to per 100 g with a stated density (spec `d=`, the ingredient's own density, or its

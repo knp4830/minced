@@ -125,4 +125,10 @@ def label_portion(household, serving_size, unit, dens):
     grams = serving_size if unit == "g" else (serving_size * dens if dens else None)
     if not grams:
         return None
+    # Wave 10 fixer: a volume weight must imply a believable density (0.1 to 2.5 g/ml). Rejects label typos and per-serving weights
+    # that merely carry a volume word: fonio "4 cup" for 1/4 cup (0.05 g/ml), oolong tea 5 g "per cup" (a tea bag), kimchi base
+    # 20 g "per tsp" (4 g/ml).
+    ml = {"tsp": 4.92892, "tbsp": 14.7868, "cup": 236.588, "fl oz": 29.5735}.get(name)
+    if ml and not 0.1 <= (grams / qty) / ml <= 2.5:
+        return None
     return name, round(grams / qty, 3), "label: " + household[:70]

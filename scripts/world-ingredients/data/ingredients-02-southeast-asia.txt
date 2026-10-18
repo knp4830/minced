@@ -56,7 +56,7 @@ pea eggplant | Produce | vegetables | SEA | thai pea eggplant;makhuea phuang | -
 cassava leaves | Produce | vegetables | SEA,WAF,EAF | manioc leaves;pondu;saka saka;kasava leaves | - | -
 sweet potato leaves | Produce | vegetables | SEA,WAF,EA | kamote tops;camote leaves | - | sweet_potato_leaves //
 moringa leaves | Produce | vegetables | SEA,SA,WAF | malunggay;drumstick leaves;moringa | - | drumstick_leaves raw //
-drumsticks | Produce | vegetables | SA,SEA | moringa pods;moringa drumsticks;saijan;murungakkai | - | drumstick_pods raw //
+moringa pods | Produce | vegetables | SA,SEA | moringa drumsticks;saijan;murungakkai | - | drumstick_pods raw //
 bottle gourd | Produce | vegetables | SA,SEA,EA | calabash;upo;lauki;dudhi;opo squash | - | gourd white-flowered_(calabash) raw //
 ube | Produce | vegetables | SEA | purple yam;dioscorea alata | - | yam raw //
 ube halaya | Pantry | pantry | SEA | purple yam jam | dairy | // ube halaya, ube jam

@@ -54,7 +54,7 @@ NUTRIENTS = {
 # Source-only ("hidden") nutrients that the schema's nutrient_conversions turn into the contract rows at
 # read time: vitamin D IU x 0.025 -> mcg, Atwater energy -> kcal. They are loaded RAW; the seed never converts.
 HIDDEN = {1110: "vitamin_d_iu", 2048: "energy_atwater_specific", 2047: "energy_atwater_general"}
-ENERGY_FALLBACKS = (2047, 2048)  # Atwater general / specific (Foundation reports these)
+ENERGY_FALLBACKS = (2048, 2047)  # Atwater specific first, then general: the same priority as nutrient_conversions
 VITD_IU = 1110  # vitamin D in IU: / 40 = mcg when 1114 is absent
 WANTED = set(NUTRIENTS) | set(HIDDEN)
 

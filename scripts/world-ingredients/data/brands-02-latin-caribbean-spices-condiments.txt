@@ -72,9 +72,6 @@ poultry seasoning | mccormick/spice islands/badia/frontier/simply organic/morton
 pumpkin pie spice | mccormick/spice islands/badia/frontier/simply organic/morton | pumpkin pie spice | n=3
 apple pie spice | mccormick/spice islands/badia/frontier/simply organic/morton | apple pie spice | n=2
 herbes de provence | mccormick/spice islands/badia/frontier/simply organic/morton | herbes de provence | n=3
-old bay seasoning | old bay/mccormick | old bay | n=2 -tartar -rub -sauce -crab_cake
-lemon pepper | mccormick/spice islands/badia/frontier/simply organic/morton/lawry's | lemon pepper | n=3
-everything bagel seasoning | trader joe/mccormick/everything but | everything | n=3
 sumac | sadaf/frontier/mccormick/spicely/simply organic | sumac | n=3
 za'atar | sadaf/frontier/mccormick/spicely/simply organic/al wadi | zaatar, za'atar | n=3
 saffron | mccormick/spice islands/badia/frontier/la mancha | saffron | n=3

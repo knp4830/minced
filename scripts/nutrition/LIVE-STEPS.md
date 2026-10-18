@@ -9,12 +9,13 @@ Verified on a fresh snapshot restore in exactly this order (about 2 minutes of S
    (All 10 are needed BEFORE the code is merged; code first gives 500 on /settings, /recipes when signed in, and the Me panel.)
 3. Seeds, each idempotent, in this order (supabase/ folder, run as the postgres role):
    `seed-nutrition-usda-1-foods.sql`, `seed-nutrition-usda-2-nutrients-01.sql`, `seed-nutrition-usda-3-links.sql`,
-   `seed-ingredients-world.sql`, `seed-nutrition-world.sql`, `seed-nutrition-zz-integration.sql` (must be last).
+   `seed-ingredients-world.sql`, `seed-nutrition-world.sql`, `seed-nutrition-branded-extra.sql`, `seed-nutrition-zz-integration.sql`,
+   `seed-nutrition-zy-replacements.sql`, `seed-nutrition-zzz-corrections.sql` (must be last; audit fixes, see `scripts/nutrition/corrections/README.md`).
 4. `ANALYZE;` then, in the SAME session, `SET jit = off; SELECT refresh_all_recipe_nutrients();` (expect 957, about 90 s; never with JIT on).
 5. `VACUUM (FULL, ANALYZE) recipes;` (the refresh rewrites every recipe row).
-6. Verify by counting, not "no error": ingredients 1,981 (was 610); aliases 3,022; usda_foods 10,593 (2,364 branded);
-   ingredient_foods 3,877; ingredient_portions 1,740; nutrition_status complete 826 / partial 131 / unavailable 0;
-   `scripts/nutrition/sql-checks.sql` and `scripts/nutrition/check_usda_seeds.sql` return no failures; database about 52 MB.
+6. Verify by counting, not "no error": ingredients 1,979 (was 610); aliases 3,004; usda_foods 10,406 (2,177 branded);
+   ingredient_foods 3,667; ingredient_portions 1,722; nutrition_status complete 814 / partial 143 / unavailable 0;
+   `scripts/nutrition/sql-checks.sql` and `scripts/nutrition/check_usda_seeds.sql` return no failures; database about 49 MB before the recipe refresh, 61 MB after it (VACUUM FULL recipes then).
 7. `pnpm db:types` (already regenerated in this branch; re-run only if live differs), merge the PR, wait for deploy,
    revalidate recipe pages (ISR 1 h) so labels appear.
 8. Smoke on live: a recipe page label, `/settings`, `/recipes` signed in with saved defaults, Me "Add food" type-ahead.

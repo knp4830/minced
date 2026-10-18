@@ -77,7 +77,7 @@ fufu flour | golden tropics/ola ola/mama's | fufu | n=3
 egusi | golden tropics/ola ola/african | egusi | n=2
 hibiscus flowers | alvarado/goya/frontier/mountain rose/organic | hibiscus | n=3
 rooibos | celestial/numi/rooibos/bigelow/stash | rooibos | n=3 -kombucha -cbd -latte -chai
-matcha | encha/jade leaf/ito en/teaspoon/kiss me organics | matcha | n=3
+matcha | encha/jade leaf/ito en/teaspoon/kiss me organics | matcha | n=3 -latte -mix -drink -stick -booster -infusions -honey
 black tea | lipton/tetley/twinings/bigelow/pg tips/tazo/yorkshire/red rose/celestial | black tea | n=6 -chai -latte -cinnamon -flavor -vanilla
 oolong tea | ito en/twinings/stash/numi/bigelow | oolong | n=3
 coffee | folgers/maxwell house/starbucks/dunkin/peet's/lavazza/illy/cafe bustelo/community/kirkland | coffee | n=5 -cake -creamer -bar -ice cream cat=coffee

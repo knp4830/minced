@@ -32,7 +32,7 @@ maltose | Pantry | pantry | EA | maltose syrup;mai ya tang | gluten | syrups mal
 sugar cubes | Pantry | pantry | GLO | - | - | sugars granulated //
 skim milk | Dairy | - | GLO | nonfat milk;fat-free milk | dairy | milk fluid,_nonfat //
 whole milk | Dairy | - | GLO | full-fat milk | dairy | milk whole,_3.25%_milkfat //
-reduced fat milk | Dairy | - | GLO | 2% milk;low-fat milk;1% milk | dairy | milk reduced_fat,_fluid,_2%_milkfat //
+reduced fat milk | Dairy | - | GLO | 2% milk;low-fat milk | dairy | milk reduced_fat,_fluid,_2%_milkfat //
 goat milk | Dairy | - | GLO | goats milk | dairy | milk goat,_fluid //
 lactose-free milk | Dairy | - | GLO | - | dairy | proxy: milk reduced_fat fluid 2% //
 rice milk | Dairy | - | GLO | - | - | rice_milk //
@@ -53,7 +53,7 @@ whole wheat bread | Pantry | grains | GLO | wheat bread;wholemeal bread | gluten
 white bread | Pantry | grains | GLO | sliced white bread | gluten | bread white commercially_prepared -toasted -crumbs //
 hawaiian rolls | Pantry | grains | NAM | sweet rolls | gluten,dairy,egg | // hawaiian rolls
 challah | Pantry | grains | ME,EUE | egg bread | gluten,egg | bread egg //
-croissant | Pantry | grains | EUW | croissants | gluten,dairy | croissants butter //
+croissant | Pantry | grains | EUW | - | gluten,dairy | croissants butter //
 water crackers | Pantry | grains | GLO | table water crackers | gluten | crackers standard_snack-type //
 matzo | Pantry | grains | ME,EUE | matzah;matzo crackers | gluten | crackers matzo,_plain //
 rice crackers | Pantry | grains | EA | senbei;rice cakes puffed | - | proxy: snacks rice_cake brown_rice //
@@ -155,6 +155,6 @@ carp | Protein | seafood | EUE,EA | - | fish | fish carp raw //
 pike | Protein | seafood | EUE,NAM | - | fish | fish pike,_northern,_raw //
 canned salmon | Pantry | seafood | NAM | pink salmon canned | fish | fish salmon,_pink,_canned //
 canned crab | Pantry | seafood | NAM | - | shellfish | crustaceans crab,_blue,_canned //
-canned clams | Pantry | seafood | NAM | - | shellfish | mollusks clam,_mixed_species,_canned //
+canned clams | Pantry | seafood | NAM | - | shellfish | mollusks clam,_mixed_species,_canned drained_solids //
 oyster crackers | Pantry | grains | NAM | - | gluten | // oyster crackers
 instant noodles | Pantry | grains | EA,GLO | cup noodles;instant ramen | gluten | soup ramen_noodle //

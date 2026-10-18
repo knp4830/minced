@@ -21,6 +21,11 @@ WANT = {
     1106: "vit_a_rae", 1114: "vit_d_mcg", 1109: "vit_e", 1185: "vit_k",
     1175: "vit_b6", 1178: "vit_b12", 1162: "vit_c", 1190: "folate_dfe",
     1235: "added_sugars",
+    # Wave 10 fixer: these 13 were never loaded, so branded foods lost real values (niacin, poly fat ...)
+    # and every TRUE ZERO (trans fat 0) read as "not reported". Keep in step with the nutrients table.
+    1257: "trans_fat", 1292: "mono_fat", 1293: "poly_fat", 1165: "thiamin", 1166: "riboflavin",
+    1167: "niacin", 1091: "phosphorus", 1103: "selenium", 1098: "copper", 1101: "manganese",
+    1170: "pantothenic", 1180: "choline", 1110: "vit_d_iu",
 }
 
 

@@ -1,0 +1,121 @@
+"""Reload the 13 nutrients the world loader never stored for branded foods, from the FoodData Central API.
+
+Why: compact_fdc.py loaded 25 of the 38 tracked FDC ids, so a branded food lost every niacin, poly fat, thiamin ...
+value FDC reports, AND every TRUE ZERO for those nutrients (trans fat 0 is reported for ~1,900 foods and the schema
+reads "no row" as "not reported"). Nothing else about the stored values changes: rows are inserted
+`on conflict do nothing`, so an existing value is never overwritten.
+
+Reads the branded fdc_ids (one per line) from --ids, batches of 20 against GET /foods, politely (1 call/sec, far under
+3,600/hour), and writes supabase/seed-nutrition-branded-extra.sql. Data: USDA FoodData Central, CC0. The key is read from
+the environment or .env.local and is never printed or written.
+
+    docker exec w10fix-db psql -U postgres -Atc "select fdc_id from usda_foods where data_type='branded' order by 1" > ids.txt
+    python -I scripts/nutrition/corrections/reload_branded_nutrients.py --ids ids.txt [--raw cache.json]
+
+The same sanity gate as supabase/seed-nutrition-zzz-corrections.sql runs here, so an impossible FDC value
+(cholesterol 214,286 mg, a sub-nutrient above its parent) is never loaded: it is left absent, not 0.
+"""
+import argparse
+import json
+import os
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, ".."))
+from fdc import load_api_key, API  # noqa: E402
+
+OUT = os.path.join(HERE, "..", "..", "..", "supabase", "seed-nutrition-branded-extra.sql")
+
+# FDC 4-digit nutrient id -> our nutrients.id. Only the ones the world loader skipped.
+EXTRA = {1257: 9, 1292: 10, 1293: 11, 1165: 28, 1166: 29, 1167: 30, 1091: 19, 1103: 20, 1098: 21, 1101: 22,
+         1170: 34, 1180: 35, 1110: 90}
+# Needed only to judge the gate (sub-nutrient vs parent); never written.
+PARENT_FAT = 1004
+SUBS_OF_FAT = (9, 10, 11)
+
+
+def get(url_path, params, key):
+    url = f"{API}{url_path}?{urllib.parse.urlencode({**params, 'api_key': key})}"
+    for attempt in range(6):
+        try:
+            with urllib.request.urlopen(url, timeout=60) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 500, 502, 503, 504):
+                time.sleep(2 ** attempt * 3)
+                continue
+            raise SystemExit(f"FDC HTTP {e.code}")  # never echo the URL: it holds the key
+        except Exception:
+            time.sleep(2 ** attempt * 2)
+    raise SystemExit("FDC gave up")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--ids", required=True)
+    ap.add_argument("--raw", help="cache file of trimmed API results (resumable)")
+    a = ap.parse_args()
+    ids = [int(x) for x in open(a.ids).read().split()]
+    key = load_api_key()
+    if not key:
+        raise SystemExit("USDA_FDC_API_KEY not found")
+    raw = json.load(open(a.raw, encoding="utf-8")) if a.raw and os.path.exists(a.raw) else {}
+    todo = [i for i in ids if str(i) not in raw]
+    print(f"{len(ids)} ids, {len(todo)} to fetch", file=sys.stderr)
+    for k in range(0, len(todo), 20):
+        batch = todo[k:k + 20]
+        data = get("/foods", {"fdcIds": ",".join(map(str, batch)), "format": "full"}, key)
+        seen = set()
+        for food in data:
+            nut = {}
+            for fn in food.get("foodNutrients", []):
+                n = fn.get("nutrient") or {}
+                if n.get("id") is not None and fn.get("amount") is not None:
+                    nut[int(n["id"])] = fn["amount"]
+            raw[str(food["fdcId"])] = {i: nut[i] for i in list(EXTRA) + [PARENT_FAT] if i in nut}
+            seen.add(food["fdcId"])
+        for i in batch:
+            if i not in seen:
+                raw[str(i)] = {}  # FDC no longer serves it: nothing to add
+        if a.raw:
+            json.dump(raw, open(a.raw, "w", encoding="utf-8"))
+        time.sleep(1.0)
+    vals = []
+    dropped = 0
+    for fid in sorted(ids):
+        r = {int(k): v for k, v in raw.get(str(fid), {}).items()}
+        fat = r.get(PARENT_FAT)
+        for fdc_nid, our in EXTRA.items():
+            if fdc_nid not in r:
+                continue
+            v = float(r[fdc_nid])
+            if v < 0:
+                dropped += 1
+                continue
+            # a fat component cannot exceed total fat (label rounding tolerance 5% + 0.5 g)
+            if our in SUBS_OF_FAT and fat is not None and v > fat * 1.05 + 0.5:
+                dropped += 1
+                continue
+            vals.append(f"({fid},{our},{round(v, 5):g})")
+    lines = [
+        "-- Wave 10 fixer: the 13 nutrients the world loader never stored for BRANDED foods (niacin, poly/mono/trans fat, thiamin,",
+        "-- riboflavin, phosphorus, selenium, copper, manganese, pantothenic acid, choline, vitamin D IU), including true zeros.",
+        "-- Generated by scripts/nutrition/corrections/reload_branded_nutrients.py from the FoodData Central API (CC0).",
+        "-- IDEMPOTENT: never overwrites a stored value. Run after the world seed and before seed-nutrition-zz-integration.sql.",
+        "begin;",
+    ]
+    for k in range(0, len(vals), 1500):
+        lines.append("insert into usda_food_nutrients (fdc_id, nutrient_id, amount_per_100g)\nselect v.f, v.n, v.a from (values\n  "
+                     + ",\n  ".join(vals[k:k + 1500]) + "\n) v(f, n, a) join usda_foods u on u.fdc_id = v.f\non conflict (fdc_id, nutrient_id) do nothing;")
+    lines.append("commit;")
+    with open(OUT, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(lines) + "\n")
+    print(f"wrote {len(vals)} values, gate dropped {dropped}", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()

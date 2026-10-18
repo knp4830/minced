@@ -13,7 +13,7 @@ horse gram | Pantry | legumes | SA | kulthi;kollu;ulavalu | - | proxy: // horse 
 moth beans | Pantry | legumes | SA | matki;mat beans;dew beans | - | proxy: lentils raw //
 cluster beans | Produce | vegetables | SA | gavar;guar beans;gawar | - | proxy: beans snap green raw //
 flat beans | Produce | vegetables | SA | papdi;sem beans;indian beans;hyacinth beans | - | hyacinth-beans mature_seeds,_raw //
-fenugreek leaves | Produce | herbs | SA | fresh methi;methi leaves | - | proxy: spinach raw //
+fenugreek leaves | Produce | herbs | SA | fresh methi;methi leaves | - | -
 amaranth leaves | Produce | vegetables | SA,SEA,EAF,CAR | chaulai;thotakura;callaloo;edible amaranth;tampala | - | amaranth_leaves raw //
 colocasia leaves | Produce | vegetables | SA,CAR,PAC | arbi leaves;taro leaves;patra leaves;callaloo leaves;dasheen leaves | - | taro leaves,_raw //
 raw mango | Produce | fruit | SA,SEA | green mango;kachha aam;unripe mango | - | proxy: mangos raw //
@@ -60,11 +60,11 @@ tamarind chutney | Pantry | pantry | SA | imli chutney;sweet chutney;date tamari
 mango chutney | Pantry | pantry | SA,CAR | major grey chutney | - | // mango chutney
 coconut chutney | Pantry | pantry | SA | - | dairy | // coconut chutney
 raita | Dairy | - | SA | yogurt raita;cucumber raita | dairy | // raita
-khoya | Dairy | - | SA | mawa;khoa;milk solids;dried whole milk | dairy | // khoya, mawa
+khoya | Dairy | - | SA | mawa;khoa;milk solids | dairy | // khoya, mawa
 chhena | Dairy | - | SA | chenna;indian cottage cheese;paneer fresh | dairy | proxy: cheese cottage creamed small_curd //
 malai | Dairy | - | SA | indian clotted cream;kaymak;cream skimmings | dairy | cream fluid,_heavy_whipping //
 dahi | Dairy | - | SA | curd;indian yogurt;set yogurt | dairy | yogurt plain whole_milk //
-lassi | Dairy | - | SA | sweet lassi;mango lassi;salted lassi | dairy | -
+lassi | Dairy | - | SA | sweet lassi;salted lassi | dairy | -
 white butter | Dairy | - | SA | makhan;desi makhan;homemade butter | dairy | butter without_salt //
 papadum | Pantry | grains | SA | papad;appalam;pappadam;pappad | - | // papadum, papad
 sev | Pantry | pantry | SA | besan sev;chickpea noodles snack;nylon sev | - | // sev
@@ -91,8 +91,8 @@ dalia | Pantry | grains | SA | broken wheat;cracked wheat;lapsi | gluten | proxy
 vermicelli sweet | Pantry | grains | SA | seviyan;semiya;indian vermicelli | gluten | // vermicelli
 atta | Pantry | grains | SA | chapati flour;whole wheat atta;roti flour | gluten | wheat_flour whole-grain //
 chapati | Pantry | grains | SA | roti;phulka;indian flatbread | gluten | proxy: bread pita whole-wheat //
-paratha | Pantry | grains | SA | frozen paratha;aloo paratha | gluten,dairy | // paratha
-dosa batter | Pantry | grains | SA | idli batter;dosa mix | - | // dosa mix, idli mix
+paratha | Pantry | grains | SA | frozen paratha | gluten,dairy | // paratha
+dosa batter | Pantry | grains | SA | idli batter;dosa mix | - | -
 poha thick | Pantry | grains | SA | thick poha;jada poha | - | // poha
 goat meat | Protein | meat | SA,NAF,ME,CAR,EAF | mutton;curry goat;chevon | - | game_meat goat raw //
 lamb leg | Protein | meat | ME,EUM,SA | leg of lamb | - | lamb leg whole separable_lean_and_fat raw -new_zealand //
@@ -100,7 +100,7 @@ oxtail | Protein | meat | CAR,WAF,EA,LAT | ox tail | - | -
 tripe | Protein | meat | LAT,EA,EUM,CAR | beef tripe;mondongo;menudo;tripas | - | beef tripe raw //
 beef tongue | Protein | meat | LAT,EUE,EA | lengua | - | beef tongue raw //
 beef liver | Protein | meat | GLO | calf liver | - | beef liver raw //
-chicken liver | Protein | meat | GLO | chicken livers | - | chicken liver raw //
+chicken liver | Protein | meat | GLO | - | - | chicken liver raw //
 chicken gizzards | Protein | meat | GLO | gizzards | - | chicken gizzard raw //
 chicken feet | Protein | meat | EA,LAT,CAR,SAF | chicken paws;phoenix claws | - | chicken feet //
 lamb kidney | Protein | meat | EUN,ME | - | - | lamb kidneys raw //
@@ -108,7 +108,7 @@ beef heart | Protein | meat | LAT | anticuchos | - | beef heart raw //
 pork liver | Protein | meat | EUE,EA | - | - | pork liver raw //
 pork blood | Protein | meat | EA,EUE | blood sausage blood;duck blood | - | -
 pork rinds | Protein | meat | LAT,SEA,NAM | chicharron;cracklings;pork scratchings | - | pork skin //
-hilsa | Protein | seafood | SA | ilish;hilsa fish;ilisha | fish | proxy: fish herring atlantic raw //
+hilsa | Protein | seafood | SA | ilish;hilsa fish;ilisha | fish | -
 rohu | Protein | seafood | SA | rui;labeo rohita | fish | proxy: fish carp raw //
 pomfret | Protein | seafood | SA,EA,SEA | pompano;butterfish;silver pomfret | fish | fish pompano florida raw //
 bombay duck | Protein | seafood | SA | bombil;bummalo | fish | -

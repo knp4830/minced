@@ -211,7 +211,7 @@ def main():
                         m = {k: (v / dens if v is not None else None) for k, v in m.items()}
                         nb[c["fdc_id"]] = m
                     ss = float(c["serving_size"])
-                    if plausible(m) and ss >= MIN_SERVING and not label_rounded_zero(m, ss, it["name"]):
+                    if plausible(m, ss, it["name"]) and ss >= MIN_SERVING and not label_rounded_zero(m, ss, it["name"]):
                         c["_ss"] = ss
                         good.append(c)
                 big = [c for c in good if c["_ss"] >= PREFERRED_SERVING]
