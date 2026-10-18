@@ -1637,4 +1637,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 39 - [next entry goes here]
+## Entry 39 - Waves 10 + 11: nutrition for every ingredient, and Settings
+
+**What we built.** You asked for as many ingredients as possible, with brands, serving sizes and nutrition, so a person can pick "Kikkoman soy sauce, 1 tbsp" and get calories. Minced now holds about 10.4k USDA foods (SR Legacy, Foundation, 2.2k branded), 1,979 canonical ingredients (1,371 new world ingredients with 2,300 regional aliases), brand foods linked to ingredients, gram weights per unit, and computed per-recipe nutrition with a coverage figure per nutrient. The recipe page has a full label with % Daily Value; Me has an all-nutrients panel and an "Ingredient or brand" add-food tab; the recipe form has a type-ahead. Wave 11 added `/settings` (units, week start, sex, default diet and allergens, cookware, export, delete) and default filters that apply to both doors.
+
+**Key files.** Migrations `20261017120000` to `190000`; seeds `supabase/seed-nutrition-*.sql`, `seed-ingredients-world.sql`; pipelines `scripts/nutrition/`, `scripts/world-ingredients/`; UI `src/components/recipe/nutritionPanel.tsx`, `src/components/food/foodCombobox.tsx`, `src/lib/me/nutrientTotals.ts`; settings `src/app/(site)/settings`, `src/lib/prefs.ts`, `src/lib/prefsCookie.ts`.
+
+**How it works and why.** A canonical ingredient links to many foods; one is the default per form (raw, cooked, canned, dried). The compute turns each recipe line into grams (unit factor, density, or a portion weight), looks up the food, and sums. Missing is never zero: an unmapped or weightless line is a named gap, a nutrient shows only when most of the counted mass reports it, and partial recipes say "at least". Brands are foods, not new ingredients, so the pantry matcher is untouched. Rejected: Open Food Facts (ODbL share-alike), MyFitnessPal, Nutritionix, Edamam (licences), synthetic averaged foods, and overwriting MyPlate's published numbers. Defaults live in the database and a small httpOnly cookie so the server can filter before the first byte; the URL never carries them.
+
+**Concepts.** Medoid (the real product closest to the group median) as a default; Atwater energy; label rounding; coverage; SECURITY INVOKER vs DEFINER functions; JIT compilation; three-valued logic in tests.
+
+**Gotchas.** JIT made one function 100 times slower. Branded values are label values and round. Import lost qualifiers (low-fat, cooked, canned), which inflates computed calories; the audits measured a median 12 percent calorie error against MyPlate, so the numbers are labelled estimates. Two audits found about 14 wrong default foods and 40 wrong brand links, now corrected, which is why you review the CSVs. PostgREST cannot filter an embed on an RPC result, which hid a wave 9 bug the saved defaults would have hit.
+
+---
+
+## Entry 40 - [next entry goes here]

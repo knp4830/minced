@@ -234,12 +234,20 @@ Owner's 19-item desktop review. **Before merging:** back up live, apply `supabas
 - **Open from verification:** 28-day check-in age uses the UTC date of `updated_at`; projected date ignores a clamped (floor) target; two copy nits ("a 825", doubled "kg"); body-art credit link 41.7 px tall; Google flag accepts only `true`. Questions: `docs/review/2026-10-17-wave9-questions.md`.
 - **Waves 10 and 11 are specified, not built:** `docs/research/wave10-micronutrients-plan.md`, `docs/research/wave11-settings-spec.md`.
 
+### Waves 10 + 11 (2026-10-17): integrated on `w10/integration`, PR open, NOT applied to live
+
+**Not on live yet. Ten new migrations (`20261017120000` to `190000`, live goes 37 to 47) must be applied BEFORE merging, then the seeds and a jit-off refresh, exactly as in `scripts/nutrition/LIVE-STEPS.md`.** Back up first. Code merged first gives 500s on `/settings`, signed-in `/recipes` and the Me panel.
+
+- **Built:** USDA nutrition for every ingredient (about 10.4k foods incl. 2.2k branded, 1,979 canonical ingredients, 3,000 aliases), computed recipe nutrition with coverage, recipe label with %DV, Me all-nutrients panel, ingredient/brand type-ahead, `/settings` with default diet and allergen filters (cookie `minced_prefs`). Brands are foods linked to a canonical ingredient, never separate ingredients. Details: `docs/ARCHITECTURE.md` section 13, `docs/SCHEMA-NOTES.md` decisions 6 to 12.
+- **Accuracy is honest, not great:** audits found food data faithful to USDA, but computed calories differ from published MyPlate by a median 12 percent. Labels say estimated. No BUILD-PLAN box checked.
+- **Open:** your mapping review (CSVs listed in `docs/review/2026-10-17-wave10-11-questions.md`), M5.2, M3.7, M1.5.7.
+
 ### Next up
 
-1. **You:** read the wave 9 questions file, say "go" so Claude backs up live, applies the two migrations, then merge.
-2. Wave 10 (micronutrients from USDA per ingredient) and wave 11 (settings page with default filters), per the specs.
-3. Small fixes from the verification list above (check-in date, floor-aware projected date, copy nits).
-4. Owner setup: Google Cloud, Resend plus Porkbun DNS, Vercel env vars; then turn the flags on. Paste-a-blog import. Phase 6 launch.
-5. Post-MVP (end of BUILD-PLAN): workout plans and exercise library with photos, SEO combo pages, food-science follow-ups, lifting research. **Remind the user about the food-science research.**
+1. **You:** read `docs/review/2026-10-17-wave10-11-questions.md`, say "go" so Claude backs up live and applies migrations, seeds and refresh, then merge.
+2. Review the mapping CSVs in batches of 30. Fix wrong defaults in the mapping TSVs and rebuild the seed.
+3. Small wave: recipe import qualifiers (low-fat, cooked, canned, "A or B"), draft nutrition preview in the recipe form, vegetarian tagging, sex/age Daily Values, wave 12 drop of `me_targets.sex/units`.
+4. Owner setup: Google Cloud, Resend plus Porkbun DNS, Vercel env vars; then turn the flags on. Paste-a-blog import.
+5. Post-MVP (end of BUILD-PLAN): workout plans and exercise library, SEO combo pages, food-science follow-ups.
 
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

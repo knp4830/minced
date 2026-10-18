@@ -3,10 +3,10 @@
 Verified on a fresh snapshot restore in exactly this order (about 2 minutes of SQL plus 90 s refresh).
 
 1. Restore the Supabase project (it pauses) and wait for ACTIVE_HEALTHY. Back up live first (CLAUDE.md procedure). Note `auth.users` and Storage are not in the dump.
-2. Apply migrations in timestamp order (wave 9: `20261017100000`, `20261017110000`; wave 10+11):
+2. Apply migrations in timestamp order (wave 9's `20261017100000` and `110000` are already on live once PR #57's steps ran; the ten below are new, live goes 37 to 47):
    `120000_nutrition_tables`, `120100_nutrition_compute`, `120200_nutrition_search_and_hooks`, `150000_me_food_nutrient_snapshot`,
-   `150100_recipe_ingredient_foods`, `160000_user_settings`, `160100_filtered_recipes_exclude`, `170000_nutrition_can_rule`, `180000_nutrition_recipe_audit`.
-   (All 11 are needed BEFORE the code is merged; code first gives 500 on /settings, /recipes when signed in, and the Me panel.)
+   `150100_recipe_ingredient_foods`, `160000_user_settings`, `160100_filtered_recipes_exclude`, `170000_nutrition_can_rule`, `180000_nutrition_recipe_audit`, `190000_search_foods_lead_ranking`.
+   (All ten are needed BEFORE the code is merged; code first gives 500 on /settings, /recipes when signed in, and the Me panel.)
 3. Seeds, each idempotent, in this order (supabase/ folder, run as the postgres role):
    `seed-nutrition-usda-1-foods.sql`, `seed-nutrition-usda-2-nutrients-01.sql`, `seed-nutrition-usda-3-links.sql`,
    `seed-ingredients-world.sql`, `seed-nutrition-world.sql`, `seed-nutrition-branded-extra.sql`, `seed-nutrition-zz-integration.sql`,

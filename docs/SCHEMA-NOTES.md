@@ -296,3 +296,20 @@ Verified by applying the migration to a throwaway Postgres 16 container with a s
 - **Bulk-import performance.** `recipe_ingredients` has row-level `AFTER` triggers, so inserting a recipe with 10 ingredients recomputes its search vector 10 times. Fine for the 6 seed recipes; revisit before M1.5.3 imports ~1,000 recipes — either statement-level triggers with transition tables, or `alter table ... disable trigger` around the load followed by one rebuild pass.
 - **`recipes_published_has_date` is effectively unreachable**, because the `BEFORE` trigger fills `published_at` in whenever status becomes `published`. Kept as a backstop if that trigger is ever dropped.
 - **RLS is enabled on all 16 tables with zero policies**, which denies everything to the publishable key. Policies are M1.3. This is deliberate: RLS off plus a public key means the entire database is readable and writable by anyone in the window between the two milestones.
+## Wave 10: nutrition tables, and why brands are foods (2026-10-17)
+
+**Decision 6: brands are foods, not canonical ingredients.** Kikkoman soy sauce is a `usda_foods` row linked to the canonical `soy sauce` through `ingredient_foods` (`is_default = false`). A recipe line keeps `ingredient_id` (so matching, allergens and the pantry never change) and may carry `recipe_ingredients.fdc_id` for a chosen food. Rejected: one canonical ingredient per brand (it would shatter the pantry matcher and the vocabulary rules), and averaged synthetic foods (every `usda_foods` row is a real FDC id).
+
+**Decision 7: absent row means "not reported", 0 means a true zero.** `usda_food_nutrients` stores per 100 g; `recipe_nutrients` stores only nutrients with coverage above zero, with `coverage` = share of counted grams whose food reports it. The UI shows a nutrient at 0.9 or more.
+
+**Decision 8: forms.** `ingredient_foods.form` (default, cooked, canned, dried...) with exactly one default per ingredient+form (partial unique index plus a deferred constraint trigger). `ingredient_portions.form` lets cooked rice have its own cup weight. A non-default form never borrows default-form gram weights.
+
+**Decision 9: MyPlate and original macros are never overwritten.** Refresh writes `recipe_nutrients` for everyone but touches the macro columns only for user recipes (author set, status complete, coverage 0.9 or more). Calorie disagreement over 20 percent is flagged (`nutrition_calorie_check`).
+
+**Decision 10: status.** `nutrition_status` is complete (every quantified line counted), partial (at least half counted; gaps named in `nutrition_gaps`) or unavailable. "To taste" counts 0 without being a gap; optional and "for greasing" lines are excluded and listed.
+
+**Decision 11: added sugars are an estimate** (direct value, else a listed sweetener times its sugars, else 0), flagged `is_estimated`.
+
+**Decision 12: user settings are one row per user** (`user_settings`, owner-only, no DELETE, cascades on account delete). `me_targets.sex/units` are mirrored for one wave and dropped in wave 12. `minced_prefs` is a cache of the defaults, never the truth.
+
+**Size:** about 61 MB total after the refresh (budget 250 MB, cap 500 MB). `usda_food_nutrients` is about 75 bytes per row; each food costs about 1.5 KB with 14 nutrients and three trigram indexes.
