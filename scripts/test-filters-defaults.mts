@@ -142,7 +142,7 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
     assert.equal(P.decodePrefs(bad as string), null, String(bad));
   }
   const b64 = (o: unknown) => btoa(JSON.stringify(o)).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, "");
-  assert.equal(P.decodePrefs(b64({ v: 2, d: [], x: [], u: "ab" })), null, "wrong version");
+  assert.equal(P.decodePrefs(b64({ v: 3, d: [], x: [], u: "ab" })), null, "wrong version");
   assert.equal(P.decodePrefs(b64({ v: 1, d: ["<script>"], x: [], u: "ab" })), null, "bad slug");
   assert.equal(P.decodePrefs(b64({ v: 1, d: "vegan", x: [], u: "ab" })), null, "not an array");
   assert.equal(P.decodePrefs(b64({ v: 1, d: [], x: [], u: "ZZ" })), null, "bad user marker");
