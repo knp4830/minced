@@ -3194,6 +3194,35 @@ do $$ begin
   end if;
 end $$;
 
+-- Garnish lines (scripts/allergens/review/garnish-lines.csv): a topping at the plate is an optional allergen.
+update recipe_ingredients ri
+   set prep_note = case when coalesce(ri.prep_note, '') = '' then 'for garnish' else ri.prep_note || ', for garnish' end
+  from (values
+  ('pad-thai', 13, 'peanuts'),
+  ('dan-dan-noodles', 14, 'peanuts'),
+  ('banana-walnut-oatmeal', 6, 'walnuts'),
+  ('fruit-salad-yogurt', 5, 'almonds'),
+  ('rice-bowl-breakfast-fruit-and-nuts', 4, 'pine nuts'),
+  ('stove-top-potato-and-cabbage-casserole', 6, 'pine nuts'),
+  ('zingy-lemon-chicken-pasta', 14, 'almonds'),
+  ('leafy-tofu', 5, 'sesame seeds'),
+  ('gazpacho', 12, 'egg')
+) as v (slug, ord, ingredient)
+  join recipes r on r.slug = v.slug
+  join ingredients n on n.canonical_name = v.ingredient
+ where ri.recipe_id = r.id and ri.sort_order = v.ord and ri.ingredient_id = n.id
+   and coalesce(ri.prep_note, '') !~* '\m(optional|garnish)\M';
+do $$ begin
+  if (select count(*) from recipe_ingredients ri
+        join recipes r on r.id = ri.recipe_id
+        join ingredients n on n.id = ri.ingredient_id
+        join (values   ('pad-thai', 13, 'peanuts'),   ('dan-dan-noodles', 14, 'peanuts'),   ('banana-walnut-oatmeal', 6, 'walnuts'),   ('fruit-salad-yogurt', 5, 'almonds'),   ('rice-bowl-breakfast-fruit-and-nuts', 4, 'pine nuts'),   ('stove-top-potato-and-cabbage-casserole', 6, 'pine nuts'),   ('zingy-lemon-chicken-pasta', 14, 'almonds'),   ('leafy-tofu', 5, 'sesame seeds'),   ('gazpacho', 12, 'egg')) v (slug, ord, ingredient)
+          on v.slug = r.slug and v.ord = ri.sort_order and v.ingredient = n.canonical_name
+       where ri.prep_note ~* '\mgarnish\M') <> 9 then
+    raise exception 'a garnish line does not exist or was not marked (recipe, line or ingredient missing)';
+  end if;
+end $$;
+
 -- One bulk rebuild of the derived data (recipe_allergens with optional_only, and recipe_diets for catalog recipes).
 select refresh_all_recipe_allergens();
 select refresh_all_recipe_diets();

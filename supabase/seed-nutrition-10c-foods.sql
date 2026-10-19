@@ -3561,7 +3561,7 @@ insert into ingredient_aliases (ingredient_id, alias)
 select i.id, a.alias from (values ('cream', 'heavy cream'), ('apple cider', 'cider'), ('sweet cider', 'cider')) a(alias, canon)
 join ingredients i on i.canonical_name = a.canon
 on conflict (alias) do nothing;
-update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = '1% milk') where alias = 'low-fat milk';
+update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = '1% milk') where alias = 'low-fat milk' and exists (select 1 from ingredients where canonical_name = '1% milk'); -- '1% milk' is created by seed-nutrition-zzzzz-math-10c.sql, which repoints this alias if it runs first-time after this seed
 insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple, filter_group)
 values ('hard cider', 'hard-cider', 'Other', false, 'pantry') on conflict (canonical_name) do nothing;
 update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = 'hard cider')

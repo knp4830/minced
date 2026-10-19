@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { toNutrient, type Nutrient, type NutrientRow } from "@/lib/nutrients";
 import { toFoodHit, type FoodHit } from "@/lib/foodHit";
+import { toForms, type FoodForm } from "@/lib/foodForm";
 import { getNutrients } from "@/lib/queries/recipeNutrients";
 import { createStaticClient } from "@/lib/supabase/static";
 
@@ -228,4 +229,25 @@ export async function getFoodCounts(): Promise<FoodCounts> {
     count(() => sb.from("ingredients").select("id", { count: "exact", head: true })),
   ]);
   return { foods, branded, ingredientsWithFood: links, ingredients };
+}
+
+/**
+ * The distinct USDA foods an ingredient can be weighed as (raw, cooked, canned...): the default food of each
+ * form. Empty when the ingredient has only one, so the dialog asks nothing it does not need to.
+ */
+export async function getFoodForms(ingredientId: number): Promise<FoodForm[]> {
+  const { data, error } = await loose()
+    .from("ingredient_foods")
+    .select("form, fdc_id, is_default, usda_foods(description)")
+    .eq("ingredient_id", ingredientId)
+    .eq("is_default", true);
+  if (error || !data) return [];
+  type Row = { form: string; fdc_id: number; is_default: boolean; usda_foods: { description: string } | { description: string }[] | null };
+  const forms = toForms(
+    (data as unknown as Row[]).map((r) => {
+      const u = Array.isArray(r.usda_foods) ? r.usda_foods[0] : r.usda_foods;
+      return { form: r.form, fdcId: r.fdc_id, isDefault: r.is_default, description: u?.description ?? "" };
+    }),
+  );
+  return forms.length > 1 ? forms : [];
 }

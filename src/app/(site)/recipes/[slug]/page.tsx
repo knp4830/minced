@@ -14,6 +14,7 @@ import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
 import { AI_SOURCE_NAME, USER_SOURCE_NAME } from "@/lib/queries/browse";
 import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
+import { FDC, roundForLabel } from "@/lib/nutrients";
 import { getNutrients, getRecipeNutrients } from "@/lib/queries/recipeNutrients";
 import { needsAttribution } from "@/lib/photos";
 import { SITE_URL } from "@/lib/site";
@@ -71,7 +72,6 @@ export async function generateMetadata({
   };
 }
 
-const round = (n: number, step: number) => Math.round(n / step) * step;
 
 const isoMinutes = (n: number | null) => (n ? `PT${Math.trunc(n)}M` : undefined);
 
@@ -153,7 +153,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             className="mt-4 gap-x-3.5 border-y border-line-strong py-3 text-ink"
             time={recipe.totalTimeMin ?? undefined}
             servings={recipe.servings}
-            calories={recipe.nutrition.calories != null ? round(recipe.nutrition.calories, 5) : undefined}
+            calories={recipe.nutrition.calories != null ? roundForLabel(recipe.nutrition.calories, { unit: "kcal", fdcNumber: FDC.energy }) : undefined}
             spice={recipe.spiceLevel ?? undefined}
           />
           <AvoidNotice info={recipe.allergenInfo} />

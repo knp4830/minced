@@ -95,6 +95,10 @@ cross  join (values ('1 percent milk'), ('1% lowfat milk'), ('1% low-fat milk'),
 where  i.canonical_name = '1% milk'
 on conflict (alias) do nothing;
 
+-- "low-fat milk" is 1 percent in the US (USDA lowfat). seed-nutrition-10c-foods.sql runs first, before this row exists, so the alias is repointed here.
+update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = '1% milk')
+ where alias = 'low-fat milk' and exists (select 1 from ingredients where canonical_name = '1% milk');
+
 insert into ingredient_foods (ingredient_id, form, fdc_id, is_default)
 select i.id, 'default', 170872, true
 from   ingredients i
@@ -1886,5 +1890,22 @@ update recipe_ingredients ri
 delete from recipe_ingredients ri
  using _target t
  where t.action = 'delete' and ri.id = t.ri_id;
+
+-- Added-sugars estimate, more sweetened ingredients (10c fixer). fraction = share of the food's total sugars that is added.
+--   dried cranberries 0.90: Ocean Spray Craisins label, 29 g sugars of which 26 g added per 1/4 cup (cranberries have little sugar of their own)
+--   chocolate chips, semisweet chocolate 1.0: USDA branded records report added = total sugars (Nestle Toll House 57.14 / 57.1, Hershey 60 / 60)
+--   sweetened condensed milk 0.82: USDA branded record 46.2 added of 56.41 total (the rest is milk's own lactose)
+--   corn syrup, high fructose corn syrup, agave syrup 1.0: sweeteners by definition
+insert into added_sugar_ingredients (ingredient_id, fraction, note)
+select i.id, v.fraction, v.note
+from   (values ('dried cranberries', 0.90, 'label: 26 g added of 29 g sugars'),
+               ('chocolate chips', 1.0, 'USDA branded: added = total'),
+               ('semisweet chocolate', 1.0, 'USDA branded: added = total'),
+               ('sweetened condensed milk', 0.82, 'USDA branded: 46.2 of 56.41 g'),
+               ('corn syrup', 1.0, 'sweetener'),
+               ('high fructose corn syrup', 1.0, 'sweetener'),
+               ('agave syrup', 1.0, 'sweetener')) v (name, fraction, note)
+join   ingredients i on i.canonical_name = v.name
+on conflict (ingredient_id) do update set fraction = excluded.fraction, note = excluded.note;
 
 commit;

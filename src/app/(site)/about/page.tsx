@@ -188,15 +188,15 @@ export default async function AboutPage() {
 
       <Section id="matching" title="How the fridge search works">
         <p>
-          You tap what you have and Minced lists every recipe that uses at least one
-          of those things, closest match first. Each recipe ingredient is matched to one
+          Save what you have to your account and Minced groups every recipe by how little you are missing: what you can make now,
+          then one thing short, then two, closest match first. Each recipe ingredient is matched to one
           standard ingredient, so
           &ldquo;scallion&rdquo; and &ldquo;green onion&rdquo; are the same
           thing. Salt, pepper, oil, butter, sugar, flour and water are assumed to
           be in your kitchen and never count as missing, and optional ingredients
-          are not counted either. You can search by fridge without an
-          account; the picks live in the link you share. Sign in to save your
-          fridge, your favourite recipes and a shopping list.
+          are not counted either. Saving a fridge needs an account, because it is kept in your account
+          and nowhere in your browser. Without one, you can still use &ldquo;Choose ingredients&rdquo; on the recipes page to find
+          recipes that use them. An account also keeps your favourite recipes and a shopping list.
         </p>
       </Section>
 

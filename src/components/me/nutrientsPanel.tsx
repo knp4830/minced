@@ -86,10 +86,9 @@ function Line({ n }: { n: NutrientLine }) {
         ) : (
           <>
             {n.partial && (
-              <>
-                <span aria-hidden>&ge;</span>
-                <span className="sr-only">at least </span>
-              </>
+              <span role="img" aria-label="at least">
+                &ge;{" "}
+              </span>
             )}
             {nf.format(roundForLabel(n.amount as number, { unit: n.unit, fdcNumber: null }))} {n.unit}
           </>

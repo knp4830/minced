@@ -20,7 +20,7 @@ import { countFilterGroups, getLandingPhotos, getRecipeCount } from "@/lib/queri
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: { absolute: "Minced: recipes by name or by what's in your fridge" },
+  title: { absolute: "Minced: recipes by name or by the ingredients you have" },
   alternates: { canonical: "/" },
 };
 

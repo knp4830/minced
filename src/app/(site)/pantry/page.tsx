@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { CookwareSync } from "@/components/recipe/cookwareSync";
@@ -38,6 +39,10 @@ export default async function PantryPage({
   searchParams: Promise<Exclude<SearchParamsInput, URLSearchParams>>;
 }) {
   const sp = await searchParams;
+  // Old shared links (/pantry?pantry=11,85) carried the picks in the address. Fridges are account-only now, so
+  // send those visitors to the ingredient filter that does the same job for everyone.
+  const legacy = parseFilters(sp).pantry;
+  if (legacy?.length) redirect(`/recipes?include=${legacy.join(",")}`);
   const user = await getCurrentUser();
   const catalog = await getIngredientCatalog();
   if (!user) return <FridgeGate next="/pantry" catalog={catalog} />;

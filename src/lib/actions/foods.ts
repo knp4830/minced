@@ -4,7 +4,8 @@ import { checkFoodInput, type FoodInput } from "@/lib/foodInput";
 import { ME_ENABLED } from "@/lib/me/flag";
 import { stripControlChars } from "@/lib/filters";
 import { FDC, byFdc } from "@/lib/nutrients";
-import { computeFood, searchFoods, type FoodHit } from "@/lib/queries/foods";
+import type { FoodForm } from "@/lib/foodForm";
+import { computeFood, getFoodForms, searchFoods, type FoodHit } from "@/lib/queries/foods";
 import { getNutrients } from "@/lib/queries/recipeNutrients";
 
 /*
@@ -63,4 +64,16 @@ export async function previewFood(input: FoodInput): Promise<PreviewResult> {
     fatG: g1(pick(FDC.fat)),
     nutrientCount: r.food.rows.length,
   };
+}
+
+/** Raw / cooked / canned choices for one ingredient (empty when there is only one food). */
+export async function listFoodForms(ingredientId: unknown): Promise<FoodForm[]> {
+  if (!ME_ENABLED) return [];
+  const id = Number(ingredientId);
+  if (!Number.isInteger(id) || id <= 0) return [];
+  try {
+    return await getFoodForms(id);
+  } catch {
+    return [];
+  }
 }

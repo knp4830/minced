@@ -193,10 +193,9 @@ export function NutritionPanel({
 
 function AtLeast() {
   return (
-    <>
-      <span aria-hidden>≥</span>
-      <span className="sr-only">at least </span>
-    </>
+    <span role="img" aria-label="at least">
+      ≥{" "}
+    </span>
   );
 }
 

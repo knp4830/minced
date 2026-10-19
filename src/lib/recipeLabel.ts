@@ -185,8 +185,8 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
     const f = found(t.fdc);
     if (!f) continue;
     const isMacro = MACRO_COLUMNS.some((m) => m.fdc === t.fdc);
-    if (f.computed && !isMacro && f.coverage < MIN_COVERAGE) {
-      // Saturated fat, cholesterol, sugars: same 90% rule as vitamins, shown as "not enough data".
+    if (f.computed && !isMacro && (f.coverage < MIN_COVERAGE || (partial && f.amount <= 0))) {
+      // Saturated fat, cholesterol, sugars: same 90% rule as vitamins, and a partial recipe's zero ("at least 0") says nothing; shown as "not enough data".
       top.push({ fdc: n.fdcNumber, name: n.name, amountText: "", amount: null, pct: null, indent: t.indent, bold: t.bold, atLeast: false, estimated: false, noData: true, limit: false });
       continue;
     }

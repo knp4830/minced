@@ -209,6 +209,37 @@ def line_corrections_sql():
     )
 
 
+def garnish_lines_sql():
+    """Lines that are only a topping at the plate (crushed peanuts on pad thai). The prep note gets ", for garnish", which
+    line_is_optional() already reads, so the allergen is listed as optional-only and an allergen filter still shows the
+    recipe. Nothing else changes: is_optional stays false, so nutrition still counts the garnish. Idempotent."""
+    path = os.path.join(HERE, "review", "garnish-lines.csv")
+    rows = list(csv.DictReader(open(path, encoding="utf-8")))
+    if not rows:
+        return "-- (no garnish lines)\n"
+    vals = ",\n".join(f"  ({sql(r['slug'])}, {int(r['sort_order'])}, {sql(r['ingredient'])})" for r in rows)
+    return (
+        "-- Garnish lines (scripts/allergens/review/garnish-lines.csv): a topping at the plate is an optional allergen.\n"
+        "update recipe_ingredients ri\n"
+        "   set prep_note = case when coalesce(ri.prep_note, '') = '' then 'for garnish' else ri.prep_note || ', for garnish' end\n"
+        "  from (values\n" + vals + "\n) as v (slug, ord, ingredient)\n"
+        "  join recipes r on r.slug = v.slug\n"
+        "  join ingredients n on n.canonical_name = v.ingredient\n"
+        " where ri.recipe_id = r.id and ri.sort_order = v.ord and ri.ingredient_id = n.id\n"
+        "   and coalesce(ri.prep_note, '') !~* '\m(optional|garnish)\M';\n"
+        "do $$ begin\n"
+        "  if (select count(*) from recipe_ingredients ri\n"
+        "        join recipes r on r.id = ri.recipe_id\n"
+        "        join ingredients n on n.id = ri.ingredient_id\n"
+        "        join (values " + vals.replace("\n", " ") + ") v (slug, ord, ingredient)\n"
+        "          on v.slug = r.slug and v.ord = ri.sort_order and v.ingredient = n.canonical_name\n"
+        "       where ri.prep_note ~* '\mgarnish\M') <> " + str(len(rows)) + " then\n"
+        "    raise exception 'a garnish line does not exist or was not marked (recipe, line or ingredient missing)';\n"
+        "  end if;\n"
+        "end $$;\n"
+    )
+
+
 def write_seed(out):
     lines = []
     lines.append("-- Minced -- ingredient allergen tags and diet classes (wave 10c, generated; do not edit by hand)")
@@ -274,6 +305,7 @@ alter table ingredient_allergens enable trigger user;
 alter table ingredients enable trigger user;
 
 {line_corrections_sql()}
+{garnish_lines_sql()}
 -- One bulk rebuild of the derived data (recipe_allergens with optional_only, and recipe_diets for catalog recipes).
 select refresh_all_recipe_allergens();
 select refresh_all_recipe_diets();

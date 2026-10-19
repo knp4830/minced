@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FavoriteButton } from "@/components/account/favoriteButton";
 import { Card, CardBody, CardMedia, CardTitle } from "@/components/ui/card";
 import { MetaRow } from "@/components/ui/metaRow";
+import { FDC, roundForLabel } from "@/lib/nutrients";
 import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 
 /**
@@ -115,7 +116,7 @@ export function RecipeCard({
           className="mt-auto border-t border-line pt-3"
           time={totalTimeMin ? totalTimeMin : undefined}
           servings={servings ?? undefined}
-          calories={calories != null ? Math.round(calories) : undefined}
+          calories={calories != null ? roundForLabel(calories, { unit: "kcal", fdcNumber: FDC.energy }) : undefined}
           spice={spiceLevel ?? undefined}
         />
 

@@ -74,8 +74,10 @@ export function AvoidNotice({ info }: { info: AllergenInfo[] }) {
       ))}
       {optional.map((a) => (
         <p key={a.slug} className={contains.length > 0 ? "mt-1" : ""}>
-          <span className="font-semibold">{a.name}</span> is optional here
-          {a.sources.length > 0 ? ` (${joinNames(a.sources)})` : ""}. You avoid {sentenceName(a.name)}, so leave it out.
+          <span className="font-semibold">
+            {a.sources.length > 0 ? `Optional here: ${joinNames(a.sources)}.` : `${a.name}: optional here.`}
+          </span>{" "}
+          You avoid {sentenceName(a.name)}, so leave it out.
         </p>
       ))}
     </div>
