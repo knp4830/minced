@@ -7,7 +7,7 @@ import { joinNames, sentenceName, type AllergenInfo } from "@/lib/allergenInfo";
  *
  *   Contains          allergens that come from a required ingredient and are typical or inherent
  *   May contain       allergens that only SOME brands or versions of an ingredient carry (basis "varies")
- *   Optional only     the recipe is fine without it: "Peanuts: optional (peanuts). Leave them out."
+ *   Optional only     the recipe is fine without it: "Peanuts: optional (peanuts). Leave them out if you avoid peanuts."
  *
  * Allergen data comes from the ingredient list and does not cover brands, cross-contact or kitchen practice.
  */
@@ -66,7 +66,7 @@ export function AllergenNotice({ info }: { info: AllergenInfo[] }) {
           {optional.map((a) => (
             <li key={a.slug} data-allergen={a.slug} data-optional className="text-[0.8125rem] leading-snug text-ink-muted">
               <span className="font-semibold text-ink">{a.name}</span>: optional{a.sources.length ? ` (${joinNames(a.sources)})` : ""}.{" "}
-              Leave out if you avoid {sentenceName(a.name)}.
+              Leave them out if you avoid {sentenceName(a.name)}.
             </li>
           ))}
         </ul>

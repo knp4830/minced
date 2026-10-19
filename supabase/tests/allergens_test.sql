@@ -142,6 +142,21 @@ update ingredients set diet_class = null where canonical_name = 'lentils';
 select t_check(not t_diet('vegan') and not t_diet('gluten-free'), 'unreviewed ingredient: no vegan or gluten-free claim');
 update ingredients set diet_class = 'plant' where canonical_name = 'lentils';
 
+-- vegan never sits beside a "may contain dairy / egg / fish" tag (margarine is class plant but dairy: varies)
+delete from recipe_ingredients where recipe_id = t_rid();
+select t_line('yellow onion', false); select t_line('margarine', false);
+select t_check(t_diet('vegetarian') and not t_diet('vegan'), 'margarine (dairy varies) makes it vegetarian, not vegan');
+delete from recipe_ingredients where recipe_id = t_rid();
+select t_line('yellow onion', false); select t_line('barbecue sauce', false);
+select t_check(t_diet('vegetarian') and not t_diet('vegan'), 'barbecue sauce (fish varies, class plant) is vegetarian, not vegan');
+-- oat-based granola is not gluten-free; a gelatin dessert is not vegetarian
+delete from recipe_ingredients where recipe_id = t_rid();
+select t_line('granola', false);
+select t_check(not t_diet('gluten-free'), 'granola (wheat and gluten varies) is not gluten-free');
+delete from recipe_ingredients where recipe_id = t_rid();
+select t_line('gelatin', false);
+select t_check(not t_diet('vegetarian') and not t_diet('vegan'), 'gelatin is neither vegetarian nor vegan');
+
 -- 7. Catalog-wide sanity ------------------------------------------------------------------------------------------------
 select t_check(not exists (
   select 1 from recipe_diets rd join diets d on d.id = rd.diet_id and d.slug = 'vegan'
@@ -162,6 +177,18 @@ select t_check(not exists (
   where not line_is_optional(ri.is_optional, ri.prep_note)
     and not exists (select 1 from recipe_allergens ra where ra.recipe_id = ri.recipe_id and ra.allergen_id = ia.allergen_id)),
   'every required allergen line is in recipe_allergens');
+
+-- 7b. The recipes whose lines the import lost (scripts/allergens/review/recipe-line-corrections.csv)
+select t_check((select count(*) from recipe_allergens ra join allergens a on a.id = ra.allergen_id join recipes r on r.id = ra.recipe_id
+                where r.slug in ('sweet-potato-cheesecake', 'chocolate-squash-cake') and a.slug in ('gluten', 'wheat')) = 4,
+               'cheesecake crust and cake mix carry wheat and gluten');
+select t_check(not exists (select 1 from recipe_diets rd join diets d on d.id = rd.diet_id join recipes r on r.id = rd.recipe_id
+                where r.slug in ('sweet-potato-cheesecake', 'chocolate-squash-cake', 'rise-and-shine-cobbler') and d.slug = 'gluten-free'),
+               'those recipes (and the granola cobbler) are not tagged gluten-free');
+select t_check(not exists (select 1 from recipe_diets rd join diets d on d.id = rd.diet_id join recipes r on r.id = rd.recipe_id
+                where r.slug in ('zucchini-casserole', 'cranberry-salad') and d.slug in ('vegan', 'vegetarian')),
+               'sausage and gelatin recipes are not vegan or vegetarian');
+select t_check(coalesce((select i.canonical_name from ingredient_aliases a join ingredients i on i.id = a.ingredient_id where a.alias = 'farina') = 'semolina', false), 'farina is wheat (semolina), not cassava garri');
 
 -- 8. Clients cannot write the new tables ---------------------------------------------------------------------------------
 select t_check(not has_table_privilege('anon', 'recipe_optional_allergens', 'insert'), 'anon cannot write recipe_optional_allergens');

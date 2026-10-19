@@ -174,6 +174,41 @@ def exceptions_sql():
     return "\n".join(out) + "\n"
 
 
+def line_corrections_sql():
+    """Ingredient lines the import mis-resolved (a step names an ingredient the line lost). Diet tags and allergens are
+    DERIVED from the line's ingredient, so a wrong line becomes a false 'gluten-free' or 'vegan'. Fixed here, before the
+    bulk refresh. Idempotent: a line already corrected no longer matches the old ingredient and is left alone."""
+    path = os.path.join(HERE, "review", "recipe-line-corrections.csv")
+    rows = list(csv.DictReader(open(path, encoding="utf-8")))
+    if not rows:
+        return "-- (no recipe line corrections)\n"
+    vals = ",\n".join(
+        f"  ({sql(r['slug'])}, {int(r['sort_order'])}, {sql(r['old_ingredient'])}, {sql(r['new_ingredient'])}, "
+        f"{sql(r['new_prep_note']) if r['new_prep_note'] else 'null'})"
+        for r in rows
+    )
+    checks = ", ".join(f"({sql(r['slug'])}, {int(r['sort_order'])}, {sql(r['new_ingredient'])})" for r in rows)
+    return (
+        "-- Recipe line corrections (scripts/allergens/review/recipe-line-corrections.csv), before the refresh below.\n"
+        "update recipe_ingredients ri\n"
+        "   set ingredient_id = n.id, prep_note = v.note\n"
+        "  from (values\n" + vals + "\n) as v (slug, ord, old_name, new_name, note)\n"
+        "  join recipes r on r.slug = v.slug\n"
+        "  join ingredients n on n.canonical_name = v.new_name\n"
+        " where ri.recipe_id = r.id and ri.sort_order = v.ord\n"
+        "   and ri.ingredient_id = (select id from ingredients where canonical_name = v.old_name);\n"
+        "do $$ begin\n"
+        "  if (select count(*) from recipe_ingredients ri\n"
+        "        join recipes r on r.id = ri.recipe_id\n"
+        "        join ingredients n on n.id = ri.ingredient_id\n"
+        "        join (values " + checks + ") v (slug, ord, new_name)\n"
+        "          on v.slug = r.slug and v.ord = ri.sort_order and v.new_name = n.canonical_name) <> " + str(len(rows)) + " then\n"
+        "    raise exception 'a recipe line correction did not apply (recipe, line or ingredient missing)';\n"
+        "  end if;\n"
+        "end $$;\n"
+    )
+
+
 def write_seed(out):
     lines = []
     lines.append("-- Minced -- ingredient allergen tags and diet classes (wave 10c, generated; do not edit by hand)")
@@ -238,6 +273,7 @@ where  c.ingredient = i.canonical_name and i.diet_class is distinct from c.diet_
 alter table ingredient_allergens enable trigger user;
 alter table ingredients enable trigger user;
 
+{line_corrections_sql()}
 -- One bulk rebuild of the derived data (recipe_allergens with optional_only, and recipe_diets for catalog recipes).
 select refresh_all_recipe_allergens();
 select refresh_all_recipe_diets();

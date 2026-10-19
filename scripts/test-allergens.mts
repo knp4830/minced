@@ -14,8 +14,16 @@ const P = await import("../src/lib/prefs.ts");
 // ---- legacy slug -------------------------------------------------------------------------------------------------
 assert.deepEqual(S.expandLegacyAllergens(["nuts"]), ["peanuts", "tree-nuts"]);
 assert.deepEqual(S.expandLegacyAllergens(["dairy", "nuts", "peanuts"]), ["dairy", "peanuts", "tree-nuts"]);
-assert.deepEqual(S.expandLegacyAllergens(["shellfish"]), ["shellfish"], "shellfish is not widened outside the database");
+assert.deepEqual(S.expandLegacyAllergens(["shellfish"]), ["shellfish"], "shellfish in a URL means crustaceans only");
 assert.deepEqual(S.expandLegacyAllergens([]), []);
+// A prefs cookie written before the split (v1) said shellfish when it covered clams, oysters and scallops: still protects.
+assert.deepEqual(S.expandPreSplitAllergens(["shellfish"]), ["shellfish", "mollusks"]);
+assert.deepEqual(S.expandPreSplitAllergens(["nuts", "shellfish", "mollusks"]), ["peanuts", "tree-nuts", "shellfish", "mollusks"]);
+const b64 = (o: object) => Buffer.from(JSON.stringify(o)).toString("base64url");
+assert.deepEqual(P.decodePrefs(b64({ v: 1, d: [], x: ["shellfish"], u: "" })), { diet: [], exclude: ["mollusks", "shellfish"] }, "v1 cookie widened");
+assert.deepEqual(P.decodePrefs(b64({ v: 2, d: [], x: ["shellfish"], u: "" })), { diet: [], exclude: ["shellfish"] }, "v2 cookie read as written");
+assert.equal(P.decodePrefs(b64({ v: 3, d: [], x: [], u: "" })), null);
+assert.deepEqual(P.decodePrefs(P.encodePrefs({ diet: [], exclude: ["shellfish"] }, "abcd1234")), { diet: [], exclude: ["shellfish"] }, "round trip");
 assert.deepEqual(F.parseFilters({ exclude: "nuts,soy" }).exclude, ["peanuts", "tree-nuts", "soy"], "old link keeps protecting");
 assert.deepEqual(F.parseFilters({ exclude: "peanuts" }).exclude, ["peanuts"]);
 const vocab = { diets: ["vegan"], allergens: ["peanuts", "tree-nuts", "soy"] };

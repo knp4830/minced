@@ -14,12 +14,13 @@
  * Pure module (no next/headers) so the unit tests can load it; the cookie jar lives in prefsCookie.ts.
  */
 
-import { expandLegacyAllergens } from "@/lib/allergenSlugs";
+import { expandLegacyAllergens, expandPreSplitAllergens } from "@/lib/allergenSlugs";
 import { MAX_ALLERGENS, MAX_DIETS, SLUG, type FoodDefaults } from "@/lib/settingsValidate";
 
 export const PREFS_COOKIE = "minced_prefs";
 export const PREFS_MAX_AGE_S = 7 * 24 * 60 * 60;
-const VERSION = 1;
+/** 2 since the wave 10c allergen split. A version 1 cookie is still read (see decodePrefs) so no one loses protection. */
+const VERSION = 2;
 /** An encoded prefs cookie is a few hundred bytes at most; anything bigger is not ours. */
 const MAX_ENCODED = 1500;
 
@@ -38,7 +39,7 @@ function b64urlDecode(s: string): string {
   return atob(s.replaceAll("-", "+").replaceAll("_", "/") + pad);
 }
 
-/** `{"v":1,"d":[diet...],"x":[allergen...],"u":"<first 8 hex of the user id>"}` as base64url. */
+/** `{"v":2,"d":[diet...],"x":[allergen...],"u":"<first 8 hex of the user id>"}` as base64url. */
 export function encodePrefs(d: FoodDefaults, userId: string): string {
   const u = userId.replace(/[^0-9a-f]/gi, "").slice(0, 8).toLowerCase();
   return b64urlEncode(JSON.stringify({ v: VERSION, d: d.diet, x: d.exclude, u }));
@@ -59,12 +60,12 @@ export function decodePrefs(raw: string | undefined | null): FoodDefaults | null
   if (!raw || raw.length > MAX_ENCODED || !/^[A-Za-z0-9_-]+$/.test(raw)) return null;
   try {
     const o = JSON.parse(b64urlDecode(raw)) as Record<string, unknown>;
-    if (!o || typeof o !== "object" || o.v !== VERSION) return null;
+    if (!o || typeof o !== "object" || (o.v !== VERSION && o.v !== 1)) return null;
     if (typeof o.u !== "string" || !/^[0-9a-f]{0,8}$/.test(o.u)) return null;
     const diet = cleanSlugs(o.d, MAX_DIETS);
     const exclude = cleanSlugs(o.x, MAX_ALLERGENS);
     if (!diet || !exclude) return null;
-    return { diet, exclude };
+    return { diet, exclude: o.v === 1 ? expandPreSplitAllergens(exclude).sort() : exclude };
   } catch {
     return null;
   }

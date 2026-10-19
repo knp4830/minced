@@ -4,11 +4,11 @@ Verified on a fresh snapshot restore in exactly this order (migrations about 3 m
 The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them once PR #57's steps ran, so on live skip `scripts/allergens/build-db-pre.sh`.
 
 1. Restore the Supabase project (it pauses) and wait for ACTIVE_HEALTHY. Back up live first (CLAUDE.md procedure). Note `auth.users` and Storage are not in the dump.
-2. Apply migrations in timestamp order (wave 9's `20261017100000` and `110000` must already be on live; live goes 37 to 55, the 18 below are new).
+2. Apply migrations in timestamp order (wave 9's `20261017100000` and `110000` must already be on live; live goes 37 to 56, the 19 below are new).
    Wave 10+11 (ten):
    `20261017120000_nutrition_tables`, `120100_nutrition_compute`, `120200_nutrition_search_and_hooks`, `150000_me_food_nutrient_snapshot`,
    `150100_recipe_ingredient_foods`, `160000_user_settings`, `160100_filtered_recipes_exclude`, `170000_nutrition_can_rule`, `180000_nutrition_recipe_audit`, `190000_search_foods_lead_ranking`.
-   Wave 10c (eight):
+   Wave 10c (nine):
    `20261018100000_nutrition_math_10c` (strict form rules, assumptions, size words),
    `110000_national_food_sources` (usda_foods.data_type gains cofid / cnf, source_code),
    `120000_allergens_split_and_diet_class` (nuts split, 11 allergens, diet_class, optional-only allergens),
@@ -17,7 +17,9 @@ The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them 
    `150000_allergen_predicate_helper` (ONE `recipe_has_allergen()`; rewrites the predicate in match_recipes, search_recipes, filtered_recipes and fridge_recipes_grouped, aborts if any of them does not contain it exactly once; must come after `130000`),
    `160000_recipe_national_sources` (licence credit under the label),
    `170000_food_proxy_and_brand_display` (`ingredient_foods.is_proxy`, stand-ins reach `nutrition_assumptions()`, `search_foods()` and `my_recipe_foods()` show `brand_name` only, never the barcode-prefix owner).
-   (All eighteen are needed BEFORE the code is merged; code first gives 500 on /settings, /pantry, /recipes when signed in, recipe pages and the Me panel.)
+   `180000_vegan_requires_no_animal_allergen_tag` (vegan may not sit beside a dairy / egg / fish / shellfish / mollusks allergen tag of any basis; replaces `recipe_diet_rows()`; takes effect at the diet refresh in `seed-allergen-tags.sql`).
+   NOTE `150000_allergen_predicate_helper` now begins with `select similarity('a','a');` (docs/LESSONS.md section 2): without it a NON-superuser role (live) fails with "permission denied to set parameter pg_trgm.word_similarity_threshold" while re-creating search_recipes; a superuser snapshot hides this.
+   (All nineteen are needed BEFORE the code is merged; code first gives 500 on /settings, /pantry, /recipes when signed in, recipe pages and the Me panel.)
 3. Seeds, each idempotent, in this order (supabase/ folder, run as the postgres role):
    `seed-nutrition-usda-1-foods.sql`, `seed-nutrition-usda-2-nutrients-01.sql`, `seed-nutrition-usda-3-links.sql`,
    `seed-ingredients-world.sql`, `seed-nutrition-world.sql`, `seed-nutrition-branded-extra.sql`, `seed-nutrition-zz-integration.sql`,
@@ -31,8 +33,8 @@ The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them 
    ingredients 1,982; aliases 3,013; usda_foods 10,100 (branded 1,830, sr_legacy 7,793, foundation 436, cofid 23, cnf 18);
    ingredient_foods 3,510; ingredient_portions 1,962; ingredients with a food 1,737 (245 without; see the open items in the PR); declared stand-ins flagged `ingredient_foods.is_proxy` 295 (136 recipes say so under the label);
    nutrition_status complete 656 / partial 298 / unavailable 3;
-   recipes per allergen (published 957): dairy 429, egg 193, fish 80, gluten 377, mollusks 4, peanuts 39, sesame 20, shellfish 10, soy 139, tree-nuts 55, wheat 353;
-   recipes per diet: gluten-free 578, pescatarian 57, vegan 251, vegetarian 381;
+   recipes per allergen (published 957, allergen fixer round 1): dairy 428, egg 193, fish 84, gluten 395, mollusks 4, peanuts 39, sesame 20, shellfish 10, soy 154, tree-nuts 55, wheat 372;
+   recipes per diet: gluten-free 560, pescatarian 57, vegan 238, vegetarian 392;
    `scripts/nutrition/sql-checks.sql`, `scripts/nutrition/check_usda_seeds.sql`, `scripts/nutrition/test_recipe_audit.sql`, `scripts/nutrition/test_10c.sql` and `supabase/tests/allergens_test.sql`, `fridge_grouped_test.sql` return no failures;
    `scripts/nutrition/validate_myplate.sql` prints the MyPlate comparison (status complete: median kcal error 6.5%, 77.0% within 15%; every recipe counted from 90%+ of its mass: median 9.8%, 63.7% within 15%); database about 54 MB after VACUUM.
    Label invariants: `psql -At -f scripts/nutrition/export_label_inputs_10c.sql > label-inputs.json` then `node --experimental-strip-types scripts/test-label-coherence-10c.mts label-inputs.json` (957 labels, 0 problems).

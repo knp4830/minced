@@ -12,6 +12,11 @@
 -- time. It is strict: each function must contain the old predicate exactly once, or the migration aborts.
 -- SQL-language, STABLE, single SELECT: Postgres inlines it, so the plans match the old inline EXISTS.
 
+-- Load pg_trgm in THIS session first (docs/LESSONS.md section 2). The DO block below re-creates search_recipes from
+-- pg_get_functiondef, whose text carries SET pg_trgm.word_similarity_threshold; without the extension loaded a
+-- non-superuser role (live) gets "permission denied to set parameter". Superuser plain postgres hides this.
+select similarity('a', 'a');
+
 create or replace function public.recipe_has_allergen(p_recipe_id uuid, p_slugs text[])
 returns boolean
 language sql

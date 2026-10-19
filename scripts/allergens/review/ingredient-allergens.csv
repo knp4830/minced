@@ -228,7 +228,7 @@ ketchup,,plant,no listed allergen,no animal ingredient,,7,pantry
 yellow mustard,,plant,no listed allergen,no animal ingredient,,30,pantry
 dijon mustard,,plant,no listed allergen,no animal ingredient,,11,pantry
 whole grain mustard,,plant,no listed allergen,no animal ingredient,,1,pantry
-barbecue sauce,,plant,no listed allergen,no animal ingredient,,4,pantry
+barbecue sauce,gluten:V;wheat:V;fish:V;soy:V,plant,"many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)","many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)",,4,pantry
 salsa,,plant,no listed allergen,no animal ingredient,,21,pantry
 pesto,dairy:T;tree-nuts:T,dairy_egg,"cream, milk or butter in the common recipe | tree nut in the common recipe / product",carries a dairy or egg tag,dairy;nuts,0,pantry
 red curry paste,fish:V;shellfish:T,seafood,fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard,carries a fish or shellfish tag,shellfish,0,pantry
@@ -382,7 +382,7 @@ italian seasoning,,plant,no listed allergen,no animal ingredient,,19,spices
 herbes de provence,,plant,no listed allergen,no animal ingredient,,0,spices
 poultry seasoning,,plant,no listed allergen,no animal ingredient,,3,spices
 old bay seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
-taco seasoning,,plant,no listed allergen,no animal ingredient,,3,spices
+taco seasoning,gluten:V;wheat:V,plant,taco seasoning is often thickened with wheat flour,no animal ingredient,,3,spices
 curry powder,,plant,no listed allergen,no animal ingredient,,16,spices
 chinese five spice,,plant,no listed allergen,no animal ingredient,,0,spices
 za'atar,sesame:I,plant,sesame,no animal ingredient,sesame,0,spices
@@ -414,8 +414,8 @@ applesauce,,plant,no listed allergen,no animal ingredient,,12,fruit
 apricot jam,,plant,no listed allergen,no animal ingredient,,1,pantry
 grape jelly,,plant,no listed allergen,no animal ingredient,,0,pantry
 strawberry jam,,plant,no listed allergen,no animal ingredient,,0,pantry
-chicken bouillon,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,10,pantry
-beef bouillon,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,4,pantry
+chicken bouillon,gluten:V;wheat:V;soy:V,meat,bouillon cubes and powders often carry hydrolysed soy protein and wheat flour,"meat stock, bouillon, animal fat or gelatin",,10,pantry
+beef bouillon,gluten:V;wheat:V;soy:V,meat,bouillon cubes and powders often carry hydrolysed soy protein and wheat flour,"meat stock, bouillon, animal fat or gelatin",,4,pantry
 cream of tartar,,plant,no listed allergen,no animal ingredient,,2,pantry
 hominy,,plant,no listed allergen,no animal ingredient,,4,pantry
 marshmallows,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,1,pantry
@@ -471,7 +471,7 @@ deli turkey,,meat,no listed allergen,filter group meat,,0,meat
 cream-style corn,,plant,no listed allergen,no animal ingredient,,4,pantry
 coffee,,plant,no listed allergen,no animal ingredient,,2,pantry
 popcorn,,plant,no listed allergen,no animal ingredient,,2,grains
-granola,peanuts:V;tree-nuts:V,honey,some brands / recipes include peanuts | some versions include tree nuts,granola is usually bound with honey,,2,grains
+granola,gluten:V;wheat:V;peanuts:V;tree-nuts:V,honey,"granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat | some brands / recipes include peanuts | some versions include tree nuts",granola is usually bound with honey,,2,grains
 baking mix,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,9,grains
 apple pie spice,,plant,no listed allergen,no animal ingredient,,1,spices
 pumpkin pie spice,,plant,no listed allergen,no animal ingredient,,4,spices
@@ -704,7 +704,7 @@ hijiki,,plant,no listed allergen,no animal ingredient,,0,pantry
 arame,,plant,no listed allergen,no animal ingredient,,0,pantry
 dulse,,plant,no listed allergen,no animal ingredient,,0,pantry
 laver,,plant,no listed allergen,no animal ingredient,,0,pantry
-seaweed snack,,plant,no listed allergen,no animal ingredient,,0,pantry
+seaweed snack,sesame:T,plant,roasted seaweed snacks are usually brushed with sesame oil,no animal ingredient,,0,pantry
 spirulina,,plant,no listed allergen,no animal ingredient,,0,pantry
 sea vegetables,,plant,no listed allergen,no animal ingredient,,0,pantry
 century egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
@@ -722,7 +722,7 @@ abalone,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,s
 unagi,gluten:T;wheat:T;fish:I;soy:T,seafood,soy sauce marinade or glaze | kabayaki glaze is soy sauce and mirin | fish,carries a fish or shellfish tag,fish;gluten;soy,0,seafood
 tobiko,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
 ikura,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
-uni,shellfish:V;mollusks:V,seafood,"sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it",carries a fish or shellfish tag,shellfish,0,seafood
+uni,shellfish:V,seafood,"sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it",carries a fish or shellfish tag,shellfish,0,seafood
 sashimi tuna,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
 mackerel,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
 yellowtail,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
@@ -1763,7 +1763,7 @@ parboiled rice,,plant,no listed allergen,no animal ingredient,,0,grains
 corn nuts,,plant,no listed allergen,no animal ingredient,,0,grains
 textured vegetable protein,soy:I,plant,soybean or soy product,"wheat gluten, tempeh and soy protein are plant protein",soy,0,pantry
 plant-based ground,soy:V,plant,soy protein or soybean oil is common,"wheat gluten, tempeh and soy protein are plant protein",soy,0,pantry
-veggie burger,gluten:V;wheat:V;soy:V,plant,may be thickened with wheat flour | soy protein or soybean oil is common,"wheat gluten, tempeh and soy protein are plant protein",gluten;soy,0,pantry
+veggie burger,gluten:V;wheat:V;egg:V;soy:V,plant,many veggie burgers bind with egg white | may be thickened with wheat flour | soy protein or soybean oil is common,"wheat gluten, tempeh and soy protein are plant protein",gluten;soy,0,pantry
 protein powder,dairy:V;soy:V,dairy_egg,"soy protein or soybean oil is common | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,dairy,0,pantry
 safflower oil,,plant,no listed allergen,no animal ingredient,,0,pantry
 corn oil,,plant,no listed allergen,no animal ingredient,,0,pantry

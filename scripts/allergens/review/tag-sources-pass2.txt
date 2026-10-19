@@ -21,7 +21,7 @@
 [fish:T] anchovies in the classic recipe :: olive tapenade
 [fish:V] fish sauce :: nem nuong; cha lua
 [fish:V, shellfish:V] prawn or fish flavoured crackers :: kerupuk
-[shellfish:V, mollusks:V] sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it :: uni
+[shellfish:V] sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it :: uni
 
 # --- dairy found missing
 [dairy:T] cream, milk, butter or cheese in the common product :: ranch seasoning; buffalo sauce; ube halaya; trahana; christmas pudding; stollen; soda bread; rusks; saag; bolognese sauce; coconut bread
@@ -46,3 +46,11 @@
 [] {meat} hot pot broth is a meat-bone broth :: mongolian hot pot broth
 [dairy:I] milk named by its fat percentage (added by the 10c math seed) :: 1% milk
 [dairy:T] hot cocoa mix has milk solids in the common product :: hot cocoa mix
+
+# --- wave 10c fixer round 1 (allergen auditors): gaps found in recipes and compound items
+[wheat:V, gluten:V] granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat :: granola
+[sesame:T] roasted seaweed snacks are usually brushed with sesame oil :: seaweed snack
+[soy:V, wheat:V, gluten:V] bouillon cubes and powders often carry hydrolysed soy protein and wheat flour :: chicken bouillon; beef bouillon
+[soy:V, wheat:V, gluten:V, fish:V] {plant} many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt) :: barbecue sauce
+[wheat:V, gluten:V] taco seasoning is often thickened with wheat flour :: taco seasoning
+[egg:V] many veggie burgers bind with egg white :: veggie burger

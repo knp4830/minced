@@ -1,0 +1,5 @@
+slug,sort_order,old_ingredient,new_ingredient,new_prep_note,evidence
+sweet-potato-cheesecake,0,ginger,graham crackers,gingersnap or graham cracker crumbs,"line is '1 cup ... or graham crackers' and step 1 is 'Combine crumbs and butter': a crumb crust, not ginger root; wheat + gluten (celiac safety)"
+chocolate-squash-cake,1,semisweet chocolate,cake mix,chocolate,"step 3 'combine cake mix and cinnamon'; no chocolate is added anywhere; the amount was never parsed so it stays blank (nutrition shows a gap, not a guess)"
+zucchini-casserole,0,dried sage,pork sausage,,"step 3 'Brown sausage and onion together'; no sausage line existed and 16 oz of dried sage is not a recipe amount; sage sausage lost its noun in the import (the amount is kept as parsed)"
+cranberry-salad,0,strawberries,gelatin,"flavored (strawberry), 3 oz. packages, can also use raspberry","step 1 'Make gelatin and refrigerate until partially set'; '3 oz. packages' is the gelatin dessert box, not strawberries; gelatin is animal-derived so the recipe is no longer vegan"

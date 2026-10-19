@@ -103,6 +103,10 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('peanut butter', 'peanuts', 'inherent', 'peanut'),
   ('almond butter', 'tree-nuts', 'inherent', 'tree nut'),
   ('mayonnaise', 'egg', 'inherent', 'egg'),
+  ('barbecue sauce', 'gluten', 'varies', 'many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)'),
+  ('barbecue sauce', 'wheat', 'varies', 'many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)'),
+  ('barbecue sauce', 'fish', 'varies', 'many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)'),
+  ('barbecue sauce', 'soy', 'varies', 'many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)'),
   ('pesto', 'dairy', 'typical', 'cream, milk or butter in the common recipe | tree nut in the common recipe / product'),
   ('pesto', 'tree-nuts', 'typical', 'cream, milk or butter in the common recipe | tree nut in the common recipe / product'),
   ('red curry paste', 'fish', 'varies', 'fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard'),
@@ -176,6 +180,8 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('seitan', 'gluten', 'inherent', 'wheat-based mix or cereal'),
   ('seitan', 'wheat', 'inherent', 'wheat-based mix or cereal'),
   ('edamame', 'soy', 'inherent', 'soybean or soy product'),
+  ('taco seasoning', 'gluten', 'varies', 'taco seasoning is often thickened with wheat flour'),
+  ('taco seasoning', 'wheat', 'varies', 'taco seasoning is often thickened with wheat flour'),
   ('za''atar', 'sesame', 'inherent', 'sesame'),
   ('everything bagel seasoning', 'sesame', 'inherent', 'sesame'),
   ('furikake', 'fish', 'typical', 'sesame | anchovy, fish sauce or bonito in the common recipe'),
@@ -220,6 +226,12 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('croutons', 'wheat', 'inherent', 'wheat bread, pastry or cracker'),
   ('margarine', 'dairy', 'varies', 'soy protein or soybean oil is common | milkfat, whey or milk solids in some brands'),
   ('margarine', 'soy', 'varies', 'soy protein or soybean oil is common | milkfat, whey or milk solids in some brands'),
+  ('chicken bouillon', 'gluten', 'varies', 'bouillon cubes and powders often carry hydrolysed soy protein and wheat flour'),
+  ('chicken bouillon', 'wheat', 'varies', 'bouillon cubes and powders often carry hydrolysed soy protein and wheat flour'),
+  ('chicken bouillon', 'soy', 'varies', 'bouillon cubes and powders often carry hydrolysed soy protein and wheat flour'),
+  ('beef bouillon', 'gluten', 'varies', 'bouillon cubes and powders often carry hydrolysed soy protein and wheat flour'),
+  ('beef bouillon', 'wheat', 'varies', 'bouillon cubes and powders often carry hydrolysed soy protein and wheat flour'),
+  ('beef bouillon', 'soy', 'varies', 'bouillon cubes and powders often carry hydrolysed soy protein and wheat flour'),
   ('pancake mix', 'gluten', 'inherent', 'wheat-based mix or cereal'),
   ('pancake mix', 'wheat', 'inherent', 'wheat-based mix or cereal'),
   ('biscuit mix', 'gluten', 'inherent', 'wheat-based mix or cereal | milkfat, whey or milk solids in some brands'),
@@ -262,8 +274,10 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('peanut butter chips', 'soy', 'typical', 'soy lecithin in the common product | milk, cream, yogurt or butter | peanut'),
   ('peanut butter chips', 'peanuts', 'inherent', 'soy lecithin in the common product | milk, cream, yogurt or butter | peanut'),
   ('egg substitute', 'egg', 'typical', 'eggs in the usual recipe or product'),
-  ('granola', 'peanuts', 'varies', 'some brands / recipes include peanuts | some versions include tree nuts'),
-  ('granola', 'tree-nuts', 'varies', 'some brands / recipes include peanuts | some versions include tree nuts'),
+  ('granola', 'gluten', 'varies', 'granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat | some brands / recipes include peanuts | some versions include tree nuts'),
+  ('granola', 'wheat', 'varies', 'granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat | some brands / recipes include peanuts | some versions include tree nuts'),
+  ('granola', 'peanuts', 'varies', 'granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat | some brands / recipes include peanuts | some versions include tree nuts'),
+  ('granola', 'tree-nuts', 'varies', 'granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat | some brands / recipes include peanuts | some versions include tree nuts'),
   ('baking mix', 'gluten', 'inherent', 'wheat-based mix or cereal'),
   ('baking mix', 'wheat', 'inherent', 'wheat-based mix or cereal'),
   ('bread dough', 'gluten', 'inherent', 'wheat bread, pastry or cracker'),
@@ -406,6 +420,7 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('egg roll wrappers', 'egg', 'typical', 'wheat wrapper or dumpling skin | eggs in the usual recipe or product'),
   ('wheat starch', 'gluten', 'varies', 'wheat starch: contains wheat, gluten-free only if specially processed'),
   ('wheat starch', 'wheat', 'varies', 'wheat starch: contains wheat, gluten-free only if specially processed'),
+  ('seaweed snack', 'sesame', 'typical', 'roasted seaweed snacks are usually brushed with sesame oil'),
   ('century egg', 'egg', 'inherent', 'egg'),
   ('salted duck egg', 'egg', 'inherent', 'egg'),
   ('duck egg', 'egg', 'inherent', 'egg'),
@@ -430,7 +445,6 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('tobiko', 'fish', 'inherent', 'fish'),
   ('ikura', 'fish', 'inherent', 'fish'),
   ('uni', 'shellfish', 'varies', 'sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it'),
-  ('uni', 'mollusks', 'varies', 'sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it'),
   ('sashimi tuna', 'fish', 'inherent', 'fish'),
   ('mackerel', 'fish', 'inherent', 'fish'),
   ('yellowtail', 'fish', 'inherent', 'fish'),
@@ -1029,9 +1043,10 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('hazelnut butter', 'tree-nuts', 'inherent', 'tree nut'),
   ('textured vegetable protein', 'soy', 'inherent', 'soybean or soy product'),
   ('plant-based ground', 'soy', 'varies', 'soy protein or soybean oil is common'),
-  ('veggie burger', 'gluten', 'varies', 'may be thickened with wheat flour | soy protein or soybean oil is common'),
-  ('veggie burger', 'wheat', 'varies', 'may be thickened with wheat flour | soy protein or soybean oil is common'),
-  ('veggie burger', 'soy', 'varies', 'may be thickened with wheat flour | soy protein or soybean oil is common'),
+  ('veggie burger', 'gluten', 'varies', 'many veggie burgers bind with egg white | may be thickened with wheat flour | soy protein or soybean oil is common'),
+  ('veggie burger', 'wheat', 'varies', 'many veggie burgers bind with egg white | may be thickened with wheat flour | soy protein or soybean oil is common'),
+  ('veggie burger', 'egg', 'varies', 'many veggie burgers bind with egg white | may be thickened with wheat flour | soy protein or soybean oil is common'),
+  ('veggie burger', 'soy', 'varies', 'many veggie burgers bind with egg white | may be thickened with wheat flour | soy protein or soybean oil is common'),
   ('protein powder', 'dairy', 'varies', 'soy protein or soybean oil is common | milkfat, whey or milk solids in some brands'),
   ('protein powder', 'soy', 'varies', 'soy protein or soybean oil is common | milkfat, whey or milk solids in some brands'),
   ('walnut oil', 'tree-nuts', 'inherent', 'tree nut'),
@@ -1360,7 +1375,7 @@ insert into _cls (ingredient, diet_class, reason) values
   ('yellow mustard', 'plant', 'no animal ingredient'),
   ('dijon mustard', 'plant', 'no animal ingredient'),
   ('whole grain mustard', 'plant', 'no animal ingredient'),
-  ('barbecue sauce', 'plant', 'no animal ingredient'),
+  ('barbecue sauce', 'plant', 'many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)'),
   ('salsa', 'plant', 'no animal ingredient'),
   ('pesto', 'dairy_egg', 'carries a dairy or egg tag'),
   ('red curry paste', 'seafood', 'carries a fish or shellfish tag'),
@@ -3155,6 +3170,29 @@ where  c.ingredient = i.canonical_name and i.diet_class is distinct from c.diet_
 
 alter table ingredient_allergens enable trigger user;
 alter table ingredients enable trigger user;
+
+-- Recipe line corrections (scripts/allergens/review/recipe-line-corrections.csv), before the refresh below.
+update recipe_ingredients ri
+   set ingredient_id = n.id, prep_note = v.note
+  from (values
+  ('sweet-potato-cheesecake', 0, 'ginger', 'graham crackers', 'gingersnap or graham cracker crumbs'),
+  ('chocolate-squash-cake', 1, 'semisweet chocolate', 'cake mix', 'chocolate'),
+  ('zucchini-casserole', 0, 'dried sage', 'pork sausage', null),
+  ('cranberry-salad', 0, 'strawberries', 'gelatin', 'flavored (strawberry), 3 oz. packages, can also use raspberry')
+) as v (slug, ord, old_name, new_name, note)
+  join recipes r on r.slug = v.slug
+  join ingredients n on n.canonical_name = v.new_name
+ where ri.recipe_id = r.id and ri.sort_order = v.ord
+   and ri.ingredient_id = (select id from ingredients where canonical_name = v.old_name);
+do $$ begin
+  if (select count(*) from recipe_ingredients ri
+        join recipes r on r.id = ri.recipe_id
+        join ingredients n on n.id = ri.ingredient_id
+        join (values ('sweet-potato-cheesecake', 0, 'graham crackers'), ('chocolate-squash-cake', 1, 'cake mix'), ('zucchini-casserole', 0, 'pork sausage'), ('cranberry-salad', 0, 'gelatin')) v (slug, ord, new_name)
+          on v.slug = r.slug and v.ord = ri.sort_order and v.new_name = n.canonical_name) <> 4 then
+    raise exception 'a recipe line correction did not apply (recipe, line or ingredient missing)';
+  end if;
+end $$;
 
 -- One bulk rebuild of the derived data (recipe_allergens with optional_only, and recipe_diets for catalog recipes).
 select refresh_all_recipe_allergens();
