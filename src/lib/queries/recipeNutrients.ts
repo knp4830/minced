@@ -1,7 +1,8 @@
 import { unstable_cache } from "next/cache";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-import { MACRO_COLUMNS, toNutrient, type Nutrient, type NutrientRow } from "@/lib/nutrients";
+import { toNutrient, type Nutrient, type NutrientRow } from "@/lib/nutrients";
+import { snapshotFromRows } from "@/lib/me/snapshot";
 import { createStaticClient } from "@/lib/supabase/static";
 
 /*
@@ -13,7 +14,6 @@ import { createStaticClient } from "@/lib/supabase/static";
 
 const loose = () => createStaticClient() as unknown as SupabaseClient;
 
-const MACRO_FDC: ReadonlySet<number> = new Set(MACRO_COLUMNS.map((m) => m.fdc));
 
 // ---------------------------------------------------------------- nutrients
 
@@ -128,13 +128,6 @@ export async function getRecipeNutrients(recipeId: string): Promise<RecipeNutrie
  */
 export async function getRecipeNutrientSnapshot(recipeId: string): Promise<Record<string, number> | null> {
   const data = await getRecipeNutrients(recipeId);
-  if (!data) return null;
-  const out: Record<string, number> = {};
-  for (const r of data.rows) {
-    // The six macro columns on the diary row are the source of truth for those (they carry the published
-    // value); repeating a computed copy here would let two numbers for the same thing drift apart.
-    if (r.nutrient.fdcNumber !== null && MACRO_FDC.has(r.nutrient.fdcNumber)) continue;
-    if (r.amount !== null && r.coverage > 0) out[r.nutrient.key] = r.amount;
-  }
-  return Object.keys(out).length > 0 ? out : null;
+  if (!data || data.status === "unavailable") return null;
+  return snapshotFromRows(data.rows, data.status === "partial");
 }

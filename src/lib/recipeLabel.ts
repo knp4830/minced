@@ -71,6 +71,11 @@ export type LabelModel = {
   micro: LabelRow[];
   /** Where the numbers came from, to word the footnote honestly. */
   basis: "published" | "computed" | "published+computed" | "none";
+  /**
+   * Who published the macro columns, for the footnote. "usda_myplate" only when the database says the recipe is a
+   * USDA MyPlate import; a recipe we computed, or one whose source is not recorded, never credits MyPlate.
+   */
+  publishedBy: "usda_myplate" | "other";
   partial: boolean;
   unavailable: boolean;
   /**
@@ -222,7 +227,7 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
   const delta = data?.kcalDelta;
   const disagreement =
     !unavailable && data?.source === "usda_myplate" && typeof delta === "number" && Math.abs(delta) > DISAGREE_THRESHOLD ? delta : null;
-  return { calories, top, micro, basis, partial, unavailable, breakdownHidden: hidden.size > 0, disagreement };
+  return { calories, top, micro, basis, publishedBy: data?.source === "usda_myplate" ? "usda_myplate" : "other", partial, unavailable, breakdownHidden: hidden.size > 0, disagreement };
 }
 
 /** Ingredient lines that did not add to the numbers, with the reason, for the "not counted" list. */
@@ -263,5 +268,6 @@ export function sodiumIsMinimum(lines: { name: string; quantity: number | null; 
 export function uncountedText(u: UncountedLine): string {
   const name = u.name.trim().replace(/[.\s]+$/, "");
   if (u.reason === "no data") return /\([^()]*\)$/.test(name) ? name : `${name} (no nutrition data)`;
-  return `${name} (${u.reason})`;
+  // "optional" / "to taste" after a name that already ends "(no amount given)" read as "(no ...) (optional)"; drop the first.
+  return `${name.replace(/\s*\(no [^()]*\)$/i, "")} (${u.reason})`;
 }

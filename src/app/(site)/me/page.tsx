@@ -13,6 +13,7 @@ import { MorningPrompt } from "@/components/me/morningPrompt";
 import { MuscleCard } from "@/components/me/muscleCard";
 import { NutrientsPanel } from "@/components/me/nutrientsPanel";
 import { getNutrients } from "@/lib/queries/recipeNutrients";
+import type { Person } from "@/lib/me/dailyValues";
 import { StreakStrip } from "@/components/me/streakStrip";
 import { TimezoneSync } from "@/components/me/timezoneSync";
 import { TodayFood } from "@/components/me/todayFood";
@@ -23,6 +24,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/queries/account";
 import {
   getDismissedCheckIns,
+  getDris,
   getFoodForDate,
   getLoggedDays,
   getMonthSummary,
@@ -85,7 +87,7 @@ export default async function MePage({ searchParams }: Props) {
   const settings = await getMySettings();
   const { weekStart } = settings;
 
-  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList] = await Promise.all([
+  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList, dris] = await Promise.all([
     getTargets(zone),
     getFoodForDate(today),
     getSleepForDate(today),
@@ -95,7 +97,16 @@ export default async function MePage({ searchParams }: Props) {
     getLoggedDays(today),
     getDismissedCheckIns(),
     getNutrients(),
+    getDris(),
   ]);
+
+  // Who the daily values are for. Age only exists once the targets are saved, so without them every value falls back
+  // to the FDA label number (see src/lib/me/dailyValues.ts; baselineMacros() covers weight + sex + age only).
+  const person: Person = {
+    sex: settings.sex ?? targets?.sex ?? null,
+    age: targets?.age ?? null,
+    macros: targets ? { kcal: targets.kcal, proteinG: targets.proteinG, carbsG: targets.carbsG, fatG: targets.fatG, source: "targets" } : null,
+  };
 
   const totals = sumFood(food);
   const days: Record<string, CalDay> = {};
@@ -182,7 +193,7 @@ export default async function MePage({ searchParams }: Props) {
               <TodayFood dateLabel={longDate(today).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} />
             </div>
             <div className="max-lg:order-7">
-              <NutrientsPanel entries={food} nutrients={nutrientList} />
+              <NutrientsPanel entries={food} nutrients={nutrientList} dris={dris} person={person} />
             </div>
             <div className="max-lg:order-2">
               <MealsPanel food={food} totals={totals} />

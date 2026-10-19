@@ -147,6 +147,21 @@ export default async function AboutPage() {
           recipe&apos;s ingredients report it, and an ingredient with no nutrition
           data is listed as not counted rather than guessed.
         </p>
+        {/* PLACEHOLDER (wave 10c, Me lane): the foods lane owns the exact credit and licence wording for the UK CoFID
+            and Canadian Nutrient File data. Replace the sentence below with its confirmed text at integration. */}
+        <p>
+          [Placeholder, credit text to be confirmed: nutrient data for some world ingredients comes from the UK
+          Composition of Foods Integrated Dataset and the Canadian Nutrient File, used under the Open Government
+          Licence.]
+        </p>
+        <p>
+          Daily values on recipe pages are the U.S. FDA label values for a 2,000-calorie diet. On your Me page they are
+          personal: your own calorie and macro targets, 10% of your calories for saturated fat and added sugars (Dietary
+          Guidelines for Americans), and, for fiber, vitamins and minerals, the Recommended Dietary Allowance or
+          Adequate Intake for your sex and age from the Dietary Reference Intakes (National Academies of Sciences,
+          Engineering, and Medicine; potassium and sodium from the 2019 update). They are not adjusted for pregnancy,
+          breastfeeding or smoking.
+        </p>
         <p>
           Minced is not medical or dietary advice. If you are pregnant, managing a
           medical condition or on a prescribed diet, check with a qualified

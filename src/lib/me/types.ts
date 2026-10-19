@@ -48,6 +48,8 @@ export type FoodEntry = {
    * before nutrient data existed.
    */
   nutrients: Record<string, number> | null;
+  /** What the entry is: a Minced recipe, an ingredient or brand with an amount, or a hand-typed quick add. */
+  source: "recipe" | "food" | "quick";
   recipe: { slug: string; imageUrl: string | null } | null;
 };
 

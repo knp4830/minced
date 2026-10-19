@@ -68,14 +68,16 @@ export function NutritionPanel({
   const shownUncounted = uncounted.slice(0, MAX_UNCOUNTED);
   const sodiumMin = data && !m.unavailable && sodiumIsMinimum(lines);
 
-  // Worded from what the label really holds: published columns only for USDA MyPlate recipes, never for ones we computed.
+  // Worded from what the label really holds: MyPlate is credited only for recipes the database says are MyPlate imports.
+  const myplate = m.publishedBy === "usda_myplate";
+  const publishedName = myplate ? "as published by USDA MyPlate" : "as published with the recipe";
   const basisNote =
     m.basis === "published+computed"
-      ? "Calories, fat, carbohydrate, fiber, sodium and protein are as published by USDA MyPlate. The other values are estimated from USDA FoodData Central ingredient data, before cooking losses."
+      ? `Calories, fat, carbohydrate, fiber, sodium and protein are ${publishedName}. The other values are estimated from USDA FoodData Central ingredient data, before cooking losses.`
       : m.basis === "computed"
         ? "Estimated from USDA FoodData Central ingredient data, before cooking losses."
         : m.basis === "published"
-          ? "Values are as published by USDA MyPlate."
+          ? `Values are ${publishedName}.`
           : "Amounts are estimated from USDA data.";
   const anyAtLeast = m.partial && (m.calories?.atLeast || m.top.some((r) => r.atLeast) || m.micro.some((r) => r.atLeast));
   const disagreePct = m.disagreement === null ? null : Math.round(Math.abs(m.disagreement) * 100);

@@ -8,6 +8,7 @@ import {
   percentDv,
   type Nutrient,
 } from "@/lib/nutrients";
+import type { DvBasis, PersonalDv } from "@/lib/me/dailyValues";
 import type { FoodEntry } from "@/lib/me/types";
 
 /*
@@ -23,7 +24,12 @@ import type { FoodEntry } from "@/lib/me/types";
  * Missing is not zero. An entry that does not report a nutrient adds nothing to its total and is counted,
  * so the panel can say "at least" instead of presenting a low number as the truth.
  *
- * Daily Values: FDA adult values for now (sex- and age-specific values are an open question for the owner).
+ * Daily Values: personal when the caller passes `dvs` (see dailyValues.ts: targets for macros, DRIs by sex and age
+ * for vitamins and minerals), otherwise the FDA label value from the `nutrients` table.
+ *
+ * Rows: only nutrients the recipe page would also show. The snapshot frozen on a diary row already leaves out a
+ * nutrient whose coverage is under MIN_COVERAGE (see getRecipeNutrientSnapshot), and rows in the hidden group
+ * (Atwater and IU conversion values) never appear.
  */
 
 export type NutrientLine = {
@@ -43,6 +49,12 @@ export type NutrientLine = {
   over: boolean;
   /** Some entries did not report it, so the total is a lower bound. */
   partial: boolean;
+  /** Where `dv` came from (a target, a DRI, the FDA label); null when the nutrient has no daily value. */
+  basis: DvBasis | null;
+  /** "top" = fats, cholesterol, sodium, carbohydrate, protein; "micro" = vitamins and minerals. */
+  group: "top" | "micro";
+  /** Label indent for a part of a total (saturated fat under total fat). */
+  indent: 0 | 1 | 2;
 };
 
 /** Diary-row columns that carry a nutrient directly. Calories are shown elsewhere on the page. */
@@ -56,7 +68,7 @@ const COLUMN: Record<number, (e: FoodEntry) => number | null> = {
 
 const topIndex = (n: Nutrient) => LABEL_TOP.findIndex((t) => t.fdc === n.fdcNumber);
 
-export function dayNutrientLines(entries: readonly FoodEntry[], nutrientList: readonly Nutrient[]): NutrientLine[] {
+export function dayNutrientLines(entries: readonly FoodEntry[], nutrientList: readonly Nutrient[], dvs?: ReadonlyMap<string, PersonalDv>): NutrientLine[] {
   const list = (nutrientList.length > 0 ? nutrientList : FALLBACK_NUTRIENTS).filter((n) => n.fdcNumber !== FDC.energy && n.displayGroup !== "hidden");
   const ordered = [...list].sort((a, b) => {
     const ta = inLabelTop(a);
@@ -82,7 +94,9 @@ export function dayNutrientLines(entries: readonly FoodEntry[], nutrientList: re
     }
     const amount = reported > 0 ? sum : null;
     // Round the %DV once, here, so the number shown is the number the "over" decision used.
-    const pct = amount === null ? null : percentDv(amount, n);
+    const personal = dvs?.get(n.key);
+    const dvAmount = dvs ? (personal?.amount ?? null) : n.dvAmount;
+    const pct = amount === null ? null : percentDv(amount, { ...n, dvAmount });
     const limit = n.fdcNumber !== null && LIMIT_FDC.has(n.fdcNumber);
     out.push({
       id: n.id,
@@ -92,7 +106,10 @@ export function dayNutrientLines(entries: readonly FoodEntry[], nutrientList: re
       amount,
       reported,
       missing,
-      dv: n.dvAmount,
+      dv: dvAmount,
+      basis: dvs ? (personal?.basis ?? null) : dvAmount !== null ? "fda" : null,
+      group: inLabelTop(n) ? "top" : "micro",
+      indent: LABEL_TOP.find((t) => t.fdc === n.fdcNumber)?.indent ?? 0,
       pct,
       limit,
       over: limit && pct !== null && pct > 100,
