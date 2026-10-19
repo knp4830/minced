@@ -393,3 +393,35 @@ drop_link|wasabi paste|*|1940943|H|rice crackers
 drop_link|whipped topping|*|2565818|H|lite
 drop_link|white beans|*|2431596|H|beans in sauce
 drop_link|white miso|*|365638|H|barley miso
+set_default|cider|default|173933|M|bare cider in a US recipe is non-alcoholic apple cider (apple juice, 46 kcal); the default was regular beer. Hard cider is a different drink and has no food record here (a gap)
+unmap|lemon myrtle|*||H|the linked record is bay leaf, a different herb
+unmap|pickling spice|*||H|the linked record is curry powder, a different blend
+unmap|dulse|*||H|the linked record is raw Irish moss (49 kcal); dulse is sold dried (about 300 kcal) and no dried dulse record is reliable
+unmap|sea vegetables|*||H|the linked record is raw kelp (43 kcal); sea vegetables are sold dried (about 300 kcal)
+set_default|harusame|default|174258|H|harusame are starch glass noodles: the bean thread vermicelli record linked to cellophane noodles; the default was wheat somen
+set_default|yellow lentils|default|172420|M|split yellow lentils are about 350 kcal/100 g dry, like SR lentils raw; the default was pigeon peas
+drop_link|japanese curry roux|default|2119516|H|Kary's roux is a Cajun roux, not a Japanese curry block
+set_default|japanese curry roux|default|1862397|M|S&B Golden Curry mild block, 550 kcal, high sodium like every Japanese curry roux
+set_default|sambal oelek|default|2016176|M|the Huy Fong sambal oelek itself; the default was their chili garlic sauce, a different product
+drop_link|sambal oelek|default|362929|H|chili garlic sauce is not sambal oelek
+unmap|sambal|*||M|the linked product is a noodle paste for Indonesian mee goreng, not sambal
+add_food||*|2386683|H|replacement food: plain erythritol (Now), 0 kcal
+set_default|erythritol|default|2386683|H|plain erythritol; the default was a monk fruit and erythritol blend
+add_food||*|1881873|H|replacement food: plain halva (Hodja)
+set_default|halva|default|1881873|M|plain sesame halva (530 kcal); the default was chocolate covered halvah
+drop_link|ramen noodles|default|2621853|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|2288303|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|2059595|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|1867578|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|414561|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|400229|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|400224|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|386269|H|instant cup meal with seasoning, not plain noodles
+drop_link|ramen noodles|default|372237|H|instant cup meal with seasoning, not plain noodles
+drop_link|vegetable juice|default|2082895|H|SUJA fruit and vegetable juice (a fruit blend)
+drop_link|spaghetti|default|2568584|H|vegetable pasta, not plain spaghetti
+drop_link|spaghetti|default|1849736|H|vegetable pasta, not plain spaghetti
+set_default|jamon serrano|default|1989624|M|proxy: dry-cured prosciutto (250 kcal, 2,036 mg sodium); the default was wet-cured lean ham with water added (130 kcal), half the energy of a dry-cured ham
+set_default|jamon iberico|default|1989624|L|proxy: dry-cured prosciutto (250 kcal); the default was wet-cured lean ham (130 kcal); iberico is fattier (about 300 to 370 kcal), so this is a floor
+set_default|gravlax|default|175167|M|proxy: raw Atlantic salmon (208 kcal); gravlax is raw salmon cured with salt and sugar, the default was hot-smoked lox (117 kcal, a leaner chinook)
+set_default|ikura|default|174188|M|proxy: red caviar (granular, 264 kcal); ikura is salmon roe at about 250 kcal, the default was mixed-species raw roe (143 kcal)

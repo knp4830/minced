@@ -3111,7 +3111,8 @@ insert into _cls (ingredient, diet_class, reason) values
   ('tucupi', 'plant', 'no animal ingredient'),
   ('manioc starch', 'plant', 'no animal ingredient'),
   ('1% milk', 'dairy_egg', 'carries a dairy or egg tag'),
-  ('hot cocoa mix', 'dairy_egg', 'carries a dairy or egg tag');
+  ('hot cocoa mix', 'dairy_egg', 'carries a dairy or egg tag'),
+  ('hard cider', 'plant', 'no animal ingredient');
 
 -- Reviewed diet exceptions (scripts/allergens/review/recipe-diet-exceptions.csv). The table is replaced as a whole.
 delete from recipe_diet_exceptions;

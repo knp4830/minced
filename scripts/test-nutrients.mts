@@ -153,13 +153,15 @@ const ing = toFoodHit({ kind: "ingredient", ingredient_id: 7, canonical_name: "s
 assert.equal(ing.kind, "ingredient");
 assert.equal(ing.fdcId, null);
 assert.equal(ing.label, "soy sauce");
-const brand = toFoodHit({ fdc_id: "123", ingredient_id: 7, canonical_name: "soy sauce", description: "SOY SAUCE", brand_owner: "Kikkoman Sales USA", household_serving: "1 tbsp (16 g)", kcal_per_100g: "60" })!;
+const brand = toFoodHit({ fdc_id: "123", ingredient_id: 7, canonical_name: "soy sauce", description: "SOY SAUCE", brand_name: "Kikkoman", household_serving: "1 tbsp (16 g)", kcal_per_100g: "60" })!;
 assert.equal(brand.kind, "food");
 assert.equal(brand.fdcId, 123);
 assert.equal(brand.ingredientId, 7);
 assert.equal(brand.label, "Soy sauce"); // shouted USDA descriptions are tidied
 assert.equal(brand.hasNutrition, true);
-assert.equal(foodTitle(brand), "Kikkoman Sales USA Soy sauce");
+assert.equal(foodTitle(brand), "Kikkoman Soy sauce");
+// the barcode-prefix owner is never shown as a brand (audit: jalfrezi sauce was shown as a tackle company)
+assert.equal(toFoodHit({ fdc_id: "5", description: "JALFREZI SAUCE", brand_owner: "Aqua-Clear Tackle" })!.brand, null);
 assert.equal(foodTitle({ label: "Kikkoman soy sauce", brand: "Kikkoman" }), "Kikkoman soy sauce"); // brand not repeated
 assert.equal(toFoodHit({ kind: "food", fdc_id: 5, label: "x", has_nutrition: false })!.hasNutrition, false);
 assert.equal(toFoodHit({ ingredient_id: 1 }), null);

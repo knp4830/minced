@@ -52,7 +52,8 @@ export function toFoodHit(r: Raw): FoodHit | null {
     fdcId,
     label: kind === "food" ? tidyLabel(label) : label,
     canonicalName,
-    brand: str(r.brand_name) ?? str(r.brand_owner) ?? str(r.brand),
+    // never fall back to brand_owner: it is the barcode-prefix owner and is often unrelated to the product
+    brand: str(r.brand_name) ?? str(r.brand),
     serving: str(r.household_serving) ?? str(r.serving) ?? str(r.serving_label),
     kcalPer100g: kcal,
     hasNutrition: typeof hn === "boolean" ? hn : kcal !== null ? true : null,

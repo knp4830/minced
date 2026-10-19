@@ -4,19 +4,20 @@ Verified on a fresh snapshot restore in exactly this order (migrations about 3 m
 The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them once PR #57's steps ran, so on live skip `scripts/allergens/build-db-pre.sh`.
 
 1. Restore the Supabase project (it pauses) and wait for ACTIVE_HEALTHY. Back up live first (CLAUDE.md procedure). Note `auth.users` and Storage are not in the dump.
-2. Apply migrations in timestamp order (wave 9's `20261017100000` and `110000` must already be on live; live goes 37 to 54, the 17 below are new).
+2. Apply migrations in timestamp order (wave 9's `20261017100000` and `110000` must already be on live; live goes 37 to 55, the 18 below are new).
    Wave 10+11 (ten):
    `20261017120000_nutrition_tables`, `120100_nutrition_compute`, `120200_nutrition_search_and_hooks`, `150000_me_food_nutrient_snapshot`,
    `150100_recipe_ingredient_foods`, `160000_user_settings`, `160100_filtered_recipes_exclude`, `170000_nutrition_can_rule`, `180000_nutrition_recipe_audit`, `190000_search_foods_lead_ranking`.
-   Wave 10c (seven):
+   Wave 10c (eight):
    `20261018100000_nutrition_math_10c` (strict form rules, assumptions, size words),
    `110000_national_food_sources` (usda_foods.data_type gains cofid / cnf, source_code),
    `120000_allergens_split_and_diet_class` (nuts split, 11 allergens, diet_class, optional-only allergens),
    `130000_fridge_recipes_grouped` (grouped fridge RPC and add_missing_to_shopping_list),
    `140000_nutrient_dris_and_food_source` (nutrient_dris table, me_food_log.source),
    `150000_allergen_predicate_helper` (ONE `recipe_has_allergen()`; rewrites the predicate in match_recipes, search_recipes, filtered_recipes and fridge_recipes_grouped, aborts if any of them does not contain it exactly once; must come after `130000`),
-   `160000_recipe_national_sources` (licence credit under the label).
-   (All seventeen are needed BEFORE the code is merged; code first gives 500 on /settings, /pantry, /recipes when signed in, recipe pages and the Me panel.)
+   `160000_recipe_national_sources` (licence credit under the label),
+   `170000_food_proxy_and_brand_display` (`ingredient_foods.is_proxy`, stand-ins reach `nutrition_assumptions()`, `search_foods()` and `my_recipe_foods()` show `brand_name` only, never the barcode-prefix owner).
+   (All eighteen are needed BEFORE the code is merged; code first gives 500 on /settings, /pantry, /recipes when signed in, recipe pages and the Me panel.)
 3. Seeds, each idempotent, in this order (supabase/ folder, run as the postgres role):
    `seed-nutrition-usda-1-foods.sql`, `seed-nutrition-usda-2-nutrients-01.sql`, `seed-nutrition-usda-3-links.sql`,
    `seed-ingredients-world.sql`, `seed-nutrition-world.sql`, `seed-nutrition-branded-extra.sql`, `seed-nutrition-zz-integration.sql`,
@@ -27,9 +28,9 @@ The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them 
 4. `ANALYZE;` then, in the SAME session, `SET jit = off; SELECT refresh_all_recipe_nutrients();` (expect 957, about 3 minutes; never with JIT on).
 5. `VACUUM (FULL, ANALYZE) recipes;` (the refresh rewrites every recipe row).
 6. Verify by counting, not "no error" (numbers from the integration run on the snapshot):
-   ingredients 1,981; aliases 3,012; usda_foods 10,110 (branded 1,842, sr_legacy 7,793, foundation 436, cofid 23, cnf 16);
-   ingredient_foods 3,518; ingredient_portions 1,968; ingredients with a food 1,741 (240 without; see the open items in the PR);
-   nutrition_status complete 659 / partial 295 / unavailable 3;
+   ingredients 1,982; aliases 3,013; usda_foods 10,100 (branded 1,830, sr_legacy 7,793, foundation 436, cofid 23, cnf 18);
+   ingredient_foods 3,510; ingredient_portions 1,962; ingredients with a food 1,737 (245 without; see the open items in the PR); declared stand-ins flagged `ingredient_foods.is_proxy` 295 (136 recipes say so under the label);
+   nutrition_status complete 656 / partial 298 / unavailable 3;
    recipes per allergen (published 957): dairy 429, egg 193, fish 80, gluten 377, mollusks 4, peanuts 39, sesame 20, shellfish 10, soy 139, tree-nuts 55, wheat 353;
    recipes per diet: gluten-free 578, pescatarian 57, vegan 251, vegetarian 381;
    `scripts/nutrition/sql-checks.sql`, `scripts/nutrition/check_usda_seeds.sql`, `scripts/nutrition/test_recipe_audit.sql`, `scripts/nutrition/test_10c.sql` and `supabase/tests/allergens_test.sql`, `fridge_grouped_test.sql` return no failures;

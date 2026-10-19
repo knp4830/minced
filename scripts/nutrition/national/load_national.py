@@ -53,6 +53,7 @@ COFID_MAP = {
     "SE": "selenium_mcg", "VITC": "vitamin_c_mg", "VITD": "vitamin_d_mcg", "VITE": "vitamin_e_mg", "VITK1": "vitamin_k_mcg",
     "THIA": "thiamin_mg", "RIBO": "riboflavin_mg", "NIAC": "niacin_mg", "VITB6": "vitamin_b6_mg", "FOLT": "folate_mcg_dfe",
     "VITB12": "vitamin_b12_mcg", "PANTO": "pantothenic_mg",
+    "CHOL": "cholesterol_mg", "FODTRANS": "trans_fat_g",  # published per 100 g food; were dropped in the first load
 }
 ID_BASE = {"cofid": 910_000_000, "cnf": 900_000_000}
 

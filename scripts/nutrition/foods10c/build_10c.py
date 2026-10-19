@@ -348,9 +348,71 @@ update ingredient_foods f set is_default = true
  from ranked r
  where r.rn = 1 and f.ingredient_id = r.ingredient_id and f.form = r.form and f.fdc_id = r.fdc_id;
 
+@@PROXIES@@
+
+-- 8. branded foods whose barcode-prefix owner is not the brand. brand_name is what the app shows; the owner is only searched.
+--    A food whose description starts with the owner's name ("LEE KUM KEE, CHILI BEAN SAUCE") gets that prefix as its brand; the rest
+--    show no brand rather than a stranger's (jalfrezi sauce was shown as a tackle company).
+update usda_foods u set brand_name = trim(split_part(u.description, ',', 1))
+ where u.data_type = 'branded' and u.brand_name is null and u.brand_owner is not null and u.description like '%,%'
+   and lower(regexp_replace(split_part(trim(regexp_replace(u.brand_owner, '[^A-Za-z0-9'' ]', ' ', 'g')), ' ', 1), '[^A-Za-z0-9]', '', 'g')) <> ''
+   and lower(regexp_replace(split_part(trim(regexp_replace(u.brand_owner, '[^A-Za-z0-9'' ]', ' ', 'g')), ' ', 1), '[^A-Za-z0-9]', '', 'g'))
+     = lower(regexp_replace(split_part(trim(regexp_replace(split_part(u.description, ',', 1), '[^A-Za-z0-9'' ]', ' ', 'g')), ' ', 1), '[^A-Za-z0-9]', '', 'g'));
+
+-- 9. a default whose label energy disagrees with its own macronutrients by more than 20 percent and 15 kcal is a rounding artefact of a tiny
+--    serving (wasabi powder 353 vs 235 kcal from macros, aji amarillo 50 vs 29). Which of the two is right is unknowable, so the energy and
+--    macronutrient rows are removed (absent = "not reported", a gap on the label) and the micronutrients stay. Non-caloric foods are exempt.
+create temp table _incons on commit drop as
+select d.fdc_id from (
+  select distinct f.fdc_id,
+         (select amount_per_100g from usda_food_nutrients where fdc_id = f.fdc_id and nutrient_id = 1) as kcal,
+         (select 4 * coalesce(sum(amount_per_100g) filter (where nutrient_id in (2, 3)), 0) + 9 * coalesce(sum(amount_per_100g) filter (where nutrient_id = 7), 0)
+            from usda_food_nutrients where fdc_id = f.fdc_id) as fm,
+         exists (select 1 from usda_food_nutrients where fdc_id = f.fdc_id and nutrient_id in (2, 3, 7)) as hasm
+    from ingredient_foods f join usda_foods u on u.fdc_id = f.fdc_id
+   where f.is_default and u.data_type = 'branded') d
+ where d.kcal is not null and d.kcal >= 10 and d.hasm and abs(d.kcal - d.fm) > 15 and abs(d.kcal - d.fm) > 0.20 * greatest(d.kcal, d.fm);
+delete from usda_food_nutrients x using _incons c where x.fdc_id = c.fdc_id and x.nutrient_id in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+
+-- 10. single implausible micronutrients on defaults (drop_nutrients.psv): deleted, never clamped
+create temp table _dn (fdc_id integer, k text) on commit drop;
+insert into _dn values
+  @@DROPNUT@@;
+delete from usda_food_nutrients x using _dn d, nutrients n where n.key = d.k and x.fdc_id = d.fdc_id and x.nutrient_id = n.id;
+
+-- 11. aliases. "cream" means heavy cream in a US recipe (it fuzzy-matched sour cream); "low-fat milk" is 1 percent (USDA lowfat); apple
+--     cider is the non-alcoholic juice; hard cider is its own ingredient with no food record (a gap on the label, not apple juice).
+insert into ingredient_aliases (ingredient_id, alias)
+select i.id, a.alias from (values ('cream', 'heavy cream'), ('apple cider', 'cider'), ('sweet cider', 'cider')) a(alias, canon)
+join ingredients i on i.canonical_name = a.canon
+on conflict (alias) do nothing;
+update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = '1% milk') where alias = 'low-fat milk';
+insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple, filter_group)
+values ('hard cider', 'hard-cider', 'Other', false, 'pantry') on conflict (canonical_name) do nothing;
+update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = 'hard cider')
+ where alias in ('hard cider', 'apple cider alcoholic');
+
+-- 12. harusame keeps the household weights of the bean thread vermicelli it now shares a food with
+insert into ingredient_portions (ingredient_id, form, unit_id, grams_per_unit, source, note)
+select t.id, p.form, p.unit_id, p.grams_per_unit, p.source, 'wave 10c: weight of cellophane noodles (same starch noodle)'
+from ingredients t join ingredients s on s.canonical_name = 'cellophane noodles'
+join ingredient_portions p on p.ingredient_id = s.id
+where t.canonical_name = 'harusame'
+  and not exists (select 1 from ingredient_portions e where e.ingredient_id = t.id and e.form = p.form and coalesce(e.unit_id, 0) = coalesce(p.unit_id, 0));
+
 @@FORMS@@
 commit;
 """)
+    proxies = psv(os.path.join(HERE, "proxies.psv"))
+    px_sql = ["-- 7. declared stand-ins (proxies.psv, built by build_proxies.py from the source files): the label says so (nutrition_assumptions).",
+              "create temp table _px (ingredient text, form text) on commit drop;", "insert into _px values",
+              ",\n  ".join("(%s, %s)" % (lit(r["ingredient"]), lit(r["form"] or "default")) for r in proxies) + ";",
+              "update ingredient_foods set is_proxy = false where is_proxy;",
+              "update ingredient_foods f set is_proxy = true from _px p join ingredients i on i.canonical_name = p.ingredient",
+              " where f.ingredient_id = i.id and f.form = p.form and f.is_default;"]
+    dn = psv(os.path.join(HERE, "drop_nutrients.psv"))
+    sql[-1] = sql[-1].replace("@@PROXIES@@", "\n".join(px_sql)).replace(
+        "@@DROPNUT@@", ",\n  ".join("(%d, %s)" % (int(r["fdc_id"]), lit(r["nutrient_key"])) for r in dn))
     forms = list(csv.DictReader(open(os.path.join(HERE, "forms.tsv"), encoding="utf-8", newline=""), delimiter="\t"))
     fb_sql = ["-- 6. forms named in the recipe line's prep note. The ingredient stays one (bare milk is 2 percent, bare ground beef is 80/20);",
               "--    the prep note picks the form: fat level (milk, ground beef, cheddar) and sodium (no salt added / low sodium canned goods).",

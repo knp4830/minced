@@ -141,4 +141,71 @@ begin
   if n > 0 then raise exception 'GATE linked foods without any nutrient row: %', list; end if;
 end $$;
 
+\echo == audit round 2: wrong defaults, links and brands are fixed
+do $$
+declare bad text; n int;
+begin
+  select string_agg(i.canonical_name || '/' || f.form || '=' || f.fdc_id, '; ') into bad
+  from ingredient_foods f join ingredients i on i.id = f.ingredient_id
+  where (f.is_default and (i.canonical_name::text, f.fdc_id) in (
+          ('cider', 168746),                 -- regular beer
+          ('harusame', 168908),              -- wheat somen
+          ('yellow lentils', 172436),        -- pigeon peas
+          ('japanese curry roux', 2119516),  -- Kary's Cajun roux
+          ('sambal oelek', 362929),          -- chili garlic sauce
+          ('erythritol', 370129),            -- monk fruit blend
+          ('halva', 413608)))                -- chocolate covered
+     or (i.canonical_name::text in ('ramen noodles', 'vegetable juice', 'spaghetti') and f.fdc_id in
+          (2621853, 2288303, 2059595, 1867578, 414561, 400229, 400224, 386269, 372237, 2082895, 2568584, 1849736));
+  if bad is not null then raise exception 'GATE round 2 wrong links still present: %', bad; end if;
+  select count(*) into n from ingredients i where i.canonical_name::text in ('lemon myrtle', 'pickling spice', 'dulse', 'sea vegetables', 'sambal', 'hard cider')
+    and exists (select 1 from ingredient_foods f where f.ingredient_id = i.id);
+  if n > 0 then raise exception 'GATE % ingredients that must be a gap still have a food', n; end if;
+  if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where i.canonical_name = 'cider' and f.is_default and f.fdc_id = 173933) then
+    raise exception 'GATE cider must be apple juice (173933)'; end if;
+  if (select canonical_name from resolve_ingredient('cream')) is distinct from 'heavy cream' then raise exception 'GATE resolve_ingredient(cream) must be heavy cream'; end if;
+  if (select canonical_name from resolve_ingredient('hard cider')) is distinct from 'hard cider' then raise exception 'GATE hard cider must resolve to its own ingredient'; end if;
+  if (select i.canonical_name from ingredient_aliases a join ingredients i on i.id = a.ingredient_id where a.alias = 'low-fat milk') is distinct from '1% milk' then
+    raise exception 'GATE alias low-fat milk must point at 1%% milk (USDA lowfat)'; end if;
+end $$;
+
+\echo == a food's brand is never the barcode-prefix owner
+do $$
+begin
+  if exists (select 1 from pg_proc where proname in ('search_foods', 'my_recipe_foods') and pronamespace = 'public'::regnamespace
+              and prosrc ~ 'coalesce\((uf|f)\.brand_name, (uf|f)\.brand_owner\)') then
+    raise exception 'GATE search_foods / my_recipe_foods still fall back to brand_owner as the displayed brand';
+  end if;
+end $$;
+
+\echo == declared stand-ins carry the proxy flag and reach the label
+do $$
+declare n int; t text[];
+begin
+  select count(*) into n from ingredient_foods where is_proxy;
+  if n < 200 then raise exception 'GATE only % proxy flags, expected the declared stand-ins (about 300)', n; end if;
+  select count(*) into n from ingredient_foods where is_proxy and not is_default;
+  if n > 0 then raise exception 'GATE % proxy flags on non-default links', n; end if;
+  if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where f.is_proxy and i.canonical_name in ('aleppo pepper', 'galangal', 'sumac')) then
+    raise exception 'GATE aleppo pepper / galangal / sumac must be flagged as stand-ins'; end if;
+  if exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where f.is_proxy and i.canonical_name in ('curry leaves', 'clotted cream', 'sambal')) then
+    raise exception 'GATE a replaced or unmapped ingredient is still flagged as a stand-in'; end if;
+  t := nutrition_assumptions(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'galangal'), 'quantity', 50, 'unit_id', (select id from units where name = 'g'))));
+  if t is null or cardinality(t) < 1 or t[1] not like 'nutrition for galangal uses %' then raise exception 'GATE the label assumption for a stand-in is missing: %', t; end if;
+end $$;
+
+\echo == a branded default whose energy disagrees with its macros lost the unreliable rows
+do $$
+declare list text;
+begin
+  select string_agg(d.fdc_id::text, ', ') into list from (
+    select distinct f.fdc_id,
+           (select amount_per_100g from usda_food_nutrients where fdc_id = f.fdc_id and nutrient_id = 1) kcal,
+           (select 4 * coalesce(sum(amount_per_100g) filter (where nutrient_id in (2, 3)), 0) + 9 * coalesce(sum(amount_per_100g) filter (where nutrient_id = 7), 0)
+              from usda_food_nutrients where fdc_id = f.fdc_id) fm
+      from ingredient_foods f join usda_foods u on u.fdc_id = f.fdc_id where f.is_default and u.data_type = 'branded') d
+   where d.kcal >= 10 and abs(d.kcal - d.fm) > 15 and abs(d.kcal - d.fm) > 0.20 * greatest(d.kcal, d.fm);
+  if list is not null then raise exception 'GATE branded defaults with energy inconsistent with their macros: %', list; end if;
+end $$;
+
 \echo == 10c gates passed

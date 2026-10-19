@@ -1,0 +1,309 @@
+ingredient|form|origin|note
+advieh|default|world-hint|stand-in chosen for advieh: spices curry_powder
+aji dulce|default|audit|no aji dulce record: sweet red pepper stands in (aji dulce is a sweet chile)
+aji limo|default|world-hint|stand-in chosen for aji limo: peppers hot_chili raw red
+ajwain|default|world-hint|stand-in chosen for ajwain: spices thyme,_dried
+ají charapita|default|world-hint|stand-in chosen for ají charapita: peppers hot_chili raw red
+ají mirasol|default|world-hint|stand-in chosen for ají mirasol: spices pepper red_or_cayenne
+akkawi cheese|default|audit|no akkawi record: Nabulsi cheese (a similar brined white cheese) stands in
+aleppo pepper|default|ingredient-map|Proxy: SR cayenne; Aleppo is a milder dried chile flake, same macros
+alligator meat|default|world-hint|stand-in chosen for alligator meat: alligator
+almond extract|default|world-hint|stand-in chosen for almond extract: vanilla_extract -imitation
+amadumbe|default|world-hint|stand-in chosen for amadumbe: taro raw
+amaretto|default|world-hint|stand-in chosen for amaretto: alcoholic_beverage liqueur coffee 53_proof
+ancho chile|default|world-hint|stand-in chosen for ancho chile: peppers ancho dried
+ancho chile powder|default|world-hint|stand-in chosen for ancho chile powder: peppers ancho dried
+angostura bitters|default|world-hint|stand-in chosen for angostura bitters: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof
+apple pie spice|default|mapping|Proxy: SR pumpkin pie spice (same cinnamon, nutmeg, allspice, clove family)
+aquavit|default|world-hint|stand-in chosen for aquavit: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof
+arctic char|default|world-hint|stand-in chosen for arctic char: fish trout,_rainbow,_farmed,_raw
+argan oil|default|world-hint|stand-in chosen for argan oil: oil olive,_salad_or_cooking
+asafoetida|default|ingredient-map|Proxy: SR garlic powder (no USDA asafoetida); used in pinch-sized tsp amounts
+baharat|default|world-hint|stand-in chosen for baharat: spices curry_powder
+banana ketchup|default|ingredient-map|Proxy: SR catsup; banana ketchup is similar in sugar and kcal
+banana stem|default|world-hint|stand-in chosen for banana stem: banana stem
+baobab powder|default|world-hint|stand-in chosen for baobab powder: baobab
+barramundi|default|world-hint|stand-in chosen for barramundi: fish sea_bass mixed_species raw
+beef cheeks|default|world-hint|stand-in chosen for beef cheeks: beef chuck raw
+beef stew meat|default|mapping|Proxy: SR chuck arm pot roast lean and fat raw (stew meat is cubed chuck)
+berbere|default|ingredient-map|Proxy: SR chili powder (berbere is chile-based, near-identical macros)
+bergamot|default|world-hint|stand-in chosen for bergamot: lemons raw,_without_peel
+biber salcasi|default|audit|no Turkish red pepper paste record: a hot pepper paste stands in
+biltong|default|audit|no biltong record: beef jerky stands in
+bitter orange|default|world-hint|stand-in chosen for bitter orange: oranges raw,_all_commercial_varieties
+bitterleaf|default|audit|no bitterleaf record: raw spinach stands in
+black garlic|default|world-hint|stand-in chosen for black garlic: garlic raw
+black lime|default|world-hint|stand-in chosen for black lime: dried lime
+black vinegar|default|ingredient-map|Proxy: SR balsamic vinegar (no USDA Chinese black vinegar); both are dark and mildly sweet
+borage|default|world-hint|stand-in chosen for borage: borage
+bouquet garni|default|world-hint|stand-in chosen for bouquet garni: spices thyme,_dried
+brandy|default|world-hint|stand-in chosen for brandy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof
+burrata|default|world-hint|stand-in chosen for burrata: cheese mozzarella whole_milk
+bush tomato|default|world-hint|stand-in chosen for bush tomato: bush tomato
+cachaca|default|world-hint|stand-in chosen for cachaca: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof
+caciocavallo|default|world-hint|stand-in chosen for caciocavallo: cheese provolone
+calabash nutmeg|default|world-hint|stand-in chosen for calabash nutmeg: spices nutmeg,_ground
+calamansi|default|world-hint|stand-in chosen for calamansi: lime_juice raw
+candlenuts|default|world-hint|stand-in chosen for candlenuts: nuts macadamia
+cane vinegar|default|ingredient-map|Proxy: SR distilled vinegar
+cape malay curry powder|default|world-hint|stand-in chosen for cape malay curry powder: spices curry_powder
+carne seca|default|audit|no carne seca record: beef jerky stands in
+carob molasses|default|world-hint|stand-in chosen for carob molasses: molasses
+cascabel chile|default|world-hint|stand-in chosen for cascabel chile: peppers hot_chile sun-dried
+cashew fruit|default|world-hint|stand-in chosen for cashew fruit: cashew apple
+cassia leaves|default|world-hint|stand-in chosen for cassia leaves: spices bay_leaf
+celtuce|default|world-hint|stand-in chosen for celtuce: lettuce green_leaf,_raw
+chapati|default|world-hint|stand-in chosen for chapati: bread pita whole-wheat
+chaya|default|world-hint|stand-in chosen for chaya: spinach raw
+chestnut flour|default|world-hint|stand-in chosen for chestnut flour: nuts chestnuts,_european,_dried,_unpeeled
+chhena|default|world-hint|stand-in chosen for chhena: cheese cottage creamed small_curd
+chile de arbol|default|ingredient-map|Proxy: SR sun-dried hot chile; each ~1 g
+chili oil|default|ingredient-map|Proxy: SR soybean oil (chili oil is ~all oil)
+chinese broccoli|default|world-hint|stand-in chosen for chinese broccoli: broccoli_raab raw
+chinese ham|default|world-hint|stand-in chosen for chinese ham: ham cured
+chipotle powder|default|world-hint|stand-in chosen for chipotle powder: peppers hot_chile sun-dried
+choclo|default|audit|no choclo record: sweet white corn stands in (choclo is starchier)
+cholla buds|default|world-hint|stand-in chosen for cholla buds: cactus pads,_raw
+choy sum|default|world-hint|stand-in chosen for choy sum: cabbage chinese_(pak-choi) raw
+christophene|default|world-hint|stand-in chosen for christophene: chayote fruit raw
+citron|default|world-hint|stand-in chosen for citron: lemons raw,_without_peel
+cluster beans|default|world-hint|stand-in chosen for cluster beans: beans snap green raw
+cockles|default|world-hint|stand-in chosen for cockles: mollusks clam mixed_species raw
+colatura di alici|default|world-hint|stand-in chosen for colatura di alici: sauce fish ready-to-serve
+creme de cassis|default|world-hint|stand-in chosen for creme de cassis: alcoholic_beverage liqueur coffee 53_proof
+crushed red pepper|default|mapping|Proxy: SR cayenne/red pepper dried (flakes are the same dried chile)
+cuajada|default|world-hint|stand-in chosen for cuajada: cheese fresh queso_fresco
+culantro|default|world-hint|stand-in chosen for culantro: coriander_(cilantro)_leaves raw
+dalia|default|world-hint|stand-in chosen for dalia: bulgur dry
+date sugar|default|world-hint|stand-in chosen for date sugar: dates deglet_noor
+degi mirch|default|world-hint|stand-in chosen for degi mirch: spices pepper red_or_cayenne
+dijon mustard|default|ingredient-map|Proxy: SR prepared yellow mustard
+dried chilies whole|default|world-hint|stand-in chosen for dried chilies whole: spices pepper red_or_cayenne
+dried cilantro|default|world-hint|stand-in chosen for dried cilantro: spices coriander_leaf dried
+dried fenugreek leaves|default|ingredient-map|Proxy: SR fenugreek seed; kasuri methi is ~ same kcal, light flakes
+dried galangal|default|world-hint|stand-in chosen for dried galangal: spices ginger ground
+dried mango powder|default|ingredient-map|Proxy: SR dried mango (amchur is dried green mango)
+egusi|default|world-hint|stand-in chosen for egusi: seeds watermelon_seed_kernels,_dried
+facing heaven chili|default|world-hint|stand-in chosen for facing heaven chili: spices pepper red_or_cayenne
+farmer cheese|default|world-hint|stand-in chosen for farmer cheese: cheese cottage creamed small_curd
+fennel pollen|default|world-hint|stand-in chosen for fennel pollen: spices fennel_seed
+fermented black beans|default|ingredient-map|Proxy: SR miso (fermented salted soybeans)
+fiddleheads|default|world-hint|stand-in chosen for fiddleheads: asparagus raw
+fines herbes|default|world-hint|stand-in chosen for fines herbes: spices parsley,_dried
+finger lime|default|world-hint|stand-in chosen for finger lime: limes raw
+fingerroot|default|world-hint|stand-in chosen for fingerroot: ginger_root raw
+fish cakes|default|ingredient-map|Proxy: SR surimi
+flattened rice|default|ingredient-map|Proxy: dry white rice (poha is parboiled flattened rice, ~same kcal); flakes pack loose ~ 85 g/cup
+freekeh|default|world-hint|stand-in chosen for freekeh: bulgur dry
+fresh bay leaves|default|world-hint|stand-in chosen for fresh bay leaves: spices bay_leaf
+fresh fenugreek|default|world-hint|stand-in chosen for fresh fenugreek: spinach raw
+fried shallots|default|world-hint|stand-in chosen for fried shallots: french fried onions
+fromage blanc|default|world-hint|stand-in chosen for fromage blanc: cheese cottage creamed small_curd
+galangal|default|audit|no galangal record: raw ginger root (a different rhizome, similar energy)
+galangal powder|default|world-hint|stand-in chosen for galangal powder: spices ginger,_ground
+garden egg|default|world-hint|stand-in chosen for garden egg: eggplant raw
+geoduck|default|world-hint|stand-in chosen for geoduck: mollusks clam mixed_species raw
+gochugaru|default|ingredient-map|Proxy: SR chili powder
+gochugaru flakes coarse|default|world-hint|stand-in chosen for gochugaru flakes coarse: spices pepper red_or_cayenne
+goda masala|default|world-hint|stand-in chosen for goda masala: spices curry_powder
+grains of paradise|default|world-hint|stand-in chosen for grains of paradise: spices pepper,_black
+grains of selim|default|world-hint|stand-in chosen for grains of selim: spices pepper black
+grape molasses|default|world-hint|stand-in chosen for grape molasses: molasses
+grappa|default|world-hint|stand-in chosen for grappa: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof
+graviera|default|world-hint|stand-in chosen for graviera: cheese swiss
+gravlax|default|decision|proxy: raw Atlantic salmon (208 kcal); gravlax is raw salmon cured with salt and sugar, the default was hot-smoked lox (117 kcal, a leaner chinook)
+green papaya|default|ingredient-map|Proxy: SR ripe papaya (green papaya is lower in sugar)
+green peppercorns|default|audit|no fresh or brined green peppercorn record: dried black pepper stands in
+guajillo chile|default|ingredient-map|Proxy: SR sun-dried hot chile
+guasca|default|world-hint|stand-in chosen for guasca: spices oregano,_dried
+guinea fowl|default|world-hint|stand-in chosen for guinea fowl: chicken broilers_or_fryers meat_and_skin raw
+habanero|default|ingredient-map|Proxy: SR hot red chili
+hake|default|world-hint|stand-in chosen for hake: fish whiting mixed_species raw
+hawaij|default|world-hint|stand-in chosen for hawaij: spices curry_powder
+herbes de provence|default|mapping|Proxy: SR dried thyme (dried thyme, savory, rosemary, lavender blend)
+holy basil|default|ingredient-map|Proxy: SR basil
+horse gram|default|world-hint|stand-in chosen for horse gram: horse gram
+horseradish|default|world-hint|stand-in chosen for horseradish: horseradish prepared
+huauzontle|default|world-hint|stand-in chosen for huauzontle: broccoli raw
+ikura|default|decision|proxy: red caviar (granular, 264 kcal); ikura is salmon roe at about 250 kcal, the default was mixed-species raw roe (143 kcal)
+italian seasoning|default|mapping|Proxy: SR dried oregano (blend of dried oregano, basil, thyme, rosemary: 230 to 330 kcal per 100 g)
+ivy gourd|default|world-hint|stand-in chosen for ivy gourd: balsam-pear pods raw
+jamon iberico|default|decision|proxy: dry-cured prosciutto (250 kcal); the default was wet-cured lean ham (130 kcal); iberico is fattier (about 300 to 370 kcal), so this is a floor
+jamon serrano|default|decision|proxy: dry-cured prosciutto (250 kcal, 2,036 mg sodium); the default was wet-cured lean ham with water added (130 kcal), half the energy of a dry-cured ham
+jarlsberg|default|world-hint|stand-in chosen for jarlsberg: cheese swiss
+kabocha squash|default|world-hint|stand-in chosen for kabocha squash: squash winter all_varieties raw
+kabsa spice|default|world-hint|stand-in chosen for kabsa spice: spices curry_powder
+kaffir lime|default|world-hint|stand-in chosen for kaffir lime: lime_juice raw
+kaffir lime leaves|default|ingredient-map|Proxy: basil; per-leaf weight is the point
+kalamata olives|default|mapping|Proxy: SR ripe canned olives (116 kcal); brined kalamatas are 115 to 145 kcal, sodium differs
+kangaroo meat|default|world-hint|stand-in chosen for kangaroo meat: game_meat deer,_raw
+kesong puti|default|world-hint|stand-in chosen for kesong puti: cheese cottage creamed small_curd
+khmeli suneli|default|world-hint|stand-in chosen for khmeli suneli: spices curry_powder
+kitchen king masala|default|world-hint|stand-in chosen for kitchen king masala: spices curry_powder
+kokum|default|world-hint|stand-in chosen for kokum: tamarinds raw
+korarima|default|audit|no korarima record: cardamom stands in
+kosher salt|default|mapping|Proxy: SR table salt (same sodium per 100 g); density curated below because flakes are lighter
+kukui nuts|default|world-hint|stand-in chosen for kukui nuts: nuts macadamia_nuts,_raw
+kuzu|default|world-hint|stand-in chosen for kuzu: arrowroot_flour
+lactose-free milk|default|world-hint|stand-in chosen for lactose-free milk: milk reduced_fat fluid 2%
+lamb fat|default|world-hint|stand-in chosen for lamb fat: lamb domestic,_composite_of_trimmed_retail_cuts,_separable_fat raw
+lambs lettuce|default|world-hint|stand-in chosen for lambs lettuce: lettuce green_leaf raw
+langoustine|default|world-hint|stand-in chosen for langoustine: crustaceans shrimp,_raw
+lavender|default|world-hint|stand-in chosen for lavender: spices thyme,_dried
+lebkuchen spice|default|world-hint|stand-in chosen for lebkuchen spice: spices ginger,_ground
+lechon kawali|default|world-hint|stand-in chosen for lechon kawali: pork fresh belly raw
+lemon balm|default|world-hint|stand-in chosen for lemon balm: peppermint fresh
+lemon extract|default|world-hint|stand-in chosen for lemon extract: vanilla_extract -imitation
+lemon verbena|default|world-hint|stand-in chosen for lemon verbena: peppermint fresh
+limoncello|default|world-hint|stand-in chosen for limoncello: alcoholic_beverage liqueur coffee 53_proof
+locust beans|default|world-hint|stand-in chosen for locust beans: locust bean
+lovage|default|world-hint|stand-in chosen for lovage: celery raw
+lutefisk|default|world-hint|stand-in chosen for lutefisk: fish cod atlantic raw
+mahon cheese|default|world-hint|stand-in chosen for mahon cheese: cheese swiss
+mala seasoning|default|world-hint|stand-in chosen for mala seasoning: spices curry_powder
+malai|default|audit|no malai record: heavy cream stands in (malai is a clotted cream, richer)
+manchego|default|world-hint|stand-in chosen for manchego: cheese swiss
+mango ginger|default|audit|no mango ginger record: raw ginger root stands in
+maras biber|default|audit|no maras biber record: cayenne stands in
+matoke|default|audit|no matoke record: yellow plantain stands in
+matzo meal|default|mapping|Proxy: SR plain matzo cracker (matzo meal is ground matzo); no cup weight in USDA
+mct oil|default|world-hint|stand-in chosen for mct oil: oil coconut
+meat masala|default|world-hint|stand-in chosen for meat masala: spices curry_powder
+mexican crema|default|ingredient-map|Proxy: SR cultured sour cream
+mezcal|default|world-hint|stand-in chosen for mezcal: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof
+microgreens|default|audit|no microgreens record: green leaf lettuce stands in
+mitmita|default|world-hint|stand-in chosen for mitmita: spices pepper,_red_or_cayenne
+mitsuba|default|world-hint|stand-in chosen for mitsuba: parsley fresh
+mizithra|default|world-hint|stand-in chosen for mizithra: cheese ricotta whole_milk
+moose|default|world-hint|stand-in chosen for moose: game_meat deer raw
+morita chile|default|world-hint|stand-in chosen for morita chile: peppers hot_chile sun-dried
+morning glory|default|world-hint|stand-in chosen for morning glory: spinach raw
+morogo|default|world-hint|stand-in chosen for morogo: spinach raw
+moth beans|default|world-hint|stand-in chosen for moth beans: lentils raw
+mulato chile|default|world-hint|stand-in chosen for mulato chile: peppers ancho dried
+mung bean starch|default|world-hint|stand-in chosen for mung bean starch: tapioca,_pearl,_dry
+mushroom soy sauce|default|world-hint|stand-in chosen for mushroom soy sauce: soy_sauce shoyu -low
+mustard oil|default|world-hint|stand-in chosen for mustard oil: oil canola
+nameko mushrooms|default|world-hint|stand-in chosen for nameko mushrooms: mushroom enoki
+narsharab|default|world-hint|stand-in chosen for narsharab: molasses
+nasturtium|default|world-hint|stand-in chosen for nasturtium: watercress raw
+new mexico chile|default|world-hint|stand-in chosen for new mexico chile: peppers hot_chile sun-dried
+nigella oil|default|world-hint|stand-in chosen for nigella oil: oil sesame,_salad_or_cooking
+nigella seeds|default|world-hint|stand-in chosen for nigella seeds: spices cumin_seed
+oaxaca cheese|default|world-hint|stand-in chosen for oaxaca cheese: cheese mozzarella whole_milk
+okonomiyaki sauce|default|ingredient-map|Proxy: SR barbecue sauce (sweet-savory fruit sauce)
+panch phoron|default|world-hint|stand-in chosen for panch phoron: spices curry_powder
+pangasius|default|world-hint|stand-in chosen for pangasius: fish catfish channel farmed raw
+panko breadcrumbs|default|ingredient-map|Proxy: SR dry plain bread crumbs; panko is coarser (~55 g/cup)
+partridge|default|world-hint|stand-in chosen for partridge: quail meat_and_skin raw
+pastis|default|world-hint|stand-in chosen for pastis: alcoholic_beverage liqueur coffee 53_proof
+pav bhaji masala|default|ingredient-map|Proxy: SR curry powder
+pea eggplant|default|world-hint|stand-in chosen for pea eggplant: eggplant raw
+pea shoots|default|world-hint|stand-in chosen for pea shoots: peas edible-podded raw
+peperoncino|default|audit|no peperoncino record: cayenne stands in
+pepper jack|default|mapping|Proxy: SR Monterey cheese (pepper jack is Monterey with chiles)
+peppermint extract|default|world-hint|stand-in chosen for peppermint extract: vanilla_extract -imitation
+pequin chile|default|world-hint|stand-in chosen for pequin chile: peppers hot_chile sun-dried
+perilla oil|default|world-hint|stand-in chosen for perilla oil: oil flaxseed
+perilla seeds|default|world-hint|stand-in chosen for perilla seeds: seeds sesame_seeds whole dried
+periwinkles|default|world-hint|stand-in chosen for periwinkles: mollusks whelk raw
+pilau masala|default|world-hint|stand-in chosen for pilau masala: spices curry_powder
+pisco|default|world-hint|stand-in chosen for pisco: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof
+plum wine|default|world-hint|stand-in chosen for plum wine: alcoholic_beverage wine dessert sweet
+poblano pepper|default|ingredient-map|Proxy: SR green bell pepper (same fresh capsicum energy)
+pointed gourd|default|world-hint|stand-in chosen for pointed gourd: gourd dishcloth raw
+porchetta|default|world-hint|stand-in chosen for porchetta: pork fresh shoulder whole separable_lean_and_fat raw
+porcini mushrooms|default|world-hint|stand-in chosen for porcini mushrooms: mushrooms white raw
+potato starch|default|ingredient-map|Proxy: SR potato flour (357 kcal/100 g; potato starch ~ 333-357)
+preserved lemon|default|ingredient-map|Proxy: SR lemon peel; rind only. Brine adds sodium this does not count
+preserved radish|default|world-hint|stand-in chosen for preserved radish: cabbage mustard salted
+pumpkin seed oil|default|world-hint|stand-in chosen for pumpkin seed oil: oil sunflower,_linoleic
+quark|default|world-hint|stand-in chosen for quark: cheese cottage creamed small_curd
+queijo minas|default|world-hint|stand-in chosen for queijo minas: cheese fresh queso_fresco
+quelites|default|world-hint|stand-in chosen for quelites: amaranth_leaves raw
+queso panela|default|world-hint|stand-in chosen for queso panela: cheese fresh queso_fresco
+ragi flour|default|audit|no finger millet record: millet (proso) stands in
+ramps|default|audit|no ramps record: leeks stand in
+ras el hanout|default|world-hint|stand-in chosen for ras el hanout: spices curry_powder
+rasam powder|default|world-hint|stand-in chosen for rasam powder: spices curry_powder
+raw banana|default|audit|no green banana record: yellow plantain stands in
+raw mango|default|world-hint|stand-in chosen for raw mango: mangos raw
+red beans|default|world-hint|stand-in chosen for red beans: beans kidney red mature_seeds raw
+requeijao|default|audit|no requeijao record: cream cheese stands in
+rice crackers|default|world-hint|stand-in chosen for rice crackers: snacks rice_cake brown_rice
+rice paddy herb|default|world-hint|stand-in chosen for rice paddy herb: coriander_(cilantro)_leaves raw
+rice vinegar|default|ingredient-map|Proxy: SR distilled vinegar (plain rice vinegar ~ 18 kcal/100 g)
+ricotta salata|default|world-hint|stand-in chosen for ricotta salata: cheese romano
+robiola|default|world-hint|stand-in chosen for robiola: cheese neufchatel
+rohu|default|world-hint|stand-in chosen for rohu: fish carp raw
+romanesco|default|world-hint|stand-in chosen for romanesco: cauliflower raw
+saba banana|default|audit|no saba banana record: yellow plantain stands in
+sabzi khordan|default|world-hint|stand-in chosen for sabzi khordan: parsley fresh
+saeujeot|default|world-hint|stand-in chosen for saeujeot: bagoong, salted shrimp
+salted duck egg|default|world-hint|stand-in chosen for salted duck egg: egg duck whole fresh raw
+sambar powder|default|ingredient-map|Proxy: SR curry powder
+samp|default|world-hint|stand-in chosen for samp: corn_flour masa_harina
+sand ginger|default|audit|no sand ginger record: ground ginger stands in (sand ginger is a different, milder rhizome)
+sansho pepper|default|world-hint|stand-in chosen for sansho pepper: sansho
+scamorza|default|audit|no scamorza record: part-skim low-moisture mozzarella stands in
+scent leaf|default|world-hint|stand-in chosen for scent leaf: basil fresh
+scotch bonnet|default|ingredient-map|Proxy: SR hot red chili
+sea bream|default|world-hint|stand-in chosen for sea bream: fish scup raw
+shaoxing wine|default|ingredient-map|Proxy: SR sake (rice wine, ~134 kcal/100 g); SR 'cooking wine' is lower-energy
+shawarma spice|default|world-hint|stand-in chosen for shawarma spice: spices curry_powder
+shichimi togarashi|default|world-hint|stand-in chosen for shichimi togarashi: spices curry_powder
+shrimp paste|default|audit|sauteed shrimp paste (with oil) stands in for fermented shrimp paste
+sichuan pepper oil|default|world-hint|stand-in chosen for sichuan pepper oil: oil sesame salad_or_cooking
+sichuan peppercorns|default|ingredient-map|Proxy: SR black pepper
+simit|default|world-hint|stand-in chosen for simit: bagels plain
+skate|default|world-hint|stand-in chosen for skate: fish ocean_perch atlantic raw
+skate wing|default|world-hint|stand-in chosen for skate wing: fish ocean_perch atlantic raw
+smoked fish|default|world-hint|stand-in chosen for smoked fish: fish haddock smoked
+snake gourd|default|world-hint|stand-in chosen for snake gourd: gourd dishcloth raw
+sorrel|default|world-hint|stand-in chosen for sorrel: spinach raw
+sorrel leaves|default|world-hint|stand-in chosen for sorrel leaves: spinach raw
+speck|default|world-hint|stand-in chosen for speck: ham cured
+squid ink|default|world-hint|stand-in chosen for squid ink: mollusks squid raw
+star anise|default|ingredient-map|Proxy: SR anise seed
+stracciatella|default|world-hint|stand-in chosen for stracciatella: cheese mozzarella whole_milk
+suluguni|default|world-hint|stand-in chosen for suluguni: cheese mozzarella low_moisture part-skim
+sumac|default|audit|no sumac record: paprika stands in
+sweet bean sauce|default|world-hint|stand-in chosen for sweet bean sauce: sauce hoisin
+sweet potato starch noodles|default|ingredient-map|Proxy: SR cellophane (mung bean) noodles
+tabil|default|world-hint|stand-in chosen for tabil: spices curry_powder
+tagine spice|default|world-hint|stand-in chosen for tagine spice: spices curry_powder
+taleggio|default|world-hint|stand-in chosen for taleggio: cheese port_de_salut
+tamarind paste|default|ingredient-map|Proxy: SR raw tamarind pulp
+tatsoi|default|world-hint|stand-in chosen for tatsoi: cabbage chinese_(pak-choi) raw
+tepary beans|default|world-hint|stand-in chosen for tepary beans: beans pinto mature_seeds,_raw
+thai basil|default|ingredient-map|Proxy: SR basil
+thai chile|default|ingredient-map|Proxy: SR hot red chili
+tianjin preserved vegetable|default|world-hint|stand-in chosen for tianjin preserved vegetable: cabbage mustard salted
+tiger nuts|default|world-hint|stand-in chosen for tiger nuts: tiger nut flour
+tofu puffs|default|world-hint|stand-in chosen for tofu puffs: tofu fried
+tonka bean|default|world-hint|stand-in chosen for tonka bean: tonka
+torch ginger|default|world-hint|stand-in chosen for torch ginger: ginger_root raw
+triple sec|default|world-hint|stand-in chosen for triple sec: alcoholic_beverage liqueur coffee 53_proof
+tvorog|default|world-hint|stand-in chosen for tvorog: cheese cottage creamed small_curd
+unagi|default|audit|no prepared unagi record: raw eel stands in (grilled and glazed unagi is richer)
+uni|default|world-hint|stand-in chosen for uni: fish roe mixed_species raw
+urad dal|default|ingredient-map|Proxy: SR lentils (urad/black gram ~341 vs lentils 352 kcal/100 g)
+urfa biber|default|audit|no urfa biber record: cayenne stands in
+utskho suneli|default|world-hint|stand-in chosen for utskho suneli: spices fenugreek_seed
+uziza|default|world-hint|stand-in chosen for uziza: spices pepper,_black
+veal stock|default|decision|proxy: prepared stock is about 10 kcal/100 g; the default was a demi-glace concentrate (500 kcal)
+vietnamese coriander|default|world-hint|stand-in chosen for vietnamese coriander: coriander_(cilantro)_leaves raw
+vietnamese mint|default|world-hint|stand-in chosen for vietnamese mint: peppermint fresh
+wahoo|default|world-hint|stand-in chosen for wahoo: fish mackerel,_king,_raw
+walnut paste|default|world-hint|stand-in chosen for walnut paste: nuts walnuts,_english
+water mimosa|default|world-hint|stand-in chosen for water mimosa: spinach raw
+waterleaf|default|world-hint|stand-in chosen for waterleaf: spinach raw
+wattleseed|default|world-hint|stand-in chosen for wattleseed: wattleseed
+wheat starch|default|world-hint|stand-in chosen for wheat starch: wheat_flour white,_all-purpose
+white wine vinegar|default|mapping|Proxy: SR red wine vinegar (acetic acid, about 19 kcal, same minerals)
+whole urad|default|world-hint|stand-in chosen for whole urad: lentils raw
+wild thyme|default|audit|no wild thyme record: dried thyme stands in
+winter melon|default|world-hint|stand-in chosen for winter melon: gourd white-flowered_(calabash) raw
+xawaash|default|world-hint|stand-in chosen for xawaash: spices curry_powder
+yakisoba noodles|default|ingredient-map|Proxy: SR cooked egg noodles (fresh yakisoba is pre-steamed, ~140 kcal/100 g)
+yellow bean sauce|default|world-hint|stand-in chosen for yellow bean sauce: miso
