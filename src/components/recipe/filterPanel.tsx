@@ -83,7 +83,8 @@ function Option({
 }) {
   return (
     <Chip asChild selected={selected} tone={tone}>
-      <Link href={to} scroll={false} prefetch={false}>
+      {/* nofollow: every chip is a new filter combination; crawlers must not walk them all. */}
+      <Link href={to} scroll={false} prefetch={false} rel="nofollow">
         {children}
       </Link>
     </Chip>

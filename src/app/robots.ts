@@ -8,7 +8,11 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/account", "/fridge", "/pantry", "/shopping", "/login", "/signup", "/forgot-password", "/reset-password", "/auth/"],
+        disallow: [
+          // Filtered and searched lists (/recipes?diet=…&exclude=…): endless combinations of one
+          // catalog. Crawlers walking them burned most of the Vercel free-tier request quota.
+          "/recipes?",
+          "/api/", "/account", "/fridge", "/pantry", "/shopping", "/login", "/signup", "/forgot-password", "/reset-password", "/auth/"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

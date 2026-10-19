@@ -1229,6 +1229,7 @@ export type Database = {
       filtered_recipes: {
         Args: {
           diet_slugs?: string[]
+          exclude_slugs?: string[]
           include_ids?: number[]
           owned?: string[]
         }
