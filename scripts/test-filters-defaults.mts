@@ -12,7 +12,7 @@ const P = await import("../src/lib/prefs.ts");
 const V = await import("../src/lib/settingsValidate.ts");
 const { parseFilters, serializeFilters, filtersToQuery, withDefaults, toggleFoodChip, withFilters, hasActiveFilters } = F;
 
-const veg = { diet: ["vegetarian"], exclude: ["nuts"] };
+const veg = { diet: ["vegetarian"], exclude: ["peanuts"] };
 
 // ---- withDefaults: the truth table -------------------------------------------------------------------------
 {
@@ -30,7 +30,7 @@ const veg = { diet: ["vegetarian"], exclude: ["nuts"] };
   // nothing in the URL: both dimensions come from the defaults
   const s = withDefaults(parseFilters({ q: "soup" }), veg);
   assert.deepEqual(s.effective.diet, ["vegetarian"]);
-  assert.deepEqual(s.effective.exclude, ["nuts"]);
+  assert.deepEqual(s.effective.exclude, ["peanuts"]);
   assert.equal(s.effective.q, "soup");
   assert.deepEqual(s.applied, veg);
   assert.equal(s.off, false);
@@ -40,19 +40,19 @@ const veg = { diet: ["vegetarian"], exclude: ["nuts"] };
   // URL diet wins for DIET (per dimension); allergens still come from the defaults
   const s = withDefaults(parseFilters({ diet: "vegan" }), veg);
   assert.deepEqual(s.effective.diet, ["vegan"]);
-  assert.deepEqual(s.effective.exclude, ["nuts"]);
-  assert.deepEqual(s.applied, { diet: [], exclude: ["nuts"] });
+  assert.deepEqual(s.effective.exclude, ["peanuts"]);
+  assert.deepEqual(s.applied, { diet: [], exclude: ["peanuts"] });
 }
 {
   // ALLERGENS are UNIONED, never replaced: a hand-edited link cannot drop a saved allergy
   const s = withDefaults(parseFilters({ exclude: "soy" }), veg);
-  assert.deepEqual([...s.effective.exclude!].sort(), ["nuts", "soy"]);
+  assert.deepEqual([...s.effective.exclude!].sort(), ["peanuts", "soy"]);
   assert.deepEqual(s.effective.diet, ["vegetarian"]);
   // the URL asking for the same allergen is not duplicated
-  const t = withDefaults(parseFilters({ exclude: "nuts,soy" }), veg);
-  assert.deepEqual([...t.effective.exclude!].sort(), ["nuts", "soy"]);
+  const t = withDefaults(parseFilters({ exclude: "peanuts,soy" }), veg);
+  assert.deepEqual([...t.effective.exclude!].sort(), ["peanuts", "soy"]);
   // exclude=<something else entirely> still keeps the default
-  assert.ok(withDefaults(parseFilters({ exclude: "dairy" }), { diet: [], exclude: ["nuts"] }).effective.exclude!.includes("nuts"));
+  assert.ok(withDefaults(parseFilters({ exclude: "dairy" }), { diet: [], exclude: ["peanuts"] }).effective.exclude!.includes("peanuts"));
 }
 {
   // defaults=off: the URL is literal, applied is null, the chip can say "off"
@@ -73,7 +73,7 @@ const veg = { diet: ["vegetarian"], exclude: ["nuts"] };
 }
 {
   // the effective filters never carry the `defaults` flag, so cache keys do not depend on how they were reached
-  const a = withDefaults(parseFilters({ defaults: "off", diet: "vegetarian", exclude: "nuts" }), veg).effective;
+  const a = withDefaults(parseFilters({ defaults: "off", diet: "vegetarian", exclude: "peanuts" }), veg).effective;
   const b = withDefaults(parseFilters({}), veg).effective;
   assert.equal(filtersToQuery(a), filtersToQuery(b));
 }
@@ -110,21 +110,21 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
   assert.equal(filtersToQuery(toggleFoodChip(url, s, "diet", "vegan")), "?diet=vegan");
   // defaults in force: the tap materialises the EFFECTIVE selection, flips the tapped value, switches defaults off
   const d = withDefaults(parseFilters({}), veg);
-  const un = toggleFoodChip(parseFilters({}), d, "exclude", "nuts"); // "uncheck nuts"
+  const un = toggleFoodChip(parseFilters({}), d, "exclude", "peanuts"); // "uncheck peanuts"
   assert.equal(un.defaults, "off");
   assert.deepEqual(un.diet, ["vegetarian"]);
   assert.equal(un.exclude, undefined);
   const ad = toggleFoodChip(parseFilters({}), d, "exclude", "soy"); // "also soy"
-  assert.deepEqual([...ad.exclude!].sort(), ["nuts", "soy"]);
+  assert.deepEqual([...ad.exclude!].sort(), ["peanuts", "soy"]);
   assert.equal(ad.defaults, "off");
   // the materialised URL means what the page showed: re-merging it gives the same effective filters
   const again = withDefaults(parseFilters(serializeFilters(ad)), veg);
-  assert.deepEqual([...again.effective.exclude!].sort(), ["nuts", "soy"]);
+  assert.deepEqual([...again.effective.exclude!].sort(), ["peanuts", "soy"]);
   assert.deepEqual(again.effective.diet, ["vegetarian"]);
   // toggling the diet that is the default turns it off but keeps the allergens explicit
   const offDiet = toggleFoodChip(parseFilters({}), d, "diet", "vegetarian");
   assert.equal(offDiet.diet, undefined);
-  assert.deepEqual(offDiet.exclude, ["nuts"]);
+  assert.deepEqual(offDiet.exclude, ["peanuts"]);
   assert.equal(offDiet.defaults, "off");
   // cursor is dropped on any change
   assert.equal(toggleFoodChip(parseFilters({ cursor: "abc" }), d, "diet", "vegan").cursor, undefined);
@@ -148,8 +148,8 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
   assert.equal(P.decodePrefs(b64({ v: 1, d: [], x: [], u: "ZZ" })), null, "bad user marker");
   assert.equal(P.decodePrefs(b64({ v: 1, d: Array.from({ length: 40 }, (_, i) => `d${i}`), x: [], u: "ab" })), null, "too many");
   // vocabulary: unknown slugs are dropped, and an empty result is null
-  const vocab = { diets: ["vegetarian", "vegan"], allergens: ["nuts"] };
-  assert.deepEqual(P.restrictToVocab({ diet: ["vegetarian", "bogus"], exclude: ["nuts", "nope"] }, vocab), veg);
+  const vocab = { diets: ["vegetarian", "vegan"], allergens: ["peanuts"] };
+  assert.deepEqual(P.restrictToVocab({ diet: ["vegetarian", "bogus"], exclude: ["peanuts", "nope"] }, vocab), veg);
   assert.equal(P.restrictToVocab({ diet: ["bogus"], exclude: [] }, vocab), null);
   assert.equal(P.restrictToVocab(null, vocab), null);
   // honoured only with a Supabase auth cookie present
@@ -160,19 +160,19 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
   // fingerprint
   assert.equal(P.prefsHash(null), "none");
   assert.equal(P.prefsHash({ diet: [], exclude: [] }), "none");
-  assert.equal(P.prefsHash(veg), P.prefsHash({ diet: ["vegetarian"], exclude: ["nuts"] }));
-  assert.notEqual(P.prefsHash(veg), P.prefsHash({ diet: ["vegan"], exclude: ["nuts"] }));
+  assert.equal(P.prefsHash(veg), P.prefsHash({ diet: ["vegetarian"], exclude: ["peanuts"] }));
+  assert.notEqual(P.prefsHash(veg), P.prefsHash({ diet: ["vegan"], exclude: ["peanuts"] }));
 }
 
 // ---- the chip label -------------------------------------------------------------------------------------------
 {
   const names = {
     diets: new Map([["vegetarian", "Vegetarian"], ["gluten-free", "Gluten-free"]]),
-    allergens: new Map([["nuts", "Nuts"], ["dairy", "Dairy"], ["egg", "Egg"]]),
+    allergens: new Map([["peanuts", "Peanuts"], ["dairy", "Dairy"], ["egg", "Egg"]]),
   };
-  assert.equal(P.prefsLabel(veg, names), "vegetarian, no nuts");
-  assert.equal(P.prefsLabel({ diet: [], exclude: ["nuts", "dairy"] }, names), "no nuts and dairy");
-  assert.equal(P.prefsLabel({ diet: ["vegetarian", "gluten-free"], exclude: ["nuts", "dairy", "egg"] }, names), "vegetarian, gluten-free, no nuts, dairy and egg");
+  assert.equal(P.prefsLabel(veg, names), "vegetarian, no peanuts");
+  assert.equal(P.prefsLabel({ diet: [], exclude: ["peanuts", "dairy"] }, names), "no peanuts and dairy");
+  assert.equal(P.prefsLabel({ diet: ["vegetarian", "gluten-free"], exclude: ["peanuts", "dairy", "egg"] }, names), "vegetarian, gluten-free, no peanuts, dairy and egg");
   assert.equal(P.prefsLabel({ diet: ["vegetarian"], exclude: [] }, names), "vegetarian");
   assert.equal(P.prefsLabel({ diet: ["mystery"], exclude: [] }, names), "mystery");
   assert.equal(P.prefsLabel({ diet: [], exclude: [] }, names), "");
@@ -190,9 +190,9 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
   assert.equal(V.validateDisplayName(null).ok, false);
   assert.equal(V.validateDisplayName({}).ok, false);
 
-  const vocab = { diets: ["pescatarian", "vegetarian", "vegan", "gluten-free"], allergens: ["nuts", "dairy"] };
-  const ok = V.validateFoodDefaults({ diet: ["vegan", "gluten-free"], allergens: ["nuts"] }, vocab);
-  assert.deepEqual(ok, { ok: true, value: { diet: ["gluten-free", "vegan"], allergens: ["nuts"] } }); // sorted
+  const vocab = { diets: ["pescatarian", "vegetarian", "vegan", "gluten-free"], allergens: ["peanuts", "dairy"] };
+  const ok = V.validateFoodDefaults({ diet: ["vegan", "gluten-free"], allergens: ["peanuts"] }, vocab);
+  assert.deepEqual(ok, { ok: true, value: { diet: ["gluten-free", "vegan"], allergens: ["peanuts"] } }); // sorted
   assert.deepEqual(V.validateFoodDefaults({ diet: ["vegan", "vegan"], allergens: [] }, vocab), { ok: true, value: { diet: ["vegan"], allergens: [] } });
   assert.equal(V.validateFoodDefaults({ diet: ["vegan", "vegetarian"], allergens: [] }, vocab).ok, false, "one eating style");
   assert.equal(V.validateFoodDefaults({ diet: ["vegan", "pescatarian"], allergens: [] }, vocab).ok, false);
@@ -215,8 +215,8 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
   assert.equal(V.oneOf("saturday", V.WEEK_STARTS), false);
 
   assert.deepEqual(V.settingsFromRow(null), V.DEFAULT_SETTINGS);
-  assert.deepEqual(V.settingsFromRow({ units: "imperial", week_start: "sunday", sex: "female", diet_slugs: ["vegan"], allergen_slugs: ["nuts"] }), {
-    units: "imperial", weekStart: "sunday", sex: "female", diet: ["vegan"], allergens: ["nuts"],
+  assert.deepEqual(V.settingsFromRow({ units: "imperial", week_start: "sunday", sex: "female", diet_slugs: ["vegan"], allergen_slugs: ["peanuts"] }), {
+    units: "imperial", weekStart: "sunday", sex: "female", diet: ["vegan"], allergens: ["peanuts"],
   });
   // a corrupt row degrades to the defaults instead of throwing
   assert.deepEqual(V.settingsFromRow({ units: "x", week_start: "y", sex: "z", diet_slugs: ["<b>"], allergen_slugs: null }), V.DEFAULT_SETTINGS);

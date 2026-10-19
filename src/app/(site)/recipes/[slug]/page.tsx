@@ -1,3 +1,5 @@
+import { AllergenNotice } from "@/components/recipe/allergenNotice";
+import { AvoidNotice } from "@/components/recipe/avoidNotice";
 import { BackToResults } from "@/components/recipe/backToResults";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -154,24 +156,8 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             calories={recipe.nutrition.calories != null ? round(recipe.nutrition.calories, 5) : undefined}
             spice={recipe.spiceLevel ?? undefined}
           />
-          {recipe.allergens.length > 0 && (
-            <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5">
-              <p className="flex items-center gap-1.5 font-mono text-[0.625rem] tracking-[0.08em] text-paprika-deep uppercase">
-                <span aria-hidden className="size-1.5 rounded-full bg-paprika" />
-                Contains
-              </p>
-              <ul className="flex flex-wrap gap-1.5" aria-label="Allergens">
-                {recipe.allergens.map((a) => (
-                  <li
-                    key={a}
-                    className="rounded-full border border-paprika/30 bg-paprika/5 px-2.5 py-0.5 text-[0.75rem] leading-snug text-paprika-deep"
-                  >
-                    {a.toLowerCase()}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <AvoidNotice info={recipe.allergenInfo} />
+          <AllergenNotice info={recipe.allergenInfo} />
           {isAi && (
             <p className="mt-3">
               <Link

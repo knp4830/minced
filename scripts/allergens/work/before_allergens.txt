@@ -1,0 +1,8 @@
+dairy|416
+egg|190
+fish|80
+gluten|358
+nuts|100
+sesame|18
+shellfish|12
+soy|62

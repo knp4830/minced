@@ -32,6 +32,10 @@ export type RecipeCardProps = {
   spiceLevel?: number | null;
   /** Allergen display names, e.g. ["egg"]. */
   allergens?: string[];
+  /** Allergens only some brands or versions carry ("may contain"). */
+  mayContainAllergens?: string[];
+  /** Allergens the person is leaving out that this recipe carries only in an optional ingredient. */
+  optionalAllergens?: string[];
   coverage?: RecipeCardCoverage;
   /** "Use these first" results: how soon the fridge items this recipe uses expire. */
   useFirst?: { label: string; urgent: boolean };
@@ -62,6 +66,8 @@ export function RecipeCard({
   calories,
   spiceLevel,
   allergens,
+  mayContainAllergens,
+  optionalAllergens,
   coverage,
   useFirst,
   aiDrafted = false,
@@ -149,6 +155,19 @@ export function RecipeCard({
           <p className="mt-2.5 flex items-center gap-1.5 text-[0.6875rem] text-paprika-deep">
             <span aria-hidden className="size-1.5 rounded-full bg-paprika" />
             contains {allergens.join(", ")}
+          </p>
+        )}
+
+        {mayContainAllergens && mayContainAllergens.length > 0 && (
+          <p className="mt-1.5 flex items-center gap-1.5 text-[0.6875rem] text-ink-muted">
+            <span aria-hidden className="size-1.5 rounded-full border border-paprika" />
+            may contain {mayContainAllergens.join(", ")}
+          </p>
+        )}
+
+        {optionalAllergens && optionalAllergens.length > 0 && (
+          <p className="mt-1.5 text-[0.6875rem] font-semibold text-paprika-deep">
+            {optionalAllergens.join(", ")} optional: leave out
           </p>
         )}
 

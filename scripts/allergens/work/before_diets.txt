@@ -1,0 +1,4 @@
+gluten-free|65
+pescatarian|13
+vegan|22
+vegetarian|40
