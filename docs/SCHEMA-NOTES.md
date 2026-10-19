@@ -313,3 +313,14 @@ Verified by applying the migration to a throwaway Postgres 16 container with a s
 **Decision 12: user settings are one row per user** (`user_settings`, owner-only, no DELETE, cascades on account delete). `me_targets.sex/units` are mirrored for one wave and dropped in wave 12. `minced_prefs` is a cache of the defaults, never the truth.
 
 **Size:** about 61 MB total after the refresh (budget 250 MB, cap 500 MB). `usda_food_nutrients` is about 75 bytes per row; each food costs about 1.5 KB with 14 nutrients and three trigram indexes.
+
+## Wave 10c: allergens, DRIs, grouped fridge (2026-10-19)
+
+- **Allergens: 11 slugs.** `nuts` is split into `peanuts` and `tree-nuts` (coconut, nutmeg, water chestnut and butternut are untagged on purpose); `shellfish` means crustaceans and `mollusks` is modelled separately. `recipe_allergens` holds allergens from REQUIRED lines only; `recipe_optional_allergens` holds allergens that appear only on optional or garnish lines. Those never hide a recipe from an allergen filter, but the page says to leave them out. Each ingredient tag has a basis (typical or varies) and a reason. `ingredients.diet_class` drives the vegan / vegetarian / pescatarian tags; `recipe_diet_exceptions` is the reviewed override list; vegan may never sit beside an animal allergen tag (migration `180000`).
+- **`recipe_has_allergen(recipe_id, slugs[])`** is the single predicate (SQL, STABLE, inlined) and expands the legacy `nuts` slug. `match_recipes`, `search_recipes`, `filtered_recipes` and `fridge_recipes_grouped` each call it exactly once.
+- **`nutrient_dris`**: reference table (sex x age band x nutrient), RLS on, select-only for anon and authenticated. Source: NIH ODS and National Academies DRI tables. Public recipe pages keep FDA label DVs; Me uses DRIs, with a sedentary baseline when only weight, sex and birth year are known.
+- **`user_settings.birth_year`** (smallint, 1900-2100, owner-only RLS). A year, not an age, so it does not go stale.
+- **`usda_foods.data_type`** gains `cofid` and `cnf` (with `source_code`); `recipe_national_sources()` returns the licence credit shown under a label. Values are per 100 g in our nutrient keys; CoFID carbohydrate is stored only where it is convertible (CHO < 1 g) because CoFID CHO is monosaccharide-equivalent.
+- **`ingredient_foods.is_proxy`** flags a declared stand-in (306 rows); `nutrition_assumptions()` surfaces them under the label. Brand foods show `brand_name` only.
+- **`fridge_recipes_grouped`** (SECURITY INVOKER) returns the groups now / missing1 / missing2 / more with `group_total`, soonest-expiring fridge items first, keyset-paginated per group. `add_missing_to_shopping_list` is SECURITY INVOKER; RLS on `shopping_list_items` is the gate.
+- **`refresh_recipe_nutrients()`** now writes the computed macro columns for every computed recipe (migration `20261019100000`).
