@@ -1,0 +1,107 @@
+# Widely sold US brands for common pantry, canned, dairy, bakery, frozen and deli ingredients
+applesauce | mott's/musselman's/santa cruz/gerber/natural/motts | applesauce | n=4
+apple juice | mott's/martinelli's/tree top/simply/langers/old orchard/welch's | apple juice | n=4 d=1.05 cat=juice
+orange juice | tropicana/simply/minute maid/florida's natural/natalie's/ocean spray/naked | orange juice | n=5 d=1.04 cat=juice
+grape juice | welch's/martinelli's/old orchard/ocean spray/langers | grape juice | n=3 d=1.06 cat=juice
+cranberry juice | ocean spray/lakewood/knudsen/langers/old orchard | cranberry juice | n=4 d=1.05 cat=juice
+tomato juice | campbell's/v8/hunt's/mott's/sacramento/langers | tomato juice | n=4 d=1.03 cat=juice
+vegetable juice | v8/campbell's/naked/suja | vegetable juice, v8 | n=3 d=1.03 cat=juice
+coconut water | vita coco/zico/harmless harvest/c2o/goya/naked | coconut water | n=4 d=1.0
+canned peaches | del monte/dole/libby's/s&w/hunt's/great value | peaches | n=3 form=canned cat=canned
+canned pears | del monte/dole/libby's/s&w | pears | n=3 form=canned cat=canned -chia -blackberry -berry
+pineapple | dole/del monte/libby's/goya | pineapple | n=3 form=canned cat=canned
+mandarin orange | dole/del monte/libby's/geisha | mandarin | n=3 form=canned cat=canned
+fruit cocktail | del monte/dole/libby's/s&w | fruit cocktail | n=3
+peas | green giant/birds eye/del monte/seneca/libby's/le sueur/pictsweet | peas | n=4 cat=vegetables
+corn | green giant/birds eye/del monte/seneca/libby's/pictsweet/niblets | corn | n=4 cat=vegetables
+green beans | green giant/birds eye/del monte/seneca/libby's/pictsweet/lesueur | green beans | n=4 cat=vegetables
+mixed vegetables | green giant/birds eye/del monte/seneca/libby's/pictsweet | mixed vegetables | n=3 cat=vegetables
+spinach | green giant/birds eye/earthbound/organic girl/fresh express/dole/pictsweet | spinach | n=4 cat=vegetables
+broccoli | green giant/birds eye/pictsweet/dole/earthbound/cascadian farm | broccoli | n=3 cat=vegetables
+cream-style corn | green giant/del monte/libby's/seneca | cream style corn | n=2
+hominy | goya/bush's/juanita's/mexene/hominy | hominy | n=3
+sauerkraut | bubbies/boar's head/frank's/libby's/claussen | sauerkraut | n=3
+pie crust | pillsbury/marie callender's/wholly wholesome/trader joe/oronoque/kroger | pie crust | n=3
+puff pastry | pepperidge farm/dufour/wewalka/trader joe | puff pastry | n=3
+phyllo dough | athens/fillo factory/kontos/pepperidge/apollo | phyllo, filo | n=3
+pizza dough | pillsbury/trader joe/boboli/chef boyardee/wewalka | pizza dough, pizza crust | n=3
+crescent rolls | pillsbury | crescent | n=2
+biscuit mix | bisquick/pioneer/martha white/jiffy/king arthur | biscuit | n=3
+pancake mix | bisquick/aunt jemima/pearl milling/krusteaz/hungry jack/kodiak/bob's red mill/birch benders | pancake | n=6
+cake mix | betty crocker/duncan hines/pillsbury/king arthur/simple mills/krusteaz | cake mix | n=4
+cornbread mix | jiffy/martha white/pioneer/krusteaz/bob's red mill | corn muffin mix, cornbread mix | n=3
+pudding mix | jell-o/royal/my-t-fine | pudding | n=3
+graham crackers | honey maid/nabisco/keebler/kroger | graham | n=3 -pie -crust -mini -cereal
+saltine crackers | nabisco/premium/keebler/zesta/sunshine | saltine, saltines | n=3
+pretzels | snyder's/rold gold/utz/wege/newman | pretzel | n=3
+popcorn | orville redenbacher/pop secret/skinny pop/act ii/jolly time/smartfood | popcorn | n=3 cat=popcorn
+granola | nature valley/bear naked/kind/quaker/purely elizabeth/nature's path/kellogg's | granola | n=4 cat=cereal
+corn flakes | kellogg's/post/general mills/malt-o-meal | corn flakes | n=3 cat=cereal
+cereal | cheerios/kellogg's/post/general mills/quaker/malt-o-meal/kashi | cereal | n=3 cat=cereal
+hamburger buns | pepperidge farm/martin's/nature's own/king's hawaiian/arnold/sara lee | hamburger buns | n=4
+hot dog buns | pepperidge farm/martin's/nature's own/ball park/sara lee | hot dog buns | n=3
+dinner rolls | pepperidge farm/king's hawaiian/martin's/sara lee/rhodes | dinner rolls | n=3
+english muffin | thomas'/bays/trader joe/nature's own/ezekiel | english muffin | n=3
+bagel | thomas'/lender's/dave's killer/einstein/sara lee/pepperidge farm | bagels | n=3
+sandwich bread | wonder/sara lee/nature's own/pepperidge farm/dave's killer/arnold/oroweat/ezekiel/dempster | bread | n=8 -crumbs -sticks -pudding cat=bread
+sourdough bread | boudin/pepperidge farm/dave's killer/san francisco/trader joe/aldi | sourdough | n=3
+tortilla chips | tostitos/mission/xochitl/late july/garden of eatin/siete | tortilla chips | n=4
+marshmallows | jet-puffed/kraft/campfire/dandies | marshmallow | n=3
+chocolate chips | nestle/ghirardelli/hershey's/guittard/enjoy life/lily's | morsels, chips | n=4
+whipped topping | cool whip/reddi-wip/truwhip/great value | whipped | n=3
+frozen yogurt | yasso/ben & jerry's/talenti/edy's/breyers | frozen yogurt | n=2
+strawberry yogurt | chobani/yoplait/dannon/oikos/stonyfield/siggi's | strawberry | n=4 cat=yogurt
+margarine | parkay/country crock/land o'lakes/i can't believe/smart balance/blue bonnet/imperial/earth balance | margarine, spread | n=6 cat=butter
+shortening | crisco/spectrum/country crock | shortening | n=3
+grape jelly | welch's/smucker's/bonne maman/kroger/polaner | grape jelly | n=3
+strawberry jam | smucker's/bonne maman/welch's/polaner/stonewall kitchen/crofter's | strawberry | n=4 cat=jam
+apricot jam | smucker's/bonne maman/polaner/stonewall kitchen/crofter's | apricot | n=3 cat=jam
+sweet pickle relish | heinz/vlasic/mt. olive/claussen/bubbies | relish | n=3
+pickles | vlasic/claussen/mt. olive/bubbies/grillo's/heinz | pickles | n=3
+deli ham | oscar mayer/boar's head/hillshire/dietz & watson/applegate/black forest | ham | n=5 -salad cat=deli
+deli turkey | oscar mayer/boar's head/hillshire/dietz & watson/applegate/butterball/jennie-o | turkey breast | n=5 cat=deli
+bacon | oscar mayer/hormel/applegate/wright/smithfield/boar's head/farmland/hatfield | bacon | n=5 -bits -pieces -bar -jerky -turkey cat=bacon
+breakfast sausage | jimmy dean/johnsonville/bob evans/hillshire/applegate/aidells/smithfield | sausage | n=5 -pizza -burrito -sandwich -biscuit -egg -summer -salami -smoked -polish -kielbasa
+ground turkey | jennie-o/butterball/honeysuckle white/perdue/shady brook/foster farms | ground turkey | n=4
+chicken breast | tyson/perdue/foster farms/bell & evans/pilgrim's/just bare/applegate/sanderson | chicken breast | n=6 -breaded -nugget -fried -sandwich -soup cat=chicken
+imitation crab | trans-ocean/louis kemp/chicken of the sea/kroger/crab delights/aqua star | imitation crab, surimi | n=3
+smoked salmon | vita/echo falls/kirkland/ducktrap/acme/trader joe | smoked salmon | n=3
+canned tuna | starkist/bumble bee/chicken of the sea/wild planet/safe catch/genova | tuna | n=4 form=canned
+shrimp | gorton's/aqua star/sea pak/kirkland/open nature/wild | shrimp | n=4 -breaded -fried -cocktail -tempura -scampi cat=fish
+salmon | trident/sea cuisine/ocean beauty/kirkland/wild alaskan | salmon | n=3 -burger -patty cat=fish
+tilapia | gorton's/sea cuisine/kirkland/aqua star | tilapia | n=2 cat=fish
+cod | gorton's/sea cuisine/trident/kirkland/aqua star | cod | n=2 cat=fish
+peanuts | planters/blue diamond/kirkland/trader joe/fisher/virginia diner | peanuts | n=3 -candy -butter -chocolate cat=popcorn
+sunflower seeds | david/sunflower kernel/kirkland/planters/trader joe | sunflower seed | n=3 cat=popcorn
+pumpkin seeds | sunflower kernel/kirkland/trader joe/frontier/bob's red mill/go raw | pumpkin seed | n=3 cat=popcorn
+chia seeds | navitas/nutiva/bob's red mill/spectrum/mamma chia/health warrior/kirkland | chia | n=4 -drink -bar -pudding
+flaxseed | bob's red mill/spectrum/carrington/barlean's/nature's path | flax | n=3 -bar -oil
+sesame seeds | mccormick/frontier/spice islands/badia/roland | sesame seed | n=3 -oil -bar
+pine nuts | pine/trader joe/kirkland/dalmatia/bruce | pine nuts | n=2 cat=popcorn
+hazelnuts | diamond/kirkland/trader joe/bob's red mill | hazelnuts | n=2 -spread -chocolate -butter cat=popcorn
+shredded coconut | baker's/bob's red mill/let's do organic/dixie/viva | shredded coconut | n=3
+rolled oats | quaker/bob's red mill/old wessex/nature's path/country choice/mccann's | oats | n=4 -cookie -bar -bites cat=cereal kmin=250
+cornmeal | bob's red mill/quaker/arrowhead/goya/albers/indian head | corn meal, cornmeal | n=4 kmin=250
+grits | quaker/bob's red mill/anson mills/palmetto/hominy | grits | n=3 kmin=250
+quinoa | ancient harvest/bob's red mill/alter eco/trader joe/white rose | quinoa | n=4 kmin=250
+lentils | bob's red mill/goya/laxmi/ziyad/trader joe | lentils | n=3 -soup -salad kmin=250
+split peas | bob's red mill/goya/arrowhead/trader joe/camellia | split peas | n=3 -soup kmin=250
+navy beans | bob's red mill/goya/camellia/arrowhead | navy beans | n=2 kmin=250
+great northern beans | bob's red mill/goya/camellia/arrowhead | great northern | n=2 kmin=250
+lima beans | bob's red mill/goya/camellia/arrowhead | lima beans | n=2 kmin=250
+black-eyed peas | bob's red mill/goya/camellia/arrowhead | black eyed peas, black-eyed peas | n=2 kmin=250
+black beans | bob's red mill/goya/camellia/arrowhead/trader joe | black beans | n=3 -canned cat=beans kmin=250
+pinto beans | bob's red mill/goya/camellia/arrowhead | pinto beans | n=2 cat=beans kmin=250
+chickpea flour | bob's red mill/ziyad/laxmi/ghirardelli | chickpea flour, garbanzo | n=3
+whole wheat flour | king arthur/gold medal/bob's red mill/arrowhead mills | whole wheat | n=3
+almonds | blue diamond/kirkland/trader joe/wonderful/planters | almonds | n=3 -butter -milk -chocolate cat=popcorn
+walnuts | diamond/kirkland/trader joe/planters/fisher | walnuts | n=3 -candy -chocolate cat=popcorn
+vanilla extract | mccormick/nielsen-massey/watkins/rodelle/kirkland/simply organic | vanilla | n=4 d=1.0 cat=baking_additives
+beef bouillon | knorr/wyler's/better than bouillon/herb-ox/orrington farms/maggi/goya | beef bouillon, beef base | n=4
+chicken bouillon | knorr/wyler's/better than bouillon/herb-ox/orrington farms/maggi/goya/edward & sons | chicken bouillon, chicken base | n=4
+cream of mushroom soup | campbell's/progresso/pacific/amy's/imagine | cream of mushroom | n=3
+dried cranberries | ocean spray/craisins/trader joe/sun-maid | cranberries | n=3 -juice -sauce cat=fruit
+dates | sun-maid/medjool/natural delights/bard valley/barari | dates | n=3 -syrup -bar cat=fruit
+dried apricots | sun-maid/mariani/trader joe/kirkland/made in nature | apricots | n=3 cat=fruit
+prunes | sunsweet/sun-maid/mariani/trader joe/kirkland | prunes, dried plums | n=3 cat=fruit
+bread dough | rhodes/bridgford/pillsbury/trader joe | bread dough | n=2

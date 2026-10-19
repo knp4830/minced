@@ -5,10 +5,12 @@ import { after } from "next/server";
 
 import { stripControlChars } from "@/lib/filters";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
+import { searchFoods } from "@/lib/queries/foods";
 import {
   deleteMyRecipe,
   resolveIngredientName,
   saveMyRecipe,
+  setMyRecipeFoods,
   withdrawMyRecipe,
   type SaveResult,
 } from "@/lib/queries/myRecipes";
@@ -24,7 +26,7 @@ import { UUID_RE } from "@/lib/validate";
  */
 
 export type ActionResult =
-  | { ok: true; id?: string; slug?: string; status?: "draft" | "in_review" }
+  | { ok: true; id?: string; slug?: string; status?: "draft" | "in_review"; warning?: string }
   | { ok: false; message: string; field?: string };
 
 const OFF = "That recipe could not be found.";
@@ -68,7 +70,11 @@ function shapeOk(v: unknown): v is RecipeFormValues {
         str((i as Record<string, unknown>).unit, 40) &&
         str((i as Record<string, unknown>).name, 300) &&
         str((i as Record<string, unknown>).note, 400) &&
-        typeof (i as Record<string, unknown>).optional === "boolean",
+        typeof (i as Record<string, unknown>).optional === "boolean" &&
+        // Optional: the specific food picked for the line. Anything but a positive integer is refused.
+        ((i as Record<string, unknown>).fdcId === undefined ||
+          (i as Record<string, unknown>).fdcId === null ||
+          (Number.isInteger((i as Record<string, unknown>).fdcId) && ((i as Record<string, unknown>).fdcId as number) > 0)),
     ) &&
     Array.isArray(o.steps) &&
     o.steps.length <= LIMITS.steps + 20 &&
@@ -152,8 +158,28 @@ export async function saveRecipe(id: string | null, values: RecipeFormValues, su
 
   const res = await saveMyRecipe(id, payload.data, submit);
   if (!res.ok) return describe(res);
+
+  // Which specific food (a brand, say) was picked for a line. Positions count the non-blank lines, the
+  // same way save_my_recipe numbers them. The database re-checks that each food really belongs to the
+  // line's ingredient, so a forged id simply attaches nothing.
+  let pos = 0;
+  const picks: { pos: number; fdc_id: number }[] = [];
+  for (const row of values.ingredients) {
+    if (row.name.trim() === "") continue;
+    if (typeof row.fdcId === "number") picks.push({ pos, fdc_id: row.fdcId });
+    pos++;
+  }
+  let foodsSaved = true;
+  if (picks.length > 0) foodsSaved = await setMyRecipeFoods(res.id, picks);
+
   refresh(res.slug);
-  return { ok: true, id: res.id, slug: res.slug, status: res.status };
+  return {
+    ok: true,
+    id: res.id,
+    slug: res.slug,
+    status: res.status,
+    ...(foodsSaved ? {} : { warning: "Saved, but the brand choices could not be stored. Open the recipe and pick them again." }),
+  };
 }
 
 export async function deleteRecipe(id: string): Promise<ActionResult> {
@@ -183,5 +209,28 @@ export async function checkIngredientName(name: string): Promise<{ canonical: st
     return { canonical: await resolveIngredientName(clean) };
   } catch {
     return null; // unknown: the form then says nothing instead of a wrong "not found"
+  }
+}
+
+/**
+ * Of the ingredient names on a form that was just reopened, the ones whose default food has no nutrition data
+ * (lowercase). A freshly picked row learns this from the type-ahead; a saved row has to ask. Null when the lookup
+ * failed, so the form then says nothing instead of guessing. Bounded: at most 40 names, 60 characters each.
+ */
+export async function ingredientsWithoutNutrition(names: unknown): Promise<string[] | null> {
+  if (!USER_RECIPES_ENABLED || !Array.isArray(names)) return null;
+  const clean = [...new Set(names.filter((n): n is string => typeof n === "string").map((n) => stripControlChars(n).replace(/\s+/g, " ").trim().toLowerCase().slice(0, 60)).filter((n) => n.length >= 2))].slice(0, 40);
+  try {
+    const out: string[] = [];
+    await Promise.all(
+      clean.map(async (name) => {
+        const hits = await searchFoods(name, 3);
+        const own = hits.find((h) => h.kind === "ingredient" && (h.canonicalName ?? h.label).toLowerCase() === name);
+        if (own && own.hasNutrition === false) out.push(name);
+      }),
+    );
+    return out;
+  } catch {
+    return null;
   }
 }

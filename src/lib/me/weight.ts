@@ -7,7 +7,7 @@
  * Weeks run Monday to Sunday (the weekly view), like the rest of the dashboard.
  */
 
-import { addDays, dayDiff, weekRange } from "@/lib/me/dates";
+import { addDays, dayDiff, weekRange, type WeekStart } from "@/lib/me/dates";
 
 export type WeightPoint = { date: string; kg: number };
 export type WeightAvgPoint = WeightPoint & { avg: number };
@@ -37,11 +37,11 @@ export function changeVsWeekAgo(points: WeightPoint[], today: string): number | 
 
 export type WeekAvg = { weekStart: string; avg: number; count: number };
 
-/** Average weigh-in per Monday-to-Sunday week, oldest first. Weeks with no weigh-in are left out. */
-export function weeklyAverages(points: WeightPoint[]): WeekAvg[] {
+/** Average weigh-in per week (Monday to Sunday unless the person starts weeks on Sunday), oldest first. Weeks with no weigh-in are left out. */
+export function weeklyAverages(points: WeightPoint[], weekStart: WeekStart = "monday"): WeekAvg[] {
   const byWeek = new Map<string, number[]>();
   for (const p of points) {
-    const w = weekRange(p.date).from;
+    const w = weekRange(p.date, weekStart).from;
     byWeek.set(w, [...(byWeek.get(w) ?? []), p.kg]);
   }
   return [...byWeek.entries()]

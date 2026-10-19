@@ -1,0 +1,174 @@
+# name | aisle | filter_group | regions | aliases (;) | allergens | hint  ("sr tokens // branded tokens"; see README.md)
+# East Asia: China, Japan, Korea, Taiwan, Mongolia
+dark soy sauce | Pantry | pantry | EA | old soy sauce;lao chou | soy,gluten | soy_sauce -reduced -low //  dark soy sauce
+light soy sauce | Pantry | pantry | EA | thin soy sauce;sheng chou | soy,gluten | soy_sauce shoyu -low //  light soy sauce
+mushroom soy sauce | Pantry | pantry | EA | mushroom dark soy sauce | soy,gluten | proxy: soy_sauce shoyu -low //
+sweet bean sauce | Pantry | pantry | EA | tianmianjiang;sweet flour sauce | soy,gluten | proxy: sauce hoisin //
+yellow bean sauce | Pantry | pantry | EA | ground bean sauce;mian shi jiang | soy,gluten | proxy: miso //
+black bean sauce | Pantry | pantry | EA | black bean garlic sauce;douchi sauce | soy,gluten | // black bean sauce
+hot bean paste | Pantry | pantry | EA | toban djan;chili bean sauce | soy,gluten | // chili bean sauce
+xo sauce | Pantry | pantry | EA | x.o. sauce | fish,shellfish | // xo sauce
+sha cha sauce | Pantry | pantry | EA | shacha sauce;chinese bbq sauce;bull head bbq sauce | fish,shellfish,soy,gluten | // bbq sauce chinese
+chili crisp | Pantry | pantry | EA | chili crunch;lao gan ma;crispy chili oil | soy | // chili crisp
+plum sauce | Pantry | pantry | EA | duck sauce | gluten | // plum sauce
+char siu sauce | Pantry | pantry | EA | chinese bbq pork sauce | soy,gluten | // char siu sauce, charsiu sauce, char siu
+sweet and sour sauce | Pantry | pantry | EA,NAM | sweet & sour sauce | - | // sweet_and_sour sauce
+orange sauce | Pantry | pantry | EA,NAM | orange chicken sauce | soy,gluten | // orange sauce
+teriyaki sauce | Pantry | pantry | EA | teriyaki marinade | soy,gluten | sauce teriyaki ready-to-serve //
+ponzu | Pantry | pantry | EA | ponzu sauce;citrus soy sauce | soy,gluten,fish | // ponzu
+tonkatsu sauce | Pantry | pantry | EA | katsu sauce | soy,gluten | // tonkatsu, katsu sauce
+mentsuyu | Pantry | pantry | EA | noodle soup base;tsuyu;soba tsuyu | soy,gluten,fish | // noodle soup base
+hondashi | Pantry | pantry | EA | dashi granules;dashi powder;instant dashi | fish | // dashi
+yuzu juice | Pantry | pantry | EA | yuzu;citron juice | - | // yuzu juice
+yuzu kosho | Pantry | pantry | EA | yuzu pepper paste | - | // yuzu kosho
+shichimi togarashi | Spices | spices | EA | japanese seven spice;nanami togarashi | sesame | proxy: spices curry_powder //
+wasabi paste | Pantry | pantry | EA | wasabi | - | // wasabi paste
+wasabi powder | Spices | spices | EA | - | - | // wasabi powder
+karashi | Pantry | pantry | EA | japanese mustard;hot japanese mustard | - | -
+sansho pepper | Spices | spices | EA | japanese pepper;sansho | - | proxy: // sansho
+red miso | Pantry | pantry | EA | aka miso;dark miso | soy | miso //
+awase miso | Pantry | pantry | EA | mixed miso | soy | miso //
+yellow miso | Pantry | pantry | EA | shinshu miso;shiro miso | soy | miso //
+umeboshi | Pantry | pantry | EA | pickled plum;japanese salted plum | - | // umeboshi
+takuan | Pantry | pantry | EA | pickled daikon;danmuji;yellow pickled radish | - | // pickled radish
+natto | Pantry | legumes | EA | fermented soybeans | soy | natto //
+aburaage | Pantry | pantry | EA | fried tofu pouches;inari age;abura age | soy | tofu fried //
+atsuage | Pantry | pantry | EA | thick fried tofu | soy | tofu fried //
+yuba | Pantry | pantry | EA | tofu skin;bean curd skin;tofu sheets;bean curd sheet | soy | // yuba, bean curd skin, tofu skin, bean curd sheet
+dried tofu | Pantry | pantry | EA | pressed tofu;baked tofu;tofu gan;five spice tofu | soy | -
+fermented bean curd | Pantry | pantry | EA | nanru;furu;tofu cheese;preserved tofu | soy | // fermented bean curd
+kinako | Pantry | pantry | EA | roasted soybean flour;toasted soy flour | soy | flour soy -defatted //
+soy flour | Pantry | pantry | GLO | soybean flour | soy | flour soy full-fat //
+tofu puffs | Pantry | pantry | EA,SEA | fried tofu puffs;tau pok;tofu pok | soy | proxy: tofu fried //
+extra firm tofu | Pantry | pantry | EA | pressed tofu block | soy | tofu raw firm //
+soft tofu | Pantry | pantry | EA | regular tofu;soft bean curd | soy | tofu raw regular //
+sundubu | Pantry | pantry | EA | extra soft tofu;uncurdled tofu | soy | tofu soft //
+dried shiitake mushrooms | Pantry | vegetables | EA | dried shiitake;dong gu;black mushrooms dried | - | mushrooms shiitake dried //
+enoki mushrooms | Produce | vegetables | EA | enoki;enokitake;golden needle mushrooms | - | mushroom enoki //
+king oyster mushrooms | Produce | vegetables | EA | king trumpet mushrooms;eryngii | - | mushroom king_oyster //
+maitake mushrooms | Produce | vegetables | EA | maitake;hen of the woods | - | mushroom maitake //
+shimeji mushrooms | Produce | vegetables | EA | beech mushrooms;shimeji | - | mushroom beech //
+nameko mushrooms | Produce | vegetables | EA | nameko | - | proxy: mushroom enoki //
+lion's mane mushrooms | Produce | vegetables | EA | lions mane;yamabushitake | - | mushroom lion's_mane //
+straw mushrooms | Produce | vegetables | EA,SEA | paddy straw mushrooms | - | mushrooms straw //
+dried goji berries | Pantry | fruit | EA | goji berries;wolfberries;gouqizi | - | goji_berries dried //
+red dates | Pantry | fruit | EA | jujube;chinese dates;hong zao;dried jujube | - | jujube chinese //
+longan | Produce | fruit | EA,SEA | dragon eye | - | longans raw //
+lychee | Produce | fruit | EA,SEA | litchi | - | litchis raw //
+lotus root | Produce | vegetables | EA | lian ou | - | lotus_root raw //
+lotus seeds | Pantry | nuts | EA | lotus nuts;lian zi | - | seeds lotus raw //
+bamboo shoots | Produce | vegetables | EA,SEA | fresh bamboo shoots;canned bamboo shoots | - | bamboo_shoots raw //
+baby corn | Produce | vegetables | EA,SEA | baby corn cobs | - | // baby corn
+lily buds | Pantry | vegetables | EA | golden needles;dried lily flowers;jin zhen cai | - | // lily flower, golden needle, lily bud, tiger lily
+chinese cinnamon | Spices | spices | EA | cassia;cassia bark;cassia cinnamon | - | spices cinnamon,_ground //
+sand ginger | Spices | spices | EA | kaempferia;sha jiang | - | proxy: spices ginger,_ground //
+chinese broccoli | Produce | vegetables | EA,SEA | gai lan;kai lan;chinese kale | - | proxy: broccoli_raab raw //
+choy sum | Produce | vegetables | EA,SEA | choi sum;flowering cabbage;yu choy;cai xin | - | proxy: cabbage chinese_(pak-choi) raw //
+garlic chives | Produce | herbs | EA,SEA | chinese chives;jiu cai;nira;gau choy | - | chives raw //
+chinese eggplant | Produce | vegetables | EA | asian eggplant;long purple eggplant | - | eggplant raw //
+winter melon | Produce | vegetables | EA,SEA | wax gourd;dong gua;white gourd | - | proxy: gourd white-flowered_(calabash) raw //
+bitter melon | Produce | vegetables | EA,SEA,SA | bitter gourd;karela;goya;ampalaya | - | balsam-pear pods raw //
+luffa | Produce | vegetables | EA,SEA,SA | chinese okra;silk squash;sponge gourd;angled luffa;ridge gourd;turai | - | gourd dishcloth raw //
+chayote | Produce | vegetables | LAT,EA | mirliton;christophine;chocho;vegetable pear | - | chayote fruit,_raw //
+taro root | Produce | vegetables | EA,SEA,PAC,CAR | taro;dasheen;eddoe;arbi;colocasia | - | taro raw -leaves -shoots -tahitian //
+japanese sweet potato | Produce | vegetables | EA | satsumaimo;kumara;murasaki sweet potato | - | sweet_potato raw unprepared //
+korean sweet potato | Produce | vegetables | EA | goguma | - | sweet_potato raw unprepared //
+kabocha squash | Produce | vegetables | EA | japanese pumpkin;kabocha;hokkaido squash | - | proxy: squash winter all_varieties raw //
+burdock root | Produce | vegetables | EA | gobo;niu bang | - | burdock raw //
+konjac | Pantry | pantry | EA | konnyaku;devil's tongue jelly;elephant yam | - | // konjac
+shirataki noodles | Pantry | grains | EA | konjac noodles;miracle noodles | - | // shirataki
+somen noodles | Pantry | grains | EA | somen;thin wheat noodles | gluten | noodles japanese,_somen,_dry //
+harusame | Pantry | grains | EA | japanese glass noodles | - | noodles japanese,_somen,_dry //
+cellophane noodles | Pantry | grains | EA,SEA | glass noodles;mung bean noodles;bean thread noodles;fen si;vermicelli bean thread | - | noodles chinese cellophane //
+lo mein noodles | Pantry | grains | EA | lo mein;egg lo mein noodles | gluten,egg | // lo mein noodles
+chow mein noodles | Pantry | grains | EA | chow mein;crispy chow mein noodles | gluten | noodles chinese,_chow_mein //
+rice stick noodles | Pantry | grains | EA,SEA | ho fun;chow fun;flat rice noodles;pad thai noodles;banh pho | - | rice_noodles dry //
+rice vermicelli | Pantry | grains | EA,SEA | mai fun;bun;bihon;rice sticks thin;bee hoon | - | rice_noodles dry //
+dumpling wrappers | Pantry | grains | EA | gyoza wrappers;potsticker wrappers;jiaozi wrappers | gluten | // dumpling wrappers, gyoza wrappers, potsticker wrappers, dumpling skins
+egg roll wrappers | Pantry | grains | EA,NAM | egg roll skins | gluten,egg | // egg roll wrappers
+mochi | Pantry | grains | EA | rice cake japanese | - | -
+mochiko | Pantry | grains | EA | sweet rice flour;glutinous rice flour;shiratamako | - | flour rice glutinous //
+rice flour | Pantry | grains | EA,SEA,SA | white rice flour | - | rice_flour white //
+brown rice flour | Pantry | grains | GLO | whole grain rice flour | - | rice_flour brown //
+wheat starch | Pantry | grains | EA | dumpling flour;cheng mian | gluten | proxy: wheat_flour white,_all-purpose //
+tapioca starch | Pantry | pantry | EA,SEA,LAT | tapioca flour;cassava starch | - | tapioca,_pearl,_dry //
+tapioca pearls | Pantry | grains | EA,SEA | boba pearls;sago;bubble tea pearls | - | tapioca,_pearl,_dry //
+mung bean starch | Pantry | pantry | EA | green bean starch | - | proxy: tapioca,_pearl,_dry //
+arrowroot powder | Pantry | pantry | GLO | arrowroot starch;arrowroot flour | - | arrowroot_flour //
+kuzu | Pantry | pantry | EA | kudzu starch;kudzu root starch | - | proxy: arrowroot_flour //
+agar | Pantry | pantry | EA,SEA | agar-agar;kanten;agar powder | - | seaweed agar,_dried //
+hijiki | Pantry | pantry | EA | hiziki;dried hijiki | - | // hijiki
+arame | Pantry | pantry | EA | dried arame | - | // arame
+dulse | Pantry | pantry | EUN | dried dulse | - | proxy: seaweed irishmoss raw //
+laver | Pantry | pantry | EA | gim;kim;dried seaweed sheets;roasted seaweed | - | seaweed laver,_raw //
+seaweed snack | Pantry | pantry | EA | roasted seaweed snack;seasoned laver | - | -
+spirulina | Pantry | pantry | GLO | spirulina powder | - | seaweed spirulina,_dried //
+sea vegetables | Pantry | pantry | GLO | mixed sea vegetables | - | proxy: seaweed kelp raw //
+century egg | Protein | eggs | EA | preserved egg;thousand year egg;pidan | egg | // century egg, preserved egg, thousand year egg
+salted duck egg | Protein | eggs | EA,SEA | salted egg;xian dan | egg | proxy: egg duck whole fresh raw //
+duck egg | Protein | eggs | EA,SEA | - | egg | egg duck,_whole,_fresh,_raw //
+quail egg | Protein | eggs | EA,EUE | - | egg | egg quail,_whole,_fresh,_raw //
+chinese sausage | Protein | meat | EA | lap cheong;lap chong;chinese pork sausage;waxed sausage | - | // chinese sausage, lap cheong, lap chong
+pork floss | Protein | meat | EA,SEA | rousong;meat floss;yuk sung | soy,gluten | // pork floss, meat floss
+peking duck | Protein | meat | EA | roast duck;chinese roast duck | soy | duck roasted //
+dried scallops | Protein | seafood | EA | conpoy;dried conpoy;yao zhu | shellfish | -
+dried squid | Protein | seafood | EA,SEA | dried cuttlefish;surume;ojingeo | shellfish | -
+dried anchovies | Protein | seafood | EA,SEA,EUM | ikan bilis;myeolchi;iriko;niboshi;dried sardines | fish | -
+jellyfish | Protein | seafood | EA | salted jellyfish | - | // jellyfish
+abalone | Protein | seafood | EA | - | shellfish | mollusks abalone raw //
+unagi | Protein | seafood | EA | grilled eel;freshwater eel;kabayaki | fish,soy,gluten | fish eel mixed_species raw //
+tobiko | Protein | seafood | EA | flying fish roe;masago | fish | fish roe mixed_species raw //
+ikura | Protein | seafood | EA,EUE | salmon roe;salmon caviar | fish | fish roe mixed_species raw //
+uni | Protein | seafood | EA | sea urchin;sea urchin roe | shellfish | proxy: fish roe mixed_species raw //
+sashimi tuna | Protein | seafood | EA | bluefin tuna;maguro;ahi tuna;yellowfin tuna | fish | fish tuna fresh yellowfin raw //
+mackerel | Protein | seafood | EA,EUN,EUM | saba;atlantic mackerel | fish | fish mackerel atlantic raw //
+yellowtail | Protein | seafood | EA | hamachi;buri;amberjack | fish | fish yellowtail raw //
+sea bream | Protein | seafood | EA,EUM | tai;dorade;porgy;daurade | fish | proxy: fish scup raw //
+herring | Protein | seafood | EUN,EUE | atlantic herring | fish | fish herring atlantic raw //
+sushi rice | Pantry | grains | EA | sushi grade rice;calrose rice;koshihikari rice;japonica rice | - | rice white,_short-grain,_raw //
+sticky rice | Pantry | grains | EA,SEA | sweet rice;glutinous rice | - | rice white glutinous uncooked //
+black rice | Pantry | grains | EA,SEA | forbidden rice;purple rice | - | // black rice, forbidden rice
+red rice | Pantry | grains | GLO | red cargo rice;bhutanese red rice | - | rice brown,_long-grain,_raw //
+rice bran | Pantry | grains | GLO | - | - | rice_bran crude //
+hojicha | Pantry | pantry | EA | roasted green tea | - | // hojicha
+matcha | Pantry | pantry | EA | matcha powder;green tea powder | - | // matcha -latte -mix -drink -stick -booster -infusions -honey
+green tea | Pantry | pantry | EA | sencha;green tea leaves | - | beverages tea green,_brewed //
+jasmine tea | Pantry | pantry | EA | - | - | // jasmine tea
+oolong tea | Pantry | pantry | EA | wulong | - | // oolong tea
+black tea | Pantry | pantry | GLO | assam;earl grey;english breakfast tea | - | beverages tea black,_brewed //
+makgeolli | Other | pantry | EA | korean rice wine;nongju | - | // makgeolli
+soju | Other | pantry | EA | - | - | // soju, korean liquor
+huangjiu | Other | pantry | EA | chinese yellow wine;shaoxing rice wine | gluten | wine rice // rice wine
+cooking sake | Other | pantry | EA | ryorishu;sake cooking | - | alcoholic_beverage rice_(sake) //
+doenjang | Pantry | pantry | EA | korean soybean paste;korean miso;deonjang | soy | miso //
+ssamjang | Pantry | pantry | EA | korean dipping paste;korean bbq paste | soy,sesame | // ssamjang
+korean soup soy sauce | Pantry | pantry | EA | guk ganjang;joseon ganjang | soy | soy_sauce shoyu //
+korean bbq sauce | Pantry | pantry | EA | bulgogi sauce;bulgogi marinade;galbi sauce | soy,sesame,gluten | // korean bbq
+jocheong | Pantry | pantry | EA | korean rice syrup;mulyeot;rice syrup | - | syrups malt //
+asian pear | Produce | fruit | EA | korean pear;nashi pear;napa pear;shingo pear | - | pears asian raw //
+korean radish | Produce | vegetables | EA | mu;moo;korean mooli | - | radish oriental raw //
+perilla leaves | Produce | herbs | EA | kkaennip;shiso;ohba;sesame leaves;perilla | - | -
+mitsuba | Produce | herbs | EA | japanese parsley;japanese honewort | - | proxy: parsley fresh //
+myoga | Produce | herbs | EA | japanese ginger;myoga ginger | - | proxy: ginger_root raw //
+perilla oil | Pantry | pantry | EA | deulgireum;shiso oil | - | proxy: oil flaxseed //
+korean zucchini | Produce | vegetables | EA | aehobak;korean squash | - | squash summer zucchini raw //
+cheongyang pepper | Produce | vegetables | EA | korean chili pepper;korean green chile;korean hot pepper | - | peppers hot_chili raw green //
+naengmyeon noodles | Pantry | grains | EA | korean buckwheat noodles;cold noodles | gluten | -
+buckwheat noodles | Pantry | grains | EA | japanese buckwheat noodles | gluten | // buckwheat noodles
+tteokbokki rice cakes | Pantry | grains | EA | tteok;garaetteok;cylinder rice cakes | - | // tteokbokki
+saeujeot | Pantry | pantry | EA | salted shrimp;korean salted shrimp | shellfish | proxy: // bagoong, salted shrimp
+korean fish sauce | Pantry | pantry | EA | aekjeot;myeolchi aekjeot;kkanari aekjeot | fish | sauce fish ready-to-serve //
+gochugaru flakes coarse | Spices | spices | EA | - | - | proxy: spices pepper red_or_cayenne //
+yuja tea | Pantry | pantry | EA | yuzu tea;citron tea;yuja cheong | - | // yuja
+azuki beans | Pantry | legumes | EA | adzuki beans;red beans;aduki beans | - | beans adzuki mature_seeds,_raw //
+anko | Pantry | pantry | EA | sweet red bean paste;red bean paste;koshian;tsubuan | - | // red bean paste
+mung beans | Pantry | legumes | EA,SA,SEA | green gram;moong beans | - | mung_beans mature_seeds,_raw //
+black soybeans | Pantry | legumes | EA | kuromame;black soya beans | soy | soybeans mature_seeds,_raw -sprouted //
+soybeans | Pantry | legumes | EA | dried soybeans;soya beans | soy | soybeans mature_seeds,_raw -sprouted //
+chinese ham | Protein | meat | EA | jinhua ham;yunnan ham | - | proxy: ham cured //
+mongolian hot pot broth | Pantry | pantry | EA | hot pot base;hot pot soup base | - | // hot pot base
+tempura flour | Pantry | grains | EA | tempura batter mix | gluten | // tempura batter
+takoyaki flour | Pantry | grains | EA | takoyaki mix | gluten | // takoyaki
+okonomiyaki flour | Pantry | grains | EA | okonomiyaki mix | gluten | // okonomiyaki
+shio koji | Pantry | pantry | EA | salt koji;shiokoji | - | // shio koji
+dried bonito | Pantry | pantry | EA | katsuobushi block;arabushi | fish | // bonito flakes

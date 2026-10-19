@@ -1,0 +1,29 @@
+kind	ingredient	form	value	conf	note
+alt	ground beef	default	171790	H	SR ground beef 95% lean raw
+alt	ground beef	default	173110	H	SR ground beef 93% lean raw
+alt	ground beef	default	174030	H	SR ground beef 90% lean raw
+alt	ground beef	default	171796	H	SR ground beef 85% lean raw
+alt	ground beef	default	168652	H	SR ground beef 70% lean raw
+alt	ground turkey	default	172850	H	SR ground turkey 93% lean raw
+alt	ground turkey	default	172847	H	SR ground turkey fat free raw
+alt	plain yogurt	default	170886	H	SR plain low-fat yogurt
+alt	plain yogurt	default	170894	H	SR plain nonfat Greek yogurt
+alt	plain yogurt	default	171304	H	SR plain whole-milk Greek yogurt
+alt	greek yogurt	default	171304	H	SR plain whole-milk Greek yogurt
+alt	greek yogurt	default	170886	H	SR plain low-fat yogurt
+alt	sour cream	default	171256	H	SR reduced-fat sour cream
+alt	sour cream	default	173443	H	SR light sour cream
+alt	sour cream	default	173444	H	SR fat-free sour cream
+alt	cream cheese	default	169079	H	SR low-fat cream cheese
+alt	cottage cheese	default	173417	H	SR 1% lowfat cottage cheese
+alt	mozzarella	default	170846	H	SR whole-milk low-moisture mozzarella
+alt	mozzarella	default	169051	H	SR nonfat mozzarella
+alt	cheddar cheese	default	173439	H	SR low-fat cheddar or colby
+alt	cheddar cheese	default	170899	H	SR sharp cheddar sliced
+alt	buttermilk	default	172225	H	SR whole-milk buttermilk
+alt	evaporated milk	default	170878	H	SR nonfat evaporated milk
+alt	evaporated milk	default	171302	H	SR 2% evaporated milk
+alt	half-and-half	default	172212	H	SR fat-free half and half
+alt	half-and-half	default	171308	H	SR lowfat half and half
+alt	rolled oats	default	169705	H	SR oats (whole grain)
+alt	brown rice	default	169706	H	SR brown medium-grain rice raw

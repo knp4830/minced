@@ -451,6 +451,12 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-17 | `pnpm exec supabase stop --no-backup` (your project_id only) | Remove the local stack and volumes | Never stop a stack another agent started |
 | 2026-10-17 | `node --experimental-strip-types scripts/test-me.mts` | Run the Me unit tests | Plain strip-types cannot resolve `@/`; the script registers `scripts/me-alias-hook.mjs` itself |
 | 2026-10-17 | `gh pr create --base main --head wave9/integration --body-file <file>` | Open the wave 9 PR | Body starts with a MERGE ORDER WARNING |
+| 2026-10-17 | `python -I scripts/nutrition/build_usda_seeds.py` | Build the USDA seed files from the FDC bulk CSVs (CC0) | Deterministic (same md5 twice); bulk cache is gitignored |
+| 2026-10-17 | `python -I scripts/world-ingredients/{compact_fdc,add_survey,resolve,check_dupes,brands,emit_sql,report}.py` | Build the world ingredient and brand seeds | Run `load_scratch.sh` first; dedupe check only against a pristine DB |
+| 2026-10-17 | `psql -v ON_ERROR_STOP=1 -f supabase/seed-nutrition-usda-1-foods.sql` (then the other seeds in LIVE-STEPS order) | Load nutrition seeds on a snapshot | Idempotent; the nutrients file takes about 20 s |
+| 2026-10-17 | `SET jit = off; SELECT refresh_all_recipe_nutrients();` | Compute nutrition for every recipe | FAILED slow with JIT on (over an hour); with it off about 90 s |
+| 2026-10-17 | `supabase start --workdir <tmp>` with copied `config.toml` AND `templates/` | Signed-in local stack | The CLI reads auth email templates relative to the workdir |
+| 2026-10-17 | `gh pr create --base main --head w10/integration --body-file <file>` | Open the waves 10+11 PR | Body starts with a MERGE ORDER WARNING |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

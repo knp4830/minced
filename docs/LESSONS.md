@@ -380,3 +380,36 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 **A date stored as a UTC timestamp compared with a browser-local "today" is off by a day in the evening.** Convert `updated_at` with the `me_tz` cookie before day arithmetic.
 
 **A clamped target changes the projected date.** The projection must use the pace the floored calories actually give.
+## 11. Waves 10 + 11 (2026-10-17)
+
+**JIT makes big plpgsql functions 100 times slower.** One wide CTE took 2.8 s per call (24 ms with `jit = off`); a full refresh of 957 recipes went from over an hour to about 90 s. Put `SET jit = off` on every heavy set-returning function, run the bulk refresh with `SET jit = off` in the same session, and `ANALYZE` after bulk loads.
+
+**The recipes before-write trigger bumps `updated_at` and rebuilds `search_vector` on every UPDATE.** A nutrition refresh sets the transaction-local `minced.skip_touch` so it does not churn both. Expect row bloat after a full refresh; run `VACUUM (FULL, ANALYZE) recipes`.
+
+**Brands are foods, never canonical ingredients.** A brand is a `usda_foods` row linked through `ingredient_foods`; the recipe line keeps the canonical ingredient plus an optional `fdc_id`. Every `usda_foods` row must be a real FDC id: never average products into a made-up food.
+
+**Missing is not zero.** No `usda_food_nutrients` row means "not reported"; 0 is a true zero. A recipe nutrient shows only at 90 percent coverage by mass, and partial recipes say "at least". Never fill gaps with a guess.
+
+**Identify nutrients in code by USDA `fdc_number`, not our own key text.** Layout survives renames.
+
+**FDC Branded values are label values per serving.** Tiny servings round to 0 kcal or inflate; units include `GRM` and `MLT`, not only g and ml; ml-sold foods need a density, and every nutrient (not just energy and macros) must be converted. Reject label-rounded zeros unless the food is truly zero.
+
+**Foundation Foods are sparse (10 to 17 of 35 nutrients), SR Legacy carries about 35.** Default to SR for completeness unless Foundation is the only drained or canned record. Foundation energy is Atwater and vitamin D is often IU; load raw, convert in SQL.
+
+**A default food is judged by what a cook means, not what sorts first.** The audit found dried vs raw (kombu), stock vs concentrate (veal stock), mixes vs plain (pumpkin pie filling), skin-on vs skinless chicken thighs. Check forms (raw, cooked, canned, dried) for every ingredient sold more than one way.
+
+**Import qualifiers are lost data.** "Low-fat", "cooked", "canned", "halves", "florets", and "A or B" alternatives disappeared at MyPlate import and inflate computed calories. The compute must turn an unmatched "cooked" or "canned" into a named gap, not silently fall back to the raw food.
+
+**Do not redefine a function from a second migration.** Two lanes both wanted `save_my_recipe`; the later migration silently erases the earlier. Add a narrow RPC (`set_my_recipe_foods`) for the extra data.
+
+**Three-valued logic in tests.** `NULL <> x` never raises; assert with `IS DISTINCT FROM`. A permission error and an RLS denial are both `42501`, so a test cannot tell which layer blocked.
+
+**PostgREST cannot filter a to-many embed on an RPC result** (`42703`). Allergen exclusion on the `filtered_recipes` path now lives in the function (`exclude_slugs`).
+
+**Allergen defaults must be applied on the server before the first byte.** That is why `minced_prefs` is an httpOnly cookie (the database stays the truth; `/api/me` heals drift). Rejected: client restore into the URL (flashes unfiltered results) and writing defaults into the URL (leaks the sender's allergies in shared links). Merge rule: diet is replaced per dimension by the URL, allergens are unioned.
+
+**A floating dropdown inside a native `<dialog>` is clipped.** Render it inline there. Fixed-width grid columns in a narrow panel truncate labels; use a container query.
+
+**The snapshot dump has no `private` schema and no grants.** Anything calling `private.*` (user recipes) fails locally; recreate the functions from `20261014120000` or test against a stub. The supabase CLI reads auth email templates relative to its `--workdir`, so copy `templates/` with `config.toml`.
+
+**The agent shell refuses compound commands it cannot verify** (docker plus variables, heredocs with unbalanced quotes). Write a small script file and run it with a plain command.

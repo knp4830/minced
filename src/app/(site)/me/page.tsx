@@ -12,6 +12,7 @@ import { MealsPanel } from "@/components/me/mealsPanel";
 import { MorningPrompt } from "@/components/me/morningPrompt";
 import { MuscleCard } from "@/components/me/muscleCard";
 import { NutrientsPanel } from "@/components/me/nutrientsPanel";
+import { getNutrients } from "@/lib/queries/recipeNutrients";
 import { StreakStrip } from "@/components/me/streakStrip";
 import { TimezoneSync } from "@/components/me/timezoneSync";
 import { TodayFood } from "@/components/me/todayFood";
@@ -31,6 +32,7 @@ import {
   getWeights,
   monthRange,
 } from "@/lib/queries/me";
+import { getMySettings } from "@/lib/queries/settings";
 import { pickCheckIn } from "@/lib/me/checkin";
 import { TZ_COOKIE, addDays, longDate, monthGrid, monthLabel, monthParam, parseMonthParam, shiftMonth, todayInZone, weekLabel } from "@/lib/me/dates";
 import { dayFoodStatus } from "@/lib/me/foodStatus";
@@ -79,15 +81,20 @@ export default async function MePage({ searchParams }: Props) {
   const rawRange = Array.isArray(sp.wr) ? sp.wr[0] : sp.wr;
   const wRange: WeightRange = rawRange === "90" || rawRange === "weekly" ? rawRange : "30";
 
-  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed] = await Promise.all([
+  // Units, sex and the first day of the week are Settings (one query per request, shared with getTargets).
+  const settings = await getMySettings();
+  const { weekStart } = settings;
+
+  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList] = await Promise.all([
     getTargets(zone),
     getFoodForDate(today),
     getSleepForDate(today),
-    getWeekMuscles(today),
+    getWeekMuscles(today, weekStart),
     getMonthSummary(range.from, range.to),
     getWeights(addDays(today, -(WEIGHT_FETCH_DAYS - 1)), today),
     getLoggedDays(today),
     getDismissedCheckIns(),
+    getNutrients(),
   ]);
 
   const totals = sumFood(food);
@@ -120,7 +127,7 @@ export default async function MePage({ searchParams }: Props) {
   return (
     <div className="me-scope page-w py-6 md:py-8">
       <TimezoneSync serverToday={today} />
-      <MeUiProvider today={today} targets={targets} avgWeightKg={avgWeightKg}>
+      <MeUiProvider today={today} targets={targets} avgWeightKg={avgWeightKg} settings={{ units: settings.units, sex: settings.sex }}>
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
           <h1 id="me-title" tabIndex={-1} className="text-[1.75rem] leading-none font-medium outline-none md:text-[2rem]">
             Me
@@ -134,7 +141,7 @@ export default async function MePage({ searchParams }: Props) {
 
         {(sleepToday === null || !weightToday) && (
           <div className="mt-4">
-            <MorningPrompt sleepLogged={sleepToday !== null} weightLogged={weightToday} units={targets?.units ?? "metric"} />
+            <MorningPrompt sleepLogged={sleepToday !== null} weightLogged={weightToday} units={settings.units} />
           </div>
         )}
         {checkin && (
@@ -146,7 +153,13 @@ export default async function MePage({ searchParams }: Props) {
         <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-5 md:mt-6 md:gap-6 lg:grid-cols-12">
           <div className="contents lg:col-span-5 lg:flex lg:flex-col lg:gap-6">
             <div className="max-lg:order-4">
-              <MuscleCard key={targets?.sex ?? "male"} weekLabel={weekLabel(week.from, week.to)} week={weekMap} defaultSex={targets?.sex ?? "male"} />
+              <MuscleCard
+                key={`${settings.sex ?? targets?.sex ?? "male"}-${weekStart}`}
+                weekLabel={weekLabel(week.from, week.to)}
+                week={weekMap}
+                defaultSex={settings.sex ?? targets?.sex ?? "male"}
+                weekStart={weekStart}
+              />
             </div>
             <div className="max-lg:order-5">
               <WorkoutPlansSoon />
@@ -156,10 +169,11 @@ export default async function MePage({ searchParams }: Props) {
                 monthLabel={monthLabel(ym.year, ym.month)}
                 prevHref={href(prev)}
                 nextHref={href(next)}
-                cells={monthGrid(ym.year, ym.month)}
+                cells={monthGrid(ym.year, ym.month, weekStart)}
                 days={days}
                 today={today}
                 targets={targets}
+                weekStart={weekStart}
               />
             </div>
           </div>
@@ -168,13 +182,13 @@ export default async function MePage({ searchParams }: Props) {
               <TodayFood dateLabel={longDate(today).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} />
             </div>
             <div className="max-lg:order-7">
-              <NutrientsPanel totals={totals} entries={food} />
+              <NutrientsPanel entries={food} nutrients={nutrientList} />
             </div>
             <div className="max-lg:order-2">
               <MealsPanel food={food} totals={totals} />
             </div>
             <div className="max-lg:order-3">
-              <WeightCard weights={weights} today={today} range={wRange} hrefs={wrHrefs} targets={targets} />
+              <WeightCard weights={weights} today={today} range={wRange} hrefs={wrHrefs} targets={targets} units={settings.units} weekStart={weekStart} />
             </div>
           </div>
         </div>

@@ -44,7 +44,7 @@ export function LogSheet({
   const [sleep, setSleep] = useState(7.5);
   const [sleepTouched, setSleepTouched] = useState(false);
   const ui = useMeUi();
-  const units = ui.targets?.units ?? "metric";
+  const units = ui.settings.units;
   const unitWord = units === "imperial" ? "lb" : "kg";
   const [weight, setWeight] = useState("");
   const weightKg = units === "imperial" ? lbToKg(Number(weight)) : Number(weight);

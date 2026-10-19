@@ -1,0 +1,97 @@
+# Southeast Asia: Thailand, Vietnam, Indonesia, Malaysia, Singapore, Philippines, Myanmar, Cambodia, Laos
+yellow curry paste | Pantry | pantry | SEA | thai yellow curry paste | shellfish | // yellow curry paste
+panang curry paste | Pantry | pantry | SEA | phanaeng curry paste;penang curry paste | shellfish | // panang curry paste
+tom yum paste | Pantry | pantry | SEA | tom yum soup paste;tom yam paste | shellfish,fish | // tom yum paste
+shrimp paste | Pantry | pantry | SEA | belacan;belachan;kapi;terasi;mam ruoc;trassi;bagoong alamang | shellfish | // shrimp paste, shrimp sauce, bagoong, belacan
+kecap manis | Pantry | pantry | SEA | indonesian sweet soy sauce;sweet soy sauce;ketjap manis | soy,gluten | // kecap manis, sweet soy sauce
+sambal oelek | Pantry | pantry | SEA | ground fresh chili paste;sambal ulek;chili garlic paste | - | // sambal oelek, chili garlic sauce
+sambal | Pantry | pantry | SEA | sambal tumis;indonesian chili sauce;sambal terasi | shellfish | // sambal -mango -oelek
+laksa paste | Pantry | pantry | SEA | laksa curry paste | shellfish | // laksa paste
+rendang paste | Pantry | pantry | SEA | rendang curry paste;bumbu rendang | - | // rendang paste, rendang
+satay sauce | Pantry | pantry | SEA | peanut satay sauce | nuts,soy | // satay sauce
+peanut sauce | Pantry | pantry | SEA,EA | thai peanut sauce;gado gado sauce | nuts,soy | // peanut sauce
+nuoc cham | Pantry | pantry | SEA | vietnamese dipping sauce;nuoc mam cham | fish | // nuoc cham
+chili garlic sauce | Pantry | pantry | SEA,EA | tuong ot toi | - | // chili garlic sauce
+fried shallots | Pantry | pantry | SEA | crispy shallots;bawang goreng;hanh phi | - | proxy: // french fried onions
+crispy fried onions | Pantry | pantry | NAM,SEA | french fried onions;fried onion topping | gluten | // french fried onions, crispy fried onions
+fried garlic | Pantry | pantry | SEA | crispy garlic;bawang putih goreng | - | -
+coconut cream | Pantry | pantry | SEA,CAR | creamed coconut milk;cream of coconut unsweetened | - | coconut cream raw //
+coconut sugar | Pantry | pantry | SEA | coconut palm sugar;gula kelapa | - | // coconut sugar
+gula melaka | Pantry | pantry | SEA | malaysian palm sugar;gula jawa;gula merah | - | // palm sugar
+coconut vinegar | Pantry | pantry | SEA,SA | sukang tuba;palm vinegar | - | vinegar distilled //
+coconut milk powder | Pantry | pantry | SEA,SA | powdered coconut milk | dairy | // coconut milk powder
+desiccated coconut | Pantry | pantry | SEA,SA,CAR | unsweetened shredded coconut;dried coconut;coconut flakes | - | coconut_meat dried not_sweetened //
+fresh coconut | Produce | fruit | SEA,SA,CAR,PAC | coconut meat;young coconut | - | nuts coconut_meat raw //
+coconut flour | Pantry | grains | GLO | - | - | // coconut flour
+turmeric root | Produce | vegetables | SEA,SA | fresh turmeric;kunyit;haldi root | - | proxy: spices turmeric,_ground //
+fingerroot | Produce | herbs | SEA | krachai;chinese keys;temu kunci;kencur | - | proxy: ginger_root raw //
+torch ginger | Produce | herbs | SEA | kecombrang;bunga kantan;ginger flower | - | proxy: ginger_root raw //
+pandan leaves | Produce | herbs | SEA | screwpine leaves;pandanus;bai toey;daun pandan | - | -
+pandan extract | Pantry | pantry | SEA | pandan paste;pandan essence | - | // pandan cat=baking_additives
+salam leaf | Spices | spices | SEA | indonesian bay leaf;daun salam | - | spices bay_leaf //
+vietnamese coriander | Produce | herbs | SEA | rau ram;laksa leaf;daun kesum;polygonum | - | proxy: coriander_(cilantro)_leaves raw //
+culantro | Produce | herbs | SEA,CAR,LAT | sawtooth coriander;ngo gai;recao;chadon beni;long coriander | - | proxy: coriander_(cilantro)_leaves raw //
+vietnamese mint | Produce | herbs | SEA | rau hung lui;hung cay | - | proxy: peppermint fresh //
+betel leaves | Produce | herbs | SEA,SA | la lot;paan leaves;piper betle;wild betel leaf | - | // betel leaf
+lemon basil | Produce | herbs | SEA | hoary basil;thai lemon basil | - | basil fresh //
+calamansi | Produce | fruit | SEA | calamondin;philippine lime;kalamansi | - | proxy: lime_juice raw //
+pomelo | Produce | fruit | SEA,EA | pummelo;shaddock;pamplemousse | - | pummelo raw //
+dragon fruit | Produce | fruit | SEA,LAT | pitaya;pitahaya | - | -
+rambutan | Produce | fruit | SEA | - | - | -
+mangosteen | Produce | fruit | SEA | - | - | -
+durian | Produce | fruit | SEA | - | - | // durian
+jackfruit | Produce | fruit | SEA,SA | ripe jackfruit;nangka;langka | - | jackfruit raw //
+young green jackfruit | Pantry | vegetables | SEA,SA | canned young jackfruit;green jackfruit;kathal;nangka muda | - | // young green jackfruit, jackfruit in brine
+starfruit | Produce | fruit | SEA,CAR | carambola;star fruit | - | carambola raw //
+soursop | Produce | fruit | SEA,LAT,CAR,WAF | guanabana;graviola;custard apple | - | soursop raw //
+sapodilla | Produce | fruit | SEA,LAT | chikoo;sapota;chiku | - | sapodilla raw //
+passion fruit | Produce | fruit | LAT,SEA,CAR | maracuya;granadilla;parchita | - | passion-fruit,_(granadilla),_purple,_raw //
+guava | Produce | fruit | LAT,SEA,SA,CAR | guayaba;goiaba | - | guavas common raw //
+banana blossom | Produce | vegetables | SEA,SA | banana flower;banana heart;puso ng saging;kele ka phool | - | // banana blossom, banana flower
+banana leaves | Produce | herbs | SEA,SA,LAT,CAR | plantain leaves;hoja de platano | - | - //
+saba banana | Produce | fruit | SEA | cardava;cooking banana;plantain banana | - | plantains raw //
+winged beans | Produce | vegetables | SEA | goa beans;four-angled beans;kecipir | - | winged_bean raw //
+yardlong beans | Produce | vegetables | SEA,EA | chinese long beans;asparagus beans;sitaw | - | yardlong_bean raw //
+pea eggplant | Produce | vegetables | SEA | thai pea eggplant;makhuea phuang | - | proxy: eggplant raw //
+cassava leaves | Produce | vegetables | SEA,WAF,EAF | manioc leaves;pondu;saka saka;kasava leaves | - | -
+sweet potato leaves | Produce | vegetables | SEA,WAF,EA | kamote tops;camote leaves | - | sweet_potato_leaves //
+moringa leaves | Produce | vegetables | SEA,SA,WAF | malunggay;drumstick leaves;moringa | - | drumstick_leaves raw //
+moringa pods | Produce | vegetables | SA,SEA | moringa drumsticks;saijan;murungakkai | - | drumstick_pods raw //
+bottle gourd | Produce | vegetables | SA,SEA,EA | calabash;upo;lauki;dudhi;opo squash | - | gourd white-flowered_(calabash) raw //
+ube | Produce | vegetables | SEA | purple yam;dioscorea alata | - | yam raw //
+ube halaya | Pantry | pantry | SEA | purple yam jam | dairy | // ube halaya, ube jam
+kesong puti | Dairy | - | SEA | filipino white cheese;white carabao cheese | dairy | proxy: cheese cottage creamed small_curd //
+longganisa | Protein | meat | SEA | filipino sausage;lucanica | - | // longanisa cat=sausages
+tocino | Protein | meat | SEA | sweet cured pork | - | // tocino
+lechon kawali | Protein | meat | SEA | crispy pork belly | - | proxy: pork fresh belly raw //
+sinigang mix | Pantry | pantry | SEA | tamarind soup base;sinigang sa sampalok | - | // sinigang
+adobo sauce | Pantry | pantry | SEA | filipino adobo sauce | soy,gluten | -
+pandesal | Pantry | grains | SEA | filipino bread rolls | gluten,dairy,egg | // pandesal
+kerupuk | Pantry | pantry | SEA | prawn crackers;shrimp chips;krupuk;keropok | shellfish,gluten | // prawn crackers, shrimp chips
+tempeh chips | Pantry | pantry | SEA | keripik tempe | soy | // tempeh chips
+bakso | Protein | meat | SEA | indonesian meatballs;beef meatballs | - | -
+candlenuts | Pantry | nuts | SEA | kemiri;buah keras;kukui nuts | nuts | proxy: nuts macadamia //
+dried chilies whole | Spices | spices | SEA,SA,LAT | dried whole chiles | - | proxy: spices pepper red_or_cayenne //
+bird's eye chili | Produce | vegetables | SEA,SA,EAF | thai bird chili;prik kee noo;cabai rawit;siling labuyo | - | peppers hot_chili raw red //
+chili paste in oil | Pantry | pantry | SEA | nam prik pao oil;thai chili jam | fish,shellfish | -
+tamarind pulp | Pantry | fruit | SEA,SA,LAT,WAF | tamarind block;sampalok;asam jawa;imli | - | tamarinds raw //
+lime leaves dried | Spices | spices | SEA | dried kaffir lime leaves | - | // kaffir lime leaves dried
+galangal powder | Spices | spices | SEA | laos powder;kha powder | - | proxy: spices ginger,_ground //
+nutmeg mace | Spices | spices | SEA,CAR | mace;javitri | - | spices mace,_ground //
+cassia leaves | Spices | spices | SEA | - | - | proxy: spices bay_leaf //
+banh pho noodles | Pantry | grains | SEA | pho noodles;banh pho dried | - | rice_noodles dry //
+banh hoi | Pantry | grains | SEA | vietnamese rice vermicelli sheets | - | rice_noodles dry //
+bun bo hue paste | Pantry | pantry | SEA | bun bo hue seasoning base | shellfish | // bun bo hue
+cha lua | Protein | meat | SEA | vietnamese pork roll;gio lua;vietnamese ham | - | // cha lua, vietnamese ham
+nem nuong | Protein | meat | SEA | grilled pork sausage | - | // nem nuong
+tea leaves fermented | Pantry | pantry | SEA | lahpet;laphet;burmese pickled tea | - | // fermented tea leaves, lahpet
+ngapi | Pantry | pantry | SEA | burmese fish paste;fermented fish paste;nga pi | fish | // fermented fish paste, fish paste
+prahok | Pantry | pantry | SEA | cambodian fermented fish paste | fish | // prahok
+kroeung | Pantry | pantry | SEA | khmer curry paste;kroeung paste | - | // kroeung
+padaek | Pantry | pantry | SEA | lao fermented fish sauce;pla ra;pla der | fish | // padaek
+rice paddy herb | Produce | herbs | SEA | ngo om;rau om;limnophila | - | proxy: coriander_(cilantro)_leaves raw //
+lemongrass paste | Pantry | pantry | SEA | lemongrass puree;tubed lemongrass | - | // lemongrass paste
+kaffir lime | Produce | fruit | SEA | makrut lime;kaffir lime fruit;makrut lime zest | - | proxy: lime_juice raw //
+sago pearls | Pantry | grains | SEA | sago;saksak | - | tapioca,_pearl,_dry //
+thai iced tea mix | Pantry | pantry | SEA | thai tea;cha yen mix | - | // thai tea
+water mimosa | Produce | vegetables | SEA | phak krachet | - | proxy: spinach raw //

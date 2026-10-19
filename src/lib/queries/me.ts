@@ -7,7 +7,8 @@
 
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createClient } from "@/lib/supabase/server";
-import { addDays, localDateOf, weekRange } from "@/lib/me/dates";
+import { addDays, localDateOf, weekRange, type WeekStart } from "@/lib/me/dates";
+import { getMySettings, writeSettings } from "@/lib/queries/settings";
 import {
   sumFood,
   type DayDetail,
@@ -54,12 +55,15 @@ export async function getTargets(zone?: string | null): Promise<MeTargets | null
     .maybeSingle();
   const r = data as TargetRow | null;
   if (!r) return null;
+  // Settings owns sex and units now (Settings > Body / Units). me_targets keeps a mirrored copy only for
+  // old readers and goes away in a follow-up migration; where the two ever differ, Settings is right.
+  const s = await getMySettings();
   return {
-    sex: r.sex,
+    sex: s.sex ?? r.sex,
     age: r.age_years,
     heightCm: num(r.height_cm),
     weightKg: num(r.weight_kg),
-    units: r.units,
+    units: s.units,
     activity: r.activity,
     goal: r.goal,
     paceKg: num(r.pace_kg),
@@ -85,8 +89,20 @@ type FoodRow = {
   fat_g: number | string;
   fiber_g: number | string | null;
   sodium_mg: number | string | null;
+  nutrients: Record<string, unknown> | null;
   recipes: LoggedRecipe | LoggedRecipe[] | null;
 };
+
+/** The jsonb snapshot, keeping only finite numbers: anything else in it is ignored, never trusted. */
+function snapshotOf(v: Record<string, unknown> | null): Record<string, number> | null {
+  if (!v || typeof v !== "object") return null;
+  const out: Record<string, number> = {};
+  for (const [k, x] of Object.entries(v)) {
+    const n = typeof x === "number" ? x : Number(x);
+    if (Number.isFinite(n) && n >= 0) out[k] = n;
+  }
+  return Object.keys(out).length > 0 ? out : null;
+}
 
 type PhotoRow = { storage_path: string; thumb_path: string | null };
 type LoggedRecipe = { slug: string; image_url: string | null; recipe_photos: PhotoRow | PhotoRow[] | null };
@@ -101,10 +117,11 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
   const db = await createClient();
   const { data } = await db
     .from("me_food_log")
-    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
+    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
     .eq("log_date", date)
     .order("created_at", { ascending: true })
     .limit(80);
+  // `nutrients` (migration 20261017150000) is now in the generated types.
   return ((data ?? []) as FoodRow[]).map((r) => {
     const rec = Array.isArray(r.recipes) ? (r.recipes[0] ?? null) : r.recipes;
     return {
@@ -118,6 +135,7 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
       fatG: num(r.fat_g),
       fiberG: numOrNull(r.fiber_g),
       sodiumMg: numOrNull(r.sodium_mg),
+      nutrients: snapshotOf(r.nutrients),
       recipe: rec ? { slug: rec.slug, imageUrl: recipeThumb(rec.image_url, rec.recipe_photos) } : null,
     };
   });
@@ -206,8 +224,11 @@ export async function getDismissedCheckIns(): Promise<Partial<Record<CheckInKind
 
 // ---------- week and month ----------
 
-export async function getWeekMuscles(date: string): Promise<{ from: string; to: string; muscles: WeekMuscle[] }> {
-  const { from, to } = weekRange(date);
+export async function getWeekMuscles(
+  date: string,
+  weekStart: WeekStart = "monday",
+): Promise<{ from: string; to: string; muscles: WeekMuscle[] }> {
+  const { from, to } = weekRange(date, weekStart);
   const db = await createClient();
   const { data } = await db.rpc("me_week_muscles", { p_from: from, p_to: to });
   const muscles = ((data ?? []) as { muscle: string; sets: number | string; days: string[] }[]).map((r) => ({
@@ -368,6 +389,10 @@ export async function writeTargets(t: Omit<MeTargets, "updatedOn">): Promise<Wri
   const s = await signedIn();
   if (!s) return SIGN_IN;
   const db = s.db;
+  // Sex and units belong to Settings. The wizard only asks for sex when Settings has none, and either way what
+  // it sends is what Settings holds, so this write is a no-op for a person who already set them.
+  const settings = await writeSettings({ sex: t.sex, units: t.units });
+  if (!settings.ok) return settings.reason === "signed-out" ? SIGN_IN : FAILED;
   const { error } = await db.from("me_targets").upsert(
     {
       user_id: s.uid,
@@ -430,6 +455,8 @@ export type NewFood = {
   fatG: number;
   fiberG: number | null;
   sodiumMg: number | null;
+  /** Per-nutrient totals for the entry, keyed by nutrient `key`; null when nothing is known beyond the columns. */
+  nutrients?: Record<string, number> | null;
 };
 
 export async function writeFood(f: NewFood): Promise<WriteResult> {
@@ -448,6 +475,8 @@ export async function writeFood(f: NewFood): Promise<WriteResult> {
     fat_g: f.fatG,
     fiber_g: f.fiberG,
     sodium_mg: f.sodiumMg,
+    nutrients: f.nutrients ?? null,
+    // `nutrients` is new (migration 20261017150000); drop this cast after the next pnpm db:types.
   });
   if (error) return error.code === "54000" ? { ok: false, error: "That is a lot of entries for one day. Remove one first." } : FAILED;
   return { ok: true };

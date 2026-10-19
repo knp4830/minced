@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useId, useMemo, useState, useTransition } from "react";
 
 import { MeDialog } from "@/components/me/meDialog";
@@ -45,19 +46,23 @@ const showWeight = (kg: number, units: Units) => String(units === "imperial" ? k
 
 export function TargetsWizard({
   initial,
+  settings,
   today,
   avgWeightKg,
   onClose,
 }: {
   initial: MeTargets | null;
+  /** Settings owns units and sex. Units are shown, not asked; sex is asked here only while Settings has none. */
+  settings: { units: Units; sex: Sex | null };
   today: string;
   avgWeightKg: number | null;
   onClose: () => void;
 }) {
   const id = useId();
   const [step, setStep] = useState(1);
-  const [units, setUnits] = useState<Units>(initial?.units ?? "metric");
-  const [sex, setSex] = useState<Sex | null>(initial?.sex ?? null);
+  const units: Units = settings.units;
+  const sexFromSettings = settings.sex !== null;
+  const [sex, setSex] = useState<Sex | null>(settings.sex ?? initial?.sex ?? null);
   const [age, setAge] = useState(initial ? String(initial.age) : "");
 
   const initFt = initial ? cmToFtIn(initial.heightCm) : null;
@@ -105,23 +110,6 @@ export function TargetsWizard({
   // The pace the calories really give: slower than chosen when the target was lifted to the minimum.
   const realPace = input && computed ? effectivePaceKg(input, computed.kcal) : 0;
   const days = body && goalKg !== null && !Number.isNaN(goalKg) && !wrongSide ? daysToGoal(body.weightKg, goalKg, goal, realPace) : null;
-
-  function switchUnits(next: Units) {
-    if (next === units) return;
-    if (body) {
-      if (next === "imperial") {
-        const f = cmToFtIn(body.heightCm);
-        setFt(String(f.ft));
-        setInch(String(f.inch));
-        setWeight(showWeight(body.weightKg, "imperial"));
-      } else {
-        setHeightCm(String(body.heightCm));
-        setWeight(showWeight(body.weightKg, "metric"));
-      }
-    }
-    if (goalKg !== null && !Number.isNaN(goalKg)) setGoalWeight(showWeight(goalKg, next));
-    setUnits(next);
-  }
 
   function goNext() {
     setMessage(null);
@@ -184,15 +172,31 @@ export function TargetsWizard({
       {step === 1 && (
         <div>
           <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-muted">Four quick questions. These feed the calorie formula and you can change them any time.</p>
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-            <span className="text-[0.8125rem] font-semibold">
-              Sex <span className="font-normal text-ink-subtle">(for the formula)</span>
-            </span>
-            <Seg label="Units" value={units} options={[["metric", "Metric"], ["imperial", "Imperial"]]} onChange={(v) => switchUnits(v as Units)} />
-          </div>
-          <div className="mt-2">
-            <Seg label="Sex for the formula" value={sex ?? ""} options={[["female", "Female"], ["male", "Male"]]} onChange={(v) => setSex(v as Sex)} />
-          </div>
+          {sexFromSettings ? (
+            <p className="mt-5 rounded-md bg-band px-3 py-2 text-[0.875rem] text-ink-muted" data-testid="wizard-using">
+              Using: <span className="text-ink">{sex}</span>, <span className="text-ink">{units}</span>.{" "}
+              <Link href="/settings#body" className="underline underline-offset-4 hover:text-herb">
+                Change in Settings
+              </Link>
+            </p>
+          ) : (
+            <>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[0.8125rem] font-semibold">
+                  Sex <span className="font-normal text-ink-subtle">(the calorie formula has one constant for each; saved to Settings)</span>
+                </span>
+              </div>
+              <div className="mt-2">
+                <Seg label="Sex for the formula" value={sex ?? ""} options={[["female", "Female"], ["male", "Male"]]} onChange={(v) => setSex(v as Sex)} />
+              </div>
+              <p className="mt-2 text-[0.8125rem] text-ink-muted">
+                Using <span className="text-ink">{units}</span> units.{" "}
+                <Link href="/settings#units" className="underline underline-offset-4 hover:text-herb">
+                  Change in Settings
+                </Link>
+              </p>
+            </>
+          )}
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             <div>
               <Label htmlFor={`${id}-age`}>Age</Label>

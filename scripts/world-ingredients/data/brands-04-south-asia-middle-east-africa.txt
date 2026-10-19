@@ -1,0 +1,99 @@
+# South Asian, Middle Eastern, African and other world pantry brands (existing and new canonical ingredients)
+garam masala | shan/mdh/everest/mccormick/badia/swad/deep/laxmi/ashoka/rani/frontier/simply organic/spicely | garam masala | n=8
+curry powder | shan/mdh/everest/laxmi/swad/deep/rani/badia/s&b | curry powder | n=4
+chaat masala | mdh/everest/shan/swad/deep/laxmi/rani | chaat masala | n=3
+tandoori masala | mdh/everest/shan/swad/deep/laxmi/rani | tandoori | n=3
+biryani masala | mdh/everest/shan/swad/deep/laxmi/rani | biryani | n=3
+chana masala | mdh/everest/shan/swad/deep/laxmi/rani | chana masala, chole masala | n=3
+sambar powder | mdh/everest/mtr/swad/deep/laxmi/rani | sambar | n=3
+pav bhaji masala | mdh/everest/shan/swad/deep | pav bhaji | n=3
+red chili powder | mdh/everest/shan/swad/deep/laxmi/rani/badia | chili powder, chilli powder | n=5
+kashmiri chili powder | mdh/everest/shan/swad/deep/laxmi/rani | kashmiri | n=3
+ground turmeric | mdh/everest/shan/swad/deep/laxmi/rani | turmeric | n=3
+asafoetida | mdh/everest/laxmi/swad/deep/vandevi | hing, asafoetida | n=3
+dried mango powder | mdh/everest/swad/deep/laxmi | amchur, mango powder | n=3
+dried fenugreek leaves | mdh/everest/swad/deep/laxmi/kasuri | methi | n=3
+ajwain | mdh/everest/swad/deep/laxmi | ajwain, carom | n=3
+nigella seeds | mdh/swad/deep/laxmi/frontier | nigella, kalonji | n=3
+black cardamom | mdh/swad/deep/laxmi | black cardamom | n=2
+kala namak | mdh/everest/swad/deep/laxmi | black salt | n=3
+tamarind paste | tamicon/neera/laxmi/ashoka/swad/deep | tamarind | n=3
+paneer | gopi/nanak/amul/ziggy's/kalona/mother dairy/haldiram's/maple hill | paneer | n=5
+naan | stonefire/sadaf/deep/kontos/haldiram's/trader joe/gillian's | naan | n=5 -crisps -chips -pizza
+papadum | deep/lijjat/swad/laxmi/ashoka | papad | n=3
+mango pickle | patak's/shan/mdh/ashoka/swad/deep/laxmi | mango pickle | n=4
+mango chutney | patak's/sharwood's/major grey/ashoka/swad/deep | mango chutney | n=3
+curry leaves | frontier/swad/deep/laxmi | curry leaves | n=2
+red lentils | bob's red mill/laxmi/swad/deep/ashoka/tata | red lentils, masoor | n=4 kmin=250
+chana dal | laxmi/swad/deep/ashoka/tata | chana dal | n=3 kmin=250
+toor dal | laxmi/swad/deep/ashoka/tata | toor dal | n=3 kmin=250
+urad dal | laxmi/swad/deep/ashoka/tata | urad dal | n=3 kmin=250
+moong dal | laxmi/swad/deep/ashoka/tata | moong dal, mung dal | n=3 kmin=250
+chickpea flour | bob's red mill/laxmi/swad/deep/ashoka/tata/ziyad | besan, chickpea flour | n=4
+atta | aashirvaad/pillsbury chakki/golden temple/laxmi/swad/deep/ashoka | atta | n=4
+semolina | bob's red mill/laxmi/swad/deep/ashoka/king arthur | semolina | n=4 kmin=250
+flattened rice | laxmi/swad/deep/ashoka/haldiram's | poha | n=3
+sabudana | laxmi/swad/deep/ashoka | sabudana, tapioca | n=2
+coconut milk powder | maggi/dabur/renuka/tropical | coconut milk powder | n=2
+jaggery | laxmi/swad/deep/ashoka/rani/gur | jaggery | n=3
+cardamom | rani/laxmi/swad/deep | cardamom | n=2
+rose water | cortas/al wadi/ziyad/sadaf/cedar/mymouné | rose water | n=3 d=1.0
+orange blossom water | cortas/al wadi/ziyad/sadaf/cedar | orange blossom | n=3 d=1.0
+pomegranate molasses | cortas/al wadi/ziyad/sadaf/mymouné/cedar/lebanon | pomegranate molasses | n=4 d=1.4
+harissa paste | mina/cortas/dea/le phare/ziyad/har bracha | harissa | n=4
+tahini | soom/ziyad/al wadi/sadaf/joyva/cedar | tahini | n=2
+halva | joyva/achva/sadaf/al wadi/haitoglou | halva, halvah | n=3
+hummus | sabra/cedar/athenos/tribe/boar's head/engine 2 | hummus | n=5
+baba ganoush | sabra/cedar/athenos/tribe | baba ghanoush, baba ganoush | n=2
+labneh | karoun/ziyad/cedar/mamma/sadaf | labneh | n=2
+feta | mt vikos/athenos/president | feta | n=2
+halloumi | cypressa/yarra valley/mt vikos/divina | halloumi | n=3
+pita bread | toufayan/joseph's/stonefire/sadaf/kontos/trader joe | pita | n=4
+lavash | joseph's/toufayan/sadaf/kontos | lavash | n=2
+za'atar | sadaf/al wadi/ziyad/cortas/mymouné | zaatar, za'atar | n=3
+sumac | sadaf/al wadi/ziyad/cortas | sumac | n=2
+aleppo pepper | sadaf/al wadi/ziyad/penzeys/spicely | aleppo | n=2
+dates | sadaf/al wadi/ziyad/barari/bard valley/natural delights/kirkland | dates | n=4 -date syrup
+date syrup | sadaf/al wadi/ziyad/cortas/mymouné | date syrup, date molasses | n=3 d=1.4
+dried apricots | sadaf/al wadi/ziyad/sun-maid/trader joe/mariani/kirkland/made in nature | apricots | n=3
+dried figs | sadaf/al wadi/ziyad/blue ribbon/sun-maid/trader joe/mariani | figs | n=3
+grape leaves | orlando/cortas/al wadi/ziyad/mt vikos/peloponnese | grape leaves, vine leaves | n=3
+kalamata olives | peloponnese/mt vikos/divina/cretan | kalamata | n=2
+couscous | ziyad/near east/cedar/moroccan/streit's/telma | couscous | n=2 kmin=250
+bulgur | ziyad/cedar/jennies | bulgur | n=2 kmin=250
+berbere | mountain rose/penzeys/spicely/frontier/ethiopian | berbere | n=3
+ras el hanout | frontier/mccormick/spicely/simply organic/penzeys | ras el hanout | n=3
+baharat | sadaf/al wadi/ziyad/frontier/spicely | baharat | n=3
+shawarma spice | sadaf/al wadi/ziyad/frontier/spicely | shawarma | n=2
+dukkah | sadaf/spicely/frontier | dukkah | n=2
+teff | bob's red mill/teffco/maskal/ancient grains | teff | n=3
+injera | ethiopian/queen sheba/addis/mama's | injera | n=2
+palm oil | nutiva/spectrum/tropical traditions/bob's/carotino | palm oil | n=3 d=0.91
+red palm oil | nutiva/tropical traditions/carotino | palm oil | n=2 d=0.91
+garri | golden tropics/ola ola/peak/teddy | gari, garri | n=2
+cassava flour | bob's red mill/otto's/anthony's/ancient/king arthur | cassava flour | n=4
+plantain | goya/la fe/chifles | plantain | n=2
+fufu flour | golden tropics/ola ola/mama's | fufu | n=3
+egusi | golden tropics/ola ola/african | egusi | n=2
+hibiscus flowers | alvarado/goya/frontier/mountain rose/organic | hibiscus | n=3
+rooibos | celestial/numi/rooibos/bigelow/stash | rooibos | n=3 -kombucha -cbd -latte -chai
+matcha | encha/jade leaf/ito en/teaspoon/kiss me organics | matcha | n=3 -latte -mix -drink -stick -booster -infusions -honey
+black tea | lipton/tetley/twinings/bigelow/pg tips/tazo/yorkshire/red rose/celestial | black tea | n=6 -chai -latte -cinnamon -flavor -vanilla
+oolong tea | ito en/twinings/stash/numi/bigelow | oolong | n=3
+coffee | folgers/maxwell house/starbucks/dunkin/peet's/lavazza/illy/cafe bustelo/community/kirkland | coffee | n=5 -cake -creamer -bar -ice cream cat=coffee
+espresso powder | medaglia d'oro/king arthur/nescafe/starbucks/cafe bustelo | espresso | n=3 -ice -drink
+maple syrup | log cabin/aunt jemima/pearl milling/mrs. butterworth's/hungry jack | syrup | n=3 -sugar -free d=1.33
+golden syrup | lyle's/tate & lyle/lyles | golden syrup | n=2 d=1.4
+black treacle | lyle's/tate & lyle/lyles | treacle | n=1 d=1.4
+oatcakes | walkers/nairn's/mccann's/dr. kracker | oatcakes | n=2
+digestive biscuits | mcvitie's/mcvities/britannia | digestive | n=2
+kielbasa | hillshire/smithfield/johnsonville/boar's head/eckrich/polska | kielbasa | n=4
+bratwurst | johnsonville/hillshire/aidells/usingers/klement/hormel | bratwurst | n=4
+sauerkraut | bubbies/boar's head/frank's/libby's/hengstenberg/gundelsheim/eden | sauerkraut | n=4
+pierogi | mrs t's/mrs. t's/ruth's/gosia | pierogi | n=3
+horseradish | gold's/bubbies/beaverton/ba-tampte/inglehoffer/silver spring | horseradish | n=3
+pickled herring | vita/ba-tampte/abba/ikea/lysholm | herring | n=3
+caviar | tsar nicoulai/petrossian/romanoff/bemka | caviar | n=2
+smoked salmon | vita/echo falls/kirkland/ducktrap/acme/trader joe/foppen | smoked salmon | n=4
+gravlax | ducktrap/foppen/vita/ikea/acme | gravlax | n=2
+lingonberry jam | ikea/felix/darbo/bonne maman/wild | lingonberry | n=2

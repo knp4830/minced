@@ -34,6 +34,9 @@
  *                                    soonest-expiring fridge items first (wave 6). No
  *                                    Postgres parameter: match_recipes ranks, then
  *                                    recipe_expiry_days() reorders one page.
+ *   defaults   defaults    "off"     the signed-in person's saved diet / allergen defaults (Settings)
+ *                                    are switched off for this search. No Postgres parameter: see
+ *                                    withDefaults() below. Absent = defaults apply.
  *   cursor     cursor      string    opaque; search: "score:uuid", matcher: base64url
  *
  * Multi-value params are comma-separated (`diet=vegan,gluten-free`) -- one key,
@@ -105,6 +108,11 @@ export type RecipeFilters = {
   proteinMin?: number;
   /** Pantry page: "expiry" = soonest-expiring saved-fridge items first (signed-in only). */
   sort?: "expiry";
+  /**
+   * "off" = ignore the saved defaults for this search. The URL never carries the defaults themselves
+   * (a shared link must not leak the sender's allergies); this flag is the only trace of them.
+   */
+  defaults?: "off";
   /** Opaque keyset cursor from the previous page's `nextCursor`. */
   cursor?: string;
 };
@@ -129,6 +137,7 @@ export const FILTER_PARAMS = [
   "calMax",
   "proteinMin",
   "sort",
+  "defaults",
   "cursor",
 ] as const satisfies readonly (keyof RecipeFilters)[];
 
@@ -223,6 +232,7 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     calMax: num(first(sp, "calMax"), 0, 10000),
     proteinMin: num(first(sp, "proteinMin"), 0, 1000),
     sort: first(sp, "sort") === "expiry" ? "expiry" : undefined,
+    defaults: first(sp, "defaults") === "off" ? "off" : undefined,
     cursor: cursor || undefined,
   };
   // A reversed range ("minTime=90&maxTime=30") is a typo in an editable URL: read it the way it was meant.
@@ -331,4 +341,83 @@ export function withoutNarrowing(f: RecipeFilters): RecipeFilters {
     // The cookware LIST is a standing preference like the fridge; only the toggle is a filter.
     ownedCookware: f.ownedCookware,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Saved defaults (Settings): the signed-in person's diet and allergen filters
+// ---------------------------------------------------------------------------
+
+/** Saved default filters. `exclude` is the allergen list, named like the URL param. */
+export type FoodDefaultsInput = { diet: string[]; exclude: string[] };
+
+export type DefaultsState = {
+  /**
+   * What the data layer queries. Never carries the `defaults` flag, so the cache key of a list does not
+   * depend on HOW its filters were reached, only on what they are.
+   */
+  effective: RecipeFilters;
+  /** The person's saved defaults (non-empty), or null: signed out, none set, or a forged cookie. */
+  saved: FoodDefaultsInput | null;
+  /** What is actually in force on this request, per dimension; null when none is (off, or all overridden). */
+  applied: FoodDefaultsInput | null;
+  /** Saved defaults exist but `defaults=off` switched them off for this search. */
+  off: boolean;
+};
+
+function withoutDefaultsFlag(f: RecipeFilters): RecipeFilters {
+  const { defaults, ...rest } = f;
+  void defaults;
+  return rest;
+}
+
+/**
+ * Merges the saved defaults into the filters of one request. Pure; the cookie is read by the page.
+ *
+ *   - no saved defaults, or `defaults=off`: the URL is taken literally (what it does today);
+ *   - DIET: the URL wins per dimension. `diet=vegan` replaces a saved `vegetarian`, so a person can always
+ *     look at a stricter or different style than their default;
+ *   - ALLERGENS: the saved list is UNIONED with the URL's, never replaced. A hand-edited or shared link
+ *     cannot silently drop a saved allergy; the only way to see them is `defaults=off`, which the
+ *     "Turn off for this search" link sets and the filter chips set when one of them is toggled.
+ */
+export function withDefaults(url: RecipeFilters, saved: FoodDefaultsInput | null | undefined): DefaultsState {
+  const base = withoutDefaultsFlag(url);
+  const has = !!saved && (saved.diet.length > 0 || saved.exclude.length > 0);
+  if (!has) return { effective: base, saved: null, applied: null, off: false };
+  if (url.defaults === "off") return { effective: base, saved, applied: null, off: true };
+
+  const dietFromUrl = !!url.diet?.length;
+  const diet = dietFromUrl ? url.diet! : saved.diet;
+  const exclude = [...new Set([...(url.exclude ?? []), ...saved.exclude])];
+  const effective: RecipeFilters = { ...base };
+  if (diet.length) effective.diet = diet;
+  else delete effective.diet;
+  if (exclude.length) effective.exclude = exclude;
+  else delete effective.exclude;
+
+  const applied = { diet: dietFromUrl ? [] : saved.diet, exclude: saved.exclude };
+  return { effective, saved, applied: applied.diet.length || applied.exclude.length ? applied : null, off: false };
+}
+
+/**
+ * A tap on a Diet / Free-of chip. With no defaults in force it is the ordinary toggle. With defaults in force
+ * the chips show the EFFECTIVE selection, so the tap MATERIALISES it: the URL gets the full effective `diet` and
+ * `exclude` explicitly, with the one tapped value flipped, plus `defaults=off`. The URL then says exactly what
+ * the person is looking at, and "uncheck peanuts" needs no special empty value.
+ */
+export function toggleFoodChip(
+  url: RecipeFilters,
+  state: DefaultsState,
+  key: "diet" | "exclude",
+  slug: string,
+): RecipeFilters {
+  if (!state.applied) return toggleInList(url, key, slug);
+  const cur = state.effective[key] ?? [];
+  const next = cur.includes(slug) ? cur.filter((s) => s !== slug) : [...cur, slug];
+  return withFilters(url, {
+    diet: state.effective.diet,
+    exclude: state.effective.exclude,
+    [key]: next,
+    defaults: "off",
+  });
 }

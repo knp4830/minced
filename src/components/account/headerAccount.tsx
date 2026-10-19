@@ -137,9 +137,9 @@ function AccountMenu({
               </span>
             )}
           </Link>
-          <Link href="/account?tab=settings" className={ITEM}>
+          <Link href="/settings" className={ITEM}>
             <Settings aria-hidden className="size-4 text-ink-muted" />
-            Account settings
+            Settings
           </Link>
           <SignOutForm className="mt-1 border-t border-line pt-1">
             <button type="submit" className={cn(ITEM, "text-paprika-deep hover:text-paprika-deep")}>

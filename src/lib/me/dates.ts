@@ -58,14 +58,33 @@ export function localDateOf(timestamp: string, tz: string | undefined | null): s
   return Number.isNaN(t.getTime()) ? timestamp.slice(0, 10) : todayInZone(tz, t);
 }
 
-/** Index of the weekday with Monday = 0 ... Sunday = 6. Weeks start on Monday everywhere in Me. */
+/** The first day of the week, a Setting. Monday until a person says otherwise. */
+export type WeekStart = "monday" | "sunday";
+
+/** Index of the weekday with Monday = 0 ... Sunday = 6. */
 export function mondayIndex(iso: string): number {
   return (new Date(toUtc(iso)).getUTCDay() + 6) % 7;
 }
 
-/** Monday to Sunday week containing `iso` ("Mon 12 - Sun 18 Oct"). */
-export function weekRange(iso: string): { from: string; to: string } {
-  const from = addDays(iso, -mondayIndex(iso));
+/** Index of the weekday counted from the first day of the week: 0 = the day the week starts on. */
+export function weekdayIndex(iso: string, weekStart: WeekStart = "monday"): number {
+  return weekStart === "sunday" ? new Date(toUtc(iso)).getUTCDay() : mondayIndex(iso);
+}
+
+/** Column headings of a week grid, starting on the chosen day. */
+export function weekdayNames(weekStart: WeekStart = "monday"): string[] {
+  const mon = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  return weekStart === "sunday" ? ["Sun", ...mon.slice(0, 6)] : mon;
+}
+
+/** "Monday to Sunday" / "Sunday to Saturday": the seven days a week covers, in words. */
+export function weekSpanWords(weekStart: WeekStart = "monday"): string {
+  return weekStart === "sunday" ? "Sunday to Saturday" : "Monday to Sunday";
+}
+
+/** The seven-day week containing `iso` ("Mon 12 - Sun 18 Oct"); Monday to Sunday unless `weekStart` says Sunday. */
+export function weekRange(iso: string, weekStart: WeekStart = "monday"): { from: string; to: string } {
+  const from = addDays(iso, -weekdayIndex(iso, weekStart));
   return { from, to: addDays(from, 6) };
 }
 
@@ -95,9 +114,9 @@ export function daysInMonth(year: number, month: number): number {
 
 export type CalCell = { iso: string | null; day: number | null };
 
-/** Month grid, Monday first, padded with blanks to whole weeks. */
-export function monthGrid(year: number, month: number): CalCell[] {
-  const first = mondayIndex(`${year}-${String(month).padStart(2, "0")}-01`);
+/** Month grid, first column = the day the week starts on (Monday by default), padded with blanks to whole weeks. */
+export function monthGrid(year: number, month: number, weekStart: WeekStart = "monday"): CalCell[] {
+  const first = weekdayIndex(`${year}-${String(month).padStart(2, "0")}-01`, weekStart);
   const n = daysInMonth(year, month);
   const cells: CalCell[] = [];
   for (let i = 0; i < first; i++) cells.push({ iso: null, day: null });

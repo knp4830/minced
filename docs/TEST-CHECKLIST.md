@@ -176,5 +176,25 @@ Live site: https://minced-app.vercel.app
 - [ ] /privacy lists weigh-ins and goal weight; the data export includes weigh-ins.
 - [ ] Run `supabase/tests/me_rls_test.sql` (93 checks) on a throwaway stack, never live.
 
+## 17. Waves 10 + 11 (2026-10-17), check after the ten migrations, seeds and refresh are live
+- [ ] Recipe page label (desktop): calories, fats, sodium, fiber, sugars, added sugars (estimated), protein with % Daily Value, then vitamins and minerals. A complete recipe (Chana Masala) has no "at least"; a partial one (Apple Salad) shows "at least" and a "Not counted" list naming the missing ingredient. Computed recipes say so in the footnote (not "published by MyPlate").
+- [ ] A micronutrient shows only when most of the recipe reports it; otherwise "not enough data". Sodium has the "minimum" footnote.
+- [ ] A recipe whose lines are all "no nutrition data" shows a short note instead of a label.
+- [ ] Type-ahead in the recipe form (needs the user-recipes flags): typing `soy` lists soy sauce first; `kikkoman soy` lists Kikkoman with its serving; arrows, Enter, Esc work (Esc closes only the list); a "no nutrition data" option says so in text.
+- [ ] Pick a brand in a recipe line, save, reopen: the brand is still shown ("Using: ..."); picking the plain ingredient clears it; calories move accordingly.
+- [ ] Me, Add food, "Ingredient or brand" tab: 100 g of Kikkoman soy sauce logs about 91 kcal; a food with no nutrition cannot be added (button disabled, plain message).
+- [ ] Me "All nutrients today": rows come from the nutrients table, no Atwater or IU rows; missing is a dash, "at least" when only some entries report it.
+- [ ] /about cites USDA FoodData Central. `/lab/foods` is a 404 on live.
+- [ ] Sign in, open /settings: name, units, week start, sex, food defaults, cookware, download my data, delete account all present; changes autosave ("Saved."), reload keeps them.
+- [ ] Defaults on both doors: vegetarian + nuts saved gives a "Your defaults" chip on /recipes and /pantry (about 39 recipes; many vegetarian recipes are untagged). `?defaults=off` shows everything; "Turn off for this search" and "Use them" toggle; `?diet=vegan` replaces the saved diet but keeps saved allergens.
+- [ ] Tap a Diet or Free-of chip while defaults apply: the URL becomes explicit (`diet=...&defaults=off`). A shared link never carries your saved defaults.
+- [ ] Sign out: no chip, results unfiltered; sign in: defaults apply from the first list. Change defaults on one device, reload on another: matches after one refresh.
+- [ ] Week start Sunday + imperial in Settings: /me calendar starts on Sunday, weights in lb; the Me wizard says "Using: ..., change in Settings" and asks sex only if Settings has none.
+- [ ] Block the network and change a radio: it reverts and says it could not save.
+- [ ] /account?tab=settings lands on /settings; the cookware filter link goes to /settings#cookware (known: does not scroll on a soft navigation).
+- [ ] /privacy lists the `minced_prefs` cookie and the Settings data.
+- [ ] Phone 375: /settings, recipe label and the Me add-food dialog have no horizontal scroll.
+- [ ] Run on a throwaway stack: `supabase/tests/nutrition_compute_test.sql`, `nutrition_rls_test.sql`, `recipe_ingredient_foods_test.sql`, `user_settings_test.sql` (68 checks), then `scripts/nutrition/sql-checks.sql`, `check_usda_seeds.sql`.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

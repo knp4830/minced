@@ -884,6 +884,8 @@ A signed-in page tying food, training and sleep together. **Design prompt for Cl
 
 **Wave 9 status (2026-10-17): v2 built on `wave9/integration`, NOT checked.** Added: research-based targets with the maths shown, goal-aware goal days, goal weight and pace, daily weigh-in with a 7-day-average chart, check-ins, streaks, Monday weeks, muscle legend by weekly sets, workout-plans placeholder. Verified on a local stack (93 RLS checks, desktop and 375 px). Still not live, so no box is checked. Questions: `docs/review/2026-10-17-wave9-questions.md`.
 
+**Waves 10 + 11 status (2026-10-17): built on `w10/integration`, NOT live, no boxes checked.** Wave 10: USDA nutrition for every ingredient (about 10.4k foods incl. 2.2k branded, 1,371 new world ingredients, per-recipe computed nutrition with coverage, full recipe label with %DV, Me all-nutrients panel, ingredient/brand type-ahead). Wave 11: `/settings` with default diet and allergen filters applied on both doors. Independent audits found food data faithful to USDA but computed calories off the published MyPlate numbers (median error 12 percent against an 8 percent target), so M1.5.4's reframed DoD stands and no new box is checked. Questions and review sheets: `docs/review/2026-10-17-wave10-11-questions.md`.
+
 **Workout pages (browse/follow plans by style) move to a later wave than v1.5** (user decision 2026-10-13); see v2 below.
 
 ### v1.2 — Nutrition tracking

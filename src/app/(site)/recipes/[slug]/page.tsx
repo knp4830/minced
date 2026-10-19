@@ -1,5 +1,4 @@
 import { BackToResults } from "@/components/recipe/backToResults";
-import { ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,10 +7,12 @@ import { LogThisButton } from "@/components/me/logThisButton";
 import { JsonLd } from "@/components/seo/jsonLd";
 import { Chip } from "@/components/ui/chip";
 import { MetaRow } from "@/components/ui/metaRow";
+import { NutritionPanel } from "@/components/recipe/nutritionPanel";
 import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
 import { AI_SOURCE_NAME, USER_SOURCE_NAME } from "@/lib/queries/browse";
 import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
+import { getNutrients, getRecipeNutrients } from "@/lib/queries/recipeNutrients";
 import { needsAttribution } from "@/lib/photos";
 import { SITE_URL } from "@/lib/site";
 
@@ -70,31 +71,6 @@ export async function generateMetadata({
 
 const round = (n: number, step: number) => Math.round(n / step) * step;
 
-/** The four numbers people look for first. */
-function nutritionHeadline(n: RecipeDetail["nutrition"]) {
-  const rows: { label: string; value: string }[] = [];
-  if (n.calories != null) rows.push({ label: "Calories", value: `${round(n.calories, 5)}` });
-  if (n.proteinG != null) rows.push({ label: "Protein", value: `${Math.round(n.proteinG)} g` });
-  if (n.carbsG != null) rows.push({ label: "Carbs", value: `${Math.round(n.carbsG)} g` });
-  if (n.fatG != null) rows.push({ label: "Fat", value: `${Math.round(n.fatG)} g` });
-  return rows;
-}
-
-/**
- * The label view. Daily values are the FDA's reference amounts for a 2,000 calorie diet.
- * Only nutrients the database holds are listed; nothing is invented.
- */
-function nutritionLabel(n: RecipeDetail["nutrition"]) {
-  const rows: { label: string; value: string; dv: number | null; indent?: boolean }[] = [];
-  const pct = (v: number, daily: number) => Math.round((v / daily) * 100);
-  if (n.fatG != null) rows.push({ label: "Total fat", value: `${Math.round(n.fatG)} g`, dv: pct(n.fatG, 78) });
-  if (n.sodiumMg != null) rows.push({ label: "Sodium", value: `${round(n.sodiumMg, 10)} mg`, dv: pct(n.sodiumMg, 2300) });
-  if (n.carbsG != null) rows.push({ label: "Total carbohydrate", value: `${Math.round(n.carbsG)} g`, dv: pct(n.carbsG, 275) });
-  if (n.fiberG != null) rows.push({ label: "Dietary fiber", value: `${Math.round(n.fiberG)} g`, dv: pct(n.fiberG, 28), indent: true });
-  if (n.proteinG != null) rows.push({ label: "Protein", value: `${Math.round(n.proteinG)} g`, dv: pct(n.proteinG, 50) });
-  return rows;
-}
-
 const isoMinutes = (n: number | null) => (n ? `PT${Math.trunc(n)}M` : undefined);
 
 /** schema.org/Recipe, so search engines can show time, calories and a photo in results. */
@@ -143,8 +119,9 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const isUsda = recipe.sourceName?.includes("MyPlate") ?? false;
   const isAi = recipe.sourceName === AI_SOURCE_NAME;
   const isUser = recipe.sourceName === USER_SOURCE_NAME;
-  const nutrition = nutritionHeadline(recipe.nutrition);
-  const label = nutritionLabel(recipe.nutrition);
+  // Computed nutrients and the vocabulary are cookie-free reads, safe inside ISR. Both return empty
+  // (never throw) until the nutrition tables are loaded, and the panel then shows the published columns.
+  const [nutritionData, nutrientList] = await Promise.all([getRecipeNutrients(recipe.id), getNutrients()]);
 
   return (
     <article className="page-w pt-4 pb-6 md:pt-6">
@@ -246,66 +223,12 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
 
         {/* Facts: nutrition tiles, then diet, cookware and allergens in a wrapping row. */}
         <div className="flex flex-col gap-5 lg:col-start-2 lg:row-start-2">
-          {nutrition.length > 0 && (
-            <section
-              aria-labelledby="nutrition-h"
-              className="rounded-xl border border-line bg-band p-4"
-            >
-              <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h2 id="nutrition-h" className="label-mono">
-                  Nutrition per serving
-                </h2>
-                <p className="font-mono text-[0.6875rem] text-ink-subtle">estimate · USDA data</p>
-              </div>
-              <dl className="grid grid-cols-2 gap-x-4 gap-y-3 min-[420px]:grid-cols-4">
-                {nutrition.map((row) => (
-                  <div key={row.label} className="min-w-0">
-                    <dt className="text-[0.75rem] text-ink-muted">{row.label}</dt>
-                    <dd className="font-mono text-[1.0625rem] font-semibold">~{row.value}</dd>
-                  </div>
-                ))}
-              </dl>
-
-              {label.length > 0 && (
-                <details className="group mt-3 border-t border-line pt-2.5">
-                  <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 rounded-xs text-[0.8125rem] font-semibold text-herb focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden">
-                    <span>More nutrition</span>
-                    <ChevronDown aria-hidden className="size-4 transition-transform group-open:rotate-180" />
-                  </summary>
-                  {/* Nutrition-label layout: a heavy rule above, hairlines between rows. */}
-                  <div className="mt-1 max-w-[22rem] rounded-md border border-ink bg-surface px-3 pt-2 pb-2.5 text-ink">
-                    <p className="text-[1.125rem] font-extrabold tracking-tight">Nutrition facts</p>
-                    <p className="text-[0.75rem] text-ink-muted">Per serving, estimated</p>
-                    {recipe.nutrition.calories != null && (
-                      <div className="mt-1 flex items-baseline justify-between border-t-[6px] border-ink pt-1">
-                        <span className="text-[0.9375rem] font-bold">Calories</span>
-                        <span className="font-mono text-[1.5rem] leading-none font-bold">
-                          {round(recipe.nutrition.calories, 5)}
-                        </span>
-                      </div>
-                    )}
-                    <p className="mt-1 border-t border-ink pt-1 text-right text-[0.6875rem] font-bold">% Daily value*</p>
-                    <dl>
-                      {label.map((row) => (
-                        <div
-                          key={row.label}
-                          className="flex items-baseline justify-between gap-3 border-t border-line-strong py-1 text-[0.8125rem]"
-                        >
-                          <dt className={row.indent ? "pl-4" : "font-bold"}>
-                            {row.label} <span className="font-normal">{row.value}</span>
-                          </dt>
-                          <dd className="font-mono font-bold">{row.dv != null ? `${row.dv}%` : ""}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                    <p className="mt-1.5 border-t-[6px] border-ink pt-1.5 text-[0.6875rem] leading-snug text-ink-muted">
-                      *Percent daily values use a 2,000 calorie diet. Amounts are estimated from USDA data.
-                    </p>
-                  </div>
-                </details>
-              )}
-            </section>
-          )}
+          <NutritionPanel
+            columns={recipe.nutrition}
+            data={nutritionData}
+            nutrients={nutrientList}
+            lines={recipe.ingredients.map((i) => ({ name: i.name, quantity: i.quantity, optional: i.optional }))}
+          />
 
           {(recipe.diets.length > 0 || recipe.cookware.length > 0) && (
             <div className="flex flex-wrap gap-x-8 gap-y-4">

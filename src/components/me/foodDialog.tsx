@@ -1,12 +1,18 @@
 "use client";
 
-import { useId, useRef, useState, useTransition } from "react";
+import { useEffect, useId, useRef, useState, useTransition } from "react";
 
+import { FoodCombobox } from "@/components/food/foodCombobox";
 import { MeDialog } from "@/components/me/meDialog";
 import { Button } from "@/components/ui/button";
 import { FieldHint, Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { previewFood, type PreviewResult } from "@/lib/actions/foods";
 import { logFood, searchRecipes } from "@/lib/actions/me";
+import { FOOD_UNITS } from "@/lib/foodInput";
+import { foodTitle } from "@/lib/foodTitle";
+import type { FoodHit } from "@/lib/foodHit";
 import { longDate } from "@/lib/me/dates";
 import { MEALS, type Meal } from "@/lib/me/types";
 import { usableImageUrl } from "@/lib/photos";
@@ -14,15 +20,16 @@ import type { LoggableRecipe } from "@/lib/queries/me";
 import { cn } from "@/lib/utils";
 
 /*
- * Add food to a meal. Two ways in, both writing the same kind of row:
+ * Add food to a meal. Three ways in, all writing the same kind of row:
  *   - a Minced recipe x servings: the nutrition is read from the recipe on the server and frozen on the
  *     log row (the browser never sends numbers for a recipe);
- *   - a quick add: a name and calories, with macros if you know them.
- * Foods from the ingredient catalogue are not offered: the database holds no per-100 g nutrition for
- * ingredients, and nothing here invents numbers.
+ *   - an ingredient or brand x an amount, picked from a type-ahead (like most food diaries): the server
+ *     works the nutrition out from USDA data with the same function that prices a recipe, and says so
+ *     plainly when it cannot (no data for that food, or no weight for that unit). Nothing is guessed;
+ *   - a quick add: a name and calories, with macros if you know them. Macros only, by design.
  */
 
-type Tab = "recipe" | "quick";
+type Tab = "recipe" | "food" | "quick";
 
 const nf = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
 
@@ -62,6 +69,7 @@ export function FoodDialog({
         {(
           [
             ["recipe", "Minced recipe"],
+            ["food", "Ingredient or brand"],
             ["quick", "Quick add"],
           ] as const
         ).map(([v, label]) => (
@@ -86,6 +94,8 @@ export function FoodDialog({
       <div className="mt-4" role="tabpanel" id={`food-panel-${tab}`} aria-labelledby={`food-tab-${tab}`}>
         {tab === "recipe" ? (
           <RecipeTab date={date} meal={meal} pending={pending} startTransition={startTransition} setMessage={setMessage} onDone={onClose} />
+        ) : tab === "food" ? (
+          <FoodTab date={date} meal={meal} pending={pending} startTransition={startTransition} setMessage={setMessage} onDone={onClose} />
         ) : (
           <QuickTab date={date} meal={meal} pending={pending} startTransition={startTransition} setMessage={setMessage} onDone={onClose} />
         )}
@@ -168,7 +178,7 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
       <div>
         <p className="font-display text-lg leading-snug font-medium">{picked.title}</p>
         <p className="mt-1 font-mono text-xs text-ink-muted">
-          {picked.calories === null ? "No nutrition yet" : `${nf.format(picked.calories)} kcal per serving`} &middot; makes {picked.servings}
+          {picked.calories === null ? "Nutrition incomplete, cannot be logged" : `${nf.format(picked.calories)} kcal per serving`} &middot; makes {picked.servings}
         </p>
         <div className="mt-5 flex items-center gap-3">
           <Label className="mb-0" htmlFor={`${qId}-servings`}>
@@ -224,7 +234,7 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[0.9375rem]">{r.title}</span>
                       <span className="block font-mono text-[0.6875rem] text-ink-muted">
-                        {r.calories === null ? "No nutrition yet" : `${nf.format(r.calories)} kcal per serving`}
+                        {r.calories === null ? "Nutrition incomplete, cannot be logged" : `${nf.format(r.calories)} kcal per serving`}
                       </span>
                     </span>
                   </button>
@@ -234,6 +244,142 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
           </ul>
         )}
         {!searching && !results && <FieldHint>Type at least two letters. Only Minced recipes are searched; for a coffee or a snack bar, use Quick add.</FieldHint>}
+      </div>
+    </div>
+  );
+}
+
+const kcal0 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+const g1 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
+
+/** Search a food or brand, enter an amount, see what it adds up to, add it. */
+function FoodTab({ date, meal, pending, startTransition, setMessage, onDone }: TabProps) {
+  const id = useId();
+  const [text, setText] = useState("");
+  const [picked, setPicked] = useState<FoodHit | null>(null);
+  const [qty, setQty] = useState("100");
+  const [unit, setUnit] = useState<string>("g");
+  const [preview, setPreview] = useState<PreviewResult | "loading" | null>(null);
+  const seq = useRef(0);
+
+  const usable = picked !== null && picked.ingredientId !== null && picked.hasNutrition !== false;
+
+  // Recompute the preview when the pick, amount or unit changes (debounced; a stale answer is dropped).
+  useEffect(() => {
+    if (!picked || !usable) return;
+    const amount = Number(qty.replace(",", "."));
+    if (!Number.isFinite(amount) || amount <= 0) {
+      setPreview(null);
+      return;
+    }
+    const mine = ++seq.current;
+    setPreview("loading");
+    const t = setTimeout(async () => {
+      const r = await previewFood({ ingredientId: picked.ingredientId, fdcId: picked.fdcId, quantity: amount, unit });
+      if (mine === seq.current) setPreview(r);
+    }, 300);
+    return () => clearTimeout(t);
+  }, [picked, usable, qty, unit]);
+
+  function add() {
+    if (!picked || !usable) return;
+    setMessage(null);
+    const label = `${foodTitle(picked)}, ${qty.trim()} ${unit || "each"}`.slice(0, 120);
+    startTransition(async () => {
+      const r = await logFood({ kind: "food", date, meal, ingredientId: picked.ingredientId, fdcId: picked.fdcId, quantity: qty, unit, name: label });
+      if (r.ok) onDone();
+      else setMessage(r.error);
+    });
+  }
+
+  if (!picked) {
+    return (
+      <div>
+        <Label htmlFor={`${id}-q`}>Search ingredients and brands</Label>
+        <FoodCombobox
+          inputId={`${id}-q`}
+          ariaLabel="Search ingredients and brands"
+          placeholder="Soy sauce, Kikkoman, jasmine rice&hellip;"
+          value={text}
+          maxLength={60}
+          autoFocus
+          inline
+          onValueChange={(v) => {
+            setText(v);
+            setMessage(null);
+          }}
+          onPick={(h) => {
+            setPicked(h);
+            setPreview(null);
+            setUnit("g");
+          }}
+        />
+        <FieldHint>
+          Type at least two letters, then pick one. Ingredients come first, then brands. For a restaurant meal or a snack with a label, use Quick add.
+        </FieldHint>
+      </div>
+    );
+  }
+
+  const amountOk = Number.isFinite(Number(qty.replace(",", "."))) && Number(qty.replace(",", ".")) > 0;
+  return (
+    <div>
+      <p className="font-display text-lg leading-snug font-medium">{foodTitle(picked)}</p>
+      <p className="mt-1 font-mono text-xs text-ink-muted">
+        {[picked.kind === "food" ? "Brand or product" : "Ingredient", picked.serving, picked.kcalPer100g !== null ? `${kcal0.format(picked.kcalPer100g)} kcal per 100 g` : null].filter(Boolean).join(" · ")}
+      </p>
+
+      {picked.ingredientId === null || picked.hasNutrition === false ? (
+        <p role="alert" className="mt-4 text-[0.875rem] text-paprika-deep">
+          {picked.ingredientId === null ? "That entry cannot be added up." : "We have no nutrition data for this one yet, so it cannot be added up."} Pick another, or use Quick add.
+        </p>
+      ) : (
+        <>
+          <div className="mt-5 grid grid-cols-[1fr_auto] items-end gap-3 sm:max-w-sm">
+            <div>
+              <Label htmlFor={`${id}-qty`}>Amount</Label>
+              <Input id={`${id}-qty`} mono inputMode="decimal" value={qty} onChange={(e) => setQty(e.target.value)} aria-invalid={!amountOk || undefined} autoFocus />
+            </div>
+            <div className="min-w-24">
+              <Label htmlFor={`${id}-unit`}>Unit</Label>
+              <Select id={`${id}-unit`} value={unit} onChange={(e) => setUnit(e.target.value)}>
+                {FOOD_UNITS.map((u) => (
+                  <option key={u} value={u}>
+                    {u === "" ? "each" : u}
+                  </option>
+                ))}
+              </Select>
+            </div>
+          </div>
+          <div aria-live="polite" className="mt-3 min-h-6 font-mono text-sm">
+            {preview === "loading" && <span className="text-ink-muted">Working it out&hellip;</span>}
+            {preview && preview !== "loading" && preview.ok && (
+              <span>
+                {preview.calories !== null ? `${kcal0.format(preview.calories)} kcal` : "calories unknown"}
+                {preview.proteinG !== null ? ` · P ${g1.format(preview.proteinG)} g` : ""}
+                {preview.carbsG !== null ? ` · C ${g1.format(preview.carbsG)} g` : ""}
+                {preview.fatG !== null ? ` · F ${g1.format(preview.fatG)} g` : ""}
+              </span>
+            )}
+            {preview && preview !== "loading" && !preview.ok && <span className="text-paprika-deep">{preview.error}</span>}
+          </div>
+        </>
+      )}
+      <div className="me-dialog-actions flex justify-end gap-2">
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            setPicked(null);
+            setPreview(null);
+            setMessage(null);
+          }}
+        >
+          Back
+        </Button>
+        <Button size="sm" onClick={add} disabled={pending || !usable || !amountOk || !preview || preview === "loading" || !preview.ok}>
+          {pending ? "Adding…" : "Add"}
+        </Button>
       </div>
     </div>
   );

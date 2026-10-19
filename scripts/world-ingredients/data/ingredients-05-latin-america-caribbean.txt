@@ -1,0 +1,112 @@
+# Latin America and the Caribbean (Mexico, Central America, Caribbean, Brazil, Andean, Southern Cone)
+ancho chile | Spices | spices | LAT | dried poblano;chile ancho;ancho chili | - | proxy: peppers ancho dried //
+mulato chile | Spices | spices | LAT | chile mulato | - | proxy: peppers ancho dried //
+cascabel chile | Spices | spices | LAT | chile cascabel;rattle chile | - | proxy: peppers hot_chile sun-dried //
+morita chile | Spices | spices | LAT | chile morita;dried chipotle | - | proxy: peppers hot_chile sun-dried //
+pequin chile | Spices | spices | LAT | chiltepin;piquin;bird pepper | - | proxy: peppers hot_chile sun-dried //
+new mexico chile | Spices | spices | LAT,NAM | hatch chile dried;dried new mexico red chile;chile colorado;california chile | - | proxy: peppers hot_chile sun-dried //
+hatch green chile | Produce | vegetables | NAM,LAT | hatch chile;new mexico green chile;roasted green chile | - | peppers hot_chili green raw //
+aji panca | Pantry | pantry | LAT | aji panca paste;peruvian red chile | - | // aji panca
+aji limo | Pantry | pantry | LAT | aji lemon drop;aji limon | - | proxy: peppers hot_chili raw red //
+rocoto pepper | Produce | vegetables | LAT | manzano pepper;rocoto;locoto | - | peppers hot_chili raw red //
+aji dulce | Produce | vegetables | CAR,LAT | ajicito;cachucha pepper;ají gustoso | - | peppers sweet red raw //
+huacatay paste | Pantry | pantry | LAT | black mint paste;peruvian black mint | - | // huacatay
+ancho chile powder | Spices | spices | LAT | ground ancho | - | proxy: peppers ancho dried //
+chipotle powder | Spices | spices | LAT | ground chipotle;chipotle chile powder | - | proxy: peppers hot_chile sun-dried //
+masa harina | Pantry | grains | LAT | instant corn masa;corn masa flour;nixtamalized corn flour | - | corn_flour masa_harina //
+harina pan | Pantry | grains | LAT | pre-cooked cornmeal;arepa flour;precooked corn flour | - | cornmeal degermed,_enriched,_white //
+corn husks | Pantry | pantry | LAT | tamale husks;hojas de maiz | - | - //
+nopales | Produce | vegetables | LAT | cactus paddles;nopalitos;prickly pear pads | - | nopales raw //
+prickly pear | Produce | fruit | LAT | tuna fruit;cactus pear;nopal fruit | - | prickly_pears raw //
+epazote | Produce | herbs | LAT | wormseed;mexican tea;pazote | - | epazote raw //
+mexican oregano | Spices | spices | LAT | oregano mexican;oregano de monte | - | spices oregano,_dried //
+huitlacoche | Pantry | vegetables | LAT | corn smut;cuitlacoche;mexican truffle | - | // huitlacoche
+squash blossoms | Produce | vegetables | LAT,EUM | zucchini flowers;flor de calabaza;pumpkin flowers | - | squash_blossoms raw //
+mexican chocolate | Pantry | pantry | LAT | abuelita chocolate;ibarra chocolate;chocolate de mesa | - | // mexican chocolate, chocolate de mesa
+cacao nibs | Pantry | pantry | LAT | cocoa nibs;raw cacao nibs | - | // cacao nibs, cocoa nibs
+cacao powder | Pantry | pantry | LAT | raw cacao powder | - | cocoa dry_powder,_unsweetened //
+agave syrup | Pantry | pantry | LAT | agave nectar;blue agave syrup | - | // agave nectar, agave syrup
+dulce de leche | Pantry | pantry | LAT | doce de leite;cajeta;manjar;arequipe;manjar blanco | dairy | // dulce de leche
+cajeta | Pantry | pantry | LAT | goat milk caramel | dairy | // cajeta
+mexican cinnamon | Spices | spices | LAT | canela;ceylon cinnamon;true cinnamon | - | spices cinnamon,_ground //
+vanilla bean | Spices | spices | LAT | vanilla pod;mexican vanilla | - | -
+oaxaca cheese | Dairy | - | LAT | quesillo;queso oaxaca;oaxacan string cheese | dairy | proxy: cheese mozzarella whole_milk //
+queso panela | Dairy | - | LAT | panela cheese;queso panela | dairy | proxy: cheese fresh queso_fresco //
+queso asadero | Dairy | - | LAT | queso chihuahua;chihuahua cheese;menonita cheese | dairy | cheese mexican queso_asadero //
+queso anejo | Dairy | - | LAT | aged mexican cheese;anejo enchilado | dairy | cheese mexican queso_anejo //
+requeson | Dairy | - | LAT | mexican ricotta | dairy | cheese ricotta,_whole_milk //
+crema salvadorena | Dairy | - | LAT | salvadoran cream;crema centroamericana | dairy | cream sour,_cultured //
+mole paste | Pantry | pantry | LAT | mole poblano;mole negro;mole rojo;doña maria mole | nuts,sesame | // mole paste, mole poblano
+green mole | Pantry | pantry | LAT | mole verde;pipian | nuts,sesame | // mole verde, pipian
+recado rojo | Pantry | pantry | LAT,CAR | achiote recado;recado colorado;yucatan achiote paste | - | // recado rojo
+salsa verde | Pantry | pantry | LAT | green salsa;tomatillo salsa;salsa verde mexicana | - | // salsa verde
+salsa macha | Pantry | pantry | LAT | peanut chile oil | nuts,sesame | // salsa macha
+tajin | Spices | spices | LAT | tajin seasoning;chile lime seasoning | - | -
+chamoy | Pantry | pantry | LAT | chamoy sauce;mexican plum sauce | - | // chamoy
+pico de gallo | Pantry | pantry | LAT | salsa fresca;salsa cruda | - | // pico de gallo
+guacamole | Pantry | pantry | LAT | avocado dip | - | // guacamole
+chipotle sauce | Pantry | pantry | LAT | chipotle hot sauce | - | -
+enchilada sauce | Pantry | pantry | LAT | red enchilada sauce;salsa roja enchilada | - | // enchilada sauce
+mojo | Pantry | pantry | CAR | mojo criollo;cuban mojo;mojo marinade;naranja agria sauce | - | // mojo criollo, mojo marinade
+sofrito | Pantry | pantry | CAR,LAT | recaito;sofrito base;puerto rican sofrito | - | // sofrito
+sazon | Spices | spices | CAR,LAT | sazón;sazon con culantro y achiote;goya sazon | - | // sazon
+alcaparrado | Pantry | pantry | CAR | olive caper mix;pimento olives and capers | - | // alcaparrado, olives capers
+jerk seasoning | Spices | spices | CAR | jamaican jerk;jerk spice;dry jerk rub | - | // jerk seasoning
+jerk paste | Pantry | pantry | CAR | wet jerk marinade;jamaican jerk marinade | - | // jerk marinade
+jamaican curry powder | Spices | spices | CAR | caribbean curry powder | - | curry_powder //
+browning sauce | Pantry | pantry | CAR | kitchen bouquet;caribbean browning | - | // browning sauce, browning seasoning
+pickapeppa sauce | Pantry | pantry | CAR | pickapeppa | - | // pickapeppa
+caribbean hot sauce | Pantry | pantry | CAR | scotch bonnet hot sauce;pepper sauce | - | // scotch bonnet sauce
+ackee | Produce | fruit | CAR | akee;canned ackee | - | // ackee
+breadfruit | Produce | fruit | CAR,PAC | ulu;fruta pan | - | breadfruit raw //
+boniato | Produce | vegetables | CAR,LAT | cuban sweet potato;white sweet potato;batata | - | sweet_potato raw unprepared //
+christophene | Produce | vegetables | CAR | - | - | proxy: chayote fruit raw //
+salt cod | Protein | seafood | CAR,EUM,WAF,LAT | saltfish;bacalao;bacalhau;baccala;morue;salted cod | fish | fish cod atlantic dried_and_salted //
+sea moss | Pantry | pantry | CAR | irish moss;carrageen moss;gracilaria | - | seaweed irishmoss //
+guava paste | Pantry | fruit | LAT,CAR | goiabada;pasta de guayaba;bocadillo | - | // guava paste, goiabada
+guava jelly | Pantry | pantry | CAR,LAT | - | - | // guava jelly
+mamey | Produce | fruit | LAT,CAR | mamey sapote;zapote | - | sapote raw //
+cherimoya | Produce | fruit | LAT | custard apple;chirimoya | - | cherimoya raw //
+tamarillo | Produce | fruit | LAT,PAC | tree tomato | - | // tamarillo
+lulo | Produce | fruit | LAT | naranjilla;lulo fruit | - | naranjilla //
+acai puree | Pantry | fruit | LAT | acai pulp;acai | - | // acai
+cashew fruit | Produce | fruit | LAT | caju;marañon | - | proxy: // cashew apple
+hearts of palm | Pantry | vegetables | LAT | palmito;palm hearts | - | hearts_of_palm raw //
+farofa | Pantry | grains | LAT | toasted cassava flour;manioc farofa | - | cassava_flour //
+tapioca flour brazilian | Pantry | grains | LAT | polvilho;sour starch;polvilho azedo | - | tapioca,_pearl,_dry //
+pao de queijo mix | Pantry | grains | LAT | brazilian cheese bread mix | dairy,egg | // pao de queijo
+queijo minas | Dairy | - | LAT | minas cheese;minas frescal | dairy | proxy: cheese fresh queso_fresco //
+requeijao | Dairy | - | LAT | catupiry;brazilian cream cheese | dairy | cheese cream //
+carne seca | Protein | meat | LAT | carne de sol;jerked beef;charque;tasajo;cecina | - | beef jerky //
+linguica | Protein | meat | LAT,EUM | portuguese sausage;calabresa;chourico | - | // linguica, linguiça
+chimichurri | Pantry | pantry | LAT | argentine herb sauce;chimichurri sauce | - | // chimichurri
+yerba mate | Pantry | pantry | LAT | mate;yerba;mate tea | - | // yerba mate
+morcilla | Protein | meat | LAT,EUM | blood sausage;black pudding;boudin noir;blutwurst | - | blood_sausage //
+empanada dough | Pantry | grains | LAT | empanada wrappers;empanada discs;tapas para empanadas | gluten | // empanada dough, empanada discs
+choclo | Produce | vegetables | LAT | peruvian corn;giant white corn;cuzco corn;cancha | - | corn sweet white raw //
+canary beans | Pantry | legumes | LAT | peruvian beans;mayocoba;canario beans;peruano beans | - | beans pinto mature_seeds,_raw //
+lucuma powder | Pantry | pantry | LAT | lucuma | - | // lucuma
+maca powder | Pantry | pantry | LAT | maca root powder | - | // maca
+amaranth | Pantry | grains | LAT,SA,EAF | amaranth grain;kiwicha;rajgira;ramdana | - | amaranth_grain uncooked //
+chuno | Pantry | vegetables | LAT | freeze-dried potato;tunta;papa seca | - | - // chuno
+oca | Produce | vegetables | LAT | yam oxalis;new zealand yam | - | - // oca
+yacon | Produce | vegetables | LAT | - | - | - // yacon
+arracacha | Produce | vegetables | LAT | peruvian carrot;apio criollo | - | - // arracacha
+guasca | Spices | spices | LAT | gallant soldier | - | proxy: spices oregano,_dried //
+cachaca | Other | pantry | LAT | brazilian sugarcane spirit | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+pisco | Other | pantry | LAT | peruvian brandy;grape brandy | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+tequila | Other | pantry | LAT | blanco tequila;reposado | - | alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+mezcal | Other | pantry | LAT | - | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+rum | Other | pantry | CAR | dark rum;light rum;white rum;spiced rum | - | alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+coffee liqueur | Other | pantry | LAT | kahlua;tia maria | - | alcoholic_beverage liqueur,_coffee,_53_proof //
+piquillo pepper | Pantry | vegetables | EUM | pimiento del piquillo;roasted piquillo peppers | - | // piquillo
+pimientos | Pantry | vegetables | EUM,LAT | jarred pimientos;pimiento peppers;diced pimentos | - | peppers sweet red canned //
+cuban bread | Pantry | grains | CAR | pan cubano;bolillo;telera;pan de agua | gluten | bread french_or_vienna -whole -toasted //
+bolillo | Pantry | grains | LAT | mexican rolls;birote;telera | gluten | bread french_or_vienna -whole -toasted //
+conchas | Pantry | grains | LAT | pan dulce;mexican sweet bread | gluten,dairy,egg | // conchas, pan dulce
+carnitas | Protein | meat | LAT | mexican pulled pork | - | -
+barbacoa | Protein | meat | LAT | - | - | -
+chicharron prensado | Protein | meat | LAT | pressed pork rinds | - | pork skin //
+longaniza | Protein | meat | LAT,EUM | - | - | // longaniza
+mexican table cream | Dairy | - | LAT | media crema;crema de leche | dairy | cream fluid,_light_whipping //
+cuajada | Dairy | - | LAT | farmers cheese;fresh curd | dairy | proxy: cheese fresh queso_fresco //

@@ -42,6 +42,12 @@ export type FoodEntry = {
   /** Null means unknown, which is not zero. */
   fiberG: number | null;
   sodiumMg: number | null;
+  /**
+   * Per-nutrient totals for the whole entry, frozen when it was logged (keyed by nutrient `key`).
+   * A key that is absent was not reported, which is not zero. Null for quick adds and for rows logged
+   * before nutrient data existed.
+   */
+  nutrients: Record<string, number> | null;
   recipe: { slug: string; imageUrl: string | null } | null;
 };
 

@@ -9,6 +9,32 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      added_sugar_ingredients: {
+        Row: {
+          fraction: number
+          ingredient_id: number
+          note: string | null
+        }
+        Insert: {
+          fraction?: number
+          ingredient_id: number
+          note?: string | null
+        }
+        Update: {
+          fraction?: number
+          ingredient_id?: number
+          note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "added_sugar_ingredients_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: true
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       admins: {
         Row: {
           created_at: string
@@ -121,6 +147,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "favorites_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "favorites_recipe_id_fkey"
             columns: ["recipe_id"]
@@ -262,6 +295,42 @@ export type Database = {
           },
         ]
       }
+      ingredient_foods: {
+        Row: {
+          fdc_id: number
+          form: string
+          ingredient_id: number
+          is_default: boolean
+        }
+        Insert: {
+          fdc_id: number
+          form?: string
+          ingredient_id: number
+          is_default?: boolean
+        }
+        Update: {
+          fdc_id?: number
+          form?: string
+          ingredient_id?: number
+          is_default?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ingredient_foods_fdc_id_fkey"
+            columns: ["fdc_id"]
+            isOneToOne: false
+            referencedRelation: "usda_foods"
+            referencedColumns: ["fdc_id"]
+          },
+          {
+            foreignKeyName: "ingredient_foods_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: false
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ingredient_modifiers: {
         Row: {
           position: string
@@ -276,6 +345,51 @@ export type Database = {
           word?: string
         }
         Relationships: []
+      }
+      ingredient_portions: {
+        Row: {
+          form: string
+          grams_per_unit: number
+          id: number
+          ingredient_id: number
+          note: string | null
+          source: string
+          unit_id: number | null
+        }
+        Insert: {
+          form?: string
+          grams_per_unit: number
+          id?: never
+          ingredient_id: number
+          note?: string | null
+          source: string
+          unit_id?: number | null
+        }
+        Update: {
+          form?: string
+          grams_per_unit?: number
+          id?: never
+          ingredient_id?: number
+          note?: string | null
+          source?: string
+          unit_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ingredient_portions_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: false
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ingredient_portions_unit_id_fkey"
+            columns: ["unit_id"]
+            isOneToOne: false
+            referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       ingredient_shelf_life: {
         Row: {
@@ -382,6 +496,7 @@ export type Database = {
           log_date: string
           meal: string
           name: string
+          nutrients: Json | null
           protein_g: number
           recipe_id: string | null
           servings: number | null
@@ -398,6 +513,7 @@ export type Database = {
           log_date: string
           meal: string
           name: string
+          nutrients?: Json | null
           protein_g?: number
           recipe_id?: string | null
           servings?: number | null
@@ -414,6 +530,7 @@ export type Database = {
           log_date?: string
           meal?: string
           name?: string
+          nutrients?: Json | null
           protein_g?: number
           recipe_id?: string | null
           servings?: number | null
@@ -421,6 +538,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "me_food_log_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "me_food_log_recipe_id_fkey"
             columns: ["recipe_id"]
@@ -582,6 +706,128 @@ export type Database = {
         }
         Relationships: []
       }
+      nutrient_conversions: {
+        Row: {
+          factor: number
+          from_nutrient_id: number
+          note: string | null
+          priority: number
+          to_nutrient_id: number
+        }
+        Insert: {
+          factor: number
+          from_nutrient_id: number
+          note?: string | null
+          priority?: number
+          to_nutrient_id: number
+        }
+        Update: {
+          factor?: number
+          from_nutrient_id?: number
+          note?: string | null
+          priority?: number
+          to_nutrient_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nutrient_conversions_from_nutrient_id_fkey"
+            columns: ["from_nutrient_id"]
+            isOneToOne: false
+            referencedRelation: "nutrients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nutrient_conversions_to_nutrient_id_fkey"
+            columns: ["to_nutrient_id"]
+            isOneToOne: false
+            referencedRelation: "nutrients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      nutrients: {
+        Row: {
+          display_group: string
+          dv_amount: number | null
+          dv_unit: string | null
+          fdc_number: string | null
+          fdc_nutrient_id: number | null
+          id: number
+          is_estimated: boolean
+          key: string
+          name: string
+          sort: number
+          unit: string
+        }
+        Insert: {
+          display_group: string
+          dv_amount?: number | null
+          dv_unit?: string | null
+          fdc_number?: string | null
+          fdc_nutrient_id?: number | null
+          id: number
+          is_estimated?: boolean
+          key: string
+          name: string
+          sort: number
+          unit: string
+        }
+        Update: {
+          display_group?: string
+          dv_amount?: number | null
+          dv_unit?: string | null
+          fdc_number?: string | null
+          fdc_nutrient_id?: number | null
+          id?: number
+          is_estimated?: boolean
+          key?: string
+          name?: string
+          sort?: number
+          unit?: string
+        }
+        Relationships: []
+      }
+      prep_rules: {
+        Row: {
+          enabled: boolean
+          factor: number | null
+          form: string | null
+          id: number
+          ingredient_id: number | null
+          kind: string
+          note: string | null
+          pattern: string
+        }
+        Insert: {
+          enabled?: boolean
+          factor?: number | null
+          form?: string | null
+          id?: never
+          ingredient_id?: number | null
+          kind: string
+          note?: string | null
+          pattern: string
+        }
+        Update: {
+          enabled?: boolean
+          factor?: number | null
+          form?: string | null
+          id?: never
+          ingredient_id?: number | null
+          kind?: string
+          note?: string | null
+          pattern?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prep_rules_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: false
+            referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -628,6 +874,13 @@ export type Database = {
             foreignKeyName: "recipe_allergens_recipe_id_fkey"
             columns: ["recipe_id"]
             isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_allergens_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
             referencedRelation: "recipes"
             referencedColumns: ["id"]
           },
@@ -655,6 +908,13 @@ export type Database = {
             columns: ["cookware_id"]
             isOneToOne: false
             referencedRelation: "cookware"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_cookware_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
             referencedColumns: ["id"]
           },
           {
@@ -691,6 +951,13 @@ export type Database = {
             foreignKeyName: "recipe_diets_recipe_id_fkey"
             columns: ["recipe_id"]
             isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_diets_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
             referencedRelation: "recipes"
             referencedColumns: ["id"]
           },
@@ -698,6 +965,7 @@ export type Database = {
       }
       recipe_ingredients: {
         Row: {
+          fdc_id: number | null
           id: number
           ingredient_id: number
           is_optional: boolean
@@ -708,6 +976,7 @@ export type Database = {
           unit_id: number | null
         }
         Insert: {
+          fdc_id?: number | null
           id?: never
           ingredient_id: number
           is_optional?: boolean
@@ -718,6 +987,7 @@ export type Database = {
           unit_id?: number | null
         }
         Update: {
+          fdc_id?: number | null
           id?: never
           ingredient_id?: number
           is_optional?: boolean
@@ -729,10 +999,24 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "recipe_ingredients_fdc_id_fkey"
+            columns: ["fdc_id"]
+            isOneToOne: false
+            referencedRelation: "usda_foods"
+            referencedColumns: ["fdc_id"]
+          },
+          {
             foreignKeyName: "recipe_ingredients_ingredient_id_fkey"
             columns: ["ingredient_id"]
             isOneToOne: false
             referencedRelation: "ingredients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_ingredients_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
             referencedColumns: ["id"]
           },
           {
@@ -747,6 +1031,52 @@ export type Database = {
             columns: ["unit_id"]
             isOneToOne: false
             referencedRelation: "units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipe_nutrients: {
+        Row: {
+          amount_per_serving: number
+          computed_at: string
+          coverage: number
+          nutrient_id: number
+          recipe_id: string
+        }
+        Insert: {
+          amount_per_serving: number
+          computed_at?: string
+          coverage: number
+          nutrient_id: number
+          recipe_id: string
+        }
+        Update: {
+          amount_per_serving?: number
+          computed_at?: string
+          coverage?: number
+          nutrient_id?: number
+          recipe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_nutrients_nutrient_id_fkey"
+            columns: ["nutrient_id"]
+            isOneToOne: false
+            referencedRelation: "nutrients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_nutrients_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_nutrients_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
             referencedColumns: ["id"]
           },
         ]
@@ -802,6 +1132,13 @@ export type Database = {
             foreignKeyName: "recipe_photos_recipe_id_fkey"
             columns: ["recipe_id"]
             isOneToOne: true
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_photos_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: true
             referencedRelation: "recipes"
             referencedColumns: ["id"]
           },
@@ -833,6 +1170,13 @@ export type Database = {
           reviewed_by?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "recipe_reviews_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: true
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "recipe_reviews_recipe_id_fkey"
             columns: ["recipe_id"]
@@ -873,6 +1217,13 @@ export type Database = {
             foreignKeyName: "recipe_steps_recipe_id_fkey"
             columns: ["recipe_id"]
             isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recipe_steps_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
             referencedRelation: "recipes"
             referencedColumns: ["id"]
           },
@@ -894,6 +1245,9 @@ export type Database = {
           id: string
           image_url: string | null
           notes: string | null
+          nutrition_gaps: string[] | null
+          nutrition_source: string | null
+          nutrition_status: string | null
           prep_time_min: number | null
           protein_g: number | null
           published_at: string | null
@@ -925,6 +1279,9 @@ export type Database = {
           id?: string
           image_url?: string | null
           notes?: string | null
+          nutrition_gaps?: string[] | null
+          nutrition_source?: string | null
+          nutrition_status?: string | null
           prep_time_min?: number | null
           protein_g?: number | null
           published_at?: string | null
@@ -956,6 +1313,9 @@ export type Database = {
           id?: string
           image_url?: string | null
           notes?: string | null
+          nutrition_gaps?: string[] | null
+          nutrition_source?: string | null
+          nutrition_status?: string | null
           prep_time_min?: number | null
           protein_g?: number | null
           published_at?: string | null
@@ -1050,6 +1410,13 @@ export type Database = {
             foreignKeyName: "shopping_list_items_source_recipe_id_fkey"
             columns: ["source_recipe_id"]
             isOneToOne: false
+            referencedRelation: "nutrition_calorie_check"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shopping_list_items_source_recipe_id_fkey"
+            columns: ["source_recipe_id"]
+            isOneToOne: false
             referencedRelation: "recipes"
             referencedColumns: ["id"]
           },
@@ -1116,6 +1483,78 @@ export type Database = {
         }
         Relationships: []
       }
+      usda_food_nutrients: {
+        Row: {
+          amount_per_100g: number
+          fdc_id: number
+          nutrient_id: number
+        }
+        Insert: {
+          amount_per_100g: number
+          fdc_id: number
+          nutrient_id: number
+        }
+        Update: {
+          amount_per_100g?: number
+          fdc_id?: number
+          nutrient_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usda_food_nutrients_fdc_id_fkey"
+            columns: ["fdc_id"]
+            isOneToOne: false
+            referencedRelation: "usda_foods"
+            referencedColumns: ["fdc_id"]
+          },
+          {
+            foreignKeyName: "usda_food_nutrients_nutrient_id_fkey"
+            columns: ["nutrient_id"]
+            isOneToOne: false
+            referencedRelation: "nutrients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      usda_foods: {
+        Row: {
+          brand_name: string | null
+          brand_owner: string | null
+          cached_at: string
+          data_type: string
+          description: string
+          fdc_id: number
+          household_serving: string | null
+          publication_date: string | null
+          serving_size: number | null
+          serving_size_unit: string | null
+        }
+        Insert: {
+          brand_name?: string | null
+          brand_owner?: string | null
+          cached_at?: string
+          data_type: string
+          description: string
+          fdc_id: number
+          household_serving?: string | null
+          publication_date?: string | null
+          serving_size?: number | null
+          serving_size_unit?: string | null
+        }
+        Update: {
+          brand_name?: string | null
+          brand_owner?: string | null
+          cached_at?: string
+          data_type?: string
+          description?: string
+          fdc_id?: number
+          household_serving?: string | null
+          publication_date?: string | null
+          serving_size?: number | null
+          serving_size_unit?: string | null
+        }
+        Relationships: []
+      }
       user_cookware: {
         Row: {
           cookware_id: number
@@ -1149,9 +1588,49 @@ export type Database = {
           },
         ]
       }
+      user_settings: {
+        Row: {
+          allergen_slugs: string[]
+          diet_slugs: string[]
+          sex: string | null
+          units: string
+          updated_at: string
+          user_id: string
+          week_start: string
+        }
+        Insert: {
+          allergen_slugs?: string[]
+          diet_slugs?: string[]
+          sex?: string | null
+          units?: string
+          updated_at?: string
+          user_id: string
+          week_start?: string
+        }
+        Update: {
+          allergen_slugs?: string[]
+          diet_slugs?: string[]
+          sex?: string | null
+          units?: string
+          updated_at?: string
+          user_id?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      nutrition_calorie_check: {
+        Row: {
+          computed_kcal: number | null
+          id: string | null
+          pct_diff: number | null
+          published_kcal: number | null
+          slug: string | null
+          title: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       add_recipe_to_shopping_list: {
@@ -1217,6 +1696,15 @@ export type Database = {
         Returns: undefined
       }
       can_read_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
+      compute_nutrients: {
+        Args: { lines: Json; servings: number }
+        Returns: {
+          amount_per_serving: number
+          coverage: number
+          nutrient_id: number
+          nutrient_key: string
+        }[]
+      }
       compute_recipe_search_vector: {
         Args: { p_cuisine_id: number; p_recipe_id: string; p_title: string }
         Returns: unknown
@@ -1229,6 +1717,7 @@ export type Database = {
       filtered_recipes: {
         Args: {
           diet_slugs?: string[]
+          exclude_slugs?: string[]
           include_ids?: number[]
           owned?: string[]
         }
@@ -1247,6 +1736,9 @@ export type Database = {
           id: string
           image_url: string | null
           notes: string | null
+          nutrition_gaps: string[] | null
+          nutrition_source: string | null
+          nutrition_status: string | null
           prep_time_min: number | null
           protein_g: number | null
           published_at: string | null
@@ -1269,6 +1761,11 @@ export type Database = {
           isOneToOne: false
           isSetofReturn: true
         }
+      }
+      food_has_nutrition: { Args: { p_fdc: number }; Returns: boolean }
+      food_nutrient_amount: {
+        Args: { p_fdc: number; p_ingredient: number; p_nutrient: number }
+        Returns: number
       }
       import_local_shopping_list: { Args: { p_items: Json }; Returns: number }
       ingredient_coverage: {
@@ -1299,6 +1796,9 @@ export type Database = {
           id: string
           image_url: string | null
           notes: string | null
+          nutrition_gaps: string[] | null
+          nutrition_source: string | null
+          nutrition_status: string | null
           prep_time_min: number | null
           protein_g: number | null
           published_at: string | null
@@ -1401,6 +1901,7 @@ export type Database = {
           sets: number
         }[]
       }
+      my_recipe_foods: { Args: { p_recipe_id: string }; Returns: Json }
       my_recipe_for_edit: { Args: { p_recipe_id: string }; Returns: Json }
       my_recipes: {
         Args: never
@@ -1419,6 +1920,46 @@ export type Database = {
         }[]
       }
       normalize_ingredient_name: { Args: { raw: string }; Returns: string }
+      nutrition_line_grams: {
+        Args: {
+          p_form: string
+          p_ingredient_id: number
+          p_qty: number
+          p_unit_id: number
+        }
+        Returns: {
+          basis: string
+          grams: number
+        }[]
+      }
+      nutrition_line_report: {
+        Args: { lines: Json }
+        Returns: {
+          basis: string
+          fdc_id: number
+          form: string
+          grams: number
+          ingredient: string
+          ingredient_id: number
+          note: string
+          ord: number
+          state: string
+          unit_name: string
+        }[]
+      }
+      nutrition_summary: {
+        Args: { lines: Json }
+        Returns: {
+          counted_lines: number
+          excluded_lines: string[]
+          gaps: string[]
+          optional_lines: string[]
+          quantified_lines: number
+          status: string
+          to_taste: string[]
+          total_grams: number
+        }[]
+      }
       owns_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
       recipe_expiry_days: {
         Args: { item_days: number[]; item_ids: number[]; recipe_ids: string[] }
@@ -1429,9 +1970,14 @@ export type Database = {
         }[]
       }
       recipe_source_key: { Args: { p_source_name: string }; Returns: string }
+      refresh_all_recipe_nutrients: { Args: never; Returns: number }
       refresh_recipe_allergens: {
         Args: { p_recipe_id: string }
         Returns: undefined
+      }
+      refresh_recipe_nutrients: {
+        Args: { p_recipe_id: string }
+        Returns: string
       }
       resolve_ingredient: {
         Args: { min_similarity?: number; raw_name: string }
@@ -1455,6 +2001,25 @@ export type Database = {
         Returns: Json
       }
       search_fold: { Args: { raw: string }; Returns: string }
+      search_foods: {
+        Args: { max_results?: number; q: string }
+        Returns: {
+          brand: string
+          data_type: string
+          fdc_id: number
+          form: string
+          has_nutrition: boolean
+          household_serving: string
+          ingredient_id: number
+          ingredient_name: string
+          is_default: boolean
+          kind: string
+          label: string
+          score: number
+          serving_size: number
+          serving_size_unit: string
+        }[]
+      }
       search_recipes: {
         Args: {
           cookware_slugs?: string[]
@@ -1493,6 +2058,10 @@ export type Database = {
         }[]
       }
       search_tsquery: { Args: { q: string }; Returns: unknown }
+      set_my_recipe_foods: {
+        Args: { p_picks: Json; p_recipe_id: string }
+        Returns: undefined
+      }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
       singularize_ingredient_name: { Args: { raw: string }; Returns: string }

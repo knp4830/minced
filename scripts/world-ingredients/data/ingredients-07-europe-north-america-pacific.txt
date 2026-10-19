@@ -1,0 +1,154 @@
+# UK and Ireland, Germany/Austria/Switzerland, Nordic, Eastern Europe and Balkans, North America, Pacific, Indigenous Americas
+stilton | Dairy | - | EUW | blue stilton;stilton cheese | dairy | cheese blue //
+wensleydale | Dairy | - | EUW | wensleydale cheese;cheshire;lancashire | dairy | cheese cheshire //
+double cream | Dairy | - | EUW | heavy cream uk;whipping cream uk | dairy | cream fluid,_heavy_whipping //
+clotted cream | Dairy | - | EUW | devon cream;cornish clotted cream | dairy | cream fluid,_heavy_whipping //
+golden syrup | Pantry | pantry | EUW | lyle's golden syrup;light treacle | - | syrups table_blends,_pancake //
+black treacle | Pantry | pantry | EUW | blackstrap molasses;dark treacle | - | molasses //
+haggis | Protein | meat | EUW | scottish haggis | gluten | // haggis
+cumberland sausage | Protein | meat | EUW | british sausage;bangers | gluten | sausage pork,_fresh,_raw //
+gammon | Protein | meat | EUW | cured pork leg;uncooked ham | - | pork cured,_ham,_whole,_separable_lean_and_fat,_unheated //
+malt vinegar | Pantry | pantry | EUW | brown malt vinegar | gluten | vinegar distilled //
+brown sauce | Pantry | pantry | EUW | hp sauce;daddies sauce | gluten | // brown sauce, hp sauce
+yeast extract | Pantry | pantry | EUW | marmite;vegemite;bovril | gluten | yeast extract spread //
+piccalilli | Pantry | pantry | EUW | - | - | // piccalilli
+pickled onions | Pantry | pantry | EUW | silverskin onions;cocktail onions | - | // pickled onions, cocktail onions
+mint sauce | Pantry | pantry | EUW | - | - | // mint sauce
+horseradish | Produce | vegetables | EUW,EUE | horseradish root;fresh horseradish | - | proxy: horseradish prepared //
+prepared horseradish | Pantry | pantry | EUW,EUE,NAM | horseradish sauce;creamed horseradish | - | horseradish prepared //
+salad cream | Pantry | pantry | EUW | - | egg | // salad cream
+self-rising flour | Pantry | grains | EUW,NAM | self-raising flour | gluten | wheat_flour white,_all-purpose,_self-rising,_enriched //
+caster sugar | Pantry | pantry | EUW | superfine sugar;baker's sugar;berry sugar | - | sugars granulated //
+demerara sugar | Pantry | pantry | EUW | turbinado sugar;raw sugar;sugar in the raw;cane sugar raw | - | sugars brown //
+muscovado sugar | Pantry | pantry | EUW | dark muscovado;light muscovado;barbados sugar | - | sugars brown //
+icing sugar | Pantry | pantry | EUW | confectioners sugar;10x sugar | - | sugars powdered //
+custard powder | Pantry | pantry | EUW | bird's custard | - | // custard powder
+mincemeat | Pantry | fruit | EUW | - | gluten | // mincemeat
+christmas pudding | Pantry | pantry | EUW | plum pudding | gluten,egg,dairy | // christmas pudding
+digestive biscuits | Pantry | grains | EUW | - | gluten | // digestive biscuit cat=cookies
+oatcakes | Pantry | grains | EUW | scottish oatcakes | gluten | // oatcakes
+crumpets | Pantry | grains | EUW | - | gluten | // crumpets
+soda bread | Pantry | grains | EUW | irish soda bread | gluten,dairy | // soda bread
+mushy peas | Pantry | legumes | EUW | processed peas | - | // mushy peas
+rye flour | Pantry | grains | EUN,EUE | dark rye flour;light rye flour;medium rye flour | gluten | rye_flour medium //
+rye bread | Pantry | grains | EUN,EUE | black bread;pumpernickel;dark rye bread | gluten | bread rye //
+pumpernickel | Pantry | grains | EUE,EUW | pumpernickel bread | gluten | bread pumpernickel //
+knackebrod | Pantry | grains | EUN | crispbread;rye crisps;swedish crispbread | gluten | crackers crispbread,_rye //
+spelt flour | Pantry | grains | EUW,EUM | - | gluten | spelt //
+spelt | Pantry | grains | EUW,EUM | spelt berries | gluten | spelt uncooked //
+kamut | Pantry | grains | EUM,NAM | khorasan wheat | gluten | kamut uncooked //
+wheat berries | Pantry | grains | GLO | whole wheat berries;hard red wheat | gluten | wheat hard_red_winter //
+rolled rye | Pantry | grains | EUN | rye flakes | gluten | rye_grain //
+barley flour | Pantry | grains | EUN | - | gluten | barley_flour //
+oat flour | Pantry | grains | GLO | ground oats | gluten | oat_flour //
+oat bran | Pantry | grains | GLO | - | gluten | oat_bran,_raw //
+wheat germ | Pantry | grains | GLO | toasted wheat germ | gluten | wheat_germ crude //
+wheat bran | Pantry | grains | GLO | - | gluten | wheat_bran crude //
+spatzle | Pantry | grains | EUW | spaetzle;spätzle | gluten,egg | // spaetzle
+pierogi | Pantry | grains | EUE | pyrohy;varenyky;vareniki | gluten,dairy,egg | // pierogi
+pelmeni | Pantry | grains | EUE | - | gluten,egg | // pelmeni
+kielbasa | Protein | meat | EUE | polish sausage;smoked sausage;kielbasa sausage | - | polish_sausage pork //
+bratwurst | Protein | meat | EUW | bratwurst sausage | - | bratwurst pork cooked //
+weisswurst | Protein | meat | EUW | white sausage;bockwurst | - | // weisswurst, bockwurst
+knackwurst | Protein | meat | EUW | knockwurst | - | // knackwurst
+liverwurst | Protein | meat | EUW | liver sausage;braunschweiger | - | liverwurst //
+smoked sausage | Protein | meat | NAM | andouille;smoked pork sausage | - | sausage smoked link pork //
+andouille | Protein | meat | NAM,EUW | cajun sausage | - | // andouille
+tasso ham | Protein | meat | NAM | cajun ham | - | ham cured //
+smetana | Dairy | - | EUE | russian sour cream;smetana cream | dairy | cream sour,_cultured //
+tvorog | Dairy | - | EUE | russian cottage cheese;farmers cheese | dairy | proxy: cheese cottage creamed small_curd //
+farmer cheese | Dairy | - | EUE,NAM | pot cheese | dairy | proxy: cheese cottage creamed small_curd //
+sirene | Dairy | - | EUE | bulgarian feta;brinza;bryndza | dairy | cheese feta //
+kajmak | Dairy | - | EUE | kaymak balkan | dairy | proxy: cream fluid heavy_whipping //
+skyr | Dairy | - | EUN | icelandic yogurt | dairy | // skyr -vanilla -strawberry -blueberry -raspberry -peach -coconut -mango -cherry
+pickled herring | Pantry | seafood | EUN,EUE | rollmops;herring in wine sauce;matjes | fish | fish herring atlantic,_pickled //
+gravlax | Protein | seafood | EUN | cured salmon;gravad lax | fish | fish salmon,_chinook,_smoked,_(lox),_regular //
+lutefisk | Protein | seafood | EUN | - | fish | proxy: fish cod atlantic raw //
+caviar | Pantry | seafood | EUE,EUN | black caviar;sturgeon roe;osetra;beluga caviar | fish | fish caviar,_black_and_red,_granular //
+smoked sprats | Pantry | seafood | EUE,EUN | sprats in oil;brisling | fish | fish sardine atlantic,_canned_in_oil //
+lingonberries | Produce | fruit | EUN | cowberries;lingon | - | lingonberries //
+lingonberry jam | Pantry | pantry | EUN | lingonberry preserves;lingonsylt | - | // lingonberry
+cloudberries | Produce | fruit | EUN | - | - | cloudberries //
+aquavit | Other | pantry | EUN | akvavit | - | proxy: alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+vodka | Other | pantry | EUE | - | - | alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+whiskey | Other | pantry | EUW,NAM | bourbon;scotch;rye whiskey | - | alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+gin | Other | pantry | EUW | - | - | alcoholic_beverage distilled all_(gin,_rum,_vodka,_whiskey) 80_proof //
+cider | Other | pantry | EUW | hard cider;apple cider alcoholic | - | alcoholic_beverage beer,_regular //
+juniper berries | Spices | spices | EUN,EUW | - | - | // juniper berry cat=herbs
+sweet paprika | Spices | spices | EUE | hungarian sweet paprika;edes paprika | - | spices paprika //
+hot paprika | Spices | spices | EUE | hungarian hot paprika | - | spices paprika //
+paprika paste | Pantry | pantry | EUE | goulash paste | - | // paprika paste
+lecso | Pantry | pantry | EUE | letcho;lecho | - | // lecso, lecho
+pickled beets | Pantry | vegetables | EUE | beet pickles;harvard beets | - | beets pickled //
+pickled cabbage | Pantry | vegetables | EUE | kiszona kapusta | - | // pickled cabbage
+kohlrabi | Produce | vegetables | EUE,EUW,SA | german turnip;monk's head;knol khol | - | kohlrabi raw //
+black radish | Produce | vegetables | EUE | winter radish | - | radishes raw //
+jerusalem artichoke | Produce | vegetables | NAM,EUW | sunchoke;sunroot | - | jerusalem-artichokes raw //
+ramps | Produce | vegetables | NAM | wild leeks | - | leeks raw //
+fiddleheads | Produce | vegetables | NAM | fiddlehead ferns | - | proxy: asparagus raw //
+sorrel leaves | Produce | herbs | EUE | - | - | proxy: spinach raw //
+chicory root | Pantry | pantry | EUW,NAM | roasted chicory | - | chicory_roots raw //
+lebkuchen spice | Spices | spices | EUW | gingerbread spice;speculoos spice | - | proxy: spices ginger,_ground //
+speculoos spread | Pantry | pantry | EUW | biscoff spread;cookie butter | gluten | // cookie butter
+stollen | Pantry | pantry | EUW | - | gluten,dairy,nuts | // stollen
+cranberry sauce | Pantry | pantry | NAM | jellied cranberry sauce | - | cranberry_sauce canned //
+pumpkin pie filling | Pantry | pantry | NAM | - | - | pumpkin canned //
+maple sugar | Pantry | pantry | NAM | - | - | // maple sugar
+maple butter | Pantry | pantry | NAM | maple cream | - | -
+corn syrup | Pantry | pantry | NAM | karo syrup;light corn syrup | - | syrups corn,_light //
+high fructose corn syrup | Pantry | pantry | NAM | - | - | syrups corn,_high-fructose //
+sorghum syrup | Pantry | pantry | NAM | sorghum molasses | - | molasses //
+cane syrup | Pantry | pantry | NAM,CAR | steen's cane syrup | - | syrup cane //
+catfish fillet | Protein | seafood | NAM | - | fish | fish catfish,_channel,_farmed,_raw //
+crawfish | Protein | seafood | NAM | crayfish;mudbugs;crawdads | shellfish | crustaceans crayfish,_mixed_species,_farmed,_raw //
+alligator meat | Protein | meat | NAM | gator | - | proxy: // alligator
+soft shell crab | Protein | seafood | NAM | - | shellfish | crustaceans crab,_blue,_raw //
+dungeness crab | Protein | seafood | NAM | - | shellfish | crustaceans crab,_dungeness,_raw //
+king crab | Protein | seafood | NAM | alaskan king crab | shellfish | crustaceans crab,_alaska_king,_raw //
+crab meat | Protein | seafood | NAM | lump crab;jumbo lump crabmeat | shellfish | crustaceans crab,_blue,_raw //
+oysters | Protein | seafood | NAM,EUW,EA | fresh oysters;shucked oysters | shellfish | mollusks oyster,_eastern,_wild,_raw //
+razor clam | Protein | seafood | NAM | navajas | shellfish | mollusks clam,_mixed_species,_raw //
+geoduck | Protein | seafood | NAM,EA | - | shellfish | proxy: mollusks clam mixed_species raw //
+cod roe | Protein | seafood | EUN,EA | mentaiko;karashi mentaiko | fish | fish roe mixed_species raw //
+salmon belly | Protein | seafood | NAM,EA | - | fish | fish salmon,_atlantic,_farmed,_raw //
+sockeye salmon | Protein | seafood | NAM | red salmon | fish | fish salmon,_sockeye,_wild_caught,_raw //
+arctic char | Protein | seafood | EUN,NAM | - | fish | proxy: fish trout,_rainbow,_farmed,_raw //
+lake whitefish | Protein | seafood | NAM,EUN | - | fish | fish whitefish,_mixed_species,_raw //
+walleye fillet | Protein | seafood | NAM | - | fish | fish pike,_walleye,_raw //
+mahi mahi | Protein | seafood | NAM,PAC,CAR | dolphinfish;dorado | fish | fish mahimahi,_raw //
+swordfish | Protein | seafood | GLO | - | fish | fish swordfish,_raw //
+wahoo | Protein | seafood | PAC,CAR | ono | fish | proxy: fish mackerel,_king,_raw //
+ahi poke | Protein | seafood | PAC | poke tuna | fish | fish tuna fresh yellowfin raw //
+taro leaves luau | Produce | vegetables | PAC | lu'au leaves;laulau leaves;kalo leaves | - | taro leaves,_raw //
+poi | Pantry | pantry | PAC | hawaiian taro paste | - | // poi
+kalua pork | Protein | meat | PAC | - | - | -
+spam | Protein | meat | PAC,NAM,EA | luncheon meat;canned ham;tinned pork | - | luncheon_meat pork,_canned //
+macadamia nuts | Pantry | nuts | PAC | macadamias | nuts | nuts macadamia_nuts,_raw //
+kukui nuts | Pantry | nuts | PAC | inamona | nuts | proxy: nuts macadamia_nuts,_raw //
+breadfruit flour | Pantry | grains | PAC | ulu flour | - | -
+pineapple canned | Pantry | fruit | PAC,NAM | pineapple chunks canned;pineapple rings | - | pineapple canned,_juice_pack //
+manuka honey | Pantry | pantry | PAC | - | - | honey -honeydew -honeycrisp -honeycomb //
+lamb mince | Protein | meat | PAC,EUW | - | - | lamb ground,_raw //
+macadamia oil | Pantry | pantry | PAC | - | nuts | // macadamia oil
+wattleseed | Spices | spices | PAC | australian wattleseed | - | proxy: // wattleseed
+lemon myrtle | Spices | spices | PAC | - | - | proxy: spices bay_leaf //
+finger lime | Produce | fruit | PAC | australian caviar lime | - | proxy: limes raw //
+kangaroo meat | Protein | meat | PAC | kangaroo | - | proxy: game_meat deer,_raw //
+bush tomato | Spices | spices | PAC | akudjura | - | proxy: // bush tomato
+wild rice flour | Pantry | grains | IND | - | - | wild_rice raw //
+manoomin | Pantry | grains | IND | northern wild rice;ojibwe wild rice | - | wild_rice raw //
+blue cornmeal | Pantry | grains | IND | hopi blue corn;blue corn flour;blue corn masa | - | cornmeal whole-grain,_yellow //
+tepary beans | Pantry | legumes | IND | - | - | proxy: beans pinto mature_seeds,_raw //
+cholla buds | Pantry | vegetables | IND | cactus buds | - | proxy: cactus pads,_raw //
+mesquite flour | Pantry | grains | IND | mesquite meal | - | -
+pinon nuts | Pantry | nuts | IND,NAM | pine nuts pinon | nuts | nuts pine_nuts pinyon dried //
+sunflower oil | Pantry | pantry | EUE,GLO | - | - | oil sunflower,_linoleic //
+pumpkin seed oil | Pantry | pantry | EUE | styrian pumpkin seed oil | - | proxy: oil sunflower,_linoleic //
+bison jerky | Protein | meat | IND,NAM | - | - | // bison jerky cat=snacks
+wild blueberries | Produce | fruit | IND,NAM | lowbush blueberries | - | blueberries wild,_frozen //
+saskatoon berries | Produce | fruit | IND,NAM | juneberries;serviceberries | - | serviceberries //
+elderberries | Produce | fruit | EUW,NAM | - | - | elderberries raw //
+black currants | Produce | fruit | EUW,EUN | blackcurrants;cassis berries | - | currants european_black,_raw //
+red currants | Produce | fruit | EUW,EUN | redcurrants | - | currants red_and_white,_raw //
+gooseberries | Produce | fruit | EUW | - | - | gooseberries raw //
+rhubarb | Produce | vegetables | EUW,NAM | - | - | rhubarb raw //

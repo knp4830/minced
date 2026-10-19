@@ -1,0 +1,82 @@
+# Gap fill: grains and seeds, game and poultry, fish and shellfish, fruit, spice and seasoning blends from regions under-covered above
+fonio | Pantry | grains | WAF | acha;digitaria | - | -
+einkorn | Pantry | grains | EUM | einkorn berries;einkorn flour | gluten | // einkorn -pasta -linguine -spaghetti -cookie -cracker -bread
+emmer | Pantry | grains | EUM | farro emmer;emmer wheat | gluten | // emmer
+psyllium husk | Pantry | pantry | SA | isabgol;psyllium | - | // psyllium husk
+basil seeds | Pantry | nuts | SA,SEA | sabja;tukmaria;falooda seeds | - | // basil seeds, sabja
+guinea fowl | Protein | meat | WAF,EUM | pintade | - | proxy: chicken broilers_or_fryers meat_and_skin raw //
+ostrich | Protein | meat | SAF | ostrich meat | - | -
+pheasant | Protein | meat | EUW | - | - | pheasant raw //
+partridge | Protein | meat | EUM | - | - | proxy: quail meat_and_skin raw //
+elk | Protein | meat | NAM | elk meat | - | game_meat elk raw //
+moose | Protein | meat | IND | moose meat | - | proxy: game_meat deer raw //
+reindeer | Protein | meat | EUN | caribou | - | game_meat caribou raw //
+turkey | Protein | meat | NAM | whole turkey | - | turkey whole meat_and_skin raw //
+pork trotters | Protein | meat | EA,LAT,EUM | pig feet;pig's feet;pork hocks fresh | - | pork fresh variety_meats feet raw //
+pork ears | Protein | meat | EA,LAT | - | - | pork fresh variety_meats ears raw //
+pork belly strips | Protein | meat | EA | streaky pork | - | pork fresh belly raw //
+beef cheeks | Protein | meat | EUW,LAT | ox cheek;cachete | - | proxy: beef chuck raw //
+beef kidney | Protein | meat | EUW | - | - | beef variety_meats kidneys raw //
+sweetbreads | Protein | meat | EUW,EUM | veal sweetbreads | - | veal variety_meats thymus raw //
+cockles | Protein | seafood | EUW,SEA | - | shellfish | proxy: mollusks clam mixed_species raw //
+periwinkles | Protein | seafood | EUW | winkles | shellfish | proxy: mollusks whelk raw //
+whelk | Protein | seafood | EUW | - | shellfish | mollusks whelk raw //
+spiny lobster | Protein | seafood | CAR,LAT,PAC | rock lobster;langosta | shellfish | crustaceans spiny_lobster raw //
+barramundi | Protein | seafood | PAC,SEA | asian sea bass | fish | proxy: fish sea_bass mixed_species raw //
+pangasius | Protein | seafood | SEA | basa;swai;tra fish | fish | proxy: fish catfish channel farmed raw //
+milkfish | Protein | seafood | SEA | bangus | fish | fish milkfish raw //
+grouper | Protein | seafood | SEA,CAR | - | fish | fish grouper raw //
+smelt | Protein | seafood | EUN,NAM,EA | whitebait | fish | fish smelt rainbow raw //
+pompano | Protein | seafood | CAR,NAM | - | fish | fish pompano raw //
+bluefish | Protein | seafood | NAM | - | fish | fish bluefish raw //
+shad | Protein | seafood | NAM | - | fish | fish shad raw //
+orange roughy | Protein | seafood | PAC | - | fish | fish roughy raw //
+skate | Protein | seafood | EUW | ray | fish | proxy: fish ocean_perch atlantic raw //
+sturgeon | Protein | seafood | EUE | - | fish | fish sturgeon mixed_species raw //
+lingcod | Protein | seafood | NAM | - | fish | fish lingcod raw //
+rockfish | Protein | seafood | NAM | rock cod;pacific rockfish | fish | fish rockfish raw //
+ocean perch | Protein | seafood | NAM | redfish | fish | fish ocean_perch raw //
+sugar apple | Produce | fruit | SEA,LAT,SA,CAR | sweetsop;atis;custard apple;sitaphal | - | sugar-apples raw //
+amla | Produce | fruit | SA | indian gooseberry;amalaki | - | // amla
+loquat | Produce | fruit | EA,EUM | japanese plum;nispero | - | loquats raw //
+feijoa | Produce | fruit | PAC,LAT | pineapple guava | - | // feijoa
+salak | Produce | fruit | SEA | snake fruit | - | // salak
+jabuticaba | Produce | fruit | LAT | - | - | // jabuticaba
+mango ginger | Produce | herbs | SA | amba haldi | - | proxy: ginger_root raw //
+facing heaven chili | Spices | spices | EA | chao tian jiao;sichuan dried chilies | - | proxy: spices pepper red_or_cayenne //
+mala seasoning | Spices | spices | EA | mala spice mix;mala powder | - | proxy: spices curry_powder //
+grains of selim | Spices | spices | WAF | kimba;djar | - | proxy: spices pepper black //
+dried galangal | Spices | spices | SEA | - | - | proxy: spices ginger ground //
+lemongrass dried | Spices | spices | SEA | - | - | proxy: lemon_grass_(citronella) raw //
+sichuan pepper oil | Pantry | pantry | EA | huajiao oil;ma la oil | - | proxy: oil sesame salad_or_cooking //
+shaoxing cooking wine | Other | pantry | EA | chinese cooking wine | gluten | proxy: alcoholic_beverage wine table white //
+plum wine | Other | pantry | EA | umeshu | - | proxy: alcoholic_beverage wine dessert sweet //
+rice wine vinegar seasoned | Pantry | pantry | EA | sushi vinegar;sushi-zu | - | // seasoned rice vinegar
+chinese pickled mustard | Pantry | vegetables | EA | zha cai;sui mi ya cai;pickled mustard greens | - | cabbage mustard salted //
+tianjin preserved vegetable | Pantry | vegetables | EA | tung choi;dong cai | - | proxy: cabbage mustard salted //
+preserved radish | Pantry | vegetables | EA | chai poh;chye poh;cai pu | - | proxy: cabbage mustard salted //
+salted black beans | Pantry | pantry | EA | fermented black beans salted | soy | -
+chinese rice cake | Pantry | grains | EA | nian gao;shanghai rice cake | - | // nian gao
+hand-pulled noodles | Pantry | grains | EA | la mian;lamian | gluten | proxy: noodles chinese chow_mein //
+dried egg noodles | Pantry | grains | EA | wonton noodles dried;e-fu noodles | gluten,egg | noodles egg dry enriched //
+japanese bbq sauce | Pantry | pantry | EA | yakiniku sauce | soy,gluten,sesame | // yakiniku sauce
+tare | Pantry | pantry | EA | yakitori sauce;yakitori tare | soy,gluten | // yakitori sauce
+kimchi base | Pantry | pantry | EA | kimchi paste;kimchi seasoning | fish,shellfish | // kimchi seasoning
+perilla seeds | Pantry | nuts | EA | deulkkae;tree sesame | - | proxy: seeds sesame_seeds whole dried //
+roasted soybean powder | Pantry | pantry | EA | - | soy | flour soy full-fat raw //
+thai fish ball | Protein | seafood | SEA | fish balls;luk chin | fish | // fish ball
+indonesian noodles | Pantry | grains | SEA | mie;bakmi;mi goreng noodles | gluten,egg | // mi goreng
+dried coconut chips | Pantry | nuts | SEA | toasted coconut chips | - | // coconut chips
+coconut aminos | Pantry | pantry | SEA | - | - | // coconut aminos
+peanut butter powder | Pantry | nuts | NAM | pb2 | nuts | // peanut powder
+garlic paste | Pantry | pantry | SA,GLO | - | - | // garlic paste
+ginger paste | Pantry | pantry | SA | - | - | // ginger paste
+tikka masala sauce | Pantry | pantry | SA | - | dairy | // tikka masala sauce
+butter chicken sauce | Pantry | pantry | SA | makhani sauce | dairy | // butter chicken sauce
+korma sauce | Pantry | pantry | SA | - | dairy,nuts | // korma
+vindaloo sauce | Pantry | pantry | SA | - | - | // vindaloo
+jalfrezi sauce | Pantry | pantry | SA | - | - | // jalfrezi
+saag | Pantry | vegetables | SA | palak puree;spinach puree | - | // saag
+yellow lentils | Pantry | legumes | SA | arhar;split pigeon peas | - | pigeon_peas mature_seeds raw //
+sprouted mung beans | Produce | vegetables | SA,EA | moong sprouts | - | mung_beans mature_seeds sprouted raw //
+sprouted lentils | Produce | vegetables | GLO | - | - | lentils sprouted raw //

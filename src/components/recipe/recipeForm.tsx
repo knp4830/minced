@@ -3,7 +3,7 @@
 import { ArrowDown, ArrowUp, Plus, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from "react";
+import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
@@ -11,7 +11,10 @@ import { Input } from "@/components/ui/input";
 import { FieldHint, Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { checkIngredientName, deleteRecipe, saveRecipe, withdrawRecipe } from "@/lib/actions/myRecipes";
+import { FoodCombobox } from "@/components/food/foodCombobox";
+import { checkIngredientName, deleteRecipe, ingredientsWithoutNutrition, saveRecipe, withdrawRecipe } from "@/lib/actions/myRecipes";
+import type { FoodHit } from "@/lib/foodHit";
+import { foodTitle } from "@/lib/foodTitle";
 import {
   EMPTY_INGREDIENT,
   LIMITS,
@@ -36,6 +39,17 @@ import { cn } from "@/lib/utils";
  */
 
 type Row = IngredientRow & { key: number };
+
+/**
+ * The part of an ingredient row that is saved: the five fields plus the picked food when there is one.
+ * Display-only fields (the brand label, the "no nutrition" flag) are left out, so they never make a
+ * form look edited. The unsaved-changes check compares these.
+ */
+function rowCore(r: IngredientRow): IngredientRow {
+  const core: IngredientRow = { quantity: r.quantity, unit: r.unit, name: r.name, note: r.note, optional: r.optional };
+  if (typeof r.fdcId === "number") core.fdcId = r.fdcId;
+  return core;
+}
 type StepRow = { key: number; text: string };
 type Err = { message: string; field?: string } | null;
 
@@ -170,16 +184,32 @@ export function RecipeForm({
   const deleteBtnRef = useRef<HTMLButtonElement>(null);
   const wasConfirming = useRef(false);
 
-  const localNames = useMemo(() => new Set(options.ingredientNames), [options.ingredientNames]);
-
   const current = (): RecipeFormValues => ({
     ...v,
-    ingredients: ings.map((r) => ({ quantity: r.quantity, unit: r.unit, name: r.name, note: r.note, optional: r.optional })),
+    ingredients: ings.map(rowCore),
     steps: steps.map((s) => s.text),
   });
   const snapshot = JSON.stringify(current());
-  const savedRef = useRef(JSON.stringify({ ...initial }));
+  const savedRef = useRef(JSON.stringify({ ...initial, ingredients: initial.ingredients.map(rowCore) }));
   const dirty = snapshot !== savedRef.current;
+
+  // A reopened recipe: ask once which of its saved ingredients have no nutrition data, so the same hint a fresh
+  // pick shows is there too. Rows with a chosen brand are skipped (they were picked for their data).
+  useEffect(() => {
+    const names = initial.ingredients.filter((i) => i.name.trim() !== "" && typeof i.fdcId !== "number").map((i) => i.name);
+    if (names.length === 0) return;
+    let live = true;
+    void ingredientsWithoutNutrition(names).then((none) => {
+      if (!live || !none || none.length === 0) return;
+      const set = new Set(none);
+      setIngs((rows) => rows.map((r) => (typeof r.fdcId !== "number" && set.has(r.name.trim().toLowerCase()) ? { ...r, noNutrition: true } : r)));
+    });
+    return () => {
+      live = false;
+    };
+    // initial is the saved recipe; this runs once per mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Warn before closing a tab with unsaved work.
   useEffect(() => {
@@ -245,14 +275,23 @@ export function RecipeForm({
       return next;
     });
 
+  /** A suggestion was chosen: the line becomes the canonical ingredient, and a brand/food pick rides along. */
+  function pickFood(key: number, hit: FoodHit) {
+    const canonical = (hit.canonicalName ?? hit.label).trim();
+    const isFood = hit.kind === "food" && hit.fdcId !== null;
+    updateIng(key, {
+      name: canonical,
+      fdcId: isFood ? hit.fdcId : null,
+      foodLabel: isFood ? foodTitle(hit) : undefined,
+      noNutrition: hit.hasNutrition === false,
+    });
+    setKnown((k) => ({ ...k, [canonical.toLowerCase()]: canonical.toLowerCase() }));
+  }
+
   async function checkName(name: string) {
     const clean = name.replace(/\s+/g, " ").trim();
     const lower = clean.toLowerCase();
     if (!clean || known[lower] !== undefined) return;
-    if (localNames.has(lower)) {
-      setKnown((k) => ({ ...k, [lower]: lower }));
-      return;
-    }
     setKnown((k) => ({ ...k, [lower]: "pending" }));
     const res = await checkIngredientName(clean);
     setKnown((k) => {
@@ -297,6 +336,7 @@ export function RecipeForm({
         return;
       }
       savedRef.current = JSON.stringify({ ...values, rights: v.rights });
+      if (res.warning) setNotice(res.warning);
       if (res.status === "in_review" && status !== "in_review" && status !== "published") {
         router.push("/account?tab=book&notice=submitted");
       } else if (status === "new") {
@@ -374,11 +414,6 @@ export function RecipeForm({
         </div>
       )}
 
-      <datalist id="ingredient-names">
-        {options.ingredientNames.map((n) => (
-          <option key={n} value={n} />
-        ))}
-      </datalist>
 
       <div className="mt-8 space-y-8">
         <Section n="01" title="Basics">
@@ -501,6 +536,8 @@ export function RecipeForm({
               const res = lower ? known[lower] : undefined;
               const unresolved = res === null;
               const hintId = `ing-${n}-hint`;
+              const counted = typeof res === "string" && res !== "pending" && res !== lower;
+              const hasHint = unresolved || counted || Boolean(row.foodLabel) || Boolean(row.noNutrition);
               return (
                 <li
                   key={row.key}
@@ -531,20 +568,17 @@ export function RecipeForm({
                     ))}
                   </Select>
                   <div className="col-span-2 sm:col-span-1">
-                    <Input
-                      id={`ing-${n}-name`}
-                      list="ingredient-names"
-                      aria-label={`Ingredient ${n} name`}
+                    <FoodCombobox
+                      inputId={`ing-${n}-name`}
+                      ariaLabel={`Ingredient ${n} name`}
                       placeholder="Ingredient, e.g. onion"
-                      autoComplete="off"
-                      autoCapitalize="none"
-                      spellCheck={false}
                       value={row.name}
                       maxLength={LIMITS.nameMax}
-                      aria-invalid={unresolved || invalid(`ingredient:${n}`)}
-                      aria-describedby={unresolved || (typeof res === "string" && res !== "pending" && res !== lower) ? hintId : undefined}
-                      onChange={(e) => updateIng(row.key, { name: e.target.value })}
-                      onBlur={(e) => void checkName(e.target.value)}
+                      invalid={unresolved || Boolean(invalid(`ingredient:${n}`))}
+                      describedBy={hasHint ? hintId : undefined}
+                      onValueChange={(text) => updateIng(row.key, { name: text, fdcId: null, foodLabel: undefined, noNutrition: undefined })}
+                      onPick={(hit) => pickFood(row.key, hit)}
+                      onBlurText={(text) => void checkName(text)}
                     />
                     {unresolved && (
                       <FieldHint id={hintId} error>
@@ -552,8 +586,12 @@ export function RecipeForm({
                         name.
                       </FieldHint>
                     )}
-                    {typeof res === "string" && res !== "pending" && res !== lower && (
-                      <FieldHint id={hintId}>Counted as {res}</FieldHint>
+                    {!unresolved && hasHint && (
+                      <FieldHint id={hintId}>
+                        {counted ? `Counted as ${res}. ` : ""}
+                        {row.foodLabel ? `Using: ${row.foodLabel}. ` : ""}
+                        {row.noNutrition ? "No nutrition data for this yet, so it will not add to the recipe's calories." : ""}
+                      </FieldHint>
                     )}
                   </div>
                   <Input

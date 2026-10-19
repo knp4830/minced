@@ -74,7 +74,6 @@ from (values
   ('yellow onion',    'onion'),
   ('spaghetti',       'tonnarelli'),
   ('pecorino romano', 'pecorino'),
-  ('egg',             'eggs'),
   ('mushrooms',       'mixed mushrooms'),
   ('harissa paste',   'harissa'),
   ('white miso',      'miso'),
