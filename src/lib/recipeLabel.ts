@@ -272,7 +272,9 @@ export function sodiumIsMinimum(lines: { name: string; quantity: number | null; 
  */
 export function uncountedText(u: UncountedLine): string {
   const name = u.name.trim().replace(/[.\s]+$/, "");
-  if (u.reason === "no data") return /\([^()]*\)$/.test(name) ? name : `${name} (no nutrition data)`;
+  // A name already ending in a bracket (including nested ones: "cauliflower (no gram weight for head (floret))")
+  // carries its own reason; do not add a second.
+  if (u.reason === "no data") return /\)$/.test(name) ? name : `${name} (no nutrition data)`;
   // "optional" / "to taste" after a name that already ends "(no amount given)" read as "(no ...) (optional)"; drop the first.
   return `${name.replace(/\s*\(no [^()]*\)$/i, "")} (${u.reason})`;
 }

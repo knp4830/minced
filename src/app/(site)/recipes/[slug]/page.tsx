@@ -100,7 +100,7 @@ function recipeJsonLd(recipe: RecipeDetail) {
       ? {
           nutrition: {
             "@type": "NutritionInformation",
-            calories: `${Math.round(n.calories)} calories`,
+            calories: `${roundForLabel(n.calories, { unit: "kcal", fdcNumber: FDC.energy })} calories`,
             ...(n.proteinG != null ? { proteinContent: `${Math.round(n.proteinG)} g` } : {}),
             ...(n.carbsG != null ? { carbohydrateContent: `${Math.round(n.carbsG)} g` } : {}),
             ...(n.fatG != null ? { fatContent: `${Math.round(n.fatG)} g` } : {}),

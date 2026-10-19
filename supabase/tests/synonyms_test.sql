@@ -158,8 +158,8 @@ insert into t_pairs (term, canonical) values
   ('double cream',         'heavy cream'),
   ('whipping cream',       'heavy cream'),
   ('heavy whipping cream', 'heavy cream'),
-  ('single cream',         'half-and-half'),
-  ('light cream',          'half-and-half'),
+  ('single cream',         'light cream'),
+  ('light cream',          'light cream'),
   ('soured cream',         'sour cream'),
   ('whole milk',           'whole milk'),     -- wave 10: milk fat levels are family children of milk
   ('skimmed milk',         'skim milk'),

@@ -81,7 +81,7 @@ export default function PrivacyPage() {
       <LegalSection id="health" title="Health and fitness data">
         <p>
           Settings (also optional) stores your units, the first day of your week, your sex (female or male) and, if you give it, your birth year (used only for the
-          Me calorie estimate and the body we draw), and the diet and allergen choices you want applied to recipe lists. Like
+          Me calorie estimate, the age-banded vitamin and mineral daily values, and the body we draw), and the diet and allergen choices you want applied to recipe lists. Like
           everything below, it is tied to your account, only you can read it, and it is included in &ldquo;Download my data&rdquo;.
         </p>
         <p>

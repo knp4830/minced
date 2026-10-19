@@ -216,7 +216,7 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
 
   assert.deepEqual(V.settingsFromRow(null), V.DEFAULT_SETTINGS);
   assert.deepEqual(V.settingsFromRow({ units: "imperial", week_start: "sunday", sex: "female", diet_slugs: ["vegan"], allergen_slugs: ["peanuts"] }), {
-    units: "imperial", weekStart: "sunday", sex: "female", diet: ["vegan"], allergens: ["peanuts"],
+    units: "imperial", weekStart: "sunday", sex: "female", birthYear: null, diet: ["vegan"], allergens: ["peanuts"],
   });
   // a corrupt row degrades to the defaults instead of throwing
   assert.deepEqual(V.settingsFromRow({ units: "x", week_start: "y", sex: "z", diet_slugs: ["<b>"], allergen_slugs: null }), V.DEFAULT_SETTINGS);
