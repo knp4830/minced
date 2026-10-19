@@ -1,0 +1,13 @@
+slug,title,sort_order,ingredient,action,old_value,new_value,rule,raw_line,replace
+quick-black-eyed-peas,Quick Black-Eyed Peas,1,black-eyed peas,qty_unit,2 lb,2 cup,"manual: the note ""about 2 pounds"" was read as the amount; the line says 2 cups","2 cups black-eyed peas, frozen",yes
+quick-black-eyed-peas,Quick Black-Eyed Peas,1,black-eyed peas,note,,frozen (about 2 pounds),manual: frozen black-eyed peas,"2 cups black-eyed peas, frozen",yes
+quick-black-eyed-peas,Quick Black-Eyed Peas,2,peas,delete,,,"manual: the same peas parsed twice (""black-eyed peas, frozen"" gave black-eyed peas and peas)","2 cups black-eyed peas, frozen",yes
+cafe-mocha,Cafe Mocha,3,chocolate chips,ingredient,chocolate chips,hot cocoa mix,manual: hot chocolate mix is not chocolate chips,4 tablespoons hot chocolate mix,yes
+slow-cooker-cheesy-swiss-steak,Slow Cooker Cheesy Swiss Steak,0,chuck roast,ingredient,chuck roast,eye of round,"manual: beef round roast, not chuck",2 pounds beef round roast (1-inch thick),yes
+basic-quiche,Basic Quiche,1,mixed vegetables,ingredient,mixed vegetables,broccoli,"manual: ""vegetables, chopped (broccoli, zucchini, or mushrooms)"" is not frozen mixed vegetables","1 cup vegetables, chopped",yes
+italian-vegetables,Italian Vegetables,9,pasta,note,cooked,"package, any shape; cook as directed","manual: ""1 pound package of pasta (cooked)"": the package weight is the dry weight, cooking is the direction","1 pound package of pasta, any shape",yes
+okra-and-greens,Okra and Greens,1,corn,ingredient,corn,corn oil,"manual: ""2 tablespoons corn oil"" was stored as sweet corn",2 tablespoons corn oil,yes
+cranberry-salad,Cranberry Salad,2,cranberry juice,ingredient,cranberry juice,cranberry sauce,"manual: ""1 can cranberry sauce"" was stored as cranberry juice",1 can cranberry sauce,yes
+asparagus-mandarin-orange-chicken-and-rice,"Asparagus, Mandarin Orange, Chicken, and Rice",2,mandarin orange,ingredient,mandarin orange,orange juice,"manual: ""3 tablespoons mandarin orange juice"" was stored as the whole fruit",3 tablespoons mandarin orange juice,yes
+veggie-stuffed-pita,Veggie Stuffed Pita,1,carrot,qty_unit,15,4,"manual: ""15 baby carrots or 4 regular"": the 15 was counted as 15 regular carrots","2 cups broccoli, chopped",yes
+baked-cauliflower-tots,Baked Cauliflower Tots,0,cauliflower,qty_unit,2 head,0.5 head,"manual: ""2 cups cauliflower rice (about half a medium head)"": the importer read the 2 cups as 2 heads",2 cups grated or finely chopped cauliflower rice (about half a medium head),yes
