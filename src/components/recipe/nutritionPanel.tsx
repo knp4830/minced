@@ -152,6 +152,15 @@ export function NutritionPanel({
             <div className="mt-1.5 space-y-1 border-t-[6px] border-ink pt-1.5 text-[0.6875rem] leading-snug text-ink-muted">
               <p>*Percent daily values use the FDA reference diet of 2,000 calories. {basisNote}</p>
               {anyAtLeast && <p>&ldquo;At least&rdquo; (&ge;) means some ingredients have no nutrition data and could not be counted, so the real amount is this or higher.</p>}
+              {(data?.assumptions ?? []).map((a) => (
+                <p key={a}>{a.charAt(0).toUpperCase() + a.slice(1)}.</p>
+              ))}
+              {(data?.nationalSources ?? []).includes("cofid") && (
+                <p>Some values: McCance and Widdowson&rsquo;s Composition of Foods Integrated Dataset 2021, Public Health England. Contains public sector information licensed under the Open Government Licence v3.0.</p>
+              )}
+              {(data?.nationalSources ?? []).includes("cnf") && (
+                <p>Some values: Canadian Nutrient File 2026, Health Canada. Contains information licensed under the Open Government Licence - Canada.</p>
+              )}
               {m.breakdownHidden && <p>A fat or sugar breakdown is left out where the ingredient list does not fit inside USDA&rsquo;s published total.</p>}
               {(m.micro.some((r) => r.noData) || m.top.some((r) => r.noData)) && <p>&ldquo;Not enough data&rdquo; means too few of the ingredients report that nutrient to give a fair number.</p>}
               {m.top.some((r) => r.estimated) && <p>Added sugars are estimated from the sweeteners and sweetened foods in the ingredient list.</p>}

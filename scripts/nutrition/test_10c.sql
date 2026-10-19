@@ -75,10 +75,12 @@ end $$;
 do $$
 declare a numeric; b numeric; d numeric;
 begin
-  select amount_per_100g into a from usda_food_nutrients where fdc_id = 2084844 and nutrient_id = 1;
-  select amount_per_100g into b from usda_food_nutrients where fdc_id = 2039206 and nutrient_id = 1;
+  -- 2084844 is the duplicate label the foods seed removes; when it is still present the two must agree
+  select amount_per_100g into a from usda_food_nutrients where fdc_id = 2039206 and nutrient_id = 1;
+  select amount_per_100g into b from usda_food_nutrients where fdc_id = 2084844 and nutrient_id = 1;
   select density_g_per_ml into d from ingredients where canonical_name = 'mirin';
-  if a is null or b is null or abs(a - b) > 0.5 then raise exception 'GATE Aji-Mirin records disagree: % vs %', a, b; end if;
+  if a is null then raise exception 'GATE Aji-Mirin record 2039206 has no energy'; end if;
+  if exists (select 1 from usda_foods where fdc_id = 2084844) and (b is null or abs(a - b) > 0.5) then raise exception 'GATE Aji-Mirin records disagree: % vs %', a, b; end if;
   if abs(a - 233.0 / d) > 1.5 then raise exception 'GATE Aji-Mirin kcal % is not 233 per 100 ml / density %', a, d; end if;
 end $$;
 

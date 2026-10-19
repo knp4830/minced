@@ -147,12 +147,19 @@ export default async function AboutPage() {
           recipe&apos;s ingredients report it, and an ingredient with no nutrition
           data is listed as not counted rather than guessed.
         </p>
-        {/* PLACEHOLDER (wave 10c, Me lane): the foods lane owns the exact credit and licence wording for the UK CoFID
-            and Canadian Nutrient File data. Replace the sentence below with its confirmed text at integration. */}
         <p>
-          [Placeholder, credit text to be confirmed: nutrient data for some world ingredients comes from the UK
-          Composition of Foods Integrated Dataset and the Canadian Nutrient File, used under the Open Government
-          Licence.]
+          For some world ingredients that FoodData Central does not cover, nutrient values come from two national
+          composition tables, copied once into our own database (no live calls). UK foods: McCance and
+          Widdowson&apos;s Composition of Foods Integrated Dataset 2021, Public Health England. Contains public sector
+          information licensed under the{" "}
+          <a className="underline" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">
+            Open Government Licence v3.0
+          </a>
+          . Canadian foods: Canadian Nutrient File 2026, Health Canada. Contains information licensed under the{" "}
+          <a className="underline" href="https://open.canada.ca/en/open-government-licence-canada">
+            Open Government Licence - Canada
+          </a>
+          .
         </p>
         <p>
           Daily values on recipe pages are the U.S. FDA label values for a 2,000-calorie diet. On your Me page they are

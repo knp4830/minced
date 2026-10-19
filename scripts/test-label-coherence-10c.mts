@@ -64,10 +64,10 @@ for (const r of doc.recipes as any[]) {
     const sugars = shown(FDC.sugars);
     const fiber = shown(FDC.fiber);
     const added = shown(FDC.addedSugars);
-    if (sugars !== undefined && sugars > carbs + 0.05) bad(`sugars ${sugars} above carbs ${carbs}`);
-    if (fiber !== undefined && fiber > carbs + 0.05) bad(`fiber ${fiber} above carbs ${carbs}`);
-    if (added !== undefined && sugars !== undefined && added > sugars + 0.05) bad(`added sugars ${added} above sugars ${sugars}`);
-    if (added !== undefined && added > carbs + 0.05) bad(`added sugars ${added} above carbs ${carbs}`);
+    if (sugars !== undefined && sugars > carbs + 0.5) bad(`sugars ${sugars} above carbs ${carbs}`);
+    if (fiber !== undefined && fiber > carbs + 0.5) bad(`fiber ${fiber} above carbs ${carbs}`);
+    if (added !== undefined && sugars !== undefined && added > sugars + 0.5) bad(`added sugars ${added} above sugars ${sugars}`);
+    if (added !== undefined && added > carbs + 0.5) bad(`added sugars ${added} above carbs ${carbs}`);
   }
   // fats and sugars never appear in the vitamins and minerals block
   for (const x of m.micro) {

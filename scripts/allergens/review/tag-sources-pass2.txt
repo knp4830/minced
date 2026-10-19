@@ -44,3 +44,5 @@
 [] {meat} tamale dough is made with lard :: tamale dough
 [] {meat} jarred bolognese contains beef or pork :: bolognese sauce
 [] {meat} hot pot broth is a meat-bone broth :: mongolian hot pot broth
+[dairy:I] milk named by its fat percentage (added by the 10c math seed) :: 1% milk
+[dairy:T] hot cocoa mix has milk solids in the common product :: hot cocoa mix

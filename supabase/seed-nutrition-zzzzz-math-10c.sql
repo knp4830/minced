@@ -122,10 +122,10 @@ on conflict (ingredient_id, form, (coalesce(unit_id, 0))) do nothing;
 
 -- "hot chocolate mix" was resolved to chocolate chips (480 kcal/100 g, no milk powder). It is its own product; USDA publishes only a
 -- 28 g "serving (3 heaping tsp)" for it, so a tbsp line stays a named gap rather than an invented weight.
-insert into ingredients (canonical_name, slug, aisle_category, fdc_id)
-select 'hot cocoa mix', 'hot-cocoa-mix', 'Pantry', 174122
+insert into ingredients (canonical_name, slug, aisle_category, filter_group, fdc_id)
+select 'hot cocoa mix', 'hot-cocoa-mix', 'Pantry', 'pantry', 174122
 where  exists (select 1 from usda_foods u where u.fdc_id = 174122)
-on conflict (canonical_name) do nothing;
+on conflict (canonical_name) do update set filter_group = coalesce(ingredients.filter_group, excluded.filter_group);
 insert into ingredient_aliases (ingredient_id, alias)
 select i.id, a.alias
 from   ingredients i cross join (values ('hot chocolate mix'), ('hot cocoa'), ('cocoa mix'), ('hot chocolate powder')) a(alias)

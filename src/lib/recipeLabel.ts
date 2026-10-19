@@ -129,7 +129,8 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
       .map((f) => byFdcRow.get(f)?.amount)
       .filter((v): v is number => typeof v === "number");
     const sum = parts.reduce((a, b) => a + b, 0);
-    const tooBig = sum > pubFat.amount * 1.05 + 0.5 || parts.some((v) => v > pubFat.amount + 0.5);
+    // whole grams on the label: parts may exceed the whole by half a gram of rounding, never more (a part of 0.4 g under 0.3 g shows)
+    const tooBig = sum > pubFat.amount + 0.5 || parts.some((v) => v > pubFat.amount + 0.05);
     if (tooBig) for (const f of [FDC.satFat, FDC.transFat, FDC.monoFat, FDC.polyFat]) if (byFdcRow.has(f)) hidden.add(f);
   }
   const pubCarb = found(FDC.carbs);

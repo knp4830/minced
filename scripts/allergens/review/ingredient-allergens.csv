@@ -1978,3 +1978,5 @@ chicharrones,,meat,no listed allergen,filter group meat,,0,meat
 dende palm oil,,plant,no listed allergen,no animal ingredient,,0,pantry
 tucupi,,plant,no listed allergen,no animal ingredient,,0,pantry
 manioc starch,,plant,no listed allergen,no animal ingredient,,0,pantry
+1% milk,dairy:I,dairy_egg,milk named by its fat percentage (added by the 10c math seed),carries a dairy or egg tag,,26,
+hot cocoa mix,dairy:T,dairy_egg,hot cocoa mix has milk solids in the common product,carries a dairy or egg tag,,1,

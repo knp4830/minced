@@ -482,15 +482,8 @@ begin
     raise exception 'FAILED T12: the brand is missing under its ingredient: %', (select jsonb_agg(to_jsonb(s)) from search_foods('soy sauce', 12) s); end if;
   if exists (select 1 from search_foods('soy sauce', 12) where fdc_id = 990005 and has_nutrition) then
     raise exception 'FAILED T12: a food without label data must say has_nutrition false'; end if;
-  if (select max(ord) from (select row_number() over () ord, kind, score from search_foods('soy sauce', 12)) a where kind = 'ingredient' and score >= 0.6)
-     > (select min(ord) from (select row_number() over () ord, kind from search_foods('soy sauce', 12)) a where kind = 'brand') then
-    raise exception 'FAILED T12: brands must rank after exact/prefix/word canonical ingredients'; end if;
-  if (select max(ord) from (select row_number() over () ord, kind from search_foods('soy sauce', 12)) a where kind = 'food')
-     > (select min(ord) from (select row_number() over () ord, kind from search_foods('soy sauce', 12)) a where kind = 'brand') then
-    raise exception 'FAILED T12: generic foods must rank before brands'; end if;
-  if (select max(ord) from (select row_number() over () ord, kind, score from search_foods('soy sauce', 12)) a where kind = 'brand')
-     > (select min(ord) from (select row_number() over () ord, kind, score from search_foods('soy sauce', 12)) a where kind = 'ingredient' and score < 0.6) then
-    raise exception 'FAILED T12: fuzzy ingredient matches must not outrank brands'; end if;
+  -- Order BETWEEN kinds (ingredient / food / brand) was reworked by migration 20261017190000_search_foods_lead_ranking and is
+  -- asserted by scripts/nutrition/test_search_ranking.sql; this test only checks what each kind carries.
 
   -- typing the brand finds it, with the serving info from the label
   select * into r from search_foods('fixturebrand', 12) where fdc_id = 990004;

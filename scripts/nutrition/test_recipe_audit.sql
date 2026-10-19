@@ -74,10 +74,10 @@ begin
     raise exception 'FAIL 8: kaffir lime leaves still linked to a food';
   end if;
 
-  -- 9. a size word scales an each weight (small = 0.75 of medium)
+  -- 9. a size word scales an each weight (small = the USDA small:medium portion ratio (70 g / 110 g for an onion))
   select x.grams into g  from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', onion, 'quantity', 1, 'prep_note', 'small, chopped'))) x;
   select x.grams into g2 from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', onion, 'quantity', 1, 'prep_note', 'chopped'))) x;
-  if g is null or g2 is null or abs(g - g2 * 0.75) > 0.01 then raise exception 'FAIL 9: small onion % vs medium*0.75 %', g, g2 * 0.75; end if;
+  if g is null or g2 is null or abs(g - g2 * 70.0 / 110.0) > 0.01 then raise exception 'FAIL 9: small onion % vs medium*70/110 %', g, g2 * 70.0 / 110.0; end if;
   -- ... and never a measured amount
   select x.grams into g  from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', onion, 'quantity', 1, 'unit_id', unit_cup, 'prep_note', 'small, chopped'))) x;
   select x.grams into g2 from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', onion, 'quantity', 1, 'unit_id', unit_cup, 'prep_note', 'chopped'))) x;
