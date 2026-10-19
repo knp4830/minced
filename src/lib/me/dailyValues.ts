@@ -7,7 +7,7 @@ import { KCAL_PER_G, MIN_KCAL, PROTEIN_G_PER_KG, FAT_G_PER_KG, type Sex } from "
  * Recipe pages keep the FDA label Daily Values (one number for everybody, the thing printed on food). Me is
  * about one person, so it uses, in this order:
  *
- *   calories, protein, carbs, total fat   the person's own daily targets (or the sedentary baseline below);
+ *   calories, protein, carbs, total fat   the person's own saved daily targets;
  *   saturated fat, added sugars           10% of the calorie target (Dietary Guidelines for Americans 2020-2025:
  *                                         "less than 10% of calories"; saturated fat 9 kcal/g, sugars 4 kcal/g);
  *   fiber, vitamins, minerals, potassium  the NASEM Dietary Reference Intake for the person's sex and age band
@@ -29,7 +29,7 @@ export type PersonalDv = { amount: number; basis: DvBasis };
 export type Person = {
   sex: Sex | null;
   age: number | null;
-  /** Where the macro numbers come from: the saved targets, or the weight/sex/age baseline. */
+  /** Where the macro numbers come from. The page only ever passes saved targets (see baselineMacros). */
   macros: { kcal: number; proteinG: number; carbsG: number; fatG: number; source: "targets" | "baseline" } | null;
 };
 
@@ -71,6 +71,8 @@ export function personalDailyValues(nutrients: readonly Nutrient[], dris: readon
 }
 
 // ---------- sedentary baseline from weight, sex and age only ----------
+// NOT WIRED: age is stored only inside me_targets, and a person with saved targets already has macros, so nothing in
+// the app can reach this today. It needs an age (or birth year) field in Settings > Body first; kept, with its test, for that.
 
 /**
  * Basal metabolic rate from weight, sex and age alone (no height), kcal a day: the Schofield equations in

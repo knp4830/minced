@@ -101,7 +101,7 @@ export default async function MePage({ searchParams }: Props) {
   ]);
 
   // Who the daily values are for. Age only exists once the targets are saved, so without them every value falls back
-  // to the FDA label number (see src/lib/me/dailyValues.ts; baselineMacros() covers weight + sex + age only).
+  // to the FDA label number (see src/lib/me/dailyValues.ts). The weight + sex + age baseline (baselineMacros) is not wired: nothing stores age outside the targets.
   const person: Person = {
     sex: settings.sex ?? targets?.sex ?? null,
     age: targets?.age ?? null,
