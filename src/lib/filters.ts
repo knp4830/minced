@@ -108,6 +108,8 @@ export type RecipeFilters = {
   calMin?: number;
   calMax?: number;
   proteinMin?: number;
+  /** Fridge page: show only the recipes that can be made now (nothing missing). Not a narrowing filter. */
+  now?: boolean;
   /** Pantry page: "expiry" = soonest-expiring saved-fridge items first (signed-in only). */
   sort?: "expiry";
   /**
@@ -139,6 +141,7 @@ export const FILTER_PARAMS = [
   "calMax",
   "proteinMin",
   "sort",
+  "now",
   "defaults",
   "cursor",
 ] as const satisfies readonly (keyof RecipeFilters)[];
@@ -239,6 +242,7 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     calMax: num(first(sp, "calMax"), 0, 10000),
     proteinMin: num(first(sp, "proteinMin"), 0, 1000),
     sort: first(sp, "sort") === "expiry" ? "expiry" : undefined,
+    now: first(sp, "now") === "1" ? true : undefined,
     defaults: first(sp, "defaults") === "off" ? "off" : undefined,
     cursor: cursor || undefined,
   };

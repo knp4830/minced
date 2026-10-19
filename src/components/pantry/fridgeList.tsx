@@ -31,9 +31,6 @@ import { cn } from "@/lib/utils";
 
 const AISLE_ORDER = ["Produce", "Protein", "Dairy", "Pantry", "Spices", "Other"];
 
-/** The matcher's URL params cap lists at 50 ids (src/lib/filters.ts). */
-const MAX_URL_IDS = 50;
-
 const BADGE: Record<Urgency, string> = {
   // Paprika is for things that need action (handoff): only expired and urgent.
   expired: "border-paprika/40 bg-paprika/5 font-semibold text-paprika-deep",
@@ -87,13 +84,6 @@ export function FridgeList({ initialRows, serverToday }: { initialRows: FridgeRo
     const urgent = dated.filter((r) => daysUntil(r.expiresOn!, today) <= 2).slice(0, 3);
     return urgent.length > 0 ? urgent : dated.slice(0, 1);
   }, [sorted, today]);
-
-  const pantryHref = useMemo(() => {
-    const useIds = useFirst.map((r) => r.ingredientId);
-    const rest = sorted.map((r) => r.ingredientId).filter((id) => !useIds.includes(id));
-    const ids = [...useIds, ...rest].slice(0, MAX_URL_IDS);
-    return { all: ids.join(","), use: useIds.join(",") };
-  }, [useFirst, sorted]);
 
   function patchLocal(id: string, patch: Partial<FridgeRow>) {
     setRows((cur) => cur.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -164,7 +154,7 @@ export function FridgeList({ initialRows, serverToday }: { initialRows: FridgeRo
         </div>
         {useFirst.length > 0 && (
           <Link
-            href={`/pantry?pantry=${pantryHref.all}&use=${pantryHref.use}&sort=expiry`}
+            href="/pantry"
             className={buttonVariants({ variant: "primary", size: "md" })}
           >
             Find recipes
