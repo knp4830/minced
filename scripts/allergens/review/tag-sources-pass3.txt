@@ -1,0 +1,9 @@
+# Round-1 allergen fixer (wave 10c). Same line format and policy as tag-sources.txt.
+[dairy:V, egg:V] commercial buns usually contain milk, whey and egg wash (vegan buns exist; check the label) :: hamburger buns; hot dog buns
+[dairy:V] commercial sandwich bread, rolls and muffins usually contain milk or whey (vegan loaves exist; check the label) :: sandwich bread; dinner rolls; english muffin
+[wheat:V, gluten:V] wheat beer (hefeweizen, witbier) is brewed with wheat; the alias 'wheat beer' resolves to beer :: beer
+[shellfish:V] some imitation crab is made with real crab extract :: imitation crab
+[gluten:V] barley miso (mugi miso) exists and most miso blends use grain koji :: white miso; red miso; awase miso; yellow miso
+[tree-nuts:V] pine nuts are common in the filling :: stuffed grape leaves
+[dairy:V, wheat:V, gluten:V] {meat} liver pate often contains cream, milk powder or wheat filler :: liver pate
+[wheat:V, gluten:V] chili seasoning mix is often thickened with wheat flour, as taco seasoning is :: chili seasoning mix

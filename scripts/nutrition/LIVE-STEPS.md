@@ -18,6 +18,7 @@ The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them 
    `160000_recipe_national_sources` (licence credit under the label),
    `170000_food_proxy_and_brand_display` (`ingredient_foods.is_proxy`, stand-ins reach `nutrition_assumptions()`, `search_foods()` and `my_recipe_foods()` show `brand_name` only, never the barcode-prefix owner).
    `180000_vegan_requires_no_animal_allergen_tag` (vegan may not sit beside a dairy / egg / fish / shellfish / mollusks allergen tag of any basis; replaces `recipe_diet_rows()`; takes effect at the diet refresh in `seed-allergen-tags.sql`).
+   `20261019120000_recipe_has_allergen_legacy_nuts` (allergen fixer: the database predicate also expands the legacy `nuts` slug to peanuts + tree-nuts; plain `create or replace`, safe for a non-superuser),
    `20261019100000_nutrition_computed_recipes_columns` (fixer round 2: `refresh_recipe_nutrients()` writes the computed macro columns for EVERY recipe we computed, not only a member's; the 106 "Minced original" recipes kept AI-drafted calories up to 98 percent off. Takes effect at the refresh in step 4; a computed recipe that is not complete then shows no calories column, and its label says "at least" from the ingredient rows).
    NOTE `150000_allergen_predicate_helper` now begins with `select similarity('a','a');` (docs/LESSONS.md section 2): without it a NON-superuser role (live) fails with "permission denied to set parameter pg_trgm.word_similarity_threshold" while re-creating search_recipes; a superuser snapshot hides this.
    (All twenty are needed BEFORE the code is merged; code first gives 500 on /settings, /pantry, /recipes when signed in, recipe pages and the Me panel.)
@@ -37,8 +38,8 @@ The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them 
    ingredients 1,983; aliases 3,014; usda_foods 10,092 (branded 1,822, sr_legacy 7,793, foundation 436, cofid 23, cnf 18);
    ingredient_foods 3,514; ingredient_portions 1,990; ingredients with a food 1,738 (245 without; see the open items in the PR); declared stand-ins flagged `ingredient_foods.is_proxy` 306 (136 recipes say so under the label);
    nutrition_status complete 664 / partial 290 / unavailable 3 (fixer round 2);
-   recipes per allergen (957, counted on the integrated branch after fixer round 2): dairy 428, egg 192, fish 84, gluten 395, mollusks 4, peanuts 37, sesame 19, shellfish 10, soy 154, tree-nuts 50, wheat 372;
-   recipes per diet: gluten-free 560, pescatarian 57, vegan 238, vegetarian 392;
+   recipes per allergen (957, counted on the integrated branch after fixer round 2): dairy 440, egg 192, fish 84, gluten 396, mollusks 4, peanuts 37, sesame 19, shellfish 10, soy 154, tree-nuts 50, wheat 372 (required lines; plus optional-only garnish: dairy 10, egg 3, gluten 2, peanuts 3, sesame 2, soy 6, tree-nuts 13, wheat 2);
+   recipes per diet: gluten-free 559, pescatarian 57, vegan 238, vegetarian 392;
    `scripts/nutrition/sql-checks.sql`, `scripts/nutrition/check_usda_seeds.sql`, `scripts/nutrition/test_recipe_audit.sql`, `scripts/nutrition/test_10c.sql` and `supabase/tests/allergens_test.sql`, `fridge_grouped_test.sql` return no failures;
    `scripts/nutrition/validate_myplate.sql` prints the MyPlate comparison (status complete, 575 recipes: median kcal error 6.2%, protein 6.6, carbs 7.3, fat 7.3, 81.2% within 15%; every recipe counted from 90%+ of its mass, 848 recipes: median 8.7%, 66.9% within 15%); database about 54 MB after VACUUM.
    Label invariants: `psql -At -f scripts/nutrition/export_label_inputs_10c.sql > label-inputs.json` then `node --experimental-strip-types scripts/test-label-coherence-10c.mts label-inputs.json` (957 labels, 0 problems).

@@ -21,7 +21,7 @@ egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,140,eggs
 red bell pepper,,plant,no listed allergen,no animal ingredient,,77,vegetables
 smoked paprika,,plant,no listed allergen,no animal ingredient,,3,spices
 ramen noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,3,grains
-white miso,soy:I,plant,fermented soybean paste,no animal ingredient,soy,2,pantry
+white miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,2,pantry
 mushrooms,,plant,no listed allergen,no animal ingredient,,24,vegetables
 cauliflower,,plant,no listed allergen,no animal ingredient,,17,vegetables
 harissa paste,,plant,no listed allergen,no animal ingredient,,1,pantry
@@ -392,14 +392,14 @@ everything bagel seasoning,sesame:I,plant,sesame,no animal ingredient,sesame,0,s
 furikake,fish:T;sesame:I,seafood,"sesame | anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,fish;sesame,0,spices
 corn tortillas,,plant,no listed allergen,no animal ingredient,,14,grains
 flour tortillas,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,26,grains
-sandwich bread,gluten:I;wheat:I,dairy_egg,"wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,31,grains
+sandwich bread,gluten:I;wheat:I;dairy:V,dairy_egg,"commercial sandwich bread, rolls and muffins usually contain milk or whey (vegan loaves exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,31,grains
 baguette,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,2,grains
 sourdough bread,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
 pita bread,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,15,grains
 naan,gluten:I;wheat:I;dairy:T;egg:V,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | egg in many recipes / brands",carries a dairy or egg tag,dairy;gluten,0,grains
-hamburger buns,gluten:I;wheat:I;sesame:V,dairy_egg,"wheat bread, pastry or cracker | sesame in some brands / recipes","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,1,grains
-hot dog buns,gluten:I;wheat:I,dairy_egg,"wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,0,grains
-english muffin,gluten:I;wheat:I,dairy_egg,"wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,2,grains
+hamburger buns,gluten:I;wheat:I;dairy:V;egg:V;sesame:V,dairy_egg,"commercial buns usually contain milk, whey and egg wash (vegan buns exist; check the label) | wheat bread, pastry or cracker | sesame in some brands / recipes","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,1,grains
+hot dog buns,gluten:I;wheat:I;dairy:V;egg:V,dairy_egg,"commercial buns usually contain milk, whey and egg wash (vegan buns exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,0,grains
+english muffin,gluten:I;wheat:I;dairy:V,dairy_egg,"commercial sandwich bread, rolls and muffins usually contain milk or whey (vegan loaves exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,2,grains
 bagel,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
 pizza dough,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
 puff pastry,gluten:I;wheat:I;dairy:V,dairy_egg,"wheat bread, pastry or cracker | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,gluten,0,grains
@@ -457,7 +457,7 @@ sweet pickle relish,,plant,no listed allergen,no animal ingredient,,5,pantry
 taco shells,,plant,no listed allergen,no animal ingredient,,1,grains
 hamburger,,meat,no listed allergen,filter group meat,,0,meat
 turkey ham,,meat,no listed allergen,filter group meat,,8,meat
-imitation crab,gluten:V;wheat:V;fish:I,seafood,surimi contains wheat starch | fish,carries a fish or shellfish tag,fish;gluten,0,meat
+imitation crab,gluten:V;wheat:V;fish:I;shellfish:V,seafood,surimi contains wheat starch | some imitation crab is made with real crab extract | fish,carries a fish or shellfish tag,fish;gluten,0,meat
 peanut butter chips,dairy:I;soy:T;peanuts:I,dairy_egg,"soy lecithin in the common product | milk, cream, yogurt or butter | peanut",carries a dairy or egg tag,nuts,0,pantry
 butternut squash puree,,plant,no listed allergen,no animal ingredient,,0,pantry
 pumpkin puree,,plant,no listed allergen,no animal ingredient,,3,pantry
@@ -485,7 +485,7 @@ canned pears,,plant,no listed allergen,no animal ingredient,,1,fruit
 bread dough,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
 italian bread,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
 crescent rolls,gluten:I;wheat:I;dairy:V,dairy_egg,"wheat bread, pastry or cracker | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,gluten,0,grains
-dinner rolls,gluten:I;wheat:I,dairy_egg,"wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,1,grains
+dinner rolls,gluten:I;wheat:I;dairy:V,dairy_egg,"commercial sandwich bread, rolls and muffins usually contain milk or whey (vegan loaves exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,1,grains
 pasta,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,32,grains
 chicken,,meat,no listed allergen,filter group meat,,36,meat
 white beans,,plant,no listed allergen,no animal ingredient,,9,legumes
@@ -531,7 +531,7 @@ mexican crema,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy 
 pork belly,,meat,no listed allergen,filter group meat,,6,meat
 fish cakes,gluten:V;wheat:V;fish:I,seafood,surimi contains wheat starch | fish,carries a fish or shellfish tag,fish;gluten,1,seafood
 dried shrimp,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,1,seafood
-liver pate,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,1,meat
+liver pate,gluten:V;wheat:V;dairy:V,meat,"liver pate often contains cream, milk powder or wheat filler","liver pate often contains cream, milk powder or wheat filler",,1,meat
 dashi,fish:I,seafood,fish,carries a fish or shellfish tag,fish,6,pantry
 bonito flakes,fish:I,seafood,fish,carries a fish or shellfish tag,fish,3,pantry
 kombu,,plant,no listed allergen,no animal ingredient,,1,pantry
@@ -632,9 +632,9 @@ wasabi paste,,plant,no listed allergen,no animal ingredient,,0,pantry
 wasabi powder,,plant,no listed allergen,no animal ingredient,,0,spices
 karashi,,plant,no listed allergen,no animal ingredient,,0,pantry
 sansho pepper,,plant,no listed allergen,no animal ingredient,,0,spices
-red miso,soy:I,plant,fermented soybean paste,no animal ingredient,soy,0,pantry
-awase miso,soy:I,plant,fermented soybean paste,no animal ingredient,soy,0,pantry
-yellow miso,soy:I,plant,fermented soybean paste,no animal ingredient,soy,0,pantry
+red miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,0,pantry
+awase miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,0,pantry
+yellow miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,0,pantry
 umeboshi,,plant,no listed allergen,no animal ingredient,,0,pantry
 takuan,,plant,no listed allergen,no animal ingredient,,0,pantry
 natto,soy:I,plant,fermented soybean paste,no animal ingredient,soy,0,legumes
@@ -722,7 +722,7 @@ abalone,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,s
 unagi,gluten:T;wheat:T;fish:I;soy:T,seafood,soy sauce marinade or glaze | kabayaki glaze is soy sauce and mirin | fish,carries a fish or shellfish tag,fish;gluten;soy,0,seafood
 tobiko,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
 ikura,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
-uni,shellfish:V,seafood,"sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it",carries a fish or shellfish tag,shellfish,0,seafood
+uni,,seafood,no listed allergen,filter group seafood,shellfish,0,seafood
 sashimi tuna,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
 mackerel,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
 yellowtail,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
@@ -1014,12 +1014,12 @@ falafel,gluten:V;wheat:V;sesame:V,plant,wheat starch / flour in some brands | se
 date syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
 carob molasses,,plant,no listed allergen,no animal ingredient,,0,pantry
 grape molasses,,plant,no listed allergen,no animal ingredient,,0,pantry
-halva,tree-nuts:V;sesame:I,plant,almonds / pecans in some versions; pistachio halva; pistachios in mortadella; argan is not on the FDA list | sesame,no animal ingredient,nuts;sesame,0,pantry
+halva,tree-nuts:V;sesame:I,plant,some halva is made with pistachios or almonds | sesame,no animal ingredient,nuts;sesame,0,pantry
 turkish delight,gluten:V;wheat:V;tree-nuts:V,plant,wheat starch / flour in some brands | some versions include tree nuts,no animal ingredient,,0,pantry
 orange blossom water,,plant,no listed allergen,no animal ingredient,,0,pantry
 pickled turnips,,plant,no listed allergen,no animal ingredient,,0,pantry
 grape leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
-stuffed grape leaves,,plant,no listed allergen,no animal ingredient,,0,pantry
+stuffed grape leaves,tree-nuts:V,plant,pine nuts are common in the filling,no animal ingredient,,0,pantry
 freekeh,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
 maftoul,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
 fregola,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
@@ -1031,7 +1031,7 @@ simit,gluten:I;wheat:I;sesame:T,plant,"sesame in the common recipe | wheat bread
 sucuk,,meat,no listed allergen,filter group meat,,0,meat
 pastirma,,meat,no listed allergen,filter group meat,,0,meat
 merguez,,meat,no listed allergen,filter group meat,,0,meat
-mortadella,tree-nuts:V,meat,almonds / pecans in some versions; pistachio halva; pistachios in mortadella; argan is not on the FDA list,filter group meat,,0,meat
+mortadella,tree-nuts:V,meat,mortadella di Bologna is often made with pistachios,filter group meat,,0,meat
 lamb shank,,meat,no listed allergen,filter group meat,,0,meat
 lamb neck,,meat,no listed allergen,filter group meat,,0,meat
 lamb fat,,meat,no listed allergen,filter group meat,,0,meat
@@ -1105,7 +1105,7 @@ pigeon peas dried,,plant,no listed allergen,no animal ingredient,,0,legumes
 hibiscus flowers,,plant,no listed allergen,no animal ingredient,,0,pantry
 baobab powder,,plant,no listed allergen,no animal ingredient,,0,pantry
 moringa powder,,plant,no listed allergen,no animal ingredient,,0,pantry
-argan oil,tree-nuts:V,plant,almonds / pecans in some versions; pistachio halva; pistachios in mortadella; argan is not on the FDA list,no animal ingredient,nuts,0,pantry
+argan oil,,plant,no listed allergen,no animal ingredient,nuts,0,pantry
 amlou,tree-nuts:T,plant,tree nut in the common recipe / product,no animal ingredient,nuts,0,pantry
 msemen,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
 warqa,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
@@ -1151,7 +1151,7 @@ crema salvadorena,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a da
 mole paste,gluten:V;wheat:V;peanuts:T;tree-nuts:T;sesame:T,plant,wheat starch / flour in some brands | tahini or sesame seeds in the common recipe | peanuts are standard in the traditional recipe | tree nut in the common recipe / product,no animal ingredient,nuts;sesame,0,pantry
 green mole,peanuts:V;sesame:V,plant,sesame in some brands / recipes | some brands / recipes include peanuts,no animal ingredient,nuts;sesame,0,pantry
 salsa verde,,plant,no listed allergen,no animal ingredient,,0,pantry
-salsa macha,peanuts:T;tree-nuts:V;sesame:T,plant,sesame in the common recipe | peanuts are in the traditional mix / spice | almonds / pecans in some versions; pistachio halva; pistachios in mortadella; argan is not on the FDA list,no animal ingredient,nuts;sesame,0,pantry
+salsa macha,peanuts:T;tree-nuts:V;sesame:T,plant,sesame in the common recipe | peanuts are in the traditional mix / spice | some versions are made with almonds or pecans,no animal ingredient,nuts;sesame,0,pantry
 tajin,,plant,no listed allergen,no animal ingredient,,0,spices
 chamoy,,plant,no listed allergen,no animal ingredient,,0,pantry
 pico de gallo,,plant,no listed allergen,no animal ingredient,,0,pantry
@@ -1286,7 +1286,7 @@ sparkling wine,,plant,no listed allergen,no animal ingredient,,0,pantry
 rose wine,,plant,no listed allergen,no animal ingredient,,0,pantry
 port wine,,plant,no listed allergen,no animal ingredient,,0,pantry
 sherry,,plant,no listed allergen,no animal ingredient,,0,pantry
-beer,gluten:T,plant,brewed from barley (gluten-free beers exist),no animal ingredient,gluten,0,pantry
+beer,gluten:T;wheat:V,plant,"wheat beer (hefeweizen, witbier) is brewed with wheat; the alias 'wheat beer' resolves to beer | brewed from barley (gluten-free beers exist)",no animal ingredient,gluten,0,pantry
 ladyfingers,gluten:I;wheat:I;egg:T,dairy_egg,"wheat bread, pastry or cracker | eggs in the usual recipe or product",carries a dairy or egg tag,egg;gluten,0,grains
 amaretti cookies,egg:T;tree-nuts:T,dairy_egg,eggs in the usual recipe or product | tree nut in the common recipe / product,carries a dairy or egg tag,egg;nuts,0,pantry
 grissini,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
@@ -1641,7 +1641,7 @@ onion salt,,plant,no listed allergen,no animal ingredient,,0,spices
 celery salt,,plant,no listed allergen,no animal ingredient,,0,spices
 cajun seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
 fajita seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
-chili seasoning mix,,plant,no listed allergen,no animal ingredient,,0,spices
+chili seasoning mix,gluten:V;wheat:V,plant,"chili seasoning mix is often thickened with wheat flour, as taco seasoning is",no animal ingredient,,0,spices
 steak seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
 bbq rub,,plant,no listed allergen,no animal ingredient,,0,spices
 ranch seasoning,dairy:T,dairy_egg,"cream, milk, butter or cheese in the common product",carries a dairy or egg tag,dairy,0,spices
@@ -1898,7 +1898,7 @@ sprouted mung beans,,plant,no listed allergen,no animal ingredient,,0,vegetables
 sprouted lentils,,plant,no listed allergen,no animal ingredient,,0,vegetables
 iru,,plant,no listed allergen,no animal ingredient,,0,pantry
 ugba,,plant,no listed allergen,no animal ingredient,,0,legumes
-bambara groundnut,peanuts:V,plant,"bambara groundnut is a different legume, but it is called a groundnut and is cross-reactive with peanut",no animal ingredient,,0,legumes
+bambara groundnut,,plant,no listed allergen,no animal ingredient,,0,legumes
 stockfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
 smoked turkey,,meat,no listed allergen,filter group meat,,0,meat
 ponmo,,meat,no listed allergen,cow skin,,0,meat

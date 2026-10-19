@@ -21,7 +21,7 @@
 [fish:T] anchovies in the classic recipe :: olive tapenade
 [fish:V] fish sauce :: nem nuong; cha lua
 [fish:V, shellfish:V] prawn or fish flavoured crackers :: kerupuk
-[shellfish:V] sea urchin is neither a crustacean nor a mollusk, but people with shellfish allergy are often advised to avoid it :: uni
+# uni (sea urchin) is an echinoderm: neither a crustacean (shellfish) nor a mollusk (policy P6), so it carries no allergen tag.
 
 # --- dairy found missing
 [dairy:T] cream, milk, butter or cheese in the common product :: ranch seasoning; buffalo sauce; ube halaya; trahana; christmas pudding; stollen; soda bread; rusks; saag; bolognese sauce; coconut bread
@@ -31,9 +31,12 @@
 # --- peanuts / tree nuts found missing
 [peanuts:T] peanuts are in the traditional mix / spice :: suya spice; salsa macha; chivda
 [tree-nuts:T] cashew or almond in the common mix :: chivda
-[tree-nuts:V] almonds / pecans in some versions; pistachio halva; pistachios in mortadella; argan is not on the FDA list :: salsa macha; halva; mortadella; argan oil
+[tree-nuts:V] some versions are made with almonds or pecans :: salsa macha
+[tree-nuts:V] some halva is made with pistachios or almonds :: halva
+[tree-nuts:V] mortadella di Bologna is often made with pistachios :: mortadella
+# argan oil: argan is not on the FDA tree nut list (policy P1/P5), so it carries no allergen tag.
 [tree-nuts:T] almonds in the traditional stollen :: stollen
-[peanuts:V] bambara groundnut is a different legume, but it is called a groundnut and is cross-reactive with peanut :: bambara groundnut
+# bambara groundnut (Vigna subterranea) is a different legume from peanut (Arachis); untagged on purpose.
 [gluten:V] oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease :: rolled oats; steel-cut oats; oat flour; oat bran; oat milk
 [wheat:V, gluten:V] wheat starch: contains wheat, gluten-free only if specially processed :: wheat starch
 
