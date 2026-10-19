@@ -130,13 +130,17 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
       .filter((v): v is number => typeof v === "number");
     const sum = parts.reduce((a, b) => a + b, 0);
     // whole grams on the label: parts may exceed the whole by half a gram of rounding, never more (a part of 0.4 g under 0.3 g shows)
-    const tooBig = sum > pubFat.amount + 0.5 || parts.some((v) => v > pubFat.amount + 0.05);
+    // each part is compared as DISPLAYED (rounded the way the label rounds it), so no part is ever shown above its whole
+    const fatShown = roundForLabel(pubFat.amount, { unit: "g", fdcNumber: FDC.fat });
+    const shownSum = parts.reduce((a, v) => a + roundForLabel(v, { unit: "g", fdcNumber: FDC.satFat }), 0);
+    const tooBig = sum > pubFat.amount + 0.5 || shownSum > fatShown + 0.5 || parts.some((v) => roundForLabel(v, { unit: "g", fdcNumber: FDC.satFat }) > fatShown);
     if (tooBig) for (const f of [FDC.satFat, FDC.transFat, FDC.monoFat, FDC.polyFat]) if (byFdcRow.has(f)) hidden.add(f);
   }
   const pubCarb = found(FDC.carbs);
   if (pubCarb) {
     const sugars = byFdcRow.get(FDC.sugars)?.amount;
-    if (typeof sugars === "number" && sugars > pubCarb.amount + 0.5) {
+    // sugars are compared as DISPLAYED: 9.5 g of sugars shows "10 g" and 9.4 g of carbohydrate shows "9.4 g"
+    if (typeof sugars === "number" && roundForLabel(sugars, { unit: "g", fdcNumber: FDC.sugars }) > roundForLabel(pubCarb.amount, { unit: "g", fdcNumber: FDC.carbs })) {
       hidden.add(FDC.sugars);
       hidden.add(FDC.addedSugars);
     }

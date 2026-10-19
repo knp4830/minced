@@ -46,3 +46,4 @@ orange,large,1.4046,169097,96,131,184,FDC 169097 foodPortions: large 184 g / med
 peach,small,0.8667,169928,130,150,175,FDC 169928 foodPortions: small 130 g / medium 150 g
 peach,large,1.1667,169928,130,150,175,FDC 169928 foodPortions: large 175 g / medium 150 g
 peach,extra large,1.4933,169928,130,150,175,FDC 169928 foodPortions: extra large 224 g / medium 150 g
+papaya,small,0.2010,169926,157,,781,"FDC 169926 foodPortions: fruit small 157 g / large 781 g; the ingredient each-weight (781 g) is the LARGE fruit"

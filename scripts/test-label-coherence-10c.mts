@@ -10,7 +10,7 @@ import { register } from "node:module";
 register("./me-alias-hook.mjs", import.meta.url);
 
 const { buildLabel } = await import("../src/lib/recipeLabel.ts");
-const { toNutrient, FDC } = await import("../src/lib/nutrients.ts");
+const { toNutrient, FDC, roundForLabel } = await import("../src/lib/nutrients.ts");
 
 const file = process.argv[2];
 if (!file) {
@@ -46,7 +46,8 @@ for (const r of doc.recipes as any[]) {
   checked++;
   const top = new Map<number, any>(m.top.filter((x: any) => !x.noData && x.amount !== null).map((x: any) => [x.fdc, x]));
   const bad = (what: string) => problems.push({ slug: r.slug, what });
-  const shown = (fdc: number) => (top.get(fdc)?.amount as number | undefined);
+  // compared as DISPLAYED (rounded the way the label rounds), strictly: no tolerance
+  const shown = (fdc: number) => { const a = top.get(fdc)?.amount as number | undefined; return a === undefined ? undefined : roundForLabel(a, { unit: "g", fdcNumber: fdc }); };
 
   const fat = shown(FDC.fat);
   if (fat !== undefined) {
@@ -55,7 +56,7 @@ for (const r of doc.recipes as any[]) {
       const v = shown(f);
       if (v === undefined) continue;
       sum += v;
-      if (v > fat + 0.05) bad(`fat part ${f} (${v}) above total fat (${fat})`);
+      if (v > fat) bad(`fat part ${f} (${v}) above total fat (${fat})`);
     }
     if (sum > fat + 0.5) bad(`fat parts add to ${sum.toFixed(1)} above total fat ${fat}`);
   }
@@ -64,10 +65,10 @@ for (const r of doc.recipes as any[]) {
     const sugars = shown(FDC.sugars);
     const fiber = shown(FDC.fiber);
     const added = shown(FDC.addedSugars);
-    if (sugars !== undefined && sugars > carbs + 0.5) bad(`sugars ${sugars} above carbs ${carbs}`);
-    if (fiber !== undefined && fiber > carbs + 0.5) bad(`fiber ${fiber} above carbs ${carbs}`);
-    if (added !== undefined && sugars !== undefined && added > sugars + 0.5) bad(`added sugars ${added} above sugars ${sugars}`);
-    if (added !== undefined && added > carbs + 0.5) bad(`added sugars ${added} above carbs ${carbs}`);
+    if (sugars !== undefined && sugars > carbs) bad(`sugars ${sugars} above carbs ${carbs}`);
+    if (fiber !== undefined && fiber > carbs) bad(`fiber ${fiber} above carbs ${carbs}`);
+    if (added !== undefined && sugars !== undefined && added > sugars) bad(`added sugars ${added} above sugars ${sugars}`);
+    if (added !== undefined && added > carbs) bad(`added sugars ${added} above carbs ${carbs}`);
   }
   // fats and sugars never appear in the vitamins and minerals block
   for (const x of m.micro) {

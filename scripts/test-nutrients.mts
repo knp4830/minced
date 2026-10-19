@@ -106,6 +106,13 @@ assert.equal(fits.breakdownHidden, false);
 assert.deepEqual(fits.top.filter((r) => r.indent === 1 && r.fdc !== 291).map((r) => r.name), ["Saturated fat", "Polyunsaturated fat", "Monounsaturated fat"]); // all in the top block, none under "vitamins and minerals"
 assert.equal(fits.micro.some((r) => r.fdc === 645 || r.fdc === 646), false);
 
+// sugars are compared as DISPLAYED: 9.5 g shows "10 g" and 9.4 g of carbohydrate shows "9.4 g", so the sugars row is left out
+// (basic-custard, yogurt-popsicles, veggie-dip showed sugars one rounding step above carbohydrate)
+for (const [carbs, sugars, hidden] of [[9.4, 9.5, true], [10, 11, true], [1.1, 1.2, true], [9.4, 9.4, false], [20, 12, false], [10, 10.4, false]] as const) {
+  const m = buildLabel({ calories: 100, proteinG: 2, carbsG: carbs, fatG: 2, fiberG: null, sodiumMg: 100 }, { status: "complete", source: "usda_myplate", gaps: [], rows: [row("sugars_g", sugars)] }, nutrients);
+  assert.equal(m.top.some((r) => r.fdc === 269), !hidden, `carbs ${carbs} sugars ${sugars}`);
+}
+
 // columns written by refresh for a recipe we computed are computed, not "published"
 const own = buildLabel({ calories: 689, proteinG: 30, carbsG: 20, fatG: 52, fiberG: 4, sodiumMg: 300 }, { status: "complete", source: "computed", gaps: [], rows: [row("calcium_mg", 100)] }, nutrients);
 assert.equal(own.basis, "computed");

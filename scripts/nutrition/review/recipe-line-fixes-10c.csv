@@ -514,6 +514,8 @@ cowboy-caviar-bean-salsa,Cowboy Caviar (Bean Salsa),3,crushed tomatoes,note,,low
 cranberry-nut-bread,Cranberry Nut Bread,8,dried cranberries,ingredient,dried cranberries,fresh cranberries,cranberries not called dried are the fresh berry,1 cup chopped cranberries
 cranberry-pumpkin-muffins,Cranberry Pumpkin Muffins,9,dried cranberries,qty_unit,,2 cup,alternatives: first option takes the amount,2 cups fresh or frozen cranberries
 cranberry-pumpkin-muffins,Cranberry Pumpkin Muffins,10,dried cranberries,optional,false,true,alternatives: later options are optional,2 cups fresh or frozen cranberries
+cranberry-pumpkin-muffins,Cranberry Pumpkin Muffins,9,dried cranberries,ingredient,dried cranberries,fresh cranberries,"fixer round 2: ""fresh or frozen"" cranberries are the fresh berry (not dried sweetened)",2 cups fresh or frozen cranberries
+cranberry-pumpkin-muffins,Cranberry Pumpkin Muffins,10,dried cranberries,ingredient,dried cranberries,fresh cranberries,"fixer round 2: the alternative option is the same fresh or frozen berry",2 cups fresh or frozen cranberries
 cranberry-salad,Cranberry Salad,2,cranberry juice,ingredient,cranberry juice,cranberry sauce,"manual: ""1 can cranberry sauce"" was stored as cranberry juice",1 can cranberry sauce
 cream-broccoli-soup,Cream of Broccoli Soup,0,chicken broth,note,,low-sodium,lost qualifiers: low_sodium,"1 1/2 cups chicken broth, low-sodium"
 cream-broccoli-soup,Cream of Broccoli Soup,10,milk,ingredient,milk,skim milk,milk named fat-free is skim milk,1 cup non-fat milk
@@ -1479,3 +1481,15 @@ zucchini-coleslaw,Zucchini Coleslaw,5,mayonnaise,note,,low-fat,lost qualifiers: 
 zucchini-stir-fry,Zucchini Stir Fry,1,yellow onion,note,,medium,lost qualifiers:  size,1 medium onion
 zucchini-stir-fry,Zucchini Stir Fry,2,yellow squash,note,,medium,lost qualifiers:  size,1 medium yellow squash
 zucchini-stir-fry,Zucchini Stir Fry,3,zucchini,note,,medium,lost qualifiers:  size,1 medium zucchini
+ginger-bread-mix,Ginger Bread Mix,3,ginger,ingredient,ginger,ground ginger,"fixer round 2: the line says dried, ground ginger; fresh ginger root is 80 kcal/100 g, ground 335","3 tablespoons ginger, dried, ground"
+basic-soup-and-sauce-mix,Basic Soup and Sauce Mix,3,yellow onion,ingredient,yellow onion,dried onion flakes,"fixer round 2: ""onion, dried"" is dehydrated onion (about 35 kcal per 2 tbsp), not 20 g of raw onion","2 tablespoons onion flakes, dried"
+quick-chili,Quick Chili,3,yellow onion,ingredient,yellow onion,dried onion flakes,fixer round 2: instant minced onion is dehydrated onion,"1 tablespoon onion, instant minced"
+turkey-meatloaf,Turkey Meatloaf,3,yellow onion,ingredient,yellow onion,dried onion flakes,"fixer round 2: ""1 tablespoon onion, dehydrated"" is dehydrated onion","1 tablespoon onion, dehydrated, or one small onion, minced"
+potato-salad,Potato Salad,0,russet potato,qty_unit,4,1 lb,"fixer round 2: the note states the weight (""about 1 pound""); 4 x 230 g counted 920 g","4 potatoes, about 1 pound"
+potato-skins-buffalo-chicken,Potato Skins with Buffalo Chicken,2,russet potato,qty_unit,4,1.5 lb,"fixer round 2: the note states the weight (""about 1 1/2 pounds""); 4 x 230 g counted 920 g","4 medium russet potatoes, about 1 1/2 pounds"
+scalloped-potatoes-and-chicken-fennel,Scalloped Potatoes and Chicken with Fennel,0,red potato,qty_unit,4,1.75 lb,"fixer round 2: the note states a range (""about 1.5 to 2 pounds""); its midpoint 1.75 lb","4 medium red potatoes, about 1.5 to 2 pounds"
+baked-beans,Baked Beans,0,navy beans,note,"dry, sorted, and rinsed","dried, sorted, and rinsed","fixer round 2: the line says dry beans; ""dry"" -> ""dried"" so the dried-form rule applies","1 1/2 cups navy, kidney, or lima beans, dry, sorted, and rinsed"
+great-northern-bean-soup,Great Northern Bean Soup,0,great northern beans,note,,dried,"fixer round 2: the raw line says ""great northern beans, dry""; the importer dropped it, and the default is the canned bean","2 cups great northern beans, dry"
+falafel-yogurt-sandwich,Falafel with Yogurt Sandwich,0,chickpeas,note,sorted and rinsed,"dried, sorted and rinsed","fixer round 2: the raw line says ""dry garbanzo beans""; the importer dropped it, and the default is canned chickpeas","1 cup dry garbanzo beans/chickpeas, sorted and rinsed"
+sauteed-beet-greens,Sautéed Beet Greens,1,green beans,ingredient,green beans,beet greens,"fixer round 2: ""4 cups chopped beet greens"" was matched to green beans (31 kcal/100 g, 3 cups = 400 g); beet greens are 22 kcal/100 g, 38 g a cup",4 cups chopped beet greens (2 bunches with stems removed)
+sauteed-beet-greens,Sautéed Beet Greens,3,lemon,qty_unit,1,1 tsp,"fixer round 2: the line is ""1 teaspoon lemon juice""; it was stored as one whole lemon (58 g)",1 teaspoon lemon juice

@@ -53,7 +53,11 @@ insert into _rule values
   ('\munsalted\M', 'unsalted', false, null, 50, 'wave 10c: unsalted nuts / butter where a food exists; otherwise the default (nuts are not salted by default in SR raw records)'),
   ('\mwhole[- ](wheat|grain)\M', 'whole_wheat', false, null, 60, 'wave 10c: whole wheat where a food exists; energy is nearly the same, fibre differs, so a missing food is not a gap'),
   ('\mconcentrate(d)?\M', 'concentrate', false, null, 65, 'wave 10c: a juice concentrate (148 kcal/100 g undiluted) is not the juice (45)'),
-  ('\mfrozen\M', 'frozen', false, null, 70, 'wave 10c: frozen only where the frozen food differs from the default (frozen black-eyed peas are not the dry cowpea)');
+  ('\mfrozen\M', 'frozen', false, null, 70, 'wave 10c: frozen only where the frozen food differs from the default (frozen black-eyed peas are not the dry cowpea)'),
+  ('\mboiled\M', 'cooked', true,
+   '\m(cooked|boiled|baked|roasted|broiled|grilled|fried|steamed|poached|braised|stewed|canned|prepared|pre-?cooked|rotisserie|ready[- ]to[- ](eat|serve))\M',
+   100, 'fixer round 2: "hard-boiled" egg and "boiled" potato need the cooked food, not the raw one (a named gap where an ingredient has none)'),
+  ('\m(juiced|squeezed)\M', 'juiced', false, null, 68, 'fixer round 2: a lemon or lime that is only juiced counts its juice yield, not the whole fruit');
 insert into prep_rules (kind, pattern, ingredient_id, form, strict, satisfied_by, priority, note)
 select 'form', r.pattern, null, r.form, r.strict, r.satisfied_by, r.priority, r.note
 from   _rule r
@@ -232,7 +236,16 @@ insert into _q (ingredient, form, fdc_id, copy_portions, why) values
   ('broccoli', 'cooked', 169967, 'no', 'cooked broccoli (weights in extra-portions-10c.csv)'),
   ('sweet potato', 'cooked', 168483, 'no', 'cooked sweet potato (weights in extra-portions-10c.csv)'),
   ('orange juice', 'concentrate', 169923, 'no', 'juice concentrate lines (MyPlate says ''100% fruit juice concentrate''; orange, apple and grape concentrates are all 148-166 kcal per 100 g)'),
-  ('black-eyed peas', 'frozen', 168404, 'no', 'frozen black-eyed peas; the default is the dry cowpea (336 kcal/100 g)');
+  ('black-eyed peas', 'frozen', 168404, 'no', 'frozen black-eyed peas; the default is the dry cowpea (336 kcal/100 g)'),
+  ('egg', 'cooked', 173424, 'yes', 'fixer round 2: hard-boiled / hard-cooked eggs were counted as raw egg (about 8% low per gram)'),
+  ('russet potato', 'cooked', 170440, 'no', 'fixer round 2: boiled / cooked potato lines were raw potato or a gap (weights in extra-portions-10c.csv)'),
+  ('water', 'low_sodium', 174158, 'yes', 'fixer round 2: water has no sodium, so a low-sodium qualifier changes nothing and must not make the line a gap'),
+  ('lemon', 'juiced', 167747, 'no', 'fixer round 2: a lemon that is only juiced is its juice, not the whole fruit (yield in extra-portions-10c.csv)'),
+  ('lime', 'juiced', 168156, 'no', 'fixer round 2: a lime that is only juiced is its juice, not the whole fruit (yield in extra-portions-10c.csv)'),
+  ('yukon gold potato', 'cooked', 170440, 'no', 'fixer round 2: boiled potato lines (Aji de Gallina, Papa a la Huancaina) were raw potato'),
+  ('corn', 'cooked', 169999, 'no', 'fixer round 2: boiled corn (Peruvian Ceviche) was raw corn'),
+  ('navy beans', 'dried', 173745, 'no', 'fixer round 2: Baked Beans says dry navy beans; the default is canned (113 kcal/100 g), dry is 337 (weights in extra-portions-10c.csv)'),
+  ('great northern beans', 'dried', 175190, 'no', 'fixer round 2: Great Northern Bean Soup says dry beans; the default is canned (weights in extra-portions-10c.csv)');
 -- END QUALIFIER FOODS
 
 -- link the food (default for its form), demoting any other default of that form
@@ -275,7 +288,27 @@ insert into _port (ingredient, form, unit, grams, source, note) values
   ('broccoli', 'cooked', 'cup', 156, 'usda', 'USDA household weight: 1 cup chopped broccoli, cooked, boiled, drained'),
   ('orange juice', 'concentrate', 'fl oz', 33, 'usda', 'USDA household weight: 1 fl oz orange juice, frozen concentrate, undiluted'),
   ('orange juice', 'concentrate', 'cup', 262, 'usda', 'USDA household weight: 1 cup orange juice, frozen concentrate, undiluted'),
-  ('black-eyed peas', 'frozen', 'cup', 170, 'usda', 'USDA household weight: 1 cup frozen black-eyed peas, cooked, boiled, drained');
+  ('black-eyed peas', 'frozen', 'cup', 170, 'usda', 'USDA household weight: 1 cup frozen black-eyed peas, cooked, boiled, drained'),
+  ('egg', 'cooked', null, 50, 'usda', 'USDA household weight: 1 large hard-boiled egg (FDC 173424)'),
+  ('russet potato', 'cooked', 'cup', 156, 'usda', 'USDA household weight: 0.5 cup boiled potato flesh = 78 g (FDC 170440)'),
+  ('russet potato', 'cooked', null, 167, 'usda', 'USDA household weight: 1 medium (2-1/4 to 3-1/4 in) boiled potato = 167 g (FDC 170440)'),
+  ('lemon', 'juiced', null, 48, 'usda', 'USDA household weight: 1 lemon yields 48 g of juice (FDC 167747)'),
+  ('lime', 'juiced', null, 44, 'usda', 'USDA household weight: 1 lime yields 44 g of juice (FDC 168156)'),
+  ('water', 'default', null, 30, 'curated', 'an ice cube or an unsized amount of water: about 30 g (1 fl oz). Water carries no nutrient, so the weight changes no number; it only stops a water line from being a gap'),
+  ('water', 'low_sodium', null, 30, 'curated', 'same as the default form'),
+  ('yukon gold potato', 'cooked', 'cup', 156, 'usda', 'USDA household weight: 0.5 cup boiled potato flesh = 78 g (FDC 170440)'),
+  ('yukon gold potato', 'cooked', null, 167, 'usda', 'USDA household weight: 1 medium (2-1/4 to 3-1/4 in) boiled potato = 167 g (FDC 170440)'),
+  ('corn', 'cooked', 'cup', 149, 'usda', 'USDA household weight: 1 cup cut kernels, boiled, drained (FDC 169999)'),
+  ('navy beans', 'dried', 'cup', 208, 'usda', 'USDA household weight: 1 cup navy beans, raw (FDC 173745)'),
+  ('great northern beans', 'dried', 'cup', 183, 'usda', 'USDA household weight: 1 cup great northern beans, raw (FDC 175190)'),
+  ('lemon', 'juiced', 'cup', 244, 'usda', 'USDA household weight: 1 cup lemon juice, raw (FDC 167747)'),
+  ('lemon', 'juiced', 'fl oz', 30.5, 'usda', 'USDA household weight: 1 fl oz lemon juice, raw (FDC 167747)'),
+  ('lemon', 'juiced', 'tbsp', 15.25, 'usda', '1 tbsp = 1/16 of the USDA cup weight (FDC 167747)'),
+  ('lemon', 'juiced', 'tsp', 5.08, 'usda', '1 tsp = 1/48 of the USDA cup weight (FDC 167747)'),
+  ('lime', 'juiced', 'cup', 242, 'usda', 'USDA household weight: 1 cup lime juice, raw (FDC 168156)'),
+  ('lime', 'juiced', 'fl oz', 30.8, 'usda', 'USDA household weight: 1 fl oz lime juice, raw (FDC 168156)'),
+  ('lime', 'juiced', 'tbsp', 15.12, 'usda', '1 tbsp = 1/16 of the USDA cup weight (FDC 168156)'),
+  ('lime', 'juiced', 'tsp', 5.04, 'usda', '1 tsp = 1/48 of the USDA cup weight (FDC 168156)');
 -- END EXTRA PORTIONS
 insert into ingredient_portions (ingredient_id, form, unit_id, grams_per_unit, source, note)
 select i.id, p.form, u.id, p.grams, p.source, p.note
@@ -360,7 +393,8 @@ insert into _size (ingredient, size, factor, source) values
   ('orange', 'large', 1.4046, 'FDC 169097 foodPortions: large 184 g / medium 131 g'),
   ('peach', 'small', 0.8667, 'FDC 169928 foodPortions: small 130 g / medium 150 g'),
   ('peach', 'large', 1.1667, 'FDC 169928 foodPortions: large 175 g / medium 150 g'),
-  ('peach', 'extra large', 1.4933, 'FDC 169928 foodPortions: extra large 224 g / medium 150 g');
+  ('peach', 'extra large', 1.4933, 'FDC 169928 foodPortions: extra large 224 g / medium 150 g'),
+  ('papaya', 'small', 0.2010, 'FDC 169926 foodPortions: fruit small 157 g / large 781 g; the ingredient each-weight (781 g) is the LARGE fruit');
 -- END SIZE FACTORS
 -- The generic small / large / extra large factors (0.75 / 1.30 / 1.50) were estimates, not USDA numbers: a "large" potato is
 -- 1.7 times a medium one and a "large" onion 1.4 times, not 1.3. Only a size USDA publishes for that very food scales a line now.
@@ -892,6 +926,8 @@ insert into _fix (slug, ord, ingredient, action, old_value, new_value) values
   ('cranberry-nut-bread', 8, 'dried cranberries', 'ingredient', 'dried cranberries', 'fresh cranberries'),
   ('cranberry-pumpkin-muffins', 9, 'dried cranberries', 'qty_unit', '', '2 cup'),
   ('cranberry-pumpkin-muffins', 10, 'dried cranberries', 'optional', 'false', 'true'),
+  ('cranberry-pumpkin-muffins', 9, 'dried cranberries', 'ingredient', 'dried cranberries', 'fresh cranberries'),
+  ('cranberry-pumpkin-muffins', 10, 'dried cranberries', 'ingredient', 'dried cranberries', 'fresh cranberries'),
   ('cranberry-salad', 2, 'cranberry juice', 'ingredient', 'cranberry juice', 'cranberry sauce'),
   ('cream-broccoli-soup', 0, 'chicken broth', 'note', '', 'low-sodium'),
   ('cream-broccoli-soup', 10, 'milk', 'ingredient', 'milk', 'skim milk'),
@@ -1856,7 +1892,19 @@ insert into _fix (slug, ord, ingredient, action, old_value, new_value) values
   ('zucchini-coleslaw', 5, 'mayonnaise', 'note', '', 'low-fat'),
   ('zucchini-stir-fry', 1, 'yellow onion', 'note', '', 'medium'),
   ('zucchini-stir-fry', 2, 'yellow squash', 'note', '', 'medium'),
-  ('zucchini-stir-fry', 3, 'zucchini', 'note', '', 'medium');
+  ('zucchini-stir-fry', 3, 'zucchini', 'note', '', 'medium'),
+  ('ginger-bread-mix', 3, 'ginger', 'ingredient', 'ginger', 'ground ginger'),
+  ('basic-soup-and-sauce-mix', 3, 'yellow onion', 'ingredient', 'yellow onion', 'dried onion flakes'),
+  ('quick-chili', 3, 'yellow onion', 'ingredient', 'yellow onion', 'dried onion flakes'),
+  ('turkey-meatloaf', 3, 'yellow onion', 'ingredient', 'yellow onion', 'dried onion flakes'),
+  ('potato-salad', 0, 'russet potato', 'qty_unit', '4', '1 lb'),
+  ('potato-skins-buffalo-chicken', 2, 'russet potato', 'qty_unit', '4', '1.5 lb'),
+  ('scalloped-potatoes-and-chicken-fennel', 0, 'red potato', 'qty_unit', '4', '1.75 lb'),
+  ('baked-beans', 0, 'navy beans', 'note', 'dry, sorted, and rinsed', 'dried, sorted, and rinsed'),
+  ('great-northern-bean-soup', 0, 'great northern beans', 'note', '', 'dried'),
+  ('falafel-yogurt-sandwich', 0, 'chickpeas', 'note', 'sorted and rinsed', 'dried, sorted and rinsed'),
+  ('sauteed-beet-greens', 1, 'green beans', 'ingredient', 'green beans', 'beet greens'),
+  ('sauteed-beet-greens', 3, 'lemon', 'qty_unit', '1', '1 tsp');
 -- END RECIPE LINE FIXES
 
 create temp table _target on commit drop as
@@ -1905,6 +1953,28 @@ update recipe_ingredients ri
 delete from recipe_ingredients ri
  using _target t
  where t.action = 'delete' and ri.id = t.ri_id;
+
+-- ---------------------------------------------------------------------------------------------------------------
+-- 6. fixer round 2 (accuracy audit of the recipe math)
+-- ---------------------------------------------------------------------------------------------------------------
+-- A can's weight must go with the record it is paired with. A "drained solids" record (kidney, pinto, chickpeas, green beans,
+-- the black-bean default) is paired with the drained weight of a 15 oz can (255 g; chickpeas 240 g). A "solids and liquids" record
+-- is the whole contents of the can: 15 oz = 425 g (net weight). The low-sodium black-bean food (FDC 175238, 91 kcal/100 g), the
+-- no-salt-added corn (FDC 169345, 61) and the canned white / great northern / navy beans (FDC 175204 / 175192 / 173747, 113-114)
+-- are solids-and-liquids records, but kept the 255 g / 211 g drained weights, which undercounted a can by about 40 percent
+-- (Pumpkin and Bean Soup 107 kcal against USDA's 188; with the whole can 139). Checked against the published values of the 88
+-- MyPlate recipes that use them: 13 more land within 15 percent and most moved toward USDA's number; two moved away
+-- (Hearty Mexican Soup -2% to +22%, Corn Soup +12% to +22%; a whole 15 oz can of no-salt-added corn is 425 g x 61 kcal/100 g). The
+-- weight of the can, not the match to MyPlate's published number, is the rule; those two are in the open questions.
+update ingredient_portions p
+   set grams_per_unit = 425, source = 'curated',
+       note = '15 oz can, net contents (425 g): this form is a solids-and-liquids record (fixer round 2; was a drained-solids weight)'
+  from ingredients i, units u
+ where i.id = p.ingredient_id and u.id = p.unit_id and u.name = 'can'
+   and ( (i.canonical_name = 'black beans' and p.form = 'low_sodium')
+      or (i.canonical_name = 'corn' and p.form in ('low_sodium', 'low sodium'))
+      or (i.canonical_name in ('white beans', 'cannellini beans', 'great northern beans', 'navy beans') and p.form in ('default', 'canned', 'low_sodium')) )
+   and p.grams_per_unit <> 425;
 
 -- Added-sugars estimate, more sweetened ingredients (10c fixer). fraction = share of the food's total sugars that is added.
 --   dried cranberries 0.90: Ocean Spray Craisins label, 29 g sugars of which 26 g added per 1/4 cup (cranberries have little sugar of their own)

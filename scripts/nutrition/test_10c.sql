@@ -208,4 +208,56 @@ begin
   if list is not null then raise exception 'GATE branded defaults with energy inconsistent with their macros: %', list; end if;
 end $$;
 
+\echo == recipe math, fixer round 2 (needs the migration 20261019100000 and a refresh_all_recipe_nutrients() after the seeds)
+do $$
+declare n int; g numeric; frm text; v_food int;
+begin
+  -- 'fresh or frozen cranberries' are the fresh berry, not dried sweetened
+  if (select count(*) from recipe_ingredients ri join recipes rc on rc.id = ri.recipe_id join ingredients i on i.id = ri.ingredient_id
+       where rc.source_url like '%/cranberry-pumpkin-muffins' and i.canonical_name = 'dried cranberries') > 0 then
+    raise exception 'GATE Cranberry Pumpkin Muffins still has dried cranberries'; end if;
+  select n.amount_per_serving into g from recipe_nutrients n join recipes rc on rc.id = n.recipe_id
+   where rc.source_url like '%/cranberry-pumpkin-muffins' and n.nutrient_id = 1;
+  if g is null or abs(g - 207) / 207 > 0.10 then raise exception 'GATE Cranberry Pumpkin Muffins computes % kcal, published 207', g; end if;
+
+  -- a hard-boiled egg is the cooked egg (173424), a boiled russet potato the boiled potato (170440)
+  select x.fdc_id, x.form into v_food, frm from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'egg'), 'quantity', 4, 'prep_note', 'hard-boiled'))) x;
+  if v_food is distinct from 173424 or frm is distinct from 'cooked' then raise exception 'GATE hard-boiled egg uses food % form %', v_food, frm; end if;
+  select x.fdc_id into v_food from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'russet potato'), 'quantity', 3, 'unit_id', (select id from units where name = 'cup'), 'prep_note', 'diced & boiled'))) x;
+  if v_food is distinct from 170440 then raise exception 'GATE boiled russet potato uses food %', v_food; end if;
+
+  -- a lemon or lime that is only juiced counts its juice yield (USDA: 48 g / 44 g), not the whole fruit
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'lime'), 'quantity', 1, 'prep_note', 'juiced'))) x;
+  if g is distinct from 44 then raise exception 'GATE a juiced lime counts % g, expected the 44 g juice yield', g; end if;
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'lemon'), 'quantity', 2, 'prep_note', 'juiced'))) x;
+  if g is distinct from 96 then raise exception 'GATE 2 juiced lemons count % g, expected 96', g; end if;
+
+  -- a can's weight goes with its record: a solids-and-liquids record (low-sodium black beans, no-salt corn, canned white beans) is the 425 g net can
+  select count(*) into n from ingredient_portions p join ingredients i on i.id = p.ingredient_id join units u on u.id = p.unit_id
+   where u.name = 'can' and p.grams_per_unit <> 425
+     and ((i.canonical_name = 'black beans' and p.form = 'low_sodium') or (i.canonical_name = 'corn' and p.form in ('low_sodium', 'low sodium'))
+          or (i.canonical_name in ('white beans', 'cannellini beans', 'great northern beans', 'navy beans') and p.form in ('default', 'canned', 'low_sodium')));
+  if n > 0 then raise exception 'GATE % can weights are not paired with their solids-and-liquids record', n; end if;
+
+  -- water (and ice) is never a gap: it carries no nutrient
+  select count(*) into n from recipe_ingredients ri join ingredients i on i.id = ri.ingredient_id
+    cross join lateral nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', ri.ingredient_id, 'quantity', ri.quantity, 'unit_id', ri.unit_id, 'prep_note', ri.prep_note, 'is_optional', ri.is_optional))) x
+   where i.canonical_name = 'water' and x.state in ('no_form', 'no_grams', 'no_food');
+  if n > 0 then raise exception 'GATE % water lines are still gaps', n; end if;
+
+  -- a weight stated for an each-count line is used: 4 potatoes "about 1 pound" is 454 g, not 4 x 230 g
+  select x.grams into g from recipe_ingredients ri join recipes rc on rc.id = ri.recipe_id join ingredients i on i.id = ri.ingredient_id
+    cross join lateral nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', ri.ingredient_id, 'quantity', ri.quantity, 'unit_id', ri.unit_id, 'prep_note', ri.prep_note))) x
+   where rc.source_url like '%/potato-salad' and i.canonical_name = 'russet potato';
+  if g is null or abs(g - 453.592) > 1 then raise exception 'GATE Potato Salad potatoes count % g, the note states about 1 pound', g; end if;
+
+  -- recipes we computed carry the computed macro columns, never the AI-drafted ones; MyPlate keeps USDA's published values
+  select count(*) into n from recipes rc join recipe_nutrients k on k.recipe_id = rc.id and k.nutrient_id = 1
+   where rc.source_name not like 'USDA MyPlate%' and rc.nutrition_source = 'computed' and rc.nutrition_status = 'complete'
+     and rc.calories is distinct from round(k.amount_per_serving, 0);
+  if n > 0 then raise exception 'GATE % computed complete recipes whose calories column is not the computed value', n; end if;
+  select count(*) into n from recipes rc where rc.nutrition_source = 'computed' and rc.nutrition_status <> 'complete' and rc.calories is not null;
+  if n > 0 then raise exception 'GATE % computed partial recipes still show a calories column', n; end if;
+end $$;
+
 \echo == 10c gates passed
