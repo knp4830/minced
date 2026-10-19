@@ -4,7 +4,7 @@ Verified on a fresh snapshot restore in exactly this order (migrations about 3 m
 The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them once PR #57's steps ran, so on live skip `scripts/allergens/build-db-pre.sh`.
 
 1. Restore the Supabase project (it pauses) and wait for ACTIVE_HEALTHY. Back up live first (CLAUDE.md procedure). Note `auth.users` and Storage are not in the dump.
-2. Apply migrations in timestamp order (wave 9's `20261017100000` and `110000` must already be on live; live goes 37 to 57, the 20 below are new).
+2. Apply migrations in timestamp order (wave 9's `20261017100000` and `110000` must already be on live; live goes 37 to 58, the 21 below are new).
    Wave 10+11 (ten):
    `20261017120000_nutrition_tables`, `120100_nutrition_compute`, `120200_nutrition_search_and_hooks`, `150000_me_food_nutrient_snapshot`,
    `150100_recipe_ingredient_foods`, `160000_user_settings`, `160100_filtered_recipes_exclude`, `170000_nutrition_can_rule`, `180000_nutrition_recipe_audit`, `190000_search_foods_lead_ranking`.
@@ -18,10 +18,11 @@ The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them 
    `160000_recipe_national_sources` (licence credit under the label),
    `170000_food_proxy_and_brand_display` (`ingredient_foods.is_proxy`, stand-ins reach `nutrition_assumptions()`, `search_foods()` and `my_recipe_foods()` show `brand_name` only, never the barcode-prefix owner).
    `180000_vegan_requires_no_animal_allergen_tag` (vegan may not sit beside a dairy / egg / fish / shellfish / mollusks allergen tag of any basis; replaces `recipe_diet_rows()`; takes effect at the diet refresh in `seed-allergen-tags.sql`).
+   `20261019130000_user_settings_birth_year` (UI/site fixer: optional `user_settings.birth_year`, so Me gives a sedentary baseline from weight + sex + age and age-banded DRIs without finishing the targets wizard; plain `alter table add column`, non-superuser safe),
    `20261019120000_recipe_has_allergen_legacy_nuts` (allergen fixer: the database predicate also expands the legacy `nuts` slug to peanuts + tree-nuts; plain `create or replace`, safe for a non-superuser),
    `20261019100000_nutrition_computed_recipes_columns` (fixer round 2: `refresh_recipe_nutrients()` writes the computed macro columns for EVERY recipe we computed, not only a member's; the 106 "Minced original" recipes kept AI-drafted calories up to 98 percent off. Takes effect at the refresh in step 4; a computed recipe that is not complete then shows no calories column, and its label says "at least" from the ingredient rows).
    NOTE `150000_allergen_predicate_helper` now begins with `select similarity('a','a');` (docs/LESSONS.md section 2): without it a NON-superuser role (live) fails with "permission denied to set parameter pg_trgm.word_similarity_threshold" while re-creating search_recipes; a superuser snapshot hides this.
-   (All twenty are needed BEFORE the code is merged; code first gives 500 on /settings, /pantry, /recipes when signed in, recipe pages and the Me panel.)
+   (All twenty-one are needed BEFORE the code is merged; code first gives 500 on /settings, /pantry, /recipes when signed in, recipe pages and the Me panel.)
 3. Seeds, each idempotent, in this order (supabase/ folder, run as the postgres role):
    `seed-nutrition-usda-1-foods.sql`, `seed-nutrition-usda-2-nutrients-01.sql`, `seed-nutrition-usda-3-links.sql`,
    `seed-ingredients-world.sql`, `seed-nutrition-world.sql`, `seed-nutrition-branded-extra.sql`, `seed-nutrition-zz-integration.sql`,
@@ -46,3 +47,5 @@ The snapshot at `.snapshot/live.sql` lacks some wave 7-9 objects; live has them 
 7. `pnpm db:types` (already regenerated in this branch from the snapshot, additions only; re-run only if live differs), merge the PR, wait for deploy,
    revalidate recipe pages (ISR 1 h) so labels appear.
 8. Smoke on live: a recipe page label, `/settings`, `/recipes` signed in with saved defaults, `/pantry` signed in and signed out, Me "Add food" type-ahead, filter "no peanuts" on /recipes, /pantry and search.
+
+UI/site fixer (round 1): `src/app/(site)/pantry/loading.tsx` was deleted. With it, the first same-route navigation on /pantry after a hard load (filter chip, "Only what I can make now", "Show all N") did not commit for about 12 s (until NavProgress's give-up re-rendered the page); the identical page without the file committed in about 100 ms on a production build. Nothing to run on live for this. `supabase/tests/user_settings_test.sql` now uses the split allergen slugs (71 checks, 0 failures on the snapshot).

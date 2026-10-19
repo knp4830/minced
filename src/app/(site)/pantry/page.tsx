@@ -59,8 +59,12 @@ export default async function PantryPage({
   const hasFridge = rows.length > 0;
   const items = rows.map((r) => ({ id: r.ingredientId, name: r.name }));
   const nowOnly = url.now === true;
-  // Fridge edits and cookware taps are same-route navigations, which do not trigger loading.tsx; a keyed
-  // Suspense boundary shows the skeleton instead.
+  // Fridge edits and cookware taps are same-route navigations; a keyed Suspense boundary shows the skeleton.
+  // There is deliberately NO pantry/loading.tsx: with one, the first same-route navigation after a hard load
+  // (filter chip, "Only what I can make now", "Show all N") did not commit until something else re-rendered
+  // the page, about 12 s later when NavProgress gave up. The identical page without the file committed in
+  // about 100 ms every time (bisected on a production build). The global NavProgress bar covers the wait when
+  // arriving from another page.
   const resultsKey = `${filtersToQuery(resultFilters(filters))}|${group ?? ""}|${rows.map((r) => `${r.ingredientId}:${r.expiresOn ?? ""}`).join(",")}`;
 
   return (

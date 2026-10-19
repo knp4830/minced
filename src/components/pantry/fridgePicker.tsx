@@ -305,7 +305,7 @@ export function FridgePicker({ catalog, variant, initial = [], className }: Frid
           <p className="mb-3 text-[0.8125rem] leading-snug text-ink-muted">
             {choosing
               ? "Pick the ingredients you want in the dish. You’ll see recipes that use all of them. Nothing is saved."
-              : "Tap everything you have. One is enough: you’ll see every recipe that uses any of it. Salt, pepper, oil, butter, sugar, flour and water are assumed."}
+              : "Tap everything you have. Recipes you can make now come first, then ones missing one or two things. Salt, pepper, oil, butter, sugar, flour and water are assumed."}
           </p>
 
           <div className="flex min-h-11 items-center gap-2 rounded-field border border-line bg-sunken px-3 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20">

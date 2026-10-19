@@ -19,6 +19,8 @@ export type UserSettings = {
   units: Units;
   weekStart: WeekStart;
   sex: Sex | null;
+  /** Optional. Me derives an age from it (this year minus birth year). */
+  birthYear: number | null;
   /** Diet slugs: at most one eating style from NESTED_DIETS, plus independent ones such as gluten-free. */
   diet: string[];
   /** Allergen slugs to leave out. */
@@ -29,6 +31,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   units: "metric",
   weekStart: "monday",
   sex: null,
+  birthYear: null,
   diet: [],
   allergens: [],
 };
@@ -50,6 +53,24 @@ export type Checked<T> = Ok<T> | Bad;
 
 export function oneOf<T extends string>(v: unknown, allowed: readonly T[]): v is T {
   return typeof v === "string" && (allowed as readonly string[]).includes(v);
+}
+
+export const MIN_AGE = 13;
+export const MAX_AGE = 120;
+
+/** Age in whole years from a birth year (off by at most one: no birthday is stored). */
+export function ageFromBirthYear(birthYear: number, now: Date = new Date()): number {
+  return now.getFullYear() - birthYear;
+}
+
+/** Birth year: a whole year that makes the person 13-120 now; null clears it. */
+export function validateBirthYear(raw: unknown, now: Date = new Date()): Checked<number | null> {
+  if (raw === null || raw === "") return { ok: true, value: null };
+  const n = typeof raw === "number" ? raw : typeof raw === "string" && /^\d{4}$/.test(raw.trim()) ? Number(raw.trim()) : NaN;
+  if (!Number.isInteger(n)) return { ok: false, reason: "Enter a four-digit year, like 1990." };
+  const age = ageFromBirthYear(n, now);
+  if (age < MIN_AGE || age > MAX_AGE) return { ok: false, reason: `Enter a year that makes you ${MIN_AGE} to ${MAX_AGE}.` };
+  return { ok: true, value: n };
 }
 
 /** Display name: control characters removed, whitespace collapsed, 1-60 characters; empty clears it. */
@@ -105,6 +126,7 @@ export function settingsFromRow(
         units?: string | null;
         week_start?: string | null;
         sex?: string | null;
+        birth_year?: number | null;
         diet_slugs?: string[] | null;
         allergen_slugs?: string[] | null;
       }
@@ -116,6 +138,7 @@ export function settingsFromRow(
     units: oneOf(row.units, UNITS) ? row.units : "metric",
     weekStart: oneOf(row.week_start, WEEK_STARTS) ? row.week_start : "monday",
     sex: oneOf(row.sex, SEXES) ? row.sex : null,
+    birthYear: typeof row.birth_year === "number" && Number.isInteger(row.birth_year) ? row.birth_year : null,
     diet: Array.isArray(row.diet_slugs) ? row.diet_slugs.filter((s) => SLUG.test(s)) : [],
     allergens: Array.isArray(row.allergen_slugs) ? row.allergen_slugs.filter((s) => SLUG.test(s)) : [],
   };

@@ -64,7 +64,7 @@ export default async function SettingsPage() {
         </SettingsSection>
 
         <SettingsSection id="body" eyebrow="Body" title="Your calorie estimate">
-          <BodyForm sex={settings.sex} />
+          <BodyForm sex={settings.sex} birthYear={settings.birthYear} />
         </SettingsSection>
 
         <SettingsSection

@@ -29,7 +29,7 @@ export type PersonalDv = { amount: number; basis: DvBasis };
 export type Person = {
   sex: Sex | null;
   age: number | null;
-  /** Where the macro numbers come from. The page only ever passes saved targets (see baselineMacros). */
+  /** Where the macro numbers come from. Saved targets, or the sedentary baseline when there are none (see baselineMacros). */
   macros: { kcal: number; proteinG: number; carbsG: number; fatG: number; source: "targets" | "baseline" } | null;
 };
 
@@ -71,8 +71,8 @@ export function personalDailyValues(nutrients: readonly Nutrient[], dris: readon
 }
 
 // ---------- sedentary baseline from weight, sex and age only ----------
-// NOT WIRED: age is stored only inside me_targets, and a person with saved targets already has macros, so nothing in
-// the app can reach this today. It needs an age (or birth year) field in Settings > Body first; kept, with its test, for that.
+// Wired in src/app/(site)/me/page.tsx for a person WITHOUT saved targets who gave a birth year in Settings > Body
+// and has logged a weight. Saved targets always win.
 
 /**
  * Basal metabolic rate from weight, sex and age alone (no height), kcal a day: the Schofield equations in

@@ -50,10 +50,24 @@ export function AvoidNotice({ info }: { info: AllergenInfo[] }) {
   }, [status]);
 
   const hits = info.filter((a) => avoided.includes(a.slug));
-  if (hits.length === 0) return null;
-
   const contains = hits.filter((a) => !a.optionalOnly);
-  const optional = hits.filter((a) => a.optionalOnly);
+  const optionalSlugs = hits.filter((a) => a.optionalOnly).map((a) => a.slug).join(",");
+
+  // An allergen that is only in an optional ingredient already has a line in the server-rendered block
+  // ("Peanuts: optional ... Leave them out"). For someone who avoids it, make THAT line prominent instead of
+  // adding a second message that says the same thing.
+  useEffect(() => {
+    const marked: Element[] = [];
+    for (const slug of optionalSlugs ? optionalSlugs.split(",") : []) {
+      document.querySelectorAll(`[data-allergen-notice] [data-optional][data-allergen="${slug}"]`).forEach((el) => {
+        el.setAttribute("data-avoided", "");
+        marked.push(el);
+      });
+    }
+    return () => marked.forEach((el) => el.removeAttribute("data-avoided"));
+  }, [optionalSlugs]);
+
+  if (contains.length === 0) return null;
 
   return (
     <div
@@ -64,20 +78,12 @@ export function AvoidNotice({ info }: { info: AllergenInfo[] }) {
       {contains.map((a) => (
         <p key={a.slug} className="font-semibold">
           {a.basis === "varies" ? "May contain" : "Contains"} {sentenceName(a.name)}, which you avoid.
-          {a.sources.length > 0 && (
+          {a.sources.length > 0 && joinNames(a.sources).toLowerCase() !== a.name.toLowerCase() && (
             <span className="ml-1 font-normal">
               {a.basis === "varies" ? "Some brands or versions of " : "From "}
               {joinNames(a.sources)}.
             </span>
           )}
-        </p>
-      ))}
-      {optional.map((a) => (
-        <p key={a.slug} className={contains.length > 0 ? "mt-1" : ""}>
-          <span className="font-semibold">
-            {a.sources.length > 0 ? `Optional here: ${joinNames(a.sources)}.` : `${a.name}: optional here.`}
-          </span>{" "}
-          You avoid {sentenceName(a.name)}, so leave it out.
         </p>
       ))}
     </div>

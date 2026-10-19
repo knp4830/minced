@@ -138,9 +138,9 @@ export default async function AboutPage() {
         <p>
           Nutrient data: U.S. Department of Agriculture, Agricultural Research
           Service, FoodData Central (fdc.nal.usda.gov). That includes its
-          Foundation, SR Legacy and Survey (FNDDS) foods, and the manufacturer
-          label data in its Branded Foods set, which is where brand names such as
-          a particular soy sauce come from. FoodData Central is public domain
+          Foundation and SR Legacy foods, and the manufacturer label data in
+          its Branded Foods set, which is where brand names such as a
+          particular soy sauce come from. FoodData Central is public domain
           (CC0 1.0). Vitamin and mineral figures are worked out from the
           ingredients before cooking, so they can be higher than what is left
           after boiling or baking. A nutrient is shown only when enough of a

@@ -18,7 +18,7 @@ import {
  * the table is reached through an untyped client. Drop `untyped()` once the types know `user_settings`.
  */
 
-const COLUMNS = "units, week_start, sex, diet_slugs, allergen_slugs";
+const COLUMNS = "units, week_start, sex, birth_year, diet_slugs, allergen_slugs";
 
 async function untyped(): Promise<SupabaseClient> {
   return (await createClient()) as unknown as SupabaseClient;
@@ -56,6 +56,7 @@ export type SettingsPatch = Partial<{
   units: UserSettings["units"];
   week_start: UserSettings["weekStart"];
   sex: UserSettings["sex"];
+  birth_year: number | null;
   diet_slugs: string[];
   allergen_slugs: string[];
 }>;

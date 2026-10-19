@@ -64,7 +64,7 @@ export function AllergenNotice({ info }: { info: AllergenInfo[] }) {
       {optional.length > 0 && (
         <ul className="flex flex-col gap-1" aria-label="Allergens in optional ingredients">
           {optional.map((a) => (
-            <li key={a.slug} data-allergen={a.slug} data-optional className="text-[0.8125rem] leading-snug text-ink-muted">
+            <li key={a.slug} data-allergen={a.slug} data-optional className="text-[0.8125rem] leading-snug text-ink-muted data-avoided:rounded-md data-avoided:border data-avoided:border-paprika data-avoided:bg-paprika/10 data-avoided:px-3 data-avoided:py-2.5 data-avoided:text-[0.875rem] data-avoided:text-paprika-deep">
               <span className="font-semibold text-ink">{a.name}</span>: optional{a.sources.length && joinNames(a.sources).toLowerCase() !== a.name.toLowerCase() ? ` (${joinNames(a.sources)})` : ""}.{" "}
               Leave them out if you avoid {sentenceName(a.name)}.
             </li>
