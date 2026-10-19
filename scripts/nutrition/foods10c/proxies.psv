@@ -20,6 +20,7 @@ arctic char|default|world-hint|stand-in chosen for arctic char: fish trout,_rain
 argan oil|default|world-hint|stand-in chosen for argan oil: oil olive,_salad_or_cooking
 asafoetida|default|ingredient-map|Proxy: SR garlic powder (no USDA asafoetida); used in pinch-sized tsp amounts
 baharat|default|world-hint|stand-in chosen for baharat: spices curry_powder
+bajra flour|default|audit|no pearl millet flour record: millet (proso) stands in
 banana ketchup|default|ingredient-map|Proxy: SR catsup; banana ketchup is similar in sugar and kcal
 banana stem|default|world-hint|stand-in chosen for banana stem: banana stem
 baobab powder|default|world-hint|stand-in chosen for baobab powder: baobab
@@ -55,6 +56,7 @@ cassia leaves|default|world-hint|stand-in chosen for cassia leaves: spices bay_l
 celtuce|default|world-hint|stand-in chosen for celtuce: lettuce green_leaf,_raw
 chapati|default|world-hint|stand-in chosen for chapati: bread pita whole-wheat
 chaya|default|world-hint|stand-in chosen for chaya: spinach raw
+chervil|default|audit|no fresh chervil record: dried chervil stands in (fresh chervil is much lighter per cup)
 chestnut flour|default|world-hint|stand-in chosen for chestnut flour: nuts chestnuts,_european,_dried,_unpeeled
 chhena|default|world-hint|stand-in chosen for chhena: cheese cottage creamed small_curd
 chile de arbol|default|ingredient-map|Proxy: SR sun-dried hot chile; each ~1 g
@@ -70,14 +72,17 @@ citron|default|world-hint|stand-in chosen for citron: lemons raw,_without_peel
 cluster beans|default|world-hint|stand-in chosen for cluster beans: beans snap green raw
 cockles|default|world-hint|stand-in chosen for cockles: mollusks clam mixed_species raw
 colatura di alici|default|world-hint|stand-in chosen for colatura di alici: sauce fish ready-to-serve
+comte|default|audit|no comte record: gruyere stands in
 creme de cassis|default|world-hint|stand-in chosen for creme de cassis: alcoholic_beverage liqueur coffee 53_proof
 crushed red pepper|default|mapping|Proxy: SR cayenne/red pepper dried (flakes are the same dried chile)
 cuajada|default|world-hint|stand-in chosen for cuajada: cheese fresh queso_fresco
+cubeb pepper|default|audit|no cubeb record: black pepper stands in (cubeb is a different Piper species with a resinous flavour)
 culantro|default|world-hint|stand-in chosen for culantro: coriander_(cilantro)_leaves raw
 dalia|default|world-hint|stand-in chosen for dalia: bulgur dry
 date sugar|default|world-hint|stand-in chosen for date sugar: dates deglet_noor
 degi mirch|default|world-hint|stand-in chosen for degi mirch: spices pepper red_or_cayenne
-dijon mustard|default|ingredient-map|Proxy: SR prepared yellow mustard
+dijon mustard|default|audit|no dijon record: prepared yellow mustard stands in
+doenjang|default|audit|no doenjang record: miso (fermented soybean paste) stands in
 dried chilies whole|default|world-hint|stand-in chosen for dried chilies whole: spices pepper red_or_cayenne
 dried cilantro|default|world-hint|stand-in chosen for dried cilantro: spices coriander_leaf dried
 dried fenugreek leaves|default|ingredient-map|Proxy: SR fenugreek seed; kasuri methi is ~ same kcal, light flakes
@@ -94,11 +99,13 @@ finger lime|default|world-hint|stand-in chosen for finger lime: limes raw
 fingerroot|default|world-hint|stand-in chosen for fingerroot: ginger_root raw
 fish cakes|default|ingredient-map|Proxy: SR surimi
 flattened rice|default|ingredient-map|Proxy: dry white rice (poha is parboiled flattened rice, ~same kcal); flakes pack loose ~ 85 g/cup
+foxtail millet|default|audit|no foxtail millet record: proso millet stands in
 freekeh|default|world-hint|stand-in chosen for freekeh: bulgur dry
 fresh bay leaves|default|world-hint|stand-in chosen for fresh bay leaves: spices bay_leaf
 fresh fenugreek|default|world-hint|stand-in chosen for fresh fenugreek: spinach raw
 fried shallots|default|world-hint|stand-in chosen for fried shallots: french fried onions
 fromage blanc|default|world-hint|stand-in chosen for fromage blanc: cheese cottage creamed small_curd
+fura|default|audit|no fura record: millet (proso) stands in
 galangal|default|audit|no galangal record: raw ginger root (a different rhizome, similar energy)
 galangal powder|default|world-hint|stand-in chosen for galangal powder: spices ginger,_ground
 garden egg|default|world-hint|stand-in chosen for garden egg: eggplant raw
@@ -157,6 +164,7 @@ lemon extract|default|world-hint|stand-in chosen for lemon extract: vanilla_extr
 lemon verbena|default|world-hint|stand-in chosen for lemon verbena: peppermint fresh
 limoncello|default|world-hint|stand-in chosen for limoncello: alcoholic_beverage liqueur coffee 53_proof
 locust beans|default|world-hint|stand-in chosen for locust beans: locust bean
+long pepper|default|audit|no long pepper record: black pepper stands in (long pepper is a different, hotter Piper species)
 lovage|default|world-hint|stand-in chosen for lovage: celery raw
 lutefisk|default|world-hint|stand-in chosen for lutefisk: fish cod atlantic raw
 mahon cheese|default|world-hint|stand-in chosen for mahon cheese: cheese swiss
@@ -222,6 +230,7 @@ quark|default|world-hint|stand-in chosen for quark: cheese cottage creamed small
 queijo minas|default|world-hint|stand-in chosen for queijo minas: cheese fresh queso_fresco
 quelites|default|world-hint|stand-in chosen for quelites: amaranth_leaves raw
 queso panela|default|world-hint|stand-in chosen for queso panela: cheese fresh queso_fresco
+raclette cheese|default|audit|no raclette record: Swiss cheese stands in
 ragi flour|default|audit|no finger millet record: millet (proso) stands in
 ramps|default|audit|no ramps record: leeks stand in
 ras el hanout|default|world-hint|stand-in chosen for ras el hanout: spices curry_powder
@@ -249,7 +258,8 @@ scamorza|default|audit|no scamorza record: part-skim low-moisture mozzarella sta
 scent leaf|default|world-hint|stand-in chosen for scent leaf: basil fresh
 scotch bonnet|default|ingredient-map|Proxy: SR hot red chili
 sea bream|default|world-hint|stand-in chosen for sea bream: fish scup raw
-shaoxing wine|default|ingredient-map|Proxy: SR sake (rice wine, ~134 kcal/100 g); SR 'cooking wine' is lower-energy
+shaoxing cooking wine|default|audit|no shaoxing record: sake (rice wine) stands in
+shaoxing wine|default|audit|no shaoxing record: sake (rice wine) stands in
 shawarma spice|default|world-hint|stand-in chosen for shawarma spice: spices curry_powder
 shichimi togarashi|default|world-hint|stand-in chosen for shichimi togarashi: spices curry_powder
 shrimp paste|default|audit|sauteed shrimp paste (with oil) stands in for fermented shrimp paste
@@ -299,6 +309,7 @@ walnut paste|default|world-hint|stand-in chosen for walnut paste: nuts walnuts,_
 water mimosa|default|world-hint|stand-in chosen for water mimosa: spinach raw
 waterleaf|default|world-hint|stand-in chosen for waterleaf: spinach raw
 wattleseed|default|world-hint|stand-in chosen for wattleseed: wattleseed
+weisswurst|default|audit|no weisswurst record: a bockwurst product stands in (both are pale veal and pork sausages)
 wheat starch|default|world-hint|stand-in chosen for wheat starch: wheat_flour white,_all-purpose
 white wine vinegar|default|mapping|Proxy: SR red wine vinegar (acetic acid, about 19 kcal, same minerals)
 whole urad|default|world-hint|stand-in chosen for whole urad: lentils raw

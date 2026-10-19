@@ -85,28 +85,28 @@ insert into usda_food_nutrients (fdc_id, nutrient_id, amount_per_100g)
 select v.fdc_id, n.id, e.value::numeric
 from (values
   (910130807, '{"calcium_mg": 390.0, "cholesterol_mg": 0.0, "energy_kcal": 61.0, "fat_g": 0.1, "iron_mg": 8.1, "niacin_mg": 0.7, "phosphorus_mg": 80.0, "potassium_mg": 550.0, "protein_g": 6.4, "riboflavin_mg": 0.25, "sodium_mg": 7.0, "thiamin_mg": 0.15, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 3.0, "vitamin_d_mcg": 0.0}'::jsonb),
-  (910160005, '{"calcium_mg": 1390.0, "energy_kcal": 283.0, "fat_g": 4.0, "iron_mg": 19.1, "niacin_mg": 5.7, "phosphorus_mg": 240.0, "protein_g": 61.7, "riboflavin_mg": 0.07, "sugars_g": 0.0, "thiamin_mg": 0.03, "vitamin_a_mcg_rae": 0.0, "vitamin_b6_mg": 0.97, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0}'::jsonb),
-  (910111022, '{"calcium_mg": 35.0, "carbs_g": 60.3, "cholesterol_mg": 36.0, "copper_mg": 0.14, "energy_kcal": 285.0, "fat_g": 6.9, "fiber_g": 4.0, "folate_mcg_dfe": 9.0, "iron_mg": 1.2, "magnesium_mg": 18.0, "manganese_mg": 0.51, "mono_fat_g": 2.4, "niacin_mg": 0.4, "phosphorus_mg": 92.0, "poly_fat_g": 0.35, "potassium_mg": 340.0, "protein_g": 3.0, "riboflavin_mg": 0.03, "sat_fat_g": 3.57, "sodium_mg": 100.0, "sugars_g": 46.2, "thiamin_mg": 0.0, "trans_fat_g": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.07, "vitamin_c_mg": 0.0, "zinc_mg": 0.7}'::jsonb),
-  (910120592, '{"calcium_mg": 37.0, "carbs_g": 2.3, "cholesterol_mg": 170.0, "copper_mg": 0.09, "energy_kcal": 586.0, "fat_g": 63.5, "fiber_g": 0.0, "folate_mcg_dfe": 6.0, "iron_mg": 0.1, "magnesium_mg": 5.0, "manganese_mg": 0.0, "mono_fat_g": 18.4, "niacin_mg": 0.0, "pantothenic_mg": 0.14, "phosphorus_mg": 40.0, "poly_fat_g": 1.8, "potassium_mg": 55.0, "protein_g": 1.6, "riboflavin_mg": 0.16, "sat_fat_g": 39.7, "selenium_mcg": 0.0, "sodium_mg": 18.0, "sugars_g": 2.3, "thiamin_mg": 0.02, "vitamin_a_mcg_rae": 762.083, "vitamin_b12_mcg": 0.1, "vitamin_b6_mg": 0.03, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.3, "vitamin_e_mg": 1.48, "zinc_mg": 0.2}'::jsonb),
-  (910120335, '{"calcium_mg": 58.0, "carbs_g": 2.4, "cholesterol_mg": 112.8, "copper_mg": 0.0, "energy_kcal": 378.0, "fat_g": 40.0, "fiber_g": 0.0, "folate_mcg_dfe": 3.0, "iron_mg": 0.11, "magnesium_mg": 6.0, "manganese_mg": 0.0, "mono_fat_g": 8.55, "niacin_mg": 0.1, "phosphorus_mg": 58.0, "poly_fat_g": 1.07, "potassium_mg": 81.0, "protein_g": 2.2, "riboflavin_mg": 0.21, "sat_fat_g": 27.1, "selenium_mcg": 0.0, "sodium_mg": 22.0, "sugars_g": 2.1, "thiamin_mg": 0.02, "trans_fat_g": 0.77, "vitamin_a_mcg_rae": 399.917, "vitamin_b12_mcg": 0.2, "vitamin_b6_mg": 0.01, "vitamin_d_mcg": 0.3, "vitamin_e_mg": 0.72, "zinc_mg": 0.2}'::jsonb),
+  (910160005, '{"calcium_mg": 1390.0, "carbs_g": 0.0, "energy_kcal": 283.0, "fat_g": 4.0, "iron_mg": 19.1, "niacin_mg": 5.7, "phosphorus_mg": 240.0, "protein_g": 61.7, "riboflavin_mg": 0.07, "sugars_g": 0.0, "thiamin_mg": 0.03, "vitamin_a_mcg_rae": 0.0, "vitamin_b6_mg": 0.97, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0}'::jsonb),
+  (910111022, '{"calcium_mg": 35.0, "cholesterol_mg": 36.0, "copper_mg": 0.14, "energy_kcal": 285.0, "fat_g": 6.9, "fiber_g": 4.0, "folate_mcg_dfe": 9.0, "iron_mg": 1.2, "magnesium_mg": 18.0, "manganese_mg": 0.51, "mono_fat_g": 2.4, "niacin_mg": 0.4, "phosphorus_mg": 92.0, "poly_fat_g": 0.35, "potassium_mg": 340.0, "protein_g": 3.0, "riboflavin_mg": 0.03, "sat_fat_g": 3.57, "sodium_mg": 100.0, "sugars_g": 46.2, "thiamin_mg": 0.0, "trans_fat_g": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.07, "vitamin_c_mg": 0.0, "zinc_mg": 0.7}'::jsonb),
+  (910120592, '{"calcium_mg": 37.0, "cholesterol_mg": 170.0, "copper_mg": 0.09, "energy_kcal": 586.0, "fat_g": 63.5, "fiber_g": 0.0, "folate_mcg_dfe": 6.0, "iron_mg": 0.1, "magnesium_mg": 5.0, "manganese_mg": 0.0, "mono_fat_g": 18.4, "niacin_mg": 0.0, "pantothenic_mg": 0.14, "phosphorus_mg": 40.0, "poly_fat_g": 1.8, "potassium_mg": 55.0, "protein_g": 1.6, "riboflavin_mg": 0.16, "sat_fat_g": 39.7, "selenium_mcg": 0.0, "sodium_mg": 18.0, "sugars_g": 2.3, "thiamin_mg": 0.02, "vitamin_a_mcg_rae": 762.083, "vitamin_b12_mcg": 0.1, "vitamin_b6_mg": 0.03, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.3, "vitamin_e_mg": 1.48, "zinc_mg": 0.2}'::jsonb),
+  (910120335, '{"calcium_mg": 58.0, "cholesterol_mg": 112.8, "copper_mg": 0.0, "energy_kcal": 378.0, "fat_g": 40.0, "fiber_g": 0.0, "folate_mcg_dfe": 3.0, "iron_mg": 0.11, "magnesium_mg": 6.0, "manganese_mg": 0.0, "mono_fat_g": 8.55, "niacin_mg": 0.1, "phosphorus_mg": 58.0, "poly_fat_g": 1.07, "potassium_mg": 81.0, "protein_g": 2.2, "riboflavin_mg": 0.21, "sat_fat_g": 27.1, "selenium_mcg": 0.0, "sodium_mg": 22.0, "sugars_g": 2.1, "thiamin_mg": 0.02, "trans_fat_g": 0.77, "vitamin_a_mcg_rae": 399.917, "vitamin_b12_mcg": 0.2, "vitamin_b6_mg": 0.01, "vitamin_d_mcg": 0.3, "vitamin_e_mg": 0.72, "zinc_mg": 0.2}'::jsonb),
   (910130821, '{"calcium_mg": 820.0, "cholesterol_mg": 0.0, "copper_mg": 0.21, "energy_kcal": 97.0, "fat_g": 1.3, "folate_mcg_dfe": 94.0, "iron_mg": 5.1, "magnesium_mg": 220.0, "niacin_mg": 2.3, "phosphorus_mg": 57.0, "protein_g": 7.9, "riboflavin_mg": 0.21, "thiamin_mg": 0.08, "vitamin_a_mcg_rae": 565.0, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 8.0, "vitamin_d_mcg": 0.0}'::jsonb),
   (910160267, '{"calcium_mg": 55.0, "cholesterol_mg": 615.0, "copper_mg": 3.93, "energy_kcal": 313.0, "fat_g": 4.6, "iron_mg": 4.0, "magnesium_mg": 120.0, "manganese_mg": 0.08, "mono_fat_g": 0.6, "niacin_mg": 6.8, "phosphorus_mg": 620.0, "poly_fat_g": 1.7, "potassium_mg": 610.0, "protein_g": 63.3, "riboflavin_mg": 0.17, "sat_fat_g": 1.0, "sodium_mg": 940.0, "sugars_g": 0.0, "thiamin_mg": 0.13, "vitamin_c_mg": 0.0, "zinc_mg": 4.4}'::jsonb),
   (910130243, '{"calcium_mg": 140.0, "cholesterol_mg": 0.0, "copper_mg": 0.26, "energy_kcal": 35.0, "fat_g": 0.2, "iron_mg": 8.8, "magnesium_mg": 59.0, "niacin_mg": 1.4, "phosphorus_mg": 45.0, "potassium_mg": 31.0, "protein_g": 4.6, "riboflavin_mg": 0.28, "sodium_mg": 76.0, "thiamin_mg": 0.12, "vitamin_a_mcg_rae": 446.667, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 91.0, "vitamin_d_mcg": 0.0}'::jsonb),
-  (910170065, '{"calcium_mg": 16.0, "carbs_g": 79.0, "cholesterol_mg": 0.0, "copper_mg": 0.06, "energy_kcal": 298.0, "fat_g": 0.0, "fiber_g": 0.0, "folate_mcg_dfe": 0.0, "iron_mg": 0.4, "magnesium_mg": 3.0, "manganese_mg": 0.01, "mono_fat_g": 0.0, "niacin_mg": 0.0, "pantothenic_mg": 0.0, "phosphorus_mg": 1.0, "poly_fat_g": 0.0, "potassium_mg": 58.0, "protein_g": 0.3, "riboflavin_mg": 0.0, "sat_fat_g": 0.0, "selenium_mcg": 0.0, "sodium_mg": 270.0, "sugars_g": 79.0, "thiamin_mg": 0.0, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.0, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.0, "zinc_mg": 0.1}'::jsonb),
+  (910170065, '{"calcium_mg": 16.0, "cholesterol_mg": 0.0, "copper_mg": 0.06, "energy_kcal": 298.0, "fat_g": 0.0, "fiber_g": 0.0, "folate_mcg_dfe": 0.0, "iron_mg": 0.4, "magnesium_mg": 3.0, "manganese_mg": 0.01, "mono_fat_g": 0.0, "niacin_mg": 0.0, "pantothenic_mg": 0.0, "phosphorus_mg": 1.0, "poly_fat_g": 0.0, "potassium_mg": 58.0, "protein_g": 0.3, "riboflavin_mg": 0.0, "sat_fat_g": 0.0, "selenium_mcg": 0.0, "sodium_mg": 270.0, "sugars_g": 79.0, "thiamin_mg": 0.0, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.0, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.0, "zinc_mg": 0.1}'::jsonb),
   (910190132, '{"calcium_mg": 29.0, "cholesterol_mg": 91.0, "copper_mg": 0.44, "energy_kcal": 310.0, "fat_g": 21.7, "folate_mcg_dfe": 8.0, "iron_mg": 4.8, "magnesium_mg": 36.0, "mono_fat_g": 6.9, "niacin_mg": 1.5, "pantothenic_mg": 0.5, "phosphorus_mg": 160.0, "poly_fat_g": 1.4, "potassium_mg": 170.0, "protein_g": 10.7, "riboflavin_mg": 0.35, "sat_fat_g": 7.6, "sodium_mg": 770.0, "sugars_g": 0.0, "thiamin_mg": 0.16, "vitamin_a_mcg_rae": 1800.0, "vitamin_b12_mcg": 2.0, "vitamin_b6_mg": 0.07, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.1, "vitamin_e_mg": 0.41, "zinc_mg": 1.9}'::jsonb),
-  (910160184, '{"calcium_mg": 180.0, "copper_mg": 0.14, "energy_kcal": 262.0, "fat_g": 19.4, "iron_mg": 2.1, "niacin_mg": 2.8, "phosphorus_mg": 280.0, "potassium_mg": 180.0, "protein_g": 21.8, "sodium_mg": 52.0, "sugars_g": 0.0, "vitamin_b12_mcg": 4.0}'::jsonb),
-  (910120373, '{"calcium_mg": 92.0, "carbs_g": 12.3, "copper_mg": 0.0, "energy_kcal": 65.0, "fat_g": 0.9, "fiber_g": 0.0, "iron_mg": 0.0, "magnesium_mg": 9.0, "manganese_mg": 0.0, "mono_fat_g": 0.21, "phosphorus_mg": 74.0, "poly_fat_g": 0.03, "potassium_mg": 109.0, "protein_g": 2.6, "riboflavin_mg": 0.21, "sat_fat_g": 0.59, "sodium_mg": 45.0, "sugars_g": 11.9, "trans_fat_g": 0.02, "vitamin_a_mcg_rae": 9.0, "vitamin_d_mcg": 0.0, "zinc_mg": 0.3}'::jsonb),
+  (910160184, '{"calcium_mg": 180.0, "carbs_g": 0.0, "copper_mg": 0.14, "energy_kcal": 262.0, "fat_g": 19.4, "iron_mg": 2.1, "niacin_mg": 2.8, "phosphorus_mg": 280.0, "potassium_mg": 180.0, "protein_g": 21.8, "sodium_mg": 52.0, "sugars_g": 0.0, "vitamin_b12_mcg": 4.0}'::jsonb),
+  (910120373, '{"calcium_mg": 92.0, "copper_mg": 0.0, "energy_kcal": 65.0, "fat_g": 0.9, "fiber_g": 0.0, "iron_mg": 0.0, "magnesium_mg": 9.0, "manganese_mg": 0.0, "mono_fat_g": 0.21, "phosphorus_mg": 74.0, "poly_fat_g": 0.03, "potassium_mg": 109.0, "protein_g": 2.6, "riboflavin_mg": 0.21, "sat_fat_g": 0.59, "sodium_mg": 45.0, "sugars_g": 11.9, "trans_fat_g": 0.02, "vitamin_a_mcg_rae": 9.0, "vitamin_d_mcg": 0.0, "zinc_mg": 0.3}'::jsonb),
   (910140151, '{"calcium_mg": 14.0, "cholesterol_mg": 0.0, "energy_kcal": 73.0, "fat_g": 0.5, "iron_mg": 0.3, "niacin_mg": 0.3, "phosphorus_mg": 14.0, "potassium_mg": 130.0, "protein_g": 0.6, "riboflavin_mg": 0.01, "sodium_mg": 1.0, "sugars_g": 16.1, "thiamin_mg": 0.05, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 3.0, "vitamin_d_mcg": 0.0}'::jsonb),
-  (910140875, '{"calcium_mg": 66.0, "carbs_g": 70.0, "cholesterol_mg": 0.0, "copper_mg": 0.24, "energy_kcal": 389.0, "fat_g": 12.7, "fiber_g": 2.4, "folate_mcg_dfe": 12.0, "iron_mg": 0.9, "magnesium_mg": 68.0, "manganese_mg": 0.4, "mono_fat_g": 7.99, "niacin_mg": 0.7, "pantothenic_mg": 0.11, "phosphorus_mg": 130.0, "poly_fat_g": 3.13, "potassium_mg": 160.0, "protein_g": 5.3, "riboflavin_mg": 0.19, "sat_fat_g": 1.03, "selenium_mcg": 1.0, "sodium_mg": 20.0, "sugars_g": 67.6, "thiamin_mg": 0.05, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.04, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 6.18, "zinc_mg": 0.8}'::jsonb),
-  (910130563, '{"calcium_mg": 14.0, "carbs_g": 16.9, "cholesterol_mg": 0.0, "copper_mg": 0.11, "energy_kcal": 81.0, "fat_g": 0.7, "fiber_g": 3.1, "iron_mg": 1.3, "magnesium_mg": 22.0, "manganese_mg": 0.2, "mono_fat_g": 0.1, "phosphorus_mg": 100.0, "poly_fat_g": 0.3, "potassium_mg": 170.0, "protein_g": 5.8, "sat_fat_g": 0.1, "sodium_mg": 220.0, "sugars_g": 1.7, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.3, "vitamin_k_mcg": 22.5, "zinc_mg": 0.7}'::jsonb),
-  (910110823, '{"calcium_mg": 57.0, "carbs_g": 72.2, "cholesterol_mg": 4.9, "copper_mg": 0.35, "energy_kcal": 453.0, "fat_g": 20.0, "fiber_g": 9.4, "folate_mcg_dfe": 26.0, "iron_mg": 3.82, "magnesium_mg": 101.0, "manganese_mg": 3.84, "mono_fat_g": 9.32, "niacin_mg": 0.7, "pantothenic_mg": 1.0, "phosphorus_mg": 383.0, "poly_fat_g": 3.87, "potassium_mg": 359.0, "protein_g": 9.3, "riboflavin_mg": 0.09, "sat_fat_g": 5.67, "selenium_mcg": 9.0, "sodium_mg": 796.0, "sugars_g": 3.2, "thiamin_mg": 0.32, "trans_fat_g": 0.01, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.1, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 2.52, "zinc_mg": 2.0}'::jsonb),
-  (910180419, '{"calcium_mg": 9.0, "cholesterol_mg": 75.0, "copper_mg": 0.2, "energy_kcal": 171.0, "fat_g": 10.1, "folate_mcg_dfe": 7.0, "iron_mg": 2.7, "magnesium_mg": 20.0, "mono_fat_g": 4.8, "niacin_mg": 4.5, "pantothenic_mg": 1.0, "phosphorus_mg": 160.0, "poly_fat_g": 0.4, "potassium_mg": 270.0, "protein_g": 20.0, "riboflavin_mg": 0.29, "sat_fat_g": 4.2, "sodium_mg": 110.0, "sugars_g": 0.0, "thiamin_mg": 0.03, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 3.0, "vitamin_b6_mg": 0.27, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.29, "zinc_mg": 5.6}'::jsonb),
-  (910111104, '{"calcium_mg": 21.0, "carbs_g": 50.7, "cholesterol_mg": 34.1, "copper_mg": 0.2, "energy_kcal": 333.0, "fat_g": 14.4, "fiber_g": 4.9, "folate_mcg_dfe": 14.0, "iron_mg": 1.5, "magnesium_mg": 46.0, "manganese_mg": 1.47, "mono_fat_g": 3.48, "niacin_mg": 2.2, "pantothenic_mg": 0.34, "phosphorus_mg": 165.0, "poly_fat_g": 0.97, "potassium_mg": 190.0, "protein_g": 7.8, "riboflavin_mg": 0.06, "sat_fat_g": 8.51, "selenium_mcg": 4.0, "sodium_mg": 118.0, "sugars_g": 0.7, "thiamin_mg": 0.18, "trans_fat_g": 0.46, "vitamin_a_mcg_rae": 161.083, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.19, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.1, "vitamin_e_mg": 0.86, "zinc_mg": 1.4}'::jsonb),
+  (910140875, '{"calcium_mg": 66.0, "cholesterol_mg": 0.0, "copper_mg": 0.24, "energy_kcal": 389.0, "fat_g": 12.7, "fiber_g": 2.4, "folate_mcg_dfe": 12.0, "iron_mg": 0.9, "magnesium_mg": 68.0, "manganese_mg": 0.4, "mono_fat_g": 7.99, "niacin_mg": 0.7, "pantothenic_mg": 0.11, "phosphorus_mg": 130.0, "poly_fat_g": 3.13, "potassium_mg": 160.0, "protein_g": 5.3, "riboflavin_mg": 0.19, "sat_fat_g": 1.03, "selenium_mcg": 1.0, "sodium_mg": 20.0, "sugars_g": 67.6, "thiamin_mg": 0.05, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.04, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 6.18, "zinc_mg": 0.8}'::jsonb),
+  (910130563, '{"calcium_mg": 14.0, "cholesterol_mg": 0.0, "copper_mg": 0.11, "energy_kcal": 81.0, "fat_g": 0.7, "fiber_g": 3.1, "iron_mg": 1.3, "magnesium_mg": 22.0, "manganese_mg": 0.2, "mono_fat_g": 0.1, "phosphorus_mg": 100.0, "poly_fat_g": 0.3, "potassium_mg": 170.0, "protein_g": 5.8, "sat_fat_g": 0.1, "sodium_mg": 220.0, "sugars_g": 1.7, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.3, "vitamin_k_mcg": 22.5, "zinc_mg": 0.7}'::jsonb),
+  (910110823, '{"calcium_mg": 57.0, "cholesterol_mg": 4.9, "copper_mg": 0.35, "energy_kcal": 453.0, "fat_g": 20.0, "fiber_g": 9.4, "folate_mcg_dfe": 26.0, "iron_mg": 3.82, "magnesium_mg": 101.0, "manganese_mg": 3.84, "mono_fat_g": 9.32, "niacin_mg": 0.7, "pantothenic_mg": 1.0, "phosphorus_mg": 383.0, "poly_fat_g": 3.87, "potassium_mg": 359.0, "protein_g": 9.3, "riboflavin_mg": 0.09, "sat_fat_g": 5.67, "selenium_mcg": 9.0, "sodium_mg": 796.0, "sugars_g": 3.2, "thiamin_mg": 0.32, "trans_fat_g": 0.01, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.1, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 2.52, "zinc_mg": 2.0}'::jsonb),
+  (910180419, '{"calcium_mg": 9.0, "carbs_g": 0.0, "cholesterol_mg": 75.0, "copper_mg": 0.2, "energy_kcal": 171.0, "fat_g": 10.1, "folate_mcg_dfe": 7.0, "iron_mg": 2.7, "magnesium_mg": 20.0, "mono_fat_g": 4.8, "niacin_mg": 4.5, "pantothenic_mg": 1.0, "phosphorus_mg": 160.0, "poly_fat_g": 0.4, "potassium_mg": 270.0, "protein_g": 20.0, "riboflavin_mg": 0.29, "sat_fat_g": 4.2, "sodium_mg": 110.0, "sugars_g": 0.0, "thiamin_mg": 0.03, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 3.0, "vitamin_b6_mg": 0.27, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.29, "zinc_mg": 5.6}'::jsonb),
+  (910111104, '{"calcium_mg": 21.0, "cholesterol_mg": 34.1, "copper_mg": 0.2, "energy_kcal": 333.0, "fat_g": 14.4, "fiber_g": 4.9, "folate_mcg_dfe": 14.0, "iron_mg": 1.5, "magnesium_mg": 46.0, "manganese_mg": 1.47, "mono_fat_g": 3.48, "niacin_mg": 2.2, "pantothenic_mg": 0.34, "phosphorus_mg": 165.0, "poly_fat_g": 0.97, "potassium_mg": 190.0, "protein_g": 7.8, "riboflavin_mg": 0.06, "sat_fat_g": 8.51, "selenium_mcg": 4.0, "sodium_mg": 118.0, "sugars_g": 0.7, "thiamin_mg": 0.18, "trans_fat_g": 0.46, "vitamin_a_mcg_rae": 161.083, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.19, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.1, "vitamin_e_mg": 0.86, "zinc_mg": 1.4}'::jsonb),
   (910180490, '{"calcium_mg": 22.0, "carbs_g": 0.3, "cholesterol_mg": 63.0, "copper_mg": 0.3, "energy_kcal": 331.0, "fat_g": 24.2, "fiber_g": 0.0, "folate_mcg_dfe": 15.0, "iron_mg": 3.98, "magnesium_mg": 25.0, "manganese_mg": 0.1, "mono_fat_g": 12.3, "niacin_mg": 3.5, "pantothenic_mg": 1.5, "phosphorus_mg": 257.0, "poly_fat_g": 3.4, "potassium_mg": 292.0, "protein_g": 27.9, "riboflavin_mg": 0.39, "sat_fat_g": 7.2, "selenium_mcg": 22.0, "sodium_mg": 453.0, "sugars_g": 0.0, "thiamin_mg": 0.09, "trans_fat_g": 0.2, "vitamin_a_mcg_rae": 9.0, "vitamin_b12_mcg": 2.8, "vitamin_b6_mg": 0.15, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 1.0, "vitamin_e_mg": 2.17, "zinc_mg": 2.8}'::jsonb),
   (910140243, '{"calcium_mg": 14.0, "cholesterol_mg": 0.0, "energy_kcal": 69.0, "fat_g": 0.4, "iron_mg": 0.1, "magnesium_mg": 10.0, "niacin_mg": 0.6, "phosphorus_mg": 15.0, "potassium_mg": 100.0, "protein_g": 1.0, "riboflavin_mg": 0.06, "sodium_mg": 1.0, "sugars_g": 16.3, "thiamin_mg": 0.02, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 78.0, "vitamin_d_mcg": 0.0, "zinc_mg": 0.6}'::jsonb),
-  (910110940, '{"calcium_mg": 336.0, "carbs_g": 75.4, "cholesterol_mg": 3.4, "copper_mg": 0.11, "energy_kcal": 396.0, "fat_g": 10.7, "fiber_g": 2.4, "folate_mcg_dfe": 22.0, "iron_mg": 6.46, "magnesium_mg": 29.0, "manganese_mg": 0.6, "mono_fat_g": 3.83, "niacin_mg": 7.4, "pantothenic_mg": 0.24, "phosphorus_mg": 108.0, "poly_fat_g": 1.77, "potassium_mg": 240.0, "protein_g": 6.5, "sat_fat_g": 4.59, "selenium_mcg": 6.0, "sodium_mg": 88.0, "sugars_g": 23.4, "trans_fat_g": 0.01, "vitamin_b6_mg": 0.0, "vitamin_c_mg": 0.0, "vitamin_e_mg": 1.38, "zinc_mg": 0.7}'::jsonb),
+  (910110940, '{"calcium_mg": 336.0, "cholesterol_mg": 3.4, "copper_mg": 0.11, "energy_kcal": 396.0, "fat_g": 10.7, "fiber_g": 2.4, "folate_mcg_dfe": 22.0, "iron_mg": 6.46, "magnesium_mg": 29.0, "manganese_mg": 0.6, "mono_fat_g": 3.83, "niacin_mg": 7.4, "pantothenic_mg": 0.24, "phosphorus_mg": 108.0, "poly_fat_g": 1.77, "potassium_mg": 240.0, "protein_g": 6.5, "sat_fat_g": 4.59, "selenium_mcg": 6.0, "sodium_mg": 88.0, "sugars_g": 23.4, "trans_fat_g": 0.01, "vitamin_b6_mg": 0.0, "vitamin_c_mg": 0.0, "vitamin_e_mg": 1.38, "zinc_mg": 0.7}'::jsonb),
   (910140264, '{"calcium_mg": 10.0, "cholesterol_mg": 0.0, "copper_mg": 0.05, "energy_kcal": 28.0, "fat_g": 0.3, "iron_mg": 0.8, "magnesium_mg": 19.0, "manganese_mg": 0.1, "mono_fat_g": 0.1, "niacin_mg": 0.3, "phosphorus_mg": 43.0, "poly_fat_g": 0.1, "potassium_mg": 300.0, "protein_g": 2.0, "riboflavin_mg": 0.03, "sat_fat_g": 0.1, "selenium_mcg": 0.0, "sodium_mg": 1.0, "sugars_g": 4.7, "thiamin_mg": 0.06, "vitamin_a_mcg_rae": 76.667, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.19, "vitamin_c_mg": 23.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 1.86, "zinc_mg": 0.1}'::jsonb),
-  (910190510, '{"calcium_mg": 103.0, "carbs_g": 12.4, "cholesterol_mg": 60.0, "copper_mg": 0.07, "energy_kcal": 309.0, "fat_g": 25.0, "fiber_g": 2.8, "folate_mcg_dfe": 13.0, "iron_mg": 0.9, "magnesium_mg": 13.0, "manganese_mg": 0.17, "mono_fat_g": 11.15, "niacin_mg": 2.5, "pantothenic_mg": 0.77, "phosphorus_mg": 175.0, "poly_fat_g": 3.4, "potassium_mg": 160.0, "protein_g": 11.9, "riboflavin_mg": 0.11, "sat_fat_g": 9.15, "selenium_mcg": 5.0, "sodium_mg": 470.0, "sugars_g": 2.8, "thiamin_mg": 0.03, "trans_fat_g": 0.15, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 1.0, "vitamin_b6_mg": 0.12, "vitamin_c_mg": 7.0, "vitamin_d_mcg": 0.9, "vitamin_e_mg": 0.93, "zinc_mg": 0.9}'::jsonb),
+  (910190510, '{"calcium_mg": 103.0, "cholesterol_mg": 60.0, "copper_mg": 0.07, "energy_kcal": 309.0, "fat_g": 25.0, "fiber_g": 2.8, "folate_mcg_dfe": 13.0, "iron_mg": 0.9, "magnesium_mg": 13.0, "manganese_mg": 0.17, "mono_fat_g": 11.15, "niacin_mg": 2.5, "pantothenic_mg": 0.77, "phosphorus_mg": 175.0, "poly_fat_g": 3.4, "potassium_mg": 160.0, "protein_g": 11.9, "riboflavin_mg": 0.11, "sat_fat_g": 9.15, "selenium_mcg": 5.0, "sodium_mg": 470.0, "sugars_g": 2.8, "thiamin_mg": 0.03, "trans_fat_g": 0.15, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 1.0, "vitamin_b6_mg": 0.12, "vitamin_c_mg": 7.0, "vitamin_d_mcg": 0.9, "vitamin_e_mg": 0.93, "zinc_mg": 0.9}'::jsonb),
   (900004847, '{"calcium_mg": 6.0, "carbs_g": 27.09, "cholesterol_mg": 0.0, "copper_mg": 0.207, "energy_kcal": 147.0, "fat_g": 5.33, "fiber_g": 3.8, "folate_mcg_dfe": 36.0, "iron_mg": 0.43, "magnesium_mg": 30.0, "manganese_mg": 0.325, "niacin_mg": 1.074, "pantothenic_mg": 0.23, "phosphorus_mg": 39.0, "potassium_mg": 436.0, "protein_g": 1.47, "riboflavin_mg": 0.2, "sodium_mg": 2.0, "thiamin_mg": 0.374, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 2.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.316, "vitamin_c_mg": 19.7, "vitamin_d_mcg": 0.0, "zinc_mg": 0.28}'::jsonb),
   (900007579, '{"calcium_mg": 8.5, "carbs_g": 11.6, "energy_kcal": 49.0, "fat_g": 0.1, "fiber_g": 3.0, "iron_mg": 1.9, "niacin_mg": 0.2, "phosphorus_mg": 33.2, "protein_g": 0.5, "riboflavin_mg": 0.03, "thiamin_mg": 0.01, "vitamin_c_mg": 25.0}'::jsonb),
   (900001692, '{"calcium_mg": 17.0, "carbs_g": 15.21, "cholesterol_mg": 0.0, "copper_mg": 0.036, "energy_kcal": 61.0, "fat_g": 0.42, "fiber_g": 6.4, "folate_mcg_dfe": 23.0, "iron_mg": 0.14, "magnesium_mg": 9.0, "manganese_mg": 0.084, "mono_fat_g": 0.056, "niacin_mg": 0.295, "pantothenic_mg": 0.233, "phosphorus_mg": 19.0, "poly_fat_g": 0.136, "potassium_mg": 172.0, "protein_g": 0.71, "riboflavin_mg": 0.018, "sat_fat_g": 0.104, "sodium_mg": 3.0, "sugars_g": 8.2, "thiamin_mg": 0.006, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.067, "vitamin_c_mg": 32.9, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.16, "vitamin_k_mcg": 3.5, "zinc_mg": 0.06}'::jsonb),
@@ -133,8 +133,8 @@ on conflict (fdc_id, nutrient_id) do nothing;
 create temp table _a (action text, ingredient text, form text, fdc_id integer, reason text) on commit drop;
 insert into _a values
   ('set_default', 'blue cheese dressing', 'default', 173562, 'regular commercial dressing (484 kcal); the default was the light version (86 kcal)'),
-  ('set_default', 'black beans', 'default', 175237, 'owner: canned black beans, full-panel SR record. SR "canned" (175188) is beans plus brine (91 kcal/100 g) but can/cup weights are drained solids, so the drained-basis full-panel record is SR boiled with salt (132 kcal); Foundation drained and rinsed (118 kcal) has only 12 of 35 nutrients'),
-  ('set_default', 'black beans', 'canned', 175237, 'same record as the default form'),
+  ('set_default', 'black beans', 'default', 175237, 'OWNER TO CONFIRM. Owner said canned black beans, full-panel SR record. What is built is SR 175237 (boiled, with salt, 132 kcal/100 g, 31 nutrients) read as a COOKED-EQUIVALENT, DRAINED-SOLIDS value: the can and cup weights in ingredient_portions are drained solids (a 15 oz can drains to 255 g), so a record that includes the brine (SR 175188 canned, 91 kcal/100 g) would understate a can by about 30 percent. Option B is 175188 plus can/cup weights that include the liquid'),
+  ('set_default', 'black beans', 'canned', 175237, 'same record as the default form (cooked-equivalent, drained solids; see the default row)'),
   ('set_default', 'kidney beans', 'default', 175243, 'can weight is drained solids (255 g); SR canned solids-and-liquids (84 kcal) understated a can by about 30 percent. SR drained and rinsed: 121 kcal, 31 nutrients'),
   ('set_default', 'kidney beans', 'canned', 175243, 'same record as the default form (was a branded can with liquid)'),
   ('set_default', 'white beans', 'canned', 175204, 'generic SR canned, same as the default form (was a branded product)'),
@@ -550,7 +550,17 @@ insert into _a values
   ('set_default', 'jamon serrano', 'default', 1989624, 'proxy: dry-cured prosciutto (250 kcal, 2,036 mg sodium); the default was wet-cured lean ham with water added (130 kcal), half the energy of a dry-cured ham'),
   ('set_default', 'jamon iberico', 'default', 1989624, 'proxy: dry-cured prosciutto (250 kcal); the default was wet-cured lean ham (130 kcal); iberico is fattier (about 300 to 370 kcal), so this is a floor'),
   ('set_default', 'gravlax', 'default', 175167, 'proxy: raw Atlantic salmon (208 kcal); gravlax is raw salmon cured with salt and sugar, the default was hot-smoked lox (117 kcal, a leaner chinook)'),
-  ('set_default', 'ikura', 'default', 174188, 'proxy: red caviar (granular, 264 kcal); ikura is salmon roe at about 250 kcal, the default was mixed-species raw roe (143 kcal)');
+  ('set_default', 'ikura', 'default', 174188, 'proxy: red caviar (granular, 264 kcal); ikura is salmon roe at about 250 kcal, the default was mixed-species raw roe (143 kcal)'),
+  ('drop_link', 'great northern beans', 'default', 1505380, 'dry beans (1/4 cup dry 43-51 g, 312-341 kcal/100 g) linked under the canned default form, about 3x the energy of the canned record'),
+  ('drop_link', 'great northern beans', 'default', 2089046, 'dry beans linked under the canned default form'),
+  ('drop_link', 'lima beans', 'default', 1505323, 'dry beans linked under the canned default form'),
+  ('drop_link', 'lima beans', 'default', 2055005, 'dry beans linked under the canned default form'),
+  ('drop_link', 'lima beans', 'default', 1580004, 'dry beans linked under the canned default form'),
+  ('drop_link', 'navy beans', 'default', 1483283, 'dry beans linked under the canned default form'),
+  ('drop_link', 'navy beans', 'default', 2055002, 'dry beans linked under the canned default form'),
+  ('drop_link', 'green curry paste', '*', 1955870, 'Aroy-D THAI GREEN CURRY is a ready-to-eat curry in coconut milk (109 kcal/100 g), not a paste (the paste default is 140 kcal)'),
+  ('set_default', 'sorghum syrup', 'default', 169662, 'SR Syrups, sorghum (Ca 150, Fe 3.8, K 1000); the default was SR molasses (Ca 205, Fe 4.72, K 1464)'),
+  ('set_default', 'semola rimacinata', 'default', 168933, 'SR Semolina, unenriched (re-milled durum semolina is semolina); the default was white all-purpose flour');
 -- unmap: the ingredient keeps existing, it just has no nutrition (and no household weights: a weight without a food means nothing)
 delete from ingredient_portions p using _a a, ingredients i
  where a.action = 'unmap' and i.canonical_name = a.ingredient and p.ingredient_id = i.id;
@@ -3232,6 +3242,7 @@ insert into _px values
   ('argan oil', 'default'),
   ('asafoetida', 'default'),
   ('baharat', 'default'),
+  ('bajra flour', 'default'),
   ('banana ketchup', 'default'),
   ('banana stem', 'default'),
   ('baobab powder', 'default'),
@@ -3267,6 +3278,7 @@ insert into _px values
   ('celtuce', 'default'),
   ('chapati', 'default'),
   ('chaya', 'default'),
+  ('chervil', 'default'),
   ('chestnut flour', 'default'),
   ('chhena', 'default'),
   ('chile de arbol', 'default'),
@@ -3282,14 +3294,17 @@ insert into _px values
   ('cluster beans', 'default'),
   ('cockles', 'default'),
   ('colatura di alici', 'default'),
+  ('comte', 'default'),
   ('creme de cassis', 'default'),
   ('crushed red pepper', 'default'),
   ('cuajada', 'default'),
+  ('cubeb pepper', 'default'),
   ('culantro', 'default'),
   ('dalia', 'default'),
   ('date sugar', 'default'),
   ('degi mirch', 'default'),
   ('dijon mustard', 'default'),
+  ('doenjang', 'default'),
   ('dried chilies whole', 'default'),
   ('dried cilantro', 'default'),
   ('dried fenugreek leaves', 'default'),
@@ -3306,11 +3321,13 @@ insert into _px values
   ('fingerroot', 'default'),
   ('fish cakes', 'default'),
   ('flattened rice', 'default'),
+  ('foxtail millet', 'default'),
   ('freekeh', 'default'),
   ('fresh bay leaves', 'default'),
   ('fresh fenugreek', 'default'),
   ('fried shallots', 'default'),
   ('fromage blanc', 'default'),
+  ('fura', 'default'),
   ('galangal', 'default'),
   ('galangal powder', 'default'),
   ('garden egg', 'default'),
@@ -3369,6 +3386,7 @@ insert into _px values
   ('lemon verbena', 'default'),
   ('limoncello', 'default'),
   ('locust beans', 'default'),
+  ('long pepper', 'default'),
   ('lovage', 'default'),
   ('lutefisk', 'default'),
   ('mahon cheese', 'default'),
@@ -3434,6 +3452,7 @@ insert into _px values
   ('queijo minas', 'default'),
   ('quelites', 'default'),
   ('queso panela', 'default'),
+  ('raclette cheese', 'default'),
   ('ragi flour', 'default'),
   ('ramps', 'default'),
   ('ras el hanout', 'default'),
@@ -3461,6 +3480,7 @@ insert into _px values
   ('scent leaf', 'default'),
   ('scotch bonnet', 'default'),
   ('sea bream', 'default'),
+  ('shaoxing cooking wine', 'default'),
   ('shaoxing wine', 'default'),
   ('shawarma spice', 'default'),
   ('shichimi togarashi', 'default'),
@@ -3511,6 +3531,7 @@ insert into _px values
   ('water mimosa', 'default'),
   ('waterleaf', 'default'),
   ('wattleseed', 'default'),
+  ('weisswurst', 'default'),
   ('wheat starch', 'default'),
   ('white wine vinegar', 'default'),
   ('whole urad', 'default'),
@@ -3564,6 +3585,19 @@ on conflict (alias) do nothing;
 update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = '1% milk') where alias = 'low-fat milk' and exists (select 1 from ingredients where canonical_name = '1% milk'); -- '1% milk' is created by seed-nutrition-zzzzz-math-10c.sql, which repoints this alias if it runs first-time after this seed
 insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple, filter_group)
 values ('hard cider', 'hard-cider', 'Other', false, 'pantry') on conflict (canonical_name) do nothing;
+-- 'light cream' and 'single cream' were aliases of half-and-half (about 131 kcal/100 g); SR has its own light (coffee or table) cream at about
+-- 195 kcal, 20 percent fat. A cup of it weighs about 240 g (USDA household weight), the density used here.
+insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple, fdc_id, density_g_per_ml, diet_class)
+values ('light cream', 'light-cream', 'Dairy', false, 170857, 1.014, 'dairy_egg') on conflict (canonical_name) do nothing;
+insert into ingredient_foods (ingredient_id, form, fdc_id, is_default)
+select i.id, 'default', 170857, true from ingredients i
+ where i.canonical_name = 'light cream' and exists (select 1 from usda_foods u where u.fdc_id = 170857)
+on conflict (ingredient_id, form, fdc_id) do nothing;
+update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = 'light cream')
+ where alias = 'single cream' and exists (select 1 from ingredients where canonical_name = 'light cream');
+delete from ingredient_aliases a using ingredients i
+ where a.alias = 'light cream' and i.id = a.ingredient_id and i.canonical_name = 'half-and-half'
+   and exists (select 1 from ingredients where canonical_name = 'light cream');
 update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = 'hard cider')
  where alias in ('hard cider', 'apple cider alcoholic');
 

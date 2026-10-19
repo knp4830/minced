@@ -11,8 +11,9 @@
 Rules (every one is a conversion of a published number, never a guess):
   * Only nutrients we store. An absent value stays absent ("not reported"); CoFID 'N' (no reliable data) and blanks are absent.
   * CoFID 'Tr' (trace, below the quantification limit) is stored as 0.
-  * CoFID carbohydrate is AVAILABLE carbohydrate (monosaccharide equivalents) and excludes fibre; ours is total carbohydrate by
-    difference. carbs_g is stored only when AOAC fibre (the US-comparable method) is published: carbs = CHO + AOAC fibre.
+  * CoFID carbohydrate is AVAILABLE carbohydrate in monosaccharide equivalents and excludes fibre; ours is total carbohydrate by
+    difference, by weight. The two differ by the starch x 1.10 / sugar x 1.05 factors and the sheet carries no starch column, so
+    carbs_g is stored ONLY when CHO < 1 g (conversion cannot matter) and is otherwise absent ("not reported"). Never CHO + fibre.
     NSP fibre (Englyst) is a different, lower method and is never stored as fiber_g.
   * CoFID vitamin A is retinol equivalents (carotene / 6); ours is RAE (carotene / 12): RAE = retinol + carotene / 12.
   * CNF uses USDA nutrient numbers, so it maps by nutrients.fdc_number.
@@ -111,8 +112,12 @@ def load_cofid():
         aoac, cho = num(raw.get("AOACFIB")), num(raw.get("CHO"))
         if aoac is not None:
             nut["fiber_g"] = aoac
-            if cho is not None:
-                nut["carbs_g"] = round(cho + aoac, 3)
+        # CHO is AVAILABLE carbohydrate in monosaccharide equivalents (starch x 1.10, disaccharides x 1.05) and CoFID prices energy on
+        # that basis, so CHO + AOAC fibre is neither weight-basis nor by-difference: it overstated oatcakes, rusks and paratha by 8-10 percent
+        # (macros summed to 101.5 g per 100 g). The sheet has no starch column to convert with, so carbs_g is stored only where it cannot
+        # matter (CHO under 1 g: meat, fish, dairy fat) and is otherwise "not reported", a gap on the label rather than a wrong number.
+        if cho is not None and cho < 1.0:
+            nut["carbs_g"] = round(cho + (aoac or 0.0), 3)
         ret, car = num(raw.get("RET")), num(raw.get("CAREQU"))
         if ret is not None and car is not None:
             nut["vitamin_a_mcg_rae"] = round(ret + car / 12.0, 3)

@@ -293,6 +293,21 @@ update ingredient_portions p
   from ingredients i
  where p.ingredient_id = i.id and i.canonical_name = 'orange' and p.form = 'default' and p.unit_id is null and p.grams_per_unit = 184;
 
+-- whole-wheat forms copied the WHITE form's weights (fixer round 1): USDA 172688 whole-wheat bread is 32 g a slice (the white default
+-- is 25 g), and 174916 whole-wheat pita is 64 g for the large 6-1/2 in pita (the white default is 60 g). Tortillas (174081 gives only
+-- an unsized 41 g ready-to-bake tortilla) and buns stay as copied.
+update ingredient_portions p
+   set grams_per_unit = 32, source = 'usda',
+       note = 'USDA household weight: 1 slice whole-wheat bread (FDC 172688); wave 10c fixer: was copied from the 25 g white slice'
+  from ingredients i
+ where p.ingredient_id = i.id and i.canonical_name = 'sandwich bread' and p.form = 'whole_wheat'
+   and (p.unit_id is null or p.unit_id = (select id from units where name = 'slice')) and p.grams_per_unit = 25;
+update ingredient_portions p
+   set grams_per_unit = 64, source = 'usda',
+       note = 'USDA household weight: 1 large (6-1/2 in) whole-wheat pita (FDC 174916); wave 10c fixer: was copied from the 60 g white pita'
+  from ingredients i
+ where p.ingredient_id = i.id and i.canonical_name = 'pita bread' and p.form = 'whole_wheat' and p.unit_id is null and p.grams_per_unit = 60;
+
 -- ---------------------------------------------------------------------------------------------------------------
 -- 4. size factors (USDA portion ratios: small / medium and large / medium)
 -- ---------------------------------------------------------------------------------------------------------------

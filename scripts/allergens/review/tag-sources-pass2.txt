@@ -54,3 +54,4 @@
 [soy:V, wheat:V, gluten:V, fish:V] {plant} many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt) :: barbecue sauce
 [wheat:V, gluten:V] taco seasoning is often thickened with wheat flour :: taco seasoning
 [egg:V] many veggie burgers bind with egg white :: veggie burger
+[dairy:I] cream :: light cream

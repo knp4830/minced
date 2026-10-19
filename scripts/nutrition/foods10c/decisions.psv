@@ -1,7 +1,7 @@
 action|ingredient|form|fdc_id|confidence|reason
 set_default|blue cheese dressing|default|173562|H|regular commercial dressing (484 kcal); the default was the light version (86 kcal)
-set_default|black beans|default|175237|M|owner: canned black beans, full-panel SR record. SR "canned" (175188) is beans plus brine (91 kcal/100 g) but can/cup weights are drained solids, so the drained-basis full-panel record is SR boiled with salt (132 kcal); Foundation drained and rinsed (118 kcal) has only 12 of 35 nutrients
-set_default|black beans|canned|175237|M|same record as the default form
+set_default|black beans|default|175237|M|OWNER TO CONFIRM. Owner said canned black beans, full-panel SR record. What is built is SR 175237 (boiled, with salt, 132 kcal/100 g, 31 nutrients) read as a COOKED-EQUIVALENT, DRAINED-SOLIDS value: the can and cup weights in ingredient_portions are drained solids (a 15 oz can drains to 255 g), so a record that includes the brine (SR 175188 canned, 91 kcal/100 g) would understate a can by about 30 percent. Option B is 175188 plus can/cup weights that include the liquid
+set_default|black beans|canned|175237|M|same record as the default form (cooked-equivalent, drained solids; see the default row)
 set_default|kidney beans|default|175243|H|can weight is drained solids (255 g); SR canned solids-and-liquids (84 kcal) understated a can by about 30 percent. SR drained and rinsed: 121 kcal, 31 nutrients
 set_default|kidney beans|canned|175243|H|same record as the default form (was a branded can with liquid)
 set_default|white beans|canned|175204|H|generic SR canned, same as the default form (was a branded product)
@@ -425,3 +425,13 @@ set_default|jamon serrano|default|1989624|M|proxy: dry-cured prosciutto (250 kca
 set_default|jamon iberico|default|1989624|L|proxy: dry-cured prosciutto (250 kcal); the default was wet-cured lean ham (130 kcal); iberico is fattier (about 300 to 370 kcal), so this is a floor
 set_default|gravlax|default|175167|M|proxy: raw Atlantic salmon (208 kcal); gravlax is raw salmon cured with salt and sugar, the default was hot-smoked lox (117 kcal, a leaner chinook)
 set_default|ikura|default|174188|M|proxy: red caviar (granular, 264 kcal); ikura is salmon roe at about 250 kcal, the default was mixed-species raw roe (143 kcal)
+drop_link|great northern beans|default|1505380|H|dry beans (1/4 cup dry 43-51 g, 312-341 kcal/100 g) linked under the canned default form, about 3x the energy of the canned record
+drop_link|great northern beans|default|2089046|H|dry beans linked under the canned default form
+drop_link|lima beans|default|1505323|H|dry beans linked under the canned default form
+drop_link|lima beans|default|2055005|H|dry beans linked under the canned default form
+drop_link|lima beans|default|1580004|H|dry beans linked under the canned default form
+drop_link|navy beans|default|1483283|H|dry beans linked under the canned default form
+drop_link|navy beans|default|2055002|H|dry beans linked under the canned default form
+drop_link|green curry paste|*|1955870|H|Aroy-D THAI GREEN CURRY is a ready-to-eat curry in coconut milk (109 kcal/100 g), not a paste (the paste default is 140 kcal)
+set_default|sorghum syrup|default|169662|H|SR Syrups, sorghum (Ca 150, Fe 3.8, K 1000); the default was SR molasses (Ca 205, Fe 4.72, K 1464)
+set_default|semola rimacinata|default|168933|H|SR Semolina, unenriched (re-milled durum semolina is semolina); the default was white all-purpose flour

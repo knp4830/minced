@@ -389,6 +389,19 @@ on conflict (alias) do nothing;
 update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = '1% milk') where alias = 'low-fat milk' and exists (select 1 from ingredients where canonical_name = '1% milk'); -- '1% milk' is created by seed-nutrition-zzzzz-math-10c.sql, which repoints this alias if it runs first-time after this seed
 insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple, filter_group)
 values ('hard cider', 'hard-cider', 'Other', false, 'pantry') on conflict (canonical_name) do nothing;
+-- 'light cream' and 'single cream' were aliases of half-and-half (about 131 kcal/100 g); SR has its own light (coffee or table) cream at about
+-- 195 kcal, 20 percent fat. A cup of it weighs about 240 g (USDA household weight), the density used here.
+insert into ingredients (canonical_name, slug, aisle_category, is_pantry_staple, fdc_id, density_g_per_ml, diet_class)
+values ('light cream', 'light-cream', 'Dairy', false, 170857, 1.014, 'dairy_egg') on conflict (canonical_name) do nothing;
+insert into ingredient_foods (ingredient_id, form, fdc_id, is_default)
+select i.id, 'default', 170857, true from ingredients i
+ where i.canonical_name = 'light cream' and exists (select 1 from usda_foods u where u.fdc_id = 170857)
+on conflict (ingredient_id, form, fdc_id) do nothing;
+update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = 'light cream')
+ where alias = 'single cream' and exists (select 1 from ingredients where canonical_name = 'light cream');
+delete from ingredient_aliases a using ingredients i
+ where a.alias = 'light cream' and i.id = a.ingredient_id and i.canonical_name = 'half-and-half'
+   and exists (select 1 from ingredients where canonical_name = 'light cream');
 update ingredient_aliases set ingredient_id = (select id from ingredients where canonical_name = 'hard cider')
  where alias in ('hard cider', 'apple cider alcoholic');
 

@@ -1143,7 +1143,8 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('coconut bread', 'dairy', 'typical', 'wheat pasta or noodle | egg in many recipes | cream, milk, butter or cheese in the common product'),
   ('coconut bread', 'egg', 'varies', 'wheat pasta or noodle | egg in many recipes | cream, milk, butter or cheese in the common product'),
   ('1% milk', 'dairy', 'inherent', 'milk named by its fat percentage (added by the 10c math seed)'),
-  ('hot cocoa mix', 'dairy', 'typical', 'hot cocoa mix has milk solids in the common product');
+  ('hot cocoa mix', 'dairy', 'typical', 'hot cocoa mix has milk solids in the common product'),
+  ('light cream', 'dairy', 'inherent', 'cream');
 
 insert into _cls (ingredient, diet_class, reason) values
   ('salmon', 'seafood', 'carries a fish or shellfish tag'),
@@ -3127,7 +3128,8 @@ insert into _cls (ingredient, diet_class, reason) values
   ('manioc starch', 'plant', 'no animal ingredient'),
   ('1% milk', 'dairy_egg', 'carries a dairy or egg tag'),
   ('hot cocoa mix', 'dairy_egg', 'carries a dairy or egg tag'),
-  ('hard cider', 'plant', 'no animal ingredient');
+  ('hard cider', 'plant', 'no animal ingredient'),
+  ('light cream', 'dairy_egg', 'carries a dairy or egg tag');
 
 -- Reviewed diet exceptions (scripts/allergens/review/recipe-diet-exceptions.csv). The table is replaced as a whole.
 delete from recipe_diet_exceptions;
