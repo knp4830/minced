@@ -1,0 +1,40 @@
+ingredient|form|source|code|confidence|note
+betel leaves|default|cofid|13-807|H|Betel leaves, fresh
+bombay duck|default|cofid|16-005|H|Bombay duck (salted, dried fish)
+christmas pudding|default|cofid|11-1022|H|Pudding, Christmas, retail (10 samples, 4 brands)
+clotted cream|default|cofid|12-592|H|Cream, fresh, clotted: 586 kcal/100 g; replaces heavy cream (340) used as a stand-in
+creme fraiche|default|cofid|12-335|H|Creme fraiche, full fat: 378 kcal/100 g; replaces sour cream (198) used as a stand-in
+curry leaves|default|cofid|13-821|H|Curry leaves, fresh: 97 kcal/100 g; replaces fresh basil (23) used as a stand-in
+dried squid|default|cofid|16-267|H|Squid, dried
+fenugreek leaves|default|cofid|13-243|H|Fenugreek leaves, raw: 35 kcal/100 g (the spinach stand-in was removed as 23 vs about 49 earlier)
+golden syrup|default|cofid|17-065|H|Syrup, golden (Lyle's, analysed: 298 kcal/100 g); the US label record rounds a 21 g serving to 333
+haggis|default|cofid|19-132|H|Haggis, boiled
+hilsa|default|cofid|16-184|H|Hilsa, raw: 262 kcal/100 g (the herring stand-in was removed at 158)
+lassi|default|cofid|12-373|M|Lassi, sweetened (the only lassi in the table)
+mangosteen|default|cofid|14-151|H|Mangosteen, flesh only
+marzipan|default|cofid|14-875|H|Marzipan, white and yellow, retail
+mushy peas|default|cofid|13-563|H|Peas, mushy, canned, re-heated
+oatcakes|default|cofid|11-823|H|Oatcakes, plain, retail
+oxtail|default|cofid|18-419|M|Oxtail, raw; per 100 g of meat, the purchased weight includes bone
+paratha|default|cofid|11-1104|H|Paratha, homemade (the linked aloo paratha product is a stuffed bread)
+peking duck|default|cofid|18-490|M|Duck, crispy, Chinese style, meat and skin (takeaway samples)
+rambutan|default|cofid|14-243|H|Rambutan, flesh only
+rusks|default|cofid|11-940|M|Rusks (8 products); South African buttermilk rusks are denser
+tamarillo|default|cofid|14-264|H|Tamarillos, flesh and seeds
+cumberland sausage|default|cofid|19-510|M|Sausages, pork, raw (no Cumberland entry; a seasoned pork sausage)
+durian|default|cnf|4847|H|Durian, raw or frozen
+dragon fruit|default|cnf|7579|H|Pitahaya (dragon fruit), raw
+feijoa|default|cnf|1692|H|Feijoa, raw
+focaccia|default|cnf|7073|H|Bread, focaccia, Italian flatbread, plain
+boursin|default|cnf|7733|H|Cheese, Boursin, all flavours
+honey mustard|default|cnf|7045|M|Salad dressing, honey mustard, regular
+ladyfingers|default|cnf|7842|H|Cookie, ladyfingers, plain, commercial
+candied orange peel|default|cnf|4403|H|Candied foods, orange peel
+corn nuts|default|cnf|4093|H|Snacks, corn nuts, plain
+papadum|default|cnf|5492|H|Indian papad (papadum), dry
+lingonberries|default|cnf|6416|H|Cranberry (lingonberry), wild, raw
+chokecherries|default|cnf|6260|M|Chokecherry, raw, pitted (Indigenous foods table)
+pectin|default|cnf|4301|M|Sweets, pectin, unsweetened, dry mix
+roast beef|default|cnf|1154|M|Deli meat, roast beef, cooked, sliced
+smoked turkey|default|cnf|5598|M|Turkey, light or dark meat, smoked, cooked, skin and bone removed
+hemp milk|default|cnf|7807|M|Plant-based beverage, hemp, plain, unsweetened, calcium-fortified

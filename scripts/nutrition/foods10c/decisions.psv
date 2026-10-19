@@ -1,0 +1,395 @@
+action|ingredient|form|fdc_id|confidence|reason
+set_default|blue cheese dressing|default|173562|H|regular commercial dressing (484 kcal); the default was the light version (86 kcal)
+set_default|black beans|default|175237|M|owner: canned black beans, full-panel SR record. SR "canned" (175188) is beans plus brine (91 kcal/100 g) but can/cup weights are drained solids, so the drained-basis full-panel record is SR boiled with salt (132 kcal); Foundation drained and rinsed (118 kcal) has only 12 of 35 nutrients
+set_default|black beans|canned|175237|M|same record as the default form
+set_default|kidney beans|default|175243|H|can weight is drained solids (255 g); SR canned solids-and-liquids (84 kcal) understated a can by about 30 percent. SR drained and rinsed: 121 kcal, 31 nutrients
+set_default|kidney beans|canned|175243|H|same record as the default form (was a branded can with liquid)
+set_default|white beans|canned|175204|H|generic SR canned, same as the default form (was a branded product)
+set_default|cannellini beans|canned|175204|H|generic SR canned white beans, same as the default form
+set_default|chickpeas|canned|173800|H|SR canned drained solids, same as the default form
+set_default|canned tuna|canned|334194|H|Foundation tuna in water drained, same as the default form (was a branded 135 kcal wild tuna)
+set_default|sardines|canned|175139|H|SR sardines in oil drained, same as the default form
+set_default|canned peaches|canned|169930|M|SR juice pack, same as the default form
+set_default|canned pears|canned|169936|M|SR juice pack, same as the default form
+set_default|mandarin orange|canned|168184|M|SR juice pack drained, same as the default form
+set_default|doubanjiang|default|577190|M|fermented broad-bean chili paste (toban djan): Lee Kum Kee chili bean sauce; the default was sriracha
+set_default|kombu|default|2012179|M|dried kombu (Eden, 152 kcal; Japanese table 145 kcal); the default was raw kelp (43 kcal)
+set_default|wakame|default|387932|M|dried wakame (Pacific); the default was raw wakame (45 kcal)
+set_default|pumpkin pie filling|default|2497857|H|sweetened and spiced pumpkin pie mix (122 kcal); the default was plain canned pumpkin (34 kcal)
+set_default|sirloin steak|default|168726|H|raw top sirloin, 1/8 in trim; the default was a cooked record while its siblings are raw
+set_default|pork sausage|default|172934|H|SR pork sausage unprepared (288 kcal); the default was pork and beef, cooked
+set_default|breakfast sausage|default|172934|M|SR pork sausage unprepared
+set_default|chicken thighs|skinless|173627|H|SR thigh meat only raw (121 kcal); the form used generic chicken meat
+set_default|chicken drumsticks|skinless|173614|H|SR drumstick meat only raw (116 kcal)
+set_default|cowpea flour|default|173758|M|dried cowpeas (flour is the ground dry bean); the default was immature raw cowpeas (90 kcal)
+set_default|hearts of palm|default|168569|H|canned hearts of palm (28 kcal), the form sold; the default was raw (115 kcal)
+set_default|oolong tea|default|174120|H|brewed oolong (1 kcal); the default was dry leaves
+set_default|rooibos|default|173232|M|brewed herbal tea (1 kcal); the default was dry tea
+set_default|orange marmalade|default|168819|H|SR orange marmalade; the default was apricot jam
+set_default|pickled cabbage|default|169279|M|sauerkraut stand-in; the default branded record showed 3 kcal/100 g
+set_default|shaoxing cooking wine|default|167723|M|rice wine (sake record, 134 kcal); the default was white table wine (82 kcal)
+set_default|sherry vinegar|default|172240|M|vinegar record (19 kcal); the branded sherry vinegar showed a label-rounded 0 kcal
+set_default|skim milk|default|171269|H|nonfat milk with vitamins A and D; the default was calcium-fortified (about 2x the calcium)
+set_default|shredded cheese|default|328637|M|owner: bare shredded cheese assumes cheddar (same food as the cheddar cheese default); the label must say "nutrition assumes cheddar"
+set_default|sockeye salmon|default|173691|H|SR sockeye raw, 34 nutrients (Foundation record has 18)
+set_default|masa harina|default|169694|H|SR masa harina enriched, 33 nutrients (US masa harina is enriched); Foundation record has 16
+set_default|vegan butter|default|172346|M|vegan butter sticks are 80 percent fat; the default was a 35-39 percent fat tub spread (349 kcal vs about 717)
+set_default|veal stock|default|171538|L|proxy: prepared stock is about 10 kcal/100 g; the default was a demi-glace concentrate (500 kcal)
+set_default|whole grain mustard|default|2037607|L|whole-grain mustard keeps the seeds (about 200 kcal/100 g label); the default was plain yellow mustard (60 kcal)
+set_default|winged beans|default|170476|H|winged bean pods (immature seeds, raw); the default was the tuber
+set_default|young green jackfruit|default|2111522|M|green jackfruit in water (21 kcal); the Roland record claimed 100 kcal/100 g beside 24 g carbohydrate
+set_default|wasabi powder|default|1863407|H|wasabi powder (horseradish) 353 kcal; the default was a tube paste
+set_default|acai puree|default|2432436|H|unsweetened organic acai puree (70 kcal); the default was a sweetened guarana smoothie pack
+unmap|adjika|*||H|the linked product is pepper fillets in adjika sauce, not adjika
+unmap|aonori|*||H|aonori is dried flakes (about 300 kcal/100 g); only raw laver (35 kcal) is available
+unmap|bottarga|*||H|cured dried roe (about 350 kcal); only raw roe (143 kcal) is available
+unmap|crayfish ground|*||H|dried ground crayfish (about 300 kcal); only raw crayfish (77 kcal) is available
+unmap|dashi|*||H|no prepared dashi record exists; vegetable broth was a different food and the dashi base is a concentrate
+unmap|duck confit|*||H|confit is cooked in its fat (about 290 kcal); the linked record was roasted meat only (201 kcal)
+unmap|dukkah|*||H|dukkah is a nut and seed blend (about 500 kcal); curry powder (325 kcal) is not it
+unmap|hand-pulled noodles|*||H|the linked record is crispy fried chow mein noodles (471 kcal)
+unmap|lagman noodles|*||H|the linked record is crispy fried chow mein noodles (471 kcal)
+unmap|kajmak|*||H|kajmak is about 450-600 kcal; heavy cream (340 kcal) is not it
+unmap|kaymak|*||H|kaymak is about 450-600 kcal; heavy cream (340 kcal) is not it
+unmap|lemongrass dried|*||H|dried lemongrass is about 3x denser than the raw stalk record
+unmap|maafe sauce|*||H|a peanut stew sauce is not peanut butter (598 kcal)
+unmap|myoga|*||H|myoga is a flower bud (about 12 kcal); ginger root (80 kcal) is a different food
+unmap|plantain|*||M|green and ripe plantain differ by 20 percent and the linked record is fried plantain bits (500 kcal)
+unmap|ranch seasoning|*||H|the linked product is a pickle snack
+unmap|sucralose|*||H|the linked product is a fruit cocktail with sucralose
+unmap|turmeric root|*||H|fresh turmeric (about 100 kcal) is not ground turmeric (312 kcal)
+set_default|adobo seasoning|default|2288177|M|salt-and-spice adobo with a 10 g serving (68 kcal/100 g); the linked record said 588 kcal/100 g
+add_food||*|2497857|H|replacement food: pumpkin pie mix (Seneca)
+add_food||*|2432436|H|replacement food: organic acai puree, unsweetened (Glencourt)
+add_food||*|2111522|H|replacement food: green jackfruit in water (Pamana)
+add_food||*|1863407|H|replacement food: Kona wasabi powdered horseradish (Kinjirushi)
+add_food||*|2288177|H|replacement food: adobo seasoning, 10 g serving (The Nutmeg Spice Co.)
+drop_link|doubanjiang|*|171186|H|sriracha was the old default
+drop_link|pumpkin pie filling|*|170527|H|plain canned pumpkin is not pie filling
+drop_link|vegan butter|*|171415|H|35-39 percent fat tub spread
+drop_link|veal stock|*|581024|H|demi-glace concentrate
+drop_link|winged beans|*|170070|H|the tuber, not the pods
+drop_link|golden syrup|*|169578|H|pancake syrup blend
+drop_link|cowpea flour|*|169220|H|immature cowpeas, not dried
+drop_link|orange marmalade|*|170645|H|apricot jam
+drop_link|oolong tea|*|401915|H|dry tea leaves
+drop_link|rooibos|*|2267733|H|dry tea
+drop_link|shaoxing cooking wine|*|174837|H|white table wine
+drop_link|pickled cabbage|*|1134643|H|3 kcal/100 g record
+drop_link|curry leaves|*|172232|H|fresh basil stand-in
+drop_link|clotted cream|*|170859|H|heavy cream stand-in
+drop_link|creme fraiche|*|171257|H|sour cream stand-in
+drop_link|peking duck|*|172411|H|roasted meat only stand-in
+drop_link|paratha|*|468107|H|aloo paratha product
+drop_link|pork sausage|*|174579|H|pork and beef, cooked
+drop_link|acai puree|*|2655081|H|sweetened guarana smoothie pack
+drop_link|young green jackfruit|*|776528|H|label claims 100 kcal/100 g beside 24 g carbohydrate
+drop_link|hilsa|*|175116|H|Atlantic herring stand-in
+drop_link|fenugreek leaves|*|168462|H|spinach stand-in
+drop_link|adobo seasoning|*|2012374|H|588 kcal/100 g is not a seasoning blend
+drop_link|all-purpose flour|*|2277395|H|gluten-free blend
+drop_link|all-purpose flour|*|2680656|H|gluten-free flour
+drop_link|bread flour|*|2552792|H|gluten-free bread flour
+drop_link|blue cheese|*|2385922|H|reduced fat
+drop_link|cream cheese|*|497082|H|reduced fat
+drop_link|wasabi powder|*|2029936|H|tube paste
+drop_link|wasabi powder|*|2210079|H|hot wasabi paste
+drop_link|wasabi powder|*|2367697|H|seasoning mix
+drop_link|tilapia|*|1902762|H|seasoned fillet
+drop_link|tomato soup|*|2457824|H|soup and goldfish crackers kit
+drop_link|vegetable juice|*|2039831|H|fruit and vegetable juice drink
+drop_link|achiote paste|*|2398931|H|lard colored with annatto, not paste
+drop_link|almond milk|*|1910683|H|chocolate flavored
+drop_link|almond milk|*|1910684|H|vanilla flavored
+drop_link|almond milk|*|2664574|H|vanilla flavored
+drop_link|almond milk|*|2618005|H|vanilla flavored
+drop_link|almond milk|*|484342|H|coconut almond blend
+drop_link|almond milk|*|549100|H|coconut cream and almond blend
+drop_link|almond milk|*|1319091|H|almond+cashew blend
+drop_link|almond milk|*|1294082|H|protein+fiber product
+drop_link|almond butter|*|2038165|H|maple flavored
+drop_link|almonds|*|1577362|H|cocoa dusted
+drop_link|anchovies|*|1986426|H|anchovy paste is not fillets
+drop_link|anchovies|*|2597704|H|anchovy paste
+drop_link|anchovies|*|2010320|H|anchovy paste
+drop_link|anchovies|*|1864598|H|anchovy paste
+drop_link|anchovies|*|2387062|H|anchovy paste
+drop_link|angel hair|*|2029132|H|grain and legume pasta
+drop_link|angel hair|*|2012410|H|whole grain
+drop_link|angel hair|*|2623122|H|smart taste fibre pasta
+drop_link|apple cider vinegar|*|1900313|H|vinegar beverage
+drop_link|apple juice|*|2657351|H|reduced calorie juice drink (24 kcal)
+drop_link|applesauce|*|2560687|H|cinnamon flavored
+drop_link|applesauce|*|2560710|H|pear applesauce
+drop_link|applesauce|*|2614406|H|tropical applesauce
+drop_link|artichoke|*|1761672|H|jarred hearts, not raw artichoke
+drop_link|artichoke|*|1853844|H|jarred hearts
+drop_link|artichoke|*|2676878|H|marinated hearts in oil
+drop_link|avocado oil|*|2106904|H|mayonnaise
+drop_link|avocado oil|*|575047|H|mayonnaise
+drop_link|bacon|*|2285338|H|canned bacon
+drop_link|bacon|*|1914670|H|cooked pepper bacon crumbles
+drop_link|bacon|*|1946154|H|cooked bacon pieces
+drop_link|bacon|*|1852457|H|cooked bacon crumbles
+drop_link|bacon|*|1464658|H|beef bacon
+drop_link|bacon|*|1574581|H|sausage links
+drop_link|balsamic vinegar|*|2666706|H|raspberry flavored
+drop_link|barley|*|2667706|H|barley flour is not barley
+drop_link|basmati rice|*|2077676|H|basmati and wild rice blend
+drop_link|beef bouillon|*|2571772|H|vegetarian no-beef base
+drop_link|biryani masala|*|2038096|H|biryani paste with oil, not dry masala
+drop_link|biscuit mix|*|2022387|H|gravy mix
+drop_link|biscuit mix|*|2541275|H|corn biscuit mix
+drop_link|black beans|*|2014568|H|refried
+drop_link|black beans|*|404432|H|refried
+drop_link|black beans|*|1901697|H|refried
+drop_link|breakfast sausage|*|1598396|H|beef sausage
+drop_link|breakfast sausage|*|1851883|H|sausage rolls (pastry)
+drop_link|brown rice|*|2634185|H|brown rice pasta
+drop_link|butter|*|2077761|H|almond butter
+drop_link|butter|*|1904460|H|almond butter
+drop_link|butter|*|2627856|H|pistachio butter
+drop_link|butter|*|2339141|H|garlic herb compound butter
+drop_link|butter|*|2484787|H|ghee
+drop_link|butter|*|2418717|H|786 kcal impossible for butter (max about 740)
+drop_link|canned peaches|*|488739|H|fruit gel cups
+drop_link|canned tuna|*|2485714|H|seared/ahi steak product
+drop_link|canned tuna|*|2464582|H|seared cubes
+drop_link|canned tuna|*|2468759|H|tuna salad
+drop_link|canned tuna|*|2674470|H|flavored
+drop_link|canned tuna|*|2674469|H|flavored
+drop_link|canned tuna|*|718318|H|flavored
+drop_link|cheddar cheese|*|1656604|H|chipotle flavored
+drop_link|cheddar cheese|*|2103917|H|processed cheddar
+drop_link|chicken bouillon|*|2571771|H|vegetarian no-chicken base
+drop_link|chicken bouillon|*|2084039|H|flavor not stated
+drop_link|chicken breast|*|2600320|H|cooked pulled chicken
+drop_link|chicken breast|*|2103494|H|cooked deli carved
+drop_link|chicken breast|*|2091674|H|cooked seasoned strips
+drop_link|chicken breast|*|2095549|H|cooked fajita strips
+drop_link|chicken breast|*|2081629|H|bone-in skin-on split breast
+drop_link|chicken breast|*|2573296|H|fillets (cooked/breaded)
+drop_link|chicken breast|*|2125496|H|tenderloins 89 kcal below any raw breast
+drop_link|chicken breast|*|2489596|H|tenderloins 89 kcal
+drop_link|chickpea flour|*|2030542|H|whole dry garbanzo beans, not flour
+drop_link|chickpea flour|*|2671780|H|garbanzo and fava blend
+drop_link|chickpea flour|*|2601107|H|garbanzo fava blend
+drop_link|chili oil|*|1997380|H|chili crisp (solids in oil)
+drop_link|chili oil|*|2642544|H|chili crisp
+drop_link|chocolate chips|*|2667265|H|unsweetened chocolate bar
+drop_link|chocolate chips|*|505311|H|filled baking morsels
+drop_link|chocolate chips|*|2265457|H|holiday morsels
+drop_link|chocolate chips|*|2148011|H|mug cake mix
+drop_link|chocolate chips|*|2666546|H|hot cocoa mix
+drop_link|chocolate chips|*|662566|H|chips and chocolate cookie product
+drop_link|chocolate chips|*|530293|H|white morsels
+drop_link|chocolate chips|*|2473915|H|white morsels
+drop_link|chorizo|*|2088898|H|chicken sausage
+drop_link|chorizo|*|1851849|H|soy chorizo
+drop_link|cocoa powder|*|1158325|H|instant latte coffee
+drop_link|cocoa powder|*|2042873|H|sweetened ground chocolate
+drop_link|coconut milk|*|2384257|H|coconut milk curry
+drop_link|coffee|*|1867616|H|dry roasted coffee, default is brewed
+drop_link|corn|*|1633739|H|cream style corn is its own ingredient
+drop_link|cotija|*|2068172|H|parmesan-style grated cheese
+drop_link|couscous|*|2567535|H|gluten free israeli couscous
+drop_link|couscous|*|2063504|H|vegetable couscous
+drop_link|cream cheese|*|472518|H|cream cheese spread (250 kcal)
+drop_link|dashi|*|1960206|H|concentrated shirodashi base, not prepared stock
+drop_link|deli turkey|*|2629583|H|raw oven-ready roast
+drop_link|dijon mustard|*|1863092|H|dijon with horseradish
+drop_link|dijon mustard|*|2295294|H|honey dijon
+drop_link|doenjang|*|2067533|H|ssamjang
+drop_link|dried oregano|*|580628|H|oregano stir-in paste
+drop_link|dried rosemary|*|2034517|H|chicken and potatoes seasoning
+drop_link|egg|*|2467092|H|hard cooked
+drop_link|egg|*|2037689|H|hard cooked
+drop_link|farfalle|*|2631728|H|grain and legume pasta
+drop_link|feta|*|1868399|H|flavored with cranberries
+drop_link|feta|*|2019678|H|spreadable
+drop_link|fettuccine|*|2096296|H|gluten free
+drop_link|firm tofu|*|2599183|H|silken
+drop_link|firm tofu|*|2599182|H|silken
+drop_link|firm tofu|*|2016554|H|lite firm tofu 53 kcal
+drop_link|fish sauce|*|2643096|H|kimchi
+drop_link|flaxseed|*|2097011|H|blend
+drop_link|flaxseed|*|2435957|H|blend
+drop_link|flaxseed|*|2667197|H|blend
+drop_link|flour tortillas|*|2595172|H|whole wheat
+drop_link|flour tortillas|*|2616645|H|whole wheat
+drop_link|flour tortillas|*|2594908|H|whole wheat
+drop_link|flour tortillas|*|2671616|H|blue corn masa tortillas
+drop_link|flour tortillas|*|757420|H|southwest seasoned
+drop_link|fusilli|*|2029339|H|gluten free
+drop_link|fusilli|*|2063067|H|gluten free
+drop_link|fusilli|*|2340209|H|gluten free
+drop_link|ghee|*|1883525|H|garlic flavored
+drop_link|ghee|*|1974528|H|garlic flavored
+drop_link|ghee|*|1961910|H|truffle salt
+drop_link|ghee|*|1042899|H|vanilla
+drop_link|ghee|*|2174120|H|coconut based
+drop_link|glutinous rice|*|364843|H|rice flour
+drop_link|glutinous rice|*|2116453|H|rice flour
+drop_link|gochujang|*|2119815|H|spicy miso sauce
+drop_link|graham crackers|*|2674596|H|cinnamon snacks
+drop_link|graham crackers|*|2108669|H|honey dippers snacks
+drop_link|granulated sugar|*|2215602|H|429 kcal impossible for sugar
+drop_link|grape juice|*|2633599|H|juice drink
+drop_link|grape leaves|*|2032803|H|stuffed
+drop_link|greek yogurt|*|2185466|H|vanilla
+drop_link|greek yogurt|*|2493150|H|117 kcal inconsistent with low-fat greek
+drop_link|grits|*|2013523|H|millet grits
+drop_link|ground cinnamon|*|2546881|H|rub with other spices
+drop_link|ground turmeric|*|1032591|H|turmeric pasta
+drop_link|half-and-half|*|2466362|H|83 kcal fat-free
+drop_link|hummus|*|2596168|H|salsa verde flavored
+drop_link|hummus|*|2641477|H|southwest flavored
+drop_link|hummus|*|2056574|H|everything flavored
+drop_link|italian dressing|*|2615587|H|lite
+drop_link|jerk seasoning|*|2059836|H|0 kcal label-rounded rub
+drop_link|kalamata olives|*|2671617|H|spread
+drop_link|kalamata olives|*|1853032|H|spread
+drop_link|kecap manis|*|557632|H|chili sauce
+drop_link|kimchi|*|2031773|H|kimchi salsa sauce
+drop_link|lasagna noodles|*|2393850|H|whole wheat
+drop_link|lavash|*|2409521|H|flax oat bran lavash (188 kcal)
+drop_link|lavash|*|2109640|H|whole wheat flax flatbread
+drop_link|lentils|*|2421265|H|rice with lentils dish
+drop_link|lentils|*|1662653|H|263 kcal implausible for dry lentils
+drop_link|linguine|*|2400664|H|gluten free
+drop_link|linguine|*|2017764|H|whole grain
+drop_link|linguine|*|2549626|H|whole wheat
+drop_link|linguine|*|2598177|H|whole wheat
+drop_link|maple syrup|*|2150891|H|blueberry flavored
+drop_link|margarine|*|2093507|H|honey butter spread
+drop_link|margarine|*|2062592|H|coconut peanut spread
+drop_link|marinara sauce|*|2518697|H|meatball marinara
+drop_link|mayonnaise|*|2369702|H|egg-free mayo
+drop_link|mayonnaise|*|1592793|H|olive oil mayo (light)
+drop_link|mirin|*|2024759|H|139 kcal inconsistent with other mirin
+drop_link|molasses|*|1965418|H|200 kcal vs 286-300
+drop_link|monterey jack|*|1614170|H|colby and jack blend
+drop_link|mozzarella|*|2089047|H|pesto mozzarella
+drop_link|naan|*|2669551|H|naan dippers (crisps)
+drop_link|oat milk|*|2461216|H|chocolate
+drop_link|orzo|*|2674826|H|chickpea
+drop_link|orzo|*|2623284|H|gluten free
+drop_link|pancake mix|*|2087508|H|potato pancake mix
+drop_link|pancake mix|*|2603921|H|keto
+drop_link|pancake mix|*|2014725|H|gluten free
+drop_link|pancake mix|*|2670139|H|protein
+drop_link|pancake mix|*|2141984|H|protein
+drop_link|pancake mix|*|2144989|H|protein
+drop_link|pancake mix|*|2673412|H|7 grain
+drop_link|panko breadcrumbs|*|2069894|H|pecan panko
+drop_link|panko breadcrumbs|*|2582399|H|italian seasoned
+drop_link|panko breadcrumbs|*|2582400|H|spicy
+drop_link|peanut butter|*|2038169|H|honey blend
+drop_link|peanuts|*|539367|H|chili lime
+drop_link|peanuts|*|2614913|H|chipotle
+drop_link|peanuts|*|2087609|H|heat flavored
+drop_link|pecans|*|2125030|H|butter cinnamon
+drop_link|pecans|*|1850909|H|cinnamon
+drop_link|penne|*|2129861|H|red lentil
+drop_link|penne|*|2677091|H|white fiber
+drop_link|pepperoni|*|2445952|H|turkey pepperoni
+drop_link|pesto|*|1924168|H|sun-dried tomato pesto sauce
+drop_link|pesto|*|2126022|H|sun-dried tomato pesto
+drop_link|phyllo dough|*|2394801|H|phyllo shells
+drop_link|pie crust|*|2285090|H|graham cracker crust
+drop_link|pie crust|*|2029809|H|chocolate crust
+drop_link|pie crust|*|2322884|H|graham cracker crust
+drop_link|pinto beans|*|2009529|H|refried
+drop_link|pistachios|*|2049845|H|286 kcal implausible (in-shell weight)
+drop_link|pita bread|*|2097947|H|whole wheat
+drop_link|pita bread|*|2091198|H|sweet onion
+drop_link|pizza dough|*|1608541|H|whole grain
+drop_link|popcorn|*|598484|H|ranch flavored
+drop_link|popcorn|*|556232|H|puffs
+drop_link|pretzels|*|2565613|H|honey mustard dips
+drop_link|prunes|*|2033920|H|129 kcal vs 240
+drop_link|pudding mix|*|2679014|H|sugar free fat free
+drop_link|quinoa|*|2671902|H|quinoa flour
+drop_link|quinoa|*|2017552|H|quinoa flour
+drop_link|ramen noodles|*|2590912|H|pancake sausage egg breakfast product
+drop_link|ramen noodles|*|2067637|H|rice ramen
+drop_link|ramen noodles|*|363897|H|rice ramen
+drop_link|ramen noodles|*|617810|H|rice ramen
+drop_link|ramen noodles|*|685834|H|rice ramen soup
+drop_link|ranch dressing|*|2025121|H|ranch yogurt dressing
+drop_link|ranch dressing|*|2106734|H|lite
+drop_link|red wine vinegar|*|2085771|H|pomegranate infused
+drop_link|red wine vinegar|*|1909952|H|jalapeno infused
+drop_link|ricotta|*|2020309|H|48 kcal implausible
+drop_link|ricotta|*|1858223|H|73 kcal implausible
+drop_link|ricotta|*|1863337|H|81 kcal implausible
+drop_link|ricotta|*|2598533|H|97 kcal low fat
+drop_link|rigatoni|*|2657874|H|gluten free
+drop_link|roasted red peppers|*|2597657|H|marinated portobello
+drop_link|rolled oats|*|2450751|H|cinnamon instant
+drop_link|rolled oats|*|2279543|H|ground oats
+drop_link|rolled oats|*|2654378|H|protein oats
+drop_link|rolled oats|*|2654379|H|protein oats
+drop_link|rolled oats|*|2119526|H|steel cut oats
+drop_link|rooibos|*|1896880|H|hibiscus rooibos syrup
+drop_link|rooibos|*|1998403|H|rooibos grapefruit infusion (222 kcal)
+drop_link|salmon|*|2092744|H|bbq rubbed salmon
+drop_link|salmon|*|2059843|H|canned pink salmon under raw salmon
+drop_link|sandwich bread|*|721304|H|double fiber bread
+drop_link|sandwich bread|*|443062|H|jewish rye
+drop_link|sandwich bread|*|722950|H|oatnut bread
+drop_link|sandwich bread|*|2078782|H|whole wheat
+drop_link|sandwich bread|*|2111616|H|seeded
+drop_link|sandwich bread|*|2679573|H|honey oat
+drop_link|sandwich bread|*|1904308|H|honey wheat
+drop_link|sandwich bread|*|2657907|H|brioche
+drop_link|seitan|*|2665714|H|bacon seitan
+drop_link|seitan|*|1155409|H|ground seitan 60 kcal
+drop_link|semisweet chocolate|*|2667263|H|72 percent dark
+drop_link|sesame seeds|*|2307928|H|ground sesame paste
+drop_link|smoked paprika|*|2014046|H|chicken taco seasoning recipe mix
+drop_link|smoked salmon|*|2155271|H|pastrami cured
+drop_link|smoked salmon|*|2133635|H|pastrami cured
+drop_link|smoked salmon|*|2030519|H|cajun
+drop_link|smoked salmon|*|2594860|H|herb
+drop_link|smoked salmon|*|1981734|H|herb
+drop_link|smoked salmon|*|2075014|H|trio assortment
+drop_link|soba noodles|*|2051823|H|spelt soba
+drop_link|soba noodles|*|2287161|H|brown rice ramen
+drop_link|sour cream|*|1625409|H|fat free
+drop_link|sour cream|*|2019218|H|light
+drop_link|sour cream|*|2417993|H|lowfat
+drop_link|soy sauce|*|2047285|H|coconut aminos
+drop_link|soy sauce|*|2047284|H|tamari
+drop_link|soy sauce|*|2119448|H|tamari
+drop_link|soy sauce|*|2037611|H|tamari
+drop_link|soy sauce|*|2158405|H|tamari
+drop_link|soy sauce|*|2065244|H|tamari
+drop_link|spaghetti|*|1994191|H|chickpea
+drop_link|spaghetti|*|2423981|H|banza chickpea
+drop_link|spaghetti|*|2079754|H|banza chickpea
+drop_link|spaghetti|*|1983220|H|red lentil
+drop_link|spaghetti|*|2549623|H|whole grain
+drop_link|sriracha|*|1864946|H|barbecue sauce
+drop_link|sriracha|*|2025103|H|chili ketchup
+drop_link|sriracha|*|2066970|H|stir-fry sauce
+drop_link|sweetened condensed milk|*|2286181|H|low fat
+drop_link|swiss cheese|*|381768|H|250 kcal jarlsberg lite
+drop_link|taco seasoning|*|2565348|H|ranch taco seasoning
+drop_link|taco shells|*|2457600|H|nacho cheese flavored
+drop_link|tahini|*|2472390|H|chocolate
+drop_link|tahini|*|2630686|H|786 kcal implausible
+drop_link|tahini|*|578468|H|714 kcal implausible
+drop_link|tamari|*|1863409|H|ginger flavored
+drop_link|tapioca pearls|*|1903607|H|429 kcal impossible
+drop_link|tempeh|*|2679096|H|bacon flavored
+drop_link|tempeh|*|2012992|H|coconut curry
+drop_link|tomato paste|*|2675016|H|pesto tomato paste
+drop_link|tortilla chips|*|440975|H|hummus with chips snack pack
+drop_link|vanilla extract|*|2577764|H|vanilla bean paste
+drop_link|vanilla yogurt|*|2582653|H|oat yogurt
+drop_link|vanilla yogurt|*|1161059|H|oat yogurt
+drop_link|wasabi paste|*|1940943|H|rice crackers
+drop_link|whipped topping|*|2565818|H|lite
+drop_link|white beans|*|2431596|H|beans in sauce
+drop_link|white miso|*|365638|H|barley miso

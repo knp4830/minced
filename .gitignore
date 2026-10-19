@@ -49,3 +49,7 @@ scripts/myplate/artifacts/
 # manifest (scripts/photos/manifest/) is what we commit, never the binaries.
 scripts/photos/cache/
 scripts/photos/out/
+
+# wave 10c scratch
+.w10c/
+scripts/nutrition/national/cache/
