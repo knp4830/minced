@@ -78,7 +78,12 @@ values
   (900005598, 'Turkey, light or dark meat, smoked, cooked, skin and bone removed', 'cnf', '5598'),
   (900007807, 'Plant-based beverage, hemp beverage, plain, unsweetened, calcium-fortified, shelf-stable', 'cnf', '7807'),
   (900001522, 'Breadfruit, raw', 'cnf', '1522'),
-  (900002164, 'Poi [Native Hawaiian dish made of taro roots]', 'cnf', '2164')
+  (900002164, 'Poi [Native Hawaiian dish made of taro roots]', 'cnf', '2164'),
+  (910130339, 'Seaweed, kombu, dried, raw', 'cofid', '13-339'),
+  (910130341, 'Seaweed, wakame, dried, raw', 'cofid', '13-341'),
+  (900002499, 'Seaweed, dulse (laver, nori), dried', 'cnf', '2499'),
+  (910130853, 'Sage, fresh', 'cofid', '13-853'),
+  (910130857, 'Tarragon, fresh', 'cofid', '13-857')
 on conflict (fdc_id) do nothing;
 -- keys are our nutrient keys (nutrients.key), per 100 g; an absent key is "not reported"
 insert into usda_food_nutrients (fdc_id, nutrient_id, amount_per_100g)
@@ -124,7 +129,12 @@ from (values
   (900005598, '{"calcium_mg": 25.0, "carbs_g": 0.0, "cholesterol_mg": 76.0, "choline_mg": 82.3, "copper_mg": 0.094, "energy_kcal": 162.0, "fat_g": 5.0, "fiber_g": 0.0, "folate_mcg_dfe": 7.0, "iron_mg": 1.78, "magnesium_mg": 26.0, "mono_fat_g": 1.046, "niacin_mg": 5.44, "phosphorus_mg": 213.0, "poly_fat_g": 1.408, "potassium_mg": 298.0, "protein_g": 29.3, "riboflavin_mg": 0.18, "sat_fat_g": 1.368, "selenium_mcg": 43.0, "sodium_mg": 996.0, "sugars_g": 0.0, "thiamin_mg": 0.06, "trans_fat_g": 0.1195, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.37, "vitamin_b6_mg": 0.46, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.27, "vitamin_e_mg": 0.33, "vitamin_k_mcg": 0.0, "zinc_mg": 3.1}'::jsonb),
   (900007807, '{"calcium_mg": 134.0, "carbs_g": 7.88, "copper_mg": 0.026, "energy_kcal": 48.0, "fat_g": 1.7, "fiber_g": 0.0, "folate_mcg_dfe": 3.0, "iron_mg": 0.3, "magnesium_mg": 11.0, "manganese_mg": 0.127, "mono_fat_g": 0.175, "niacin_mg": 0.077, "phosphorus_mg": 91.0, "poly_fat_g": 1.312, "potassium_mg": 19.0, "protein_g": 0.22, "riboflavin_mg": 0.033, "sat_fat_g": 0.143, "selenium_mcg": 0.4, "sodium_mg": 23.0, "sugars_g": 0.04, "thiamin_mg": 0.031, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b6_mg": 0.014, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "zinc_mg": 0.2}'::jsonb),
   (900001522, '{"calcium_mg": 17.0, "carbs_g": 27.12, "cholesterol_mg": 0.0, "choline_mg": 9.8, "copper_mg": 0.084, "energy_kcal": 103.0, "fat_g": 0.23, "fiber_g": 4.9, "folate_mcg_dfe": 14.0, "iron_mg": 0.54, "magnesium_mg": 25.0, "manganese_mg": 0.06, "mono_fat_g": 0.034, "niacin_mg": 0.9, "pantothenic_mg": 0.457, "phosphorus_mg": 30.0, "poly_fat_g": 0.066, "potassium_mg": 490.0, "protein_g": 1.07, "riboflavin_mg": 0.03, "sat_fat_g": 0.048, "selenium_mcg": 0.6, "sodium_mg": 2.0, "sugars_g": 11.0, "thiamin_mg": 0.11, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 0.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.1, "vitamin_c_mg": 29.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 0.1, "vitamin_k_mcg": 0.5, "zinc_mg": 0.12}'::jsonb),
-  (900002164, '{"calcium_mg": 16.0, "carbs_g": 27.23, "cholesterol_mg": 0.0, "choline_mg": 16.7, "copper_mg": 0.166, "energy_kcal": 112.0, "fat_g": 0.14, "fiber_g": 0.4, "folate_mcg_dfe": 21.0, "iron_mg": 0.88, "magnesium_mg": 24.0, "manganese_mg": 0.37, "mono_fat_g": 0.011, "niacin_mg": 1.1, "pantothenic_mg": 0.293, "phosphorus_mg": 39.0, "poly_fat_g": 0.058, "potassium_mg": 183.0, "protein_g": 0.38, "riboflavin_mg": 0.04, "sat_fat_g": 0.029, "selenium_mcg": 0.7, "sodium_mg": 12.0, "sugars_g": 0.39, "thiamin_mg": 0.13, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 3.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.273, "vitamin_c_mg": 4.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 2.3, "vitamin_k_mcg": 1.0, "zinc_mg": 0.22}'::jsonb)
+  (900002164, '{"calcium_mg": 16.0, "carbs_g": 27.23, "cholesterol_mg": 0.0, "choline_mg": 16.7, "copper_mg": 0.166, "energy_kcal": 112.0, "fat_g": 0.14, "fiber_g": 0.4, "folate_mcg_dfe": 21.0, "iron_mg": 0.88, "magnesium_mg": 24.0, "manganese_mg": 0.37, "mono_fat_g": 0.011, "niacin_mg": 1.1, "pantothenic_mg": 0.293, "phosphorus_mg": 39.0, "poly_fat_g": 0.058, "potassium_mg": 183.0, "protein_g": 0.38, "riboflavin_mg": 0.04, "sat_fat_g": 0.029, "selenium_mcg": 0.7, "sodium_mg": 12.0, "sugars_g": 0.39, "thiamin_mg": 0.13, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 3.0, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.273, "vitamin_c_mg": 4.0, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 2.3, "vitamin_k_mcg": 1.0, "zinc_mg": 0.22}'::jsonb),
+  (910130339, '{"calcium_mg": 900.0, "carbs_g": 0.0, "cholesterol_mg": 0.0, "copper_mg": 0.65, "energy_kcal": 43.0, "fat_g": 1.6, "iron_mg": 12.7, "magnesium_mg": 610.0, "manganese_mg": 1.0, "mono_fat_g": 0.3, "niacin_mg": 2.1, "phosphorus_mg": 210.0, "poly_fat_g": 0.4, "potassium_mg": 450.0, "protein_g": 7.1, "riboflavin_mg": 0.26, "sat_fat_g": 0.5, "selenium_mcg": 2.0, "sodium_mg": 1830.0, "sugars_g": 0.0, "thiamin_mg": 0.07, "vitamin_a_mcg_rae": 28.333, "vitamin_b12_mcg": 2.8, "vitamin_b6_mg": 0.01, "vitamin_c_mg": 13.0, "vitamin_d_mcg": 0.0, "zinc_mg": 6.2}'::jsonb),
+  (910130341, '{"calcium_mg": 660.0, "carbs_g": 0.0, "cholesterol_mg": 0.0, "copper_mg": 1.25, "energy_kcal": 71.0, "fat_g": 2.4, "iron_mg": 11.6, "magnesium_mg": 470.0, "manganese_mg": 6.1, "mono_fat_g": 0.1, "phosphorus_mg": 310.0, "poly_fat_g": 1.5, "potassium_mg": 220.0, "protein_g": 12.4, "riboflavin_mg": 0.14, "sat_fat_g": 0.3, "selenium_mcg": 1.0, "sodium_mg": 3220.0, "sugars_g": 0.0, "thiamin_mg": 0.11, "vitamin_a_mcg_rae": 42.917, "vitamin_b12_mcg": 2.5, "vitamin_b6_mg": 0.01, "vitamin_c_mg": 15.0, "vitamin_d_mcg": 0.0, "zinc_mg": 1.7}'::jsonb),
+  (900002499, '{"calcium_mg": 436.3661, "carbs_g": 23.5014, "cholesterol_mg": 0.0, "copper_mg": 1.6457, "energy_kcal": 217.0, "fat_g": 1.7455, "fiber_g": 1.8701, "folate_mcg_dfe": 912.0051, "iron_mg": 11.2208, "magnesium_mg": 12.4676, "manganese_mg": 6.159, "mono_fat_g": 0.1558, "niacin_mg": 9.1637, "pantothenic_mg": 3.2478, "phosphorus_mg": 361.0, "poly_fat_g": 0.6857, "potassium_mg": 2219.2331, "protein_g": 36.2184, "riboflavin_mg": 2.7803, "sat_fat_g": 0.3803, "sodium_mg": 299.2224, "sugars_g": 0.49, "thiamin_mg": 0.6109, "trans_fat_g": 0.0, "vitamin_a_mcg_rae": 1621.4115, "vitamin_b12_mcg": 0.0, "vitamin_b6_mg": 0.9912, "vitamin_c_mg": 243.1182, "vitamin_d_mcg": 0.0, "vitamin_e_mg": 6.21, "zinc_mg": 6.5455}'::jsonb),
+  (910130853, '{"calcium_mg": 600.0, "cholesterol_mg": 0.0, "energy_kcal": 119.0, "fat_g": 4.6, "magnesium_mg": 160.0, "manganese_mg": 9.1, "mono_fat_g": 0.7, "phosphorus_mg": 33.0, "poly_fat_g": 0.7, "potassium_mg": 390.0, "protein_g": 3.9, "sat_fat_g": 2.6, "sodium_mg": 4.0, "thiamin_mg": 0.11, "vitamin_a_mcg_rae": 107.5, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 0.0, "vitamin_d_mcg": 0.0, "zinc_mg": 1.7}'::jsonb),
+  (910130857, '{"calcium_mg": 170.0, "cholesterol_mg": 0.0, "energy_kcal": 49.0, "fat_g": 1.1, "magnesium_mg": 51.0, "phosphorus_mg": 46.0, "potassium_mg": 450.0, "protein_g": 3.4, "sodium_mg": 9.0, "thiamin_mg": 0.15, "vitamin_a_mcg_rae": 31.25, "vitamin_b12_mcg": 0.0, "vitamin_c_mg": 2.0, "vitamin_d_mcg": 0.0, "zinc_mg": 0.6}'::jsonb)
 ) v(fdc_id, j) cross join lateral jsonb_each_text(v.j) e
 join nutrients n on n.key = e.key
 on conflict (fdc_id, nutrient_id) do nothing;
@@ -133,8 +143,8 @@ on conflict (fdc_id, nutrient_id) do nothing;
 create temp table _a (action text, ingredient text, form text, fdc_id integer, reason text) on commit drop;
 insert into _a values
   ('set_default', 'blue cheese dressing', 'default', 173562, 'regular commercial dressing (484 kcal); the default was the light version (86 kcal)'),
-  ('set_default', 'black beans', 'default', 175237, 'OWNER TO CONFIRM. Owner said canned black beans, full-panel SR record. What is built is SR 175237 (boiled, with salt, 132 kcal/100 g, 31 nutrients) read as a COOKED-EQUIVALENT, DRAINED-SOLIDS value: the can and cup weights in ingredient_portions are drained solids (a 15 oz can drains to 255 g), so a record that includes the brine (SR 175188 canned, 91 kcal/100 g) would understate a can by about 30 percent. Option B is 175188 plus can/cup weights that include the liquid'),
-  ('set_default', 'black beans', 'canned', 175237, 'same record as the default form (cooked-equivalent, drained solids; see the default row)'),
+  ('set_default', 'black beans', 'default', 175188, 'OWNER DECISION (2026-10-17, confirmed): canned black beans are the full-panel SR record 175188 (Beans, black turtle, mature seeds, canned: 91 kcal/100 g, solids and liquids). The can weight is the whole 425 g net contents (see the weights block in seed-nutrition-zzzzz-math-10c.sql)'),
+  ('set_default', 'black beans', 'canned', 175188, 'same record as the default form (owner decision)'),
   ('set_default', 'kidney beans', 'default', 175243, 'can weight is drained solids (255 g); SR canned solids-and-liquids (84 kcal) understated a can by about 30 percent. SR drained and rinsed: 121 kcal, 31 nutrients'),
   ('set_default', 'kidney beans', 'canned', 175243, 'same record as the default form (was a branded can with liquid)'),
   ('set_default', 'white beans', 'canned', 175204, 'generic SR canned, same as the default form (was a branded product)'),
@@ -146,8 +156,6 @@ insert into _a values
   ('set_default', 'canned pears', 'canned', 169936, 'SR juice pack, same as the default form'),
   ('set_default', 'mandarin orange', 'canned', 168184, 'SR juice pack drained, same as the default form'),
   ('set_default', 'doubanjiang', 'default', 577190, 'fermented broad-bean chili paste (toban djan): Lee Kum Kee chili bean sauce; the default was sriracha'),
-  ('set_default', 'kombu', 'default', 2012179, 'dried kombu (Eden, 152 kcal; Japanese table 145 kcal); the default was raw kelp (43 kcal)'),
-  ('set_default', 'wakame', 'default', 387932, 'dried wakame (Pacific); the default was raw wakame (45 kcal)'),
   ('set_default', 'pumpkin pie filling', 'default', 2497857, 'sweetened and spiced pumpkin pie mix (122 kcal); the default was plain canned pumpkin (34 kcal)'),
   ('set_default', 'sirloin steak', 'default', 168726, 'raw top sirloin, 1/8 in trim; the default was a cooked record while its siblings are raw'),
   ('set_default', 'pork sausage', 'default', 172934, 'SR pork sausage unprepared (288 kcal); the default was pork and beef, cooked'),
@@ -187,7 +195,6 @@ insert into _a values
   ('unmap', 'lemongrass dried', '*', null, 'dried lemongrass is about 3x denser than the raw stalk record'),
   ('unmap', 'maafe sauce', '*', null, 'a peanut stew sauce is not peanut butter (598 kcal)'),
   ('unmap', 'myoga', '*', null, 'myoga is a flower bud (about 12 kcal); ginger root (80 kcal) is a different food'),
-  ('unmap', 'plantain', '*', null, 'green and ripe plantain differ by 20 percent and the linked record is fried plantain bits (500 kcal)'),
   ('unmap', 'ranch seasoning', '*', null, 'the linked product is a pickle snack'),
   ('unmap', 'sucralose', '*', null, 'the linked product is a fruit cocktail with sucralose'),
   ('unmap', 'turmeric root', '*', null, 'fresh turmeric (about 100 kcal) is not ground turmeric (312 kcal)'),
@@ -524,7 +531,6 @@ insert into _a values
   ('set_default', 'cider', 'default', 173933, 'bare cider in a US recipe is non-alcoholic apple cider (apple juice, 46 kcal); the default was regular beer. Hard cider is a different drink and has no food record here (a gap)'),
   ('unmap', 'lemon myrtle', '*', null, 'the linked record is bay leaf, a different herb'),
   ('unmap', 'pickling spice', '*', null, 'the linked record is curry powder, a different blend'),
-  ('unmap', 'dulse', '*', null, 'the linked record is raw Irish moss (49 kcal); dulse is sold dried (about 300 kcal) and no dried dulse record is reliable'),
   ('unmap', 'sea vegetables', '*', null, 'the linked record is raw kelp (43 kcal); sea vegetables are sold dried (about 300 kcal)'),
   ('set_default', 'harusame', 'default', 174258, 'harusame are starch glass noodles: the bean thread vermicelli record linked to cellophane noodles; the default was wheat somen'),
   ('set_default', 'yellow lentils', 'default', 172420, 'split yellow lentils are about 350 kcal/100 g dry, like SR lentils raw; the default was pigeon peas'),
@@ -560,7 +566,15 @@ insert into _a values
   ('drop_link', 'navy beans', 'default', 2055002, 'dry beans linked under the canned default form'),
   ('drop_link', 'green curry paste', '*', 1955870, 'Aroy-D THAI GREEN CURRY is a ready-to-eat curry in coconut milk (109 kcal/100 g), not a paste (the paste default is 140 kcal)'),
   ('set_default', 'sorghum syrup', 'default', 169662, 'SR Syrups, sorghum (Ca 150, Fe 3.8, K 1000); the default was SR molasses (Ca 205, Fe 4.72, K 1464)'),
-  ('set_default', 'semola rimacinata', 'default', 168933, 'SR Semolina, unenriched (re-milled durum semolina is semolina); the default was white all-purpose flour');
+  ('set_default', 'semola rimacinata', 'default', 168933, 'SR Semolina, unenriched (re-milled durum semolina is semolina); the default was white all-purpose flour'),
+  ('drop_link', 'gluten-free pasta', '*', 2659104, 'wheat pasta, not gluten-free'),
+  ('drop_link', 'gluten-free pasta', '*', 2570665, 'wheat pasta, not gluten-free'),
+  ('drop_link', 'gluten-free pasta', '*', 2504164, 'wheat pasta, not gluten-free'),
+  ('drop_link', 'gluten-free pasta', '*', 383432, 'wheat pasta, not gluten-free'),
+  ('drop_link', 'gluten-free pasta', '*', 394548, 'wheat pasta, not gluten-free'),
+  ('drop_link', 'cider', '*', 168746, 'beer, not cider (the default is apple cider, 173933)'),
+  ('unmap', 'dried mango powder', '*', null, 'amchur is unsweetened dried green mango (about 320 kcal, 0 added sugar); the linked stand-in is sweetened dried mango (319 kcal but 66 g sugars with added sugar). No unsweetened record exists, so the line is a named gap'),
+  ('set_default', 'plantain', 'default', 169130, 'SR plantains, yellow (ripe), raw, peeled: a bare plantain is the ripe fruit; "green" in the prep note picks the green record (forms.tsv). The linked fried plantain bits were removed in 10c');
 -- unmap: the ingredient keeps existing, it just has no nutrition (and no household weights: a weight without a food means nothing)
 delete from ingredient_portions p using _a a, ingredients i
  where a.action = 'unmap' and i.canonical_name = a.ingredient and p.ingredient_id = i.id;
@@ -627,7 +641,12 @@ insert into _n values
   ('smoked turkey', 'default', 900005598),
   ('hemp milk', 'default', 900007807),
   ('breadfruit', 'default', 900001522),
-  ('poi', 'default', 900002164);
+  ('poi', 'default', 900002164),
+  ('kombu', 'default', 910130339),
+  ('wakame', 'default', 910130341),
+  ('dulse', 'default', 900002499),
+  ('fresh sage', 'default', 910130853),
+  ('fresh tarragon', 'default', 910130857);
 insert into ingredient_foods (ingredient_id, form, fdc_id, is_default)
 select i.id, n.form, n.fdc_id, false from _n n join ingredients i on i.canonical_name = n.ingredient
 on conflict (ingredient_id, form, fdc_id) do nothing;
@@ -3309,7 +3328,6 @@ insert into _px values
   ('dried cilantro', 'default'),
   ('dried fenugreek leaves', 'default'),
   ('dried galangal', 'default'),
-  ('dried mango powder', 'default'),
   ('egusi', 'default'),
   ('facing heaven chili', 'default'),
   ('farmer cheese', 'default'),
@@ -3638,7 +3656,8 @@ insert into _forms values
   ('pinto beans', 'cooked', null, '(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free', null, 'named low-sodium / no salt added: cooked beans without salt (SR, no salt)'),
   ('white beans', 'cooked', null, '(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free', null, 'named low-sodium / no salt added: cooked beans without salt (SR, no salt)'),
   ('chickpeas', 'cooked', null, '(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free', null, 'named low-sodium / no salt added: cooked beans without salt (SR, no salt)'),
-  ('cannellini beans', 'cooked', null, '(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free', null, 'named low-sodium / no salt added: cooked beans without salt (SR, no salt)');
+  ('cannellini beans', 'cooked', null, '(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free', null, 'named low-sodium / no salt added: cooked beans without salt (SR, no salt)'),
+  ('plantain', 'green', 168215, '\mgreen\M', 'ripe plantain/default', 'plantain named green: SR plantains, green, raw (starchy, 117 kcal vs 122 ripe) in place of the ripe default');
 insert into ingredient_foods (ingredient_id, form, fdc_id, is_default)
 select i.id, v.form, v.fdc_id, true from _forms v join ingredients i on i.canonical_name = v.ingredient
 where v.fdc_id is not null and exists (select 1 from usda_foods u where u.fdc_id = v.fdc_id)

@@ -23,3 +23,4 @@ pinto beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )
 white beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
 chickpeas	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
 cannellini beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
+plantain	green	168215	\mgreen\M	ripe plantain/default	plantain named green: SR plantains, green, raw (starchy, 117 kcal vs 122 ripe) in place of the ripe default

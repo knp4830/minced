@@ -222,7 +222,7 @@
   "ripe plantain": {"fdc_id": 169130, "unit_g": {"each": 179}, "note": "peeled"},
   "roma tomato": {"fdc_id": 170457, "unit_g": {"each": 62}},
   "romaine lettuce": {"fdc_id": 169247, "unit_g": {"each": 250}, "note": "a head or a heart; ~250 g"},
-  "russet potato": {"fdc_id": 170027, "unit_g": {"each": 230}},
+  "russet potato": {"fdc_id": 170027, "unit_g": {"each": 213}},
   "saffron": {"fdc_id": 170934},
   "sake": {"fdc_id": 167723},
   "salmon": {"fdc_id": 175167, "unit_g": {"fillet": 170}, "basis": "farmed Atlantic, raw", "note": "recipe says 6 oz each = 170 g; USDA's own 'fillet' portion is a whole 396 g side"},

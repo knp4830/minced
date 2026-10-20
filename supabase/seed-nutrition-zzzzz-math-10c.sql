@@ -57,7 +57,14 @@ insert into _rule values
   ('\mboiled\M', 'cooked', true,
    '\m(cooked|boiled|baked|roasted|broiled|grilled|fried|steamed|poached|braised|stewed|canned|prepared|pre-?cooked|rotisserie|ready[- ]to[- ](eat|serve))\M',
    100, 'fixer round 2: "hard-boiled" egg and "boiled" potato need the cooked food, not the raw one (a named gap where an ingredient has none)'),
-  ('\m(juiced|squeezed)\M', 'juiced', false, null, 68, 'fixer round 2: a lemon or lime that is only juiced counts its juice yield, not the whole fruit');
+  ('\m(juiced|squeezed)\M', 'juiced', false, null, 68, 'fixer round 2: a lemon or lime that is only juiced counts its juice yield, not the whole fruit'),
+  -- wave 10d: a word that REVERSES another must win. "8 ounces fusilli, uncooked, 4 cups cooked" is 8 oz of DRY pasta; the trailing cooked is the yield.
+  -- uncooked -> the dried form where the ingredient has one (beans), else the default (dry pasta, rice). Not after "or"/"from"/"if":
+  -- "canned, or cooked from uncooked" names an alternative, not the line. "dry" counts only as the note's own word (", dry,"), never "pat dry" or "dry white".
+  ('^(?!.*\m(or|from|if) .*\muncooked\M).*\muncooked\M', 'dried', false, null, 5, 'wave 10d: uncooked beats cooked: dry weight of an ingredient that has a dried form'),
+  ('^(?!.*\m(or|from|if) .*\muncooked\M).*\muncooked\M', 'default', false, null, 6, 'wave 10d: uncooked beats cooked: the default (dry) food'),
+  ('(^|, )dry(,|$)', 'dried', false, null, 5, 'wave 10d: a note that says only dry is the dried form where the ingredient has one'),
+  ('(^|, )dry(,|$)', 'default', false, null, 6, 'wave 10d: dry beats cooked: the default (dry) food');
 insert into prep_rules (kind, pattern, ingredient_id, form, strict, satisfied_by, priority, note)
 select 'form', r.pattern, null, r.form, r.strict, r.satisfied_by, r.priority, r.note
 from   _rule r
@@ -76,7 +83,11 @@ insert into _irule values
   ('ground beef',   '\m70%\s*lean\M', 'lean_70', 5, 'wave 10c: named lean percentage'),
   ('ground beef',   '\m(extra[- ])?lean\M', 'lean_90', 90, 'wave 10c: a bare "lean ground beef" is assumed 90% lean'),
   ('ground turkey', '\m93%\s*lean\M', 'lean_93', 5, 'wave 10c: named lean percentage'),
-  ('ground turkey', '\m85%\s*lean\M', 'lean_85', 5, 'wave 10c: named lean percentage');
+  ('ground turkey', '\m85%\s*lean\M', 'lean_85', 5, 'wave 10c: named lean percentage'),
+  -- wave 10d: the black-bean default is the canned solids-and-liquids record (owner decision, 425 g a can). A line that DRAINS the can counts
+  -- the drained solids (255 g a can), and a low-sodium drained line the no-salt drained solids. Dry / soaked lines keep the dried form.
+  ('black beans', '^(?!.*\m(dry|dried|uncooked|soaked)\M)(?=.*((low|reduced|lower|less)[- ]sodium|no[- ]salt[- ]added|salt[- ]free))(?=.*\m(drained|rinsed)\M)', 'low_sodium_drained', 3, 'wave 10d: low-sodium canned black beans, drained'),
+  ('black beans', '^(?!.*\m(dry|dried|uncooked|soaked)\M).*\m(drained|rinsed)\M', 'drained', 8, 'wave 10d: canned black beans, drained: drained solids');
 insert into prep_rules (kind, pattern, ingredient_id, form, strict, priority, note)
 select 'form', r.pattern, i.id, r.form, true, r.priority, r.note
 from   _irule r join ingredients i on i.canonical_name = r.ingredient
@@ -245,7 +256,11 @@ insert into _q (ingredient, form, fdc_id, copy_portions, why) values
   ('yukon gold potato', 'cooked', 170440, 'no', 'fixer round 2: boiled potato lines (Aji de Gallina, Papa a la Huancaina) were raw potato'),
   ('corn', 'cooked', 169999, 'no', 'fixer round 2: boiled corn (Peruvian Ceviche) was raw corn'),
   ('navy beans', 'dried', 173745, 'no', 'fixer round 2: Baked Beans says dry navy beans; the default is canned (113 kcal/100 g), dry is 337 (weights in extra-portions-10c.csv)'),
-  ('great northern beans', 'dried', 175190, 'no', 'fixer round 2: Great Northern Bean Soup says dry beans; the default is canned (weights in extra-portions-10c.csv)');
+  ('great northern beans', 'dried', 175190, 'no', 'fixer round 2: Great Northern Bean Soup says dry beans; the default is canned (weights in extra-portions-10c.csv)'),
+  ('black beans', 'drained', 175237, 'cooked', 'wave 10d: the default is the canned solids-and-liquids record (175188, owner decision; 425 g a can). A line that drains the can counts the drained solids, so it uses this drained-solids-equivalent record at 255 g a can'),
+  ('black beans', 'low_sodium_drained', 173735, 'cooked', 'wave 10d: low-sodium canned black beans that are drained and rinsed: drained solids (255 g a can) with the no-salt record, not the 425 g solids-and-liquids can of the low_sodium form'),
+  ('pinto beans', 'default', 173797, 'canned', 'wave 10d: a bare pinto bean line is canned drained solids like kidney, black and white beans; the default was the dry 175199 (337 kcal/100 g vs 100)'),
+  ('pinto beans', 'dried', 175199, 'no', 'wave 10d: pinto beans named dry / dried / uncooked keep the raw record (no cup weight here: not verified, so a cup of dry pinto beans stays a named gap)');
 -- END QUALIFIER FOODS
 
 -- link the food (default for its form), demoting any other default of that form
@@ -308,7 +323,11 @@ insert into _port (ingredient, form, unit, grams, source, note) values
   ('lime', 'juiced', 'cup', 242, 'usda', 'USDA household weight: 1 cup lime juice, raw (FDC 168156)'),
   ('lime', 'juiced', 'fl oz', 30.8, 'usda', 'USDA household weight: 1 fl oz lime juice, raw (FDC 168156)'),
   ('lime', 'juiced', 'tbsp', 15.12, 'usda', '1 tbsp = 1/16 of the USDA cup weight (FDC 168156)'),
-  ('lime', 'juiced', 'tsp', 5.04, 'usda', '1 tsp = 1/48 of the USDA cup weight (FDC 168156)');
+  ('lime', 'juiced', 'tsp', 5.04, 'usda', '1 tsp = 1/48 of the USDA cup weight (FDC 168156)'),
+  ('pinto beans', 'low_sodium', 'can', 258, 'usda', 'wave 10d: same drained-solids can as the canned form (FDC 173797); this form is cooked-without-salt drained beans, so a can line was a gap'),
+  ('kombu', 'default', 'piece', 5, 'curated', 'a 4-inch square of dried kombu is about 5 g (curated weight from the first mapping pass, 10c; it was removed with the raw kelp link)'),
+  ('plantain', 'default', null, 179, 'curated', 'same as ripe plantain: peeled fruit, curated'),
+  ('plantain', 'green', null, 179, 'curated', 'same as green plantain: peeled fruit, curated');
 -- END EXTRA PORTIONS
 insert into ingredient_portions (ingredient_id, form, unit_id, grams_per_unit, source, note)
 select i.id, p.form, u.id, p.grams, p.source, p.note
@@ -1794,7 +1813,7 @@ insert into _fix (slug, ord, ingredient, action, old_value, new_value) values
   ('vegetable-medley-salsa-dip', 7, 'yellow onion', 'note', 'chopped', 'medium, chopped'),
   ('vegetable-snake', 0, 'cucumber', 'note', '', 'medium'),
   ('vegetable-snake', 1, 'tomato', 'note', 'or 2 grape tomatoes', 'small, or 2 grape tomatoes'),
-  ('vegetable-stroganoff', 0, 'pasta', 'note', 'cooked', 'medium, whole wheat, cooked'),
+  ('vegetable-stroganoff', 0, 'pasta', 'note', 'cooked', 'medium, whole wheat'),
   ('vegetable-stroganoff', 5, 'zucchini', 'note', 'diced', 'medium, diced'),
   ('vegetable-stroganoff', 8, 'diced tomatoes', 'note', 'including the liquid', 'no salt added, including the liquid'),
   ('vegetable-stroganoff', 9, 'tomato paste', 'note', '', 'no salt added'),
@@ -1904,7 +1923,8 @@ insert into _fix (slug, ord, ingredient, action, old_value, new_value) values
   ('great-northern-bean-soup', 0, 'great northern beans', 'note', '', 'dried'),
   ('falafel-yogurt-sandwich', 0, 'chickpeas', 'note', 'sorted and rinsed', 'dried, sorted and rinsed'),
   ('sauteed-beet-greens', 1, 'green beans', 'ingredient', 'green beans', 'beet greens'),
-  ('sauteed-beet-greens', 3, 'lemon', 'qty_unit', '1', '1 tsp');
+  ('sauteed-beet-greens', 3, 'lemon', 'qty_unit', '1', '1 tsp'),
+  ('mac-and-beans-medley', 5, 'beef broth', 'ingredient', 'beef broth', 'black beans');
 -- END RECIPE LINE FIXES
 
 create temp table _target on commit drop as
@@ -1971,10 +1991,26 @@ update ingredient_portions p
        note = '15 oz can, net contents (425 g): this form is a solids-and-liquids record (fixer round 2; was a drained-solids weight)'
   from ingredients i, units u
  where i.id = p.ingredient_id and u.id = p.unit_id and u.name = 'can'
-   and ( (i.canonical_name = 'black beans' and p.form = 'low_sodium')
+   and ( (i.canonical_name = 'black beans' and p.form in ('default', 'canned', 'low_sodium'))
       or (i.canonical_name = 'corn' and p.form in ('low_sodium', 'low sodium'))
       or (i.canonical_name in ('white beans', 'cannellini beans', 'great northern beans', 'navy beans') and p.form in ('default', 'canned', 'low_sodium')) )
    and p.grams_per_unit <> 425;
+
+-- ---------------------------------------------------------------------------------------------------------------
+-- 7. wave 10d (last verified accuracy defects)
+-- ---------------------------------------------------------------------------------------------------------------
+-- A bare count of one cauliflower is a HEAD, not one floret. "1 cauliflower, cut in large florets" (Aloo Gobi) says how the head is cut;
+-- only "N florets" / "small florets" counts florets. Cauliflower and broccoli share the rule, so both are rewritten.
+update prep_rules
+   set pattern = '^(?!(in|into) )(?!.*\mcut (in|into) ((large|small|medium|bite[- ]?sized?|1[- ]inch) )*florets?\M).*\mflorets?\M',
+       note = 'wave 10d: a count of florets; "cut in large florets" / "in florets" describe how a whole head is cut'
+ where kind = 'form' and form = 'floret' and ingredient_id in (select id from ingredients where canonical_name in ('cauliflower', 'broccoli'));
+
+-- Brand densities (final audit): unsweetened almond milk is about 1.03 g/ml (the table held 1.107), Mexican crema is a cultured cream
+-- of about 1.0 g/ml (it borrowed sour cream's 0.892). The same values are in seed-nutrition-usda-3-links.sql; this keeps a database that
+-- already ran the older seed in step.
+update ingredients set density_g_per_ml = 1.03 where canonical_name = 'almond milk' and density_g_per_ml is distinct from 1.03;
+update ingredients set density_g_per_ml = 1.0  where canonical_name = 'mexican crema' and density_g_per_ml is distinct from 1.0;
 
 -- Added-sugars estimate, more sweetened ingredients (10c fixer). fraction = share of the food's total sugars that is added.
 --   dried cranberries 0.90: Ocean Spray Craisins label, 29 g sugars of which 26 g added per 1/4 cup (cranberries have little sugar of their own)

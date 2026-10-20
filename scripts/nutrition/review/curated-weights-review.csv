@@ -66,7 +66,7 @@ pasilla chile,default,each,10,curated,curated gram weight
 pigeon peas,default,can,250,curated,boiled; canned drained
 pita bread,default,each,60,curated,curated gram weight
 poblano pepper,default,each,110,curated,Proxy: SR green bell pepper (same fresh capsicum energy)
-potato,default,each,230,curated,same as russet potato: Generic potato follows russet potato
+potato,default,each,213,curated,same as russet potato: Generic potato follows russet potato
 preserved lemon,default,each,30,curated,Proxy: SR lemon peel; rind only. Brine adds sodium this does not count
 pumpkin,canned,can,425.0,us_can_size,15 oz can of pumpkin puree
 radish,default,each,4.5,curated,curated gram weight
@@ -77,7 +77,7 @@ rice paper,default,each,8,curated,Branded; one 8-inch round
 ripe plantain,default,each,179,curated,peeled
 roma tomato,default,each,62,curated,curated gram weight
 romaine lettuce,default,each,250,curated,a head or a heart; ~250 g
-russet potato,default,each,230,curated,curated gram weight
+russet potato,default,each,213,curated,USDA household weight: 1 medium potato (FDC 170027)
 salmon,default,fillet,170,curated,recipe says 6 oz each = 170 g; USDA's own 'fillet' portion is a whole 396 g side
 saltine crackers,default,each,3,curated,curated gram weight
 sandwich bread,default,each,25.0,curated,a bread line with no unit counts slices; same weight as the slice entry

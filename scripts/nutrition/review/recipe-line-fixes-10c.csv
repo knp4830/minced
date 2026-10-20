@@ -1382,7 +1382,7 @@ vegetable-medley-salsa-dip,Vegetable Medley with Salsa Dip,6,tomato,note,chopped
 vegetable-medley-salsa-dip,Vegetable Medley with Salsa Dip,7,yellow onion,note,chopped,"medium, chopped",lost qualifiers:  size,"1/2 medium onion, chopped"
 vegetable-snake,Vegetable Snake,0,cucumber,note,,medium,lost qualifiers:  size,1 medium cucumber
 vegetable-snake,Vegetable Snake,1,tomato,note,or 2 grape tomatoes,"small, or 2 grape tomatoes",lost qualifiers:  size,1 small tomato
-vegetable-stroganoff,Vegetable Stroganoff,0,pasta,note,cooked,"medium, whole wheat, cooked",lost qualifiers: whole_wheat size,1/2 pound medium shaped whole wheat pasta
+vegetable-stroganoff,Vegetable Stroganoff,0,pasta,note,cooked,"medium, whole wheat","wave 10d: the source line weighs the pasta (1/2 pound) before cooking, so it is dry pasta; the trailing cooked is the cooking step",1/2 pound medium shaped whole wheat pasta
 vegetable-stroganoff,Vegetable Stroganoff,5,zucchini,note,diced,"medium, diced",lost qualifiers:  size,"1 medium zucchini, diced"
 vegetable-stroganoff,Vegetable Stroganoff,8,diced tomatoes,note,including the liquid,"no salt added, including the liquid",lost qualifiers: low_sodium,"1 14.5-ounce can diced tomatoes, no salt added"
 vegetable-stroganoff,Vegetable Stroganoff,9,tomato paste,note,,no salt added,lost qualifiers: low_sodium,"2 tablespoons tomato paste, no salt added"
@@ -1493,3 +1493,4 @@ great-northern-bean-soup,Great Northern Bean Soup,0,great northern beans,note,,d
 falafel-yogurt-sandwich,Falafel with Yogurt Sandwich,0,chickpeas,note,sorted and rinsed,"dried, sorted and rinsed","fixer round 2: the raw line says ""dry garbanzo beans""; the importer dropped it, and the default is canned chickpeas","1 cup dry garbanzo beans/chickpeas, sorted and rinsed"
 sauteed-beet-greens,Sautéed Beet Greens,1,green beans,ingredient,green beans,beet greens,"fixer round 2: ""4 cups chopped beet greens"" was matched to green beans (31 kcal/100 g, 3 cups = 400 g); beet greens are 22 kcal/100 g, 38 g a cup",4 cups chopped beet greens (2 bunches with stems removed)
 sauteed-beet-greens,Sautéed Beet Greens,3,lemon,qty_unit,1,1 tsp,"fixer round 2: the line is ""1 teaspoon lemon juice""; it was stored as one whole lemon (58 g)",1 teaspoon lemon juice
+mac-and-beans-medley,Mac and Beans Medley,5,beef broth,ingredient,beef broth,black beans,"wave 10d: line is 'black, kidney, pinto or other' beans in a can; the importer matched beef broth. First option rule: black beans","1 can, black/kidney/pinto or other"

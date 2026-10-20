@@ -40,3 +40,8 @@ smoked turkey|default|cnf|5598|M|Turkey, light or dark meat, smoked, cooked, ski
 hemp milk|default|cnf|7807|M|Plant-based beverage, hemp, plain, unsweetened, calcium-fortified
 breadfruit|default|cnf|1522|H|Breadfruit, raw (the UK table says 95 kcal, within 8 percent)
 poi|default|cnf|2164|H|Poi (taro paste), the only poi record
+kombu|default|cofid|13-339|M|Seaweed, kombu, dried, raw (UK analysis; energy 43 kcal/100 g counts only available carbohydrate, the large alginate fibre fraction gives no energy here); no dried kombu record exists in our USDA set
+wakame|default|cofid|13-341|M|Seaweed, wakame, dried, raw (UK analysis, 71 kcal/100 g); the miso soup line is a tablespoon of dried flakes
+dulse|default|cnf|2499|M|Seaweed, dulse (laver, nori), dried (Canadian Nutrient File)
+fresh sage|default|cofid|13-853|H|Sage, fresh (UK analysis); SR has only dried sage, about 2.6 times denser
+fresh tarragon|default|cofid|13-857|H|Tarragon, fresh (UK analysis); SR has only dried tarragon, about 6 times denser

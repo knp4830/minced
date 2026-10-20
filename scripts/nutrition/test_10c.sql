@@ -37,8 +37,8 @@ begin
   if bad is not null then raise exception 'GATE wrong defaults still present: %', bad; end if;
   -- positive expectations
   if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id
-                  where f.is_default and f.form = 'default' and i.canonical_name = 'black beans' and f.fdc_id = 175237) then
-    raise exception 'GATE black beans default must be the full-panel SR drained-basis record 175237'; end if;
+                  where f.is_default and f.form = 'default' and i.canonical_name = 'black beans' and f.fdc_id = 175188) then
+    raise exception 'GATE black beans default must be the owner-chosen canned full-panel SR record 175188'; end if;
   if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id
                   join ingredients c on c.canonical_name = 'cheddar cheese' join ingredient_foods cf on cf.ingredient_id = c.id and cf.is_default and cf.form = 'default'
                   where f.is_default and f.form = 'default' and i.canonical_name = 'shredded cheese' and f.fdc_id = cf.fdc_id) then
@@ -158,7 +158,7 @@ begin
      or (i.canonical_name::text in ('ramen noodles', 'vegetable juice', 'spaghetti') and f.fdc_id in
           (2621853, 2288303, 2059595, 1867578, 414561, 400229, 400224, 386269, 372237, 2082895, 2568584, 1849736));
   if bad is not null then raise exception 'GATE round 2 wrong links still present: %', bad; end if;
-  select count(*) into n from ingredients i where i.canonical_name::text in ('lemon myrtle', 'pickling spice', 'dulse', 'sea vegetables', 'sambal', 'hard cider')
+  select count(*) into n from ingredients i where i.canonical_name::text in ('lemon myrtle', 'pickling spice', 'sea vegetables', 'sambal', 'hard cider')
     and exists (select 1 from ingredient_foods f where f.ingredient_id = i.id);
   if n > 0 then raise exception 'GATE % ingredients that must be a gap still have a food', n; end if;
   if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where i.canonical_name = 'cider' and f.is_default and f.fdc_id = 173933) then
@@ -235,7 +235,7 @@ begin
   -- a can's weight goes with its record: a solids-and-liquids record (low-sodium black beans, no-salt corn, canned white beans) is the 425 g net can
   select count(*) into n from ingredient_portions p join ingredients i on i.id = p.ingredient_id join units u on u.id = p.unit_id
    where u.name = 'can' and p.grams_per_unit <> 425
-     and ((i.canonical_name = 'black beans' and p.form = 'low_sodium') or (i.canonical_name = 'corn' and p.form in ('low_sodium', 'low sodium'))
+     and ((i.canonical_name = 'black beans' and p.form in ('default', 'canned', 'low_sodium')) or (i.canonical_name = 'corn' and p.form in ('low_sodium', 'low sodium'))
           or (i.canonical_name in ('white beans', 'cannellini beans', 'great northern beans', 'navy beans') and p.form in ('default', 'canned', 'low_sodium')));
   if n > 0 then raise exception 'GATE % can weights are not paired with their solids-and-liquids record', n; end if;
 
@@ -258,6 +258,91 @@ begin
   if n > 0 then raise exception 'GATE % computed complete recipes whose calories column is not the computed value', n; end if;
   select count(*) into n from recipes rc where rc.nutrition_source = 'computed' and rc.nutrition_status <> 'complete' and rc.calories is not null;
   if n > 0 then raise exception 'GATE % computed partial recipes still show a calories column', n; end if;
+end $$;
+
+\echo == wave 10d gates (final audit defects)
+do $$
+declare n int; g numeric; f text;
+begin
+  -- black beans: canned default and canned form are SR 175188; cooked stays 173735, low sodium 175238
+  select count(*) into n from ingredient_foods x join ingredients i on i.id = x.ingredient_id
+   where i.canonical_name = 'black beans' and x.is_default
+     and (x.form, x.fdc_id) in (('default', 175188), ('canned', 175188), ('cooked', 173735), ('low_sodium', 175238), ('drained', 175237), ('low_sodium_drained', 173735));
+  if n <> 6 then raise exception 'GATE black bean forms: % of 6 expected defaults', n; end if;
+  -- pinto beans: canned drained solids by default, raw only as dried
+  select count(*) into n from ingredient_foods x join ingredients i on i.id = x.ingredient_id
+   where i.canonical_name = 'pinto beans' and x.is_default and (x.form, x.fdc_id) in (('default', 173797), ('canned', 173797), ('dried', 175199));
+  if n <> 3 then raise exception 'GATE pinto forms: % of 3 expected defaults', n; end if;
+  -- a drained can is the drained solids (255 g); an undrained can is the 425 g net contents
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'black beans'),
+         'quantity', 1, 'unit_id', (select id from units where name = 'can'), 'prep_note', 'drained and rinsed'))) x;
+  if g is distinct from 255 then raise exception 'GATE 1 can black beans, drained and rinsed counts % g, expected 255', g; end if;
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'black beans'),
+         'quantity', 1, 'unit_id', (select id from units where name = 'can'), 'prep_note', 'low-sodium, drained and rinsed'))) x;
+  if g is distinct from 255 then raise exception 'GATE 1 can low-sodium black beans, drained and rinsed counts % g, expected 255', g; end if;
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'black beans'),
+         'quantity', 1, 'unit_id', (select id from units where name = 'can'), 'prep_note', 'low-sodium'))) x;
+  if g is distinct from 425 then raise exception 'GATE 1 can low-sodium black beans counts % g, expected 425', g; end if;
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'black beans'),
+         'quantity', 1, 'unit_id', (select id from units where name = 'can'), 'prep_note', null))) x;
+  if g is distinct from 425 then raise exception 'GATE 1 can black beans counts % g, expected 425', g; end if;
+  -- soaked dry beans keep the dry record
+  select x.form into f from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'black beans'),
+         'quantity', 8, 'unit_id', (select id from units where name = 'oz'), 'prep_note', 'dried, soaked and drained'))) x;
+  if f is distinct from 'dried' then raise exception 'GATE dried soaked and drained black beans use form %', f; end if;
+
+  -- wrong gluten-free pasta, beer cider, sweetened amchur
+  select count(*) into n from ingredient_foods x join ingredients i on i.id = x.ingredient_id
+   where (i.canonical_name = 'gluten-free pasta' and x.fdc_id in (2659104, 2570665, 2504164, 383432, 394548))
+      or (i.canonical_name = 'cider' and x.fdc_id = 168746) or i.canonical_name = 'dried mango powder';
+  if n > 0 then raise exception 'GATE % wrong links (wheat pasta under gluten-free, beer under cider, sweetened mango under amchur) remain', n; end if;
+  select count(*) into n from ingredient_foods x join ingredients i on i.id = x.ingredient_id
+   where i.canonical_name = 'gluten-free pasta' and x.fdc_id in (2598848, 2625999);
+  if n < 2 then raise exception 'GATE the two gluten-free pasta brands 2598848 and 2625999 must stay'; end if;
+
+  -- russet potato: USDA medium 213 g
+  select p.grams_per_unit into g from ingredient_portions p join ingredients i on i.id = p.ingredient_id
+   where i.canonical_name = 'russet potato' and p.form = 'default' and p.unit_id is null;
+  if g is distinct from 213 then raise exception 'GATE russet potato each-weight is % g, expected 213', g; end if;
+  select p.grams_per_unit into g from ingredient_portions p join ingredients i on i.id = p.ingredient_id
+   where i.canonical_name = 'potato' and p.form = 'default' and p.unit_id is null;
+  if g is distinct from 213 then raise exception 'GATE potato each-weight is % g, expected 213', g; end if;
+
+  -- uncooked beats cooked: 8 oz fusilli, uncooked, 4 cups cooked is dry pasta
+  select x.form into f from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'fusilli'),
+         'quantity', 8, 'unit_id', (select id from units where name = 'oz'), 'prep_note', 'uncooked, 4 cups cooked'))) x;
+  if f is distinct from 'default' then raise exception 'GATE 8 oz fusilli uncooked uses form %, expected the dry default', f; end if;
+  select x.form into f from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'pasta'),
+         'quantity', 6, 'unit_id', (select id from units where name = 'oz'), 'prep_note', 'whole wheat, uncooked, cooked, drained'))) x;
+  if f is distinct from 'default' then raise exception 'GATE 6 oz pasta uncooked, cooked uses form %', f; end if;
+  select x.form into f from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'macaroni'),
+         'quantity', 2, 'unit_id', (select id from units where name = 'cup'), 'prep_note', 'cooked, or other pasta'))) x;
+  if f is distinct from 'cooked' then raise exception 'GATE 2 cups cooked macaroni uses form %, expected cooked', f; end if;
+
+  -- a bare 1 cauliflower "cut in large florets" is a head (588 g); "4 small florets" count florets (25 g each)
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'cauliflower'),
+         'quantity', 1, 'unit_id', null, 'prep_note', 'cut in large florets'))) x;
+  if g is distinct from 588 then raise exception 'GATE 1 cauliflower cut in large florets counts % g, expected the 588 g head', g; end if;
+  select x.grams into g from nutrition_line_report(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'cauliflower'),
+         'quantity', 4, 'unit_id', null, 'prep_note', 'florets (cut in half)'))) x;
+  if g is distinct from 100 then raise exception 'GATE 4 florets count % g, expected 4 x 25', g; end if;
+
+  -- Mac and Beans Medley: the can is beans, not beef broth
+  select count(*) into n from recipe_ingredients ri join recipes r on r.id = ri.recipe_id join ingredients i on i.id = ri.ingredient_id
+   where r.slug = 'mac-and-beans-medley' and i.canonical_name = 'beef broth';
+  if n > 0 then raise exception 'GATE Mac and Beans Medley still has beef broth'; end if;
+
+  -- densities
+  if (select density_g_per_ml from ingredients where canonical_name = 'almond milk') is distinct from 1.03 then raise exception 'GATE almond milk density'; end if;
+  if (select density_g_per_ml from ingredients where canonical_name = 'mexican crema') is distinct from 1.0 then raise exception 'GATE mexican crema density'; end if;
+
+  -- national foods added in 10d, with the publisher's code
+  select count(*) into n from usda_foods u where (u.data_type, u.source_code) in (('cofid', '13-339'), ('cofid', '13-341'), ('cnf', '2499'), ('cofid', '13-853'), ('cofid', '13-857'));
+  if n <> 5 then raise exception 'GATE % of 5 added national foods present', n; end if;
+  select count(*) into n from ingredient_foods x join ingredients i on i.id = x.ingredient_id
+   where x.is_default and ((x.form = 'default' and (i.canonical_name, x.fdc_id) in (('plantain', 169130), ('kombu', 910130339), ('wakame', 910130341), ('dulse', 900002499), ('fresh sage', 910130853), ('fresh tarragon', 910130857)))
+      or (x.form = 'green' and i.canonical_name = 'plantain' and x.fdc_id = 168215));
+  if n <> 7 then raise exception 'GATE % of 7 expected 10d default links', n; end if;
 end $$;
 
 \echo == 10c gates passed

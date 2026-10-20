@@ -105,3 +105,5 @@ same	penne	pasta	H	Dry pasta
 same	rigatoni	pasta	H	Dry pasta
 same	orzo	pasta	H	Dry pasta
 same	polenta	cornmeal	M	Polenta is cooked cornmeal; dry polenta line follows cornmeal
+density	almond milk	1.03	curated	H	unsweetened almond milk is about 1.03 g/ml; the USDA-derived 1.107 overstated a cup (final audit, wave 10d)
+density	mexican crema	1.0	curated	M	cultured cream is about 1.0 g/ml; the borrowed sour cream value 0.892 understated a cup (final audit, wave 10d)

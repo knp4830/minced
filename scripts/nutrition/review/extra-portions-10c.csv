@@ -23,3 +23,7 @@ lime,juiced,cup,242,usda,"USDA household weight: 1 cup lime juice, raw (FDC 1681
 lime,juiced,fl oz,30.8,usda,"USDA household weight: 1 fl oz lime juice, raw (FDC 168156)"
 lime,juiced,tbsp,15.12,usda,"1 tbsp = 1/16 of the USDA cup weight (FDC 168156)"
 lime,juiced,tsp,5.04,usda,"1 tsp = 1/48 of the USDA cup weight (FDC 168156)"
+pinto beans,low_sodium,can,258,usda,"wave 10d: same drained-solids can as the canned form (FDC 173797); this form is cooked-without-salt drained beans, so a can line was a gap"
+kombu,default,piece,5,curated,"a 4-inch square of dried kombu is about 5 g (curated weight from the first mapping pass, 10c; it was removed with the raw kelp link)"
+plantain,default,,179,curated,"same as ripe plantain: peeled fruit, curated"
+plantain,green,,179,curated,"same as green plantain: peeled fruit, curated"
