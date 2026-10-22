@@ -1,0 +1,327 @@
+ingredient|action|target|kind|code|note|evidence
+advieh|unmap||||blend|
+aji dulce|unmap||||sweet chile pepper; no record, fresh chile varieties differ by 20 to 40 percent in SR|
+aji limo|unmap||||Capsicum chinense; 2 brand labels (57 and 43 kcal) disagree with each other|
+ajwain|unmap||||seed; thyme leaf is a different plant part and species|
+ají charapita|unmap||||Capsicum chinense; no record|
+ají mirasol|unmap||||dried chile; cayenne is a different cultivar|
+akkawi cheese|unmap||||no akkawi record; the two nabulsi labels in FDC are 250 and 321 kcal|bm:nabulsi-cheese
+aleppo pepper|unmap||||semi-dried flakes with oil and salt; cayenne is a different product|
+alligator meat|relink|brand:1457730|||three FDC alligator-meat labels agree (97 kcal); the old link (105 kcal, 15.8 g protein) was a single odd label|bm:alligator-meat
+almond extract|unmap||||vanilla extract is a different flavouring; brand labels round to 0|
+amadumbe|keep||same||amadumbe is the South African name of taro (Colocasia esculenta); SR Taro raw is that species|sci:169308
+amaretto|unmap||||liqueur sugar content varies by maker|
+ancho chile|keep||same||SR 'Peppers, ancho, dried' is this food; it was flagged as a stand-in by mistake|cnf:4859
+ancho chile powder|keep||same||ground ancho is the same dried chile in another form|cnf:4859
+angostura bitters|unmap||||bitters carry sugar and botanical extracts; spirit alone is not the same food|
+apple pie spice|unmap||||blend; ratio of nutmeg to cinnamon varies by maker|
+aquavit|keep||close||unsweetened distilled spirit; energy follows alcohol strength (typically 40 percent)|sr:174815;cofid:17-247;fndds:2710699
+arctic char|unmap||||farmed char labels (186 kcal, 12.4 g fat) are far above rainbow trout (141 kcal)|bm:arctic-char
+argan oil|keep||close||pure edible oil, 100 g fat per 100 g|oils
+asafoetida|unmap||||resin, usually compounded with flour; garlic powder is a different spice|
+baharat|unmap||||blend|
+bajra flour|unmap||||pearl millet; SR millet is proso millet (a different species)|
+banana ketchup|unmap||||two brand labels disagree (100 and 59 kcal)|bm:banana-ketchup
+baobab powder|relink|sr:167806|||SR has Baobab powder (250 kcal, 79.7 g carbs); the old link was a branded superfruit powder with 0 g protein|
+barramundi|unmap||||sea bass mixed species is a different fish; the one barramundi label (80 kcal) is 18 percent lower|
+beef cheeks|unmap||||head meat is much fattier than lean chuck|
+beef stew meat|relink|bm:beef-stew-meat|||raw packaged stew meat labels (116 to 195 kcal) are far below the old pot-roast stand-in (249 kcal)|
+berbere|unmap||||blend|
+bergamot|unmap||||fruit not eaten raw; lemon is a different fruit|
+biber salcasi|unmap||||the old link was a yellow hot pepper paste of another culture|
+biltong|unmap||||biltong labels carry 55 g protein per 100 g, jerky 33 g|bm:biltong
+bitter orange|unmap||||Seville orange; sweet orange is a different fruit|
+bitterleaf|unmap||||Vernonia leaf; spinach is a different plant|
+black garlic|unmap||||aged garlic is lower in water; raw garlic is a different state|
+black vinegar|unmap||||Chinese black vinegar carries grain sugars; balsamic is a different vinegar|
+bouquet garni|unmap||||blend|
+brandy|keep||same||FNDDS lists Brandy at 231 kcal, the same as the SR 80 proof spirit|fndds:2710699;cofid:17-247
+burrata|relink|bm:burrata|||burrata labels are 250 to 321 kcal with 14 to 18 g protein; whole-milk mozzarella is 299 kcal with 22 g protein|
+cachaca|keep||close||unsweetened distilled spirit, 38 to 48 percent alcohol|sr:174815;cofid:17-247;fndds:2710699
+caciocavallo|unmap||||no record or labels|
+calabash nutmeg|unmap||||a different seed from true nutmeg|
+calamansi|keep||close||citrus juice of the same acidity class as lime juice|bm:calamansi
+candlenuts|unmap||||a different nut from macadamia|
+cane vinegar|keep||close||vinegar, a few kcal per 100 g|vinegars
+cape malay curry powder|unmap||||blend|
+carne seca|unmap||||dried beef labels carry 55 g protein per 100 g, jerky 33 g|bm:carne-seca
+carob molasses|unmap||||carob syrup differs from cane molasses|
+cascabel chile|unmap||||dried cultivar; the SR sun-dried chile record is generic|
+cassia leaves|unmap||||dried tej patta; bay laurel is a different leaf|
+celtuce|relink|sr:169990|||SR has Celtuce, raw (18 kcal); the old link was green leaf lettuce|
+chapati|relink|sr:174075|||SR has chapati or roti, whole wheat (299 kcal); the old link was whole-wheat pita (262 kcal)|
+chaya|unmap||||Cnidoscolus leaf; spinach is a different plant|
+chervil|reform|sr:171318|||the SR record is DRIED chervil; the ingredient is the fresh herb, so the record moves to the dried form|
+chestnut flour|relink|sr:2515377|||Foundation Foods has Flour, chestnut; the old link was dried whole chestnuts|
+chhena|unmap||||fresh curd cheese; cottage cheese is a different product|
+chile de arbol|unmap||||dried cultivar|
+chili oil|keep||close||chili oil is mostly oil; the brand labels (800 to 840 kcal) are within 10 percent of 884|bm:chili-oil
+chinese broccoli|relink|fndds:2709657|||FNDDS has Broccoli, Chinese, raw (26 kcal, 1.2 g protein); broccoli raab has 3.2 g|
+chinese ham|unmap||||Jinhua ham is a dry-cured ham of its own; US country ham is a different cure|
+chipotle powder|unmap||||smoked jalapeno; SR sun-dried chile is another cultivar|
+choclo|unmap||||starchy large-kernel corn; sweet corn is a different food|
+choy sum|keep||close||Brassica rapa like the pak choi record|sci:170390
+christophene|keep||same||christophene is the Caribbean name of chayote (Sechium edule)|sci:170402
+citron|unmap||||thick-pith fruit; lemon pulp is a different part|
+cluster beans|unmap||||guar bean pods; snap beans are a different species|
+cockles|relink|sr:169803|||SR has cockles, raw (79 kcal); the old link was mixed clams (86 kcal)|
+colatura di alici|unmap||||Italian anchovy sauce; Thai-style fish sauce is a different product|
+comte|relink|bm:comte|||four comte labels (419 to 429 kcal) agree; gruyere is 413 kcal with 29.8 g protein vs 26.8|
+creme de cassis|unmap||||liqueur sugar content varies|
+crushed red pepper|keep||same||SR's 'Spices, pepper, red or cayenne' is red pepper; crushed flakes are the same chile in a coarser grind|cnf:199
+cuajada|relink|bm:cuajada|||labels carry 7 g carbohydrate vs 3 g for queso fresco|
+cubeb pepper|unmap||||a different pepper|
+culantro|unmap||||Eryngium, a different plant from cilantro|
+dalia|keep||close||cracked wheat is the same grain as bulgur|sr:168890;sr:170688
+date sugar|relink|bm:date-sugar|||date sugar labels are 333 to 365 kcal with 83 g carbs; deglet noor dates are 282 kcal|
+degi mirch|unmap||||Kashmiri chile powder|
+dijon mustard|unmap||||no trusted Dijon record; brand labels round to 0 g and cannot be used; prepared yellow mustard is 60 kcal and FNDDS generic mustard is 69|
+doenjang|unmap||||the one doenjang label (167 kcal) is 16 percent below miso|
+dried chilies whole|relink|sr:168570|||SR has Peppers, hot chile, sun-dried (324 kcal, 5.8 g fat); the old link was ground cayenne with 17 g fat|
+dried cilantro|keep||same||SR 'Spices, coriander leaf, dried' is dried cilantro|sr:170921
+dried fenugreek leaves|unmap||||the old link was fenugreek SEED; the leaf is a different part|
+dried galangal|unmap||||ginger is a different rhizome|
+egusi|keep||close||seeds of a Citrullus melon; CoFID's melon seeds record agrees with SR watermelon seeds|cofid:14-826
+facing heaven chili|unmap||||dried cultivar|
+farmer cheese|unmap||||fat level varies from 0 to 10 percent|
+fennel pollen|unmap||||pollen, not seed|
+fermented black beans|unmap||||salted fermented soybeans; miso is a different ferment|
+fiddleheads|relink|sr:169405|||SR has Fiddlehead ferns, raw (34 kcal, 4.6 g protein); the old link was asparagus|
+fines herbes|unmap||||blend|
+finger lime|unmap||||different fruit|
+fingerroot|unmap||||a different rhizome from ginger|
+fish cakes|unmap||||Japanese kamaboko, Thai fried cakes and Western fish cakes are different foods|
+flattened rice|keep||close||flattened parboiled rice is the same grain as dry rice|sr:169707
+foxtail millet|relink|cofid:11-016|||CoFID has foxtail millet flour (354 kcal, 5.8 g protein); SR millet is proso millet (11 g protein)|
+freekeh|keep||close||roasted cracked green wheat, the same grain as bulgur|bm:freekeh
+fresh bay leaves|unmap||||the SR record is dried bay leaf|
+fresh fenugreek|relink|cofid:13-243|||CoFID has fenugreek leaves, raw (35 kcal, 4.6 g protein); the old link was spinach|
+fried shallots|unmap||||French fried onions are a different product|
+fromage blanc|unmap||||fat level varies|
+fura|unmap||||millet dough ball|
+galangal|unmap||||a different rhizome from ginger|
+galangal powder|unmap||||ginger is a different rhizome|
+garden egg|unmap||||Solanum aethiopicum or macrocarpon, a different species from eggplant|
+geoduck|unmap||||no geoduck record|
+gochugaru|unmap||||pure Korean chile powder, not the cumin-and-spice US chili powder blend|
+gochugaru flakes coarse|unmap||||the old link was cayenne|
+goda masala|unmap||||blend|
+grains of paradise|unmap||||a different spice from black pepper|
+grains of selim|unmap||||a different spice from black pepper|
+grape molasses|unmap||||grape syrup differs from cane molasses|
+grappa|keep||close||unsweetened distilled spirit, typically 40 percent|sr:174815;cofid:17-247;fndds:2710699
+graviera|keep||close||Swiss-type cheese; the one graviera label is within 3 percent|bm:graviera
+gravlax|relink|bm:gravlax|||cured salmon carries salt (the raw salmon stand-in has 59 mg sodium)|
+green papaya|unmap||||unripe papaya has about 30 kcal, ripe 43|
+green peppercorns|unmap||||fresh or brined peppercorns, not dried|
+guajillo chile|unmap||||dried cultivar|
+guasca|unmap||||Galinsoga leaf; oregano is a different herb|
+guinea fowl|unmap||||chicken with skin is a different bird|
+habanero|unmap||||Capsicum chinense; SR hot red chile is a different cultivar|
+hake|keep||same||SR's whiting (hake) record: CNF lists hake as 'Fish, hake (whiting)' with the same values|cnf:3089;cofid:16-070
+hawaij|unmap||||blend|
+herbes de provence|unmap||||blend|
+holy basil|unmap||||Ocimum tenuiflorum, a different species from sweet basil|
+horseradish|relink|cofid:13-258|||CoFID has horseradish, raw root (62 kcal, 4.5 g protein); the old link was prepared horseradish in vinegar|
+huauzontle|unmap||||Chenopodium; broccoli is a different plant|
+ikura|keep||same||SR's caviar record covers black and red; red caviar is salmon roe, which is ikura|cnf:2995
+italian seasoning|unmap||||blend|
+ivy gourd|unmap||||Coccinia, a different gourd|
+jamon iberico|unmap||||Iberico labels are 25 g fat; prosciutto is 10 g|
+jamon serrano|relink|bm:jamon-serrano|||serrano labels range 214 to 321 kcal with 10 to 25 g fat; prosciutto has 10.7 g fat|
+jarlsberg|relink|bm:jarlsberg-cheese|||Jarlsberg labels are 341 kcal against Swiss 393|
+kabocha squash|unmap||||labels (47 kcal) are 28 percent above the generic winter squash record (34 kcal)|bm:kabocha-squash
+kabsa spice|unmap||||blend|
+kaffir lime|unmap||||the ingredient is the leaf or zest, not lime juice|
+kalamata olives|unmap||||brine-cured vs lye-cured black olives; labels vary 107 to 300 kcal|
+kangaroo meat|unmap||||venison is a different meat|
+kesong puti|unmap||||no record|
+khmeli suneli|unmap||||blend|
+kitchen king masala|unmap||||blend|
+kokum|unmap||||a different fruit from tamarind|
+korarima|unmap||||a different spice from cardamom|
+kosher salt|keep||same||sodium chloride, the same compound as table salt|sr:173468
+kukui nuts|unmap||||candlenut, a different nut|
+kuzu|keep||close||starch; the two kuzu labels (341 kcal) are within 5 percent of arrowroot flour (357)|bm:kuzu
+lactose-free milk|keep||same||FNDDS lists lactose-free reduced-fat milk with the same values as the 2 percent record|fndds:2705391
+lambs lettuce|unmap||||a different lettuce|
+langoustine|keep||close||boiled langoustine (CoFID 86 kcal, 19.7 g protein) matches raw shrimp (85 kcal, 20.1 g)|cofid:16-425
+lavender|unmap||||a different herb from thyme|
+lebkuchen spice|unmap||||blend|
+lechon kawali|unmap||||fried pork belly; raw belly is a different state|
+lemon balm|unmap||||a different herb from peppermint|
+lemon extract|unmap||||a flavouring; vanilla extract is another|
+lemon verbena|unmap||||a different herb from peppermint|
+limoncello|unmap||||liqueur sugar content varies|
+long pepper|unmap||||a different pepper|
+lovage|unmap||||a different herb from celery|
+lutefisk|unmap||||lye-cured dried cod|
+mahon cheese|keep||close||Swiss-type cow cheese; the one Mahon label (393 kcal, 25 g protein, 32 g fat) matches within 8 percent|bm:mahon-cheese
+mala seasoning|unmap||||blend|
+malai|unmap||||Indian clotted cream is not heavy cream|
+manchego|relink|bm:manchego-cheese|||Manchego labels are 429 kcal with 35.7 g fat; Swiss is 393 with 31|
+mango ginger|unmap||||a different rhizome from ginger|
+maras biber|unmap||||semi-dried flakes with oil and salt|
+matoke|unmap||||East African cooking banana|
+matzo meal|keep||close||ground matzo; the labels (379 kcal) are within 4 percent of matzo crackers (395)|bm:matzo-meal
+mct oil|unmap||||MCT labels are 800 kcal, coconut oil 892|bm:mct-oil
+meat masala|unmap||||blend|
+mexican crema|keep||close||Mexican crema labels (200 kcal, 17.9 g fat) are within 3 percent of sour cream (198 kcal)|bm:crema
+mezcal|keep||close||unsweetened distilled spirit, typically 40 to 45 percent|sr:174815;cofid:17-247;fndds:2710699
+microgreens|unmap||||many different plants|
+mitmita|unmap||||blend|
+mitsuba|unmap||||a different herb from parsley|
+mizithra|unmap||||no cheese record; the one label is a cheese blend|
+moose|relink|sr:174344|||SR has Game meat, moose, raw (102 kcal, 0.7 g fat); deer ground has 7 g fat|
+morita chile|unmap||||dried smoked cultivar|
+morogo|unmap||||wild African greens|
+moth beans|relink|sr:172425|||SR has Mothbeans, mature seeds, raw|
+mulato chile|unmap||||dried cultivar|
+mung bean starch|keep||close||pure starch; moisture only varies 333 to 358 kcal|bm:potato-starch;sr:170684
+mushroom soy sauce|unmap||||dark soy sauce carries molasses sugar; labels 33 to 167 kcal|bm:mushroom-soy-sauce
+mustard oil|relink|sr:172337|||SR has Oil, mustard; the old link was canola|
+nameko mushrooms|unmap||||a different mushroom from enoki|
+narsharab|unmap||||pomegranate syrup|
+nasturtium|unmap||||a different plant from watercress|
+new mexico chile|unmap||||dried cultivar|
+nigella oil|keep||close||pure edible oil, 100 g fat per 100 g|oils
+nigella seeds|unmap||||labels carry 33 g fat vs 22 for cumin|
+oaxaca cheese|relink|sr:2647441|||Foundation Foods has Cheese, oaxaca, solid; the old link was whole-milk mozzarella|
+okonomiyaki sauce|unmap||||no trusted record; barbecue sauce is a different sauce|
+panch phoron|unmap||||blend|
+pangasius|unmap||||no trusted record|
+panko breadcrumbs|relink|bm:panko-breadcrumbs|||panko labels (350 to 367 kcal) are 8 percent below dry breadcrumbs (395)|
+partridge|unmap||||no trusted record|
+pastis|unmap||||anise spirit with added sugar|
+pav bhaji masala|unmap||||blend|
+pea eggplant|unmap||||a different species|
+pea shoots|keep||close||young pea shoots; the three shoot labels (35 kcal, 2.4 g protein) are close to pea pods|bm:pea-shoots
+peperoncino|unmap||||may be fresh or dried|
+pepper jack|keep||close||Monterey jack with peppers; labels (357 kcal) within 5 percent|sr:2647438;bm:pepper-jack-cheese
+peppermint extract|unmap||||a flavouring|
+pequin chile|unmap||||dried cultivar|
+perilla oil|keep||close||pure edible oil, 100 g fat per 100 g|oils
+perilla seeds|unmap||||a different seed from sesame|
+periwinkles|unmap||||a different snail from whelk|
+pilau masala|unmap||||blend|
+pisco|keep||close||unsweetened distilled spirit, typically 40 percent|sr:174815;cofid:17-247;fndds:2710699
+plum wine|unmap||||umeshu sugar content varies|
+poblano pepper|relink|sr:2747662|||Foundation Foods has Peppers, poblano, seeded, raw; the old link was a sweet green bell pepper|
+pointed gourd|unmap||||a different gourd from towel gourd|
+porchetta|unmap||||roasted seasoned pork; raw shoulder is a different state|
+porcini mushrooms|unmap||||fresh porcini and dried porcini are very different|
+potato starch|relink|bm:potato-starch|||potato starch labels (333 kcal, 0 g protein) vs potato flour (357 kcal, 6.9 g protein)|
+preserved lemon|unmap||||a salt-cured product|
+preserved radish|unmap||||a salt-cured product|
+pumpkin seed oil|keep||close||pure edible oil, 100 g fat per 100 g|oils
+quark|unmap||||fat level varies from 0 to 10 percent|
+queijo minas|unmap||||no record|
+quelites|unmap||||wild greens|
+queso panela|relink|bm:queso-panela|||panela labels carry 19.5 g fat vs 23.8 for queso fresco|
+raclette cheese|keep||close||Swiss-type cheese; labels (357 kcal) within 10 percent of Swiss (393)|bm:raclette-cheese
+ragi flour|unmap||||finger millet; SR millet is proso millet|
+ramps|unmap||||a wild leek|
+ras el hanout|unmap||||blend|
+rasam powder|unmap||||blend|
+raw banana|unmap||||cooking banana|
+raw mango|unmap||||unripe mango has more starch|
+red beans|unmap||||red kidney or adzuki, ambiguous|
+requeijao|unmap||||no record|
+rice crackers|relink|sr:173161|||SR has Rice crackers (416 kcal); the old link was brown rice cakes (386 kcal)|
+rice paddy herb|unmap||||a different herb from cilantro|
+rice vinegar|keep||close||vinegar, a few kcal per 100 g|vinegars
+ricotta salata|relink|bm:ricotta-salata|||labels are 250 kcal with 17.9 g protein; Romano is 387 kcal with 31.8 g|
+robiola|unmap||||no record|
+rohu|unmap||||no trusted record|
+romanesco|keep||close||Brassica oleracea (cauliflower group)|sci:169986
+saba banana|unmap||||a different banana|
+sabzi khordan|unmap||||a mix of herbs|
+saeujeot|unmap||||the old link was a Filipino shrimp fry|
+salted duck egg|relink|cofid:12-814|||CoFID has 'Eggs, duck, boiled and salted' from Chinese shops (198 kcal); the stand-in was raw duck egg|
+sambar powder|unmap||||blend|
+samp|relink|sr:168920|||samp is cracked dried maize; SR has Corn grain, white (365 kcal); the old link was masa harina|
+sand ginger|unmap||||a different rhizome from ginger|
+sansho pepper|unmap||||the one label (571 kcal) is a blend|
+scamorza|relink|bm:scamorza|||labels are 321 kcal with 25 g fat; low-moisture mozzarella has 19.8 g|
+scent leaf|unmap||||Ocimum gratissimum, a different species|
+scotch bonnet|unmap||||Capsicum chinense; SR hot red chile is a different cultivar|
+sea bream|relink|cofid:16-006|||CoFID has 'Bream, Sea, raw' (96 kcal); the old link was scup|
+shaoxing cooking wine|unmap||||the one label (117 kcal) is 13 percent below sake|
+shaoxing wine|unmap||||the one label (117 kcal) is 13 percent below sake|
+shawarma spice|unmap||||blend|
+shichimi togarashi|unmap||||blend|
+shrimp paste|unmap||||the old link was a sauteed Filipino shrimp paste|
+sichuan pepper oil|keep||close||pure edible oil, 100 g fat per 100 g|oils
+sichuan peppercorns|unmap||||a different plant from black pepper|
+simit|unmap||||sesame and molasses coating|
+skate|relink|cofid:16-143|||CoFID has 'Skate, raw' (64 kcal); the old link was ocean perch (79 kcal)|
+skate wing|relink|cofid:16-143|||CoFID has 'Skate, raw' (64 kcal); the old link was ocean perch (79 kcal)|
+smoked fish|keep||close||FNDDS lists generic smoked fish with the same values as smoked haddock|fndds:2706230
+snake gourd|unmap||||a different gourd|
+sorrel|unmap||||Rumex or hibiscus, not spinach|
+sorrel leaves|unmap||||Rumex, not spinach|
+speck|relink|bm:speck|||speck labels carry 21 g fat vs 8 for country ham|
+squid ink|unmap||||a sauce or ink, not squid flesh|
+star anise|unmap||||a different plant from anise seed|
+stracciatella|unmap||||labels in FDC are gelato; no cheese record|
+suluguni|unmap||||no record|
+sumac|unmap||||a different spice from paprika|
+sweet bean sauce|unmap||||no trusted record|
+sweet potato starch noodles|keep||close||starch noodles; the labels (333 kcal) within 5 percent of mung bean noodles|bm:sweet-potato-starch-noodles
+tabil|unmap||||blend|
+tagine spice|unmap||||blend|
+taleggio|keep||close||washed-rind cow cheese; two labels (321 kcal) within 9 percent of port salut|bm:taleggio-cheese
+tamarind paste|keep||close||paste is mashed tamarind pulp; labels (244 kcal median) within 2 percent of the raw pulp|bm:tamarind-paste
+tatsoi|keep||close||Brassica rapa like the pak choi record|sci:170390
+tepary beans|unmap||||a different bean species|
+thai basil|keep||close||Ocimum basilicum var. thyrsiflora, the same species as sweet basil|sci:172232;fndds:2709780
+thai chile|keep||close||Capsicum frutescens (the bird chile); SR hot chili green raw is that species and the red record agrees (40 kcal both)|sci:170497;sr:170106
+tianjin preserved vegetable|unmap||||a salt-cured product|
+tiger nuts|keep||close||ground tiger nut; one label (467 kcal) within 7 percent|bm:tiger-nut-flour
+tofu puffs|keep||same||SR's fried tofu is what tofu puffs are|sr:172451
+torch ginger|unmap||||a different plant from ginger|
+triple sec|unmap||||liqueur sugar content varies|
+tvorog|unmap||||fat level varies|
+unagi|unmap||||grilled eel with sauce, not raw eel|
+uni|unmap||||sea urchin gonads, not fish roe|
+urad dal|relink|sr:174259|||SR calls black gram Mungo beans (341 kcal, 25.2 g protein); lentils differ|
+urfa biber|unmap||||semi-dried flakes with oil and salt|
+utskho suneli|unmap||||a different herb from fenugreek seed|
+uziza|unmap||||a different spice from black pepper|
+veal stock|keep||close||stock, a few kcal per 100 g|sr:172883
+vietnamese coriander|unmap||||a different herb from cilantro|
+vietnamese mint|unmap||||a different herb from peppermint|
+wahoo|unmap||||no trusted record|
+walnut paste|keep||close||ground walnuts; labels (679 kcal) within 4 percent|bm:walnut-paste
+water mimosa|unmap||||a different plant from spinach|
+waterleaf|unmap||||a different plant from spinach|
+weisswurst|relink|bm:weisswurst|||three weisswurst labels (248 to 314 kcal, 20 to 29 g fat) vs bockwurst (250 kcal, 21 g)|
+wheat starch|unmap||||starch has almost no protein; all-purpose flour has 10 g|
+white wine vinegar|keep||close||vinegar, a few kcal per 100 g|vinegars
+whole urad|relink|sr:174259|||SR calls black gram Mungo beans (341 kcal, 25.2 g protein); lentils differ|
+wild thyme|unmap||||a different species from garden thyme|
+winter melon|relink|sr:170069|||SR has Waxgourd (Chinese preserving melon), raw (13 kcal); the old link was bottle gourd|
+xawaash|unmap||||blend|
+yakisoba noodles|relink|bm:yakisoba-noodles|||yakisoba noodle labels (190 to 202 kcal) vs cooked egg noodles (138 kcal)|
+yellow bean sauce|unmap||||no trusted record|
+ube|unmap||||SR 'Yam, raw' is genus Dioscorea spp. and the Hawaiian mountain yam is Dioscorea pentaphylla; neither is ube (Dioscorea alata), and the owner measured about 20 percent difference|
+elephant foot yam|unmap||||Amorphophallus, a different plant from Dioscorea|
+white yam|keep||close||SR 'Yam, raw' is Dioscorea spp. and white yam is a Dioscorea|sci:170071
+rocoto pepper|unmap||||Capsicum pubescens, a different species from the SR hot chili|
+bhut jolokia|unmap||||Capsicum chinense; SR hot chili is Capsicum frutescens|
+fresno chile|unmap||||fresh chile varieties differ by 20 to 40 percent in SR (jalapeno 29, hot chili 40)|
+cherry peppers|unmap||||mild or hot cherry pepper, pickled or fresh; sweet red bell pepper is a different pepper|
+kinako|relink|sr:174274|||kinako is roasted soybean flour; SR has Soy flour, full-fat, roasted (439 kcal); the old link was raw|
+roasted soybean powder|relink|sr:174274|||roasted soybean flour; SR has Soy flour, full-fat, roasted (439 kcal); the old link was raw|
+jocheong|unmap||||rice syrup; barley malt syrup is a different syrup|
+mexican oregano|unmap||||Lippia graveolens, a different plant from Mediterranean oregano|
+mizuna|unmap||||Brassica rapa; SR mustard greens are Brassica juncea|
+pomfret|unmap||||a different fish from Florida pompano|
+sheep cheese|unmap||||too generic (feta, manchego and romano are 265 to 429 kcal)|
+stilton|relink|cofid:12-367|||CoFID has Stilton, blue (410 kcal, 35 g fat); the old link was generic blue cheese (353 kcal)|
+wensleydale|relink|cofid:12-489|||CoFID has Wensleydale (381 kcal, 31.8 g fat); the old link was Cheshire|
+stockfish|unmap||||unsalted air-dried cod; the old link was salted dried cod|
+lemon basil|unmap||||a hybrid basil|
+limu|unmap||||many Hawaiian seaweeds; laver is one of them|
+indian bay leaf|unmap||||Cinnamomum tamala, not Laurus nobilis|
+salam leaf|unmap||||Syzygium polyanthum, not Laurus nobilis|
