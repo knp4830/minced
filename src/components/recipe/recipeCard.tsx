@@ -104,8 +104,11 @@ export function RecipeCard({
       <CardBody className="flex flex-1 flex-col">
         {cuisine && <p className="label-mono mb-1.5 tracking-[0.08em]">{cuisine}</p>}
         <CardTitle className="mb-3">
+          {/* No viewport prefetch: a results page shows 24-99 cards, and prefetching each one as it
+              scrolls into view multiplied every visit into dozens of CDN requests (Vercel quota). */}
           <Link
             href={href ?? `/recipes/${slug}`}
+            prefetch={false}
             className="rounded-xs after:absolute after:inset-0 focus-visible:outline-offset-4"
           >
             {title}
@@ -176,6 +179,7 @@ export function RecipeCard({
           <p className="relative z-10 mt-2.5">
             <Link
               href="/about"
+              prefetch={false}
               className="inline-block rounded-xs bg-sunken px-1.5 py-0.5 font-mono text-[0.625rem] text-ink-muted underline-offset-2 hover:text-herb hover:underline"
             >
               Drafted with AI, reviewed by Minced
