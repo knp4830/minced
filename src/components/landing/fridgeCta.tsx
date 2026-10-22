@@ -7,6 +7,7 @@ import { useAccount } from "@/components/account/accountProvider";
 import { buttonVariants } from "@/components/ui/button";
 import { fetchSavedFridge } from "@/lib/fridgeClient";
 import type { FridgeItem } from "@/lib/fridgeStorage";
+import { cn } from "@/lib/utils";
 
 const SHOWN = 8;
 
@@ -34,8 +35,14 @@ export function FridgeCta() {
   if (!signedIn) {
     return (
       <div className="flex flex-wrap gap-3">
-        <Link href="/signup?next=%2Fpantry" className={buttonVariants({ variant: "primary", size: "lg" })}>
-          Create an account
+        <Link
+          href="/signup?next=%2Fpantry"
+          className={cn(
+            buttonVariants({ variant: "primary", size: "lg" }),
+            "h-auto min-h-12 max-w-full whitespace-normal py-2.5 text-center",
+          )}
+        >
+          Create a free account to keep track of your fridge
         </Link>
         <Link href="/login?next=%2Fpantry" className={buttonVariants({ variant: "secondary", size: "lg" })}>
           Log in
@@ -52,7 +59,7 @@ export function FridgeCta() {
         </p>
       ) : items.length === 0 ? (
         <p className="max-w-[34em] text-[0.9375rem] leading-snug text-ink-muted">
-          Your fridge is empty. Add what you have and Minced shows what you can cook.
+          Your fridge is empty for now. Add what you have and Minced shows what you can cook.
         </p>
       ) : (
         <>

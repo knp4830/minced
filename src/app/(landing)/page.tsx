@@ -6,7 +6,8 @@ import { CookFromWhatYouHave } from "@/components/landing/cookFromWhatYouHave";
 import { HERO } from "@/components/landing/copy";
 import { LandingCta } from "@/components/landing/landingCta";
 import { PhotoMosaic } from "@/components/landing/photoMosaic";
-import { FridgePicker } from "@/components/pantry/fridgePicker";
+import { FeatureSections } from "@/components/landing/featureSections";
+import { SelectFiltersDialog } from "@/components/recipe/selectFiltersDialog";
 import { Button } from "@/components/ui/button";
 import { getFilterOptions } from "@/lib/queries/browse";
 import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 const FEATURES = [
   {
     title: "Cook from what you have",
-    body: "Choose ingredients to find recipes that use them, or save your fridge to your account and see what you can make now, what’s one thing short, and what to cook before it expires. Salt, oil and water never count.",
+    body: "Choose ingredients to find recipes that use them, or save your fridge to your account and see what you can make now, what’s one thing short, and what to cook before it expires.",
     radius: "50%",
   },
   {
@@ -104,7 +105,7 @@ export default async function Home() {
               </form>
 
               <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-                <FridgePicker variant="choose" catalog={catalog} />
+                <SelectFiltersDialog catalog={catalog} options={options} />
                 <Link
                   href="/recipes"
                   className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-ink underline underline-offset-4 hover:text-herb"
@@ -138,7 +139,9 @@ export default async function Home() {
         </section>
       </div>
 
-      <CookFromWhatYouHave photo={photos[1] ?? null} />
+      <CookFromWhatYouHave />
+
+      <FeatureSections />
 
       <section aria-labelledby="features-h" className="border-y border-line bg-band">
         <div className="page-w py-12 md:py-16">
@@ -216,11 +219,11 @@ export default async function Home() {
               Why we built this
             </h2>
             <p className="mb-5 font-display text-[1.375rem] leading-[1.4] font-normal tracking-[-0.01em] text-ink-deep md:text-[1.75rem]">
-              We love cooking, and we love a good recipe story. We also know the nights
+              We love cooking, and we love a good recipe story. We also know the days
               when you have twenty minutes, a half-full fridge and somewhere to be.
             </p>
             <p className="mb-4 text-base leading-[1.6] text-ink-muted">
-              Stories are lovely when there’s time to read them. For the evenings when
+              Stories are lovely when there’s time to read them. For the times when
               there isn’t, Minced puts the decision first: time, servings, calories
               and protein at the top, then the exact things you’ll buy and the steps
               in order.
