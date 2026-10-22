@@ -106,6 +106,13 @@ assert.equal(fits.breakdownHidden, false);
 assert.deepEqual(fits.top.filter((r) => r.indent === 1 && r.fdc !== 291).map((r) => r.name), ["Saturated fat", "Polyunsaturated fat", "Monounsaturated fat"]); // all in the top block, none under "vitamins and minerals"
 assert.equal(fits.micro.some((r) => r.fdc === 645 || r.fdc === 646), false);
 
+// sugars are compared as DISPLAYED: 9.5 g shows "10 g" and 9.4 g of carbohydrate shows "9.4 g", so the sugars row is left out
+// (basic-custard, yogurt-popsicles, veggie-dip showed sugars one rounding step above carbohydrate)
+for (const [carbs, sugars, hidden] of [[9.4, 9.5, true], [10, 11, true], [1.1, 1.2, true], [9.4, 9.4, false], [20, 12, false], [10, 10.4, false]] as const) {
+  const m = buildLabel({ calories: 100, proteinG: 2, carbsG: carbs, fatG: 2, fiberG: null, sodiumMg: 100 }, { status: "complete", source: "usda_myplate", gaps: [], rows: [row("sugars_g", sugars)] }, nutrients);
+  assert.equal(m.top.some((r) => r.fdc === 269), !hidden, `carbs ${carbs} sugars ${sugars}`);
+}
+
 // columns written by refresh for a recipe we computed are computed, not "published"
 const own = buildLabel({ calories: 689, proteinG: 30, carbsG: 20, fatG: 52, fiberG: 4, sodiumMg: 300 }, { status: "complete", source: "computed", gaps: [], rows: [row("calcium_mg", 100)] }, nutrients);
 assert.equal(own.basis, "computed");
@@ -153,13 +160,15 @@ const ing = toFoodHit({ kind: "ingredient", ingredient_id: 7, canonical_name: "s
 assert.equal(ing.kind, "ingredient");
 assert.equal(ing.fdcId, null);
 assert.equal(ing.label, "soy sauce");
-const brand = toFoodHit({ fdc_id: "123", ingredient_id: 7, canonical_name: "soy sauce", description: "SOY SAUCE", brand_owner: "Kikkoman Sales USA", household_serving: "1 tbsp (16 g)", kcal_per_100g: "60" })!;
+const brand = toFoodHit({ fdc_id: "123", ingredient_id: 7, canonical_name: "soy sauce", description: "SOY SAUCE", brand_name: "Kikkoman", household_serving: "1 tbsp (16 g)", kcal_per_100g: "60" })!;
 assert.equal(brand.kind, "food");
 assert.equal(brand.fdcId, 123);
 assert.equal(brand.ingredientId, 7);
 assert.equal(brand.label, "Soy sauce"); // shouted USDA descriptions are tidied
 assert.equal(brand.hasNutrition, true);
-assert.equal(foodTitle(brand), "Kikkoman Sales USA Soy sauce");
+assert.equal(foodTitle(brand), "Kikkoman Soy sauce");
+// the barcode-prefix owner is never shown as a brand (audit: jalfrezi sauce was shown as a tackle company)
+assert.equal(toFoodHit({ fdc_id: "5", description: "JALFREZI SAUCE", brand_owner: "Aqua-Clear Tackle" })!.brand, null);
 assert.equal(foodTitle({ label: "Kikkoman soy sauce", brand: "Kikkoman" }), "Kikkoman soy sauce"); // brand not repeated
 assert.equal(toFoodHit({ kind: "food", fdc_id: 5, label: "x", has_nutrition: false })!.hasNutrition, false);
 assert.equal(toFoodHit({ ingredient_id: 1 }), null);
@@ -174,5 +183,21 @@ assert.equal(checkFoodInput({ ingredientId: 7, fdcId: null, quantity: -1, unit: 
 assert.equal(checkFoodInput({ ingredientId: 7, fdcId: null, quantity: 1e9, unit: "g" }).ok, false);
 assert.equal(checkFoodInput({ ingredientId: 7, fdcId: null, quantity: 1, unit: "barrel" }).ok, false); // only listed units
 assert.equal(checkFoodInput({ ingredientId: 7, fdcId: null, quantity: 1, unit: "" }).ok, true); // "each"
+
+// ---- wave 10c: footnote credit, fat parts never under vitamins, no doubled "(no ...)" ----
+assert.equal(plain.publishedBy, "other"); // no data: MyPlate is not credited
+assert.equal(m1.publishedBy, "usda_myplate");
+assert.equal(m2.publishedBy, "other"); // computed recipe
+const fats = { status: "complete" as const, source: "computed" as const, gaps: [], rows: [row("fat_g", 20), row("sat_fat_g", 5), row("mono_fat_g", 8), row("poly_fat_g", 4), row("calcium_mg", 100)] };
+const noCols = { calories: null, proteinG: null, carbsG: null, fatG: null, fiberG: null, sodiumMg: null };
+const mf = buildLabel(noCols, fats, nutrients);
+assert.deepEqual(mf.top.map((r) => r.name), ["Total fat", "Saturated fat", "Polyunsaturated fat", "Monounsaturated fat"]);
+assert.deepEqual(mf.micro.map((r) => r.name), ["Calcium"]); // mono/poly never listed under vitamins and minerals
+const fatsHidden = buildLabel({ ...noCols, fatG: 3 }, { ...fats, source: "usda_myplate" as const }, nutrients);
+assert.deepEqual(fatsHidden.micro.map((r) => r.name), ["Calcium"]); // even when the breakdown is hidden
+assert.equal(uncountedText({ name: "pasta (no amount given)", reason: "no data" }), "pasta (no amount given)");
+assert.equal(uncountedText({ name: "pasta", reason: "no data" }), "pasta (no nutrition data)");
+assert.equal(uncountedText({ name: "pasta (no amount given)", reason: "optional" }), "pasta (optional)");
+assert.equal(uncountedText({ name: "salt", reason: "to taste" }), "salt (to taste)");
 
 console.log("test-nutrients: all assertions passed");

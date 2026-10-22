@@ -71,6 +71,8 @@
  * are NOT range filters; they keep their own ANY/ALL/NONE rules.
  */
 
+import { expandLegacyAllergens } from "@/lib/allergenSlugs";
+
 export type RecipeFilters = {
   /** Search text (door 2). */
   q?: string;
@@ -106,6 +108,8 @@ export type RecipeFilters = {
   calMin?: number;
   calMax?: number;
   proteinMin?: number;
+  /** Fridge page: show only the recipes that can be made now (nothing missing). Not a narrowing filter. */
+  now?: boolean;
   /** Pantry page: "expiry" = soonest-expiring saved-fridge items first (signed-in only). */
   sort?: "expiry";
   /**
@@ -137,6 +141,7 @@ export const FILTER_PARAMS = [
   "calMax",
   "proteinMin",
   "sort",
+  "now",
   "defaults",
   "cursor",
 ] as const satisfies readonly (keyof RecipeFilters)[];
@@ -196,6 +201,11 @@ function slugList(raw: string | undefined): string[] | undefined {
   return slugs.length ? slugs : undefined;
 }
 
+/** An old `exclude=nuts` link keeps protecting its reader: it now means peanuts AND tree nuts. */
+function legacyExclude(slugs: string[] | undefined): string[] | undefined {
+  return slugs ? expandLegacyAllergens(slugs).slice(0, MAX_LIST) : undefined;
+}
+
 /**
  * URL -> filters. Total: malformed or out-of-range values are dropped or
  * clamped, never thrown, because the input is user-editable.
@@ -223,7 +233,7 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     include: idList(first(sp, "include")),
     cuisine: slugList(first(sp, "cuisine")),
     diet: slugList(first(sp, "diet")),
-    exclude: slugList(first(sp, "exclude")),
+    exclude: legacyExclude(slugList(first(sp, "exclude"))),
     cookware: slugList(first(sp, "cookware")),
     ownedCookware: slugList(first(sp, "ownedCookware")),
     ownedOnly: first(sp, "ownedOnly") === "1" ? true : undefined,
@@ -232,6 +242,7 @@ export function parseFilters(sp: SearchParamsInput): RecipeFilters {
     calMax: num(first(sp, "calMax"), 0, 10000),
     proteinMin: num(first(sp, "proteinMin"), 0, 1000),
     sort: first(sp, "sort") === "expiry" ? "expiry" : undefined,
+    now: first(sp, "now") === "1" ? true : undefined,
     defaults: first(sp, "defaults") === "off" ? "off" : undefined,
     cursor: cursor || undefined,
   };

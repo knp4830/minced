@@ -17,7 +17,7 @@ const GROUPS = [
     label: "Use Minced",
     links: [
       ["/recipes", "Browse recipes"],
-      ["/pantry", "What’s in my fridge"],
+      ["/pantry", "Cook from what you have"],
       ["/shopping", "Shopping list"],
       ...(ME_ENABLED ? ([["/me", "Me: nutrition and workouts"]] as const) : []),
     ],

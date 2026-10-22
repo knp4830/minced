@@ -74,9 +74,9 @@ set role authenticated;
 select set_config('request.jwt.claim.sub', 'aaaaaaaa-0000-0000-0000-0000000000a1', false);
 select pg_temp.check((select count(*) from user_settings) = 0, 'a new person has no row (the app falls back to defaults)');
 select pg_temp.succeeds($q$ insert into user_settings (user_id, units, week_start, sex, diet_slugs, allergen_slugs)
-  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 'metric', 'monday', 'female', array['vegetarian','gluten-free'], array['nuts','dairy']) $q$, 'A inserts own settings');
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 'metric', 'monday', 'female', array['vegetarian','gluten-free'], array['tree-nuts','dairy']) $q$, 'A inserts own settings');
 select pg_temp.check((select count(*) from user_settings) = 1, 'A reads own row');
-select pg_temp.check((select allergen_slugs from user_settings) = array['dairy','nuts'], 'allergen slugs are stored sorted');
+select pg_temp.check((select allergen_slugs from user_settings) = array['dairy','tree-nuts'], 'allergen slugs are stored sorted');
 select pg_temp.check((select diet_slugs from user_settings) = array['gluten-free','vegetarian'], 'diet slugs are stored sorted');
 select pg_temp.succeeds($q$ update user_settings set week_start = 'sunday' where user_id = 'aaaaaaaa-0000-0000-0000-0000000000a1' $q$, 'A updates own settings');
 select pg_temp.check((select week_start from user_settings) = 'sunday', 'the update took');
@@ -91,12 +91,15 @@ select pg_temp.raises($q$ update user_settings set week_start = 'tuesday' $q$, '
 select pg_temp.raises($q$ update user_settings set sex = 'other' $q$, 'bad sex rejected');
 select pg_temp.succeeds($q$ update user_settings set sex = null $q$, 'sex may be null (not set yet)');
 select pg_temp.succeeds($q$ update user_settings set sex = 'female' $q$, 'sex may be set again');
+select pg_temp.succeeds($q$ update user_settings set birth_year = 1996 $q$, 'birth year may be set');
+select pg_temp.raises($q$ update user_settings set birth_year = 1850 $q$, 'an implausible birth year is rejected (constraint)');
+select pg_temp.succeeds($q$ update user_settings set birth_year = null $q$, 'birth year may be cleared');
 select pg_temp.raises($q$ update user_settings set diet_slugs = array['keto'] $q$, 'unknown diet slug rejected');
-select pg_temp.raises($q$ update user_settings set allergen_slugs = array['peanuts'] $q$, 'unknown allergen slug rejected');
-select pg_temp.succeeds($q$ update user_settings set allergen_slugs = array['nuts', null, 'dairy'] $q$, 'a null inside the array is accepted...');
-select pg_temp.check((select allergen_slugs from user_settings) = array['dairy','nuts'], '...and dropped, never stored');
-select pg_temp.succeeds($q$ update user_settings set allergen_slugs = array['nuts','nuts','dairy','nuts'] $q$, 'duplicates are accepted');
-select pg_temp.check((select allergen_slugs from user_settings) = array['dairy','nuts'], 'duplicates are removed and the list sorted');
+select pg_temp.raises($q$ update user_settings set allergen_slugs = array['nuts'] $q$, 'the retired nuts slug is rejected (split into peanuts + tree-nuts)');
+select pg_temp.succeeds($q$ update user_settings set allergen_slugs = array['tree-nuts', null, 'dairy'] $q$, 'a null inside the array is accepted...');
+select pg_temp.check((select allergen_slugs from user_settings) = array['dairy','tree-nuts'], '...and dropped, never stored');
+select pg_temp.succeeds($q$ update user_settings set allergen_slugs = array['tree-nuts','tree-nuts','dairy','tree-nuts'] $q$, 'duplicates are accepted');
+select pg_temp.check((select allergen_slugs from user_settings) = array['dairy','tree-nuts'], 'duplicates are removed and the list sorted');
 select pg_temp.succeeds($q$ update user_settings set diet_slugs = '{}', allergen_slugs = '{}' $q$, 'empty lists are fine');
 select pg_temp.raises($q$ update user_settings set diet_slugs = array['vegan','vegetarian','pescatarian','gluten-free','a1','a2','a3','a4','a5'] $q$, 'more than 8 diets rejected');
 select pg_temp.raises($q$ update user_settings set allergen_slugs = (select array_agg('x' || i) from generate_series(1, 17) i) $q$, 'more than 16 allergens rejected');
@@ -182,8 +185,8 @@ select pg_temp.check(
   (select count(*) from search_recipes(q => 'salad', diet_slugs => array['vegetarian'], result_limit => 50)) <=
   (select count(*) from search_recipes(q => 'salad', result_limit => 50)), 'search with a diet default can only narrow');
 select pg_temp.check(not exists (
-  select 1 from search_recipes(q => 'salad', diet_slugs => array['vegan'], exclude_allergen_slugs => array['nuts'], result_limit => 50) s
-  join recipe_allergens ra on ra.recipe_id = s.id join allergens a on a.id = ra.allergen_id where a.slug = 'nuts'),
+  select 1 from search_recipes(q => 'salad', diet_slugs => array['vegan'], exclude_allergen_slugs => array['tree-nuts'], result_limit => 50) s
+  join recipe_allergens ra on ra.recipe_id = s.id join allergens a on a.id = ra.allergen_id where a.slug = 'tree-nuts'),
   'search with an allergen default returns no recipe carrying that allergen');
 
 -- ================= cascade =================

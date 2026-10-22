@@ -1,7 +1,8 @@
 import { unstable_cache } from "next/cache";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-import { MACRO_COLUMNS, toNutrient, type Nutrient, type NutrientRow } from "@/lib/nutrients";
+import { toNutrient, type Nutrient, type NutrientRow } from "@/lib/nutrients";
+import { snapshotFromRows } from "@/lib/me/snapshot";
 import { createStaticClient } from "@/lib/supabase/static";
 
 /*
@@ -13,7 +14,6 @@ import { createStaticClient } from "@/lib/supabase/static";
 
 const loose = () => createStaticClient() as unknown as SupabaseClient;
 
-const MACRO_FDC: ReadonlySet<number> = new Set(MACRO_COLUMNS.map((m) => m.fdc));
 
 // ---------------------------------------------------------------- nutrients
 
@@ -61,6 +61,10 @@ export type RecipeNutrients = {
    * says the computed vitamins and minerals may not match the published calories. Null when not applicable.
    */
   kcalDelta?: number | null;
+  /** Stated assumptions behind a number, e.g. "nutrition assumes cheddar" when a line says only "cheese". */
+  assumptions?: string[];
+  /** National composition tables the label draws on ("cofid", "cnf"); each needs its licence credit. */
+  nationalSources?: ("cofid" | "cnf")[];
   rows: RecipeNutrientRow[];
 };
 
@@ -75,6 +79,7 @@ type StatusRow = {
   nutrition_source: NutritionSource | null;
   nutrition_gaps: string[] | null;
   nutrition_kcal_delta?: number | string | null;
+  nutrition_assumptions?: string[] | null;
 };
 
 const asNum = (v: unknown): number | null => {
@@ -91,13 +96,14 @@ const asNum = (v: unknown): number | null => {
 export async function getRecipeNutrients(recipeId: string): Promise<RecipeNutrients | null> {
   const sb = loose();
   try {
-    const [rn, st] = await Promise.all([
+    const [rn, st, ns] = await Promise.all([
       sb
         .from("recipe_nutrients")
         .select("amount_per_serving, coverage, nutrients(id, key, name, unit, fdc_number, dv_amount, dv_unit, display_group, sort)")
         .eq("recipe_id", recipeId)
         .limit(200),
-      sb.from("recipes").select("nutrition_status, nutrition_source, nutrition_gaps, nutrition_kcal_delta").eq("id", recipeId).maybeSingle(),
+      sb.from("recipes").select("nutrition_status, nutrition_source, nutrition_gaps, nutrition_kcal_delta, nutrition_assumptions").eq("id", recipeId).maybeSingle(),
+      sb.rpc("recipe_national_sources", { p_recipe_id: recipeId }),
     ]);
     if (rn.error || st.error) return null;
 
@@ -115,6 +121,9 @@ export async function getRecipeNutrients(recipeId: string): Promise<RecipeNutrie
       // a NULL or non-string element must never reach the page (it rendered a blank row)
       gaps: (s?.nutrition_gaps ?? []).filter((g): g is string => typeof g === "string" && g.trim() !== ""),
       kcalDelta: asNum(s?.nutrition_kcal_delta),
+      assumptions: (s?.nutrition_assumptions ?? []).filter((a): a is string => typeof a === "string" && a.trim() !== ""),
+      // a failed lookup shows no credit; the static credit on /about always stands
+      nationalSources: ns.error ? [] : ((ns.data ?? []) as string[]).filter((x): x is "cofid" | "cnf" => x === "cofid" || x === "cnf"),
       rows,
     };
   } catch {
@@ -128,13 +137,6 @@ export async function getRecipeNutrients(recipeId: string): Promise<RecipeNutrie
  */
 export async function getRecipeNutrientSnapshot(recipeId: string): Promise<Record<string, number> | null> {
   const data = await getRecipeNutrients(recipeId);
-  if (!data) return null;
-  const out: Record<string, number> = {};
-  for (const r of data.rows) {
-    // The six macro columns on the diary row are the source of truth for those (they carry the published
-    // value); repeating a computed copy here would let two numbers for the same thing drift apart.
-    if (r.nutrient.fdcNumber !== null && MACRO_FDC.has(r.nutrient.fdcNumber)) continue;
-    if (r.amount !== null && r.coverage > 0) out[r.nutrient.key] = r.amount;
-  }
-  return Object.keys(out).length > 0 ? out : null;
+  if (!data || data.status === "unavailable") return null;
+  return snapshotFromRows(data.rows, data.status === "partial");
 }

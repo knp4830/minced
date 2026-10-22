@@ -30,14 +30,14 @@ export default function PrivacyPage() {
       </LegalSection>
 
       <LegalSection id="collect" title="What we store">
-        <p>Without an account, we do not keep a profile of you, and searching and browsing are not recorded against a person. If you use the
-          &ldquo;What&apos;s in my fridge&rdquo; picker, your picks are saved in your
-          own browser storage on your device. They are also sent in the page address
-          (<code className="font-mono text-[0.875em]">/pantry?pantry=&hellip;</code>) each time you tap
-          &ldquo;show recipes&rdquo;, so our server can find matching recipes. They are not tied to an account, but
-          they may appear in our hosting provider&apos;s request logs alongside your IP address. The same goes for the
-          cookware you say you own (&ldquo;My cookware&rdquo;): it is kept in your browser storage and sent in the page
-          address (<code className="font-mono text-[0.875em]">ownedCookware=&hellip;</code>). Your shopping list, when you are not signed in, is kept only in your browser storage and is never sent to us.</p>
+        <p>Without an account, we do not keep a profile of you, and searching and browsing are not recorded against a person. The
+          fridge is the exception that needs an account: Minced does not keep your fridge in your browser, in a cookie or in the page
+          address, so without an account it is not stored anywhere. If you pick ingredients in the &ldquo;Choose ingredients&rdquo; filter
+          on the recipes page, the picks travel in the page address (<code className="font-mono text-[0.875em]">include=&hellip;</code>) so
+          our server can find matching recipes. They are not tied to an account, but they may appear in our hosting provider&apos;s request
+          logs alongside your IP address. The same goes for the cookware you say you own (&ldquo;My cookware&rdquo;): it is kept in your
+          browser storage and sent in the page address (<code className="font-mono text-[0.875em]">ownedCookware=&hellip;</code>). Your
+          shopping list, when you are not signed in, is kept only in your browser storage and is never sent to us.</p>
         <p>With an account:</p>
         <ul>
           <li>Your email address, so you can log in and recover your password.</li>
@@ -80,8 +80,8 @@ export default function PrivacyPage() {
 
       <LegalSection id="health" title="Health and fitness data">
         <p>
-          Settings (also optional) stores your units, the first day of your week, your sex (female or male, used only for the
-          Me calorie estimate and the body we draw), and the diet and allergen choices you want applied to recipe lists. Like
+          Settings (also optional) stores your units, the first day of your week, your sex (female or male) and, if you give it, your birth year (used only for the
+          Me calorie estimate, the age-banded vitamin and mineral daily values, and the body we draw), and the diet and allergen choices you want applied to recipe lists. Like
           everything below, it is tied to your account, only you can read it, and it is included in &ldquo;Download my data&rdquo;.
         </p>
         <p>
@@ -121,10 +121,10 @@ export default function PrivacyPage() {
           the page can tell which day it is for you. It holds no other information, and it is removed when you log out or delete your account.
           If you save default diet or allergen filters in Settings, a further small cookie,{" "}
           <code className="font-mono text-[0.875em]">minced_prefs</code>, holds those choices (for example &ldquo;vegetarian&rdquo; and
-          &ldquo;nuts&rdquo;) for up to a week, so recipe lists can leave out what you avoid before the page is drawn. It is strictly
+          &ldquo;peanuts&rdquo;) for up to a week, so recipe lists can leave out what you avoid before the page is drawn. It is strictly
           functional, is read only by Minced&apos;s servers, is used only while you are logged in, and is removed when you log out or
           delete your account.
-          Nothing else on Minced sets cookies. (Your fridge picks are saved in browser storage on your device, not in cookies.)
+          Nothing else on Minced sets cookies. (Your fridge is saved to your account, never in a cookie.)
         </p>
       </LegalSection>
 

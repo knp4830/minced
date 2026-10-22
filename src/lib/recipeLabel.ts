@@ -71,6 +71,11 @@ export type LabelModel = {
   micro: LabelRow[];
   /** Where the numbers came from, to word the footnote honestly. */
   basis: "published" | "computed" | "published+computed" | "none";
+  /**
+   * Who published the macro columns, for the footnote. "usda_myplate" only when the database says the recipe is a
+   * USDA MyPlate import; a recipe we computed, or one whose source is not recorded, never credits MyPlate.
+   */
+  publishedBy: "usda_myplate" | "other";
   partial: boolean;
   unavailable: boolean;
   /**
@@ -124,13 +129,18 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
       .map((f) => byFdcRow.get(f)?.amount)
       .filter((v): v is number => typeof v === "number");
     const sum = parts.reduce((a, b) => a + b, 0);
-    const tooBig = sum > pubFat.amount * 1.05 + 0.5 || parts.some((v) => v > pubFat.amount + 0.5);
+    // whole grams on the label: parts may exceed the whole by half a gram of rounding, never more (a part of 0.4 g under 0.3 g shows)
+    // each part is compared as DISPLAYED (rounded the way the label rounds it), so no part is ever shown above its whole
+    const fatShown = roundForLabel(pubFat.amount, { unit: "g", fdcNumber: FDC.fat });
+    const shownSum = parts.reduce((a, v) => a + roundForLabel(v, { unit: "g", fdcNumber: FDC.satFat }), 0);
+    const tooBig = sum > pubFat.amount + 0.5 || shownSum > fatShown + 0.5 || parts.some((v) => roundForLabel(v, { unit: "g", fdcNumber: FDC.satFat }) > fatShown);
     if (tooBig) for (const f of [FDC.satFat, FDC.transFat, FDC.monoFat, FDC.polyFat]) if (byFdcRow.has(f)) hidden.add(f);
   }
   const pubCarb = found(FDC.carbs);
   if (pubCarb) {
     const sugars = byFdcRow.get(FDC.sugars)?.amount;
-    if (typeof sugars === "number" && sugars > pubCarb.amount + 0.5) {
+    // sugars are compared as DISPLAYED: 9.5 g of sugars shows "10 g" and 9.4 g of carbohydrate shows "9.4 g"
+    if (typeof sugars === "number" && roundForLabel(sugars, { unit: "g", fdcNumber: FDC.sugars }) > roundForLabel(pubCarb.amount, { unit: "g", fdcNumber: FDC.carbs })) {
       hidden.add(FDC.sugars);
       hidden.add(FDC.addedSugars);
     }
@@ -179,8 +189,8 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
     const f = found(t.fdc);
     if (!f) continue;
     const isMacro = MACRO_COLUMNS.some((m) => m.fdc === t.fdc);
-    if (f.computed && !isMacro && f.coverage < MIN_COVERAGE) {
-      // Saturated fat, cholesterol, sugars: same 90% rule as vitamins, shown as "not enough data".
+    if (f.computed && !isMacro && (f.coverage < MIN_COVERAGE || (partial && f.amount <= 0))) {
+      // Saturated fat, cholesterol, sugars: same 90% rule as vitamins, and a partial recipe's zero ("at least 0") says nothing; shown as "not enough data".
       top.push({ fdc: n.fdcNumber, name: n.name, amountText: "", amount: null, pct: null, indent: t.indent, bold: t.bold, atLeast: false, estimated: false, noData: true, limit: false });
       continue;
     }
@@ -222,7 +232,7 @@ export function buildLabel(columns: Columns, data: RecipeNutrients | null, nutri
   const delta = data?.kcalDelta;
   const disagreement =
     !unavailable && data?.source === "usda_myplate" && typeof delta === "number" && Math.abs(delta) > DISAGREE_THRESHOLD ? delta : null;
-  return { calories, top, micro, basis, partial, unavailable, breakdownHidden: hidden.size > 0, disagreement };
+  return { calories, top, micro, basis, publishedBy: data?.source === "usda_myplate" ? "usda_myplate" : "other", partial, unavailable, breakdownHidden: hidden.size > 0, disagreement };
 }
 
 /** Ingredient lines that did not add to the numbers, with the reason, for the "not counted" list. */
@@ -262,6 +272,9 @@ export function sodiumIsMinimum(lines: { name: string; quantity: number | null; 
  */
 export function uncountedText(u: UncountedLine): string {
   const name = u.name.trim().replace(/[.\s]+$/, "");
-  if (u.reason === "no data") return /\([^()]*\)$/.test(name) ? name : `${name} (no nutrition data)`;
-  return `${name} (${u.reason})`;
+  // A name already ending in a bracket (including nested ones: "cauliflower (no gram weight for head (floret))")
+  // carries its own reason; do not add a second.
+  if (u.reason === "no data") return /\)$/.test(name) ? name : `${name} (no nutrition data)`;
+  // "optional" / "to taste" after a name that already ends "(no amount given)" read as "(no ...) (optional)"; drop the first.
+  return `${name.replace(/\s*\(no [^()]*\)$/i, "")} (${u.reason})`;
 }

@@ -71,7 +71,7 @@ sev | Pantry | pantry | SA | besan sev;chickpea noodles snack;nylon sev | - | //
 bhujia | Pantry | pantry | SA | bikaneri bhujia;aloo bhujia | - | // bhujia cat=popcorn
 chivda | Pantry | pantry | SA | chiwda;bombay mix;namkeen;chevda | nuts | // bombay mix cat=popcorn
 murmura | Pantry | grains | SA | puffed rice indian;mamra;borugulu;muri | - | // murmura cat=rice
-semolina | Pantry | grains | SA,EUM,NAF | suji;rava;sooji;durum semolina;cream of wheat | gluten | semolina enriched //
+semolina | Pantry | grains | SA,EUM,NAF | suji;rava;sooji;durum semolina;cream of wheat;farina | gluten | semolina enriched //
 idli rice | Pantry | grains | SA | parboiled rice;idli parboiled rice;ukda chawal | - | rice white long-grain parboiled enriched dry //
 sona masoori rice | Pantry | grains | SA | sona masuri;ponni rice;samba rice | - | rice white,_medium-grain,_raw //
 ragi flour | Pantry | grains | SA,EAF | finger millet flour;nachni;mandua;kurakkan | - | millet raw //

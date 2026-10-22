@@ -138,14 +138,36 @@ export default async function AboutPage() {
         <p>
           Nutrient data: U.S. Department of Agriculture, Agricultural Research
           Service, FoodData Central (fdc.nal.usda.gov). That includes its
-          Foundation, SR Legacy and Survey (FNDDS) foods, and the manufacturer
-          label data in its Branded Foods set, which is where brand names such as
-          a particular soy sauce come from. FoodData Central is public domain
+          Foundation and SR Legacy foods, and the manufacturer label data in
+          its Branded Foods set, which is where brand names such as a
+          particular soy sauce come from. FoodData Central is public domain
           (CC0 1.0). Vitamin and mineral figures are worked out from the
           ingredients before cooking, so they can be higher than what is left
           after boiling or baking. A nutrient is shown only when enough of a
           recipe&apos;s ingredients report it, and an ingredient with no nutrition
           data is listed as not counted rather than guessed.
+        </p>
+        <p>
+          For some world ingredients that FoodData Central does not cover, nutrient values come from two national
+          composition tables, copied once into our own database (no live calls). UK foods: McCance and
+          Widdowson&apos;s Composition of Foods Integrated Dataset 2021, Public Health England. Contains public sector
+          information licensed under the{" "}
+          <a className="underline" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">
+            Open Government Licence v3.0
+          </a>
+          . Canadian foods: Canadian Nutrient File 2026, Health Canada. Contains information licensed under the{" "}
+          <a className="underline" href="https://open.canada.ca/en/open-government-licence-canada">
+            Open Government Licence - Canada
+          </a>
+          .
+        </p>
+        <p>
+          Daily values on recipe pages are the U.S. FDA label values for a 2,000-calorie diet. On your Me page they are
+          personal: your own calorie and macro targets, 10% of your calories for saturated fat and added sugars (Dietary
+          Guidelines for Americans), and, for fiber, vitamins and minerals, the Recommended Dietary Allowance or
+          Adequate Intake for your sex and age from the Dietary Reference Intakes (National Academies of Sciences,
+          Engineering, and Medicine; potassium and sodium from the 2019 update). They are not adjusted for pregnancy,
+          breastfeeding or smoking.
         </p>
         <p>
           Minced is not medical or dietary advice. If you are pregnant, managing a
@@ -166,15 +188,15 @@ export default async function AboutPage() {
 
       <Section id="matching" title="How the fridge search works">
         <p>
-          You tap what you have and Minced lists every recipe that uses at least one
-          of those things, closest match first. Each recipe ingredient is matched to one
+          Save what you have to your account and Minced groups every recipe by how little you are missing: what you can make now,
+          then one thing short, then two, closest match first. Each recipe ingredient is matched to one
           standard ingredient, so
           &ldquo;scallion&rdquo; and &ldquo;green onion&rdquo; are the same
           thing. Salt, pepper, oil, butter, sugar, flour and water are assumed to
           be in your kitchen and never count as missing, and optional ingredients
-          are not counted either. You can search by fridge without an
-          account; the picks live in the link you share. Sign in to save your
-          fridge, your favourite recipes and a shopping list.
+          are not counted either. Saving a fridge needs an account, because it is kept in your account
+          and nowhere in your browser. Without one, you can still use &ldquo;Choose ingredients&rdquo; on the recipes page to find
+          recipes that use them. An account also keeps your favourite recipes and a shopping list.
         </p>
       </Section>
 

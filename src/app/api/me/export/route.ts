@@ -35,7 +35,7 @@ export async function GET() {
     account_created_at: user.created_at,
     saved_recipes: favorites,
     owned_cookware: cookware,
-    // Units, week start, sex and the default diet / allergen filters. null until you save one.
+    // Units, week start, sex, birth year and the default diet / allergen filters. null until you save one.
     settings,
     fridge: fridge.map((f) => ({
       ingredient: f.name,

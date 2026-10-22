@@ -196,5 +196,19 @@ Live site: https://minced-app.vercel.app
 - [ ] Phone 375: /settings, recipe label and the Me add-food dialog have no horizontal scroll.
 - [ ] Run on a throwaway stack: `supabase/tests/nutrition_compute_test.sql`, `nutrition_rls_test.sql`, `recipe_ingredient_foods_test.sql`, `user_settings_test.sql` (68 checks), then `scripts/nutrition/sql-checks.sql`, `check_usda_seeds.sql`.
 
+## 18. Wave 10c (2026-10-19), check after the 22 migrations, seeds and refresh are live
+
+- [ ] Landing: the hero button says "Choose ingredients"; pick two and go to `/recipes?include=...` signed out (nothing written to cookies or storage). "Cook from what you have" explains the feature; signed out it offers Create account / Log in, signed in it shows your fridge.
+- [ ] `/pantry` and `/fridge` signed out show a sign-in gate. Signed in, add 10 items: groups appear as Make now, Missing 1, Missing 2 and a collapsed "Need a few more". Each card names its missing ingredients; "Add all" puts them on `/shopping`. "Only what I can make now" shows only Make now. Items expiring soon sort first inside a group. Staples are stated as assumed.
+- [ ] Allergens: `/recipes?exclude=nuts` shows two chips (peanuts, tree nuts). Pad Thai with peanuts avoided still appears, labelled "peanuts optional: leave out". Kung Pao says "Contains peanuts" (everyone) and "which you avoid" (signed in with peanuts saved in Settings).
+- [ ] Diets: with vegetarian saved, `/recipes` shows about 630 of 957 recipes; no meat dish appears.
+- [ ] Recipe label: calories in the header equal the label; "at least" appears on partial micronutrients; a recipe using cheese says "nutrition assumes cheddar"; stand-in foods are listed under the label; a UK or Canadian food shows the Open Government Licence credit; `/about` carries the same credits.
+- [ ] A gap in "Not counted" never reads "(no ...) (no nutrition data)".
+- [ ] Me (flag on): give only weight, sex and birth year in Settings: Me shows a sedentary baseline; vitamins and minerals use age-banded targets; "All nutrients" hides low-coverage micros; mono/poly/trans fat sit under fats.
+- [ ] Settings: peanuts, tree nuts, mollusks and wheat are separate choices; an old saved "nuts" shows as peanuts + tree nuts.
+- [ ] `/robots.txt` disallows `/settings` and `/me`. `/privacy` says the fridge is account-only and describes birth year.
+- [ ] Phone 375: landing, `/pantry`, `/settings` have no horizontal scroll.
+- [ ] Known open (see `docs/review/2026-10-18-wave10c-questions.md`): black beans still default to the boiled record, 245 ingredients have no food, 5 gluten-free pasta brand links are wrong.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

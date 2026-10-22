@@ -1,0 +1,49 @@
+ingredient,size,factor,usda_fdc_id,small_g,medium_g,large_g,source
+flour tortillas,7 inch,1.6333,175037,,30,49,FDC 175037 foodPortions: 7-8 in 49 g / 6 in 30 g
+flour tortillas,8 inch,1.6333,175037,,30,49,FDC 175037 foodPortions: 7-8 in 49 g / 6 in 30 g
+flour tortillas,10 inch,2.4000,175037,,30,72,FDC 175037 foodPortions: 10 in 72 g / 6 in 30 g
+flour tortillas,12 inch,3.9000,175037,,30,117,FDC 175037 foodPortions: 12 in 117 g / 6 in 30 g
+pita bread,4 inch,0.4375,174916,,64,28,FDC 174916 foodPortions: 4 in 28 g / 6.5 in 64 g
+yellow onion,small,0.6364,170000,70,110,150,FDC 170000 foodPortions: small 70 g / medium 110 g
+yellow onion,large,1.3636,170000,70,110,150,FDC 170000 foodPortions: large 150 g / medium 110 g
+red onion,small,0.6364,170000,70,110,150,FDC 170000 foodPortions: small 70 g / medium 110 g
+red onion,large,1.3636,170000,70,110,150,FDC 170000 foodPortions: large 150 g / medium 110 g
+white onion,small,0.6364,170000,70,110,150,FDC 170000 foodPortions: small 70 g / medium 110 g
+white onion,large,1.3636,170000,70,110,150,FDC 170000 foodPortions: large 150 g / medium 110 g
+apple,small,0.8187,171688,149,182,223,FDC 171688 foodPortions: small 149 g / medium 182 g
+apple,large,1.2253,171688,149,182,223,FDC 171688 foodPortions: large 223 g / medium 182 g
+egg,small,0.7600,171287,38,44,50,FDC 171287 foodPortions: small 38 g / large 50 g
+egg,medium,0.8800,171287,38,44,50,FDC 171287 foodPortions: medium 44 g / large 50 g
+egg,extra large,1.1200,171287,38,44,50,FDC 171287 foodPortions: extra large 56 g / large 50 g
+egg,jumbo,1.2600,171287,38,44,50,FDC 171287 foodPortions: jumbo 63 g / large 50 g
+carrot,small,0.8197,170393,50,61,72,FDC 170393 foodPortions: small 50 g / medium 61 g
+carrot,large,1.1803,170393,50,61,72,FDC 170393 foodPortions: large 72 g / medium 61 g
+green bell pepper,small,0.6218,170427,74,119,164,FDC 170427 foodPortions: small 74 g / medium 119 g
+green bell pepper,large,1.3782,170427,74,119,164,FDC 170427 foodPortions: large 164 g / medium 119 g
+red bell pepper,small,0.6218,170108,74,119,164,FDC 170108 foodPortions: small 74 g / medium 119 g
+red bell pepper,large,1.3782,170108,74,119,164,FDC 170108 foodPortions: large 164 g / medium 119 g
+russet potato,small,0.7981,170027,170,213,369,FDC 170027 foodPortions: small 170 g / medium 213 g
+russet potato,large,1.7324,170027,170,213,369,FDC 170027 foodPortions: large 369 g / medium 213 g
+red potato,small,0.7981,170029,170,213,369,FDC 170029 foodPortions: small 170 g / medium 213 g
+red potato,large,1.7324,170029,170,213,369,FDC 170029 foodPortions: large 369 g / medium 213 g
+banana,small,0.8559,173944,101,118,136,FDC 173944 foodPortions: small 101 g / medium 118 g
+banana,large,1.1525,173944,101,118,136,FDC 173944 foodPortions: large 136 g / medium 118 g
+banana,extra large,1.2881,173944,101,118,136,FDC 173944 foodPortions: extra large 152 g / medium 118 g
+tomato,small,0.7398,170457,91,123,182,FDC 170457 foodPortions: small 91 g / medium 123 g
+tomato,large,1.4797,170457,91,123,182,FDC 170457 foodPortions: large 182 g / medium 123 g
+zucchini,small,0.6020,169291,118,196,323,FDC 169291 foodPortions: small 118 g / medium 196 g
+zucchini,large,1.6480,169291,118,196,323,FDC 169291 foodPortions: large 323 g / medium 196 g
+summer squash,small,0.6020,170487,118,196,323,FDC 170487 foodPortions: small 118 g / medium 196 g
+summer squash,large,1.6480,170487,118,196,323,FDC 170487 foodPortions: large 323 g / medium 196 g
+yellow squash,small,0.6020,170487,118,196,323,FDC 170487 foodPortions: small 118 g / medium 196 g
+yellow squash,large,1.6480,170487,118,196,323,FDC 170487 foodPortions: large 323 g / medium 196 g
+pear,small,0.8315,169118,148,178,230,FDC 169118 foodPortions: small 148 g / medium 178 g
+pear,large,1.2921,169118,148,178,230,FDC 169118 foodPortions: large 230 g / medium 178 g
+cauliflower,small,0.4507,169986,265,588,840,FDC 169986 foodPortions: small 265 g / medium 588 g
+cauliflower,large,1.4286,169986,265,588,840,FDC 169986 foodPortions: large 840 g / medium 588 g
+orange,small,0.7328,169097,96,131,184,FDC 169097 foodPortions: small 96 g / medium 131 g
+orange,large,1.4046,169097,96,131,184,FDC 169097 foodPortions: large 184 g / medium 131 g
+peach,small,0.8667,169928,130,150,175,FDC 169928 foodPortions: small 130 g / medium 150 g
+peach,large,1.1667,169928,130,150,175,FDC 169928 foodPortions: large 175 g / medium 150 g
+peach,extra large,1.4933,169928,130,150,175,FDC 169928 foodPortions: extra large 224 g / medium 150 g
+papaya,small,0.2010,169926,157,,781,"FDC 169926 foodPortions: fruit small 157 g / large 781 g; the ingredient each-weight (781 g) is the LARGE fruit"

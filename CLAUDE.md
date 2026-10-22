@@ -242,11 +242,20 @@ Owner's 19-item desktop review. **Before merging:** back up live, apply `supabas
 - **Accuracy is honest, not great:** audits found food data faithful to USDA, but computed calories differ from published MyPlate by a median 12 percent. Labels say estimated. No BUILD-PLAN box checked.
 - **Open:** your mapping review (CSVs listed in `docs/review/2026-10-17-wave10-11-questions.md`), M5.2, M3.7, M1.5.7.
 
+### Wave 10c (2026-10-19): integrated on `w10c/integration`, carried on PR #58, NOT applied to live
+
+**PR #58 now holds waves 10, 11 and 10c. Live has 37 migrations; the PR adds 22 (live goes to 59). Apply them, the seeds and the jit-off refresh exactly as in `scripts/nutrition/LIVE-STEPS.md` BEFORE merging (back up first), then push an empty commit to re-run the preview.** Code first gives 500s on `/settings`, `/pantry`, signed-in `/recipes`, recipe pages and Me.
+
+- **Built:** nutrition math accuracy (strict forms, qualifiers, size words, stand-ins flagged), UK CoFID and Canada CNF foods (Open Government Licence, credited on `/about` and under the label), allergens split into 11 with optional-only handling and one `recipe_has_allergen()` predicate, every ingredient tagged, diet tagging complete, fridge account-only with `fridge_recipes_grouped` and one-tap add-missing, "Choose ingredients" hero, age-banded DRIs (`nutrient_dris`) and a sedentary baseline from weight + sex + birth year.
+- **Audit numbers (final round):** MyPlate complete recipes (578) median kcal error 6.2%, 81.3% within 15%; all recipes counted from 90%+ of mass (848): median 8.7%, 66.9% within 15%. Food values match the FDC API (0 unexplained). Allergen and diet audit passed. No BUILD-PLAN box checked.
+- **Open defects (fixes listed in `docs/review/2026-10-18-wave10c-questions.md`):** black beans should default to SR 175188 canned, CoFID/CNF import unfinished (245 ingredients still without a food), 5 gluten-free pasta links to wheat pasta, potato each-weight 230 g vs USDA 213 g, "uncooked" read as cooked on 3 pasta recipes, cauliflower "florets" counted as one floret, canned "drained and rinsed" weights.
+- **Security glance:** no high findings. New tables have RLS on and reference tables are select-only; new functions are SECURITY INVOKER except `refresh_recipe_nutrients` (revoked from public) and `my_recipe_foods` (checks `auth.uid()` and ownership).
+
 ### Next up
 
-1. **You:** read `docs/review/2026-10-17-wave10-11-questions.md`, say "go" so Claude backs up live and applies migrations, seeds and refresh, then merge.
-2. Review the mapping CSVs in batches of 30. Fix wrong defaults in the mapping TSVs and rebuild the seed.
-3. Small wave: recipe import qualifiers (low-fat, cooked, canned, "A or B"), draft nutrition preview in the recipe form, vegetarian tagging, sex/age Daily Values, wave 12 drop of `me_targets.sex/units`.
+1. **You:** read `docs/review/2026-10-18-wave10c-questions.md`, say "go" so Claude backs up live and applies migrations, seeds and refresh, then merge PR #58.
+2. Small wave (10d): the open defects above (black beans, CoFID/CNF remainder, brand links, potato weight, "uncooked", florets, drained cans), plus the mapping review CSVs.
+3. Recipe import qualifiers at the source, draft nutrition preview in the recipe form, wave 12 drop of `me_targets.sex/units`.
 4. Owner setup: Google Cloud, Resend plus Porkbun DNS, Vercel env vars; then turn the flags on. Paste-a-blog import.
 5. Post-MVP (end of BUILD-PLAN): workout plans and exercise library, SEO combo pages, food-science follow-ups.
 

@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { FieldHint, Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { previewFood, type PreviewResult } from "@/lib/actions/foods";
+import { listFoodForms, previewFood, type PreviewResult } from "@/lib/actions/foods";
 import { logFood, searchRecipes } from "@/lib/actions/me";
+import type { FoodForm } from "@/lib/foodForm";
 import { FOOD_UNITS } from "@/lib/foodInput";
 import { foodTitle } from "@/lib/foodTitle";
 import type { FoodHit } from "@/lib/foodHit";
@@ -261,6 +262,27 @@ function FoodTab({ date, meal, pending, startTransition, setMessage, onDone }: T
   const [unit, setUnit] = useState<string>("g");
   const [preview, setPreview] = useState<PreviewResult | "loading" | null>(null);
   const seq = useRef(0);
+  const [forms, setForms] = useState<FoodForm[]>([]);
+  const [formFdc, setFormFdc] = useState<number | null>(null);
+  // The food actually weighed: a brand's own record, else the raw / cooked choice, else the ingredient's default.
+  const fdcToUse = picked?.fdcId ?? formFdc;
+  const formLabelText = picked?.fdcId == null ? (forms.find((f) => f.fdcId === formFdc)?.label ?? null) : null;
+
+  // An ingredient with a raw and a cooked record asks which one was weighed (100 g of rice is 3x the calories raw).
+  useEffect(() => {
+    setForms([]);
+    setFormFdc(null);
+    if (!picked || picked.kind !== "ingredient" || picked.fdcId !== null || picked.ingredientId === null) return;
+    let cancelled = false;
+    listFoodForms(picked.ingredientId).then((f) => {
+      if (cancelled) return;
+      setForms(f);
+      setFormFdc(f.find((x) => x.isDefault)?.fdcId ?? f[0]?.fdcId ?? null);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [picked]);
 
   const usable = picked !== null && picked.ingredientId !== null && picked.hasNutrition !== false;
 
@@ -275,18 +297,18 @@ function FoodTab({ date, meal, pending, startTransition, setMessage, onDone }: T
     const mine = ++seq.current;
     setPreview("loading");
     const t = setTimeout(async () => {
-      const r = await previewFood({ ingredientId: picked.ingredientId, fdcId: picked.fdcId, quantity: amount, unit });
+      const r = await previewFood({ ingredientId: picked.ingredientId, fdcId: fdcToUse, quantity: amount, unit });
       if (mine === seq.current) setPreview(r);
     }, 300);
     return () => clearTimeout(t);
-  }, [picked, usable, qty, unit]);
+  }, [picked, usable, qty, unit, fdcToUse]);
 
   function add() {
     if (!picked || !usable) return;
     setMessage(null);
-    const label = `${foodTitle(picked)}, ${qty.trim()} ${unit || "each"}`.slice(0, 120);
+    const label = `${foodTitle(picked)}${formLabelText ? ` (${formLabelText.toLowerCase().split(" (")[0]})` : ""}, ${qty.trim()} ${unit || "each"}`.slice(0, 120);
     startTransition(async () => {
-      const r = await logFood({ kind: "food", date, meal, ingredientId: picked.ingredientId, fdcId: picked.fdcId, quantity: qty, unit, name: label });
+      const r = await logFood({ kind: "food", date, meal, ingredientId: picked.ingredientId, fdcId: fdcToUse, quantity: qty, unit, name: label });
       if (r.ok) onDone();
       else setMessage(r.error);
     });
@@ -335,6 +357,18 @@ function FoodTab({ date, meal, pending, startTransition, setMessage, onDone }: T
         </p>
       ) : (
         <>
+          {forms.length > 1 && (
+            <div className="mt-5 sm:max-w-sm">
+              <Label htmlFor={`${id}-form`}>Weighed as</Label>
+              <Select id={`${id}-form`} value={formFdc ?? ""} onChange={(e) => setFormFdc(Number(e.target.value))}>
+                {forms.map((f) => (
+                  <option key={f.fdcId} value={f.fdcId}>
+                    {f.label}
+                  </option>
+                ))}
+              </Select>
+            </div>
+          )}
           <div className="mt-5 grid grid-cols-[1fr_auto] items-end gap-3 sm:max-w-sm">
             <div>
               <Label htmlFor={`${id}-qty`}>Amount</Label>

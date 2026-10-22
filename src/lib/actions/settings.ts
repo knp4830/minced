@@ -10,6 +10,7 @@ import {
   oneOf,
   SEXES,
   UNITS,
+  validateBirthYear,
   validateDisplayName,
   validateFoodDefaults,
   WEEK_STARTS,
@@ -66,6 +67,12 @@ export async function saveWeekStart(weekStart: unknown): Promise<SaveResult> {
 export async function saveSex(sex: unknown): Promise<SaveResult> {
   if (sex !== null && !oneOf(sex, SEXES)) return bad("Pick female or male.");
   return saveOne({ sex });
+}
+
+export async function saveBirthYear(year: unknown): Promise<SaveResult> {
+  const v = validateBirthYear(year);
+  if (!v.ok) return bad(v.reason);
+  return saveOne({ birth_year: v.value });
 }
 
 /**

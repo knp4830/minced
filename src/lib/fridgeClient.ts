@@ -1,9 +1,8 @@
 /**
  * Browser-side access to the SAVED fridge (signed-in users). Client-only.
  *
- * Signed-out visitors never touch this: their fridge is the URL plus
- * localStorage (src/lib/fridgeStorage.ts). Signed-in, the database is the
- * truth and the URL is the working view of it.
+ * Signed-out visitors never touch this: a fridge needs an account (owner decision, wave 10c), and the
+ * database is the only place it lives. Never a cookie or localStorage.
  */
 
 import type { FridgeItem } from "@/lib/fridgeStorage";

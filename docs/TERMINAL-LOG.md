@@ -457,6 +457,11 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-17 | `SET jit = off; SELECT refresh_all_recipe_nutrients();` | Compute nutrition for every recipe | FAILED slow with JIT on (over an hour); with it off about 90 s |
 | 2026-10-17 | `supabase start --workdir <tmp>` with copied `config.toml` AND `templates/` | Signed-in local stack | The CLI reads auth email templates relative to the workdir |
 | 2026-10-17 | `gh pr create --base main --head w10/integration --body-file <file>` | Open the waves 10+11 PR | Body starts with a MERGE ORDER WARNING |
+| 2026-10-19 | `npx tsx scripts/test-filters-defaults.mts` | Run the filter-defaults tests | Fails after a settings field is added until the expected object gains it (birthYear: null) |
+| 2026-10-19 | `npx tsc --noEmit` | Type-check the whole project | Clean on w10c/integration |
+| 2026-10-19 | `python script.py` via a bash heredoc with apostrophes | Write docs from a heredoc | FAILED: the shell refuses heredocs it cannot verify; write the script to a file and run it |
+| 2026-10-19 | `git push origin w10c/integration:w10/integration` | Fast-forward PR #58's branch to carry wave 10c | Must be a fast-forward; merge origin first if it is not |
+| 2026-10-19 | `gh pr edit 58 --body-file <file>` | Rewrite the PR body for waves 10, 11 and 10c | Body starts with a MERGE ORDER WARNING |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

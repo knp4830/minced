@@ -413,3 +413,25 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 **The snapshot dump has no `private` schema and no grants.** Anything calling `private.*` (user recipes) fails locally; recreate the functions from `20261014120000` or test against a stub. The supabase CLI reads auth email templates relative to its `--workdir`, so copy `templates/` with `config.toml`.
 
 **The agent shell refuses compound commands it cannot verify** (docker plus variables, heredocs with unbalanced quotes). Write a small script file and run it with a plain command.
+
+## 12. Wave 10c (2026-10-19)
+
+**A decision is not done until the data shows it.** The owner chose canned, full-panel black beans (SR 175188); the fixer left 175237 as the default "owner to confirm" and the final audit caught it. After any owner decision, query the table and show the row.
+
+**Two accuracy numbers, never one.** "Complete" recipes (578) met the MyPlate targets while the 848 recipes counted from 90 percent of their mass did not. Report both, with the population, or the headline hides the misses.
+
+**A word that reverses another word must win.** "6 oz uncooked" next to "cooked" in a prep note was read as cooked. Negated forms ("uncooked", "dry") need checking before the positive form, or the line becomes a gap.
+
+**A count of one is not one part.** "1 cauliflower, cut in large florets" became one 25 g floret. A prep word that names a piece must not turn a bare whole-item count into that piece.
+
+**Curated each-weights must match the USDA portion they claim.** Russet potato 230 g vs USDA medium 213 g produced a +7 percent bias on 45 recipes. Check a curated weight against the FDC portion list before trusting it.
+
+**One predicate, one definition.** Allergen exclusion is `recipe_has_allergen()`; never paste the EXISTS text into a new RPC. Legacy slugs (`nuts`) are expanded inside the function so old cookies and saved settings keep working.
+
+**A superuser snapshot hides production permission errors.** Start any migration that re-creates a function carrying `SET pg_trgm...` with `select similarity('a','a');`.
+
+**Update tests in the same commit as the behaviour.** Adding `birthYear` to the settings validator, writing computed macros on refresh and adding a `light cream` ingredient each broke an old test that encoded the previous behaviour.
+
+**Nested parentheses defeat a `[^()]*` regex.** Gap reasons like "no gram weight for head (floret)" printed a second "(no nutrition data)". Test the trailing `)` instead.
+
+**Licence text before data.** Import government datasets only after reading the licence on the publisher's page; keep the text in `scripts/nutrition/national/LICENCES.md` and a visible attribution line.

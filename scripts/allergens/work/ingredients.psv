@@ -1,0 +1,1983 @@
+6|salmon|seafood|Protein|fish|9
+7|gochujang|pantry|Pantry|gluten;soy|4
+8|soy sauce|pantry|Pantry|gluten;soy|56
+9|honey|pantry|Pantry||36
+10|toasted sesame oil|pantry|Pantry|sesame|10
+11|garlic|vegetables|Produce||243
+12|scallion|vegetables|Produce||79
+13|sesame seeds|nuts|Spices|sesame|9
+14|chickpeas|legumes|Pantry||19
+15|crushed tomatoes|pantry|Pantry||9
+16|whole tomatoes|pantry|Pantry||6
+17|yellow onion|vegetables|Produce||350
+18|ginger|vegetables|Produce||44
+19|garam masala|spices|Spices||5
+20|ground cumin|spices|Spices||49
+21|cayenne|spices|Spices||22
+22|spaghetti|grains|Pantry|gluten|12
+23|pecorino romano||Dairy|dairy|2
+24|egg|eggs|Protein|egg|140
+25|red bell pepper|vegetables|Produce||77
+26|smoked paprika|spices|Spices||3
+27|ramen noodles|grains|Pantry|gluten|3
+28|white miso|pantry|Pantry|soy|2
+29|mushrooms|vegetables|Produce||24
+30|cauliflower|vegetables|Produce||17
+31|harissa paste|pantry|Pantry||1
+32|lemon|fruit|Produce||129
+33|ground coriander|spices|Spices||9
+34|olive oil|pantry|Pantry||129
+35|black pepper|spices|Spices||299
+37|red onion|vegetables|Produce||40
+38|white onion|vegetables|Produce||16
+39|sweet onion|vegetables|Produce||2
+40|shallot|vegetables|Produce||8
+43|leek|vegetables|Produce||0
+44|chives|herbs|Produce||4
+45|carrot|vegetables|Produce||122
+46|celery|vegetables|Produce||95
+47|russet potato|vegetables|Produce||66
+48|red potato|vegetables|Produce||13
+49|yukon gold potato|vegetables|Produce||11
+50|sweet potato|vegetables|Produce||21
+51|turnip|vegetables|Produce||5
+52|parsnip|vegetables|Produce||4
+53|rutabaga|vegetables|Produce||0
+54|radish|vegetables|Produce||5
+55|beet|vegetables|Produce||3
+56|jicama|vegetables|Produce||3
+57|spinach|vegetables|Produce||45
+58|kale|vegetables|Produce||16
+59|swiss chard|vegetables|Produce||2
+60|collard greens|vegetables|Produce||9
+61|mustard greens|vegetables|Produce||1
+62|arugula|vegetables|Produce||1
+63|romaine lettuce|vegetables|Produce||28
+64|iceberg lettuce|vegetables|Produce||3
+65|butter lettuce|vegetables|Produce||4
+66|mixed greens|vegetables|Produce||6
+67|watercress|vegetables|Produce||0
+68|bok choy|vegetables|Produce||1
+69|napa cabbage|vegetables|Produce||2
+70|green cabbage|vegetables|Produce||32
+71|red cabbage|vegetables|Produce||2
+72|brussels sprouts|vegetables|Produce||8
+73|broccoli|vegetables|Produce||39
+74|broccoli rabe|vegetables|Produce||0
+77|green bell pepper|vegetables|Produce||87
+78|yellow bell pepper|vegetables|Produce||6
+79|jalapeno|vegetables|Produce||24
+80|serrano pepper|vegetables|Produce||11
+81|poblano pepper|vegetables|Produce||2
+82|habanero|vegetables|Produce||1
+83|anaheim chile|vegetables|Produce||1
+84|thai chile|vegetables|Produce||8
+85|tomato|vegetables|Produce||143
+86|cherry tomato|vegetables|Produce||17
+87|roma tomato|vegetables|Produce||5
+88|tomatillo|vegetables|Produce||1
+89|cucumber|vegetables|Produce||37
+90|zucchini|vegetables|Produce||37
+91|yellow squash|vegetables|Produce||9
+92|butternut squash|vegetables|Produce||5
+93|acorn squash|vegetables|Produce||7
+94|spaghetti squash|vegetables|Produce||1
+95|pumpkin|vegetables|Produce||15
+96|eggplant|vegetables|Produce||11
+97|okra|vegetables|Produce||6
+98|green beans|vegetables|Produce||25
+99|snap peas|vegetables|Produce||1
+100|snow peas|vegetables|Produce||1
+101|corn|vegetables|Produce||44
+102|asparagus|vegetables|Produce||3
+103|artichoke|vegetables|Produce||0
+104|fennel|vegetables|Produce||2
+106|cremini mushrooms|vegetables|Produce||2
+107|shiitake mushrooms|vegetables|Produce||2
+108|portobello mushrooms|vegetables|Produce||0
+109|oyster mushrooms|vegetables|Produce||1
+110|fresh parsley|herbs|Produce||60
+111|fresh cilantro|herbs|Produce||71
+112|fresh basil|herbs|Produce||38
+113|fresh mint|herbs|Produce||8
+114|fresh dill|herbs|Produce||18
+115|fresh rosemary|herbs|Produce||1
+116|fresh thyme|herbs|Produce||4
+117|fresh sage|herbs|Produce||1
+118|fresh oregano|herbs|Produce||1
+119|fresh tarragon|herbs|Produce||2
+121|lemongrass|herbs|Produce||3
+123|lime|fruit|Produce||69
+124|orange|fruit|Produce||24
+125|grapefruit|fruit|Produce||3
+126|apple|fruit|Produce||71
+127|pear|fruit|Produce||16
+128|banana|fruit|Produce||51
+129|plantain|fruit|Produce||2
+130|strawberries|fruit|Produce||26
+131|blueberries|fruit|Produce||14
+132|raspberries|fruit|Produce||7
+133|blackberries|vegetables|Produce||0
+134|grapes|fruit|Produce||11
+135|pineapple|fruit|Produce||28
+136|mango|fruit|Produce||8
+137|peach|fruit|Produce||14
+138|plum|vegetables|Produce||0
+139|cherries|fruit|Produce||1
+140|watermelon|fruit|Produce||6
+141|cantaloupe|fruit|Produce||5
+142|avocado|fruit|Produce||16
+143|pomegranate|fruit|Produce||3
+144|kiwi|fruit|Produce||6
+146|vegetable oil|pantry|Pantry||266
+147|canola oil|pantry|Pantry||22
+148|water|pantry|Pantry||251
+149|granulated sugar|pantry|Pantry||143
+150|all-purpose flour|pantry|Pantry|gluten|108
+151|coconut oil|pantry|Pantry||3
+153|peanut oil|pantry|Pantry|nuts|0
+154|avocado oil|pantry|Pantry||0
+155|cooking spray|pantry|Pantry||38
+156|white vinegar|pantry|Pantry||7
+157|apple cider vinegar|pantry|Pantry||12
+158|red wine vinegar|pantry|Pantry||13
+159|white wine vinegar|pantry|Pantry||2
+160|rice vinegar|pantry|Pantry||44
+161|balsamic vinegar|pantry|Pantry||5
+162|sherry vinegar|pantry|Pantry||0
+165|diced tomatoes|pantry|Pantry||32
+166|tomato paste|pantry|Pantry||17
+167|tomato sauce|pantry|Pantry||27
+168|sun-dried tomatoes|pantry|Pantry||1
+169|roasted red peppers|pantry|Pantry||0
+170|coconut milk|pantry|Pantry||6
+171|chicken broth|pantry|Pantry||65
+172|beef broth|pantry|Pantry||14
+173|vegetable broth|pantry|Pantry||20
+174|evaporated milk|pantry|Pantry|dairy|9
+175|sweetened condensed milk|pantry|Pantry|dairy|0
+177|black beans|legumes|Pantry||38
+178|kidney beans|legumes|Pantry||28
+179|pinto beans|legumes|Pantry||13
+180|cannellini beans|legumes|Pantry||2
+181|navy beans|legumes|Pantry||1
+182|great northern beans|legumes|Pantry||4
+183|black-eyed peas|legumes|Pantry||3
+184|refried beans|legumes|Pantry||3
+185|lentils|legumes|Pantry||16
+186|red lentils|legumes|Pantry||5
+187|split peas|legumes|Pantry||2
+188|white rice|grains|Pantry||33
+189|brown rice|grains|Pantry||39
+190|jasmine rice|grains|Pantry||4
+191|basmati rice|grains|Pantry||0
+192|arborio rice|grains|Pantry||1
+193|wild rice|grains|Pantry||3
+194|quinoa|grains|Pantry||5
+195|couscous|grains|Pantry|gluten|4
+196|bulgur|grains|Pantry|gluten|4
+197|farro|pantry|Pantry|gluten|0
+198|barley|grains|Pantry|gluten|5
+199|rolled oats|grains|Pantry||36
+200|steel-cut oats|pantry|Pantry||0
+201|cornmeal|grains|Pantry||16
+202|polenta|pantry|Pantry||0
+203|grits|grains|Pantry||1
+205|penne|grains|Pantry|gluten|0
+206|rigatoni|grains|Pantry|gluten|0
+207|fusilli|grains|Pantry|gluten|1
+208|macaroni|grains|Pantry|gluten|14
+209|lasagna noodles|grains|Pantry|gluten|2
+210|egg noodles|grains|Pantry|egg;gluten|5
+211|orzo|pantry|Pantry|gluten|0
+212|linguine|grains|Pantry|gluten|0
+213|fettuccine|grains|Pantry|gluten|0
+214|angel hair|grains|Pantry|gluten|1
+216|rice noodles|grains|Pantry||5
+217|soba noodles|pantry|Pantry|gluten|0
+218|udon noodles|pantry|Pantry|gluten|0
+219|whole wheat flour|grains|Pantry|gluten|25
+220|bread flour|grains|Pantry|gluten|2
+221|cornstarch|pantry|Pantry||19
+222|baking powder|pantry|Pantry||46
+223|baking soda|pantry|Pantry||31
+224|active dry yeast|pantry|Pantry||10
+225|brown sugar|pantry|Pantry||45
+226|powdered sugar|pantry|Pantry||2
+228|maple syrup|pantry|Pantry||7
+229|molasses|pantry|Pantry||4
+230|vanilla extract|pantry|Pantry||25
+231|cocoa powder|pantry|Pantry||6
+232|chocolate chips|pantry|Pantry||5
+233|semisweet chocolate|pantry|Pantry||1
+234|breadcrumbs|grains|Pantry|gluten|15
+235|panko breadcrumbs|grains|Pantry|gluten|1
+237|tamari|pantry|Pantry|soy|0
+238|fish sauce|pantry|Pantry|fish|16
+239|oyster sauce|pantry|Pantry|gluten;shellfish;soy|4
+240|hoisin sauce|pantry|Pantry|gluten;soy|1
+241|worcestershire sauce|pantry|Pantry|fish|9
+242|sriracha|pantry|Pantry||0
+243|hot sauce|pantry|Pantry||17
+247|tahini|pantry|Pantry|sesame|4
+248|peanut butter|nuts|Pantry|nuts|25
+249|almond butter|nuts|Pantry|nuts|1
+250|mayonnaise|pantry|Pantry|egg|35
+251|ketchup|pantry|Pantry||7
+252|yellow mustard|pantry|Pantry||30
+253|dijon mustard|pantry|Pantry||11
+254|whole grain mustard|pantry|Pantry||1
+255|barbecue sauce|pantry|Pantry||4
+256|salsa|pantry|Pantry||21
+257|pesto|pantry|Pantry|dairy;nuts|0
+258|red curry paste|pantry|Pantry|shellfish|0
+259|green curry paste|pantry|Pantry|shellfish|1
+260|almonds|nuts|Pantry|nuts|11
+261|walnuts|nuts|Pantry|nuts|30
+262|pecans|nuts|Pantry|nuts|8
+263|cashews|nuts|Pantry|nuts|2
+264|pistachios|nuts|Pantry|nuts|1
+265|peanuts|nuts|Pantry|nuts|14
+266|pine nuts|nuts|Pantry|nuts|8
+267|hazelnuts|pantry|Pantry|nuts|0
+268|sunflower seeds|nuts|Pantry||3
+269|pumpkin seeds|nuts|Pantry||2
+271|chia seeds|pantry|Pantry||0
+272|flaxseed|pantry|Pantry||0
+273|raisins|fruit|Pantry||57
+274|dried cranberries|fruit|Pantry||13
+275|dates|fruit|Pantry||1
+276|shredded coconut|nuts|Pantry||4
+277|capers|pantry|Pantry||0
+278|kalamata olives|pantry|Pantry||2
+279|green olives|pantry|Pantry||5
+280|pickles|pantry|Pantry||2
+281|sauerkraut|pantry|Pantry||0
+282|kimchi|pantry|Pantry|fish|1
+283|nori|pantry|Pantry||0
+284|dry white wine|pantry|Pantry||1
+285|dry red wine|pantry|Pantry||0
+286|mirin|pantry|Pantry||5
+287|sake|pantry|Pantry||3
+288|butter||Dairy|dairy|51
+289|unsalted butter||Dairy|dairy|10
+290|milk||Dairy|dairy|120
+291|buttermilk||Dairy|dairy|9
+292|heavy cream||Dairy|dairy|2
+293|half-and-half||Dairy|dairy|0
+294|sour cream||Dairy|dairy|17
+295|plain yogurt||Dairy|dairy|56
+296|greek yogurt||Dairy|dairy|22
+297|cream cheese||Dairy|dairy|13
+298|ghee||Dairy|dairy|6
+299|cheddar cheese||Dairy|dairy|48
+300|mozzarella||Dairy|dairy|27
+301|fresh mozzarella||Dairy|dairy|0
+302|parmesan||Dairy|dairy|52
+304|feta||Dairy|dairy|9
+305|goat cheese||Dairy|dairy|0
+306|ricotta||Dairy|dairy|8
+307|cottage cheese||Dairy|dairy|10
+308|monterey jack||Dairy|dairy|4
+309|pepper jack||Dairy|dairy|1
+310|swiss cheese||Dairy|dairy|2
+311|provolone||Dairy|dairy|0
+312|gruyere||Dairy|dairy|0
+313|blue cheese||Dairy|dairy|2
+314|queso fresco||Dairy|dairy|5
+315|cotija||Dairy|dairy|1
+316|mascarpone||Dairy|dairy|0
+317|halloumi||Dairy|dairy|0
+318|american cheese||Dairy|dairy|4
+319|almond milk||Dairy|nuts|0
+320|soy milk||Dairy|soy|0
+321|oat milk||Dairy||0
+322|chicken breast|meat|Protein||42
+323|chicken thighs|meat|Protein||21
+324|chicken drumsticks|meat|Protein||2
+325|chicken wings|meat|Protein||0
+326|whole chicken|meat|Protein||5
+327|ground chicken|meat|Protein||0
+328|rotisserie chicken|meat|Protein||0
+329|ground beef|meat|Protein||42
+330|chuck roast|meat|Protein||5
+331|beef stew meat|meat|Protein||1
+332|sirloin steak|meat|Protein||5
+333|ribeye|meat|Protein||3
+334|flank steak|meat|Protein||1
+335|skirt steak|meat|Protein||1
+336|brisket|meat|Protein||0
+337|short ribs|meat|Protein||0
+338|pork chops|meat|Protein||2
+339|pork tenderloin|meat|Protein||2
+340|pork shoulder|meat|Protein||4
+341|ground pork|meat|Protein||6
+342|bacon|meat|Protein||4
+343|pancetta|meat|Protein||0
+344|prosciutto|meat|Protein||0
+345|ham|meat|Protein||4
+346|italian sausage|meat|Protein||0
+347|breakfast sausage|meat|Protein||0
+348|chorizo|meat|Protein||0
+349|hot dogs|meat|Protein||0
+350|ground turkey|meat|Protein||14
+351|turkey breast|meat|Protein||3
+352|ground lamb|meat|Protein||1
+353|lamb shoulder|meat|Protein||1
+354|lamb chops|meat|Protein||0
+356|smoked salmon|meat|Protein|fish|0
+357|tuna steak|meat|Protein|fish|0
+358|canned tuna|seafood|Protein|fish|14
+359|cod|seafood|Protein|fish|13
+360|tilapia|seafood|Protein|fish|3
+361|halibut|seafood|Protein|fish|1
+362|trout|seafood|Protein|fish|1
+363|snapper|seafood|Protein|fish|2
+364|shrimp|seafood|Protein|shellfish|6
+365|scallops|meat|Protein|shellfish|0
+366|mussels|meat|Protein|shellfish|0
+367|clams|meat|Protein|shellfish|0
+368|crab|meat|Protein|shellfish|0
+369|lobster|meat|Protein|shellfish|0
+370|squid|meat|Protein|shellfish|0
+371|anchovies|meat|Protein|fish|0
+372|sardines|meat|Protein|fish|0
+374|egg whites|eggs|Protein|egg|15
+375|firm tofu|legumes|Protein|soy|10
+376|silken tofu|legumes|Protein|soy|4
+377|tempeh|meat|Protein|soy|0
+378|seitan|meat|Protein|gluten|0
+379|edamame|legumes|Protein|soy|1
+380|salt|spices|Spices||396
+381|kosher salt|spices|Spices||8
+383|white pepper|spices|Spices||6
+384|garlic powder|spices|Spices||85
+385|onion powder|spices|Spices||15
+386|paprika|spices|Spices||26
+388|chili powder|spices|Spices||45
+390|crushed red pepper|spices|Spices||16
+393|ground turmeric|spices|Spices||19
+394|ground ginger|spices|Spices||7
+395|ground cinnamon|spices|Spices||80
+396|cinnamon stick|spices|Spices||3
+397|ground nutmeg|spices|Spices||29
+398|ground allspice|spices|Spices||16
+399|ground cloves|spices|Spices||3
+400|cardamom|spices|Spices||3
+401|star anise|spices|Spices||2
+402|fennel seeds|spices|Spices||1
+403|mustard seeds|spices|Spices||6
+404|celery seed|spices|Spices||1
+405|caraway seeds|spices|Spices||1
+406|bay leaf|spices|Spices||18
+407|dried oregano|spices|Spices||70
+408|dried basil|spices|Spices||22
+409|dried thyme|spices|Spices||38
+410|dried rosemary|spices|Spices||8
+411|dried sage|spices|Spices||13
+412|dried dill|spices|Spices||5
+413|dried parsley|spices|Spices||20
+414|italian seasoning|spices|Spices||19
+415|herbes de provence|spices|Spices||0
+416|poultry seasoning|spices|Spices||3
+417|old bay seasoning|spices|Spices||0
+418|taco seasoning|spices|Spices||3
+419|curry powder|spices|Spices||16
+421|chinese five spice|spices|Spices||0
+422|za'atar|spices|Spices|sesame|0
+423|sumac|spices|Spices||1
+424|saffron|spices|Spices||1
+425|everything bagel seasoning|spices|Spices|sesame|0
+426|furikake|spices|Spices|fish;sesame|0
+427|corn tortillas|grains|Other||14
+428|flour tortillas|grains|Other|gluten|26
+429|sandwich bread|grains|Other|gluten|31
+430|baguette|grains|Other|gluten|2
+431|sourdough bread|grains|Other|gluten|0
+432|pita bread|grains|Other|gluten|15
+433|naan|grains|Other|dairy;gluten|0
+434|hamburger buns|grains|Other|gluten|1
+435|hot dog buns|grains|Other|gluten|0
+436|english muffin|grains|Other|gluten|2
+437|bagel|grains|Other|gluten|0
+438|pizza dough|grains|Other|gluten|0
+439|puff pastry|grains|Other|gluten|0
+440|phyllo dough|grains|Other|gluten|0
+441|pie crust|grains|Other|gluten|3
+442|wonton wrappers|grains|Other|gluten|0
+443|rice paper|grains|Other||1
+444|croutons|grains|Other|gluten|1
+1762|margarine||Dairy||65
+1763|shortening|pantry|Pantry||2
+1764|applesauce|fruit|Pantry||12
+1765|apricot jam|pantry|Pantry||1
+1766|grape jelly|pantry|Pantry||0
+1767|strawberry jam|pantry|Pantry||0
+1768|chicken bouillon|pantry|Pantry||10
+1769|beef bouillon|pantry|Pantry||4
+1770|cream of tartar|pantry|Pantry||2
+1771|hominy|pantry|Pantry||4
+1772|marshmallows|pantry|Pantry||1
+1773|pancake mix|grains|Pantry|gluten|1
+1774|biscuit mix|grains|Pantry|gluten|2
+1775|cake mix|pantry|Pantry|gluten|1
+1776|pudding mix|pantry|Pantry||3
+1777|whipped topping||Dairy||2
+1778|pizza sauce|pantry|Pantry||2
+1779|chili sauce|pantry|Pantry||2
+1780|cream of mushroom soup|pantry|Pantry|dairy;gluten|6
+1781|cream of chicken soup|pantry|Pantry|dairy;gluten|3
+1782|tomato soup|pantry|Pantry||1
+1783|salad dressing|pantry|Pantry||3
+1784|italian dressing|pantry|Pantry||14
+1785|ranch dressing|pantry|Pantry||4
+1786|vinaigrette|pantry|Pantry||3
+1787|mixed vegetables|vegetables|Produce||33
+1788|green chiles|pantry|Pantry||11
+1789|papaya|fruit|Produce||2
+1790|mandarin orange|fruit|Produce||11
+1791|frozen yogurt||Dairy|dairy|1
+1792|vanilla yogurt||Dairy|dairy|50
+1793|evaporated skim milk|pantry|Pantry|dairy|1
+1794|dry milk powder|pantry|Pantry|dairy|21
+1795|vegetable juice|pantry|Pantry||0
+1796|apple juice|pantry|Pantry||7
+1797|orange juice|pantry|Pantry||39
+1798|cranberry juice|pantry|Pantry||3
+1799|grape juice|pantry|Pantry||2
+1800|raisin bran|grains|Pantry|gluten|1
+1801|corn flakes|grains|Pantry|gluten|1
+1802|graham crackers|grains|Pantry|gluten|10
+1803|saltine crackers|grains|Pantry|gluten|3
+1804|tortilla chips|grains|Pantry||1
+1805|seasoned breadcrumbs|grains|Pantry|gluten|1
+1806|cornbread mix|grains|Pantry|gluten|1
+1807|sweet pickle relish|pantry|Pantry||5
+1808|taco shells|grains|Other||1
+1809|hamburger|meat|Protein||0
+1810|turkey ham|meat|Protein||8
+1811|imitation crab|meat|Protein|fish;gluten|0
+1812|peanut butter chips|pantry|Pantry|nuts|0
+1813|butternut squash puree|pantry|Pantry||0
+1814|pumpkin puree|pantry|Pantry||3
+1815|egg substitute|eggs|Protein|egg|8
+1816|peas|vegetables|Produce||29
+1817|dried apricots|fruit|Pantry||2
+1818|prunes|fruit|Pantry||1
+1819|ham hocks|meat|Protein||2
+1820|deli ham|meat|Protein||1
+1821|deli turkey|meat|Protein||0
+1822|cream-style corn|pantry|Pantry||4
+1823|coffee|pantry|Pantry||2
+1824|popcorn|grains|Pantry||2
+1825|granola|grains|Pantry||2
+1826|baking mix|grains|Pantry|gluten|9
+1827|apple pie spice|spices|Spices||1
+1828|pumpkin pie spice|spices|Spices||4
+1829|adobo seasoning|spices|Spices||4
+1830|lemon pepper|spices|Spices||6
+1831|seasoning mix|spices|Spices||8
+1832|fruit juice|pantry|Pantry||2
+1833|fruit cocktail|fruit|Pantry||2
+1834|canned peaches|fruit|Pantry||1
+1835|canned pears|fruit|Pantry||1
+1836|bread dough|grains|Other|gluten|0
+1837|italian bread|grains|Other|gluten|0
+1838|crescent rolls|grains|Other|gluten|0
+1839|dinner rolls|grains|Other|gluten|1
+2357|pasta|grains|Pantry|gluten|32
+2358|chicken|meat|Protein||36
+2359|white beans|legumes|Pantry||9
+2360|lima beans|legumes|Pantry||4
+2361|tomato juice|pantry|Pantry||9
+2362|marinara sauce|pantry|Pantry||2
+2363|taco sauce|pantry|Pantry||1
+2364|matzo meal|grains|Pantry|gluten|2
+2365|cereal|grains|Pantry||2
+2366|bran cereal|pantry|Pantry|gluten|0
+2367|pretzels|grains|Pantry|gluten|1
+2368|water chestnuts|pantry|Pantry||1
+2369|poppy seeds|nuts|Spices||2
+2370|dried fruit|fruit|Pantry||4
+2371|dried figs|fruit|Pantry||2
+2372|figs|vegetables|Produce||0
+2373|summer squash|vegetables|Produce||11
+2374|winter squash|vegetables|Produce||4
+2375|chili peppers|vegetables|Produce||2
+2376|strawberry yogurt||Dairy|dairy|2
+2377|shredded cheese||Dairy|dairy|17
+2378|walleye|seafood|Protein|fish|3
+2379|catfish|seafood|Protein|fish|3
+2380|pollock|seafood|Protein|fish|1
+2381|spaghetti sauce|pantry|Pantry||10
+2924|daikon|vegetables|Produce||3
+2925|bean sprouts|vegetables|Produce||3
+2926|soybean sprouts|vegetables|Produce|soy|2
+2927|curry leaves|herbs|Produce||7
+2928|galangal|vegetables|Produce||2
+2929|kaffir lime leaves|herbs|Produce||3
+2930|thai basil|herbs|Produce||4
+2931|holy basil|herbs|Produce||1
+2932|green papaya|fruit|Produce||1
+2933|long beans|vegetables|Produce||1
+2934|thai eggplant|vegetables|Produce||1
+2935|water spinach|vegetables|Produce||1
+2936|scotch bonnet|vegetables|Produce||8
+2937|green plantain|fruit|Produce||1
+2938|ripe plantain|fruit|Produce||2
+2939|paneer||Dairy|dairy|1
+2940|mexican crema||Dairy|dairy|3
+2941|pork belly|meat|Protein||6
+2942|fish cakes|seafood|Protein|fish;gluten|1
+2943|dried shrimp|seafood|Protein|shellfish|1
+2944|liver pate|meat|Protein||1
+2945|dashi|pantry|Pantry|fish|6
+2946|bonito flakes|pantry|Pantry|fish|3
+2947|kombu|pantry|Pantry||1
+2948|wakame|pantry|Pantry||1
+2949|aonori|pantry|Pantry||2
+2950|okonomiyaki sauce|pantry|Pantry|gluten;soy|1
+2951|pickled ginger|pantry|Pantry||3
+2952|japanese curry roux|pantry|Pantry|gluten|1
+2953|black vinegar|pantry|Pantry|gluten|2
+2954|cane vinegar|pantry|Pantry||1
+2955|shaoxing wine|pantry|Pantry|gluten|2
+2956|doubanjiang|pantry|Pantry|gluten;soy|1
+2957|fermented black beans|pantry|Pantry|soy|1
+2958|chili oil|pantry|Pantry||2
+2959|chinese sesame paste|pantry|Pantry|sesame|1
+2960|sweet chili sauce|pantry|Pantry||1
+2961|banana ketchup|pantry|Pantry||1
+2962|nam prik pao|pantry|Pantry|shellfish|1
+2963|massaman curry paste|pantry|Pantry|shellfish|1
+2964|tamarind paste|pantry|Pantry||6
+2965|aji amarillo paste|pantry|Pantry||3
+2966|achiote paste|pantry|Pantry||1
+2967|chipotle in adobo|pantry|Pantry||1
+2968|piloncillo|pantry|Pantry||1
+2969|palm sugar|pantry|Pantry||5
+2970|jaggery|pantry|Pantry||2
+2971|pomegranate molasses|pantry|Pantry||1
+2972|preserved lemon|pantry|Pantry||1
+2973|red palm oil|pantry|Pantry||1
+2974|coconut water|pantry|Pantry||1
+2975|black olives|pantry|Pantry||2
+2976|short-grain rice|grains|Pantry||3
+2977|glutinous rice|grains|Pantry||1
+2978|flattened rice|grains|Pantry||1
+2979|korean rice cakes|grains|Pantry||1
+2980|sweet potato starch noodles|grains|Pantry||1
+2981|yakisoba noodles|grains|Pantry|gluten|1
+2982|chinese wheat noodles|grains|Pantry|gluten|1
+2983|toor dal|legumes|Pantry||2
+2984|chana dal|legumes|Pantry||2
+2985|urad dal|legumes|Pantry||1
+2986|chickpea flour|grains|Pantry||2
+2987|potato starch|pantry|Pantry||1
+2988|pigeon peas|legumes|Pantry||1
+2989|gigante beans|legumes|Pantry||1
+2990|fava beans|legumes|Pantry||1
+2991|spring roll wrappers|grains|Other|gluten|1
+2992|tostadas|grains|Other||1
+2993|gochugaru|spices|Spices||3
+2994|berbere|spices|Spices||3
+2995|asafoetida|spices|Spices||3
+2996|dried mango powder|spices|Spices||1
+2997|dried fenugreek leaves|spices|Spices||3
+2998|pav bhaji masala|spices|Spices||1
+2999|sambar powder|spices|Spices||1
+3000|red chili powder|spices|Spices||8
+3001|cumin seeds|spices|Spices||8
+3002|coriander seeds|spices|Spices||2
+3003|fenugreek seeds|spices|Spices||3
+3004|black peppercorns|spices|Spices||2
+3005|sichuan peppercorns|spices|Spices||3
+3006|whole cloves|spices|Spices||2
+3007|allspice berries|spices|Spices||1
+3008|aleppo pepper|spices|Spices||1
+3009|dried mint|spices|Spices||1
+3010|dried red chiles|spices|Spices||6
+3011|guajillo chile|spices|Spices||2
+3012|pasilla chile|spices|Spices||1
+3013|chile de arbol|spices|Spices||1
+3616|onion|vegetables|Produce||0
+3617|rice|grains|Pantry||0
+3618|bell pepper|vegetables|Produce||0
+3619|potato|vegetables|Produce||0
+3620|lettuce|vegetables|Produce||0
+3621|cabbage|vegetables|Produce||0
+3622|ground meat|meat|Protein||0
+3623|white fish|seafood|Protein|fish|0
+4889|mushroom soy sauce|pantry|Pantry|gluten;soy|0
+4890|sweet bean sauce|pantry|Pantry|gluten;soy|0
+4891|yellow bean sauce|pantry|Pantry|gluten;soy|0
+4892|black bean sauce|pantry|Pantry|gluten;soy|0
+4893|hot bean paste|pantry|Pantry|gluten;soy|0
+4894|xo sauce|pantry|Pantry|fish;shellfish|0
+4895|sha cha sauce|pantry|Pantry|fish;gluten;shellfish;soy|0
+4896|chili crisp|pantry|Pantry|soy|0
+4897|plum sauce|pantry|Pantry|gluten|0
+4898|char siu sauce|pantry|Pantry|gluten;soy|0
+4899|sweet and sour sauce|pantry|Pantry||0
+4900|orange sauce|pantry|Pantry|gluten;soy|0
+4901|teriyaki sauce|pantry|Pantry|gluten;soy|0
+4902|ponzu|pantry|Pantry|fish;gluten;soy|0
+4903|tonkatsu sauce|pantry|Pantry|gluten;soy|0
+4904|mentsuyu|pantry|Pantry|fish;gluten;soy|0
+4905|yuzu juice|pantry|Pantry||0
+4906|yuzu kosho|pantry|Pantry||0
+4907|shichimi togarashi|spices|Spices|sesame|0
+4908|wasabi paste|pantry|Pantry||0
+4909|wasabi powder|spices|Spices||0
+4910|karashi|pantry|Pantry||0
+4911|sansho pepper|spices|Spices||0
+4912|red miso|pantry|Pantry|soy|0
+4913|awase miso|pantry|Pantry|soy|0
+4914|yellow miso|pantry|Pantry|soy|0
+4915|umeboshi|pantry|Pantry||0
+4916|takuan|pantry|Pantry||0
+4917|natto|legumes|Pantry|soy|0
+4918|aburaage|pantry|Pantry|soy|0
+4919|atsuage|pantry|Pantry|soy|0
+4920|yuba|pantry|Pantry|soy|0
+4921|dried tofu|pantry|Pantry|soy|0
+4922|fermented bean curd|pantry|Pantry|soy|0
+4923|kinako|pantry|Pantry|soy|0
+4924|soy flour|pantry|Pantry|soy|0
+4925|tofu puffs|pantry|Pantry|soy|0
+4926|sundubu|pantry|Pantry|soy|0
+4927|dried shiitake mushrooms|vegetables|Pantry||0
+4928|enoki mushrooms|vegetables|Produce||0
+4929|king oyster mushrooms|vegetables|Produce||0
+4930|maitake mushrooms|vegetables|Produce||0
+4931|shimeji mushrooms|vegetables|Produce||0
+4932|nameko mushrooms|vegetables|Produce||0
+4933|lion's mane mushrooms|vegetables|Produce||0
+4934|straw mushrooms|vegetables|Produce||0
+4935|dried goji berries|fruit|Pantry||0
+4936|red dates|fruit|Pantry||0
+4937|longan|fruit|Produce||0
+4938|lychee|fruit|Produce||0
+4939|lotus root|vegetables|Produce||0
+4940|lotus seeds|nuts|Pantry||0
+4941|bamboo shoots|vegetables|Produce||0
+4942|baby corn|vegetables|Produce||0
+4943|lily buds|vegetables|Pantry||0
+4944|chinese cinnamon|spices|Spices||0
+4945|sand ginger|spices|Spices||0
+4946|chinese broccoli|vegetables|Produce||0
+4947|choy sum|vegetables|Produce||0
+4948|garlic chives|herbs|Produce||0
+4949|chinese eggplant|vegetables|Produce||0
+4950|winter melon|vegetables|Produce||0
+4951|bitter melon|vegetables|Produce||0
+4952|luffa|vegetables|Produce||0
+4953|chayote|vegetables|Produce||0
+4954|taro root|vegetables|Produce||0
+4955|japanese sweet potato|vegetables|Produce||0
+4956|korean sweet potato|vegetables|Produce||0
+4957|kabocha squash|vegetables|Produce||0
+4958|burdock root|vegetables|Produce||0
+4959|konjac|pantry|Pantry||0
+4960|shirataki noodles|grains|Pantry||0
+4961|somen noodles|grains|Pantry|gluten|0
+4962|harusame|grains|Pantry||0
+4963|cellophane noodles|grains|Pantry||0
+4964|lo mein noodles|grains|Pantry|egg;gluten|0
+4965|chow mein noodles|grains|Pantry|gluten|0
+4966|rice stick noodles|grains|Pantry||0
+4967|dumpling wrappers|grains|Pantry|gluten|0
+4968|egg roll wrappers|grains|Pantry|egg;gluten|0
+4969|mochi|grains|Pantry||0
+4970|mochiko|grains|Pantry||0
+4971|rice flour|grains|Pantry||0
+4972|brown rice flour|grains|Pantry||0
+4973|wheat starch|grains|Pantry|gluten|0
+4974|tapioca starch|pantry|Pantry||0
+4975|tapioca pearls|grains|Pantry||0
+4976|mung bean starch|pantry|Pantry||0
+4977|arrowroot powder|pantry|Pantry||0
+4978|kuzu|pantry|Pantry||0
+4979|agar|pantry|Pantry||0
+4980|hijiki|pantry|Pantry||0
+4981|arame|pantry|Pantry||0
+4982|dulse|pantry|Pantry||0
+4983|laver|pantry|Pantry||0
+4984|seaweed snack|pantry|Pantry||0
+4985|spirulina|pantry|Pantry||0
+4986|sea vegetables|pantry|Pantry||0
+4987|century egg|eggs|Protein|egg|0
+4988|salted duck egg|eggs|Protein|egg|0
+4989|duck egg|eggs|Protein|egg|0
+4990|quail egg|eggs|Protein|egg|0
+4991|chinese sausage|meat|Protein||0
+4992|pork floss|meat|Protein|gluten;soy|0
+4993|peking duck|meat|Protein|soy|0
+4994|dried scallops|seafood|Protein|shellfish|0
+4995|dried squid|seafood|Protein|shellfish|0
+4996|dried anchovies|seafood|Protein|fish|0
+4997|jellyfish|seafood|Protein||0
+4998|abalone|seafood|Protein|shellfish|0
+4999|unagi|seafood|Protein|fish;gluten;soy|0
+5000|tobiko|seafood|Protein|fish|0
+5001|ikura|seafood|Protein|fish|0
+5002|uni|seafood|Protein|shellfish|0
+5003|sashimi tuna|seafood|Protein|fish|0
+5004|mackerel|seafood|Protein|fish|0
+5005|yellowtail|seafood|Protein|fish|0
+5006|sea bream|seafood|Protein|fish|0
+5007|herring|seafood|Protein|fish|0
+5008|black rice|grains|Pantry||0
+5009|red rice|grains|Pantry||0
+5010|rice bran|grains|Pantry||0
+5011|hojicha|pantry|Pantry||0
+5012|matcha|pantry|Pantry||0
+5013|green tea|pantry|Pantry||0
+5014|jasmine tea|pantry|Pantry||0
+5015|oolong tea|pantry|Pantry||0
+5016|black tea|pantry|Pantry||0
+5017|makgeolli|pantry|Other||0
+5018|soju|pantry|Other||0
+5019|huangjiu|pantry|Other|gluten|0
+5020|cooking sake|pantry|Other||0
+5021|doenjang|pantry|Pantry|soy|0
+5022|ssamjang|pantry|Pantry|sesame;soy|0
+5023|korean soup soy sauce|pantry|Pantry|soy|0
+5024|korean bbq sauce|pantry|Pantry|gluten;sesame;soy|0
+5025|jocheong|pantry|Pantry||0
+5026|asian pear|fruit|Produce||0
+5027|korean radish|vegetables|Produce||0
+5028|perilla leaves|herbs|Produce||0
+5029|mitsuba|herbs|Produce||0
+5030|myoga|herbs|Produce||0
+5031|perilla oil|pantry|Pantry||0
+5032|korean zucchini|vegetables|Produce||0
+5033|cheongyang pepper|vegetables|Produce||0
+5034|naengmyeon noodles|grains|Pantry|gluten|0
+5035|buckwheat noodles|grains|Pantry|gluten|0
+5036|saeujeot|pantry|Pantry|shellfish|0
+5037|korean fish sauce|pantry|Pantry|fish|0
+5038|gochugaru flakes coarse|spices|Spices||0
+5039|yuja tea|pantry|Pantry||0
+5040|azuki beans|legumes|Pantry||0
+5041|anko|pantry|Pantry||0
+5042|mung beans|legumes|Pantry||0
+5043|black soybeans|legumes|Pantry|soy|0
+5044|soybeans|legumes|Pantry|soy|0
+5045|chinese ham|meat|Protein||0
+5046|mongolian hot pot broth|pantry|Pantry||0
+5047|tempura flour|grains|Pantry|gluten|0
+5048|takoyaki flour|grains|Pantry|gluten|0
+5049|okonomiyaki flour|grains|Pantry|gluten|0
+5050|shio koji|pantry|Pantry||0
+5051|dried bonito|pantry|Pantry|fish|0
+5052|yellow curry paste|pantry|Pantry|shellfish|0
+5053|panang curry paste|pantry|Pantry|shellfish|0
+5054|tom yum paste|pantry|Pantry|fish;shellfish|0
+5055|shrimp paste|pantry|Pantry|shellfish|0
+5056|kecap manis|pantry|Pantry|gluten;soy|0
+5057|sambal oelek|pantry|Pantry||0
+5058|sambal|pantry|Pantry|shellfish|0
+5059|laksa paste|pantry|Pantry|shellfish|0
+5060|rendang paste|pantry|Pantry||0
+5061|satay sauce|pantry|Pantry|nuts;soy|0
+5062|peanut sauce|pantry|Pantry|nuts;soy|0
+5063|nuoc cham|pantry|Pantry|fish|0
+5064|chili garlic sauce|pantry|Pantry||0
+5065|fried shallots|pantry|Pantry||0
+5066|crispy fried onions|pantry|Pantry|gluten|0
+5067|fried garlic|pantry|Pantry||0
+5068|coconut cream|pantry|Pantry||0
+5069|coconut sugar|pantry|Pantry||0
+5070|gula melaka|pantry|Pantry||0
+5071|coconut vinegar|pantry|Pantry||0
+5072|coconut milk powder|pantry|Pantry|dairy|0
+5073|fresh coconut|fruit|Produce||0
+5074|coconut flour|grains|Pantry||0
+5075|turmeric root|vegetables|Produce||0
+5076|fingerroot|herbs|Produce||0
+5077|torch ginger|herbs|Produce||0
+5078|pandan leaves|herbs|Produce||0
+5079|pandan extract|pantry|Pantry||0
+5080|salam leaf|spices|Spices||0
+5081|vietnamese coriander|herbs|Produce||0
+5082|culantro|herbs|Produce||0
+5083|vietnamese mint|herbs|Produce||0
+5084|betel leaves|herbs|Produce||0
+5085|lemon basil|herbs|Produce||0
+5086|calamansi|fruit|Produce||0
+5087|pomelo|fruit|Produce||0
+5088|dragon fruit|fruit|Produce||0
+5089|rambutan|fruit|Produce||0
+5090|mangosteen|fruit|Produce||0
+5091|durian|fruit|Produce||0
+5092|jackfruit|fruit|Produce||0
+5093|young green jackfruit|vegetables|Pantry||0
+5094|starfruit|fruit|Produce||0
+5095|soursop|fruit|Produce||0
+5096|sapodilla|fruit|Produce||0
+5097|passion fruit|fruit|Produce||0
+5098|guava|fruit|Produce||0
+5099|banana blossom|vegetables|Produce||0
+5100|banana leaves|herbs|Produce||0
+5101|saba banana|fruit|Produce||0
+5102|winged beans|vegetables|Produce||0
+5103|pea eggplant|vegetables|Produce||0
+5104|cassava leaves|vegetables|Produce||0
+5105|sweet potato leaves|vegetables|Produce||0
+5106|moringa leaves|vegetables|Produce||0
+5107|moringa pods|vegetables|Produce||0
+5108|bottle gourd|vegetables|Produce||0
+5109|ube|vegetables|Produce||0
+5110|ube halaya|pantry|Pantry|dairy|0
+5111|kesong puti||Dairy|dairy|0
+5112|longganisa|meat|Protein||0
+5113|tocino|meat|Protein||0
+5114|lechon kawali|meat|Protein||0
+5115|sinigang mix|pantry|Pantry||0
+5116|adobo sauce|pantry|Pantry|gluten;soy|0
+5117|pandesal|grains|Pantry|dairy;egg;gluten|0
+5118|kerupuk|pantry|Pantry|gluten;shellfish|0
+5119|tempeh chips|pantry|Pantry|soy|0
+5120|bakso|meat|Protein||0
+5121|candlenuts|nuts|Pantry|nuts|0
+5122|dried chilies whole|spices|Spices||0
+5123|bird's eye chili|vegetables|Produce||0
+5124|chili paste in oil|pantry|Pantry|fish;shellfish|0
+5125|tamarind pulp|fruit|Pantry||0
+5126|lime leaves dried|spices|Spices||0
+5127|galangal powder|spices|Spices||0
+5128|nutmeg mace|spices|Spices||0
+5129|cassia leaves|spices|Spices||0
+5130|banh pho noodles|grains|Pantry||0
+5131|banh hoi|grains|Pantry||0
+5132|bun bo hue paste|pantry|Pantry|shellfish|0
+5133|cha lua|meat|Protein||0
+5134|nem nuong|meat|Protein||0
+5135|tea leaves fermented|pantry|Pantry||0
+5136|ngapi|pantry|Pantry|fish|0
+5137|prahok|pantry|Pantry|fish|0
+5138|kroeung|pantry|Pantry||0
+5139|padaek|pantry|Pantry|fish|0
+5140|rice paddy herb|herbs|Produce||0
+5141|lemongrass paste|pantry|Pantry||0
+5142|kaffir lime|fruit|Produce||0
+5143|sago pearls|grains|Pantry||0
+5144|thai iced tea mix|pantry|Pantry||0
+5145|water mimosa|vegetables|Produce||0
+5146|moong dal|legumes|Pantry||0
+5147|whole mung beans|legumes|Pantry||0
+5148|masoor dal|legumes|Pantry||0
+5149|whole masoor|legumes|Pantry||0
+5150|black lentils|legumes|Pantry||0
+5151|kala chana|legumes|Pantry||0
+5152|whole urad|legumes|Pantry||0
+5153|dried green peas|legumes|Pantry||0
+5154|yellow split peas|legumes|Pantry||0
+5155|horse gram|legumes|Pantry||0
+5156|moth beans|legumes|Pantry||0
+5157|cluster beans|vegetables|Produce||0
+5158|flat beans|vegetables|Produce||0
+5159|fenugreek leaves|herbs|Produce||0
+5160|amaranth leaves|vegetables|Produce||0
+5161|colocasia leaves|vegetables|Produce||0
+5162|raw mango|fruit|Produce||0
+5163|ivy gourd|vegetables|Produce||0
+5164|pointed gourd|vegetables|Produce||0
+5165|snake gourd|vegetables|Produce||0
+5166|raw banana|vegetables|Produce||0
+5167|banana stem|vegetables|Produce||0
+5168|elephant foot yam|vegetables|Produce||0
+5169|indian eggplant|vegetables|Produce||0
+5170|bhut jolokia|vegetables|Produce||0
+5171|degi mirch|spices|Spices||0
+5172|chaat masala|spices|Spices||0
+5173|tandoori masala|spices|Spices||0
+5174|chana masala|spices|Spices||0
+5175|biryani masala|spices|Spices||0
+5176|kitchen king masala|spices|Spices||0
+5177|panch phoron|spices|Spices||0
+5178|rasam powder|spices|Spices||0
+5179|goda masala|spices|Spices||0
+5180|tikka masala spice|spices|Spices||0
+5181|meat masala|spices|Spices||0
+5182|kala namak|spices|Spices||0
+5183|rock salt|spices|Spices||0
+5184|ajwain|spices|Spices||0
+5185|nigella seeds|spices|Spices||0
+5186|black cardamom|spices|Spices||0
+5187|indian bay leaf|spices|Spices||0
+5188|white poppy seeds|spices|Spices||0
+5189|kokum|spices|Spices||0
+5190|anardana|spices|Spices||0
+5191|long pepper|spices|Spices||0
+5192|cubeb pepper|spices|Spices||0
+5193|rose water|pantry|Pantry||0
+5194|kewra water|pantry|Pantry||0
+5195|dried rose petals|spices|Spices||0
+5196|mango pickle|pantry|Pantry||0
+5197|lime pickle|pantry|Pantry||0
+5198|mixed vegetable pickle|pantry|Pantry||0
+5199|mint chutney|pantry|Pantry||0
+5200|tamarind chutney|pantry|Pantry||0
+5201|mango chutney|pantry|Pantry||0
+5202|coconut chutney|pantry|Pantry|dairy|0
+5203|raita||Dairy|dairy|0
+5204|khoya||Dairy|dairy|0
+5205|chhena||Dairy|dairy|0
+5206|malai||Dairy|dairy|0
+5207|dahi||Dairy|dairy|0
+5208|lassi||Dairy|dairy|0
+5209|white butter||Dairy|dairy|0
+5210|papadum|grains|Pantry||0
+5211|sev|pantry|Pantry||0
+5212|bhujia|pantry|Pantry||0
+5213|chivda|pantry|Pantry|nuts|0
+5214|murmura|grains|Pantry||0
+5215|semolina|grains|Pantry|gluten|0
+5216|idli rice|grains|Pantry||0
+5217|sona masoori rice|grains|Pantry||0
+5218|ragi flour|grains|Pantry||0
+5219|bajra flour|grains|Pantry||0
+5220|jowar flour|grains|Pantry||0
+5221|sorghum|grains|Pantry||0
+5222|foxtail millet|grains|Pantry||0
+5223|millet|grains|Pantry||0
+5224|makki ka atta|grains|Pantry||0
+5225|singhara flour|grains|Pantry||0
+5226|buckwheat flour|grains|Pantry||0
+5227|buckwheat groats|grains|Pantry||0
+5228|sabudana|grains|Pantry||0
+5229|besan roasted|grains|Pantry||0
+5230|roasted chana|legumes|Pantry||0
+5231|dalia|grains|Pantry|gluten|0
+5232|vermicelli sweet|grains|Pantry|gluten|0
+5233|atta|grains|Pantry|gluten|0
+5234|chapati|grains|Pantry|gluten|0
+5235|paratha|grains|Pantry|dairy;gluten|0
+5236|dosa batter|grains|Pantry||0
+5237|poha thick|grains|Pantry||0
+5238|goat meat|meat|Protein||0
+5239|lamb leg|meat|Protein||0
+5240|oxtail|meat|Protein||0
+5241|tripe|meat|Protein||0
+5242|beef tongue|meat|Protein||0
+5243|beef liver|meat|Protein||0
+5244|chicken liver|meat|Protein||0
+5245|chicken gizzards|meat|Protein||0
+5246|chicken feet|meat|Protein||0
+5247|lamb kidney|meat|Protein||0
+5248|beef heart|meat|Protein||0
+5249|pork liver|meat|Protein||0
+5250|pork blood|meat|Protein||0
+5251|pork rinds|meat|Protein||0
+5252|hilsa|seafood|Protein|fish|0
+5253|rohu|seafood|Protein|fish|0
+5254|pomfret|seafood|Protein|fish|0
+5255|bombay duck|seafood|Protein|fish|0
+5256|kingfish|seafood|Protein|fish|0
+5257|dried fish|seafood|Protein|fish|0
+5258|maldive fish|seafood|Protein|fish|0
+5259|baharat|spices|Spices||0
+5260|ras el hanout|spices|Spices||0
+5261|advieh|spices|Spices||0
+5262|hawaij|spices|Spices||0
+5263|dukkah|spices|Spices|nuts;sesame|0
+5264|shawarma spice|spices|Spices||0
+5265|kabsa spice|spices|Spices||0
+5266|chermoula|pantry|Pantry||0
+5267|tabil|spices|Spices||0
+5268|zhug|pantry|Pantry||0
+5269|shatta|pantry|Pantry||0
+5270|amba|pantry|Pantry||0
+5271|mahleb|spices|Spices||0
+5272|mastic|spices|Spices||0
+5273|black lime|spices|Spices||0
+5274|urfa biber|spices|Spices||0
+5275|maras biber|spices|Spices||0
+5276|biber salcasi|pantry|Pantry||0
+5277|muhammara|pantry|Pantry|nuts|0
+5278|ajvar|pantry|Pantry||0
+5279|toum|pantry|Pantry|egg|0
+5280|labneh||Dairy|dairy|0
+5281|kefir||Dairy|dairy|0
+5282|ayran||Dairy|dairy|0
+5283|kaymak||Dairy|dairy|0
+5284|akkawi cheese||Dairy|dairy|0
+5285|sheep cheese||Dairy|dairy|0
+5286|kasseri||Dairy|dairy|0
+5287|beyaz peynir||Dairy|dairy|0
+5288|hummus|pantry|Pantry|sesame|0
+5289|baba ganoush|pantry|Pantry|sesame|0
+5290|falafel|legumes|Pantry||0
+5291|date syrup|pantry|Pantry||0
+5292|carob molasses|pantry|Pantry||0
+5293|grape molasses|pantry|Pantry||0
+5294|halva|pantry|Pantry|nuts;sesame|0
+5295|turkish delight|pantry|Pantry||0
+5296|orange blossom water|pantry|Pantry||0
+5297|pickled turnips|pantry|Pantry||0
+5298|grape leaves|vegetables|Pantry||0
+5299|stuffed grape leaves|pantry|Pantry||0
+5300|freekeh|grains|Pantry|gluten|0
+5301|maftoul|grains|Pantry|gluten|0
+5302|fregola|grains|Pantry|gluten|0
+5303|lavash|grains|Pantry|gluten|0
+5304|khubz|grains|Pantry|gluten|0
+5305|yufka|grains|Pantry|gluten|0
+5306|kataifi|grains|Pantry|gluten|0
+5307|simit|grains|Pantry|gluten;sesame|0
+5308|sucuk|meat|Protein||0
+5309|pastirma|meat|Protein||0
+5310|merguez|meat|Protein||0
+5311|mortadella|meat|Protein||0
+5312|lamb shank|meat|Protein||0
+5313|lamb neck|meat|Protein||0
+5314|lamb fat|meat|Protein||0
+5315|pigeon|meat|Protein||0
+5316|zereshk|fruit|Pantry||0
+5317|dried sour cherries|fruit|Pantry||0
+5318|dried mulberries|fruit|Pantry||0
+5319|dried plums persian|fruit|Pantry||0
+5320|mulberries|fruit|Produce||0
+5321|green almonds|nuts|Produce|nuts|0
+5322|fresh chickpeas|legumes|Produce||0
+5323|molokhia|vegetables|Produce||0
+5324|purslane|vegetables|Produce||0
+5325|persian cucumber|vegetables|Produce||0
+5326|lebanese eggplant|vegetables|Produce||0
+5327|sabzi khordan|herbs|Produce||0
+5328|fresh fenugreek|herbs|Produce||0
+5329|sorrel|herbs|Produce||0
+5330|winter savory|spices|Spices||0
+5331|wild thyme|spices|Spices||0
+5332|sesame oil untoasted|pantry|Pantry|sesame|0
+5333|nigella oil|pantry|Pantry||0
+5334|manti wrappers|grains|Pantry|gluten|0
+5335|devzira rice|grains|Pantry||0
+5336|khmeli suneli|spices|Spices||0
+5337|tkemali|pantry|Pantry||0
+5338|adjika|pantry|Pantry||0
+5339|walnut paste|pantry|Pantry|nuts|0
+5340|mitmita|spices|Spices||0
+5341|niter kibbeh|pantry|Pantry|dairy|0
+5342|teff|grains|Pantry||0
+5343|teff flour|grains|Pantry||0
+5344|injera|grains|Pantry||0
+5345|shiro powder|legumes|Pantry||0
+5346|awaze|pantry|Pantry||0
+5347|korarima|spices|Spices||0
+5348|suya spice|spices|Spices|nuts|0
+5349|egusi|nuts|Pantry||0
+5350|palm nut cream|pantry|Pantry||0
+5351|fufu flour|grains|Pantry||0
+5352|garri|grains|Pantry||0
+5353|yam flour|grains|Pantry||0
+5354|white yam|vegetables|Produce||0
+5355|cocoyam|vegetables|Produce||0
+5356|cassava|vegetables|Produce||0
+5357|cassava flour|grains|Pantry||0
+5358|ogbono|nuts|Pantry||0
+5359|locust beans|pantry|Pantry||0
+5360|grains of paradise|spices|Spices||0
+5361|uziza|spices|Spices||0
+5362|calabash nutmeg|spices|Spices||0
+5363|smoked fish|seafood|Protein|fish|0
+5364|crayfish ground|seafood|Pantry|shellfish|0
+5365|dried shrimp powder|seafood|Pantry|shellfish|0
+5366|bitterleaf|vegetables|Produce||0
+5367|ugu|vegetables|Produce||0
+5368|efo|vegetables|Produce||0
+5369|tiger nuts|nuts|Pantry||0
+5370|kenkey|grains|Pantry||0
+5371|shito|pantry|Pantry|fish;shellfish|0
+5372|cowpea flour|legumes|Pantry||0
+5373|rooibos|pantry|Pantry||0
+5374|biltong|meat|Protein||0
+5375|boerewors|meat|Protein||0
+5376|chakalaka|pantry|Pantry||0
+5377|peri-peri sauce|pantry|Pantry||0
+5378|rusks|grains|Pantry|dairy;gluten|0
+5379|matoke|vegetables|Produce||0
+5380|sukuma wiki|vegetables|Produce||0
+5381|pigeon peas dried|legumes|Pantry||0
+5382|hibiscus flowers|pantry|Pantry||0
+5383|baobab powder|pantry|Pantry||0
+5384|moringa powder|pantry|Pantry||0
+5385|argan oil|pantry|Pantry|nuts|0
+5386|amlou|pantry|Pantry|nuts|0
+5387|msemen|grains|Pantry|gluten|0
+5388|warqa|grains|Pantry|gluten|0
+5389|couscous medium|grains|Pantry|gluten|0
+5390|dried dates deglet|fruit|Pantry||0
+5391|medjool dates|fruit|Pantry||0
+5392|ancho chile|spices|Spices||0
+5393|mulato chile|spices|Spices||0
+5394|cascabel chile|spices|Spices||0
+5395|morita chile|spices|Spices||0
+5396|pequin chile|spices|Spices||0
+5397|new mexico chile|spices|Spices||0
+5398|hatch green chile|vegetables|Produce||0
+5399|aji panca|pantry|Pantry||0
+5400|aji limo|pantry|Pantry||0
+5401|rocoto pepper|vegetables|Produce||0
+5402|aji dulce|vegetables|Produce||0
+5403|huacatay paste|pantry|Pantry||0
+5404|ancho chile powder|spices|Spices||0
+5405|chipotle powder|spices|Spices||0
+5406|masa harina|grains|Pantry||0
+5407|harina pan|grains|Pantry||0
+5408|corn husks|pantry|Pantry||0
+5409|nopales|vegetables|Produce||0
+5410|prickly pear|fruit|Produce||0
+5411|epazote|herbs|Produce||0
+5412|mexican oregano|spices|Spices||0
+5413|huitlacoche|vegetables|Pantry||0
+5414|squash blossoms|vegetables|Produce||0
+5415|mexican chocolate|pantry|Pantry||0
+5416|cacao nibs|pantry|Pantry||0
+5417|agave syrup|pantry|Pantry||0
+5418|dulce de leche|pantry|Pantry|dairy|0
+5419|cajeta|pantry|Pantry|dairy|0
+5420|mexican cinnamon|spices|Spices||0
+5421|vanilla bean|spices|Spices||0
+5422|oaxaca cheese||Dairy|dairy|0
+5423|queso panela||Dairy|dairy|0
+5424|queso asadero||Dairy|dairy|0
+5425|queso anejo||Dairy|dairy|0
+5426|requeson||Dairy|dairy|0
+5427|crema salvadorena||Dairy|dairy|0
+5428|mole paste|pantry|Pantry|nuts;sesame|0
+5429|green mole|pantry|Pantry|nuts;sesame|0
+5430|salsa verde|pantry|Pantry||0
+5431|salsa macha|pantry|Pantry|nuts;sesame|0
+5432|tajin|spices|Spices||0
+5433|chamoy|pantry|Pantry||0
+5434|pico de gallo|pantry|Pantry||0
+5435|guacamole|pantry|Pantry||0
+5436|chipotle sauce|pantry|Pantry||0
+5437|enchilada sauce|pantry|Pantry||0
+5438|mojo|pantry|Pantry||0
+5439|sofrito|pantry|Pantry||0
+5440|sazon|spices|Spices||0
+5441|alcaparrado|pantry|Pantry||0
+5442|jerk seasoning|spices|Spices||0
+5443|jerk paste|pantry|Pantry||0
+5444|jamaican curry powder|spices|Spices||0
+5445|browning sauce|pantry|Pantry||0
+5446|pickapeppa sauce|pantry|Pantry||0
+5447|caribbean hot sauce|pantry|Pantry||0
+5448|ackee|fruit|Produce||0
+5449|breadfruit|fruit|Produce||0
+5450|boniato|vegetables|Produce||0
+5451|christophene|vegetables|Produce||0
+5452|salt cod|seafood|Protein|fish|0
+5453|sea moss|pantry|Pantry||0
+5454|guava paste|fruit|Pantry||0
+5455|guava jelly|pantry|Pantry||0
+5456|mamey|fruit|Produce||0
+5457|cherimoya|fruit|Produce||0
+5458|tamarillo|fruit|Produce||0
+5459|lulo|fruit|Produce||0
+5460|acai puree|fruit|Pantry||0
+5461|cashew fruit|fruit|Produce||0
+5462|hearts of palm|vegetables|Pantry||0
+5463|farofa|grains|Pantry||0
+5464|tapioca flour brazilian|grains|Pantry||0
+5465|pao de queijo mix|grains|Pantry|dairy;egg|0
+5466|queijo minas||Dairy|dairy|0
+5467|requeijao||Dairy|dairy|0
+5468|carne seca|meat|Protein||0
+5469|linguica|meat|Protein||0
+5470|chimichurri|pantry|Pantry||0
+5471|yerba mate|pantry|Pantry||0
+5472|morcilla|meat|Protein||0
+5473|empanada dough|grains|Pantry|gluten|0
+5474|choclo|vegetables|Produce||0
+5475|canary beans|legumes|Pantry||0
+5476|lucuma powder|pantry|Pantry||0
+5477|maca powder|pantry|Pantry||0
+5478|amaranth|grains|Pantry||0
+5479|chuno|vegetables|Pantry||0
+5480|oca|vegetables|Produce||0
+5481|yacon|vegetables|Produce||0
+5482|arracacha|vegetables|Produce||0
+5483|guasca|spices|Spices||0
+5484|cachaca|pantry|Other||0
+5485|pisco|pantry|Other||0
+5486|tequila|pantry|Other||0
+5487|mezcal|pantry|Other||0
+5488|rum|pantry|Other||0
+5489|coffee liqueur|pantry|Other||0
+5490|piquillo pepper|vegetables|Pantry||0
+5491|pimientos|vegetables|Pantry||0
+5492|cuban bread|grains|Pantry|gluten|0
+5493|bolillo|grains|Pantry|gluten|0
+5494|conchas|grains|Pantry|dairy;egg;gluten|0
+5495|carnitas|meat|Protein||0
+5496|barbacoa|meat|Protein||0
+5497|chicharron prensado|meat|Protein||0
+5498|longaniza|meat|Protein||0
+5499|mexican table cream||Dairy|dairy|0
+5500|cuajada||Dairy|dairy|0
+5501|00 flour|grains|Pantry|gluten|0
+5502|semola rimacinata|grains|Pantry|gluten|0
+5503|bucatini|grains|Pantry|gluten|0
+5504|pappardelle|grains|Pantry|egg;gluten|0
+5505|farfalle|grains|Pantry|gluten|0
+5506|rotini|grains|Pantry|gluten|0
+5507|ziti|grains|Pantry|gluten|0
+5508|shell pasta|grains|Pantry|gluten|0
+5509|ditalini|grains|Pantry|gluten|0
+5510|orecchiette|grains|Pantry|gluten|0
+5511|paccheri|grains|Pantry|gluten|0
+5512|cavatappi|grains|Pantry|gluten|0
+5513|vermicelli pasta|grains|Pantry|gluten|0
+5514|fideo noodles|grains|Pantry|gluten|0
+5515|campanelle|grains|Pantry|gluten|0
+5516|gemelli|grains|Pantry|gluten|0
+5517|whole wheat pasta|grains|Pantry|gluten|0
+5518|gluten-free pasta|grains|Pantry||0
+5519|egg pasta|grains|Pantry|egg;gluten|0
+5520|gnocchi|grains|Pantry|gluten|0
+5521|tortellini|grains|Pantry|dairy;egg;gluten|0
+5522|ravioli|grains|Pantry|dairy;egg;gluten|0
+5523|manicotti|grains|Pantry|gluten|0
+5524|asiago||Dairy|dairy|0
+5525|fontina||Dairy|dairy|0
+5526|taleggio||Dairy|dairy|0
+5527|burrata||Dairy|dairy|0
+5528|stracciatella||Dairy|dairy|0
+5529|scamorza||Dairy|dairy|0
+5530|caciocavallo||Dairy|dairy|0
+5531|ricotta salata||Dairy|dairy|0
+5532|robiola||Dairy|dairy|0
+5533|bresaola|meat|Protein||0
+5534|speck|meat|Protein||0
+5535|guanciale|meat|Protein||0
+5536|soppressata|meat|Protein||0
+5537|genoa salami|meat|Protein||0
+5538|pepperoni|meat|Protein||0
+5539|nduja|meat|Protein||0
+5540|capicola|meat|Protein||0
+5541|porchetta|meat|Protein||0
+5542|cotechino|meat|Protein||0
+5543|bottarga|seafood|Protein|fish|0
+5544|tuna in olive oil|seafood|Pantry|fish|0
+5545|colatura di alici|pantry|Pantry|fish|0
+5546|anchovy paste|pantry|Pantry|fish|0
+5547|castelvetrano olives|vegetables|Pantry||0
+5548|nicoise olives|vegetables|Pantry||0
+5549|olive tapenade|pantry|Pantry|fish|0
+5550|arrabbiata sauce|pantry|Pantry||0
+5551|alfredo sauce|pantry|Pantry|dairy|0
+5552|bolognese sauce|pantry|Pantry||0
+5553|tomato puree|pantry|Pantry||0
+5554|carnaroli rice|grains|Pantry||0
+5555|balsamic glaze|pantry|Pantry||0
+5556|marsala wine|pantry|Other||0
+5557|vermouth|pantry|Other||0
+5558|amaretto|pantry|Other|nuts|0
+5559|limoncello|pantry|Other||0
+5560|grappa|pantry|Other||0
+5561|brandy|pantry|Other||0
+5562|sparkling wine|pantry|Other||0
+5563|rose wine|pantry|Other||0
+5564|port wine|pantry|Other||0
+5565|sherry|pantry|Other||0
+5566|beer|pantry|Other|gluten|0
+5567|ladyfingers|grains|Pantry|egg;gluten|0
+5568|amaretti cookies|pantry|Pantry|egg;nuts|0
+5569|grissini|grains|Pantry|gluten|0
+5570|ciabatta|grains|Pantry|gluten|0
+5571|focaccia|grains|Pantry|gluten|0
+5572|piadina|grains|Pantry|gluten|0
+5573|brioche|grains|Pantry|dairy;egg;gluten|0
+5574|croissant dough|grains|Pantry|dairy;gluten|0
+5575|chestnuts|nuts|Pantry|nuts|0
+5576|chestnut flour|grains|Pantry|nuts|0
+5577|hazelnut spread|pantry|Pantry|dairy;nuts|0
+5578|marzipan|pantry|Pantry|nuts|0
+5579|almond paste|pantry|Pantry|nuts|0
+5580|marcona almonds|nuts|Pantry|nuts|0
+5581|truffle oil|pantry|Pantry||0
+5582|black truffle|vegetables|Produce||0
+5583|truffle salt|spices|Spices||0
+5584|porcini mushrooms|vegetables|Produce||0
+5585|dried porcini|vegetables|Pantry||0
+5586|morel mushrooms|vegetables|Produce||0
+5587|chanterelle mushrooms|vegetables|Produce||0
+5588|marjoram|herbs|Produce||0
+5589|dried marjoram|spices|Spices||0
+5590|lovage|herbs|Produce||0
+5591|fennel pollen|spices|Spices||0
+5592|radicchio|vegetables|Produce||0
+5593|endive|vegetables|Produce||0
+5594|escarole|vegetables|Produce||0
+5595|arugula wild|vegetables|Produce||0
+5596|cardoon|vegetables|Produce||0
+5597|artichoke hearts|vegetables|Pantry||0
+5598|calabrian chili paste|pantry|Pantry||0
+5599|peperoncino|spices|Spices||0
+5600|pimenton dulce|spices|Spices||0
+5601|pimenton picante|spices|Spices||0
+5602|manchego||Dairy|dairy|0
+5603|mahon cheese||Dairy|dairy|0
+5604|jamon serrano|meat|Protein||0
+5605|jamon iberico|meat|Protein||0
+5606|sobrasada|meat|Protein||0
+5607|salchichon|meat|Protein||0
+5608|bomba rice|grains|Pantry||0
+5609|romesco|pantry|Pantry|nuts|0
+5610|alioli|pantry|Pantry|egg|0
+5611|padron peppers|vegetables|Produce||0
+5612|membrillo|fruit|Pantry||0
+5613|quince|fruit|Produce||0
+5614|turron|pantry|Pantry|egg;nuts|0
+5615|squid ink|seafood|Pantry|shellfish|0
+5616|octopus|seafood|Protein|shellfish|0
+5617|cuttlefish|seafood|Protein|shellfish|0
+5618|anchovies fresh|seafood|Protein|fish|0
+5619|sardines canned|seafood|Pantry|fish|0
+5620|mackerel canned|seafood|Pantry|fish|0
+5621|skate wing|seafood|Protein|fish|0
+5622|sea bass|seafood|Protein|fish|0
+5623|monkfish|seafood|Protein|fish|0
+5624|turbot|seafood|Protein|fish|0
+5625|dover sole|seafood|Protein|fish|0
+5626|red mullet|seafood|Protein|fish|0
+5627|tarama|seafood|Pantry|fish|0
+5628|tzatziki|pantry|Pantry|dairy|0
+5629|trahana|grains|Pantry|dairy;gluten|0
+5630|hilopites|grains|Pantry|egg;gluten|0
+5631|mizithra||Dairy|dairy|0
+5632|graviera||Dairy|dairy|0
+5633|greek honey|pantry|Pantry||0
+5634|caper berries|vegetables|Pantry||0
+5635|chourico|meat|Protein||0
+5636|creme fraiche||Dairy|dairy|0
+5637|fromage blanc||Dairy|dairy|0
+5638|quark||Dairy|dairy|0
+5639|brie||Dairy|dairy|0
+5640|camembert||Dairy|dairy|0
+5641|roquefort||Dairy|dairy|0
+5642|comte||Dairy|dairy|0
+5643|reblochon||Dairy|dairy|0
+5644|boursin||Dairy|dairy|0
+5645|raclette cheese||Dairy|dairy|0
+5646|gouda||Dairy|dairy|0
+5647|edam||Dairy|dairy|0
+5648|havarti||Dairy|dairy|0
+5649|jarlsberg||Dairy|dairy|0
+5650|gjetost||Dairy|dairy|0
+5651|muenster||Dairy|dairy|0
+5652|limburger||Dairy|dairy|0
+5653|colby cheese||Dairy|dairy|0
+5654|neufchatel||Dairy|dairy|0
+5655|cultured butter||Dairy|dairy|0
+5656|clarified butter||Dairy|dairy|0
+5657|duck fat|pantry|Pantry||0
+5658|goose fat|pantry|Pantry||0
+5659|chicken fat|pantry|Pantry||0
+5660|lard|pantry|Pantry||0
+5661|beef tallow|pantry|Pantry||0
+5662|suet|pantry|Pantry|gluten|0
+5663|foie gras|meat|Protein||0
+5664|duck confit|meat|Protein||0
+5665|duck breast|meat|Protein||0
+5666|whole duck|meat|Protein||0
+5667|goose|meat|Protein||0
+5668|rabbit|meat|Protein||0
+5669|quail|meat|Protein||0
+5670|venison|meat|Protein||0
+5671|bison|meat|Protein||0
+5672|wild boar|meat|Protein||0
+5673|veal|meat|Protein||0
+5674|veal stock|pantry|Pantry||0
+5675|fish stock|pantry|Pantry|fish|0
+5676|bouquet garni|spices|Spices||0
+5677|fines herbes|spices|Spices||0
+5678|chervil|herbs|Produce||0
+5679|celeriac|vegetables|Produce||0
+5680|salsify|vegetables|Produce||0
+5681|cornichons|vegetables|Pantry||0
+5682|white asparagus|vegetables|Produce||0
+5683|lambs lettuce|vegetables|Produce||0
+5684|snails|seafood|Protein|shellfish|0
+5685|frog legs|seafood|Protein||0
+5686|remoulade|pantry|Pantry|egg|0
+5687|bearnaise sauce|pantry|Pantry|dairy;egg|0
+5688|hollandaise sauce|pantry|Pantry|dairy;egg|0
+5689|gelatin|pantry|Pantry||0
+5690|lavender|spices|Spices||0
+5691|tonka bean|spices|Spices||0
+5692|praline paste|pantry|Pantry|nuts|0
+5693|creme de cassis|pantry|Other||0
+5694|triple sec|pantry|Other||0
+5695|pastis|pantry|Other||0
+5696|stilton||Dairy|dairy|0
+5697|wensleydale||Dairy|dairy|0
+5698|clotted cream||Dairy|dairy|0
+5699|golden syrup|pantry|Pantry||0
+5700|haggis|meat|Protein|gluten|0
+5701|cumberland sausage|meat|Protein|gluten|0
+5702|gammon|meat|Protein||0
+5703|malt vinegar|pantry|Pantry|gluten|0
+5704|brown sauce|pantry|Pantry|gluten|0
+5705|yeast extract|pantry|Pantry|gluten|0
+5706|piccalilli|pantry|Pantry||0
+5707|pickled onions|pantry|Pantry||0
+5708|mint sauce|pantry|Pantry||0
+5709|horseradish|vegetables|Produce||0
+5710|prepared horseradish|pantry|Pantry||0
+5711|salad cream|pantry|Pantry|egg|0
+5712|self-rising flour|grains|Pantry|gluten|0
+5713|custard powder|pantry|Pantry||0
+5714|mincemeat|fruit|Pantry|gluten|0
+5715|christmas pudding|pantry|Pantry|dairy;egg;gluten|0
+5716|digestive biscuits|grains|Pantry|gluten|0
+5717|oatcakes|grains|Pantry|gluten|0
+5718|crumpets|grains|Pantry|gluten|0
+5719|soda bread|grains|Pantry|dairy;gluten|0
+5720|mushy peas|legumes|Pantry||0
+5721|rye flour|grains|Pantry|gluten|0
+5722|rye bread|grains|Pantry|gluten|0
+5723|pumpernickel|grains|Pantry|gluten|0
+5724|knackebrod|grains|Pantry|gluten|0
+5725|spelt flour|grains|Pantry|gluten|0
+5726|spelt|grains|Pantry|gluten|0
+5727|kamut|grains|Pantry|gluten|0
+5728|wheat berries|grains|Pantry|gluten|0
+5729|rolled rye|grains|Pantry|gluten|0
+5730|barley flour|grains|Pantry|gluten|0
+5731|oat flour|grains|Pantry|gluten|0
+5732|oat bran|grains|Pantry|gluten|0
+5733|wheat germ|grains|Pantry|gluten|0
+5734|wheat bran|grains|Pantry|gluten|0
+5735|spatzle|grains|Pantry|egg;gluten|0
+5736|pierogi|grains|Pantry|dairy;egg;gluten|0
+5737|pelmeni|grains|Pantry|egg;gluten|0
+5738|kielbasa|meat|Protein||0
+5739|bratwurst|meat|Protein||0
+5740|weisswurst|meat|Protein||0
+5741|knackwurst|meat|Protein||0
+5742|liverwurst|meat|Protein||0
+5743|smoked sausage|meat|Protein||0
+5744|andouille|meat|Protein||0
+5745|tasso ham|meat|Protein||0
+5746|smetana||Dairy|dairy|0
+5747|tvorog||Dairy|dairy|0
+5748|farmer cheese||Dairy|dairy|0
+5749|sirene||Dairy|dairy|0
+5750|kajmak||Dairy|dairy|0
+5751|skyr||Dairy|dairy|0
+5752|pickled herring|seafood|Pantry|fish|0
+5753|gravlax|seafood|Protein|fish|0
+5754|lutefisk|seafood|Protein|fish|0
+5755|caviar|seafood|Pantry|fish|0
+5756|smoked sprats|seafood|Pantry|fish|0
+5757|lingonberries|fruit|Produce||0
+5758|lingonberry jam|pantry|Pantry||0
+5759|cloudberries|fruit|Produce||0
+5760|aquavit|pantry|Other||0
+5761|vodka|pantry|Other||0
+5762|whiskey|pantry|Other||0
+5763|gin|pantry|Other||0
+5764|cider|pantry|Other||0
+5765|juniper berries|spices|Spices||0
+5766|hot paprika|spices|Spices||0
+5767|paprika paste|pantry|Pantry||0
+5768|lecso|pantry|Pantry||0
+5769|pickled beets|vegetables|Pantry||0
+5770|pickled cabbage|vegetables|Pantry||0
+5771|kohlrabi|vegetables|Produce||0
+5772|black radish|vegetables|Produce||0
+5773|jerusalem artichoke|vegetables|Produce||0
+5774|ramps|vegetables|Produce||0
+5775|fiddleheads|vegetables|Produce||0
+5776|sorrel leaves|herbs|Produce||0
+5777|chicory root|pantry|Pantry||0
+5778|lebkuchen spice|spices|Spices||0
+5779|speculoos spread|pantry|Pantry|gluten|0
+5780|stollen|pantry|Pantry|dairy;gluten;nuts|0
+5781|cranberry sauce|pantry|Pantry||0
+5782|pumpkin pie filling|pantry|Pantry||0
+5783|maple sugar|pantry|Pantry||0
+5784|maple butter|pantry|Pantry||0
+5785|corn syrup|pantry|Pantry||0
+5786|high fructose corn syrup|pantry|Pantry||0
+5787|sorghum syrup|pantry|Pantry||0
+5788|cane syrup|pantry|Pantry||0
+5789|catfish fillet|seafood|Protein|fish|0
+5790|crawfish|seafood|Protein|shellfish|0
+5791|alligator meat|meat|Protein||0
+5792|soft shell crab|seafood|Protein|shellfish|0
+5793|dungeness crab|seafood|Protein|shellfish|0
+5794|king crab|seafood|Protein|shellfish|0
+5795|oysters|seafood|Protein|shellfish|0
+5796|razor clam|seafood|Protein|shellfish|0
+5797|geoduck|seafood|Protein|shellfish|0
+5798|cod roe|seafood|Protein|fish|0
+5799|salmon belly|seafood|Protein|fish|0
+5800|sockeye salmon|seafood|Protein|fish|0
+5801|arctic char|seafood|Protein|fish|0
+5802|lake whitefish|seafood|Protein|fish|0
+5803|walleye fillet|seafood|Protein|fish|0
+5804|mahi mahi|seafood|Protein|fish|0
+5805|swordfish|seafood|Protein|fish|0
+5806|wahoo|seafood|Protein|fish|0
+5807|ahi poke|seafood|Protein|fish|0
+5808|taro leaves luau|vegetables|Produce||0
+5809|poi|pantry|Pantry||0
+5810|kalua pork|meat|Protein||0
+5811|spam|meat|Protein||0
+5812|macadamia nuts|nuts|Pantry|nuts|0
+5813|kukui nuts|nuts|Pantry|nuts|0
+5814|breadfruit flour|grains|Pantry||0
+5815|pineapple canned|fruit|Pantry||0
+5816|manuka honey|pantry|Pantry||0
+5817|macadamia oil|pantry|Pantry|nuts|0
+5818|wattleseed|spices|Spices||0
+5819|lemon myrtle|spices|Spices||0
+5820|finger lime|fruit|Produce||0
+5821|kangaroo meat|meat|Protein||0
+5822|bush tomato|spices|Spices||0
+5823|wild rice flour|grains|Pantry||0
+5824|manoomin|grains|Pantry||0
+5825|blue cornmeal|grains|Pantry||0
+5826|tepary beans|legumes|Pantry||0
+5827|cholla buds|vegetables|Pantry||0
+5828|mesquite flour|grains|Pantry||0
+5829|pinon nuts|nuts|Pantry|nuts|0
+5830|pumpkin seed oil|pantry|Pantry||0
+5831|bison jerky|meat|Protein||0
+5832|wild blueberries|fruit|Produce||0
+5833|saskatoon berries|fruit|Produce||0
+5834|elderberries|fruit|Produce||0
+5835|black currants|fruit|Produce||0
+5836|red currants|fruit|Produce||0
+5837|gooseberries|fruit|Produce||0
+5838|rhubarb|vegetables|Produce||0
+5839|apricot|fruit|Produce||0
+5840|nectarine|fruit|Produce||0
+5841|persimmon|fruit|Produce||0
+5842|kumquat|fruit|Produce||0
+5843|blood orange|fruit|Produce||0
+5844|key lime|fruit|Produce||0
+5845|meyer lemon|fruit|Produce||0
+5846|bergamot|fruit|Produce||0
+5847|citron|fruit|Produce||0
+5848|fresh cranberries|fruit|Produce||2
+5849|boysenberries|fruit|Produce||0
+5850|honeydew|fruit|Produce||0
+5851|casaba melon|fruit|Produce||0
+5852|bitter orange|fruit|Produce||0
+5853|fresh dates|fruit|Produce||0
+5854|prune plums|fruit|Produce||0
+5855|crabapples|fruit|Produce||0
+5856|green apple|fruit|Produce||0
+5857|dried apple|fruit|Pantry||0
+5858|dried banana|fruit|Pantry||0
+5859|dried papaya|fruit|Pantry||0
+5860|dried pineapple|fruit|Pantry||0
+5861|dried cherries|fruit|Pantry||0
+5862|dried blueberries|fruit|Pantry||0
+5863|dried currants|fruit|Pantry||0
+5864|golden raisins|fruit|Pantry||0
+5865|dried peaches|fruit|Pantry||0
+5866|dried pears|fruit|Pantry||0
+5867|candied ginger|fruit|Pantry||0
+5868|candied orange peel|fruit|Pantry||0
+5869|fruit leather|fruit|Pantry||0
+5870|beet greens|vegetables|Produce||0
+5871|turnip greens|vegetables|Produce||0
+5872|baby spinach|vegetables|Produce||0
+5873|mizuna|vegetables|Produce||0
+5874|tatsoi|vegetables|Produce||0
+5875|pea shoots|vegetables|Produce||0
+5876|alfalfa sprouts|vegetables|Produce||0
+5877|microgreens|vegetables|Produce||0
+5878|dandelion greens|vegetables|Produce||0
+5879|savoy cabbage|vegetables|Produce||0
+5880|romanesco|vegetables|Produce||0
+5881|broccolini|vegetables|Produce||0
+5882|pearl onions|vegetables|Produce||0
+5883|garlic scapes|vegetables|Produce||0
+5884|black garlic|vegetables|Produce||0
+5885|fingerling potatoes|vegetables|Produce||0
+5886|purple sweet potato|vegetables|Produce||0
+5887|golden beets|vegetables|Produce||0
+5888|watermelon radish|vegetables|Produce||0
+5889|delicata squash|vegetables|Produce||0
+5890|buttercup squash|vegetables|Produce||0
+5891|pattypan squash|vegetables|Produce||0
+5892|sugar pumpkin|vegetables|Produce||0
+5893|banana peppers|vegetables|Produce||0
+5894|shishito peppers|vegetables|Produce||0
+5895|fresno chile|vegetables|Produce||0
+5896|cherry peppers|vegetables|Produce||0
+5897|japanese eggplant|vegetables|Produce||0
+5898|wax beans|vegetables|Produce||0
+5899|trumpet mushrooms|vegetables|Produce||0
+5900|celtuce|vegetables|Produce||0
+5901|red leaf lettuce|vegetables|Produce||0
+5902|little gem lettuce|vegetables|Produce||0
+5903|fresh bay leaves|herbs|Produce||0
+5904|lemon balm|herbs|Produce||0
+5905|lemon verbena|herbs|Produce||0
+5906|borage|herbs|Produce||0
+5907|nasturtium|herbs|Produce||0
+5908|peppermint|herbs|Produce||0
+5909|spearmint|herbs|Produce||0
+5910|dried chives|spices|Spices||0
+5911|dried tarragon|spices|Spices||0
+5912|dried cilantro|spices|Spices||0
+5913|dried lemon peel|spices|Spices||0
+5914|dried onion flakes|spices|Spices||0
+5915|dried garlic flakes|spices|Spices||0
+5916|garlic salt|spices|Spices||0
+5917|onion salt|spices|Spices||0
+5918|celery salt|spices|Spices||0
+5919|cajun seasoning|spices|Spices||0
+5920|fajita seasoning|spices|Spices||0
+5921|chili seasoning mix|spices|Spices||0
+5922|steak seasoning|spices|Spices||0
+5923|bbq rub|spices|Spices||0
+5924|ranch seasoning|spices|Spices|dairy|0
+5925|onion soup mix|spices|Spices|gluten|0
+5926|pickling spice|spices|Spices||0
+5927|mulling spices|spices|Spices||0
+5928|madras curry powder|spices|Spices||0
+5929|japanese curry powder|spices|Spices||0
+5930|whole nutmeg|spices|Spices||0
+5931|ground mace|spices|Spices||0
+5932|anise seed|spices|Spices||0
+5933|dill seed|spices|Spices||0
+5934|black sesame seeds|spices|Spices|sesame|0
+5935|mustard powder|spices|Spices||0
+5936|yellow mustard seeds|spices|Spices||0
+5937|green peppercorns|spices|Spices||0
+5938|monosodium glutamate|spices|Spices||0
+5939|nutritional yeast|pantry|Pantry||0
+5940|liquid smoke|pantry|Pantry||0
+5941|smoked salt|spices|Spices||0
+5942|fleur de sel|spices|Spices||0
+5943|unsweetened chocolate|pantry|Pantry||0
+5944|milk chocolate|pantry|Pantry|dairy|0
+5945|white chocolate|pantry|Pantry|dairy|0
+5946|dutch process cocoa|pantry|Pantry||0
+5947|espresso powder|pantry|Pantry||0
+5948|almond extract|pantry|Pantry|nuts|0
+5949|lemon extract|pantry|Pantry||0
+5950|peppermint extract|pantry|Pantry||0
+5951|food coloring|pantry|Pantry||0
+5952|sprinkles|pantry|Pantry||0
+5953|xanthan gum|pantry|Pantry||0
+5954|pectin|pantry|Pantry||0
+5955|vital wheat gluten|pantry|Pantry|gluten|0
+5956|cake flour|grains|Pantry|gluten|0
+5957|pastry flour|grains|Pantry|gluten|0
+5958|almond flour|grains|Pantry|nuts|0
+5959|hazelnut flour|grains|Pantry|nuts|0
+5960|stevia|pantry|Pantry||0
+5961|monk fruit sweetener|pantry|Pantry||0
+5962|erythritol|pantry|Pantry||0
+5963|sucralose|pantry|Pantry||0
+5964|date sugar|pantry|Pantry||0
+5965|brown rice syrup|pantry|Pantry||0
+5966|barley malt syrup|pantry|Pantry|gluten|0
+5967|simple syrup|pantry|Pantry||0
+5968|rock sugar|pantry|Pantry||0
+5969|maltose|pantry|Pantry|gluten|0
+5970|sugar cubes|pantry|Pantry||0
+5971|skim milk||Dairy|dairy|0
+5972|whole milk||Dairy|dairy|0
+5973|reduced fat milk||Dairy|dairy|0
+5974|goat milk||Dairy|dairy|0
+5975|lactose-free milk||Dairy|dairy|0
+5976|rice milk||Dairy||0
+5977|cashew milk||Dairy|nuts|0
+5978|hemp milk||Dairy||0
+5979|vegan butter||Dairy||0
+5980|vegan cheese||Dairy|nuts|0
+5981|string cheese||Dairy|dairy|0
+5982|processed cheese||Dairy|dairy|0
+5983|cheese powder||Dairy|dairy|0
+5984|egg yolk|eggs|Protein|egg|0
+5985|goose egg|eggs|Protein|egg|0
+5986|liquid egg|eggs|Protein|egg|0
+5987|meringue powder|eggs|Pantry|egg|0
+5988|whole wheat bread|grains|Pantry|gluten|0
+5989|hawaiian rolls|grains|Pantry|dairy;egg;gluten|0
+5990|challah|grains|Pantry|egg;gluten|0
+5991|croissant|grains|Pantry|dairy;gluten|0
+5992|water crackers|grains|Pantry|gluten|0
+5993|matzo|grains|Pantry|gluten|0
+5994|rice crackers|grains|Pantry||0
+5995|stuffing mix|grains|Pantry|gluten|0
+5996|tabasco sauce|pantry|Pantry||0
+5997|buffalo sauce|pantry|Pantry|dairy|0
+5998|steak sauce|pantry|Pantry|gluten|0
+5999|caesar dressing|pantry|Pantry|dairy;egg;fish|0
+6000|blue cheese dressing|pantry|Pantry|dairy;egg|0
+6001|thousand island dressing|pantry|Pantry|egg|0
+6002|honey mustard|pantry|Pantry||0
+6003|greek dressing|pantry|Pantry||0
+6004|sesame ginger dressing|pantry|Pantry|sesame;soy|0
+6005|green goddess dressing|pantry|Pantry|egg;fish|0
+6006|champagne vinegar|pantry|Pantry||0
+6007|pickled jalapenos|vegetables|Pantry||0
+6008|giardiniera|vegetables|Pantry||0
+6009|orange marmalade|pantry|Pantry||0
+6010|raspberry jam|pantry|Pantry||0
+6011|peach preserves|pantry|Pantry||0
+6012|fig jam|pantry|Pantry||0
+6013|apple butter|pantry|Pantry||0
+6014|lemon curd|pantry|Pantry|dairy;egg|0
+6015|miso soup mix|pantry|Pantry|fish;soy|0
+6016|ramen seasoning|pantry|Pantry|gluten;soy|0
+6017|bone broth|pantry|Pantry||0
+6018|cream of celery soup|pantry|Pantry|dairy;gluten|0
+6019|chicken noodle soup|pantry|Pantry|egg;gluten|0
+6020|canned mushrooms|vegetables|Pantry||0
+6021|canned green beans|vegetables|Pantry||0
+6022|canned peas|vegetables|Pantry||0
+6023|walnuts english|nuts|Pantry|nuts|0
+6024|brazil nuts|nuts|Pantry|nuts|0
+6025|hemp seeds|nuts|Pantry||0
+6026|watermelon seeds|nuts|Pantry||0
+6027|cashew butter|nuts|Pantry|nuts|0
+6028|sunflower seed butter|nuts|Pantry||0
+6029|hazelnut butter|nuts|Pantry|nuts|0
+6030|lupini beans|legumes|Pantry||0
+6031|borlotti beans|legumes|Pantry||0
+6032|flageolet beans|legumes|Pantry||0
+6033|red beans|legumes|Pantry||0
+6034|broad beans dried|legumes|Pantry||0
+6035|canned chickpeas|legumes|Pantry||0
+6036|canned lentils|legumes|Pantry||0
+6037|baked beans|legumes|Pantry||0
+6038|instant rice|grains|Pantry||0
+6039|parboiled rice|grains|Pantry||0
+6040|corn nuts|grains|Pantry||0
+6041|textured vegetable protein|pantry|Pantry|soy|0
+6042|plant-based ground|pantry|Protein|soy|0
+6043|veggie burger|pantry|Protein|gluten;soy|0
+6044|protein powder|pantry|Pantry|dairy|0
+6045|safflower oil|pantry|Pantry||0
+6046|corn oil|pantry|Pantry||0
+6047|grapeseed oil|pantry|Pantry||0
+6048|walnut oil|pantry|Pantry|nuts|0
+6049|hazelnut oil|pantry|Pantry|nuts|0
+6050|almond oil|pantry|Pantry|nuts|0
+6051|flaxseed oil|pantry|Pantry||0
+6052|rice bran oil|pantry|Pantry||0
+6053|soybean oil|pantry|Pantry|soy|0
+6054|palm shortening|pantry|Pantry||0
+6055|mustard oil|pantry|Pantry||0
+6056|cocoa butter|pantry|Pantry||0
+6057|mct oil|pantry|Pantry||0
+6058|pork loin|meat|Protein||0
+6059|pork spare ribs|meat|Protein||0
+6060|baby back ribs|meat|Protein||0
+6061|canadian bacon|meat|Protein||0
+6062|salt pork|meat|Protein||0
+6063|pork sausage|meat|Protein||0
+6064|ham steak|meat|Protein||0
+6065|beef tenderloin|meat|Protein||0
+6066|new york strip|meat|Protein||0
+6067|t-bone steak|meat|Protein||0
+6068|beef shank|meat|Protein||0
+6069|tri-tip|meat|Protein||0
+6070|flat iron steak|meat|Protein||0
+6071|eye of round|meat|Protein||0
+6072|roast beef|meat|Protein||0
+6073|corned beef|meat|Protein||0
+6074|pastrami|meat|Protein||0
+6075|beef jerky|meat|Protein||0
+6076|ground chuck|meat|Protein||0
+6077|turkey legs|meat|Protein||0
+6078|turkey bacon|meat|Protein||0
+6079|chicken skin|meat|Protein||0
+6080|rack of lamb|meat|Protein||0
+6081|lamb loin|meat|Protein||0
+6082|langoustine|seafood|Protein|shellfish|0
+6083|sea scallops|seafood|Protein|shellfish|0
+6084|smoked trout|seafood|Protein|fish|0
+6085|flounder|seafood|Protein|fish|0
+6086|haddock|seafood|Protein|fish|0
+6087|hake|seafood|Protein|fish|0
+6088|perch|seafood|Protein|fish|0
+6089|carp|seafood|Protein|fish|0
+6090|pike|seafood|Protein|fish|0
+6091|canned salmon|seafood|Pantry|fish|0
+6092|canned crab|seafood|Pantry|shellfish|0
+6093|canned clams|seafood|Pantry|shellfish|0
+6094|oyster crackers|grains|Pantry|gluten|0
+6095|instant noodles|grains|Pantry|gluten|0
+6096|fonio|grains|Pantry||0
+6097|einkorn|grains|Pantry|gluten|0
+6098|emmer|grains|Pantry|gluten|0
+6099|psyllium husk|pantry|Pantry||0
+6100|basil seeds|nuts|Pantry||0
+6101|guinea fowl|meat|Protein||0
+6102|ostrich|meat|Protein||0
+6103|pheasant|meat|Protein||0
+6104|partridge|meat|Protein||0
+6105|elk|meat|Protein||0
+6106|moose|meat|Protein||0
+6107|reindeer|meat|Protein||0
+6108|turkey|meat|Protein||0
+6109|pork trotters|meat|Protein||0
+6110|pork ears|meat|Protein||0
+6111|pork belly strips|meat|Protein||0
+6112|beef cheeks|meat|Protein||0
+6113|beef kidney|meat|Protein||0
+6114|sweetbreads|meat|Protein||0
+6115|cockles|seafood|Protein|shellfish|0
+6116|periwinkles|seafood|Protein|shellfish|0
+6117|whelk|seafood|Protein|shellfish|0
+6118|spiny lobster|seafood|Protein|shellfish|0
+6119|barramundi|seafood|Protein|fish|0
+6120|pangasius|seafood|Protein|fish|0
+6121|milkfish|seafood|Protein|fish|0
+6122|grouper|seafood|Protein|fish|0
+6123|smelt|seafood|Protein|fish|0
+6124|pompano|seafood|Protein|fish|0
+6125|bluefish|seafood|Protein|fish|0
+6126|shad|seafood|Protein|fish|0
+6127|orange roughy|seafood|Protein|fish|0
+6128|skate|seafood|Protein|fish|0
+6129|sturgeon|seafood|Protein|fish|0
+6130|lingcod|seafood|Protein|fish|0
+6131|rockfish|seafood|Protein|fish|0
+6132|ocean perch|seafood|Protein|fish|0
+6133|sugar apple|fruit|Produce||0
+6134|amla|fruit|Produce||0
+6135|loquat|fruit|Produce||0
+6136|feijoa|fruit|Produce||0
+6137|salak|fruit|Produce||0
+6138|jabuticaba|fruit|Produce||0
+6139|mango ginger|herbs|Produce||0
+6140|facing heaven chili|spices|Spices||0
+6141|mala seasoning|spices|Spices||0
+6142|grains of selim|spices|Spices||0
+6143|dried galangal|spices|Spices||0
+6144|lemongrass dried|spices|Spices||0
+6145|sichuan pepper oil|pantry|Pantry||0
+6146|shaoxing cooking wine|pantry|Other|gluten|0
+6147|plum wine|pantry|Other||0
+6148|rice wine vinegar seasoned|pantry|Pantry||0
+6149|chinese pickled mustard|vegetables|Pantry||0
+6150|tianjin preserved vegetable|vegetables|Pantry||0
+6151|preserved radish|vegetables|Pantry||0
+6152|chinese rice cake|grains|Pantry||0
+6153|hand-pulled noodles|grains|Pantry|gluten|0
+6154|dried egg noodles|grains|Pantry|egg;gluten|0
+6155|japanese bbq sauce|pantry|Pantry|gluten;sesame;soy|0
+6156|tare|pantry|Pantry|gluten;soy|0
+6157|kimchi base|pantry|Pantry|fish;shellfish|0
+6158|perilla seeds|nuts|Pantry||0
+6159|roasted soybean powder|pantry|Pantry|soy|0
+6160|thai fish ball|seafood|Protein|fish|0
+6161|indonesian noodles|grains|Pantry|egg;gluten|0
+6162|dried coconut chips|nuts|Pantry||0
+6163|coconut aminos|pantry|Pantry||0
+6164|peanut butter powder|nuts|Pantry|nuts|0
+6165|garlic paste|pantry|Pantry||0
+6166|ginger paste|pantry|Pantry||0
+6167|tikka masala sauce|pantry|Pantry|dairy|0
+6168|butter chicken sauce|pantry|Pantry|dairy|0
+6169|korma sauce|pantry|Pantry|dairy;nuts|0
+6170|vindaloo sauce|pantry|Pantry||0
+6171|jalfrezi sauce|pantry|Pantry||0
+6172|saag|vegetables|Pantry||0
+6173|yellow lentils|legumes|Pantry||0
+6174|sprouted mung beans|vegetables|Produce||0
+6175|sprouted lentils|vegetables|Produce||0
+6176|iru|pantry|Pantry||0
+6177|ugba|legumes|Pantry||0
+6178|bambara groundnut|legumes|Pantry||0
+6179|stockfish|seafood|Protein|fish|0
+6180|smoked turkey|meat|Protein||0
+6181|ponmo|meat|Protein||0
+6182|garden egg|vegetables|Produce||0
+6183|scent leaf|herbs|Produce||0
+6184|utazi|herbs|Produce||0
+6185|waterleaf|vegetables|Produce||0
+6186|afang leaves|vegetables|Produce||0
+6187|palm kernel oil|pantry|Pantry||0
+6188|shea butter|pantry|Pantry||0
+6189|palm wine|pantry|Other||0
+6190|pepper soup spice|spices|Spices||0
+6191|kuli kuli|nuts|Pantry|nuts|0
+6192|fura|grains|Pantry||0
+6193|millet flour|grains|Pantry||0
+6194|abacha|grains|Pantry||0
+6195|maafe sauce|pantry|Pantry|nuts|0
+6196|thieb spice|spices|Spices||0
+6197|pilau masala|spices|Spices||0
+6198|xawaash|spices|Spices||0
+6199|mchicha|vegetables|Produce||0
+6200|mukimo|vegetables|Pantry||0
+6201|ugali flour|grains|Pantry||0
+6202|smen||Dairy|dairy|0
+6203|tagine spice|spices|Spices||0
+6204|tunisian brik pastry|grains|Pantry|gluten|0
+6205|koshari lentils|legumes|Pantry||0
+6206|ful medames|legumes|Pantry||0
+6207|morogo|vegetables|Produce||0
+6208|amadumbe|vegetables|Produce||0
+6209|samp|grains|Pantry||0
+6210|cape malay curry powder|spices|Spices||0
+6211|buchu|spices|Spices||0
+6212|marula|fruit|Produce||0
+6213|lagman noodles|grains|Pantry|gluten|0
+6214|nan bread|grains|Pantry|gluten|0
+6215|zira|spices|Spices||0
+6216|kuraga|fruit|Pantry||0
+6217|suluguni||Dairy|dairy|0
+6218|narsharab|pantry|Pantry||0
+6219|utskho suneli|spices|Spices||0
+6220|sumalak|grains|Pantry|gluten|0
+6221|cassava bammy|grains|Pantry||0
+6222|ginger beer|pantry|Other||0
+6223|angostura bitters|pantry|Other||0
+6224|mauby bark|spices|Spices||0
+6225|seasoning peppers|vegetables|Produce||0
+6226|grace browning|pantry|Pantry||0
+6227|coconut bread|grains|Pantry|gluten|0
+6228|sea grapes|vegetables|Produce||0
+6229|limu|pantry|Pantry||0
+6230|noni|fruit|Produce||0
+6231|haupia|pantry|Pantry||0
+6232|ulu|fruit|Produce||0
+6233|kava|pantry|Pantry||0
+6234|huauzontle|vegetables|Produce||0
+6235|quelites|vegetables|Produce||0
+6236|camas root|vegetables|Produce||0
+6237|chokecherries|fruit|Produce||0
+6238|buffaloberries|fruit|Produce||0
+6239|chaya|vegetables|Produce||0
+6240|pozole corn|grains|Pantry||0
+6241|tamale dough|grains|Pantry||0
+6242|cacao paste|pantry|Pantry||0
+6243|cacao butter|pantry|Pantry||0
+6244|ají charapita|spices|Spices||0
+6245|ají mirasol|spices|Spices||0
+6246|cancha|grains|Pantry||0
+6247|tuna cactus fruit|fruit|Produce||0
+6248|cupuacu|fruit|Produce||0
+6249|camu camu|fruit|Pantry||0
+6250|guarana|pantry|Pantry||0
+6251|yerba buena|herbs|Produce||0
+6252|tamarind pods|fruit|Produce||0
+6253|pigeon peas green|legumes|Produce||0
+6254|chicharrones|meat|Protein||0
+6255|dende palm oil|pantry|Pantry||0
+6256|tucupi|pantry|Pantry||0
+6257|manioc starch|pantry|Pantry||0
+6258|1% milk||Dairy||26
+6259|hot cocoa mix||Pantry||1
+6260|hard cider|pantry|Other||0
+6261|light cream||Dairy||0

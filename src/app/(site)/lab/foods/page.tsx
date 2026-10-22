@@ -102,8 +102,8 @@ export default async function FoodsLab({ searchParams }: Props) {
           </h2>
           <p className="mt-1 font-mono text-xs text-ink-muted">
             fdc {detail.fdcId} · {detail.dataType ?? "unknown type"}
-            {detail.brandOwner ? ` · ${detail.brandOwner}` : ""}
-            {detail.brandName ? ` · ${detail.brandName}` : ""}
+            {detail.brandName ? ` · brand ${detail.brandName}` : ""}
+            {detail.brandOwner ? ` · barcode owner ${detail.brandOwner}` : ""}
             {detail.servingSize !== null ? ` · serving ${detail.servingSize} ${detail.servingSizeUnit ?? ""}` : ""}
             {detail.household ? ` (${detail.household})` : ""}
           </p>

@@ -1,5 +1,6 @@
 import { cache } from "react";
 
+import { buildAllergenInfo, type AllergenInfo, type AllergenRow } from "@/lib/allergenInfo";
 import { primaryAisle } from "@/lib/placeholderTone";
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createStaticClient } from "@/lib/supabase/static";
@@ -63,7 +64,10 @@ export type RecipeDetail = {
   ingredients: RecipeIngredientLine[];
   steps: string[];
   diets: { slug: string; name: string }[];
+  /** Names of every allergen the recipe carries, required or optional (for the author form). */
   allergens: string[];
+  /** Allergens with their basis, where they come from and whether they are optional-only. */
+  allergenInfo: AllergenInfo[];
   cookware: string[];
   sourceName: string | null;
   sourceUrl: string | null;
@@ -102,11 +106,13 @@ type Row = {
       aisle_category: string;
       family_id: number | null;
       is_pantry_staple: boolean;
+      ingredient_allergens: { allergens: { slug: string } | null }[];
     } | null;
   }[];
   recipe_steps: { sort_order: number; instruction: string }[];
   recipe_diets: { diets: { slug: string; name: string } | null }[];
-  recipe_allergens: { allergens: { name: string } | null }[];
+  recipe_allergens: AllergenRow[];
+  recipe_optional_allergens: AllergenRow[];
   recipe_cookware: { alt_group: number | null; cookware: { name: string } | null }[];
   recipe_photos: PhotoRow | PhotoRow[] | null;
 };
@@ -151,10 +157,11 @@ const SELECT = `
   spice_level, image_url, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
   source_name, source_url, source_license,
   cuisines(name),
-  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name, kind, to_base_factor), ingredients(id, canonical_name, aisle_category, family_id, is_pantry_staple)),
+  recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name, kind, to_base_factor), ingredients(id, canonical_name, aisle_category, family_id, is_pantry_staple, ingredient_allergens(allergens(slug)))),
   recipe_steps(sort_order, instruction),
   recipe_diets(diets(slug, name)),
-  recipe_allergens(allergens(name)),
+  recipe_allergens(basis, allergens(slug, name)),
+  recipe_optional_allergens(basis, allergens(slug, name)),
   recipe_cookware(alt_group, cookware(name)),
   recipe_photos(storage_path, credit, license, attribution_url, alt_text)
 `;
@@ -229,7 +236,19 @@ export const getRecipeBySlug = cache(async function getRecipeBySlug(
       .sort((a, b) => a.sort_order - b.sort_order)
       .map((s) => s.instruction),
     diets: r.recipe_diets.flatMap((d) => (d.diets ? [d.diets] : [])),
-    allergens: r.recipe_allergens.flatMap((a) => (a.allergens ? [a.allergens.name] : [])),
+    allergens: [...r.recipe_allergens, ...r.recipe_optional_allergens].flatMap((a) =>
+      a.allergens ? [a.allergens.name] : [],
+    ),
+    allergenInfo: buildAllergenInfo(
+      r.recipe_allergens,
+      r.recipe_optional_allergens,
+      r.recipe_ingredients.map((i) => ({
+        name: i.ingredients?.canonical_name ?? "",
+        // Same rule as line_is_optional() in the database: the stored flag, or the note says optional / garnish.
+        optional: i.is_optional || /\b(optional|garnish)\b/i.test(i.prep_note ?? ""),
+        allergenSlugs: (i.ingredients?.ingredient_allergens ?? []).flatMap((x) => (x.allergens ? [x.allergens.slug] : [])),
+      })),
+    ),
     cookware: cookwareLabels(r.recipe_cookware),
     sourceName: r.source_name,
     sourceUrl: r.source_url,

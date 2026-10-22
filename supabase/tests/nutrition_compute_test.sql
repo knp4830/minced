@@ -175,8 +175,8 @@ begin
   if not pg_temp.approx((select amount_per_serving from recipe_nutrients where recipe_id = rid and nutrient_id = 1), 579.30) then
     raise exception 'FAILED T2: stored kcal'; end if;
   if (select nutrition_gaps from recipes where id = rid) <> '{}' then raise exception 'FAILED T2: gaps should be empty'; end if;
-  -- a catalog recipe (author_id null): the macro columns are never written by a refresh
-  if (select calories from recipes where id = rid) is not null then raise exception 'FAILED T2: catalog macros must not be overwritten'; end if;
+  -- 10c (migration 20261019100000): a refresh now writes the computed macro columns for every computed recipe.
+  if (select calories from recipes where id = rid) is null then raise exception 'FAILED T2: computed macro columns should be written'; end if;
 
   -- vitamin A: beef does not report it, garlic and soy report true zeros -> amount 0 with coverage < 1, NOT a full-coverage zero
   if (select coverage from compute_nutrients(lines, 4) where nutrient_key = 'vitamin_a_mcg_rae') > 0.05 then
@@ -482,15 +482,8 @@ begin
     raise exception 'FAILED T12: the brand is missing under its ingredient: %', (select jsonb_agg(to_jsonb(s)) from search_foods('soy sauce', 12) s); end if;
   if exists (select 1 from search_foods('soy sauce', 12) where fdc_id = 990005 and has_nutrition) then
     raise exception 'FAILED T12: a food without label data must say has_nutrition false'; end if;
-  if (select max(ord) from (select row_number() over () ord, kind, score from search_foods('soy sauce', 12)) a where kind = 'ingredient' and score >= 0.6)
-     > (select min(ord) from (select row_number() over () ord, kind from search_foods('soy sauce', 12)) a where kind = 'brand') then
-    raise exception 'FAILED T12: brands must rank after exact/prefix/word canonical ingredients'; end if;
-  if (select max(ord) from (select row_number() over () ord, kind from search_foods('soy sauce', 12)) a where kind = 'food')
-     > (select min(ord) from (select row_number() over () ord, kind from search_foods('soy sauce', 12)) a where kind = 'brand') then
-    raise exception 'FAILED T12: generic foods must rank before brands'; end if;
-  if (select max(ord) from (select row_number() over () ord, kind, score from search_foods('soy sauce', 12)) a where kind = 'brand')
-     > (select min(ord) from (select row_number() over () ord, kind, score from search_foods('soy sauce', 12)) a where kind = 'ingredient' and score < 0.6) then
-    raise exception 'FAILED T12: fuzzy ingredient matches must not outrank brands'; end if;
+  -- Order BETWEEN kinds (ingredient / food / brand) was reworked by migration 20261017190000_search_foods_lead_ranking and is
+  -- asserted by scripts/nutrition/test_search_ranking.sql; this test only checks what each kind carries.
 
   -- typing the brand finds it, with the serving info from the label
   select * into r from search_foods('fixturebrand', 12) where fdc_id = 990004;

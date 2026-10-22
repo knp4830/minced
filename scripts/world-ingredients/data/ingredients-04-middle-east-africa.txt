@@ -93,7 +93,7 @@ egusi | Pantry | nuts | WAF | melon seeds;egusi seeds;ground egusi | - | proxy: 
 palm oil | Pantry | pantry | WAF,SEA | red palm oil unrefined;dende oil;zomi | - | oil palm //
 palm nut cream | Pantry | pantry | WAF | palm nut soup base;sauce graine;noix de palme | - | -
 fufu flour | Pantry | grains | WAF | fufu;pounded yam flour;poundo yam;amala;cassava fufu | - | // fufu flour
-garri | Pantry | grains | WAF | gari;cassava flakes;eba;farina | - | // gari cat=flours
+garri | Pantry | grains | WAF | gari;cassava flakes;eba | - | // gari cat=flours
 yam flour | Pantry | grains | WAF | elubo | - | -
 white yam | Produce | vegetables | WAF,CAR | african yam;puna yam;name;ñame | - | yam raw //
 cocoyam | Produce | vegetables | WAF,CAR | malanga;yautia;tannia;taro african | - | yautia_(tannier) raw //

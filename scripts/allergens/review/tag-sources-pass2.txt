@@ -1,0 +1,60 @@
+# Second pass: additions found by reading the whole ingredient list line by line, and by comparing against the
+# tags the catalog had before this wave (every previous tag that had no replacement was looked at on purpose).
+# Same format as tag-sources.txt.
+
+# --- wheat / gluten found missing
+[wheat:I, gluten:I] wheat pasta or noodle :: egg noodles; egg pasta; dried egg noodles; vermicelli sweet; sumalak; coconut bread; indonesian noodles
+[wheat:V, gluten:V] surimi contains wheat starch :: imitation crab; fish cakes
+[wheat:V, gluten:V] suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks :: suet; haggis; mincemeat; onion soup mix; enchilada sauce; tomato soup; yeast extract; rice crackers; beef jerky; bison jerky; peking duck; adobo sauce
+[gluten:V] barley malt syrup is sometimes the sweetener :: maltose; steak sauce
+[gluten:T] Marmite and Vegemite style yeast extract contain barley or wheat :: yeast extract
+[wheat:T, gluten:T] enriched wheat dough :: trahana; paratha; soda bread; rusks; stollen; christmas pudding; speculoos spread
+
+# --- soy / sesame / egg / fish / shellfish found missing
+[soy:T] soy sauce marinade or glaze :: unagi; peking duck; beef jerky; bison jerky; adobo sauce; mexican chocolate
+[soy:V] soy sauce in many versions :: rice crackers
+[wheat:T, gluten:T, soy:T] kabayaki glaze is soy sauce and mirin :: unagi
+[sesame:T] sesame in the common recipe :: ssamjang; simit; japanese bbq sauce; salsa macha
+[egg:V] egg in many recipes :: coconut bread; rusks; hilopites; pappardelle; indonesian noodles
+[egg:T] egg in the traditional recipe :: hilopites; pappardelle; christmas pudding; indonesian noodles
+[fish:T, shellfish:T] dried fish and shrimp :: shito; kimchi base
+[fish:T] anchovies in the classic recipe :: olive tapenade
+[fish:V] fish sauce :: nem nuong; cha lua
+[fish:V, shellfish:V] prawn or fish flavoured crackers :: kerupuk
+# uni (sea urchin) is an echinoderm: neither a crustacean (shellfish) nor a mollusk (policy P6), so it carries no allergen tag.
+
+# --- dairy found missing
+[dairy:T] cream, milk, butter or cheese in the common product :: ranch seasoning; buffalo sauce; ube halaya; trahana; christmas pudding; stollen; soda bread; rusks; saag; bolognese sauce; coconut bread
+[dairy:I] milk product :: smen
+[dairy:V] some versions add yogurt or milk solids :: coconut chutney; coconut milk powder; paratha
+
+# --- peanuts / tree nuts found missing
+[peanuts:T] peanuts are in the traditional mix / spice :: suya spice; salsa macha; chivda
+[tree-nuts:T] cashew or almond in the common mix :: chivda
+[tree-nuts:V] some versions are made with almonds or pecans :: salsa macha
+[tree-nuts:V] some halva is made with pistachios or almonds :: halva
+[tree-nuts:V] mortadella di Bologna is often made with pistachios :: mortadella
+# argan oil: argan is not on the FDA tree nut list (policy P1/P5), so it carries no allergen tag.
+[tree-nuts:T] almonds in the traditional stollen :: stollen
+# bambara groundnut (Vigna subterranea) is a different legume from peanut (Arachis); untagged on purpose.
+[gluten:V] oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease :: rolled oats; steel-cut oats; oat flour; oat bran; oat milk
+[wheat:V, gluten:V] wheat starch: contains wheat, gluten-free only if specially processed :: wheat starch
+
+# --- diet class: animal fat in the usual product, or meat
+[] {meat} contains chicken stock or meat :: chicken noodle soup; cream of chicken soup
+[] {meat} refried beans are traditionally cooked in lard (vegetarian canned versions exist) :: refried beans
+[] {meat} baked beans are usually made with pork or bacon :: baked beans
+[] {meat} tamale dough is made with lard :: tamale dough
+[] {meat} jarred bolognese contains beef or pork :: bolognese sauce
+[] {meat} hot pot broth is a meat-bone broth :: mongolian hot pot broth
+[dairy:I] milk named by its fat percentage (added by the 10c math seed) :: 1% milk
+[dairy:T] hot cocoa mix has milk solids in the common product :: hot cocoa mix
+
+# --- wave 10c fixer round 1 (allergen auditors): gaps found in recipes and compound items
+[wheat:V, gluten:V] granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat :: granola
+[sesame:T] roasted seaweed snacks are usually brushed with sesame oil :: seaweed snack
+[soy:V, wheat:V, gluten:V] bouillon cubes and powders often carry hydrolysed soy protein and wheat flour :: chicken bouillon; beef bouillon
+[soy:V, wheat:V, gluten:V, fish:V] {plant} many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt) :: barbecue sauce
+[wheat:V, gluten:V] taco seasoning is often thickened with wheat flour :: taco seasoning
+[egg:V] many veggie burgers bind with egg white :: veggie burger
+[dairy:I] cream :: light cream

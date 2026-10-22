@@ -1,0 +1,26 @@
+ingredient	form	fdc_id	prep_pattern	portions_from	note
+ground beef	95 lean	171790	(^|[^0-9])9[5-7] ?%|extra[- ]lean	ground beef/default	ground beef named 95-97% lean or extra lean: SR 95/5 raw (137 kcal) not the 80/20 default (254)
+ground beef	93 lean	173110	(^|[^0-9])93 ?%	ground beef/default	SR 93/7 raw (152 kcal)
+ground beef	90 lean	174030	(^|[^0-9])90 ?%|(^|[^0-9])10 ?% fat|(?<!or )\mlean\M	ground beef/default	90% lean, 10% fat or plain lean (not 'or lean turkey'): SR 90/10 raw (176 kcal)
+ground beef	85 lean	171796	(^|[^0-9])8[5-9] ?%	ground beef/default	SR 85/15 raw (215 kcal)
+cheddar cheese	low fat	171292	low[- ]?fat|reduced[- ]?fat	cheddar cheese/default	SR cheddar reduced fat (316 kcal vs 408)
+shredded cheese	low fat	171292	low[- ]?fat|reduced[- ]?fat	shredded cheese/default	SR cheddar reduced fat (shredded cheese assumes cheddar)
+milk	low fat	170872	(^|[^0-9.])1 ?%|\m1 percent\M|\mlow[- ]?fat\M	whole milk/default	milk named 1% or low-fat (low-fat milk is 1 percent in the US)
+milk	skim	171269	^(?!.*(powder|dry|evaporated|condensed)).*\m(skim|fat[- ]?free|non[- ]?fat)\M	whole milk/default	skim / fat-free milk, not dry or evaporated
+milk	whole	171265	^(?!.*(powder|dry|evaporated|condensed)).*\mwhole\M	whole milk/default	whole milk named in the prep note
+tomato sauce	low sodium	169074	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	tomato sauce/default	SR tomato sauce, no salt added (sodium about 8 vs about 450 mg/100 g)
+diced tomatoes	low sodium	170138	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	diced tomatoes/default	SR canned tomatoes in juice, no salt added
+whole tomatoes	low sodium	170138	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	whole tomatoes/default	SR canned tomatoes in juice, no salt added
+tomato	low sodium	170138	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	tomato/canned	canned tomatoes named low-sodium: SR no salt added
+corn	low sodium	169345	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	corn/canned	SR canned yellow corn, no salt added (solids and liquids)
+cream-style corn	low sodium	169346	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	cream-style corn/default	SR cream-style corn, no salt added
+carrot	low sodium	168518	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	carrot/canned	SR canned carrots, no salt added, drained
+chicken broth	low sodium	2721245	(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free	chicken broth/default	Progresso unsalted chicken broth (label data)
+soy sauce	low sodium	172473	(low|reduced|less)[- ]?sodium|\mlite\M	soy sauce/default	SR shoyu, low sodium (57 kcal; sodium about 3,300 vs 5,500 mg/100 g)
+black beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
+kidney beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
+pinto beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
+white beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
+chickpeas	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
+cannellini beans	cooked		(low|reduced|no)[- ]?(sodium|salt)|unsalted|without (added )?salt|salt[- ]free		named low-sodium / no salt added: cooked beans without salt (SR, no salt)
+plantain	green	168215	\mgreen\M	ripe plantain/default	plantain named green: SR plantains, green, raw (starchy, 117 kcal vs 122 ripe) in place of the ripe default

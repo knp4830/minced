@@ -325,7 +325,7 @@ sev,Pantry,pantry,SA,besan sev;chickpea noodles snack;nylon sev,,no_nutrition,un
 bhujia,Pantry,pantry,SA,bikaneri bhujia;aloo bhujia,,branded,name-match,475903,PEANUT BHUJIA,MIRCH MASALA,,,607.0,ingredients-03-south-asia.txt
 chivda,Pantry,pantry,SA,chiwda;bombay mix;namkeen;chevda,nuts,branded,name-match,434400,"AURORA NATURAL, BOMBAY MIX",Aurora Products,0.507,cup,533.0,ingredients-03-south-asia.txt
 murmura,Pantry,grains,SA,puffed rice indian;mamra;borugulu;muri,,branded,name-match,453850,"KOLHAPURI MURMURA, PUFFED RICE",MOTHER'S RECIPE,,,400.0,ingredients-03-south-asia.txt
-semolina,Pantry,grains,SA;EUM;NAF,suji;rava;sooji;durum semolina;cream of wheat,gluten,sr_legacy,name-match,169715,"Semolina, enriched",,0.706,cup,360.0,ingredients-03-south-asia.txt
+semolina,Pantry,grains,SA;EUM;NAF,suji;rava;sooji;durum semolina;cream of wheat;farina,gluten,sr_legacy,name-match,169715,"Semolina, enriched",,0.706,cup,360.0,ingredients-03-south-asia.txt
 idli rice,Pantry,grains,SA,idli parboiled rice;ukda chawal,,sr_legacy,name-match,169707,"Rice, white, long-grain, parboiled, enriched, dry",,0.782,cup,374.0,ingredients-03-south-asia.txt
 sona masoori rice,Pantry,grains,SA,sona masuri;ponni rice;samba rice,,sr_legacy,name-match,168879,"Rice, white, medium-grain, raw, enriched",,0.824,cup,360.0,ingredients-03-south-asia.txt
 ragi flour,Pantry,grains,SA;EAF,finger millet flour;nachni;mandua;kurakkan,,sr_legacy,name-match,169702,"Millet, raw",,0.845,cup,378.0,ingredients-03-south-asia.txt
@@ -462,7 +462,7 @@ suya spice,Spices,spices,WAF,yaji;yaji spice;suya pepper;kuli kuli powder,nuts,s
 egusi,Pantry,nuts,WAF,melon seeds;egusi seeds;ground egusi,,sr_legacy,proxy,169407,"Seeds, watermelon seed kernels, dried",,0.456,cup,557.0,ingredients-04-middle-east-africa.txt
 palm nut cream,Pantry,pantry,WAF,palm nut soup base;sauce graine;noix de palme,,no_nutrition,unresolved,,,,,,,ingredients-04-middle-east-africa.txt
 fufu flour,Pantry,grains,WAF,fufu;pounded yam flour;poundo yam;amala;cassava fufu,,branded,name-match,407737,"GOLDEN TROPICS, COCOYAM FUFU FLOUR","Golden Tropics, Ltd.",,,267.0,ingredients-04-middle-east-africa.txt
-garri,Pantry,grains,WAF,gari;cassava flakes;eba;farina,,branded,name-match,402551,GARI,"Golden Tropics, Ltd.",,,357.0,ingredients-04-middle-east-africa.txt
+garri,Pantry,grains,WAF,gari;cassava flakes;eba,,branded,name-match,402551,GARI,"Golden Tropics, Ltd.",,,357.0,ingredients-04-middle-east-africa.txt
 yam flour,Pantry,grains,WAF,elubo,,no_nutrition,unresolved,,,,,,,ingredients-04-middle-east-africa.txt
 white yam,Produce,vegetables,WAF;CAR,african yam;puna yam;name;ñame,,sr_legacy,name-match,170071,"Yam, raw",,,cup,118.0,ingredients-04-middle-east-africa.txt
 cocoyam,Produce,vegetables,WAF;CAR,malanga;yautia;tannia;taro african,,sr_legacy,name-match,169401,"Yautia (tannier), raw",,,cup;each,98.0,ingredients-04-middle-east-africa.txt

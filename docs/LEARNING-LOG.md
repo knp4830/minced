@@ -1651,4 +1651,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 40 - [next entry goes here]
+## Entry 40 - Wave 10c: making the nutrition numbers honest, and allergens you can trust
+
+**What we built.** Wave 10 gave every recipe computed nutrition, but audits said calories were 12 percent off the published MyPlate numbers. Wave 10c went after the causes. Recipe lines keep their qualifiers (cooked, canned, low-fat, halves, florets, size words), "A or B" lines count once, a missing form is a named gap rather than a silent fall back to the raw record, and stand-in foods are flagged and disclosed under the label. UK CoFID and Canadian CNF foods were added for world ingredients (Open Government Licence v3.0 and Open Government Licence - Canada, credited on /about and under the label). Allergens were split (peanuts and tree nuts; crustacean shellfish and mollusks), every ingredient was tagged, an allergen that appears only as an optional garnish no longer hides a recipe but is called out, and signed-in people see "Contains peanuts, which you avoid". Vegetarian tags went from 39 to 630 recipes. The fridge became an account feature with results grouped by how much is missing. Me got age-banded vitamin and mineral targets.
+
+**Key files.** Migrations `20261018100000` to `20261019130000` (12); `scripts/nutrition/build_math_seed_10c.py` and its CSVs in `scripts/nutrition/review/*-10c.csv`; `scripts/nutrition/foods10c/`; `scripts/nutrition/national/` (loader and `LICENCES.md`); `scripts/allergens/` (tag sources, `build.py`); `supabase/seed-nutrition-zzzzz-math-10c.sql`; `supabase/seed-allergen-tags.sql`; `src/lib/queries/fridgeMatcher.ts`; `src/components/pantry/fridge*.tsx`; `src/lib/me/dailyValues.ts`.
+
+**How it works and why.** Corrections live in the seed generators (CSVs and TSVs), never as hand edits to the database, so a rebuild reproduces them. One SQL function, `recipe_has_allergen()`, is the only definition of "this recipe carries an allergen"; four RPCs call it so the browse page, search, the pantry matcher and the fridge cannot disagree. Rejected: copying the predicate into each function (drift is a safety bug), and importing CoFID/CNF at runtime (a runtime dependency on a government site for no benefit).
+
+**Concepts.** Optional-only allergens; legacy slug expansion (`nuts` becomes peanuts + tree nuts); DRIs (age and sex bands) versus FDA label DVs; Open Government Licence attribution.
+
+**Gotchas.** A superuser snapshot hides permission errors that live will raise (`select similarity('a','a')` at the top of the predicate migration). Black beans: the owner chose canned full-panel SR 175188 but the data still defaults to 175237; the final audit caught it, so a decision needs checking against the data, not the agent's word. "Complete" recipes meet the MyPlate targets, but 270 partial recipes do not, so the honest headline is two numbers, not one.
+
+---
+
+## Entry 41 - [next entry goes here]

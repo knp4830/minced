@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s · Minced",
   },
   description:
-    "Search for a dish, or tap what's in your fridge and see what you can make. Ingredients, amounts, numbered steps, and a shopping list. No essay.",
+    "Search for a dish, or choose ingredients and see what you can make. Save a fridge to your account to see what to cook now. Ingredients, amounts, numbered steps, and a shopping list. No essay.",
 };
 
 export default function RootLayout({

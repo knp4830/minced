@@ -373,4 +373,6 @@ assert.equal(round1(83.25), 83.3);
 assert.equal(formatWeight(83.25, "metric"), "83.3 kg");
 assert.equal(round1(-0.04), 0);
 
+await import("./test-me-dv.mts"); // wave 10c: personal daily values, DRIs, baseline, snapshot rule
+
 console.log("test-me: all assertions passed");

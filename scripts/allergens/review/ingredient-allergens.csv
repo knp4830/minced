@@ -1,0 +1,1984 @@
+ingredient,allergens,diet_class,reason,diet_reason,previous_allergens,recipe_uses,filter_group
+salmon,fish:I,seafood,fish,carries a fish or shellfish tag,fish,9,seafood
+gochujang,gluten:V;wheat:V;soy:T,plant,may be thickened with wheat flour | fermented soybean and barley malt / wheat,no animal ingredient,gluten;soy,4,pantry
+soy sauce,gluten:T;wheat:T;soy:I,plant,soy sauce is brewed from soybeans and wheat,no animal ingredient,gluten;soy,56,pantry
+honey,,honey,no listed allergen,bee product,,36,pantry
+toasted sesame oil,sesame:I,plant,sesame,no animal ingredient,sesame,10,pantry
+garlic,,plant,no listed allergen,no animal ingredient,,243,vegetables
+scallion,,plant,no listed allergen,no animal ingredient,,79,vegetables
+sesame seeds,sesame:I,plant,sesame,no animal ingredient,sesame,9,nuts
+chickpeas,,plant,no listed allergen,no animal ingredient,,19,legumes
+crushed tomatoes,,plant,no listed allergen,no animal ingredient,,9,pantry
+whole tomatoes,,plant,no listed allergen,no animal ingredient,,6,pantry
+yellow onion,,plant,no listed allergen,no animal ingredient,,350,vegetables
+ginger,,plant,no listed allergen,no animal ingredient,,44,vegetables
+garam masala,,plant,no listed allergen,no animal ingredient,,5,spices
+ground cumin,,plant,no listed allergen,no animal ingredient,,49,spices
+cayenne,,plant,no listed allergen,no animal ingredient,,22,spices
+spaghetti,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,12,grains
+pecorino romano,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,2,
+egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,140,eggs
+red bell pepper,,plant,no listed allergen,no animal ingredient,,77,vegetables
+smoked paprika,,plant,no listed allergen,no animal ingredient,,3,spices
+ramen noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,3,grains
+white miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,2,pantry
+mushrooms,,plant,no listed allergen,no animal ingredient,,24,vegetables
+cauliflower,,plant,no listed allergen,no animal ingredient,,17,vegetables
+harissa paste,,plant,no listed allergen,no animal ingredient,,1,pantry
+lemon,,plant,no listed allergen,no animal ingredient,,129,fruit
+ground coriander,,plant,no listed allergen,no animal ingredient,,9,spices
+olive oil,,plant,no listed allergen,no animal ingredient,,129,pantry
+black pepper,,plant,no listed allergen,no animal ingredient,,299,spices
+red onion,,plant,no listed allergen,no animal ingredient,,40,vegetables
+white onion,,plant,no listed allergen,no animal ingredient,,16,vegetables
+sweet onion,,plant,no listed allergen,no animal ingredient,,2,vegetables
+shallot,,plant,no listed allergen,no animal ingredient,,8,vegetables
+leek,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chives,,plant,no listed allergen,no animal ingredient,,4,herbs
+carrot,,plant,no listed allergen,no animal ingredient,,122,vegetables
+celery,,plant,no listed allergen,no animal ingredient,,95,vegetables
+russet potato,,plant,no listed allergen,no animal ingredient,,66,vegetables
+red potato,,plant,no listed allergen,no animal ingredient,,13,vegetables
+yukon gold potato,,plant,no listed allergen,no animal ingredient,,11,vegetables
+sweet potato,,plant,no listed allergen,no animal ingredient,,21,vegetables
+turnip,,plant,no listed allergen,no animal ingredient,,5,vegetables
+parsnip,,plant,no listed allergen,no animal ingredient,,4,vegetables
+rutabaga,,plant,no listed allergen,no animal ingredient,,0,vegetables
+radish,,plant,no listed allergen,no animal ingredient,,5,vegetables
+beet,,plant,no listed allergen,no animal ingredient,,3,vegetables
+jicama,,plant,no listed allergen,no animal ingredient,,3,vegetables
+spinach,,plant,no listed allergen,no animal ingredient,,45,vegetables
+kale,,plant,no listed allergen,no animal ingredient,,16,vegetables
+swiss chard,,plant,no listed allergen,no animal ingredient,,2,vegetables
+collard greens,,plant,no listed allergen,no animal ingredient,,9,vegetables
+mustard greens,,plant,no listed allergen,no animal ingredient,,1,vegetables
+arugula,,plant,no listed allergen,no animal ingredient,,1,vegetables
+romaine lettuce,,plant,no listed allergen,no animal ingredient,,28,vegetables
+iceberg lettuce,,plant,no listed allergen,no animal ingredient,,3,vegetables
+butter lettuce,,plant,no listed allergen,no animal ingredient,,4,vegetables
+mixed greens,,plant,no listed allergen,no animal ingredient,,6,vegetables
+watercress,,plant,no listed allergen,no animal ingredient,,0,vegetables
+bok choy,,plant,no listed allergen,no animal ingredient,,1,vegetables
+napa cabbage,,plant,no listed allergen,no animal ingredient,,2,vegetables
+green cabbage,,plant,no listed allergen,no animal ingredient,,32,vegetables
+red cabbage,,plant,no listed allergen,no animal ingredient,,2,vegetables
+brussels sprouts,,plant,no listed allergen,no animal ingredient,,8,vegetables
+broccoli,,plant,no listed allergen,no animal ingredient,,39,vegetables
+broccoli rabe,,plant,no listed allergen,no animal ingredient,,0,vegetables
+green bell pepper,,plant,no listed allergen,no animal ingredient,,87,vegetables
+yellow bell pepper,,plant,no listed allergen,no animal ingredient,,6,vegetables
+jalapeno,,plant,no listed allergen,no animal ingredient,,24,vegetables
+serrano pepper,,plant,no listed allergen,no animal ingredient,,11,vegetables
+poblano pepper,,plant,no listed allergen,no animal ingredient,,2,vegetables
+habanero,,plant,no listed allergen,no animal ingredient,,1,vegetables
+anaheim chile,,plant,no listed allergen,no animal ingredient,,1,vegetables
+thai chile,,plant,no listed allergen,no animal ingredient,,8,vegetables
+tomato,,plant,no listed allergen,no animal ingredient,,143,vegetables
+cherry tomato,,plant,no listed allergen,no animal ingredient,,17,vegetables
+roma tomato,,plant,no listed allergen,no animal ingredient,,5,vegetables
+tomatillo,,plant,no listed allergen,no animal ingredient,,1,vegetables
+cucumber,,plant,no listed allergen,no animal ingredient,,37,vegetables
+zucchini,,plant,no listed allergen,no animal ingredient,,37,vegetables
+yellow squash,,plant,no listed allergen,no animal ingredient,,9,vegetables
+butternut squash,,plant,no listed allergen,no animal ingredient,,5,vegetables
+acorn squash,,plant,no listed allergen,no animal ingredient,,7,vegetables
+spaghetti squash,,plant,no listed allergen,no animal ingredient,,1,vegetables
+pumpkin,,plant,no listed allergen,no animal ingredient,,15,vegetables
+eggplant,,plant,no listed allergen,no animal ingredient,,11,vegetables
+okra,,plant,no listed allergen,no animal ingredient,,6,vegetables
+green beans,,plant,no listed allergen,no animal ingredient,,25,vegetables
+snap peas,,plant,no listed allergen,no animal ingredient,,1,vegetables
+snow peas,,plant,no listed allergen,no animal ingredient,,1,vegetables
+corn,,plant,no listed allergen,no animal ingredient,,44,vegetables
+asparagus,,plant,no listed allergen,no animal ingredient,,3,vegetables
+artichoke,,plant,no listed allergen,no animal ingredient,,0,vegetables
+fennel,,plant,no listed allergen,no animal ingredient,,2,vegetables
+cremini mushrooms,,plant,no listed allergen,no animal ingredient,,2,vegetables
+shiitake mushrooms,,plant,no listed allergen,no animal ingredient,,2,vegetables
+portobello mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+oyster mushrooms,,plant,no listed allergen,no animal ingredient,,1,vegetables
+fresh parsley,,plant,no listed allergen,no animal ingredient,,60,herbs
+fresh cilantro,,plant,no listed allergen,no animal ingredient,,71,herbs
+fresh basil,,plant,no listed allergen,no animal ingredient,,38,herbs
+fresh mint,,plant,no listed allergen,no animal ingredient,,8,herbs
+fresh dill,,plant,no listed allergen,no animal ingredient,,18,herbs
+fresh rosemary,,plant,no listed allergen,no animal ingredient,,1,herbs
+fresh thyme,,plant,no listed allergen,no animal ingredient,,4,herbs
+fresh sage,,plant,no listed allergen,no animal ingredient,,1,herbs
+fresh oregano,,plant,no listed allergen,no animal ingredient,,1,herbs
+fresh tarragon,,plant,no listed allergen,no animal ingredient,,2,herbs
+lemongrass,,plant,no listed allergen,no animal ingredient,,3,herbs
+lime,,plant,no listed allergen,no animal ingredient,,69,fruit
+orange,,plant,no listed allergen,no animal ingredient,,24,fruit
+grapefruit,,plant,no listed allergen,no animal ingredient,,3,fruit
+apple,,plant,no listed allergen,no animal ingredient,,71,fruit
+pear,,plant,no listed allergen,no animal ingredient,,16,fruit
+banana,,plant,no listed allergen,no animal ingredient,,51,fruit
+plantain,,plant,no listed allergen,no animal ingredient,,2,fruit
+strawberries,,plant,no listed allergen,no animal ingredient,,26,fruit
+blueberries,,plant,no listed allergen,no animal ingredient,,14,fruit
+raspberries,,plant,no listed allergen,no animal ingredient,,7,fruit
+blackberries,,plant,no listed allergen,no animal ingredient,,0,vegetables
+grapes,,plant,no listed allergen,no animal ingredient,,11,fruit
+pineapple,,plant,no listed allergen,no animal ingredient,,28,fruit
+mango,,plant,no listed allergen,no animal ingredient,,8,fruit
+peach,,plant,no listed allergen,no animal ingredient,,14,fruit
+plum,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cherries,,plant,no listed allergen,no animal ingredient,,1,fruit
+watermelon,,plant,no listed allergen,no animal ingredient,,6,fruit
+cantaloupe,,plant,no listed allergen,no animal ingredient,,5,fruit
+avocado,,plant,no listed allergen,no animal ingredient,,16,fruit
+pomegranate,,plant,no listed allergen,no animal ingredient,,3,fruit
+kiwi,,plant,no listed allergen,no animal ingredient,,6,fruit
+vegetable oil,,plant,no listed allergen,no animal ingredient,,266,pantry
+canola oil,,plant,no listed allergen,no animal ingredient,,22,pantry
+water,,plant,no listed allergen,no animal ingredient,,251,pantry
+granulated sugar,,plant,no listed allergen,no animal ingredient,,143,pantry
+all-purpose flour,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,108,pantry
+coconut oil,,plant,no listed allergen,no animal ingredient,,3,pantry
+peanut oil,peanuts:I,plant,peanut,no animal ingredient,nuts,0,pantry
+avocado oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+cooking spray,,plant,no listed allergen,no animal ingredient,,38,pantry
+white vinegar,,plant,no listed allergen,no animal ingredient,,7,pantry
+apple cider vinegar,,plant,no listed allergen,no animal ingredient,,12,pantry
+red wine vinegar,,plant,no listed allergen,no animal ingredient,,13,pantry
+white wine vinegar,,plant,no listed allergen,no animal ingredient,,2,pantry
+rice vinegar,,plant,no listed allergen,no animal ingredient,,44,pantry
+balsamic vinegar,,plant,no listed allergen,no animal ingredient,,5,pantry
+sherry vinegar,,plant,no listed allergen,no animal ingredient,,0,pantry
+diced tomatoes,,plant,no listed allergen,no animal ingredient,,32,pantry
+tomato paste,,plant,no listed allergen,no animal ingredient,,17,pantry
+tomato sauce,,plant,no listed allergen,no animal ingredient,,27,pantry
+sun-dried tomatoes,,plant,no listed allergen,no animal ingredient,,1,pantry
+roasted red peppers,,plant,no listed allergen,no animal ingredient,,0,pantry
+coconut milk,,plant,no listed allergen,no animal ingredient,,6,pantry
+chicken broth,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,65,pantry
+beef broth,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,14,pantry
+vegetable broth,,plant,no listed allergen,no animal ingredient,,20,pantry
+evaporated milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,9,pantry
+sweetened condensed milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,pantry
+black beans,,plant,no listed allergen,no animal ingredient,,38,legumes
+kidney beans,,plant,no listed allergen,no animal ingredient,,28,legumes
+pinto beans,,plant,no listed allergen,no animal ingredient,,13,legumes
+cannellini beans,,plant,no listed allergen,no animal ingredient,,2,legumes
+navy beans,,plant,no listed allergen,no animal ingredient,,1,legumes
+great northern beans,,plant,no listed allergen,no animal ingredient,,4,legumes
+black-eyed peas,,plant,no listed allergen,no animal ingredient,,3,legumes
+refried beans,,meat,no listed allergen,refried beans are traditionally cooked in lard (vegetarian canned versions exist),,3,legumes
+lentils,,plant,no listed allergen,no animal ingredient,,16,legumes
+red lentils,,plant,no listed allergen,no animal ingredient,,5,legumes
+split peas,,plant,no listed allergen,no animal ingredient,,2,legumes
+white rice,,plant,no listed allergen,no animal ingredient,,33,grains
+brown rice,,plant,no listed allergen,no animal ingredient,,39,grains
+jasmine rice,,plant,no listed allergen,no animal ingredient,,4,grains
+basmati rice,,plant,no listed allergen,no animal ingredient,,0,grains
+arborio rice,,plant,no listed allergen,no animal ingredient,,1,grains
+wild rice,,plant,no listed allergen,no animal ingredient,,3,grains
+quinoa,,plant,no listed allergen,no animal ingredient,,5,grains
+couscous,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,4,grains
+bulgur,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,4,grains
+farro,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,pantry
+barley,gluten:I,plant,barley or rye contains gluten (not wheat),no animal ingredient,gluten,5,grains
+rolled oats,gluten:V,plant,oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease,no animal ingredient,,36,grains
+steel-cut oats,gluten:V,plant,oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease,no animal ingredient,,0,pantry
+cornmeal,,plant,no listed allergen,no animal ingredient,,16,grains
+polenta,,plant,no listed allergen,no animal ingredient,,0,pantry
+grits,,plant,no listed allergen,no animal ingredient,,1,grains
+penne,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+rigatoni,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+fusilli,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,1,grains
+macaroni,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,14,grains
+lasagna noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,2,grains
+egg noodles,gluten:I;wheat:I;egg:T,dairy_egg,wheat pasta or noodle | eggs in the usual recipe or product,carries a dairy or egg tag,egg;gluten,5,grains
+orzo,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,pantry
+linguine,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+fettuccine,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+angel hair,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,1,grains
+rice noodles,,plant,no listed allergen,no animal ingredient,,5,grains
+soba noodles,gluten:V;wheat:V,plant,soba is usually part wheat flour,no animal ingredient,gluten,0,pantry
+udon noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,pantry
+whole wheat flour,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,25,grains
+bread flour,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,2,grains
+cornstarch,,plant,no listed allergen,no animal ingredient,,19,pantry
+baking powder,,plant,no listed allergen,no animal ingredient,,46,pantry
+baking soda,,plant,no listed allergen,no animal ingredient,,31,pantry
+active dry yeast,,plant,no listed allergen,no animal ingredient,,10,pantry
+brown sugar,,plant,no listed allergen,no animal ingredient,,45,pantry
+powdered sugar,,plant,no listed allergen,no animal ingredient,,2,pantry
+maple syrup,,plant,no listed allergen,no animal ingredient,,7,pantry
+molasses,,plant,no listed allergen,no animal ingredient,,4,pantry
+vanilla extract,,plant,no listed allergen,no animal ingredient,,25,pantry
+cocoa powder,,plant,no listed allergen,no animal ingredient,,6,pantry
+chocolate chips,dairy:V;soy:T,plant,"soy lecithin in the common product | milkfat, whey or milk solids in some brands",dairy-free by definition (vegetable fat; dark chocolate); the allergen tags stay cautious,,5,pantry
+semisweet chocolate,dairy:V;soy:T,plant,"soy lecithin in the common product | milkfat, whey or milk solids in some brands",dairy-free by definition (vegetable fat; dark chocolate); the allergen tags stay cautious,,1,pantry
+breadcrumbs,gluten:I;wheat:I;soy:V,plant,"wheat bread, pastry or cracker | soy protein or soybean oil is common",no animal ingredient,gluten,15,grains
+panko breadcrumbs,gluten:I;wheat:I;soy:V,plant,"wheat bread, pastry or cracker | soy protein or soybean oil is common",no animal ingredient,gluten,1,grains
+tamari,gluten:V;wheat:V;soy:I,plant,may be thickened with wheat flour | soy sauce (wheat-free versions exist),no animal ingredient,soy,0,pantry
+fish sauce,fish:I,seafood,fish,carries a fish or shellfish tag,fish,16,pantry
+oyster sauce,gluten:T;wheat:T;soy:T;mollusks:T,seafood,made with soy sauce or wheat-and-soy bean paste | oyster extract or dried scallop,carries a fish or shellfish tag,gluten;shellfish;soy,4,pantry
+hoisin sauce,gluten:T;wheat:T;soy:T;sesame:V,plant,made with soy sauce or wheat-and-soy bean paste | sesame in some brands / recipes,no animal ingredient,gluten;soy,1,pantry
+worcestershire sauce,fish:T,seafood,"anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,fish,9,pantry
+sriracha,,plant,no listed allergen,no animal ingredient,,0,pantry
+hot sauce,,plant,no listed allergen,no animal ingredient,,17,pantry
+tahini,sesame:I,plant,sesame,no animal ingredient,sesame,4,pantry
+peanut butter,peanuts:I,plant,peanut,no animal ingredient,nuts,25,nuts
+almond butter,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,1,nuts
+mayonnaise,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,35,pantry
+ketchup,,plant,no listed allergen,no animal ingredient,,7,pantry
+yellow mustard,,plant,no listed allergen,no animal ingredient,,30,pantry
+dijon mustard,,plant,no listed allergen,no animal ingredient,,11,pantry
+whole grain mustard,,plant,no listed allergen,no animal ingredient,,1,pantry
+barbecue sauce,gluten:V;wheat:V;fish:V;soy:V,plant,"many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)","many barbecue sauces contain Worcestershire (anchovy, soy, wheat vinegar or malt)",,4,pantry
+salsa,,plant,no listed allergen,no animal ingredient,,21,pantry
+pesto,dairy:T;tree-nuts:T,dairy_egg,"cream, milk or butter in the common recipe | tree nut in the common recipe / product",carries a dairy or egg tag,dairy;nuts,0,pantry
+red curry paste,fish:V;shellfish:T,seafood,fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard,carries a fish or shellfish tag,shellfish,0,pantry
+green curry paste,fish:V;shellfish:T,seafood,fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard,carries a fish or shellfish tag,shellfish,1,pantry
+almonds,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,11,nuts
+walnuts,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,30,nuts
+pecans,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,8,nuts
+cashews,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,2,nuts
+pistachios,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,1,nuts
+peanuts,peanuts:I,plant,peanut,no animal ingredient,nuts,14,nuts
+pine nuts,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,8,nuts
+hazelnuts,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+sunflower seeds,,plant,no listed allergen,no animal ingredient,,3,nuts
+pumpkin seeds,,plant,no listed allergen,no animal ingredient,,2,nuts
+chia seeds,,plant,no listed allergen,no animal ingredient,,0,pantry
+flaxseed,,plant,no listed allergen,no animal ingredient,,0,pantry
+raisins,,plant,no listed allergen,no animal ingredient,,57,fruit
+dried cranberries,,plant,no listed allergen,no animal ingredient,,13,fruit
+dates,,plant,no listed allergen,no animal ingredient,,1,fruit
+shredded coconut,,plant,no listed allergen,no animal ingredient,,4,nuts
+capers,,plant,no listed allergen,no animal ingredient,,0,pantry
+kalamata olives,,plant,no listed allergen,no animal ingredient,,2,pantry
+green olives,,plant,no listed allergen,no animal ingredient,,5,pantry
+pickles,,plant,no listed allergen,no animal ingredient,,2,pantry
+sauerkraut,,plant,no listed allergen,no animal ingredient,,0,pantry
+kimchi,fish:T;shellfish:V,seafood,"anchovy, fish sauce or bonito in the common recipe | salted shrimp or shrimp paste in many versions",carries a fish or shellfish tag,fish,1,pantry
+nori,,plant,no listed allergen,no animal ingredient,,0,pantry
+dry white wine,,plant,no listed allergen,no animal ingredient,,1,pantry
+dry red wine,,plant,no listed allergen,no animal ingredient,,0,pantry
+mirin,,plant,no listed allergen,no animal ingredient,,5,pantry
+sake,,plant,no listed allergen,no animal ingredient,,3,pantry
+butter,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,51,
+unsalted butter,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,10,
+milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,120,
+buttermilk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,9,
+heavy cream,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,2,
+half-and-half,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+sour cream,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,17,
+plain yogurt,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,56,
+greek yogurt,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,22,
+cream cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,13,
+ghee,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,6,
+cheddar cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,48,
+mozzarella,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,27,
+fresh mozzarella,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+parmesan,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,52,
+feta,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,9,
+goat cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+ricotta,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,8,
+cottage cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,10,
+monterey jack,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,4,
+pepper jack,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,1,
+swiss cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,2,
+provolone,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+gruyere,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+blue cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,2,
+queso fresco,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,5,
+cotija,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,1,
+mascarpone,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+halloumi,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+american cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,4,
+almond milk,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,
+soy milk,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,
+oat milk,gluten:V,plant,oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease,no animal ingredient,,0,
+chicken breast,,meat,no listed allergen,filter group meat,,42,meat
+chicken thighs,,meat,no listed allergen,filter group meat,,21,meat
+chicken drumsticks,,meat,no listed allergen,filter group meat,,2,meat
+chicken wings,,meat,no listed allergen,filter group meat,,0,meat
+whole chicken,,meat,no listed allergen,filter group meat,,5,meat
+ground chicken,,meat,no listed allergen,filter group meat,,0,meat
+rotisserie chicken,,meat,no listed allergen,filter group meat,,0,meat
+ground beef,,meat,no listed allergen,filter group meat,,42,meat
+chuck roast,,meat,no listed allergen,filter group meat,,5,meat
+beef stew meat,,meat,no listed allergen,filter group meat,,1,meat
+sirloin steak,,meat,no listed allergen,filter group meat,,5,meat
+ribeye,,meat,no listed allergen,filter group meat,,3,meat
+flank steak,,meat,no listed allergen,filter group meat,,1,meat
+skirt steak,,meat,no listed allergen,filter group meat,,1,meat
+brisket,,meat,no listed allergen,filter group meat,,0,meat
+short ribs,,meat,no listed allergen,filter group meat,,0,meat
+pork chops,,meat,no listed allergen,filter group meat,,2,meat
+pork tenderloin,,meat,no listed allergen,filter group meat,,2,meat
+pork shoulder,,meat,no listed allergen,filter group meat,,4,meat
+ground pork,,meat,no listed allergen,filter group meat,,6,meat
+bacon,,meat,no listed allergen,filter group meat,,4,meat
+pancetta,,meat,no listed allergen,filter group meat,,0,meat
+prosciutto,,meat,no listed allergen,filter group meat,,0,meat
+ham,,meat,no listed allergen,filter group meat,,4,meat
+italian sausage,,meat,no listed allergen,filter group meat,,0,meat
+breakfast sausage,,meat,no listed allergen,filter group meat,,0,meat
+chorizo,,meat,no listed allergen,filter group meat,,0,meat
+hot dogs,,meat,no listed allergen,filter group meat,,0,meat
+ground turkey,,meat,no listed allergen,filter group meat,,14,meat
+turkey breast,,meat,no listed allergen,filter group meat,,3,meat
+ground lamb,,meat,no listed allergen,filter group meat,,1,meat
+lamb shoulder,,meat,no listed allergen,filter group meat,,1,meat
+lamb chops,,meat,no listed allergen,filter group meat,,0,meat
+smoked salmon,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,meat
+tuna steak,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,meat
+canned tuna,fish:I,seafood,fish,carries a fish or shellfish tag,fish,14,seafood
+cod,fish:I,seafood,fish,carries a fish or shellfish tag,fish,13,seafood
+tilapia,fish:I,seafood,fish,carries a fish or shellfish tag,fish,3,seafood
+halibut,fish:I,seafood,fish,carries a fish or shellfish tag,fish,1,seafood
+trout,fish:I,seafood,fish,carries a fish or shellfish tag,fish,1,seafood
+snapper,fish:I,seafood,fish,carries a fish or shellfish tag,fish,2,seafood
+shrimp,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,6,seafood
+scallops,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,meat
+mussels,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,meat
+clams,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,meat
+crab,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,meat
+lobster,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,meat
+squid,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,meat
+anchovies,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,meat
+sardines,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,meat
+egg whites,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,15,eggs
+firm tofu,soy:I,plant,soybean or soy product,no animal ingredient,soy,10,legumes
+silken tofu,soy:I,plant,soybean or soy product,no animal ingredient,soy,4,legumes
+tempeh,soy:I,plant,soybean or soy product,"wheat gluten, tempeh and soy protein are plant protein",soy,0,meat
+seitan,gluten:I;wheat:I,plant,wheat-based mix or cereal,"wheat gluten, tempeh and soy protein are plant protein",gluten,0,meat
+edamame,soy:I,plant,soybean or soy product,no animal ingredient,soy,1,legumes
+salt,,plant,no listed allergen,no animal ingredient,,396,spices
+kosher salt,,plant,no listed allergen,no animal ingredient,,8,spices
+white pepper,,plant,no listed allergen,no animal ingredient,,6,spices
+garlic powder,,plant,no listed allergen,no animal ingredient,,85,spices
+onion powder,,plant,no listed allergen,no animal ingredient,,15,spices
+paprika,,plant,no listed allergen,no animal ingredient,,26,spices
+chili powder,,plant,no listed allergen,no animal ingredient,,45,spices
+crushed red pepper,,plant,no listed allergen,no animal ingredient,,16,spices
+ground turmeric,,plant,no listed allergen,no animal ingredient,,19,spices
+ground ginger,,plant,no listed allergen,no animal ingredient,,7,spices
+ground cinnamon,,plant,no listed allergen,no animal ingredient,,80,spices
+cinnamon stick,,plant,no listed allergen,no animal ingredient,,3,spices
+ground nutmeg,,plant,no listed allergen,no animal ingredient,,29,spices
+ground allspice,,plant,no listed allergen,no animal ingredient,,16,spices
+ground cloves,,plant,no listed allergen,no animal ingredient,,3,spices
+cardamom,,plant,no listed allergen,no animal ingredient,,3,spices
+star anise,,plant,no listed allergen,no animal ingredient,,2,spices
+fennel seeds,,plant,no listed allergen,no animal ingredient,,1,spices
+mustard seeds,,plant,no listed allergen,no animal ingredient,,6,spices
+celery seed,,plant,no listed allergen,no animal ingredient,,1,spices
+caraway seeds,,plant,no listed allergen,no animal ingredient,,1,spices
+bay leaf,,plant,no listed allergen,no animal ingredient,,18,spices
+dried oregano,,plant,no listed allergen,no animal ingredient,,70,spices
+dried basil,,plant,no listed allergen,no animal ingredient,,22,spices
+dried thyme,,plant,no listed allergen,no animal ingredient,,38,spices
+dried rosemary,,plant,no listed allergen,no animal ingredient,,8,spices
+dried sage,,plant,no listed allergen,no animal ingredient,,13,spices
+dried dill,,plant,no listed allergen,no animal ingredient,,5,spices
+dried parsley,,plant,no listed allergen,no animal ingredient,,20,spices
+italian seasoning,,plant,no listed allergen,no animal ingredient,,19,spices
+herbes de provence,,plant,no listed allergen,no animal ingredient,,0,spices
+poultry seasoning,,plant,no listed allergen,no animal ingredient,,3,spices
+old bay seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
+taco seasoning,gluten:V;wheat:V,plant,taco seasoning is often thickened with wheat flour,no animal ingredient,,3,spices
+curry powder,,plant,no listed allergen,no animal ingredient,,16,spices
+chinese five spice,,plant,no listed allergen,no animal ingredient,,0,spices
+za'atar,sesame:I,plant,sesame,no animal ingredient,sesame,0,spices
+sumac,,plant,no listed allergen,no animal ingredient,,1,spices
+saffron,,plant,no listed allergen,no animal ingredient,,1,spices
+everything bagel seasoning,sesame:I,plant,sesame,no animal ingredient,sesame,0,spices
+furikake,fish:T;sesame:I,seafood,"sesame | anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,fish;sesame,0,spices
+corn tortillas,,plant,no listed allergen,no animal ingredient,,14,grains
+flour tortillas,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,26,grains
+sandwich bread,gluten:I;wheat:I;dairy:V,dairy_egg,"commercial sandwich bread, rolls and muffins usually contain milk or whey (vegan loaves exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,31,grains
+baguette,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,2,grains
+sourdough bread,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+pita bread,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,15,grains
+naan,gluten:I;wheat:I;dairy:T;egg:V,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | egg in many recipes / brands",carries a dairy or egg tag,dairy;gluten,0,grains
+hamburger buns,gluten:I;wheat:I;dairy:V;egg:V;sesame:V,dairy_egg,"commercial buns usually contain milk, whey and egg wash (vegan buns exist; check the label) | wheat bread, pastry or cracker | sesame in some brands / recipes","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,1,grains
+hot dog buns,gluten:I;wheat:I;dairy:V;egg:V,dairy_egg,"commercial buns usually contain milk, whey and egg wash (vegan buns exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,0,grains
+english muffin,gluten:I;wheat:I;dairy:V,dairy_egg,"commercial sandwich bread, rolls and muffins usually contain milk or whey (vegan loaves exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,2,grains
+bagel,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+pizza dough,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+puff pastry,gluten:I;wheat:I;dairy:V,dairy_egg,"wheat bread, pastry or cracker | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,gluten,0,grains
+phyllo dough,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+pie crust,gluten:I;wheat:I;dairy:V,dairy_egg,"wheat bread, pastry or cracker | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,gluten,3,grains
+wonton wrappers,gluten:I;wheat:I;egg:V,dairy_egg,wheat wrapper or dumpling skin | egg in many recipes / brands,carries a dairy or egg tag,gluten,0,grains
+rice paper,,plant,no listed allergen,no animal ingredient,,1,grains
+croutons,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,1,grains
+margarine,dairy:V;soy:V,plant,"soy protein or soybean oil is common | milkfat, whey or milk solids in some brands",dairy-free by definition (vegetable fat; dark chocolate); the allergen tags stay cautious,,65,
+shortening,,plant,no listed allergen,no animal ingredient,,2,pantry
+applesauce,,plant,no listed allergen,no animal ingredient,,12,fruit
+apricot jam,,plant,no listed allergen,no animal ingredient,,1,pantry
+grape jelly,,plant,no listed allergen,no animal ingredient,,0,pantry
+strawberry jam,,plant,no listed allergen,no animal ingredient,,0,pantry
+chicken bouillon,gluten:V;wheat:V;soy:V,meat,bouillon cubes and powders often carry hydrolysed soy protein and wheat flour,"meat stock, bouillon, animal fat or gelatin",,10,pantry
+beef bouillon,gluten:V;wheat:V;soy:V,meat,bouillon cubes and powders often carry hydrolysed soy protein and wheat flour,"meat stock, bouillon, animal fat or gelatin",,4,pantry
+cream of tartar,,plant,no listed allergen,no animal ingredient,,2,pantry
+hominy,,plant,no listed allergen,no animal ingredient,,4,pantry
+marshmallows,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,1,pantry
+pancake mix,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,1,grains
+biscuit mix,gluten:I;wheat:I;dairy:V,dairy_egg,"wheat-based mix or cereal | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,gluten,2,grains
+cake mix,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,1,pantry
+pudding mix,,plant,no listed allergen,no animal ingredient,,3,pantry
+whipped topping,dairy:V,dairy_egg,"milkfat, whey or milk solids in some brands",carries a dairy or egg tag,,2,
+pizza sauce,,plant,no listed allergen,no animal ingredient,,2,pantry
+chili sauce,,plant,no listed allergen,no animal ingredient,,2,pantry
+cream of mushroom soup,gluten:T;wheat:T;dairy:T,dairy_egg,"canned condensed soup is thickened with wheat flour | cream, milk or butter in the common recipe",carries a dairy or egg tag,dairy;gluten,6,pantry
+cream of chicken soup,gluten:T;wheat:T;dairy:T,meat,"canned condensed soup is thickened with wheat flour | cream, milk or butter in the common recipe",contains chicken stock or meat,dairy;gluten,3,pantry
+tomato soup,gluten:V;wheat:V,plant,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks,no animal ingredient,,1,pantry
+salad dressing,egg:V,dairy_egg,egg in many recipes / brands,carries a dairy or egg tag,,3,pantry
+italian dressing,,plant,no listed allergen,no animal ingredient,,14,pantry
+ranch dressing,dairy:T;egg:V,dairy_egg,"cream, milk or butter in the common recipe | egg in many recipes / brands",carries a dairy or egg tag,,4,pantry
+vinaigrette,,plant,no listed allergen,no animal ingredient,,3,pantry
+mixed vegetables,,plant,no listed allergen,no animal ingredient,,33,vegetables
+green chiles,,plant,no listed allergen,no animal ingredient,,11,pantry
+papaya,,plant,no listed allergen,no animal ingredient,,2,fruit
+mandarin orange,,plant,no listed allergen,no animal ingredient,,11,fruit
+frozen yogurt,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,1,
+vanilla yogurt,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,50,
+evaporated skim milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,1,pantry
+dry milk powder,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,21,pantry
+vegetable juice,,plant,no listed allergen,no animal ingredient,,0,pantry
+apple juice,,plant,no listed allergen,no animal ingredient,,7,pantry
+orange juice,,plant,no listed allergen,no animal ingredient,,39,pantry
+cranberry juice,,plant,no listed allergen,no animal ingredient,,3,pantry
+grape juice,,plant,no listed allergen,no animal ingredient,,2,pantry
+raisin bran,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,1,grains
+corn flakes,gluten:T,plant,barley malt flavouring in the common product,no animal ingredient,gluten,1,grains
+graham crackers,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,10,grains
+saltine crackers,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,3,grains
+tortilla chips,,plant,no listed allergen,no animal ingredient,,1,grains
+seasoned breadcrumbs,gluten:I;wheat:I;soy:V,plant,"wheat bread, pastry or cracker | soy protein or soybean oil is common",no animal ingredient,gluten,1,grains
+cornbread mix,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,1,grains
+sweet pickle relish,,plant,no listed allergen,no animal ingredient,,5,pantry
+taco shells,,plant,no listed allergen,no animal ingredient,,1,grains
+hamburger,,meat,no listed allergen,filter group meat,,0,meat
+turkey ham,,meat,no listed allergen,filter group meat,,8,meat
+imitation crab,gluten:V;wheat:V;fish:I;shellfish:V,seafood,surimi contains wheat starch | some imitation crab is made with real crab extract | fish,carries a fish or shellfish tag,fish;gluten,0,meat
+peanut butter chips,dairy:I;soy:T;peanuts:I,dairy_egg,"soy lecithin in the common product | milk, cream, yogurt or butter | peanut",carries a dairy or egg tag,nuts,0,pantry
+butternut squash puree,,plant,no listed allergen,no animal ingredient,,0,pantry
+pumpkin puree,,plant,no listed allergen,no animal ingredient,,3,pantry
+egg substitute,egg:T,dairy_egg,eggs in the usual recipe or product,carries a dairy or egg tag,egg,8,eggs
+peas,,plant,no listed allergen,no animal ingredient,,29,vegetables
+dried apricots,,plant,no listed allergen,no animal ingredient,,2,fruit
+prunes,,plant,no listed allergen,no animal ingredient,,1,fruit
+ham hocks,,meat,no listed allergen,filter group meat,,2,meat
+deli ham,,meat,no listed allergen,filter group meat,,1,meat
+deli turkey,,meat,no listed allergen,filter group meat,,0,meat
+cream-style corn,,plant,no listed allergen,no animal ingredient,,4,pantry
+coffee,,plant,no listed allergen,no animal ingredient,,2,pantry
+popcorn,,plant,no listed allergen,no animal ingredient,,2,grains
+granola,gluten:V;wheat:V;peanuts:V;tree-nuts:V,honey,"granola is oat-based and many granolas add wheat flakes, wheat germ or flour; oats are usually milled with wheat | some brands / recipes include peanuts | some versions include tree nuts",granola is usually bound with honey,,2,grains
+baking mix,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,9,grains
+apple pie spice,,plant,no listed allergen,no animal ingredient,,1,spices
+pumpkin pie spice,,plant,no listed allergen,no animal ingredient,,4,spices
+adobo seasoning,,plant,no listed allergen,no animal ingredient,,4,spices
+lemon pepper,,plant,no listed allergen,no animal ingredient,,6,spices
+seasoning mix,,plant,no listed allergen,no animal ingredient,,8,spices
+fruit juice,,plant,no listed allergen,no animal ingredient,,2,pantry
+fruit cocktail,,plant,no listed allergen,no animal ingredient,,2,fruit
+canned peaches,,plant,no listed allergen,no animal ingredient,,1,fruit
+canned pears,,plant,no listed allergen,no animal ingredient,,1,fruit
+bread dough,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+italian bread,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+crescent rolls,gluten:I;wheat:I;dairy:V,dairy_egg,"wheat bread, pastry or cracker | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,gluten,0,grains
+dinner rolls,gluten:I;wheat:I;dairy:V,dairy_egg,"commercial sandwich bread, rolls and muffins usually contain milk or whey (vegan loaves exist; check the label) | wheat bread, pastry or cracker","commercial sandwich bread, buns and rolls usually contain milk, whey or honey (vegan loaves exist; check the label)",gluten,1,grains
+pasta,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,32,grains
+chicken,,meat,no listed allergen,filter group meat,,36,meat
+white beans,,plant,no listed allergen,no animal ingredient,,9,legumes
+lima beans,,plant,no listed allergen,no animal ingredient,,4,legumes
+tomato juice,,plant,no listed allergen,no animal ingredient,,9,pantry
+marinara sauce,,plant,no listed allergen,no animal ingredient,,2,pantry
+taco sauce,,plant,no listed allergen,no animal ingredient,,1,pantry
+matzo meal,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,2,grains
+cereal,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,,2,grains
+bran cereal,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,0,pantry
+pretzels,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,1,grains
+water chestnuts,,plant,no listed allergen,no animal ingredient,,1,pantry
+poppy seeds,,plant,no listed allergen,no animal ingredient,,2,nuts
+dried fruit,,plant,no listed allergen,no animal ingredient,,4,fruit
+dried figs,,plant,no listed allergen,no animal ingredient,,2,fruit
+figs,,plant,no listed allergen,no animal ingredient,,0,vegetables
+summer squash,,plant,no listed allergen,no animal ingredient,,11,vegetables
+winter squash,,plant,no listed allergen,no animal ingredient,,4,vegetables
+chili peppers,,plant,no listed allergen,no animal ingredient,,2,vegetables
+strawberry yogurt,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,2,
+shredded cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,17,
+walleye,fish:I,seafood,fish,carries a fish or shellfish tag,fish,3,seafood
+catfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,3,seafood
+pollock,fish:I,seafood,fish,carries a fish or shellfish tag,fish,1,seafood
+spaghetti sauce,,plant,no listed allergen,no animal ingredient,,10,pantry
+daikon,,plant,no listed allergen,no animal ingredient,,3,vegetables
+bean sprouts,,plant,no listed allergen,no animal ingredient,,3,vegetables
+soybean sprouts,soy:I,plant,soybean or soy product,no animal ingredient,soy,2,vegetables
+curry leaves,,plant,no listed allergen,no animal ingredient,,7,herbs
+galangal,,plant,no listed allergen,no animal ingredient,,2,vegetables
+kaffir lime leaves,,plant,no listed allergen,no animal ingredient,,3,herbs
+thai basil,,plant,no listed allergen,no animal ingredient,,4,herbs
+holy basil,,plant,no listed allergen,no animal ingredient,,1,herbs
+green papaya,,plant,no listed allergen,no animal ingredient,,1,fruit
+long beans,,plant,no listed allergen,no animal ingredient,,1,vegetables
+thai eggplant,,plant,no listed allergen,no animal ingredient,,1,vegetables
+water spinach,,plant,no listed allergen,no animal ingredient,,1,vegetables
+scotch bonnet,,plant,no listed allergen,no animal ingredient,,8,vegetables
+green plantain,,plant,no listed allergen,no animal ingredient,,1,fruit
+ripe plantain,,plant,no listed allergen,no animal ingredient,,2,fruit
+paneer,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,1,
+mexican crema,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,3,
+pork belly,,meat,no listed allergen,filter group meat,,6,meat
+fish cakes,gluten:V;wheat:V;fish:I,seafood,surimi contains wheat starch | fish,carries a fish or shellfish tag,fish;gluten,1,seafood
+dried shrimp,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,1,seafood
+liver pate,gluten:V;wheat:V;dairy:V,meat,"liver pate often contains cream, milk powder or wheat filler","liver pate often contains cream, milk powder or wheat filler",,1,meat
+dashi,fish:I,seafood,fish,carries a fish or shellfish tag,fish,6,pantry
+bonito flakes,fish:I,seafood,fish,carries a fish or shellfish tag,fish,3,pantry
+kombu,,plant,no listed allergen,no animal ingredient,,1,pantry
+wakame,,plant,no listed allergen,no animal ingredient,,1,pantry
+aonori,,plant,no listed allergen,no animal ingredient,,2,pantry
+okonomiyaki sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,1,pantry
+pickled ginger,,plant,no listed allergen,no animal ingredient,,3,pantry
+japanese curry roux,gluten:T;wheat:T;soy:T,plant,a flour roux | soy sauce or fermented soybean in the common product,no animal ingredient,gluten,1,pantry
+black vinegar,gluten:T;wheat:T,plant,brewed or thickened with wheat,no animal ingredient,gluten,2,pantry
+cane vinegar,,plant,no listed allergen,no animal ingredient,,1,pantry
+shaoxing wine,gluten:T;wheat:T,plant,brewed or thickened with wheat,no animal ingredient,gluten,2,pantry
+doubanjiang,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,1,pantry
+fermented black beans,soy:I,plant,fermented soybeans,no animal ingredient,soy,1,pantry
+chili oil,sesame:V,plant,sesame in some brands / recipes,no animal ingredient,,2,pantry
+chinese sesame paste,sesame:I,plant,sesame,no animal ingredient,sesame,1,pantry
+sweet chili sauce,,plant,no listed allergen,no animal ingredient,,1,pantry
+banana ketchup,,plant,no listed allergen,no animal ingredient,,1,pantry
+nam prik pao,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,shellfish,1,pantry
+massaman curry paste,fish:V;shellfish:T,seafood,fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard,carries a fish or shellfish tag,shellfish,1,pantry
+tamarind paste,,plant,no listed allergen,no animal ingredient,,6,pantry
+aji amarillo paste,,plant,no listed allergen,no animal ingredient,,3,pantry
+achiote paste,,plant,no listed allergen,no animal ingredient,,1,pantry
+chipotle in adobo,,plant,no listed allergen,no animal ingredient,,1,pantry
+piloncillo,,plant,no listed allergen,no animal ingredient,,1,pantry
+palm sugar,,plant,no listed allergen,no animal ingredient,,5,pantry
+jaggery,,plant,no listed allergen,no animal ingredient,,2,pantry
+pomegranate molasses,,plant,no listed allergen,no animal ingredient,,1,pantry
+preserved lemon,,plant,no listed allergen,no animal ingredient,,1,pantry
+red palm oil,,plant,no listed allergen,no animal ingredient,,1,pantry
+coconut water,,plant,no listed allergen,no animal ingredient,,1,pantry
+black olives,,plant,no listed allergen,no animal ingredient,,2,pantry
+short-grain rice,,plant,no listed allergen,no animal ingredient,,3,grains
+glutinous rice,,plant,no listed allergen,no animal ingredient,,1,grains
+flattened rice,,plant,no listed allergen,no animal ingredient,,1,grains
+korean rice cakes,,plant,no listed allergen,no animal ingredient,,1,grains
+sweet potato starch noodles,,plant,no listed allergen,no animal ingredient,,1,grains
+yakisoba noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,1,grains
+chinese wheat noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,1,grains
+toor dal,,plant,no listed allergen,no animal ingredient,,2,legumes
+chana dal,,plant,no listed allergen,no animal ingredient,,2,legumes
+urad dal,,plant,no listed allergen,no animal ingredient,,1,legumes
+chickpea flour,,plant,no listed allergen,no animal ingredient,,2,grains
+potato starch,,plant,no listed allergen,no animal ingredient,,1,pantry
+pigeon peas,,plant,no listed allergen,no animal ingredient,,1,legumes
+gigante beans,,plant,no listed allergen,no animal ingredient,,1,legumes
+fava beans,,plant,no listed allergen,no animal ingredient,,1,legumes
+spring roll wrappers,gluten:I;wheat:I,plant,wheat wrapper or dumpling skin,no animal ingredient,gluten,1,grains
+tostadas,,plant,no listed allergen,no animal ingredient,,1,grains
+gochugaru,,plant,no listed allergen,no animal ingredient,,3,spices
+berbere,,plant,no listed allergen,no animal ingredient,,3,spices
+asafoetida,,plant,no listed allergen,no animal ingredient,,3,spices
+dried mango powder,,plant,no listed allergen,no animal ingredient,,1,spices
+dried fenugreek leaves,,plant,no listed allergen,no animal ingredient,,3,spices
+pav bhaji masala,,plant,no listed allergen,no animal ingredient,,1,spices
+sambar powder,,plant,no listed allergen,no animal ingredient,,1,spices
+red chili powder,,plant,no listed allergen,no animal ingredient,,8,spices
+cumin seeds,,plant,no listed allergen,no animal ingredient,,8,spices
+coriander seeds,,plant,no listed allergen,no animal ingredient,,2,spices
+fenugreek seeds,,plant,no listed allergen,no animal ingredient,,3,spices
+black peppercorns,,plant,no listed allergen,no animal ingredient,,2,spices
+sichuan peppercorns,,plant,no listed allergen,no animal ingredient,,3,spices
+whole cloves,,plant,no listed allergen,no animal ingredient,,2,spices
+allspice berries,,plant,no listed allergen,no animal ingredient,,1,spices
+aleppo pepper,,plant,no listed allergen,no animal ingredient,,1,spices
+dried mint,,plant,no listed allergen,no animal ingredient,,1,spices
+dried red chiles,,plant,no listed allergen,no animal ingredient,,6,spices
+guajillo chile,,plant,no listed allergen,no animal ingredient,,2,spices
+pasilla chile,,plant,no listed allergen,no animal ingredient,,1,spices
+chile de arbol,,plant,no listed allergen,no animal ingredient,,1,spices
+onion,,plant,no listed allergen,no animal ingredient,,0,vegetables
+rice,,plant,no listed allergen,no animal ingredient,,0,grains
+bell pepper,,plant,no listed allergen,no animal ingredient,,0,vegetables
+potato,,plant,no listed allergen,no animal ingredient,,0,vegetables
+lettuce,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cabbage,,plant,no listed allergen,no animal ingredient,,0,vegetables
+ground meat,,meat,no listed allergen,filter group meat,,0,meat
+white fish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+mushroom soy sauce,gluten:T;wheat:T;soy:I,plant,soy sauce is brewed from soybeans and wheat,no animal ingredient,gluten;soy,0,pantry
+sweet bean sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+yellow bean sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+black bean sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+hot bean paste,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+xo sauce,gluten:T;wheat:T;fish:T;soy:T;shellfish:T;mollusks:T,seafood,"made with soy sauce or wheat-and-soy bean paste | anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard | oyster extract or dried scallop",carries a fish or shellfish tag,fish;shellfish,0,pantry
+sha cha sauce,gluten:T;wheat:T;fish:T;soy:T;shellfish:T;mollusks:V,seafood,"made with soy sauce or wheat-and-soy bean paste | anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard | may contain dried scallop or oyster extract",carries a fish or shellfish tag,fish;gluten;shellfish;soy,0,pantry
+chili crisp,soy:T;peanuts:V;sesame:V,plant,soy sauce or fermented soybean in the common product | sesame in some brands / recipes | some brands / recipes include peanuts,no animal ingredient,soy,0,pantry
+plum sauce,gluten:V;wheat:V,plant,may be thickened with wheat flour,no animal ingredient,gluten,0,pantry
+char siu sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+sweet and sour sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+orange sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+teriyaki sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+ponzu,gluten:T;wheat:T;fish:T;soy:T,seafood,"made with soy sauce or wheat-and-soy bean paste | anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,fish;gluten;soy,0,pantry
+tonkatsu sauce,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+mentsuyu,gluten:T;wheat:T;fish:T;soy:T,seafood,"made with soy sauce or wheat-and-soy bean paste | anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,fish;gluten;soy,0,pantry
+yuzu juice,,plant,no listed allergen,no animal ingredient,,0,pantry
+yuzu kosho,,plant,no listed allergen,no animal ingredient,,0,pantry
+shichimi togarashi,sesame:I,plant,sesame,no animal ingredient,sesame,0,spices
+wasabi paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+wasabi powder,,plant,no listed allergen,no animal ingredient,,0,spices
+karashi,,plant,no listed allergen,no animal ingredient,,0,pantry
+sansho pepper,,plant,no listed allergen,no animal ingredient,,0,spices
+red miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,0,pantry
+awase miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,0,pantry
+yellow miso,gluten:V;soy:I,plant,barley miso (mugi miso) exists and most miso blends use grain koji | fermented soybean paste,no animal ingredient,soy,0,pantry
+umeboshi,,plant,no listed allergen,no animal ingredient,,0,pantry
+takuan,,plant,no listed allergen,no animal ingredient,,0,pantry
+natto,soy:I,plant,fermented soybean paste,no animal ingredient,soy,0,legumes
+aburaage,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+atsuage,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+yuba,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+dried tofu,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+fermented bean curd,soy:I,plant,fermented soybeans,no animal ingredient,soy,0,pantry
+kinako,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+soy flour,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+tofu puffs,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+sundubu,soy:I,plant,fermented soybeans,no animal ingredient,soy,0,pantry
+dried shiitake mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+enoki mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+king oyster mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+maitake mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+shimeji mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+nameko mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+lion's mane mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+straw mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+dried goji berries,,plant,no listed allergen,no animal ingredient,,0,fruit
+red dates,,plant,no listed allergen,no animal ingredient,,0,fruit
+longan,,plant,no listed allergen,no animal ingredient,,0,fruit
+lychee,,plant,no listed allergen,no animal ingredient,,0,fruit
+lotus root,,plant,no listed allergen,no animal ingredient,,0,vegetables
+lotus seeds,,plant,no listed allergen,no animal ingredient,,0,nuts
+bamboo shoots,,plant,no listed allergen,no animal ingredient,,0,vegetables
+baby corn,,plant,no listed allergen,no animal ingredient,,0,vegetables
+lily buds,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chinese cinnamon,,plant,no listed allergen,no animal ingredient,,0,spices
+sand ginger,,plant,no listed allergen,no animal ingredient,,0,spices
+chinese broccoli,,plant,no listed allergen,no animal ingredient,,0,vegetables
+choy sum,,plant,no listed allergen,no animal ingredient,,0,vegetables
+garlic chives,,plant,no listed allergen,no animal ingredient,,0,herbs
+chinese eggplant,,plant,no listed allergen,no animal ingredient,,0,vegetables
+winter melon,,plant,no listed allergen,no animal ingredient,,0,vegetables
+bitter melon,,plant,no listed allergen,no animal ingredient,,0,vegetables
+luffa,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chayote,,plant,no listed allergen,no animal ingredient,,0,vegetables
+taro root,,plant,no listed allergen,no animal ingredient,,0,vegetables
+japanese sweet potato,,plant,no listed allergen,no animal ingredient,,0,vegetables
+korean sweet potato,,plant,no listed allergen,no animal ingredient,,0,vegetables
+kabocha squash,,plant,no listed allergen,no animal ingredient,,0,vegetables
+burdock root,,plant,no listed allergen,no animal ingredient,,0,vegetables
+konjac,,plant,no listed allergen,no animal ingredient,,0,pantry
+shirataki noodles,,plant,no listed allergen,no animal ingredient,,0,grains
+somen noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+harusame,,plant,no listed allergen,no animal ingredient,,0,grains
+cellophane noodles,,plant,no listed allergen,no animal ingredient,,0,grains
+lo mein noodles,gluten:I;wheat:I;egg:T,dairy_egg,wheat pasta or noodles | eggs in the usual recipe or product,carries a dairy or egg tag,egg;gluten,0,grains
+chow mein noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+rice stick noodles,,plant,no listed allergen,no animal ingredient,,0,grains
+dumpling wrappers,gluten:I;wheat:I,plant,wheat wrapper or dumpling skin,no animal ingredient,gluten,0,grains
+egg roll wrappers,gluten:I;wheat:I;egg:T,dairy_egg,wheat wrapper or dumpling skin | eggs in the usual recipe or product,carries a dairy or egg tag,egg;gluten,0,grains
+mochi,,plant,no listed allergen,no animal ingredient,,0,grains
+mochiko,,plant,no listed allergen,no animal ingredient,,0,grains
+rice flour,,plant,no listed allergen,no animal ingredient,,0,grains
+brown rice flour,,plant,no listed allergen,no animal ingredient,,0,grains
+wheat starch,gluten:V;wheat:V,plant,"wheat starch: contains wheat, gluten-free only if specially processed",no animal ingredient,gluten,0,grains
+tapioca starch,,plant,no listed allergen,no animal ingredient,,0,pantry
+tapioca pearls,,plant,no listed allergen,no animal ingredient,,0,grains
+mung bean starch,,plant,no listed allergen,no animal ingredient,,0,pantry
+arrowroot powder,,plant,no listed allergen,no animal ingredient,,0,pantry
+kuzu,,plant,no listed allergen,no animal ingredient,,0,pantry
+agar,,plant,no listed allergen,no animal ingredient,,0,pantry
+hijiki,,plant,no listed allergen,no animal ingredient,,0,pantry
+arame,,plant,no listed allergen,no animal ingredient,,0,pantry
+dulse,,plant,no listed allergen,no animal ingredient,,0,pantry
+laver,,plant,no listed allergen,no animal ingredient,,0,pantry
+seaweed snack,sesame:T,plant,roasted seaweed snacks are usually brushed with sesame oil,no animal ingredient,,0,pantry
+spirulina,,plant,no listed allergen,no animal ingredient,,0,pantry
+sea vegetables,,plant,no listed allergen,no animal ingredient,,0,pantry
+century egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+salted duck egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+duck egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+quail egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+chinese sausage,gluten:V;wheat:V;soy:V,meat,may be thickened with wheat flour | soy protein or soybean oil is common,filter group meat,,0,meat
+pork floss,gluten:V;wheat:V;soy:V,meat,may be thickened with wheat flour | soy protein or soybean oil is common,filter group meat,gluten;soy,0,meat
+peking duck,gluten:V;wheat:V;soy:T,meat,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks | soy sauce marinade or glaze,filter group meat,soy,0,meat
+dried scallops,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+dried squid,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+dried anchovies,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+jellyfish,,seafood,no listed allergen,filter group seafood,,0,seafood
+abalone,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+unagi,gluten:T;wheat:T;fish:I;soy:T,seafood,soy sauce marinade or glaze | kabayaki glaze is soy sauce and mirin | fish,carries a fish or shellfish tag,fish;gluten;soy,0,seafood
+tobiko,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+ikura,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+uni,,seafood,no listed allergen,filter group seafood,shellfish,0,seafood
+sashimi tuna,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+mackerel,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+yellowtail,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+sea bream,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+herring,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+black rice,,plant,no listed allergen,no animal ingredient,,0,grains
+red rice,,plant,no listed allergen,no animal ingredient,,0,grains
+rice bran,,plant,no listed allergen,no animal ingredient,,0,grains
+hojicha,,plant,no listed allergen,no animal ingredient,,0,pantry
+matcha,,plant,no listed allergen,no animal ingredient,,0,pantry
+green tea,,plant,no listed allergen,no animal ingredient,,0,pantry
+jasmine tea,,plant,no listed allergen,no animal ingredient,,0,pantry
+oolong tea,,plant,no listed allergen,no animal ingredient,,0,pantry
+black tea,,plant,no listed allergen,no animal ingredient,,0,pantry
+makgeolli,gluten:T;wheat:T,plant,brewed or thickened with wheat,no animal ingredient,,0,pantry
+soju,,plant,no listed allergen,no animal ingredient,,0,pantry
+huangjiu,gluten:T;wheat:T,plant,brewed or thickened with wheat,no animal ingredient,gluten,0,pantry
+cooking sake,,plant,no listed allergen,no animal ingredient,,0,pantry
+doenjang,gluten:V;wheat:V;soy:I,plant,may be thickened with wheat flour | fermented soybean paste,no animal ingredient,soy,0,pantry
+ssamjang,gluten:V;wheat:V;soy:I;sesame:T,plant,sesame in the common recipe | may be thickened with wheat flour | fermented soybean paste,no animal ingredient,sesame;soy,0,pantry
+korean soup soy sauce,gluten:T;wheat:T;soy:I,plant,soy sauce is brewed from soybeans and wheat,no animal ingredient,soy,0,pantry
+korean bbq sauce,gluten:T;wheat:T;soy:T;sesame:I,plant,made with soy sauce or wheat-and-soy bean paste | sesame,no animal ingredient,gluten;sesame;soy,0,pantry
+jocheong,,plant,no listed allergen,no animal ingredient,,0,pantry
+asian pear,,plant,no listed allergen,no animal ingredient,,0,fruit
+korean radish,,plant,no listed allergen,no animal ingredient,,0,vegetables
+perilla leaves,,plant,no listed allergen,no animal ingredient,,0,herbs
+mitsuba,,plant,no listed allergen,no animal ingredient,,0,herbs
+myoga,,plant,no listed allergen,no animal ingredient,,0,herbs
+perilla oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+korean zucchini,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cheongyang pepper,,plant,no listed allergen,no animal ingredient,,0,vegetables
+naengmyeon noodles,gluten:V;wheat:V,plant,soba is usually part wheat flour,no animal ingredient,gluten,0,grains
+buckwheat noodles,gluten:V;wheat:V,plant,soba is usually part wheat flour,no animal ingredient,gluten,0,grains
+saeujeot,fish:I;shellfish:T,seafood,fish | shrimp paste or dried shrimp is standard,carries a fish or shellfish tag,shellfish,0,pantry
+korean fish sauce,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,pantry
+gochugaru flakes coarse,,plant,no listed allergen,no animal ingredient,,0,spices
+yuja tea,,plant,no listed allergen,no animal ingredient,,0,pantry
+azuki beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+anko,,plant,no listed allergen,no animal ingredient,,0,pantry
+mung beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+black soybeans,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,legumes
+soybeans,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,legumes
+chinese ham,,meat,no listed allergen,filter group meat,,0,meat
+mongolian hot pot broth,,meat,no listed allergen,hot pot broth is a meat-bone broth,,0,pantry
+tempura flour,gluten:I;wheat:I,plant,wheat flour or wheat grain | wheat-based mix or cereal,no animal ingredient,gluten,0,grains
+takoyaki flour,gluten:I;wheat:I;egg:V;fish:V,seafood,wheat flour or wheat grain | egg in many recipes / brands | fish sauce or bonito powder in some pastes / mixes,carries a fish or shellfish tag,gluten,0,grains
+okonomiyaki flour,gluten:I;wheat:I;egg:V;fish:V,seafood,wheat flour or wheat grain | egg in many recipes / brands | fish sauce or bonito powder in some pastes / mixes,carries a fish or shellfish tag,gluten,0,grains
+shio koji,,plant,no listed allergen,no animal ingredient,,0,pantry
+dried bonito,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,pantry
+yellow curry paste,fish:V;shellfish:T,seafood,fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard,carries a fish or shellfish tag,shellfish,0,pantry
+panang curry paste,fish:V;peanuts:V;shellfish:T,seafood,fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard | some brands / recipes include peanuts,carries a fish or shellfish tag,shellfish,0,pantry
+tom yum paste,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,fish;shellfish,0,pantry
+shrimp paste,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,pantry
+kecap manis,gluten:T;wheat:T;soy:I,plant,soy sauce is brewed from soybeans and wheat,no animal ingredient,gluten;soy,0,pantry
+sambal oelek,,plant,no listed allergen,no animal ingredient,,0,pantry
+sambal,fish:V;shellfish:V,seafood,fish sauce or bonito powder in some pastes / mixes | salted shrimp or shrimp paste in many versions,carries a fish or shellfish tag,shellfish,0,pantry
+laksa paste,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,shellfish,0,pantry
+rendang paste,fish:V;shellfish:T,seafood,fish sauce or bonito powder in some pastes / mixes | shrimp paste or dried shrimp is standard,carries a fish or shellfish tag,,0,pantry
+satay sauce,soy:T;peanuts:I,plant,soy sauce or fermented soybean in the common product | peanut,no animal ingredient,nuts;soy,0,pantry
+peanut sauce,soy:T;peanuts:I,plant,soy sauce or fermented soybean in the common product | peanut,no animal ingredient,nuts;soy,0,pantry
+nuoc cham,fish:T,seafood,"anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,fish,0,pantry
+chili garlic sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+fried shallots,gluten:V;wheat:V,plant,often tossed in flour,no animal ingredient,,0,pantry
+crispy fried onions,gluten:I;wheat:I,plant,wheat-based mix or cereal,no animal ingredient,gluten,0,pantry
+fried garlic,,plant,no listed allergen,no animal ingredient,,0,pantry
+coconut cream,,plant,no listed allergen,no animal ingredient,,0,pantry
+coconut sugar,,plant,no listed allergen,no animal ingredient,,0,pantry
+gula melaka,,plant,no listed allergen,no animal ingredient,,0,pantry
+coconut vinegar,,plant,no listed allergen,no animal ingredient,,0,pantry
+coconut milk powder,dairy:V,dairy_egg,some versions add yogurt or milk solids,carries a dairy or egg tag,dairy,0,pantry
+fresh coconut,,plant,no listed allergen,no animal ingredient,,0,fruit
+coconut flour,,plant,no listed allergen,no animal ingredient,,0,grains
+turmeric root,,plant,no listed allergen,no animal ingredient,,0,vegetables
+fingerroot,,plant,no listed allergen,no animal ingredient,,0,herbs
+torch ginger,,plant,no listed allergen,no animal ingredient,,0,herbs
+pandan leaves,,plant,no listed allergen,no animal ingredient,,0,herbs
+pandan extract,,plant,no listed allergen,no animal ingredient,,0,pantry
+salam leaf,,plant,no listed allergen,no animal ingredient,,0,spices
+vietnamese coriander,,plant,no listed allergen,no animal ingredient,,0,herbs
+culantro,,plant,no listed allergen,no animal ingredient,,0,herbs
+vietnamese mint,,plant,no listed allergen,no animal ingredient,,0,herbs
+betel leaves,,plant,no listed allergen,no animal ingredient,,0,herbs
+lemon basil,,plant,no listed allergen,no animal ingredient,,0,herbs
+calamansi,,plant,no listed allergen,no animal ingredient,,0,fruit
+pomelo,,plant,no listed allergen,no animal ingredient,,0,fruit
+dragon fruit,,plant,no listed allergen,no animal ingredient,,0,fruit
+rambutan,,plant,no listed allergen,no animal ingredient,,0,fruit
+mangosteen,,plant,no listed allergen,no animal ingredient,,0,fruit
+durian,,plant,no listed allergen,no animal ingredient,,0,fruit
+jackfruit,,plant,no listed allergen,no animal ingredient,,0,fruit
+young green jackfruit,,plant,no listed allergen,no animal ingredient,,0,vegetables
+starfruit,,plant,no listed allergen,no animal ingredient,,0,fruit
+soursop,,plant,no listed allergen,no animal ingredient,,0,fruit
+sapodilla,,plant,no listed allergen,no animal ingredient,,0,fruit
+passion fruit,,plant,no listed allergen,no animal ingredient,,0,fruit
+guava,,plant,no listed allergen,no animal ingredient,,0,fruit
+banana blossom,,plant,no listed allergen,no animal ingredient,,0,vegetables
+banana leaves,,plant,no listed allergen,no animal ingredient,,0,herbs
+saba banana,,plant,no listed allergen,no animal ingredient,,0,fruit
+winged beans,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pea eggplant,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cassava leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
+sweet potato leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
+moringa leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
+moringa pods,,plant,no listed allergen,no animal ingredient,,0,vegetables
+bottle gourd,,plant,no listed allergen,no animal ingredient,,0,vegetables
+ube,,plant,no listed allergen,no animal ingredient,,0,vegetables
+ube halaya,dairy:T,dairy_egg,"cream, milk, butter or cheese in the common product",carries a dairy or egg tag,dairy,0,pantry
+kesong puti,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+longganisa,,meat,no listed allergen,filter group meat,,0,meat
+tocino,,meat,no listed allergen,filter group meat,,0,meat
+lechon kawali,,meat,no listed allergen,filter group meat,,0,meat
+sinigang mix,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,,0,pantry
+adobo sauce,gluten:V;wheat:V;soy:T,plant,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks | soy sauce marinade or glaze,no animal ingredient,gluten;soy,0,pantry
+pandesal,gluten:I;wheat:I;dairy:T;egg:T,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg;gluten,0,grains
+kerupuk,fish:V;shellfish:V,seafood,prawn or fish flavoured crackers,carries a fish or shellfish tag,gluten;shellfish,0,pantry
+tempeh chips,soy:T,plant,soy sauce or fermented soybean in the common product,"wheat gluten, tempeh and soy protein are plant protein",soy,0,pantry
+bakso,gluten:V;wheat:V,meat,traditional recipes include rusk or flour filler,filter group meat,,0,meat
+candlenuts,tree-nuts:V,plant,some versions include tree nuts,no animal ingredient,nuts,0,nuts
+dried chilies whole,,plant,no listed allergen,no animal ingredient,,0,spices
+bird's eye chili,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chili paste in oil,fish:V;shellfish:V,seafood,fish sauce or bonito powder in some pastes / mixes | salted shrimp or shrimp paste in many versions,carries a fish or shellfish tag,fish;shellfish,0,pantry
+tamarind pulp,,plant,no listed allergen,no animal ingredient,,0,fruit
+lime leaves dried,,plant,no listed allergen,no animal ingredient,,0,spices
+galangal powder,,plant,no listed allergen,no animal ingredient,,0,spices
+nutmeg mace,,plant,no listed allergen,no animal ingredient,,0,spices
+cassia leaves,,plant,no listed allergen,no animal ingredient,,0,spices
+banh pho noodles,,plant,no listed allergen,no animal ingredient,,0,grains
+banh hoi,,plant,no listed allergen,no animal ingredient,,0,grains
+bun bo hue paste,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,shellfish,0,pantry
+cha lua,fish:V,seafood,fish sauce,carries a fish or shellfish tag,,0,meat
+nem nuong,fish:V,seafood,fish sauce,carries a fish or shellfish tag,,0,meat
+tea leaves fermented,,plant,no listed allergen,no animal ingredient,,0,pantry
+ngapi,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,fish,0,pantry
+prahok,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,fish,0,pantry
+kroeung,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,,0,pantry
+padaek,fish:T;shellfish:T,seafood,"anchovy, fish sauce or bonito in the common recipe | shrimp paste or dried shrimp is standard",carries a fish or shellfish tag,fish,0,pantry
+rice paddy herb,,plant,no listed allergen,no animal ingredient,,0,herbs
+lemongrass paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+kaffir lime,,plant,no listed allergen,no animal ingredient,,0,fruit
+sago pearls,,plant,no listed allergen,no animal ingredient,,0,grains
+thai iced tea mix,,plant,no listed allergen,no animal ingredient,,0,pantry
+water mimosa,,plant,no listed allergen,no animal ingredient,,0,vegetables
+moong dal,,plant,no listed allergen,no animal ingredient,,0,legumes
+whole mung beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+masoor dal,,plant,no listed allergen,no animal ingredient,,0,legumes
+whole masoor,,plant,no listed allergen,no animal ingredient,,0,legumes
+black lentils,,plant,no listed allergen,no animal ingredient,,0,legumes
+kala chana,,plant,no listed allergen,no animal ingredient,,0,legumes
+whole urad,,plant,no listed allergen,no animal ingredient,,0,legumes
+dried green peas,,plant,no listed allergen,no animal ingredient,,0,legumes
+yellow split peas,,plant,no listed allergen,no animal ingredient,,0,legumes
+horse gram,,plant,no listed allergen,no animal ingredient,,0,legumes
+moth beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+cluster beans,,plant,no listed allergen,no animal ingredient,,0,vegetables
+flat beans,,plant,no listed allergen,no animal ingredient,,0,vegetables
+fenugreek leaves,,plant,no listed allergen,no animal ingredient,,0,herbs
+amaranth leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
+colocasia leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
+raw mango,,plant,no listed allergen,no animal ingredient,,0,fruit
+ivy gourd,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pointed gourd,,plant,no listed allergen,no animal ingredient,,0,vegetables
+snake gourd,,plant,no listed allergen,no animal ingredient,,0,vegetables
+raw banana,,plant,no listed allergen,no animal ingredient,,0,vegetables
+banana stem,,plant,no listed allergen,no animal ingredient,,0,vegetables
+elephant foot yam,,plant,no listed allergen,no animal ingredient,,0,vegetables
+indian eggplant,,plant,no listed allergen,no animal ingredient,,0,vegetables
+bhut jolokia,,plant,no listed allergen,no animal ingredient,,0,vegetables
+degi mirch,,plant,no listed allergen,no animal ingredient,,0,spices
+chaat masala,,plant,no listed allergen,no animal ingredient,,0,spices
+tandoori masala,,plant,no listed allergen,no animal ingredient,,0,spices
+chana masala,,plant,no listed allergen,no animal ingredient,,0,spices
+biryani masala,,plant,no listed allergen,no animal ingredient,,0,spices
+kitchen king masala,,plant,no listed allergen,no animal ingredient,,0,spices
+panch phoron,,plant,no listed allergen,no animal ingredient,,0,spices
+rasam powder,,plant,no listed allergen,no animal ingredient,,0,spices
+goda masala,,plant,no listed allergen,no animal ingredient,,0,spices
+tikka masala spice,,plant,no listed allergen,no animal ingredient,,0,spices
+meat masala,,plant,no listed allergen,no animal ingredient,,0,spices
+kala namak,,plant,no listed allergen,no animal ingredient,,0,spices
+rock salt,,plant,no listed allergen,no animal ingredient,,0,spices
+ajwain,,plant,no listed allergen,no animal ingredient,,0,spices
+nigella seeds,,plant,no listed allergen,no animal ingredient,,0,spices
+black cardamom,,plant,no listed allergen,no animal ingredient,,0,spices
+indian bay leaf,,plant,no listed allergen,no animal ingredient,,0,spices
+white poppy seeds,,plant,no listed allergen,no animal ingredient,,0,spices
+kokum,,plant,no listed allergen,no animal ingredient,,0,spices
+anardana,,plant,no listed allergen,no animal ingredient,,0,spices
+long pepper,,plant,no listed allergen,no animal ingredient,,0,spices
+cubeb pepper,,plant,no listed allergen,no animal ingredient,,0,spices
+rose water,,plant,no listed allergen,no animal ingredient,,0,pantry
+kewra water,,plant,no listed allergen,no animal ingredient,,0,pantry
+dried rose petals,,plant,no listed allergen,no animal ingredient,,0,spices
+mango pickle,,plant,no listed allergen,no animal ingredient,,0,pantry
+lime pickle,,plant,no listed allergen,no animal ingredient,,0,pantry
+mixed vegetable pickle,,plant,no listed allergen,no animal ingredient,,0,pantry
+mint chutney,,plant,no listed allergen,no animal ingredient,,0,pantry
+tamarind chutney,,plant,no listed allergen,no animal ingredient,,0,pantry
+mango chutney,,plant,no listed allergen,no animal ingredient,,0,pantry
+coconut chutney,dairy:V,dairy_egg,some versions add yogurt or milk solids,carries a dairy or egg tag,dairy,0,pantry
+raita,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+khoya,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+chhena,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+malai,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+dahi,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+lassi,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+white butter,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+papadum,,plant,no listed allergen,no animal ingredient,,0,grains
+sev,,plant,no listed allergen,no animal ingredient,,0,pantry
+bhujia,,plant,no listed allergen,no animal ingredient,,0,pantry
+chivda,peanuts:T;tree-nuts:T,plant,peanuts are in the traditional mix / spice | cashew or almond in the common mix,no animal ingredient,nuts,0,pantry
+murmura,,plant,no listed allergen,no animal ingredient,,0,grains
+semolina,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+idli rice,,plant,no listed allergen,no animal ingredient,,0,grains
+sona masoori rice,,plant,no listed allergen,no animal ingredient,,0,grains
+ragi flour,,plant,no listed allergen,no animal ingredient,,0,grains
+bajra flour,,plant,no listed allergen,no animal ingredient,,0,grains
+jowar flour,,plant,no listed allergen,no animal ingredient,,0,grains
+sorghum,,plant,no listed allergen,no animal ingredient,,0,grains
+foxtail millet,,plant,no listed allergen,no animal ingredient,,0,grains
+millet,,plant,no listed allergen,no animal ingredient,,0,grains
+makki ka atta,,plant,no listed allergen,no animal ingredient,,0,grains
+singhara flour,,plant,no listed allergen,no animal ingredient,,0,grains
+buckwheat flour,,plant,no listed allergen,no animal ingredient,,0,grains
+buckwheat groats,,plant,no listed allergen,no animal ingredient,,0,grains
+sabudana,,plant,no listed allergen,no animal ingredient,,0,grains
+besan roasted,,plant,no listed allergen,no animal ingredient,,0,grains
+roasted chana,,plant,no listed allergen,no animal ingredient,,0,legumes
+dalia,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+vermicelli sweet,gluten:I;wheat:I,plant,wheat pasta or noodle,no animal ingredient,gluten,0,grains
+atta,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+chapati,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+paratha,gluten:I;wheat:I;dairy:V,dairy_egg,enriched wheat dough | some versions add yogurt or milk solids | wheat flour or wheat grain,carries a dairy or egg tag,dairy;gluten,0,grains
+dosa batter,,plant,no listed allergen,no animal ingredient,,0,grains
+poha thick,,plant,no listed allergen,no animal ingredient,,0,grains
+goat meat,,meat,no listed allergen,filter group meat,,0,meat
+lamb leg,,meat,no listed allergen,filter group meat,,0,meat
+oxtail,,meat,no listed allergen,filter group meat,,0,meat
+tripe,,meat,no listed allergen,filter group meat,,0,meat
+beef tongue,,meat,no listed allergen,filter group meat,,0,meat
+beef liver,,meat,no listed allergen,filter group meat,,0,meat
+chicken liver,,meat,no listed allergen,filter group meat,,0,meat
+chicken gizzards,,meat,no listed allergen,filter group meat,,0,meat
+chicken feet,,meat,no listed allergen,filter group meat,,0,meat
+lamb kidney,,meat,no listed allergen,filter group meat,,0,meat
+beef heart,,meat,no listed allergen,filter group meat,,0,meat
+pork liver,,meat,no listed allergen,filter group meat,,0,meat
+pork blood,,meat,no listed allergen,filter group meat,,0,meat
+pork rinds,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,meat
+hilsa,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+rohu,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+pomfret,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+bombay duck,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+kingfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+dried fish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+maldive fish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+baharat,,plant,no listed allergen,no animal ingredient,,0,spices
+ras el hanout,,plant,no listed allergen,no animal ingredient,,0,spices
+advieh,,plant,no listed allergen,no animal ingredient,,0,spices
+hawaij,,plant,no listed allergen,no animal ingredient,,0,spices
+dukkah,tree-nuts:T;sesame:I,plant,sesame | tree nut in the common recipe / product,no animal ingredient,nuts;sesame,0,spices
+shawarma spice,,plant,no listed allergen,no animal ingredient,,0,spices
+kabsa spice,,plant,no listed allergen,no animal ingredient,,0,spices
+chermoula,,plant,no listed allergen,no animal ingredient,,0,pantry
+tabil,,plant,no listed allergen,no animal ingredient,,0,spices
+zhug,,plant,no listed allergen,no animal ingredient,,0,pantry
+shatta,,plant,no listed allergen,no animal ingredient,,0,pantry
+amba,,plant,no listed allergen,no animal ingredient,,0,pantry
+mahleb,,plant,no listed allergen,no animal ingredient,,0,spices
+mastic,,plant,no listed allergen,no animal ingredient,,0,spices
+black lime,,plant,no listed allergen,no animal ingredient,,0,spices
+urfa biber,,plant,no listed allergen,no animal ingredient,,0,spices
+maras biber,,plant,no listed allergen,no animal ingredient,,0,spices
+biber salcasi,,plant,no listed allergen,no animal ingredient,,0,pantry
+muhammara,gluten:V;wheat:V;tree-nuts:T,plant,wheat starch / flour in some brands | tree nut in the common recipe / product,no animal ingredient,nuts,0,pantry
+ajvar,,plant,no listed allergen,no animal ingredient,,0,pantry
+toum,,plant,no listed allergen,no animal ingredient,egg,0,pantry
+labneh,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+kefir,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+ayran,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+kaymak,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+akkawi cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+sheep cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+kasseri,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+beyaz peynir,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+hummus,sesame:T,plant,tahini or sesame seeds in the common recipe,no animal ingredient,sesame,0,pantry
+baba ganoush,sesame:T,plant,tahini or sesame seeds in the common recipe,no animal ingredient,sesame,0,pantry
+falafel,gluten:V;wheat:V;sesame:V,plant,wheat starch / flour in some brands | sesame in some brands / recipes,no animal ingredient,,0,legumes
+date syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+carob molasses,,plant,no listed allergen,no animal ingredient,,0,pantry
+grape molasses,,plant,no listed allergen,no animal ingredient,,0,pantry
+halva,tree-nuts:V;sesame:I,plant,some halva is made with pistachios or almonds | sesame,no animal ingredient,nuts;sesame,0,pantry
+turkish delight,gluten:V;wheat:V;tree-nuts:V,plant,wheat starch / flour in some brands | some versions include tree nuts,no animal ingredient,,0,pantry
+orange blossom water,,plant,no listed allergen,no animal ingredient,,0,pantry
+pickled turnips,,plant,no listed allergen,no animal ingredient,,0,pantry
+grape leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
+stuffed grape leaves,tree-nuts:V,plant,pine nuts are common in the filling,no animal ingredient,,0,pantry
+freekeh,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+maftoul,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+fregola,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+lavash,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+khubz,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+yufka,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+kataifi,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+simit,gluten:I;wheat:I;sesame:T,plant,"sesame in the common recipe | wheat bread, pastry or cracker",no animal ingredient,gluten;sesame,0,grains
+sucuk,,meat,no listed allergen,filter group meat,,0,meat
+pastirma,,meat,no listed allergen,filter group meat,,0,meat
+merguez,,meat,no listed allergen,filter group meat,,0,meat
+mortadella,tree-nuts:V,meat,mortadella di Bologna is often made with pistachios,filter group meat,,0,meat
+lamb shank,,meat,no listed allergen,filter group meat,,0,meat
+lamb neck,,meat,no listed allergen,filter group meat,,0,meat
+lamb fat,,meat,no listed allergen,filter group meat,,0,meat
+pigeon,,meat,no listed allergen,filter group meat,,0,meat
+zereshk,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried sour cherries,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried mulberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried plums persian,,plant,no listed allergen,no animal ingredient,,0,fruit
+mulberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+green almonds,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+fresh chickpeas,,plant,no listed allergen,no animal ingredient,,0,legumes
+molokhia,,plant,no listed allergen,no animal ingredient,,0,vegetables
+purslane,,plant,no listed allergen,no animal ingredient,,0,vegetables
+persian cucumber,,plant,no listed allergen,no animal ingredient,,0,vegetables
+lebanese eggplant,,plant,no listed allergen,no animal ingredient,,0,vegetables
+sabzi khordan,,plant,no listed allergen,no animal ingredient,,0,herbs
+fresh fenugreek,,plant,no listed allergen,no animal ingredient,,0,herbs
+sorrel,,plant,no listed allergen,no animal ingredient,,0,herbs
+winter savory,,plant,no listed allergen,no animal ingredient,,0,spices
+wild thyme,,plant,no listed allergen,no animal ingredient,,0,spices
+sesame oil untoasted,sesame:I,plant,sesame,no animal ingredient,sesame,0,pantry
+nigella oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+manti wrappers,gluten:I;wheat:I;egg:V,dairy_egg,wheat wrapper or dumpling skin | egg in many recipes / brands,carries a dairy or egg tag,gluten,0,grains
+devzira rice,,plant,no listed allergen,no animal ingredient,,0,grains
+khmeli suneli,,plant,no listed allergen,no animal ingredient,,0,spices
+tkemali,,plant,no listed allergen,no animal ingredient,,0,pantry
+adjika,,plant,no listed allergen,no animal ingredient,,0,pantry
+walnut paste,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+mitmita,,plant,no listed allergen,no animal ingredient,,0,spices
+niter kibbeh,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,pantry
+teff,,plant,no listed allergen,no animal ingredient,,0,grains
+teff flour,,plant,no listed allergen,no animal ingredient,,0,grains
+injera,gluten:V;wheat:V,plant,teff injera is often blended with wheat or barley,no animal ingredient,,0,grains
+shiro powder,,plant,no listed allergen,no animal ingredient,,0,legumes
+awaze,,plant,no listed allergen,no animal ingredient,,0,pantry
+korarima,,plant,no listed allergen,no animal ingredient,,0,spices
+suya spice,peanuts:T,plant,peanuts are in the traditional mix / spice,no animal ingredient,nuts,0,spices
+egusi,,plant,no listed allergen,no animal ingredient,,0,nuts
+palm nut cream,,plant,no listed allergen,no animal ingredient,,0,pantry
+fufu flour,,plant,no listed allergen,no animal ingredient,,0,grains
+garri,,plant,no listed allergen,no animal ingredient,,0,grains
+yam flour,,plant,no listed allergen,no animal ingredient,,0,grains
+white yam,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cocoyam,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cassava,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cassava flour,,plant,no listed allergen,no animal ingredient,,0,grains
+ogbono,,plant,no listed allergen,no animal ingredient,,0,nuts
+locust beans,,plant,no listed allergen,no animal ingredient,,0,pantry
+grains of paradise,,plant,no listed allergen,no animal ingredient,,0,spices
+uziza,,plant,no listed allergen,no animal ingredient,,0,spices
+calabash nutmeg,,plant,no listed allergen,no animal ingredient,,0,spices
+smoked fish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+crayfish ground,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+dried shrimp powder,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+bitterleaf,,plant,no listed allergen,no animal ingredient,,0,vegetables
+ugu,,plant,no listed allergen,no animal ingredient,,0,vegetables
+efo,,plant,no listed allergen,no animal ingredient,,0,vegetables
+tiger nuts,,plant,no listed allergen,no animal ingredient,,0,nuts
+kenkey,,plant,no listed allergen,no animal ingredient,,0,grains
+shito,fish:T;shellfish:T,seafood,dried fish and shrimp,carries a fish or shellfish tag,fish;shellfish,0,pantry
+cowpea flour,,plant,no listed allergen,no animal ingredient,,0,legumes
+rooibos,,plant,no listed allergen,no animal ingredient,,0,pantry
+biltong,,meat,no listed allergen,filter group meat,,0,meat
+boerewors,gluten:V;wheat:V,meat,traditional recipes include rusk or flour filler,filter group meat,,0,meat
+chakalaka,,plant,no listed allergen,no animal ingredient,,0,pantry
+peri-peri sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+rusks,gluten:I;wheat:I;dairy:T;egg:V,dairy_egg,"enriched wheat dough | egg in many recipes | cream, milk, butter or cheese in the common product | wheat bread, pastry or cracker",carries a dairy or egg tag,dairy;gluten,0,grains
+matoke,,plant,no listed allergen,no animal ingredient,,0,vegetables
+sukuma wiki,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pigeon peas dried,,plant,no listed allergen,no animal ingredient,,0,legumes
+hibiscus flowers,,plant,no listed allergen,no animal ingredient,,0,pantry
+baobab powder,,plant,no listed allergen,no animal ingredient,,0,pantry
+moringa powder,,plant,no listed allergen,no animal ingredient,,0,pantry
+argan oil,,plant,no listed allergen,no animal ingredient,nuts,0,pantry
+amlou,tree-nuts:T,plant,tree nut in the common recipe / product,no animal ingredient,nuts,0,pantry
+msemen,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+warqa,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+couscous medium,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+dried dates deglet,,plant,no listed allergen,no animal ingredient,,0,fruit
+medjool dates,,plant,no listed allergen,no animal ingredient,,0,fruit
+ancho chile,,plant,no listed allergen,no animal ingredient,,0,spices
+mulato chile,,plant,no listed allergen,no animal ingredient,,0,spices
+cascabel chile,,plant,no listed allergen,no animal ingredient,,0,spices
+morita chile,,plant,no listed allergen,no animal ingredient,,0,spices
+pequin chile,,plant,no listed allergen,no animal ingredient,,0,spices
+new mexico chile,,plant,no listed allergen,no animal ingredient,,0,spices
+hatch green chile,,plant,no listed allergen,no animal ingredient,,0,vegetables
+aji panca,,plant,no listed allergen,no animal ingredient,,0,pantry
+aji limo,,plant,no listed allergen,no animal ingredient,,0,pantry
+rocoto pepper,,plant,no listed allergen,no animal ingredient,,0,vegetables
+aji dulce,,plant,no listed allergen,no animal ingredient,,0,vegetables
+huacatay paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+ancho chile powder,,plant,no listed allergen,no animal ingredient,,0,spices
+chipotle powder,,plant,no listed allergen,no animal ingredient,,0,spices
+masa harina,,plant,no listed allergen,no animal ingredient,,0,grains
+harina pan,,plant,no listed allergen,no animal ingredient,,0,grains
+corn husks,,plant,no listed allergen,no animal ingredient,,0,pantry
+nopales,,plant,no listed allergen,no animal ingredient,,0,vegetables
+prickly pear,,plant,no listed allergen,no animal ingredient,,0,fruit
+epazote,,plant,no listed allergen,no animal ingredient,,0,herbs
+mexican oregano,,plant,no listed allergen,no animal ingredient,,0,spices
+huitlacoche,,plant,no listed allergen,no animal ingredient,,0,vegetables
+squash blossoms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+mexican chocolate,soy:T,plant,soy sauce marinade or glaze,no animal ingredient,,0,pantry
+cacao nibs,,plant,no listed allergen,no animal ingredient,,0,pantry
+agave syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+dulce de leche,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,pantry
+cajeta,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,pantry
+mexican cinnamon,,plant,no listed allergen,no animal ingredient,,0,spices
+vanilla bean,,plant,no listed allergen,no animal ingredient,,0,spices
+oaxaca cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+queso panela,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+queso asadero,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+queso anejo,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+requeson,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+crema salvadorena,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+mole paste,gluten:V;wheat:V;peanuts:T;tree-nuts:T;sesame:T,plant,wheat starch / flour in some brands | tahini or sesame seeds in the common recipe | peanuts are standard in the traditional recipe | tree nut in the common recipe / product,no animal ingredient,nuts;sesame,0,pantry
+green mole,peanuts:V;sesame:V,plant,sesame in some brands / recipes | some brands / recipes include peanuts,no animal ingredient,nuts;sesame,0,pantry
+salsa verde,,plant,no listed allergen,no animal ingredient,,0,pantry
+salsa macha,peanuts:T;tree-nuts:V;sesame:T,plant,sesame in the common recipe | peanuts are in the traditional mix / spice | some versions are made with almonds or pecans,no animal ingredient,nuts;sesame,0,pantry
+tajin,,plant,no listed allergen,no animal ingredient,,0,spices
+chamoy,,plant,no listed allergen,no animal ingredient,,0,pantry
+pico de gallo,,plant,no listed allergen,no animal ingredient,,0,pantry
+guacamole,,plant,no listed allergen,no animal ingredient,,0,pantry
+chipotle sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+enchilada sauce,gluten:V;wheat:V,plant,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks,no animal ingredient,,0,pantry
+mojo,,plant,no listed allergen,no animal ingredient,,0,pantry
+sofrito,,plant,no listed allergen,no animal ingredient,,0,pantry
+sazon,,plant,no listed allergen,no animal ingredient,,0,spices
+alcaparrado,,plant,no listed allergen,no animal ingredient,,0,pantry
+jerk seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
+jerk paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+jamaican curry powder,,plant,no listed allergen,no animal ingredient,,0,spices
+browning sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+pickapeppa sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+caribbean hot sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+ackee,,plant,no listed allergen,no animal ingredient,,0,fruit
+breadfruit,,plant,no listed allergen,no animal ingredient,,0,fruit
+boniato,,plant,no listed allergen,no animal ingredient,,0,vegetables
+christophene,,plant,no listed allergen,no animal ingredient,,0,vegetables
+salt cod,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+sea moss,,plant,no listed allergen,no animal ingredient,,0,pantry
+guava paste,,plant,no listed allergen,no animal ingredient,,0,fruit
+guava jelly,,plant,no listed allergen,no animal ingredient,,0,pantry
+mamey,,plant,no listed allergen,no animal ingredient,,0,fruit
+cherimoya,,plant,no listed allergen,no animal ingredient,,0,fruit
+tamarillo,,plant,no listed allergen,no animal ingredient,,0,fruit
+lulo,,plant,no listed allergen,no animal ingredient,,0,fruit
+acai puree,,plant,no listed allergen,no animal ingredient,,0,fruit
+cashew fruit,,plant,no listed allergen,no animal ingredient,,0,fruit
+hearts of palm,,plant,no listed allergen,no animal ingredient,,0,vegetables
+farofa,,plant,no listed allergen,no animal ingredient,,0,grains
+tapioca flour brazilian,,plant,no listed allergen,no animal ingredient,,0,grains
+pao de queijo mix,dairy:V;egg:V,dairy_egg,"milkfat, whey or milk solids in some brands | egg in many recipes / brands",carries a dairy or egg tag,dairy;egg,0,grains
+queijo minas,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+requeijao,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+carne seca,,meat,no listed allergen,filter group meat,,0,meat
+linguica,,meat,no listed allergen,filter group meat,,0,meat
+chimichurri,,plant,no listed allergen,no animal ingredient,,0,pantry
+yerba mate,,plant,no listed allergen,no animal ingredient,,0,pantry
+morcilla,,meat,no listed allergen,filter group meat,,0,meat
+empanada dough,gluten:I;wheat:I;egg:V,dairy_egg,"wheat bread, pastry or cracker | egg in many recipes / brands",carries a dairy or egg tag,gluten,0,grains
+choclo,,plant,no listed allergen,no animal ingredient,,0,vegetables
+canary beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+lucuma powder,,plant,no listed allergen,no animal ingredient,,0,pantry
+maca powder,,plant,no listed allergen,no animal ingredient,,0,pantry
+amaranth,,plant,no listed allergen,no animal ingredient,,0,grains
+chuno,,plant,no listed allergen,no animal ingredient,,0,vegetables
+oca,,plant,no listed allergen,no animal ingredient,,0,vegetables
+yacon,,plant,no listed allergen,no animal ingredient,,0,vegetables
+arracacha,,plant,no listed allergen,no animal ingredient,,0,vegetables
+guasca,,plant,no listed allergen,no animal ingredient,,0,spices
+cachaca,,plant,no listed allergen,no animal ingredient,,0,pantry
+pisco,,plant,no listed allergen,no animal ingredient,,0,pantry
+tequila,,plant,no listed allergen,no animal ingredient,,0,pantry
+mezcal,,plant,no listed allergen,no animal ingredient,,0,pantry
+rum,,plant,no listed allergen,no animal ingredient,,0,pantry
+coffee liqueur,,plant,no listed allergen,no animal ingredient,,0,pantry
+piquillo pepper,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pimientos,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cuban bread,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+bolillo,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+conchas,gluten:I;wheat:I;dairy:T;egg:T,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg;gluten,0,grains
+carnitas,,meat,no listed allergen,filter group meat,,0,meat
+barbacoa,,meat,no listed allergen,filter group meat,,0,meat
+chicharron prensado,,meat,no listed allergen,filter group meat,,0,meat
+longaniza,,meat,no listed allergen,filter group meat,,0,meat
+mexican table cream,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+cuajada,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+00 flour,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+semola rimacinata,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+bucatini,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+pappardelle,gluten:I;wheat:I;egg:T,dairy_egg,egg in many recipes | egg in the traditional recipe | wheat pasta or noodles,carries a dairy or egg tag,egg;gluten,0,grains
+farfalle,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+rotini,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+ziti,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+shell pasta,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+ditalini,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+orecchiette,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+paccheri,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+cavatappi,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+vermicelli pasta,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+fideo noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+campanelle,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+gemelli,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+whole wheat pasta,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+gluten-free pasta,,plant,no listed allergen,no animal ingredient,,0,grains
+egg pasta,gluten:I;wheat:I;egg:T,dairy_egg,wheat pasta or noodle | eggs in the usual recipe or product,carries a dairy or egg tag,egg;gluten,0,grains
+gnocchi,gluten:I;wheat:I;egg:T,dairy_egg,wheat wrapper or dumpling skin | eggs in the usual recipe or product,carries a dairy or egg tag,gluten,0,grains
+tortellini,gluten:I;wheat:I;dairy:T;egg:T,dairy_egg,"wheat wrapper or dumpling skin | cream, milk or butter in the common recipe | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg;gluten,0,grains
+ravioli,gluten:I;wheat:I;dairy:T;egg:T,dairy_egg,"wheat wrapper or dumpling skin | cream, milk or butter in the common recipe | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg;gluten,0,grains
+manicotti,gluten:I;wheat:I;dairy:T,dairy_egg,"wheat pasta or noodles | cream, milk or butter in the common recipe",carries a dairy or egg tag,gluten,0,grains
+asiago,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+fontina,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+taleggio,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+burrata,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+stracciatella,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+scamorza,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+caciocavallo,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+ricotta salata,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+robiola,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+bresaola,,meat,no listed allergen,filter group meat,,0,meat
+speck,,meat,no listed allergen,filter group meat,,0,meat
+guanciale,,meat,no listed allergen,filter group meat,,0,meat
+soppressata,,meat,no listed allergen,filter group meat,,0,meat
+genoa salami,,meat,no listed allergen,filter group meat,,0,meat
+pepperoni,,meat,no listed allergen,filter group meat,,0,meat
+nduja,,meat,no listed allergen,filter group meat,,0,meat
+capicola,,meat,no listed allergen,filter group meat,,0,meat
+porchetta,,meat,no listed allergen,filter group meat,,0,meat
+cotechino,,meat,no listed allergen,filter group meat,,0,meat
+bottarga,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+tuna in olive oil,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+colatura di alici,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,pantry
+anchovy paste,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,pantry
+castelvetrano olives,,plant,no listed allergen,no animal ingredient,,0,vegetables
+nicoise olives,,plant,no listed allergen,no animal ingredient,,0,vegetables
+olive tapenade,fish:T,seafood,anchovies in the classic recipe,carries a fish or shellfish tag,fish,0,pantry
+arrabbiata sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+alfredo sauce,dairy:T,dairy_egg,"cream, milk or butter in the common recipe",carries a dairy or egg tag,dairy,0,pantry
+bolognese sauce,dairy:T,meat,"cream, milk, butter or cheese in the common product",jarred bolognese contains beef or pork,,0,pantry
+tomato puree,,plant,no listed allergen,no animal ingredient,,0,pantry
+carnaroli rice,,plant,no listed allergen,no animal ingredient,,0,grains
+balsamic glaze,,plant,no listed allergen,no animal ingredient,,0,pantry
+marsala wine,,plant,no listed allergen,no animal ingredient,,0,pantry
+vermouth,,plant,no listed allergen,no animal ingredient,,0,pantry
+amaretto,tree-nuts:T,plant,tree nut in the common recipe / product,no animal ingredient,nuts,0,pantry
+limoncello,,plant,no listed allergen,no animal ingredient,,0,pantry
+grappa,,plant,no listed allergen,no animal ingredient,,0,pantry
+brandy,,plant,no listed allergen,no animal ingredient,,0,pantry
+sparkling wine,,plant,no listed allergen,no animal ingredient,,0,pantry
+rose wine,,plant,no listed allergen,no animal ingredient,,0,pantry
+port wine,,plant,no listed allergen,no animal ingredient,,0,pantry
+sherry,,plant,no listed allergen,no animal ingredient,,0,pantry
+beer,gluten:T;wheat:V,plant,"wheat beer (hefeweizen, witbier) is brewed with wheat; the alias 'wheat beer' resolves to beer | brewed from barley (gluten-free beers exist)",no animal ingredient,gluten,0,pantry
+ladyfingers,gluten:I;wheat:I;egg:T,dairy_egg,"wheat bread, pastry or cracker | eggs in the usual recipe or product",carries a dairy or egg tag,egg;gluten,0,grains
+amaretti cookies,egg:T;tree-nuts:T,dairy_egg,eggs in the usual recipe or product | tree nut in the common recipe / product,carries a dairy or egg tag,egg;nuts,0,pantry
+grissini,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+ciabatta,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+focaccia,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+piadina,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+brioche,gluten:I;wheat:I;dairy:T;egg:T,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg;gluten,0,grains
+croissant dough,gluten:I;wheat:I;dairy:T;egg:V,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | egg in many recipes / brands",carries a dairy or egg tag,dairy;gluten,0,grains
+chestnuts,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+chestnut flour,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,grains
+hazelnut spread,dairy:T;soy:T;tree-nuts:I,dairy_egg,"soy lecithin in the common product | cream, milk or butter in the common recipe | tree nut",carries a dairy or egg tag,dairy;nuts,0,pantry
+marzipan,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+almond paste,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+marcona almonds,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+truffle oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+black truffle,,plant,no listed allergen,no animal ingredient,,0,vegetables
+truffle salt,,plant,no listed allergen,no animal ingredient,,0,spices
+porcini mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+dried porcini,,plant,no listed allergen,no animal ingredient,,0,vegetables
+morel mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chanterelle mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+marjoram,,plant,no listed allergen,no animal ingredient,,0,herbs
+dried marjoram,,plant,no listed allergen,no animal ingredient,,0,spices
+lovage,,plant,no listed allergen,no animal ingredient,,0,herbs
+fennel pollen,,plant,no listed allergen,no animal ingredient,,0,spices
+radicchio,,plant,no listed allergen,no animal ingredient,,0,vegetables
+endive,,plant,no listed allergen,no animal ingredient,,0,vegetables
+escarole,,plant,no listed allergen,no animal ingredient,,0,vegetables
+arugula wild,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cardoon,,plant,no listed allergen,no animal ingredient,,0,vegetables
+artichoke hearts,,plant,no listed allergen,no animal ingredient,,0,vegetables
+calabrian chili paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+peperoncino,,plant,no listed allergen,no animal ingredient,,0,spices
+pimenton dulce,,plant,no listed allergen,no animal ingredient,,0,spices
+pimenton picante,,plant,no listed allergen,no animal ingredient,,0,spices
+manchego,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+mahon cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+jamon serrano,,meat,no listed allergen,filter group meat,,0,meat
+jamon iberico,,meat,no listed allergen,filter group meat,,0,meat
+sobrasada,,meat,no listed allergen,filter group meat,,0,meat
+salchichon,,meat,no listed allergen,filter group meat,,0,meat
+bomba rice,,plant,no listed allergen,no animal ingredient,,0,grains
+romesco,gluten:V;wheat:V;tree-nuts:T,plant,wheat starch / flour in some brands | tree nut in the common recipe / product,no animal ingredient,nuts,0,pantry
+alioli,egg:T,dairy_egg,eggs in the usual recipe or product,carries a dairy or egg tag,egg,0,pantry
+padron peppers,,plant,no listed allergen,no animal ingredient,,0,vegetables
+membrillo,,plant,no listed allergen,no animal ingredient,,0,fruit
+quince,,plant,no listed allergen,no animal ingredient,,0,fruit
+turron,egg:T;tree-nuts:I,honey,eggs in the usual recipe or product | tree nut,egg white and honey,egg;nuts,0,pantry
+squid ink,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+octopus,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+cuttlefish,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+anchovies fresh,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+sardines canned,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+mackerel canned,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+skate wing,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+sea bass,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+monkfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+turbot,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+dover sole,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+red mullet,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+tarama,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+tzatziki,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,pantry
+trahana,gluten:I;wheat:I;dairy:T,dairy_egg,"enriched wheat dough | cream, milk, butter or cheese in the common product | wheat pasta or noodles",carries a dairy or egg tag,dairy;gluten,0,grains
+hilopites,gluten:I;wheat:I;egg:T,dairy_egg,egg in many recipes | egg in the traditional recipe | wheat pasta or noodles,carries a dairy or egg tag,egg;gluten,0,grains
+mizithra,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+graviera,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+greek honey,,honey,no listed allergen,bee product,,0,pantry
+caper berries,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chourico,,meat,no listed allergen,filter group meat,,0,meat
+creme fraiche,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+fromage blanc,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+quark,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+brie,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+camembert,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+roquefort,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+comte,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+reblochon,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+boursin,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+raclette cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+gouda,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+edam,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+havarti,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+jarlsberg,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+gjetost,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+muenster,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+limburger,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+colby cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+neufchatel,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+cultured butter,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+clarified butter,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+duck fat,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+goose fat,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+chicken fat,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+lard,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+beef tallow,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+suet,gluten:V;wheat:V,meat,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks,"meat stock, bouillon, animal fat or gelatin",gluten,0,pantry
+foie gras,,meat,no listed allergen,filter group meat,,0,meat
+duck confit,,meat,no listed allergen,filter group meat,,0,meat
+duck breast,,meat,no listed allergen,filter group meat,,0,meat
+whole duck,,meat,no listed allergen,filter group meat,,0,meat
+goose,,meat,no listed allergen,filter group meat,,0,meat
+rabbit,,meat,no listed allergen,filter group meat,,0,meat
+quail,,meat,no listed allergen,filter group meat,,0,meat
+venison,,meat,no listed allergen,filter group meat,,0,meat
+bison,,meat,no listed allergen,filter group meat,,0,meat
+wild boar,,meat,no listed allergen,filter group meat,,0,meat
+veal,,meat,no listed allergen,filter group meat,,0,meat
+veal stock,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+fish stock,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,pantry
+bouquet garni,,plant,no listed allergen,no animal ingredient,,0,spices
+fines herbes,,plant,no listed allergen,no animal ingredient,,0,spices
+chervil,,plant,no listed allergen,no animal ingredient,,0,herbs
+celeriac,,plant,no listed allergen,no animal ingredient,,0,vegetables
+salsify,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cornichons,,plant,no listed allergen,no animal ingredient,,0,vegetables
+white asparagus,,plant,no listed allergen,no animal ingredient,,0,vegetables
+lambs lettuce,,plant,no listed allergen,no animal ingredient,,0,vegetables
+snails,mollusks:I,seafood,mollusk,land snails are not vegetarian,shellfish,0,seafood
+frog legs,,meat,no listed allergen,"frog legs are an amphibian, not seafood",,0,seafood
+remoulade,egg:T,dairy_egg,eggs in the usual recipe or product,carries a dairy or egg tag,egg,0,pantry
+bearnaise sauce,dairy:I;egg:I,dairy_egg,"milk, cream, yogurt or butter | egg",carries a dairy or egg tag,dairy;egg,0,pantry
+hollandaise sauce,dairy:I;egg:I,dairy_egg,"milk, cream, yogurt or butter | egg",carries a dairy or egg tag,dairy;egg,0,pantry
+gelatin,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+lavender,,plant,no listed allergen,no animal ingredient,,0,spices
+tonka bean,,plant,no listed allergen,no animal ingredient,,0,spices
+praline paste,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+creme de cassis,,plant,no listed allergen,no animal ingredient,,0,pantry
+triple sec,,plant,no listed allergen,no animal ingredient,,0,pantry
+pastis,,plant,no listed allergen,no animal ingredient,,0,pantry
+stilton,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+wensleydale,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+clotted cream,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+golden syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+haggis,gluten:V;wheat:V,meat,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks,filter group meat,gluten,0,meat
+cumberland sausage,gluten:V;wheat:V,meat,traditional recipes include rusk or flour filler,filter group meat,gluten,0,meat
+gammon,,meat,no listed allergen,filter group meat,,0,meat
+malt vinegar,gluten:I,plant,barley or rye contains gluten (not wheat),no animal ingredient,gluten,0,pantry
+brown sauce,gluten:I,plant,barley or rye contains gluten (not wheat),no animal ingredient,gluten,0,pantry
+yeast extract,gluten:T;wheat:V,plant,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks | Marmite and Vegemite style yeast extract contain barley or wheat,no animal ingredient,gluten,0,pantry
+piccalilli,gluten:V;wheat:V,plant,wheat starch / flour in some brands,no animal ingredient,,0,pantry
+pickled onions,,plant,no listed allergen,no animal ingredient,,0,pantry
+mint sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+horseradish,,plant,no listed allergen,no animal ingredient,,0,vegetables
+prepared horseradish,,plant,no listed allergen,no animal ingredient,,0,pantry
+salad cream,egg:T,dairy_egg,eggs in the usual recipe or product,carries a dairy or egg tag,egg,0,pantry
+self-rising flour,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+custard powder,,plant,no listed allergen,no animal ingredient,,0,pantry
+mincemeat,gluten:V;wheat:V,meat,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks,traditionally made with suet,gluten,0,fruit
+christmas pudding,gluten:I;wheat:I;dairy:T;egg:T,meat,"enriched wheat dough | egg in the traditional recipe | cream, milk, butter or cheese in the common product | wheat-based mix or cereal",traditionally made with suet,dairy;egg;gluten,0,pantry
+digestive biscuits,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+oatcakes,gluten:T;wheat:T,plant,usually made with wheat flour as well as oats,no animal ingredient,gluten,0,grains
+crumpets,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+soda bread,gluten:I;wheat:I;dairy:T,dairy_egg,"enriched wheat dough | cream, milk, butter or cheese in the common product | wheat bread, pastry or cracker",carries a dairy or egg tag,dairy;gluten,0,grains
+mushy peas,,plant,no listed allergen,no animal ingredient,,0,legumes
+rye flour,gluten:I,plant,barley or rye contains gluten (not wheat),no animal ingredient,gluten,0,grains
+rye bread,gluten:T;wheat:T,plant,rye breads and crackers are usually part wheat,no animal ingredient,gluten,0,grains
+pumpernickel,gluten:T;wheat:T,plant,rye breads and crackers are usually part wheat,no animal ingredient,gluten,0,grains
+knackebrod,gluten:T;wheat:T,plant,rye breads and crackers are usually part wheat,no animal ingredient,gluten,0,grains
+spelt flour,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+spelt,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+kamut,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+wheat berries,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+rolled rye,gluten:I,plant,barley or rye contains gluten (not wheat),no animal ingredient,gluten,0,grains
+barley flour,gluten:I,plant,barley or rye contains gluten (not wheat),no animal ingredient,gluten,0,grains
+oat flour,gluten:V,plant,oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease,no animal ingredient,gluten,0,grains
+oat bran,gluten:V,plant,oats are naturally gluten-free but are usually milled with wheat and barley; only certified gluten-free oats are safe for coeliac disease,no animal ingredient,gluten,0,grains
+wheat germ,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+wheat bran,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+spatzle,gluten:I;wheat:I;egg:T,dairy_egg,wheat wrapper or dumpling skin | eggs in the usual recipe or product,carries a dairy or egg tag,egg;gluten,0,grains
+pierogi,gluten:I;wheat:I;dairy:T;egg:T,dairy_egg,"wheat wrapper or dumpling skin | cream, milk or butter in the common recipe | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg;gluten,0,grains
+pelmeni,gluten:I;wheat:I;egg:T,dairy_egg,wheat wrapper or dumpling skin | eggs in the usual recipe or product,carries a dairy or egg tag,egg;gluten,0,grains
+kielbasa,,meat,no listed allergen,filter group meat,,0,meat
+bratwurst,,meat,no listed allergen,filter group meat,,0,meat
+weisswurst,,meat,no listed allergen,filter group meat,,0,meat
+knackwurst,,meat,no listed allergen,filter group meat,,0,meat
+liverwurst,,meat,no listed allergen,filter group meat,,0,meat
+smoked sausage,,meat,no listed allergen,filter group meat,,0,meat
+andouille,,meat,no listed allergen,filter group meat,,0,meat
+tasso ham,,meat,no listed allergen,filter group meat,,0,meat
+smetana,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+tvorog,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+farmer cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+sirene,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+kajmak,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+skyr,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+pickled herring,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+gravlax,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+lutefisk,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+caviar,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+smoked sprats,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+lingonberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+lingonberry jam,,plant,no listed allergen,no animal ingredient,,0,pantry
+cloudberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+aquavit,,plant,no listed allergen,no animal ingredient,,0,pantry
+vodka,,plant,no listed allergen,no animal ingredient,,0,pantry
+whiskey,,plant,no listed allergen,no animal ingredient,,0,pantry
+gin,,plant,no listed allergen,no animal ingredient,,0,pantry
+cider,,plant,no listed allergen,no animal ingredient,,0,pantry
+juniper berries,,plant,no listed allergen,no animal ingredient,,0,spices
+hot paprika,,plant,no listed allergen,no animal ingredient,,0,spices
+paprika paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+lecso,,plant,no listed allergen,no animal ingredient,,0,pantry
+pickled beets,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pickled cabbage,,plant,no listed allergen,no animal ingredient,,0,vegetables
+kohlrabi,,plant,no listed allergen,no animal ingredient,,0,vegetables
+black radish,,plant,no listed allergen,no animal ingredient,,0,vegetables
+jerusalem artichoke,,plant,no listed allergen,no animal ingredient,,0,vegetables
+ramps,,plant,no listed allergen,no animal ingredient,,0,vegetables
+fiddleheads,,plant,no listed allergen,no animal ingredient,,0,vegetables
+sorrel leaves,,plant,no listed allergen,no animal ingredient,,0,herbs
+chicory root,,plant,no listed allergen,no animal ingredient,,0,pantry
+lebkuchen spice,,plant,no listed allergen,no animal ingredient,,0,spices
+speculoos spread,gluten:T;wheat:T;soy:T,plant,enriched wheat dough | soy lecithin in the common product,no animal ingredient,gluten,0,pantry
+stollen,gluten:I;wheat:I;dairy:T;egg:T;tree-nuts:T,dairy_egg,"enriched wheat dough | cream, milk, butter or cheese in the common product | almonds in the traditional stollen | wheat-based mix or cereal | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;gluten;nuts,0,pantry
+cranberry sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+pumpkin pie filling,,plant,no listed allergen,no animal ingredient,,0,pantry
+maple sugar,,plant,no listed allergen,no animal ingredient,,0,pantry
+maple butter,,plant,no listed allergen,no animal ingredient,,0,pantry
+corn syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+high fructose corn syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+sorghum syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+cane syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+catfish fillet,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+crawfish,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+alligator meat,,meat,no listed allergen,filter group meat,,0,meat
+soft shell crab,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+dungeness crab,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+king crab,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+oysters,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+razor clam,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+geoduck,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+cod roe,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+salmon belly,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+sockeye salmon,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+arctic char,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+lake whitefish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+walleye fillet,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+mahi mahi,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+swordfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+wahoo,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+ahi poke,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+taro leaves luau,,plant,no listed allergen,no animal ingredient,,0,vegetables
+poi,,plant,no listed allergen,no animal ingredient,,0,pantry
+kalua pork,,meat,no listed allergen,filter group meat,,0,meat
+spam,,meat,no listed allergen,filter group meat,,0,meat
+macadamia nuts,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+kukui nuts,tree-nuts:V,plant,some versions include tree nuts,no animal ingredient,nuts,0,nuts
+breadfruit flour,,plant,no listed allergen,no animal ingredient,,0,grains
+pineapple canned,,plant,no listed allergen,no animal ingredient,,0,fruit
+manuka honey,,honey,no listed allergen,bee product,,0,pantry
+macadamia oil,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+wattleseed,,plant,no listed allergen,no animal ingredient,,0,spices
+lemon myrtle,,plant,no listed allergen,no animal ingredient,,0,spices
+finger lime,,plant,no listed allergen,no animal ingredient,,0,fruit
+kangaroo meat,,meat,no listed allergen,filter group meat,,0,meat
+bush tomato,,plant,no listed allergen,no animal ingredient,,0,spices
+wild rice flour,,plant,no listed allergen,no animal ingredient,,0,grains
+manoomin,,plant,no listed allergen,no animal ingredient,,0,grains
+blue cornmeal,,plant,no listed allergen,no animal ingredient,,0,grains
+tepary beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+cholla buds,,plant,no listed allergen,no animal ingredient,,0,vegetables
+mesquite flour,,plant,no listed allergen,no animal ingredient,,0,grains
+pinon nuts,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+pumpkin seed oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+bison jerky,gluten:V;wheat:V;soy:T,meat,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks | soy sauce marinade or glaze,filter group meat,,0,meat
+wild blueberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+saskatoon berries,,plant,no listed allergen,no animal ingredient,,0,fruit
+elderberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+black currants,,plant,no listed allergen,no animal ingredient,,0,fruit
+red currants,,plant,no listed allergen,no animal ingredient,,0,fruit
+gooseberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+rhubarb,,plant,no listed allergen,no animal ingredient,,0,vegetables
+apricot,,plant,no listed allergen,no animal ingredient,,0,fruit
+nectarine,,plant,no listed allergen,no animal ingredient,,0,fruit
+persimmon,,plant,no listed allergen,no animal ingredient,,0,fruit
+kumquat,,plant,no listed allergen,no animal ingredient,,0,fruit
+blood orange,,plant,no listed allergen,no animal ingredient,,0,fruit
+key lime,,plant,no listed allergen,no animal ingredient,,0,fruit
+meyer lemon,,plant,no listed allergen,no animal ingredient,,0,fruit
+bergamot,,plant,no listed allergen,no animal ingredient,,0,fruit
+citron,,plant,no listed allergen,no animal ingredient,,0,fruit
+fresh cranberries,,plant,no listed allergen,no animal ingredient,,2,fruit
+boysenberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+honeydew,,plant,no listed allergen,no animal ingredient,,0,fruit
+casaba melon,,plant,no listed allergen,no animal ingredient,,0,fruit
+bitter orange,,plant,no listed allergen,no animal ingredient,,0,fruit
+fresh dates,,plant,no listed allergen,no animal ingredient,,0,fruit
+prune plums,,plant,no listed allergen,no animal ingredient,,0,fruit
+crabapples,,plant,no listed allergen,no animal ingredient,,0,fruit
+green apple,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried apple,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried banana,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried papaya,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried pineapple,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried cherries,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried blueberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried currants,,plant,no listed allergen,no animal ingredient,,0,fruit
+golden raisins,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried peaches,,plant,no listed allergen,no animal ingredient,,0,fruit
+dried pears,,plant,no listed allergen,no animal ingredient,,0,fruit
+candied ginger,,plant,no listed allergen,no animal ingredient,,0,fruit
+candied orange peel,,plant,no listed allergen,no animal ingredient,,0,fruit
+fruit leather,,plant,no listed allergen,no animal ingredient,,0,fruit
+beet greens,,plant,no listed allergen,no animal ingredient,,0,vegetables
+turnip greens,,plant,no listed allergen,no animal ingredient,,0,vegetables
+baby spinach,,plant,no listed allergen,no animal ingredient,,0,vegetables
+mizuna,,plant,no listed allergen,no animal ingredient,,0,vegetables
+tatsoi,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pea shoots,,plant,no listed allergen,no animal ingredient,,0,vegetables
+alfalfa sprouts,,plant,no listed allergen,no animal ingredient,,0,vegetables
+microgreens,,plant,no listed allergen,no animal ingredient,,0,vegetables
+dandelion greens,,plant,no listed allergen,no animal ingredient,,0,vegetables
+savoy cabbage,,plant,no listed allergen,no animal ingredient,,0,vegetables
+romanesco,,plant,no listed allergen,no animal ingredient,,0,vegetables
+broccolini,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pearl onions,,plant,no listed allergen,no animal ingredient,,0,vegetables
+garlic scapes,,plant,no listed allergen,no animal ingredient,,0,vegetables
+black garlic,,plant,no listed allergen,no animal ingredient,,0,vegetables
+fingerling potatoes,,plant,no listed allergen,no animal ingredient,,0,vegetables
+purple sweet potato,,plant,no listed allergen,no animal ingredient,,0,vegetables
+golden beets,,plant,no listed allergen,no animal ingredient,,0,vegetables
+watermelon radish,,plant,no listed allergen,no animal ingredient,,0,vegetables
+delicata squash,,plant,no listed allergen,no animal ingredient,,0,vegetables
+buttercup squash,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pattypan squash,,plant,no listed allergen,no animal ingredient,,0,vegetables
+sugar pumpkin,,plant,no listed allergen,no animal ingredient,,0,vegetables
+banana peppers,,plant,no listed allergen,no animal ingredient,,0,vegetables
+shishito peppers,,plant,no listed allergen,no animal ingredient,,0,vegetables
+fresno chile,,plant,no listed allergen,no animal ingredient,,0,vegetables
+cherry peppers,,plant,no listed allergen,no animal ingredient,,0,vegetables
+japanese eggplant,,plant,no listed allergen,no animal ingredient,,0,vegetables
+wax beans,,plant,no listed allergen,no animal ingredient,,0,vegetables
+trumpet mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+celtuce,,plant,no listed allergen,no animal ingredient,,0,vegetables
+red leaf lettuce,,plant,no listed allergen,no animal ingredient,,0,vegetables
+little gem lettuce,,plant,no listed allergen,no animal ingredient,,0,vegetables
+fresh bay leaves,,plant,no listed allergen,no animal ingredient,,0,herbs
+lemon balm,,plant,no listed allergen,no animal ingredient,,0,herbs
+lemon verbena,,plant,no listed allergen,no animal ingredient,,0,herbs
+borage,,plant,no listed allergen,no animal ingredient,,0,herbs
+nasturtium,,plant,no listed allergen,no animal ingredient,,0,herbs
+peppermint,,plant,no listed allergen,no animal ingredient,,0,herbs
+spearmint,,plant,no listed allergen,no animal ingredient,,0,herbs
+dried chives,,plant,no listed allergen,no animal ingredient,,0,spices
+dried tarragon,,plant,no listed allergen,no animal ingredient,,0,spices
+dried cilantro,,plant,no listed allergen,no animal ingredient,,0,spices
+dried lemon peel,,plant,no listed allergen,no animal ingredient,,0,spices
+dried onion flakes,,plant,no listed allergen,no animal ingredient,,0,spices
+dried garlic flakes,,plant,no listed allergen,no animal ingredient,,0,spices
+garlic salt,,plant,no listed allergen,no animal ingredient,,0,spices
+onion salt,,plant,no listed allergen,no animal ingredient,,0,spices
+celery salt,,plant,no listed allergen,no animal ingredient,,0,spices
+cajun seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
+fajita seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
+chili seasoning mix,gluten:V;wheat:V,plant,"chili seasoning mix is often thickened with wheat flour, as taco seasoning is",no animal ingredient,,0,spices
+steak seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
+bbq rub,,plant,no listed allergen,no animal ingredient,,0,spices
+ranch seasoning,dairy:T,dairy_egg,"cream, milk, butter or cheese in the common product",carries a dairy or egg tag,dairy,0,spices
+onion soup mix,gluten:V;wheat:V,plant,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks,no animal ingredient,gluten,0,spices
+pickling spice,,plant,no listed allergen,no animal ingredient,,0,spices
+mulling spices,,plant,no listed allergen,no animal ingredient,,0,spices
+madras curry powder,,plant,no listed allergen,no animal ingredient,,0,spices
+japanese curry powder,,plant,no listed allergen,no animal ingredient,,0,spices
+whole nutmeg,,plant,no listed allergen,no animal ingredient,,0,spices
+ground mace,,plant,no listed allergen,no animal ingredient,,0,spices
+anise seed,,plant,no listed allergen,no animal ingredient,,0,spices
+dill seed,,plant,no listed allergen,no animal ingredient,,0,spices
+black sesame seeds,sesame:I,plant,sesame,no animal ingredient,sesame,0,spices
+mustard powder,,plant,no listed allergen,no animal ingredient,,0,spices
+yellow mustard seeds,,plant,no listed allergen,no animal ingredient,,0,spices
+green peppercorns,,plant,no listed allergen,no animal ingredient,,0,spices
+monosodium glutamate,,plant,no listed allergen,no animal ingredient,,0,spices
+nutritional yeast,,plant,no listed allergen,no animal ingredient,,0,pantry
+liquid smoke,,plant,no listed allergen,no animal ingredient,,0,pantry
+smoked salt,,plant,no listed allergen,no animal ingredient,,0,spices
+fleur de sel,,plant,no listed allergen,no animal ingredient,,0,spices
+unsweetened chocolate,,plant,no listed allergen,no animal ingredient,,0,pantry
+milk chocolate,dairy:I;soy:T,dairy_egg,"soy lecithin in the common product | milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,pantry
+white chocolate,dairy:I;soy:T,dairy_egg,"soy lecithin in the common product | milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,pantry
+dutch process cocoa,,plant,no listed allergen,no animal ingredient,,0,pantry
+espresso powder,,plant,no listed allergen,no animal ingredient,,0,pantry
+almond extract,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+lemon extract,,plant,no listed allergen,no animal ingredient,,0,pantry
+peppermint extract,,plant,no listed allergen,no animal ingredient,,0,pantry
+food coloring,,plant,no listed allergen,no animal ingredient,,0,pantry
+sprinkles,,plant,no listed allergen,no animal ingredient,,0,pantry
+xanthan gum,,plant,no listed allergen,no animal ingredient,,0,pantry
+pectin,,plant,no listed allergen,no animal ingredient,,0,pantry
+vital wheat gluten,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,pantry
+cake flour,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+pastry flour,gluten:I;wheat:I,plant,wheat flour or wheat grain,no animal ingredient,gluten,0,grains
+almond flour,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,grains
+hazelnut flour,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,grains
+stevia,,plant,no listed allergen,no animal ingredient,,0,pantry
+monk fruit sweetener,,plant,no listed allergen,no animal ingredient,,0,pantry
+erythritol,,plant,no listed allergen,no animal ingredient,,0,pantry
+sucralose,,plant,no listed allergen,no animal ingredient,,0,pantry
+date sugar,,plant,no listed allergen,no animal ingredient,,0,pantry
+brown rice syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+barley malt syrup,gluten:I,plant,barley or rye contains gluten (not wheat),no animal ingredient,gluten,0,pantry
+simple syrup,,plant,no listed allergen,no animal ingredient,,0,pantry
+rock sugar,,plant,no listed allergen,no animal ingredient,,0,pantry
+maltose,gluten:V,plant,barley malt syrup is sometimes the sweetener,no animal ingredient,gluten,0,pantry
+sugar cubes,,plant,no listed allergen,no animal ingredient,,0,pantry
+skim milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+whole milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+reduced fat milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+goat milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+lactose-free milk,dairy:I,dairy_egg,"milk, cream, yogurt or butter",carries a dairy or egg tag,dairy,0,
+rice milk,,plant,no listed allergen,no animal ingredient,,0,
+cashew milk,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,
+hemp milk,,plant,no listed allergen,no animal ingredient,,0,
+vegan butter,soy:V,plant,soy protein or soybean oil is common,dairy-free by definition (vegetable fat; dark chocolate); the allergen tags stay cautious,,0,
+vegan cheese,soy:V;tree-nuts:V,plant,"bases vary: soy, cashew or almond",dairy-free by definition (vegetable fat; dark chocolate); the allergen tags stay cautious,nuts,0,
+string cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+processed cheese,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+cheese powder,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+egg yolk,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+goose egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+liquid egg,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+meringue powder,egg:I,dairy_egg,egg,carries a dairy or egg tag,egg,0,eggs
+whole wheat bread,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+hawaiian rolls,gluten:I;wheat:I;dairy:T;egg:T,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg;gluten,0,grains
+challah,gluten:I;wheat:I;egg:T,dairy_egg,"wheat bread, pastry or cracker | eggs in the usual recipe or product",carries a dairy or egg tag,egg;gluten,0,grains
+croissant,gluten:I;wheat:I;dairy:T;egg:V,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe | egg in many recipes / brands",carries a dairy or egg tag,dairy;gluten,0,grains
+water crackers,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+matzo,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+rice crackers,gluten:V;wheat:V;soy:V,plant,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks | soy sauce in many versions,no animal ingredient,,0,grains
+stuffing mix,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+tabasco sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+buffalo sauce,dairy:T,dairy_egg,"cream, milk, butter or cheese in the common product",carries a dairy or egg tag,dairy,0,pantry
+steak sauce,gluten:V,plant,barley malt syrup is sometimes the sweetener,no animal ingredient,gluten,0,pantry
+caesar dressing,dairy:T;egg:T;fish:T,seafood,"cream, milk or butter in the common recipe | eggs in the usual recipe or product | anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,dairy;egg;fish,0,pantry
+blue cheese dressing,dairy:I;egg:T,dairy_egg,"milk, cream, yogurt or butter | eggs in the usual recipe or product",carries a dairy or egg tag,dairy;egg,0,pantry
+thousand island dressing,egg:T,dairy_egg,eggs in the usual recipe or product,carries a dairy or egg tag,egg,0,pantry
+honey mustard,,honey,no listed allergen,bee product,,0,pantry
+greek dressing,,plant,no listed allergen,no animal ingredient,,0,pantry
+sesame ginger dressing,soy:T;sesame:I,plant,soy sauce or fermented soybean in the common product | sesame,no animal ingredient,sesame;soy,0,pantry
+green goddess dressing,dairy:T;egg:T;fish:T,seafood,"cream, milk or butter in the common recipe | eggs in the usual recipe or product | anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,egg;fish,0,pantry
+champagne vinegar,,plant,no listed allergen,no animal ingredient,,0,pantry
+pickled jalapenos,,plant,no listed allergen,no animal ingredient,,0,vegetables
+giardiniera,,plant,no listed allergen,no animal ingredient,,0,vegetables
+orange marmalade,,plant,no listed allergen,no animal ingredient,,0,pantry
+raspberry jam,,plant,no listed allergen,no animal ingredient,,0,pantry
+peach preserves,,plant,no listed allergen,no animal ingredient,,0,pantry
+fig jam,,plant,no listed allergen,no animal ingredient,,0,pantry
+apple butter,,plant,no listed allergen,no animal ingredient,,0,pantry
+lemon curd,dairy:I;egg:I,dairy_egg,"milk, cream, yogurt or butter | egg",carries a dairy or egg tag,dairy;egg,0,pantry
+miso soup mix,fish:T;soy:T,seafood,"soy sauce or fermented soybean in the common product | anchovy, fish sauce or bonito in the common recipe",carries a fish or shellfish tag,fish;soy,0,pantry
+ramen seasoning,gluten:V;wheat:V;fish:T;soy:V,meat,"wheat starch / flour in some brands | soy protein or soybean oil is common | anchovy, fish sauce or bonito in the common recipe",flavour packet usually contains meat extract,gluten;soy,0,pantry
+bone broth,,meat,no listed allergen,"meat stock, bouillon, animal fat or gelatin",,0,pantry
+cream of celery soup,gluten:T;wheat:T;dairy:T,dairy_egg,"canned condensed soup is thickened with wheat flour | cream, milk or butter in the common recipe",carries a dairy or egg tag,dairy;gluten,0,pantry
+chicken noodle soup,gluten:T;wheat:T;egg:V,meat,canned condensed soup is thickened with wheat flour | egg in many recipes / brands,contains chicken stock or meat,egg;gluten,0,pantry
+canned mushrooms,,plant,no listed allergen,no animal ingredient,,0,vegetables
+canned green beans,,plant,no listed allergen,no animal ingredient,,0,vegetables
+canned peas,,plant,no listed allergen,no animal ingredient,,0,vegetables
+walnuts english,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+brazil nuts,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+hemp seeds,,plant,no listed allergen,no animal ingredient,,0,nuts
+watermelon seeds,,plant,no listed allergen,no animal ingredient,,0,nuts
+cashew butter,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+sunflower seed butter,,plant,no listed allergen,no animal ingredient,,0,nuts
+hazelnut butter,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,nuts
+lupini beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+borlotti beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+flageolet beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+red beans,,plant,no listed allergen,no animal ingredient,,0,legumes
+broad beans dried,,plant,no listed allergen,no animal ingredient,,0,legumes
+canned chickpeas,,plant,no listed allergen,no animal ingredient,,0,legumes
+canned lentils,,plant,no listed allergen,no animal ingredient,,0,legumes
+baked beans,,meat,no listed allergen,baked beans are usually made with pork or bacon,,0,legumes
+instant rice,,plant,no listed allergen,no animal ingredient,,0,grains
+parboiled rice,,plant,no listed allergen,no animal ingredient,,0,grains
+corn nuts,,plant,no listed allergen,no animal ingredient,,0,grains
+textured vegetable protein,soy:I,plant,soybean or soy product,"wheat gluten, tempeh and soy protein are plant protein",soy,0,pantry
+plant-based ground,soy:V,plant,soy protein or soybean oil is common,"wheat gluten, tempeh and soy protein are plant protein",soy,0,pantry
+veggie burger,gluten:V;wheat:V;egg:V;soy:V,plant,many veggie burgers bind with egg white | may be thickened with wheat flour | soy protein or soybean oil is common,"wheat gluten, tempeh and soy protein are plant protein",gluten;soy,0,pantry
+protein powder,dairy:V;soy:V,dairy_egg,"soy protein or soybean oil is common | milkfat, whey or milk solids in some brands",carries a dairy or egg tag,dairy,0,pantry
+safflower oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+corn oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+grapeseed oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+walnut oil,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+hazelnut oil,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+almond oil,tree-nuts:I,plant,tree nut,no animal ingredient,nuts,0,pantry
+flaxseed oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+rice bran oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+soybean oil,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+palm shortening,,plant,no listed allergen,no animal ingredient,,0,pantry
+mustard oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+cocoa butter,,plant,no listed allergen,no animal ingredient,,0,pantry
+mct oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+pork loin,,meat,no listed allergen,filter group meat,,0,meat
+pork spare ribs,,meat,no listed allergen,filter group meat,,0,meat
+baby back ribs,,meat,no listed allergen,filter group meat,,0,meat
+canadian bacon,,meat,no listed allergen,filter group meat,,0,meat
+salt pork,,meat,no listed allergen,filter group meat,,0,meat
+pork sausage,,meat,no listed allergen,filter group meat,,0,meat
+ham steak,,meat,no listed allergen,filter group meat,,0,meat
+beef tenderloin,,meat,no listed allergen,filter group meat,,0,meat
+new york strip,,meat,no listed allergen,filter group meat,,0,meat
+t-bone steak,,meat,no listed allergen,filter group meat,,0,meat
+beef shank,,meat,no listed allergen,filter group meat,,0,meat
+tri-tip,,meat,no listed allergen,filter group meat,,0,meat
+flat iron steak,,meat,no listed allergen,filter group meat,,0,meat
+eye of round,,meat,no listed allergen,filter group meat,,0,meat
+roast beef,,meat,no listed allergen,filter group meat,,0,meat
+corned beef,,meat,no listed allergen,filter group meat,,0,meat
+pastrami,,meat,no listed allergen,filter group meat,,0,meat
+beef jerky,gluten:V;wheat:V;soy:T,meat,suet is often coated in flour; steak sauce / onion soup mix / maltose / enchilada sauce / tomato soup / soy-glazed snacks | soy sauce marinade or glaze,filter group meat,,0,meat
+ground chuck,,meat,no listed allergen,filter group meat,,0,meat
+turkey legs,,meat,no listed allergen,filter group meat,,0,meat
+turkey bacon,,meat,no listed allergen,filter group meat,,0,meat
+chicken skin,,meat,no listed allergen,filter group meat,,0,meat
+rack of lamb,,meat,no listed allergen,filter group meat,,0,meat
+lamb loin,,meat,no listed allergen,filter group meat,,0,meat
+langoustine,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+sea scallops,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+smoked trout,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+flounder,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+haddock,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+hake,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+perch,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+carp,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+pike,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+canned salmon,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+canned crab,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+canned clams,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+oyster crackers,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+instant noodles,gluten:I;wheat:I,meat,wheat pasta or noodles,flavour packet usually contains meat extract,gluten,0,grains
+fonio,,plant,no listed allergen,no animal ingredient,,0,grains
+einkorn,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+emmer,gluten:I;wheat:I,plant,"wheat (spelt, kamut, einkorn, emmer, farro, freekeh, bulgur, couscous)",no animal ingredient,gluten,0,grains
+psyllium husk,,plant,no listed allergen,no animal ingredient,,0,pantry
+basil seeds,,plant,no listed allergen,no animal ingredient,,0,nuts
+guinea fowl,,meat,no listed allergen,filter group meat,,0,meat
+ostrich,,meat,no listed allergen,filter group meat,,0,meat
+pheasant,,meat,no listed allergen,filter group meat,,0,meat
+partridge,,meat,no listed allergen,filter group meat,,0,meat
+elk,,meat,no listed allergen,filter group meat,,0,meat
+moose,,meat,no listed allergen,filter group meat,,0,meat
+reindeer,,meat,no listed allergen,filter group meat,,0,meat
+turkey,,meat,no listed allergen,filter group meat,,0,meat
+pork trotters,,meat,no listed allergen,filter group meat,,0,meat
+pork ears,,meat,no listed allergen,filter group meat,,0,meat
+pork belly strips,,meat,no listed allergen,filter group meat,,0,meat
+beef cheeks,,meat,no listed allergen,filter group meat,,0,meat
+beef kidney,,meat,no listed allergen,filter group meat,,0,meat
+sweetbreads,,meat,no listed allergen,filter group meat,,0,meat
+cockles,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+periwinkles,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+whelk,mollusks:I,seafood,mollusk,carries a fish or shellfish tag,shellfish,0,seafood
+spiny lobster,shellfish:I,seafood,crustacean,carries a fish or shellfish tag,shellfish,0,seafood
+barramundi,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+pangasius,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+milkfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+grouper,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+smelt,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+pompano,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+bluefish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+shad,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+orange roughy,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+skate,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+sturgeon,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+lingcod,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+rockfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+ocean perch,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+sugar apple,,plant,no listed allergen,no animal ingredient,,0,fruit
+amla,,plant,no listed allergen,no animal ingredient,,0,fruit
+loquat,,plant,no listed allergen,no animal ingredient,,0,fruit
+feijoa,,plant,no listed allergen,no animal ingredient,,0,fruit
+salak,,plant,no listed allergen,no animal ingredient,,0,fruit
+jabuticaba,,plant,no listed allergen,no animal ingredient,,0,fruit
+mango ginger,,plant,no listed allergen,no animal ingredient,,0,herbs
+facing heaven chili,,plant,no listed allergen,no animal ingredient,,0,spices
+mala seasoning,,plant,no listed allergen,no animal ingredient,,0,spices
+grains of selim,,plant,no listed allergen,no animal ingredient,,0,spices
+dried galangal,,plant,no listed allergen,no animal ingredient,,0,spices
+lemongrass dried,,plant,no listed allergen,no animal ingredient,,0,spices
+sichuan pepper oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+shaoxing cooking wine,gluten:T;wheat:T,plant,brewed or thickened with wheat,no animal ingredient,gluten,0,pantry
+plum wine,,plant,no listed allergen,no animal ingredient,,0,pantry
+rice wine vinegar seasoned,,plant,no listed allergen,no animal ingredient,,0,pantry
+chinese pickled mustard,,plant,no listed allergen,no animal ingredient,,0,vegetables
+tianjin preserved vegetable,,plant,no listed allergen,no animal ingredient,,0,vegetables
+preserved radish,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chinese rice cake,,plant,no listed allergen,no animal ingredient,,0,grains
+hand-pulled noodles,gluten:I;wheat:I;egg:V,dairy_egg,wheat pasta or noodles | egg in many recipes / brands,carries a dairy or egg tag,gluten,0,grains
+dried egg noodles,gluten:I;wheat:I;egg:T,dairy_egg,wheat pasta or noodle | eggs in the usual recipe or product,carries a dairy or egg tag,egg;gluten,0,grains
+japanese bbq sauce,gluten:T;wheat:T;soy:T;sesame:T,plant,sesame in the common recipe | made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;sesame;soy,0,pantry
+tare,gluten:T;wheat:T;soy:T,plant,made with soy sauce or wheat-and-soy bean paste,no animal ingredient,gluten;soy,0,pantry
+kimchi base,fish:T;shellfish:T,seafood,dried fish and shrimp,carries a fish or shellfish tag,fish;shellfish,0,pantry
+perilla seeds,,plant,no listed allergen,no animal ingredient,,0,nuts
+roasted soybean powder,soy:I,plant,soybean or soy product,no animal ingredient,soy,0,pantry
+thai fish ball,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+indonesian noodles,gluten:I;wheat:I;egg:T,dairy_egg,wheat pasta or noodle | egg in many recipes | egg in the traditional recipe,carries a dairy or egg tag,egg;gluten,0,grains
+dried coconut chips,,plant,no listed allergen,no animal ingredient,,0,nuts
+coconut aminos,,plant,no listed allergen,no animal ingredient,,0,pantry
+peanut butter powder,peanuts:I,plant,peanut,no animal ingredient,nuts,0,nuts
+garlic paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+ginger paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+tikka masala sauce,dairy:T,dairy_egg,"cream, milk or butter in the common recipe",carries a dairy or egg tag,dairy,0,pantry
+butter chicken sauce,dairy:T,dairy_egg,"cream, milk or butter in the common recipe",carries a dairy or egg tag,dairy,0,pantry
+korma sauce,dairy:T;tree-nuts:T,dairy_egg,"cream, milk or butter in the common recipe | tree nut in the common recipe / product",carries a dairy or egg tag,dairy;nuts,0,pantry
+vindaloo sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+jalfrezi sauce,,plant,no listed allergen,no animal ingredient,,0,pantry
+saag,dairy:T,dairy_egg,"cream, milk, butter or cheese in the common product",carries a dairy or egg tag,,0,vegetables
+yellow lentils,,plant,no listed allergen,no animal ingredient,,0,legumes
+sprouted mung beans,,plant,no listed allergen,no animal ingredient,,0,vegetables
+sprouted lentils,,plant,no listed allergen,no animal ingredient,,0,vegetables
+iru,,plant,no listed allergen,no animal ingredient,,0,pantry
+ugba,,plant,no listed allergen,no animal ingredient,,0,legumes
+bambara groundnut,,plant,no listed allergen,no animal ingredient,,0,legumes
+stockfish,fish:I,seafood,fish,carries a fish or shellfish tag,fish,0,seafood
+smoked turkey,,meat,no listed allergen,filter group meat,,0,meat
+ponmo,,meat,no listed allergen,cow skin,,0,meat
+garden egg,,plant,no listed allergen,no animal ingredient,,0,vegetables
+scent leaf,,plant,no listed allergen,no animal ingredient,,0,herbs
+utazi,,plant,no listed allergen,no animal ingredient,,0,herbs
+waterleaf,,plant,no listed allergen,no animal ingredient,,0,vegetables
+afang leaves,,plant,no listed allergen,no animal ingredient,,0,vegetables
+palm kernel oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+shea butter,tree-nuts:V,plant,some versions include tree nuts,no animal ingredient,,0,pantry
+palm wine,,plant,no listed allergen,no animal ingredient,,0,pantry
+pepper soup spice,,plant,no listed allergen,no animal ingredient,,0,spices
+kuli kuli,peanuts:I,plant,peanut,no animal ingredient,nuts,0,nuts
+fura,,plant,no listed allergen,no animal ingredient,,0,grains
+millet flour,,plant,no listed allergen,no animal ingredient,,0,grains
+abacha,,plant,no listed allergen,no animal ingredient,,0,grains
+maafe sauce,peanuts:I,plant,peanut,no animal ingredient,nuts,0,pantry
+thieb spice,,plant,no listed allergen,no animal ingredient,,0,spices
+pilau masala,,plant,no listed allergen,no animal ingredient,,0,spices
+xawaash,,plant,no listed allergen,no animal ingredient,,0,spices
+mchicha,,plant,no listed allergen,no animal ingredient,,0,vegetables
+mukimo,,plant,no listed allergen,no animal ingredient,,0,vegetables
+ugali flour,,plant,no listed allergen,no animal ingredient,,0,grains
+smen,dairy:I,dairy_egg,milk product,carries a dairy or egg tag,dairy,0,
+tagine spice,,plant,no listed allergen,no animal ingredient,,0,spices
+tunisian brik pastry,gluten:I;wheat:I,plant,"wheat bread, pastry or cracker",no animal ingredient,gluten,0,grains
+koshari lentils,,plant,no listed allergen,no animal ingredient,,0,legumes
+ful medames,,plant,no listed allergen,no animal ingredient,,0,legumes
+morogo,,plant,no listed allergen,no animal ingredient,,0,vegetables
+amadumbe,,plant,no listed allergen,no animal ingredient,,0,vegetables
+samp,,plant,no listed allergen,no animal ingredient,,0,grains
+cape malay curry powder,,plant,no listed allergen,no animal ingredient,,0,spices
+buchu,,plant,no listed allergen,no animal ingredient,,0,spices
+marula,,plant,no listed allergen,no animal ingredient,,0,fruit
+lagman noodles,gluten:I;wheat:I,plant,wheat pasta or noodles,no animal ingredient,gluten,0,grains
+nan bread,gluten:I;wheat:I;dairy:T,dairy_egg,"wheat bread, pastry or cracker | cream, milk or butter in the common recipe",carries a dairy or egg tag,gluten,0,grains
+zira,,plant,no listed allergen,no animal ingredient,,0,spices
+kuraga,,plant,no listed allergen,no animal ingredient,,0,fruit
+suluguni,dairy:I,dairy_egg,cheese,carries a dairy or egg tag,dairy,0,
+narsharab,,plant,no listed allergen,no animal ingredient,,0,pantry
+utskho suneli,,plant,no listed allergen,no animal ingredient,,0,spices
+sumalak,gluten:I;wheat:I,plant,wheat pasta or noodle,no animal ingredient,gluten,0,grains
+cassava bammy,,plant,no listed allergen,no animal ingredient,,0,grains
+ginger beer,,plant,no listed allergen,no animal ingredient,,0,pantry
+angostura bitters,,plant,no listed allergen,no animal ingredient,,0,pantry
+mauby bark,,plant,no listed allergen,no animal ingredient,,0,spices
+seasoning peppers,,plant,no listed allergen,no animal ingredient,,0,vegetables
+grace browning,,plant,no listed allergen,no animal ingredient,,0,pantry
+coconut bread,gluten:I;wheat:I;dairy:T;egg:V,dairy_egg,"wheat pasta or noodle | egg in many recipes | cream, milk, butter or cheese in the common product",carries a dairy or egg tag,gluten,0,grains
+sea grapes,,plant,no listed allergen,no animal ingredient,,0,vegetables
+limu,,plant,no listed allergen,no animal ingredient,,0,pantry
+noni,,plant,no listed allergen,no animal ingredient,,0,fruit
+haupia,,plant,no listed allergen,no animal ingredient,,0,pantry
+ulu,,plant,no listed allergen,no animal ingredient,,0,fruit
+kava,,plant,no listed allergen,no animal ingredient,,0,pantry
+huauzontle,,plant,no listed allergen,no animal ingredient,,0,vegetables
+quelites,,plant,no listed allergen,no animal ingredient,,0,vegetables
+camas root,,plant,no listed allergen,no animal ingredient,,0,vegetables
+chokecherries,,plant,no listed allergen,no animal ingredient,,0,fruit
+buffaloberries,,plant,no listed allergen,no animal ingredient,,0,fruit
+chaya,,plant,no listed allergen,no animal ingredient,,0,vegetables
+pozole corn,,plant,no listed allergen,no animal ingredient,,0,grains
+tamale dough,,meat,no listed allergen,tamale dough is made with lard,,0,grains
+cacao paste,,plant,no listed allergen,no animal ingredient,,0,pantry
+cacao butter,,plant,no listed allergen,no animal ingredient,,0,pantry
+ají charapita,,plant,no listed allergen,no animal ingredient,,0,spices
+ají mirasol,,plant,no listed allergen,no animal ingredient,,0,spices
+cancha,,plant,no listed allergen,no animal ingredient,,0,grains
+tuna cactus fruit,,plant,no listed allergen,no animal ingredient,,0,fruit
+cupuacu,,plant,no listed allergen,no animal ingredient,,0,fruit
+camu camu,,plant,no listed allergen,no animal ingredient,,0,fruit
+guarana,,plant,no listed allergen,no animal ingredient,,0,pantry
+yerba buena,,plant,no listed allergen,no animal ingredient,,0,herbs
+tamarind pods,,plant,no listed allergen,no animal ingredient,,0,fruit
+pigeon peas green,,plant,no listed allergen,no animal ingredient,,0,legumes
+chicharrones,,meat,no listed allergen,filter group meat,,0,meat
+dende palm oil,,plant,no listed allergen,no animal ingredient,,0,pantry
+tucupi,,plant,no listed allergen,no animal ingredient,,0,pantry
+manioc starch,,plant,no listed allergen,no animal ingredient,,0,pantry
+1% milk,dairy:I,dairy_egg,milk named by its fat percentage (added by the 10c math seed),carries a dairy or egg tag,,26,
+hot cocoa mix,dairy:T,dairy_egg,hot cocoa mix has milk solids in the common product,carries a dairy or egg tag,,1,
+hard cider,,plant,no listed allergen,no animal ingredient,,0,pantry
+light cream,dairy:I,dairy_egg,cream,carries a dairy or egg tag,,0,

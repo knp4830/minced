@@ -68,14 +68,16 @@ export function NutritionPanel({
   const shownUncounted = uncounted.slice(0, MAX_UNCOUNTED);
   const sodiumMin = data && !m.unavailable && sodiumIsMinimum(lines);
 
-  // Worded from what the label really holds: published columns only for USDA MyPlate recipes, never for ones we computed.
+  // Worded from what the label really holds: MyPlate is credited only for recipes the database says are MyPlate imports.
+  const myplate = m.publishedBy === "usda_myplate";
+  const publishedName = myplate ? "as published by USDA MyPlate" : "as published with the recipe";
   const basisNote =
     m.basis === "published+computed"
-      ? "Calories, fat, carbohydrate, fiber, sodium and protein are as published by USDA MyPlate. The other values are estimated from USDA FoodData Central ingredient data, before cooking losses."
+      ? `Calories, fat, carbohydrate, fiber, sodium and protein are ${publishedName}. The other values are estimated from USDA FoodData Central ingredient data, before cooking losses.`
       : m.basis === "computed"
         ? "Estimated from USDA FoodData Central ingredient data, before cooking losses."
         : m.basis === "published"
-          ? "Values are as published by USDA MyPlate."
+          ? `Values are ${publishedName}.`
           : "Amounts are estimated from USDA data.";
   const anyAtLeast = m.partial && (m.calories?.atLeast || m.top.some((r) => r.atLeast) || m.micro.some((r) => r.atLeast));
   const disagreePct = m.disagreement === null ? null : Math.round(Math.abs(m.disagreement) * 100);
@@ -150,6 +152,15 @@ export function NutritionPanel({
             <div className="mt-1.5 space-y-1 border-t-[6px] border-ink pt-1.5 text-[0.6875rem] leading-snug text-ink-muted">
               <p>*Percent daily values use the FDA reference diet of 2,000 calories. {basisNote}</p>
               {anyAtLeast && <p>&ldquo;At least&rdquo; (&ge;) means some ingredients have no nutrition data and could not be counted, so the real amount is this or higher.</p>}
+              {(data?.assumptions ?? []).map((a) => (
+                <p key={a}>{a.charAt(0).toUpperCase() + a.slice(1)}.</p>
+              ))}
+              {(data?.nationalSources ?? []).includes("cofid") && (
+                <p>Some values: McCance and Widdowson&rsquo;s Composition of Foods Integrated Dataset 2021, Public Health England. Contains public sector information licensed under the Open Government Licence v3.0.</p>
+              )}
+              {(data?.nationalSources ?? []).includes("cnf") && (
+                <p>Some values: Canadian Nutrient File 2026, Health Canada. Contains information licensed under the Open Government Licence - Canada.</p>
+              )}
               {m.breakdownHidden && <p>A fat or sugar breakdown is left out where the ingredient list does not fit inside USDA&rsquo;s published total.</p>}
               {(m.micro.some((r) => r.noData) || m.top.some((r) => r.noData)) && <p>&ldquo;Not enough data&rdquo; means too few of the ingredients report that nutrient to give a fair number.</p>}
               {m.top.some((r) => r.estimated) && <p>Added sugars are estimated from the sweeteners and sweetened foods in the ingredient list.</p>}
@@ -182,10 +193,9 @@ export function NutritionPanel({
 
 function AtLeast() {
   return (
-    <>
-      <span aria-hidden>≥</span>
-      <span className="sr-only">at least </span>
-    </>
+    <span role="img" aria-label="at least">
+      ≥{" "}
+    </span>
   );
 }
 

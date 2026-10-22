@@ -1,3 +1,5 @@
+import { AllergenNotice } from "@/components/recipe/allergenNotice";
+import { AvoidNotice } from "@/components/recipe/avoidNotice";
 import { BackToResults } from "@/components/recipe/backToResults";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -12,6 +14,7 @@ import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
 import { AI_SOURCE_NAME, USER_SOURCE_NAME } from "@/lib/queries/browse";
 import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
+import { FDC, roundForLabel } from "@/lib/nutrients";
 import { getNutrients, getRecipeNutrients } from "@/lib/queries/recipeNutrients";
 import { needsAttribution } from "@/lib/photos";
 import { SITE_URL } from "@/lib/site";
@@ -69,7 +72,6 @@ export async function generateMetadata({
   };
 }
 
-const round = (n: number, step: number) => Math.round(n / step) * step;
 
 const isoMinutes = (n: number | null) => (n ? `PT${Math.trunc(n)}M` : undefined);
 
@@ -98,7 +100,7 @@ function recipeJsonLd(recipe: RecipeDetail) {
       ? {
           nutrition: {
             "@type": "NutritionInformation",
-            calories: `${Math.round(n.calories)} calories`,
+            calories: `${roundForLabel(n.calories, { unit: "kcal", fdcNumber: FDC.energy })} calories`,
             ...(n.proteinG != null ? { proteinContent: `${Math.round(n.proteinG)} g` } : {}),
             ...(n.carbsG != null ? { carbohydrateContent: `${Math.round(n.carbsG)} g` } : {}),
             ...(n.fatG != null ? { fatContent: `${Math.round(n.fatG)} g` } : {}),
@@ -151,27 +153,11 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             className="mt-4 gap-x-3.5 border-y border-line-strong py-3 text-ink"
             time={recipe.totalTimeMin ?? undefined}
             servings={recipe.servings}
-            calories={recipe.nutrition.calories != null ? round(recipe.nutrition.calories, 5) : undefined}
+            calories={recipe.nutrition.calories != null ? roundForLabel(recipe.nutrition.calories, { unit: "kcal", fdcNumber: FDC.energy }) : undefined}
             spice={recipe.spiceLevel ?? undefined}
           />
-          {recipe.allergens.length > 0 && (
-            <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5">
-              <p className="flex items-center gap-1.5 font-mono text-[0.625rem] tracking-[0.08em] text-paprika-deep uppercase">
-                <span aria-hidden className="size-1.5 rounded-full bg-paprika" />
-                Contains
-              </p>
-              <ul className="flex flex-wrap gap-1.5" aria-label="Allergens">
-                {recipe.allergens.map((a) => (
-                  <li
-                    key={a}
-                    className="rounded-full border border-paprika/30 bg-paprika/5 px-2.5 py-0.5 text-[0.75rem] leading-snug text-paprika-deep"
-                  >
-                    {a.toLowerCase()}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <AvoidNotice info={recipe.allergenInfo} />
+          <AllergenNotice info={recipe.allergenInfo} />
           {isAi && (
             <p className="mt-3">
               <Link

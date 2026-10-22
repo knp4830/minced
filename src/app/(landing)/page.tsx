@@ -2,6 +2,7 @@ import { ArrowRight, Search } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ComingSoon } from "@/components/landing/comingSoon";
+import { CookFromWhatYouHave } from "@/components/landing/cookFromWhatYouHave";
 import { HERO } from "@/components/landing/copy";
 import { LandingCta } from "@/components/landing/landingCta";
 import { PhotoMosaic } from "@/components/landing/photoMosaic";
@@ -19,14 +20,14 @@ import { countFilterGroups, getLandingPhotos, getRecipeCount } from "@/lib/queri
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: { absolute: "Minced: recipes by name or by what's in your fridge" },
+  title: { absolute: "Minced: recipes by name or by the ingredients you have" },
   alternates: { canonical: "/" },
 };
 
 const FEATURES = [
   {
     title: "Cook from what you have",
-    body: "Tap what’s in your fridge. Minced shows every recipe that uses it, closest match first, and never counts salt, oil or water.",
+    body: "Choose ingredients to find recipes that use them, or save your fridge to your account and see what you can make now, what’s one thing short, and what to cook before it expires. Salt, oil and water never count.",
     radius: "50%",
   },
   {
@@ -103,7 +104,7 @@ export default async function Home() {
               </form>
 
               <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-                <FridgePicker variant="hero" catalog={catalog} />
+                <FridgePicker variant="choose" catalog={catalog} />
                 <Link
                   href="/recipes"
                   className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-ink underline underline-offset-4 hover:text-herb"
@@ -136,6 +137,8 @@ export default async function Home() {
           <PhotoMosaic photos={photos} />
         </section>
       </div>
+
+      <CookFromWhatYouHave photo={photos[1] ?? null} />
 
       <section aria-labelledby="features-h" className="border-y border-line bg-band">
         <div className="page-w py-12 md:py-16">

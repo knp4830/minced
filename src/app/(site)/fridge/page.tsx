@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
+import { FridgeGate } from "@/components/pantry/fridgeGate";
 import { FridgeList } from "@/components/pantry/fridgeList";
 import { FridgePicker } from "@/components/pantry/fridgePicker";
-import { LocalFridgeImport } from "@/components/pantry/localFridgeImport";
 import { buttonVariants } from "@/components/ui/button";
 import { todayIso } from "@/lib/fridgeDates";
 import { getCurrentUser } from "@/lib/queries/account";
@@ -18,13 +17,13 @@ export const metadata: Metadata = {
 };
 
 /**
- * The saved fridge with dates. Signed-in only (the middleware sends everyone
- * else to log in; the check below is the real one). Reads the session, so it
- * is rendered per request and never cached.
+ * The saved fridge with dates. A fridge needs an account, so a signed-out visit gets the explanation and
+ * the sign-in / create-account buttons rather than a bare redirect. Reads the session, so it is rendered
+ * per request and never cached.
  */
 export default async function FridgePage() {
   const user = await getCurrentUser();
-  if (!user) redirect("/login?next=%2Ffridge");
+  if (!user) return <FridgeGate next="/fridge" catalog={await getIngredientCatalog()} />;
 
   const [rows, catalog] = await Promise.all([getFridge(), getIngredientCatalog()]);
 
@@ -36,8 +35,6 @@ export default async function FridgePage() {
         each kind of food usually keeps; change any of them to match what you bought.
       </p>
 
-      <LocalFridgeImport className="mt-5" />
-
       <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-1">
         <FridgePicker
           variant="manage"
@@ -48,7 +45,7 @@ export default async function FridgePage() {
           href="/pantry"
           className={buttonVariants({ variant: "ghost", size: "md" })}
         >
-          See every recipe I can make
+          Cook from what I have
         </Link>
       </div>
 

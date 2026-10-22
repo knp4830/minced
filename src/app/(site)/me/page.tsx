@@ -13,6 +13,7 @@ import { MorningPrompt } from "@/components/me/morningPrompt";
 import { MuscleCard } from "@/components/me/muscleCard";
 import { NutrientsPanel } from "@/components/me/nutrientsPanel";
 import { getNutrients } from "@/lib/queries/recipeNutrients";
+import { baselineMacros, type Person } from "@/lib/me/dailyValues";
 import { StreakStrip } from "@/components/me/streakStrip";
 import { TimezoneSync } from "@/components/me/timezoneSync";
 import { TodayFood } from "@/components/me/todayFood";
@@ -23,6 +24,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/queries/account";
 import {
   getDismissedCheckIns,
+  getDris,
   getFoodForDate,
   getLoggedDays,
   getMonthSummary,
@@ -40,6 +42,7 @@ import { ME_ENABLED } from "@/lib/me/flag";
 import { computeStreaks } from "@/lib/me/streaks";
 import { sumFood } from "@/lib/me/types";
 import { averageOn } from "@/lib/me/weight";
+import { ageFromBirthYear } from "@/lib/settingsValidate";
 
 export const metadata: Metadata = {
   title: "Me",
@@ -85,7 +88,7 @@ export default async function MePage({ searchParams }: Props) {
   const settings = await getMySettings();
   const { weekStart } = settings;
 
-  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList] = await Promise.all([
+  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList, dris] = await Promise.all([
     getTargets(zone),
     getFoodForDate(today),
     getSleepForDate(today),
@@ -95,7 +98,25 @@ export default async function MePage({ searchParams }: Props) {
     getLoggedDays(today),
     getDismissedCheckIns(),
     getNutrients(),
+    getDris(),
   ]);
+
+  // Who the daily values are for. Saved targets win (their own age, their own macros). Without targets, a person
+  // who gave a birth year in Settings and has logged a weight gets the sedentary baseline (weight + sex + age);
+  // anyone else falls back to the FDA label values (see src/lib/me/dailyValues.ts).
+  const avgWeightKg = averageOn(weights, today);
+  const baselineWeightKg = avgWeightKg ?? [...weights].sort((x, y) => y.date.localeCompare(x.date))[0]?.kg ?? null;
+  const sex = settings.sex ?? targets?.sex ?? null;
+  const age = targets?.age ?? (settings.birthYear !== null ? ageFromBirthYear(settings.birthYear) : null);
+  const person: Person = {
+    sex,
+    age,
+    macros: targets
+      ? { kcal: targets.kcal, proteinG: targets.proteinG, carbsG: targets.carbsG, fatG: targets.fatG, source: "targets" }
+      : sex && age !== null && baselineWeightKg !== null
+        ? baselineMacros(sex, age, baselineWeightKg)
+        : null,
+  };
 
   const totals = sumFood(food);
   const days: Record<string, CalDay> = {};
@@ -105,7 +126,6 @@ export default async function MePage({ searchParams }: Props) {
   }
   const weekMap = Object.fromEntries(week.muscles.map((m) => [m.muscle, { sets: m.sets, days: m.days }]));
 
-  const avgWeightKg = averageOn(weights, today);
   const weightToday = weights.some((w) => w.date === today);
   const checkin = pickCheckIn({ targets, avgKg: avgWeightKg, today, dismissed });
   const streaks = computeStreaks(loggedDays, today);
@@ -182,7 +202,7 @@ export default async function MePage({ searchParams }: Props) {
               <TodayFood dateLabel={longDate(today).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} />
             </div>
             <div className="max-lg:order-7">
-              <NutrientsPanel entries={food} nutrients={nutrientList} />
+              <NutrientsPanel entries={food} nutrients={nutrientList} dris={dris} person={person} />
             </div>
             <div className="max-lg:order-2">
               <MealsPanel food={food} totals={totals} />
