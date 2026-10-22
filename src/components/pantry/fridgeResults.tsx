@@ -168,19 +168,27 @@ export async function FridgeResults({
       <p className="max-w-[34em] text-[0.9375rem] leading-relaxed text-ink-muted">
         {hasActiveFilters(filters) || defaults.applied
           ? defaults.applied
-            ? "None of the recipes fit these filters and your defaults. Turn off your defaults, add something else to the fridge, or loosen a filter."
+            ? `None of the recipes fit these filters and your defaults. ${
+                defaults.applied.diet.length
+                  ? "Turn off your diet, add something else to the fridge, or loosen a filter."
+                  : "Try adding something else to the fridge, or loosening a filter."
+              }${
+                defaults.applied.exclude.length
+                  ? " Your saved allergens stay hidden; the note above the list has the way to look past them for one search."
+                  : ""
+              }`
             : "None of the recipes fit these filters. Try adding something else to the fridge, or loosen a filter."
           : "No recipe uses what is in your fridge yet. Add a few more things and check again."}
       </p>
-      {defaults.applied && (
+      {defaults.applied?.diet.length ? (
         <Link
           href={`/pantry${filtersToQuery(withFilters(urlFilters, { defaults: "off" }))}`}
           scroll={false}
           className={cn(buttonVariants({ variant: "primary", size: "md" }), "mt-4")}
         >
-          Turn off my defaults
+          Turn off my diet
         </Link>
-      )}
+      ) : null}
     </div>
   );
 

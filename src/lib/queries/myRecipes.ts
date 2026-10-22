@@ -123,3 +123,142 @@ async function loadFormOptions(): Promise<FormOptions> {
 
 /** Vocabularies change only on import: cached for an hour with the cookie-free client. */
 export const getFormOptions = unstable_cache(loadFormOptions, ["recipe-form-options-v2"], { revalidate: 3600 });
+
+// ---------------------------------------------------------------------------
+// Live nutrition preview for the recipe form
+// ---------------------------------------------------------------------------
+
+/** One ingredient line as the form holds it, already parsed. `name` is what the person typed. */
+export type PreviewLine = {
+  name: string;
+  quantity: number | null;
+  unit: string;
+  note: string;
+  optional: boolean;
+  fdcId: number | null;
+  /** The amount box holds something that is not a number; the line cannot be counted until it is fixed. */
+  badAmount?: boolean;
+};
+
+export type PreviewMacro = { key: "energy_kcal" | "protein_g" | "carbs_g" | "fat_g"; amount: number; atLeast: boolean };
+
+export type PreviewUncounted = {
+  name: string;
+  /** Why it is not in the numbers, in words a cook can act on. */
+  reason: string;
+};
+
+export type NutritionPreview = {
+  /**
+   * empty: no ingredient line yet; unavailable: fewer than half of the lines could be counted, so no number is
+   * stated; partial: numbers are "at least"; complete: every line that needs an amount is in the numbers.
+   */
+  status: "empty" | "unavailable" | "partial" | "complete";
+  macros: PreviewMacro[];
+  uncounted: PreviewUncounted[];
+};
+
+const MACRO_KEYS = ["energy_kcal", "protein_g", "carbs_g", "fat_g"] as const;
+/** A nutrient is stated as a plain number only when this share of the counted mass reports it (same bar as the recipe label). */
+const PREVIEW_MIN_COVERAGE = 0.9;
+
+function gapReason(gap: string): PreviewUncounted {
+  // Database gaps read "pasta (no amount given)"; the reason is the last bracket, which may hold a nested one.
+  const m = /^(.*?)\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)$/.exec(gap.trim());
+  if (!m) return { name: gap.trim(), reason: "no nutrition data for it yet" };
+  const reason = m[2]
+    .replace(/^no USDA food linked$/i, "no nutrition data for it yet")
+    .replace(/^food has no nutrient data$/i, "no nutrition data for it yet")
+    .replace(/^chosen food is not linked to this ingredient$/i, "that food is not linked to this ingredient")
+    .replace(/^unknown ingredient or unit$/i, "not recognised");
+  return { name: m[1], reason };
+}
+
+/**
+ * What the lines on the form add up to, per serving, using the same database functions that price a published
+ * recipe (nutrition_summary + compute_nutrients), so the preview and the recipe page cannot disagree.
+ *
+ * Never guesses. A name or unit the database does not know is listed as not counted, and any list with a
+ * not-counted line makes every number "at least". Nothing is written.
+ */
+export async function previewNutrition(lines: PreviewLine[], servings: number): Promise<NutritionPreview> {
+  const named = lines.filter((l) => l.name.trim() !== "");
+  if (named.length === 0) return { status: "empty", macros: [], uncounted: [] };
+
+  const uncounted: PreviewUncounted[] = [];
+  const names = [...new Set(named.map((l) => l.name.trim().toLowerCase()))];
+  const units = [...new Set(named.map((l) => l.unit.trim().toLowerCase()).filter((u) => u !== ""))];
+
+  const [nameRes, unitRes] = await Promise.all([
+    Promise.all(names.map((n) => rpc("resolve_ingredient", { raw_name: n }))),
+    Promise.all(units.map((u) => rpc("resolve_unit", { raw_unit: u }))),
+  ]);
+  const ingId = new Map<string, number | null>();
+  names.forEach((n, i) => {
+    const r = nameRes[i];
+    if (r.error) throw new Error(`resolve_ingredient: ${r.error.message}`);
+    ingId.set(n, ((r.data ?? []) as { ingredient_id: number }[])[0]?.ingredient_id ?? null);
+  });
+  const unitId = new Map<string, number | null>();
+  units.forEach((u, i) => {
+    const r = unitRes[i];
+    if (r.error) throw new Error(`resolve_unit: ${r.error.message}`);
+    unitId.set(u, ((r.data ?? []) as { unit_id: number }[])[0]?.unit_id ?? null);
+  });
+
+  const payload: object[] = [];
+  let unresolvedRequired = 0;
+  for (const l of named) {
+    const id = ingId.get(l.name.trim().toLowerCase()) ?? null;
+    const unitKey = l.unit.trim().toLowerCase();
+    let reason: string | null = null;
+    if (l.badAmount) reason = "the amount is not a number";
+    else if (id === null) reason = "not recognised yet";
+    // Treating an unknown unit as "each" would put a wrong weight into the numbers.
+    else if (unitKey !== "" && (unitId.get(unitKey) ?? null) === null) reason = `unit "${l.unit.trim()}" not recognised`;
+    if (reason !== null) {
+      uncounted.push({ name: l.name.trim(), reason });
+      if (!l.optional) unresolvedRequired++;
+    } else {
+      payload.push({
+        ingredient_id: id,
+        fdc_id: l.fdcId,
+        quantity: l.quantity,
+        unit_id: unitKey === "" ? null : unitId.get(unitKey),
+        prep_note: l.note.trim() === "" ? null : l.note.trim(),
+        is_optional: l.optional,
+      });
+    }
+  }
+
+  if (payload.length === 0) return { status: "unavailable", macros: [], uncounted };
+
+  const [sum, comp] = await Promise.all([
+    rpc("nutrition_summary", { lines: payload }),
+    rpc("compute_nutrients", { lines: payload, servings }),
+  ]);
+  if (sum.error) throw new Error(`nutrition_summary: ${sum.error.message}`);
+  if (comp.error) throw new Error(`compute_nutrients: ${comp.error.message}`);
+
+  const s = ((sum.data ?? []) as { quantified_lines: number; counted_lines: number; gaps: string[] | null; optional_lines: string[] | null; to_taste: string[] | null }[])[0];
+  for (const g of s?.gaps ?? []) uncounted.push(gapReason(g));
+  for (const o of s?.optional_lines ?? []) uncounted.push({ name: o, reason: "optional, left out" });
+  for (const t of s?.to_taste ?? []) uncounted.push({ name: t, reason: "to taste, counted as none" });
+
+  // Same bar as the recipe page: fewer than half of the lines that need an amount counted means no number.
+  const needing = (s?.quantified_lines ?? 0) + unresolvedRequired;
+  const counted = s?.counted_lines ?? 0;
+  if (!s || needing === 0 || counted * 2 < needing) return { status: "unavailable", macros: [], uncounted };
+  const status: NutritionPreview["status"] = counted === needing ? "complete" : "partial";
+
+  const rows = (comp.data ?? []) as { nutrient_key: string; amount_per_serving: number | string; coverage: number | string }[];
+  const macros: PreviewMacro[] = [];
+  for (const key of MACRO_KEYS) {
+    const r = rows.find((x) => x.nutrient_key === key);
+    if (!r) continue; // no counted ingredient reports it: not zero, just unknown
+    const amount = Number(r.amount_per_serving);
+    if (!Number.isFinite(amount) || amount < 0) continue;
+    macros.push({ key, amount, atLeast: status !== "complete" || Number(r.coverage) < PREVIEW_MIN_COVERAGE });
+  }
+  return { status, macros, uncounted };
+}

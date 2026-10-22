@@ -10,7 +10,7 @@ register("./me-alias-hook.mjs", import.meta.url);
 const F = await import("../src/lib/filters.ts");
 const P = await import("../src/lib/prefs.ts");
 const V = await import("../src/lib/settingsValidate.ts");
-const { parseFilters, serializeFilters, filtersToQuery, withDefaults, toggleFoodChip, withFilters, hasActiveFilters } = F;
+const { parseFilters, serializeFilters, filtersToQuery, withDefaults, toggleFoodChip, withFilters, hasActiveFilters, isAllergenLocked, withoutNarrowing } = F;
 
 const veg = { diet: ["vegetarian"], exclude: ["peanuts"] };
 
@@ -22,7 +22,8 @@ const veg = { diet: ["vegetarian"], exclude: ["peanuts"] };
   assert.deepEqual(s.effective, url);
   assert.equal(s.applied, null);
   assert.equal(s.saved, null);
-  assert.equal(s.off, false);
+  assert.equal(s.dietOff, false);
+  assert.equal(s.allergensShown, false);
   // empty saved defaults count as none
   assert.equal(withDefaults({}, { diet: [], exclude: [] }).saved, null);
 }
@@ -33,8 +34,9 @@ const veg = { diet: ["vegetarian"], exclude: ["peanuts"] };
   assert.deepEqual(s.effective.exclude, ["peanuts"]);
   assert.equal(s.effective.q, "soup");
   assert.deepEqual(s.applied, veg);
-  assert.equal(s.off, false);
+  assert.equal(s.dietOff, false);
   assert.equal("defaults" in s.effective, false);
+  assert.equal("showAllergens" in s.effective, false);
 }
 {
   // URL diet wins for DIET (per dimension); allergens still come from the defaults
@@ -55,15 +57,54 @@ const veg = { diet: ["vegetarian"], exclude: ["peanuts"] };
   assert.ok(withDefaults(parseFilters({ exclude: "dairy" }), { diet: [], exclude: ["peanuts"] }).effective.exclude!.includes("peanuts"));
 }
 {
-  // defaults=off: the URL is literal, applied is null, the chip can say "off"
+  // defaults=off switches the saved DIET off, and NOTHING ELSE: the saved allergen is still applied
   const url = parseFilters({ defaults: "off", diet: "vegan" });
   const s = withDefaults(url, veg);
-  assert.deepEqual(s.effective, { diet: ["vegan"] });
-  assert.equal(s.applied, null);
-  assert.equal(s.off, true);
+  assert.deepEqual(s.effective, { diet: ["vegan"], exclude: ["peanuts"] });
+  assert.deepEqual(s.applied, { diet: [], exclude: ["peanuts"] });
+  assert.equal(s.dietOff, true);
+  assert.equal(s.allergensShown, false);
   assert.deepEqual(s.saved, veg);
+  // off with no diet in the URL: no diet at all, allergen still there
+  const bare = withDefaults(parseFilters({ defaults: "off" }), veg);
+  assert.deepEqual(bare.effective, { exclude: ["peanuts"] });
   // off with nothing saved is not "off" (nothing to show a chip for)
-  assert.equal(withDefaults(parseFilters({ defaults: "off" }), null).off, false);
+  assert.equal(withDefaults(parseFilters({ defaults: "off" }), null).dietOff, false);
+  // off when only allergens are saved changes nothing
+  const onlyAllergens = withDefaults(parseFilters({ defaults: "off" }), { diet: [], exclude: ["peanuts"] });
+  assert.equal(onlyAllergens.dietOff, false);
+  assert.deepEqual(onlyAllergens.effective.exclude, ["peanuts"]);
+}
+{
+  // showAllergens=1 is the ONLY way past a saved allergen: the URL becomes literal for allergens
+  const s = withDefaults(parseFilters({ showAllergens: "1" }), veg);
+  assert.equal(s.allergensShown, true);
+  assert.equal(s.effective.exclude, undefined);
+  assert.deepEqual(s.effective.diet, ["vegetarian"]); // the diet is a separate choice
+  assert.deepEqual(s.applied, { diet: ["vegetarian"], exclude: [] });
+  assert.equal("showAllergens" in s.effective, false);
+  // the URL's own allergen filters still apply while the saved ones are lifted
+  const t = withDefaults(parseFilters({ showAllergens: "1", exclude: "soy" }), veg);
+  assert.deepEqual(t.effective.exclude, ["soy"]);
+  // anything but "1" is not an override; it cannot be switched on by accident
+  for (const v of ["true", "yes", "on", "", "0", "1,2"]) {
+    const o = withDefaults(parseFilters({ showAllergens: v }), veg);
+    assert.equal(o.allergensShown, false, v);
+    assert.deepEqual(o.effective.exclude, ["peanuts"], v);
+  }
+  // with no saved allergens the flag does nothing (and does not leak into the query)
+  const d = withDefaults(parseFilters({ showAllergens: "1" }), { diet: ["vegan"], exclude: [] });
+  assert.equal(d.allergensShown, false);
+  assert.equal("showAllergens" in d.effective, false);
+  // it is not a narrowing filter, and "clear filters" drops it
+  assert.equal(hasActiveFilters(parseFilters({ showAllergens: "1" })), false);
+  assert.equal(filtersToQuery(parseFilters({ showAllergens: "1", q: "x" })), "?q=x&showAllergens=1");
+  assert.equal(withFilters(parseFilters({ showAllergens: "1" }), { showAllergens: undefined }).showAllergens, undefined);
+  assert.equal(withoutNarrowing(parseFilters({ showAllergens: "1", q: "x", diet: "vegan" })).showAllergens, undefined);
+  // the effective filters (and so the cache key) do not depend on how the allergens were lifted
+  const viaFlag = withDefaults(parseFilters({ showAllergens: "1" }), veg).effective;
+  const noSaved = withDefaults(parseFilters({}), { diet: ["vegetarian"], exclude: [] }).effective;
+  assert.equal(filtersToQuery(viaFlag), filtersToQuery(noSaved));
 }
 {
   // only DIET saved, URL overrides it: nothing is applied any more
@@ -108,24 +149,30 @@ assert.equal(hasActiveFilters(parseFilters({ defaults: "off" })), false);
   const url = parseFilters({});
   const s = withDefaults(url, null);
   assert.equal(filtersToQuery(toggleFoodChip(url, s, "diet", "vegan")), "?diet=vegan");
-  // defaults in force: the tap materialises the EFFECTIVE selection, flips the tapped value, switches defaults off
   const d = withDefaults(parseFilters({}), veg);
+  // a SAVED allergen is locked: the tap changes nothing (the page renders it as a fixed chip, not a link)
+  assert.equal(isAllergenLocked(d, "peanuts"), true);
+  assert.equal(isAllergenLocked(d, "soy"), false);
   const un = toggleFoodChip(parseFilters({}), d, "exclude", "peanuts"); // "uncheck peanuts"
-  assert.equal(un.defaults, "off");
-  assert.deepEqual(un.diet, ["vegetarian"]);
-  assert.equal(un.exclude, undefined);
+  assert.deepEqual(un, parseFilters({}));
+  assert.equal(un.defaults, undefined);
+  // any other allergen is an ordinary toggle, and the saved one stays in force on the merged request
   const ad = toggleFoodChip(parseFilters({}), d, "exclude", "soy"); // "also soy"
-  assert.deepEqual([...ad.exclude!].sort(), ["peanuts", "soy"]);
-  assert.equal(ad.defaults, "off");
-  // the materialised URL means what the page showed: re-merging it gives the same effective filters
+  assert.deepEqual(ad.exclude, ["soy"]);
+  assert.equal(ad.defaults, undefined);
   const again = withDefaults(parseFilters(serializeFilters(ad)), veg);
   assert.deepEqual([...again.effective.exclude!].sort(), ["peanuts", "soy"]);
   assert.deepEqual(again.effective.diet, ["vegetarian"]);
-  // toggling the diet that is the default turns it off but keeps the allergens explicit
+  // once the person has confirmed showAllergens, the same chip is an ordinary toggle again
+  const shown = withDefaults(parseFilters({ showAllergens: "1" }), veg);
+  assert.equal(isAllergenLocked(shown, "peanuts"), false);
+  assert.deepEqual(toggleFoodChip(parseFilters({ showAllergens: "1" }), shown, "exclude", "peanuts").exclude, ["peanuts"]);
+  // toggling the diet that is the default turns the DIET off; allergens are not touched and nothing is written to the URL for them
   const offDiet = toggleFoodChip(parseFilters({}), d, "diet", "vegetarian");
   assert.equal(offDiet.diet, undefined);
-  assert.deepEqual(offDiet.exclude, ["peanuts"]);
+  assert.equal(offDiet.exclude, undefined);
   assert.equal(offDiet.defaults, "off");
+  assert.deepEqual(withDefaults(parseFilters(serializeFilters(offDiet)), veg).effective, { exclude: ["peanuts"] });
   // cursor is dropped on any change
   assert.equal(toggleFoodChip(parseFilters({ cursor: "abc" }), d, "diet", "vegan").cursor, undefined);
 }

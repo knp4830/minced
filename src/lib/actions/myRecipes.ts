@@ -8,7 +8,10 @@ import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { searchFoods } from "@/lib/queries/foods";
 import {
   deleteMyRecipe,
+  previewNutrition,
   resolveIngredientName,
+  type NutritionPreview,
+  type PreviewLine,
   saveMyRecipe,
   setMyRecipeFoods,
   withdrawMyRecipe,
@@ -198,6 +201,50 @@ export async function withdrawRecipe(id: string): Promise<ActionResult> {
   if (!res.ok) return describe(res);
   refresh(res.slug);
   return { ok: true, slug: res.slug };
+}
+
+/**
+ * The live nutrition preview under the ingredient list. Takes only the ingredient lines and the servings (nothing
+ * about the recipe's identity), writes nothing, and answers null on any fault so the form says "could not check
+ * just now" instead of showing a number it cannot stand behind. Bounded like a save: at most 80 lines.
+ */
+export async function previewRecipeNutrition(
+  rows: unknown,
+  servings: unknown,
+): Promise<NutritionPreview | { error: "off" | "servings" | "failed" }> {
+  if (!USER_RECIPES_ENABLED || !Array.isArray(rows) || rows.length > LIMITS.ingredients + 20) return { error: "off" };
+  const n = typeof servings === "string" && /^\d{1,3}$/.test(servings.trim()) ? Number(servings.trim()) : NaN;
+  if (!Number.isInteger(n) || n < 1 || n > LIMITS.servingsMax) return { error: "servings" };
+
+  const lines: PreviewLine[] = [];
+  for (const r of rows) {
+    if (typeof r !== "object" || r === null) return { error: "off" };
+    const o = r as Record<string, unknown>;
+    if (typeof o.name !== "string" || typeof o.quantity !== "string" || typeof o.unit !== "string" || typeof o.note !== "string") {
+      return { error: "off" };
+    }
+    const name = stripControlChars(o.name).replace(/\s+/g, " ").trim().slice(0, LIMITS.nameMax);
+    if (name === "") continue;
+    const q = parseQuantity(o.quantity);
+    // An amount that is not a number is the person's to fix; the save says so plainly. Here the line is left uncounted.
+    if (!q.ok) {
+      lines.push({ name, quantity: null, unit: "", note: "", optional: false, fdcId: null, badAmount: true });
+      continue;
+    }
+    lines.push({
+      name,
+      quantity: q.value,
+      unit: stripControlChars(o.unit).replace(/\s+/g, " ").trim().slice(0, 40),
+      note: stripControlChars(o.note).replace(/\s+/g, " ").trim().slice(0, LIMITS.noteMax * 4),
+      optional: o.optional === true,
+      fdcId: typeof o.fdcId === "number" && Number.isInteger(o.fdcId) && o.fdcId > 0 ? o.fdcId : null,
+    });
+  }
+  try {
+    return await previewNutrition(lines, n);
+  } catch {
+    return { error: "failed" };
+  }
 }
 
 /** The canonical ingredient a typed name resolves to, or null. Powers the inline "recognised" tick. */
