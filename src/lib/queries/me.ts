@@ -96,6 +96,8 @@ type FoodRow = {
   sodium_mg: number | string | null;
   nutrients: Record<string, unknown> | null;
   source: string | null;
+  amount: number | string | null;
+  amount_unit: string | null;
   recipes: LoggedRecipe | LoggedRecipe[] | null;
 };
 
@@ -123,7 +125,7 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
   const db = await createClient();
   const { data } = await db
     .from("me_food_log")
-    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, source, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
+    .select("id, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, source, amount, amount_unit, recipes(slug, image_url, recipe_photos(storage_path, thumb_path))")
     .eq("log_date", date)
     .order("created_at", { ascending: true })
     .limit(80);
@@ -142,6 +144,8 @@ export async function getFoodForDate(date: string): Promise<FoodEntry[]> {
       fiberG: numOrNull(r.fiber_g),
       sodiumMg: numOrNull(r.sodium_mg),
       nutrients: snapshotOf(r.nutrients),
+      amount: numOrNull(r.amount),
+      amountUnit: r.amount_unit,
       source: r.source === "recipe" || r.source === "food" ? r.source : r.source === "quick" ? "quick" : rec ? "recipe" : r.nutrients !== null ? "food" : "quick",
       recipe: rec ? { slug: rec.slug, imageUrl: recipeThumb(rec.image_url, rec.recipe_photos) } : null,
     };
@@ -392,13 +396,14 @@ async function signedIn(): Promise<{ db: Db; uid: string } | null> {
   return { db: supabase, uid: user.id };
 }
 
-export async function writeTargets(t: Omit<MeTargets, "updatedOn">): Promise<WriteResult> {
+export async function writeTargets(t: Omit<MeTargets, "updatedOn">, birthYear?: number): Promise<WriteResult> {
   const s = await signedIn();
   if (!s) return SIGN_IN;
   const db = s.db;
-  // Sex and units belong to Settings. The wizard only asks for sex when Settings has none, and either way what
-  // it sends is what Settings holds, so this write is a no-op for a person who already set them.
-  const settings = await writeSettings({ sex: t.sex, units: t.units });
+  // Sex, units and birth year belong to Settings. The wizard only asks for sex and birth year when Settings has
+  // none, and either way what it sends is what Settings holds, so this write is a no-op for a person who already
+  // set them. A birth year is written only when the wizard was the one to ask for it.
+  const settings = await writeSettings({ sex: t.sex, units: t.units, ...(birthYear !== undefined ? { birth_year: birthYear } : {}) });
   if (!settings.ok) return settings.reason === "signed-out" ? SIGN_IN : FAILED;
   const { error } = await db.from("me_targets").upsert(
     {
@@ -464,6 +469,9 @@ export type NewFood = {
   sodiumMg: number | null;
   /** Per-nutrient totals for the entry, keyed by nutrient `key`; null when nothing is known beyond the columns. */
   nutrients?: Record<string, number> | null;
+  /** What was typed for an ingredient or brand ("150", "g"), so the entry can be edited in that unit. */
+  amount?: number | null;
+  amountUnit?: string | null;
 };
 
 export async function writeFood(f: NewFood): Promise<WriteResult> {
@@ -484,6 +492,8 @@ export async function writeFood(f: NewFood): Promise<WriteResult> {
     fiber_g: f.fiberG,
     sodium_mg: f.sodiumMg,
     nutrients: f.nutrients ?? null,
+    amount: f.amount ?? null,
+    amount_unit: f.amountUnit ?? null,
     // `source` is new (migration 20261018140000) and not in the generated types until the next pnpm db:types.
     source,
   };
@@ -497,6 +507,32 @@ export async function removeFood(id: string): Promise<WriteResult> {
   const s = await signedIn();
   if (!s) return SIGN_IN;
   const { data, error } = await s.db.from("me_food_log").delete().eq("id", id).select("id");
+  return error || !data || data.length === 0 ? FAILED : { ok: true };
+}
+
+/**
+ * Moves an entry to another meal and/or changes how much of it was eaten (servings for a recipe, the typed amount
+ * for an ingredient or brand, otherwise a portion multiple). The scaling of every stored figure happens in one
+ * SQL statement (`me_update_food`, migration 20261022140000). It returns the rows changed: 0 is a failure.
+ * The RPC is not in the generated types until the next `pnpm db:types`, hence the untyped call.
+ */
+export async function updateFood(id: string, meal: Meal | null, amount: number | null): Promise<WriteResult> {
+  const s = await signedIn();
+  if (!s) return SIGN_IN;
+  const { data, error } = await (s.db as unknown as SupabaseClient).rpc("me_update_food", { p_id: id, p_meal: meal, p_amount: amount });
+  if (error) {
+    if (error.code === "23514") return { ok: false, error: "That amount is too large for one entry." };
+    if (error.code === "22023") return { ok: false, error: "That amount is not valid." };
+    return FAILED;
+  }
+  return data === 1 ? { ok: true } : FAILED;
+}
+
+/** Removes the one-tap "trained" marks for a day (real workouts are removed one by one). Zero rows removed is a failure. */
+export async function removeTrainedMark(date: string): Promise<WriteResult> {
+  const s = await signedIn();
+  if (!s) return SIGN_IN;
+  const { data, error } = await s.db.from("me_workouts").delete().eq("log_date", date).eq("session", "trained").select("id");
   return error || !data || data.length === 0 ? FAILED : { ok: true };
 }
 

@@ -373,6 +373,67 @@ assert.equal(round1(83.25), 83.3);
 assert.equal(formatWeight(83.25, "metric"), "83.3 kg");
 assert.equal(round1(-0.04), 0);
 
+// ---- wave 12: the day the page shows, the one-tap "trained" mark, the month tally ----
+const { parseDayParam } = await import("../src/lib/me/dates.ts");
+const { monthTally } = await import("../src/lib/me/monthTally.ts");
+const { SESSIONS, LOG_SESSIONS, SESSION_VALUES, sessionLabel } = await import("../src/lib/me/muscles.ts");
+const { session: parseSession, meal: parseMeal, uuid: parseUuid } = await import("../src/lib/me/validate.ts");
+const { validateBirthYear, ageFromBirthYear } = await import("../src/lib/settingsValidate.ts");
+
+// ?d=: a real date that is not after today; anything else means "today".
+assert.equal(parseDayParam("2026-10-15", "2026-10-22"), "2026-10-15");
+assert.equal(parseDayParam("2026-10-22", "2026-10-22"), "2026-10-22");
+assert.equal(parseDayParam("2026-10-23", "2026-10-22"), null); // the future
+assert.equal(parseDayParam("2026-02-31", "2026-10-22"), null); // not a date
+assert.equal(parseDayParam("2019-12-31", "2026-10-22"), null); // before the app's window
+assert.equal(parseDayParam("yesterday", "2026-10-22"), null);
+assert.equal(parseDayParam(undefined, "2026-10-22"), null);
+assert.equal(parseDayParam("", "2026-10-22"), null);
+
+// "trained" is a valid session, labelled, but is not a pill in the log sheet.
+assert.ok(SESSION_VALUES.includes("trained"));
+assert.equal(sessionLabel("trained"), "Trained");
+assert.ok(SESSIONS.some((s) => s.v === "trained"));
+assert.ok(!LOG_SESSIONS.some((s) => s.v === "trained"));
+assert.equal(LOG_SESSIONS.length, SESSIONS.length - 1);
+assert.deepEqual(distributeSets("trained", 10), []); // names no muscle
+assert.equal(parseSession("trained").ok, true);
+assert.equal(parseSession("yoga").ok, false);
+assert.equal(parseMeal("brunch").ok, false);
+assert.equal(parseUuid("not-a-uuid").ok, false);
+assert.equal(parseUuid("0b0f5f0e-0c3a-4f5e-9d5b-6a1f4d8a2c11").ok, true);
+
+// Month tally: the denominator is the days that have happened.
+const tday = (t: string[], f: "none" | "logged" | "hit" | "part") => ({ trained: t, food: f });
+const oct = {
+  "2026-10-01": tday(["push"], "hit"),
+  "2026-10-02": tday([], "hit"),
+  "2026-10-03": tday(["trained"], "part"),
+  "2026-10-04": tday([], "logged"),
+  "2026-10-05": tday(["legs", "cardio"], "hit"), // two sessions is still one training day
+  "2026-10-30": tday(["push"], "hit"), // a day that has not happened (data should not exist; it must not count)
+};
+const t1 = monthTally(oct, { year: 2026, month: 10 }, "2026-10-22", true);
+assert.equal(t1.elapsed, 22);
+assert.equal(t1.trainedDays, 3);
+assert.equal(t1.hitDays, 3);
+assert.equal(t1.partDays, 1);
+assert.equal(t1.loggedDays, 5);
+assert.equal(t1.line, "Trained 3 of 22 days · Goal hit 3 of 22 days · Partly 1");
+assert.equal(monthTally(oct, { year: 2026, month: 10 }, "2026-10-22", false).line, "Trained 3 of 22 days · Food logged 5 of 22 days");
+assert.equal(monthTally(oct, { year: 2026, month: 10 }, "2026-10-01", true).elapsed, 1);
+assert.equal(monthTally(oct, { year: 2026, month: 10 }, "2026-10-01", true).line, "Trained 1 of 1 day · Goal hit 1 of 1 day");
+assert.equal(monthTally({}, { year: 2026, month: 9 }, "2026-10-22", true).elapsed, 30); // a past month is whole
+assert.equal(monthTally({}, { year: 2026, month: 2 }, "2026-10-22", true).elapsed, 28);
+assert.equal(monthTally({}, { year: 2026, month: 11 }, "2026-10-22", true).line, ""); // a month that has not started
+
+// Birth year (the one thing the wizard may ask that Settings owns): range-checked, age derived from it.
+assert.equal(validateBirthYear("1990", new Date("2026-10-22")).ok, true);
+assert.equal(ageFromBirthYear(1990, new Date("2026-10-22")), 36);
+assert.equal(validateBirthYear("2020", new Date("2026-10-22")).ok, false); // 6 years old
+assert.equal(validateBirthYear("19", new Date("2026-10-22")).ok, false);
+assert.deepEqual(validateBirthYear("", new Date("2026-10-22")), { ok: true, value: null });
+
 await import("./test-me-dv.mts"); // wave 10c: personal daily values, DRIs, baseline, snapshot rule
 
 console.log("test-me: all assertions passed");

@@ -5,10 +5,12 @@ import { revalidatePath } from "next/cache";
 import { ME_ENABLED } from "@/lib/me/flag";
 import { distributeSets, type MuscleSets } from "@/lib/me/muscles";
 import {
-  getDayDetail,
   findRecipesToLog,
   getRecipeNutrition,
+  getWorkoutsForDate,
   removeFood,
+  removeTrainedMark,
+  updateFood,
   removeSleep,
   removeWeight,
   writeDismissal,
@@ -21,7 +23,9 @@ import {
   type LoggableRecipe,
   type WriteResult,
 } from "@/lib/queries/me";
-import type { DayDetail } from "@/lib/me/types";
+import type { Meal } from "@/lib/me/types";
+import { getMySettings } from "@/lib/queries/settings";
+import { ageFromBirthYear, validateBirthYear } from "@/lib/settingsValidate";
 import { CHECKIN_KINDS, type CheckInKind } from "@/lib/me/checkin";
 import { SLUG_RE } from "@/lib/validate";
 import { checkFoodInput } from "@/lib/foodInput";
@@ -65,7 +69,24 @@ export async function saveTargets(input: unknown): Promise<ActionResult> {
   if (!ME_ENABLED) return OFF;
   const t = targetsInput(input);
   if (!t.ok) return fail(t.error);
-  const r = await writeTargets(t.value);
+
+  // Sex, units and birth year live in Settings. When Settings already holds a birth year, the age stored with the
+  // targets comes from it and anything the browser sent is ignored; when it holds none and the wizard asked for one,
+  // that year is saved to Settings once, here.
+  const settings = await getMySettings();
+  let birthYear: number | undefined;
+  let value = t.value;
+  if (settings.birthYear !== null) {
+    value = { ...value, age: ageFromBirthYear(settings.birthYear) };
+  } else if (typeof input === "object" && input !== null && "birthYear" in input && (input as { birthYear?: unknown }).birthYear !== undefined) {
+    const y = validateBirthYear((input as { birthYear?: unknown }).birthYear);
+    if (!y.ok) return fail(y.reason);
+    if (y.value !== null) {
+      birthYear = y.value;
+      value = { ...value, age: ageFromBirthYear(y.value) };
+    }
+  }
+  const r = await writeTargets(value, birthYear);
   if (r.ok) refresh();
   return r;
 }
@@ -177,6 +198,9 @@ export async function logFood(input: QuickFoodInput | RecipeFoodInput | PickedFo
       recipeId: null,
       name: name.value,
       servings: null,
+      // The typed amount is kept so the entry can be edited in the unit it was entered in ("" is a count).
+      amount: v.quantity,
+      amountUnit: v.unit || "each",
       // Whole kilocalories, the way the Add dialog previews them (rounding 14.46 to 14.5 and then to 15 is how the
       // preview and the diary used to disagree).
       calories: Math.round(kcal),
@@ -264,6 +288,8 @@ export async function logWorkout(input: WorkoutInput): Promise<ActionResult> {
 
   if (s.value === "cardio") {
     if (minutes.value === null) return fail("Add how many minutes.");
+  } else if (s.value === "trained") {
+    // The one-tap mark: no sets, no muscles. Minutes are optional.
   } else if (s.value === "custom") {
     const name = text(input.customName, 60, "Name", false);
     if (!name.ok) return fail(name.error);
@@ -353,17 +379,59 @@ export async function dismissCheckIn(kindIn: unknown, dateIn: unknown): Promise<
   return r;
 }
 
-/** Read actions: the calendar's day detail and the food dialog's recipe search. */
-export async function loadDay(dateIn: unknown): Promise<{ ok: true; day: DayDetail } | { ok: false; error: string }> {
+/**
+ * The calendar's one-tap "I trained". Writes a workout with no sets and no muscles, unless the day already has a
+ * workout of any kind (a logged session already says you trained, and a second row would only be clutter).
+ */
+export async function logTrained(dateIn: unknown): Promise<ActionResult> {
   if (!ME_ENABLED) return OFF;
   const date = logDate(dateIn);
   if (!date.ok) return fail(date.error);
-  try {
-    return { ok: true, day: await getDayDetail(date.value) };
-  } catch {
-    return fail("Could not load that day.");
-  }
+  if ((await getWorkoutsForDate(date.value)).length > 0) return { ok: true };
+  const r = await writeWorkout({ date: date.value, session: "trained", customName: null, minutes: null, muscles: [] });
+  if (r.ok) refresh();
+  return r;
 }
+
+/** Undo the one-tap mark. A real logged workout is removed from its own row, never from here. */
+export async function unlogTrained(dateIn: unknown): Promise<ActionResult> {
+  if (!ME_ENABLED) return OFF;
+  const date = logDate(dateIn);
+  if (!date.ok) return fail(date.error);
+  const r = await removeTrainedMark(date.value);
+  if (r.ok) refresh();
+  return r;
+}
+
+/**
+ * Edit a food entry: move it to another meal and/or change how much was eaten. `amount` means servings for a recipe
+ * entry, the typed amount (in the unit it was entered in) for an ingredient or brand, and a portion multiple
+ * otherwise; blank leaves the amount alone. Every stored figure is scaled by the same factor in the database.
+ */
+export async function editFood(input: { id: unknown; meal?: unknown; amount?: unknown }): Promise<ActionResult> {
+  if (!ME_ENABLED) return OFF;
+  if (!input || typeof input !== "object") return fail("Nothing to change.");
+  const id = uuid(input.id);
+  if (!id.ok) return fail(id.error);
+  let mealValue: Meal | null = null;
+  if (input.meal !== undefined && input.meal !== null) {
+    const m = meal(input.meal);
+    if (!m.ok) return fail(m.error);
+    mealValue = m.value;
+  }
+  let amount: number | null = null;
+  if (input.amount !== undefined && input.amount !== null && !(typeof input.amount === "string" && input.amount.trim() === "")) {
+    const a = num(typeof input.amount === "string" ? input.amount.replace(",", ".") : input.amount, 0.01, 100000, "Amount");
+    if (!a.ok) return fail(a.error);
+    amount = a.value;
+  }
+  if (mealValue === null && amount === null) return fail("Nothing to change.");
+  const r = await updateFood(id.value, mealValue, amount);
+  if (r.ok) refresh();
+  return r;
+}
+
+/** Read action: the food dialog's recipe search. */
 
 export async function searchRecipes(q: unknown): Promise<{ ok: true; recipes: LoggableRecipe[] } | { ok: false; error: string }> {
   if (!ME_ENABLED) return OFF;

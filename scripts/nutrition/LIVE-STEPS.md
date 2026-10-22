@@ -53,3 +53,8 @@ Wave 10d (final audit defects; NO new seed file, NO new migration, order unchang
 UI/site fixer (round 1): `src/app/(site)/pantry/loading.tsx` was deleted. With it, the first same-route navigation on /pantry after a hard load (filter chip, "Only what I can make now", "Show all N") did not commit for about 12 s (until NavProgress's give-up re-rendered the page); the identical page without the file committed in about 100 ms on a production build. Nothing to run on live for this. `supabase/tests/user_settings_test.sql` now uses the split allergen slugs (71 checks, 0 failures on the snapshot).
 
 Final audit round (2026-10-19, HEAD b8bb115 plus the close-out commit): counts above re-verified by three independent rebuilds (1,983 ingredients, 10,092 foods, 3,514 links, 1,738 ingredients with a food). Vegetarian recipes are 630 of 957 (vegan 238, pescatarian-or-better 687) when counted as "this diet or stricter". Known open items are in `docs/review/2026-10-18-wave10c-questions.md`; none blocks applying the migrations or seeds.
+
+
+## Wave 12 (after everything above is live)
+
+Me lane (no seed file, one migration): apply `supabase/migrations/20261022140000_me_day_log.sql` BEFORE merging the code (the code selects `me_food_log.amount` and calls `me_update_food`, so Me returns errors without it; Me is behind `NEXT_PUBLIC_ENABLE_ME`, off on live). It adds the `trained` workout session, `me_food_log.amount` / `amount_unit` and the `me_update_food()` RPC. Then `pnpm db:types` (the new column and RPC are reached through casts until then). Verify with `supabase/tests/me_rls_test.sql` on a throwaway database (124 checks; with a bare snapshot, replay the me_ GRANT/REVOKE lines first).

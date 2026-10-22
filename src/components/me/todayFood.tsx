@@ -35,7 +35,7 @@ function segments(totals: DayTotals, goal: number): Seg[] {
   });
 }
 
-export function TodayFood({ dateLabel, totals, targets }: { dateLabel: string; totals: DayTotals; targets: MeTargets | null }) {
+export function TodayFood({ dateLabel, totals, targets, isToday = true }: { dateLabel: string; totals: DayTotals; targets: MeTargets | null; isToday?: boolean }) {
   const kcal = Math.round(totals.calories);
   const goal = targets?.kcal ?? null;
   const left = goal === null ? null : goal - kcal;
@@ -58,7 +58,7 @@ export function TodayFood({ dateLabel, totals, targets }: { dateLabel: string; t
         <div>
           <p className="label-mono">{dateLabel}</p>
           <h2 id="me-food-h" className="mt-1.5 text-xl leading-tight font-medium">
-            Today&rsquo;s food
+            {isToday ? "Today’s food" : "Food that day"}
           </h2>
         </div>
         <span className="flex items-center gap-2 pt-1 font-mono text-xs text-ink-muted">
@@ -121,7 +121,7 @@ export function TodayFood({ dateLabel, totals, targets }: { dateLabel: string; t
                   </span>
                 </li>
               ))}
-              <li className="mt-1 max-w-[16.25rem] text-xs leading-snug text-ink-muted">Each segment is that macro&rsquo;s share of today&rsquo;s {nf.format(goal)} kcal goal.</li>
+              <li className="mt-1 max-w-[16.25rem] text-xs leading-snug text-ink-muted">Each segment is that macro&rsquo;s share of {isToday ? "today’s" : "the day’s"} {nf.format(goal)} kcal goal.</li>
             </ul>
           </>
         )}

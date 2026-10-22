@@ -2,12 +2,12 @@
 
 import { useEffect, useState, useTransition, type ReactNode } from "react";
 
-import { Plus, X } from "lucide-react";
+import { Pencil, Plus, X } from "lucide-react";
 
 import { useMeUi } from "@/components/me/meUi";
 import { Button } from "@/components/ui/button";
 import { deleteFood } from "@/lib/actions/me";
-import type { Meal } from "@/lib/me/types";
+import type { FoodEntry, Meal } from "@/lib/me/types";
 
 /* Small client buttons that let the server-rendered cards open the dashboard's dialogs. */
 
@@ -82,6 +82,20 @@ export function AddFoodButton({ meal, label }: { meal: Meal; label: string }) {
       className="inline-flex min-h-11 items-center rounded-md px-2.5 text-[0.8125rem] font-medium text-herb transition-colors hover:bg-band sm:min-h-8"
     >
       + Add
+    </button>
+  );
+}
+
+export function EditFoodButton({ entry }: { entry: FoodEntry }) {
+  const ui = useMeUi();
+  return (
+    <button
+      type="button"
+      aria-label={`Edit ${entry.name}`}
+      onClick={() => ui.openEditFood(entry)}
+      className="inline-flex size-11 shrink-0 items-center justify-center rounded-md text-ink-subtle transition-colors hover:bg-band hover:text-herb sm:size-8"
+    >
+      <Pencil aria-hidden className="size-3.5" />
     </button>
   );
 }

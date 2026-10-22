@@ -117,8 +117,50 @@ select pg_temp.check((select count(*) from me_logged_days(current_date - 10, cur
 select pg_temp.check((select count(*) from me_logged_days(current_date - 500, current_date)) = 0, 'me_logged_days: refuses a range over 400 days');
 select pg_temp.check((select count(*) from me_month_summary(current_date - 6, current_date) where log_date = current_date - 4 and weight_kg = 84.0 and calories is null) = 1, 'me_month_summary: a weight-only day appears');
 
+-- ================= Wave 12: the one-tap "trained" mark and editing a food entry =================
+-- Needs migration 20261022140000. 'trained' is a workout with no muscles: it makes the day a training day and
+-- adds nothing to the muscle map.
+select pg_temp.succeeds($q$ select me_log_workout(current_date - 5, 'trained', null, null, '[]'::jsonb) $q$, 'A logs the one-tap trained mark');
+select pg_temp.check((select 'trained' = any(trained) and sets = 0 from me_month_summary(current_date - 6, current_date) where log_date = current_date - 5), 'me_month_summary: the trained mark is a training day with 0 sets');
+select pg_temp.check((select count(*) from me_week_muscles(current_date - 6, current_date)) = 6, 'the trained mark adds no muscle to the week');
+select pg_temp.check((select count(*) from me_logged_days(current_date - 10, current_date) where kind = 'food') = 2, 'the trained mark is not a food day');
+select pg_temp.succeeds($q$ delete from me_workouts where session = 'trained' $q$, 'A removes the trained mark');
+select pg_temp.check((select count(*) from me_workouts where session = 'trained') = 0, 'the trained mark is gone (counted)');
+select pg_temp.check((select count(*) from me_workouts) = 2, 'A still has exactly the two real workouts');
+
+-- Editing: a recipe entry (servings), an ingredient with a typed amount, a quick add (portion), a meal-only move.
+select pg_temp.succeeds($q$ insert into me_food_log (user_id, log_date, meal, name, servings, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, source)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date - 5, 'lunch', 'Test stew', 2, 500, 30, 40, 20, 6, 800, '{"calcium": 200, "vitamin_c": 10.5}', 'recipe') $q$, 'A logs a recipe entry to edit');
+select pg_temp.succeeds($q$ insert into me_food_log (user_id, log_date, meal, name, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, nutrients, source, amount, amount_unit)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date - 5, 'snack', 'Test rice', 200, 4, 44, 0.4, null, 2, '{"iron": 1.2}', 'food', 100, 'g') $q$, 'A logs an ingredient entry with a typed amount');
+select pg_temp.succeeds($q$ insert into me_food_log (user_id, log_date, meal, name, calories, protein_g, carbs_g, fat_g, source)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date - 5, 'breakfast', 'Test quick', 300, 10, 30, 12, 'quick') $q$, 'A logs a quick add');
+select id as stew from me_food_log where name = 'Test stew' \gset
+select id as rice from me_food_log where name = 'Test rice' \gset
+select id as quick from me_food_log where name = 'Test quick' \gset
+
+select pg_temp.check((select me_update_food(:'stew', 'dinner', 3)) = 1, 'me_update_food: reports one row changed');
+select pg_temp.check((select meal = 'dinner' and servings = 3 and calories = 750 and protein_g = 45 and carbs_g = 60 and fat_g = 30 and fiber_g = 9 and sodium_mg = 1200 from me_food_log where id = :'stew'), 'servings 2 to 3 scales every figure by 1.5 and moves the meal');
+select pg_temp.check((select (nutrients ->> 'calcium')::numeric = 300 and (nutrients ->> 'vitamin_c')::numeric = 15.75 from me_food_log where id = :'stew'), 'the nutrient snapshot scales by the same factor');
+select pg_temp.check((select me_update_food(:'stew', 'lunch', null)) = 1, 'a meal-only move is allowed');
+select pg_temp.check((select meal = 'lunch' and servings = 3 and calories = 750 and (nutrients ->> 'calcium')::numeric = 300 from me_food_log where id = :'stew'), 'a meal-only move changes nothing else');
+select pg_temp.check((select me_update_food(:'rice', null, 150)) = 1, 'me_update_food: an ingredient entry takes a new amount');
+select pg_temp.check((select amount = 150 and amount_unit = 'g' and servings is null and calories = 300 and protein_g = 6 and fat_g = 0.6 and fiber_g is null and (nutrients ->> 'iron')::numeric = 1.8 from me_food_log where id = :'rice'), '100 g to 150 g scales by 1.5, keeps the unit, and a missing fibre stays missing (not zero)');
+select pg_temp.check((select me_update_food(:'quick', null, 0.5)) = 1, 'me_update_food: a quick add takes a portion');
+select pg_temp.check((select calories = 150 and protein_g = 5 and amount is null and nutrients is null from me_food_log where id = :'quick'), 'half a portion halves the figures and invents no amount');
+select pg_temp.check((select me_update_food('00000000-0000-0000-0000-000000000000', 'lunch', 1)) = 0, 'an entry that does not exist changes 0 rows');
+select pg_temp.raises($q$ select me_update_food(gen_random_uuid(), 'brunch', 1) $q$, 'me_update_food: an unknown meal is rejected');
+select pg_temp.raises(format($q$ select me_update_food(%L, null, 0) $q$, :'stew'), 'me_update_food: a zero amount is rejected');
+select pg_temp.raises(format($q$ select me_update_food(%L, null, 500) $q$, :'stew'), 'me_update_food: a 167-fold increase is rejected');
+select pg_temp.raises(format($q$ select me_update_food(%L, null, 100) $q$, :'stew'), 'me_update_food: a result over the calorie ceiling is rejected by the table');
+select pg_temp.check((select calories = 750 and servings = 3 from me_food_log where id = :'stew'), 'a rejected edit leaves the row as it was');
+select pg_temp.raises($q$ insert into me_food_log (user_id, log_date, meal, name, calories, amount, amount_unit) values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date, 'lunch', 'x', 5, 0, 'g') $q$, 'a zero amount is rejected on insert');
+select pg_temp.raises($q$ insert into me_food_log (user_id, log_date, meal, name, calories, amount, amount_unit) values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date, 'lunch', 'x', 5, 5, '') $q$, 'an empty unit is rejected on insert');
+
 -- ================= B cannot see or touch A's data =================
 select set_config('request.jwt.claim.sub', 'bbbbbbbb-0000-0000-0000-0000000000b2', false);
+select pg_temp.check((select me_update_food(:'stew', 'snack', 9)) = 0, 'B cannot edit A''s food entry (0 rows)');
+select pg_temp.check((select count(*) from me_workouts where session = 'trained') = 0, 'B sees no trained marks');
 select pg_temp.check((select count(*) from me_targets) = 0, 'B sees none of A targets');
 select pg_temp.check((select count(*) from me_food_log) = 0, 'B sees none of A food');
 select pg_temp.check((select count(*) from me_workouts) = 0, 'B sees none of A workouts');
@@ -172,6 +214,7 @@ select pg_temp.raises($q$ select count(*) from me_weights $q$, 'anon cannot read
 select pg_temp.raises($q$ select count(*) from me_checkin_dismissals $q$, 'anon cannot read dismissals');
 select pg_temp.raises($q$ insert into me_weights (user_id, log_date, weight_kg) values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date - 8, 80) $q$, 'anon cannot write weigh-ins');
 select pg_temp.raises($q$ select * from me_logged_days(current_date - 10, current_date) $q$, 'anon cannot call me_logged_days');
+select pg_temp.raises($q$ select me_update_food(gen_random_uuid(), 'lunch', 1) $q$, 'anon cannot call me_update_food');
 
 -- ================= verify as superuser that A is untouched =================
 reset role;
@@ -187,6 +230,7 @@ select pg_temp.check((select goal_weight_kg from me_targets where user_id = 'aaa
 select pg_temp.check((select count(*) from me_checkin_dismissals where user_id = 'aaaaaaaa-0000-0000-0000-0000000000a1') = 2, 'A dismissals survive B attempts');
 select pg_temp.check((select min(log_date) from me_checkin_dismissals where user_id = 'aaaaaaaa-0000-0000-0000-0000000000a1') = current_date, 'B update did not change A dismissal dates');
 select pg_temp.check((select count(*) from me_food_log where user_id = 'bbbbbbbb-0000-0000-0000-0000000000b2') = 0, 'nothing was written as B');
+select pg_temp.check((select meal = 'lunch' and servings = 3 and calories = 750 from me_food_log where name = 'Test stew'), 'B edit attempt did not change A''s entry');
 
 -- Grants: anon holds no privilege on any me_ table; authenticated has no TRUNCATE.
 select pg_temp.check(not exists (
