@@ -1,0 +1,2 @@
+# Wave 12 audit fix. Same line format and policy as tag-sources.txt.
+[wheat:V, gluten:V] commercial hing (asafoetida powder) is very often compounded with wheat flour; gluten-free brands exist, check the label :: asafoetida

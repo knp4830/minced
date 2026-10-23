@@ -351,6 +351,8 @@ insert into _tag (ingredient, allergen, basis, reason) values
   ('chinese wheat noodles', 'wheat', 'inherent', 'wheat pasta or noodles'),
   ('spring roll wrappers', 'gluten', 'inherent', 'wheat wrapper or dumpling skin'),
   ('spring roll wrappers', 'wheat', 'inherent', 'wheat wrapper or dumpling skin'),
+  ('asafoetida', 'gluten', 'varies', 'commercial hing (asafoetida powder) is very often compounded with wheat flour; gluten-free brands exist, check the label'),
+  ('asafoetida', 'wheat', 'varies', 'commercial hing (asafoetida powder) is very often compounded with wheat flour; gluten-free brands exist, check the label'),
   ('white fish', 'fish', 'inherent', 'fish'),
   ('mushroom soy sauce', 'gluten', 'typical', 'soy sauce is brewed from soybeans and wheat'),
   ('mushroom soy sauce', 'wheat', 'typical', 'soy sauce is brewed from soybeans and wheat'),
