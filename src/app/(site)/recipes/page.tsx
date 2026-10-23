@@ -51,7 +51,9 @@ function countLabel(total: number | null, lowerBound: boolean, hasQuery: boolean
 
 function EmptyState({ filters, defaults }: { filters: RecipeFilters; defaults: DefaultsState }) {
   const filtered = hasActiveFilters(filters);
-  const byDefaults = !!defaults.applied;
+  const byDiet = !!defaults.applied?.diet.length;
+  const byAllergens = !!defaults.applied?.exclude.length;
+  const byDefaults = byDiet || byAllergens;
   return (
     <div className="mx-auto max-w-md rounded-xl border border-line bg-surface px-6 py-10 text-center">
       <h2 className="text-xl [overflow-wrap:anywhere]">
@@ -59,19 +61,21 @@ function EmptyState({ filters, defaults }: { filters: RecipeFilters; defaults: D
       </h2>
       <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-muted">
         {byDefaults
-          ? "No recipes match these filters and your defaults. Turn off your defaults to see more."
+          ? `No recipes match these filters and your defaults.${byDiet ? " Turn off your diet to see more." : ""}${
+              byAllergens ? " Your saved allergens stay hidden; the note above the list has the way to look past them for one search." : ""
+            }`
           : filters.q
             ? "Check the spelling, or try one word, like “chickpea” or “soup”."
             : "Loosen a filter and the list grows back."}
       </p>
       <div className="mt-5 flex flex-wrap justify-center gap-3">
-        {byDefaults && (
+        {byDiet && (
           <Link
             href={`/recipes${filtersToQuery(withFilters(filters, { defaults: "off" }))}`}
             scroll={false}
             className={buttonVariants({ variant: "primary", size: "md" })}
           >
-            Turn off my defaults
+            Turn off my diet
           </Link>
         )}
         {filtered && (

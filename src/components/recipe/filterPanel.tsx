@@ -1,3 +1,4 @@
+import { Lock } from "lucide-react";
 import Link from "next/link";
 import { Chip } from "@/components/ui/chip";
 import { FilterSlider } from "@/components/recipe/filterSlider";
@@ -6,6 +7,7 @@ import { MyCookware } from "@/components/recipe/myCookware";
 import {
   filtersToQuery,
   hasActiveFilters,
+  isAllergenLocked,
   toggleInclude,
   toggleFoodChip,
   toggleInList,
@@ -211,7 +213,7 @@ export function FilterControls({
   const f = filters;
   const ds = defaults ?? withDefaults(f, null);
   const href = (next: RecipeFilters) => hrefTo(next, base);
-  const fromDefaults = (key: "diet" | "exclude", slug: string) =>
+  const fromDefaults = (key: "diet", slug: string) =>
     !!ds.applied?.[key]?.includes(slug) && !f[key]?.includes(slug);
   return (
     <div>
@@ -260,17 +262,31 @@ export function FilterControls({
         ))}
       </Group>
 
-      <Group label="Free of">
-        {options.allergens.map((a) => (
-          <Option
-            key={a.slug}
-            selected={!!ds.effective.exclude?.includes(a.slug)}
-            to={href(toggleFoodChip(f, ds, "exclude", a.slug))}
-          >
-            {a.name.toLowerCase()}
-            {fromDefaults("exclude", a.slug) && <span className="sr-only"> (from your defaults)</span>}
-          </Option>
-        ))}
+      <Group
+        label="Free of"
+        hint={
+          options.allergens.some((a) => isAllergenLocked(ds, a.slug))
+            ? "Your saved allergens stay hidden on every search, so they are fixed here. To look past them, use “Show recipes with my allergens” at the top of the list."
+            : undefined
+        }
+      >
+        {options.allergens.map((a) =>
+          isAllergenLocked(ds, a.slug) ? (
+            <Chip key={a.slug} isStatic selected className="gap-1.5">
+              <Lock aria-hidden className="size-3" />
+              {a.name.toLowerCase()}
+              <span className="sr-only"> (hidden because it is one of your saved allergens)</span>
+            </Chip>
+          ) : (
+            <Option
+              key={a.slug}
+              selected={!!ds.effective.exclude?.includes(a.slug)}
+              to={href(toggleFoodChip(f, ds, "exclude", a.slug))}
+            >
+              {a.name.toLowerCase()}
+            </Option>
+          ),
+        )}
       </Group>
 
       <IngredientFilter filters={f} options={options} base={base} />

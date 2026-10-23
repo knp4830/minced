@@ -12,6 +12,7 @@ import { FieldHint, Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { FoodCombobox } from "@/components/food/foodCombobox";
+import { NutritionPreview } from "@/components/recipe/nutritionPreview";
 import { checkIngredientName, deleteRecipe, ingredientsWithoutNutrition, saveRecipe, withdrawRecipe } from "@/lib/actions/myRecipes";
 import type { FoodHit } from "@/lib/foodHit";
 import { foodTitle } from "@/lib/foodTitle";
@@ -800,19 +801,7 @@ export function RecipeForm({
         </Section>
 
         <Section n="07" title="Nutrition">
-          <div className="rounded-xl border border-line bg-band px-4 py-4">
-            <dl className="grid grid-cols-2 gap-3 font-mono sm:grid-cols-4">
-              {["Calories", "Protein", "Carbs", "Fat"].map((label) => (
-                <div key={label}>
-                  <dt className="label-mono">{label}</dt>
-                  <dd className="mt-1 text-lg text-ink-subtle">&mdash;</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-3 text-[0.8125rem] leading-relaxed text-ink-muted">
-              Estimate pending. Nutrition is calculated from your ingredients after review, never typed in.
-            </p>
-          </div>
+          <NutritionPreview rows={ings} servings={v.servings} />
         </Section>
 
         <Section n="08" title="Before you submit">
