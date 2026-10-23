@@ -301,7 +301,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
         ) : isOgl ? (
           <p>
             {recipe.sourceLicense}{" "}
-            {recipe.sourceUrl ? (
+            {recipe.sourceUrl?.startsWith("https://") ? (
               <>
                 Adapted from the{" "}
                 <a
