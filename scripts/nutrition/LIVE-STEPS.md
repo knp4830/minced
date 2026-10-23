@@ -53,3 +53,14 @@ Wave 10d (final audit defects; NO new seed file, NO new migration, order unchang
 UI/site fixer (round 1): `src/app/(site)/pantry/loading.tsx` was deleted. With it, the first same-route navigation on /pantry after a hard load (filter chip, "Only what I can make now", "Show all N") did not commit for about 12 s (until NavProgress's give-up re-rendered the page); the identical page without the file committed in about 100 ms on a production build. Nothing to run on live for this. `supabase/tests/user_settings_test.sql` now uses the split allergen slugs (71 checks, 0 failures on the snapshot).
 
 Final audit round (2026-10-19, HEAD b8bb115 plus the close-out commit): counts above re-verified by three independent rebuilds (1,983 ingredients, 10,092 foods, 3,514 links, 1,738 ingredients with a food). Vegetarian recipes are 630 of 957 (vegan 238, pescatarian-or-better 687) when counted as "this diet or stricter". Known open items are in `docs/review/2026-10-18-wave10c-questions.md`; none blocks applying the migrations or seeds.
+
+## Wave 12 (cuisines lane; no migration, three new idempotent seeds, run AFTER every step above)
+
+Order: `seed-allergen-tags.sql` (wave 10c, above) must already have run, because `seed-ingredients-w12.sql` carries its own allergen tags and `seed-originals-w12.sql` computes allergens, diets and nutrition from them.
+
+1. `supabase/seed-ingredients-w12.sql` (1 new canonical ingredient, `chunjang`, with its USDA FoodData Central food 2010198, allergens, density and aliases; idempotent).
+2. `supabase/seed-originals-w12.sql` (155 "Minced original" recipes, status `in_review`, 12 new cuisines; new slugs only, strict gates; allergens, diets and nutrition computed in the same transaction). Nothing here is public until approved in `/admin/review`. Expect `in_payload 155, inserted 155` on a first run and `inserted 0` on a re-run.
+3. `supabase/seed-cuisine-backfill-w12.sql` (4 USDA MyPlate recipes get a cuisine; the review sheet is `docs/content/CUISINE-BACKFILL-w12.csv`; guarded by `cuisine_id is null`).
+4. Verify by counting: `select count(*) from recipes where source_name='Minced original' and status='in_review'` = 155 (plus any already approved); `select nutrition_status, count(*) ...` on those = complete 127 / partial 28 (partial ones are named gaps, listed in the recipe's `nutrition_gaps`); `select count(*) from recipes where cuisine_id is null and status='published'` = 725.
+5. Regenerate with `python -I scripts/originals/build_ingredients.py && python -I scripts/originals/build.py`; both rewrite the seed files and `docs/content/RECIPE-REVIEW-w12.md` (the review sheet with two verification URLs per dish). Reload into a snapshot container with `bash scripts/originals/reload.sh <container>`.
+6. Photos for the new recipes: see `scripts/originals/README.md` (manifest prepared, nothing uploaded; Storage is live).
