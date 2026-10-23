@@ -181,7 +181,12 @@ function RecipeTab({ date, meal, pending, startTransition, setMessage, onDone }:
         <p className="mt-1 font-mono text-xs text-ink-muted">
           {picked.calories === null ? "Nutrition incomplete, cannot be logged" : `${nf.format(picked.calories)} kcal per serving`} &middot; makes {picked.servings}
         </p>
-        <div className="mt-5 flex items-center gap-3">
+        {picked.calories === null && (
+          <p role="status" className="mt-4 rounded-md bg-band px-3 py-2 text-[0.875rem] leading-relaxed text-ink-muted">
+            Some of this recipe&rsquo;s ingredients have no nutrition data yet, so we cannot add it up honestly. You can still log it: open the Quick add tab and type your own estimate.
+          </p>
+        )}
+        <div className={cn("mt-5 flex items-center gap-3", picked.calories === null && "hidden")}>
           <Label className="mb-0" htmlFor={`${qId}-servings`}>
             Servings eaten
           </Label>

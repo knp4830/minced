@@ -32,6 +32,9 @@ export function MeDialog({
   useEffect(() => {
     const el = ref.current;
     if (el && !el.open) el.showModal();
+    // React's `autoFocus` runs while this dialog is still closed, so it never takes. Once the dialog is open, put
+    // the cursor in its search / name field (otherwise it lands on the close button and typing goes nowhere).
+    el?.querySelector<HTMLElement>('input[type="search"], input[role="combobox"]')?.focus();
   }, []);
 
   return (

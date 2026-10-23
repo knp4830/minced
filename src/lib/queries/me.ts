@@ -11,6 +11,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { photoPublicUrl, usableImageUrl } from "@/lib/photos";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
+import type { TablesInsert } from "@/types/database";
 import type { Dri } from "@/lib/me/dailyValues";
 import { addDays, localDateOf, weekRange, type WeekStart } from "@/lib/me/dates";
 import { getMySettings, writeSettings } from "@/lib/queries/settings";
@@ -35,11 +36,9 @@ const numOrNull = (v: unknown): number | null => (v === null || v === undefined 
 // ---------- targets ----------
 
 type TargetRow = {
-  sex: "female" | "male";
   age_years: number;
   height_cm: number | string;
   weight_kg: number | string;
-  units: "metric" | "imperial";
   activity: number;
   goal: "lose" | "maintain" | "gain";
   pace_kg: number | string;
@@ -56,15 +55,17 @@ export async function getTargets(zone?: string | null): Promise<MeTargets | null
   const db = await createClient();
   const { data } = await db
     .from("me_targets")
-    .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, goal_weight_kg, updated_at")
+    .select("age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, goal_weight_kg, updated_at")
     .maybeSingle();
   const r = data as TargetRow | null;
   if (!r) return null;
-  // Settings owns sex and units now (Settings > Body / Units). me_targets keeps a mirrored copy only for
-  // old readers and goes away in a follow-up migration; where the two ever differ, Settings is right.
+  // Sex and units live only in Settings (Settings > Body / Units); me_targets no longer holds them. Targets
+  // cannot be explained, or recomputed, without a sex, so if the person later cleared it in Settings the targets
+  // read as "not set" until they pick one again (the wizard asks for it).
   const s = await getMySettings();
+  if (s.sex === null) return null;
   return {
-    sex: s.sex ?? r.sex,
+    sex: s.sex,
     age: r.age_years,
     heightCm: num(r.height_cm),
     weightKg: num(r.weight_kg),
@@ -79,6 +80,13 @@ export async function getTargets(zone?: string | null): Promise<MeTargets | null
     goalWeightKg: numOrNull(r.goal_weight_kg),
     updatedOn: localDateOf(r.updated_at, zone),
   };
+}
+
+/** True when a targets row exists. Used only to explain why saved targets are hidden (see getTargets). */
+export async function hasTargetsRow(): Promise<boolean> {
+  const db = await createClient();
+  const { count } = await db.from("me_targets").select("user_id", { count: "exact", head: true });
+  return (count ?? 0) > 0;
 }
 
 // ---------- one day ----------
@@ -396,23 +404,27 @@ async function signedIn(): Promise<{ db: Db; uid: string } | null> {
   return { db: supabase, uid: user.id };
 }
 
-export async function writeTargets(t: Omit<MeTargets, "updatedOn">, birthYear?: number): Promise<WriteResult> {
+/** What me_targets stores. Sex and units are not here: Settings is their single source. */
+export type TargetsToSave = Omit<MeTargets, "updatedOn" | "sex" | "units">;
+
+export async function writeTargets(t: TargetsToSave, settingsFill: { sex?: "female" | "male"; birthYear?: number }): Promise<WriteResult> {
   const s = await signedIn();
   if (!s) return SIGN_IN;
   const db = s.db;
-  // Sex, units and birth year belong to Settings. The wizard only asks for sex and birth year when Settings has
-  // none, and either way what it sends is what Settings holds, so this write is a no-op for a person who already
-  // set them. A birth year is written only when the wizard was the one to ask for it.
-  const settings = await writeSettings({ sex: t.sex, units: t.units, ...(birthYear !== undefined ? { birth_year: birthYear } : {}) });
-  if (!settings.ok) return settings.reason === "signed-out" ? SIGN_IN : FAILED;
-  const { error } = await db.from("me_targets").upsert(
-    {
+  // Sex and birth year belong to Settings. The wizard asks for them only while Settings holds none, and they are
+  // saved there once, before the targets. Units are never written from here.
+  const fill: { sex?: "female" | "male"; birth_year?: number } = {};
+  if (settingsFill.sex) fill.sex = settingsFill.sex;
+  if (settingsFill.birthYear !== undefined) fill.birth_year = settingsFill.birthYear;
+  if (Object.keys(fill).length > 0) {
+    const settings = await writeSettings(fill);
+    if (!settings.ok) return settings.reason === "signed-out" ? SIGN_IN : FAILED;
+  }
+  const row = {
       user_id: s.uid,
-      sex: t.sex,
       age_years: t.age,
       height_cm: t.heightCm,
       weight_kg: t.weightKg,
-      units: t.units,
       activity: t.activity,
       goal: t.goal,
       pace_kg: t.paceKg,
@@ -421,9 +433,10 @@ export async function writeTargets(t: Omit<MeTargets, "updatedOn">, birthYear?: 
       carbs_g: t.carbsG,
       fat_g: t.fatG,
       goal_weight_kg: t.goalWeightKg,
-    },
-    { onConflict: "user_id" },
-  );
+  };
+  // The generated types still list sex / units as required until `pnpm db:types` runs after the migration
+  // that drops them (20261023110000); the cast goes harmlessly stale after that.
+  const { error } = await db.from("me_targets").upsert(row as unknown as TablesInsert<"me_targets">, { onConflict: "user_id" });
   if (error) return FAILED;
   // New targets answer every "update your targets?" card, so any "not now" is cleared. Best effort: a
   // failure here only means a card may come back sooner.
@@ -592,7 +605,7 @@ export async function getMyHealthExport() {
   const [targets, food, workouts, sleep, weights] = await Promise.all([
     wdb
       .from("me_targets")
-      .select("sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, goal_weight_kg, updated_at")
+      .select("age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g, goal_weight_kg, updated_at")
       .maybeSingle(),
     db
       .from("me_food_log")

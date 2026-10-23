@@ -69,6 +69,9 @@ export default function HowGoalDaysPage() {
             <strong className="font-medium">Ring:</strong> partly. You logged food but missed one or both. Open the day and it says which, with the numbers.
           </li>
           <li>
+            <strong className="font-medium">Faint ring:</strong> today, still going. Food is added up as you log it, but a day is only marked once it is over, so a light breakfast does not count against you.
+          </li>
+          <li>
             <strong className="font-medium">No targets yet:</strong> a day with food is just marked as logged, because there is no goal to measure against.
           </li>
         </ul>
