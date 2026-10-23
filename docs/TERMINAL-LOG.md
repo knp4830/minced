@@ -493,6 +493,8 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-23 | `curl` against minced.kevinpham.page and the old hosts | Check redirects and canonicals | 429 from Vercel's bot checkpoint on every host; use the browser for redirects and `curl -w '%{ssl_verify_result}'` for the certificate |
 | 2026-10-23 | `pnpm exec next build` with `.env.local` copied in | Full production build of the integrated tree | Passes, but prerender and sitemap read live Supabase through the public anon key (read-only). Point `NEXT_PUBLIC_SUPABASE_URL` at a throwaway or mock before building if live reads are not allowed |
 | 2026-10-23 | `git push -u origin w15/integration` then `gh pr create --base main --head w15/integration --body-file <file>` | Open the wave 15 PR | Body starts with a MERGE ORDER WARNING; `Closes #30` only |
+| 2026-10-23 | `bash scripts/backup/backup-live.sh --live pre-wave15` | First full live backup with the new script: database, auth user list, Storage manifest and all 1,870 photo files (135 MB) | FAILED twice first: the script exports `MSYS_NO_PATHCONV=1` for docker, so Windows Python got "/c/..." paths; setting it empty does not help (Git Bash checks presence). Fixed with `cygpath -w`. Photo download takes over 10 minutes |
+| 2026-10-23 | psql `--single-transaction -f` per migration plus a `schema_migrations` insert, for 20261023200000, 210000, 220000 | Wave 15 live migrations (62 -> 65) | 200000 has its own begin/commit, so psql warns "already a transaction in progress": harmless, verified by counting |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

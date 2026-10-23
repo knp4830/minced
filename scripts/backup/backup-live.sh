@@ -68,7 +68,9 @@ $PG sh -c "psql \"\$PGURL\" -v ON_ERROR_STOP=1 -c \"\copy (select $COLS from aut
 echo "3/4 storage manifest and files"
 if [ "$MODE" = live ]; then
   PY=python; command -v python >/dev/null 2>&1 || PY=python3
-  "$PY" "$ROOT/scripts/backup/storage_backup.py" --out "$OUT"
+  # Windows Python needs Windows paths: MSYS_NO_PATHCONV (set above for docker) stops Git Bash converting "/c/...".
+  winpath() { if command -v cygpath >/dev/null 2>&1; then cygpath -w "$1"; else printf '%s' "$1"; fi; }
+  "$PY" "$(winpath "$ROOT/scripts/backup/storage_backup.py")" --out "$(winpath "$OUT")"
 else
   echo "    skipped in a dry run (no network to live). A live run lists and downloads the recipe-photos bucket."
 fi
