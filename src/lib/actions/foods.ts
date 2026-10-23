@@ -1,5 +1,6 @@
 "use server";
 
+import { allow, clientIp } from "@/lib/rateLimit";
 import { checkFoodInput, type FoodInput } from "@/lib/foodInput";
 import { ME_ENABLED } from "@/lib/me/flag";
 import { stripControlChars } from "@/lib/filters";
@@ -20,6 +21,7 @@ export async function suggestFoods(q: unknown): Promise<SuggestResult> {
   if (typeof q !== "string") return { ok: false };
   const clean = stripControlChars(q).replace(/\s+/g, " ").trim().slice(0, 60);
   if (clean.length < 2) return { ok: true, hits: [] };
+  if (!(await allow("suggest", await clientIp()))) return { ok: false };
   try {
     return { ok: true, hits: await searchFoods(clean, 10) };
   } catch {

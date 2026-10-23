@@ -250,5 +250,22 @@ Live site: https://minced-app.vercel.app
 - [ ] Counts on live: published complete 625 / partial 329 / unavailable 3; 1,138 recipes; 1,548 of 1,984 ingredients have a food; 12,060 foods.
 - [ ] Phone 375: `/`, `/recipes?maxTime=30`, `/me`, `/me/how-goal-days`, `/pantry` have no horizontal scroll.
 
+### Wave 15 (launch readiness; check after the three migrations are applied and the PR is merged)
+
+- [ ] Type a nonsense address (`/nope`): a real 404 inside the site header and footer, "That page isn't here", a search box, Browse and Home buttons. Same at 375 px with no sideways scroll.
+- [ ] Share previews: view-source on a recipe WITH a photo shows that photo as `og:image` and `twitter:image`; a recipe without one shows `https://minced.kevinpham.page/og`; `/og` is a 1200 x 630 PNG.
+- [ ] Google Rich Results Test on two photo recipes passes `Recipe` (owner step); then submit `/sitemap.xml` in Search Console.
+- [ ] `/robots.txt` disallows `/admin`, `/lab`, `/recipes/new$`, `/recipes/*/edit`; the sitemap has about 963 URLs and no in-review slug.
+- [ ] Turn the wifi off while on `/recipes?q=pasta` and reload, or use a bad URL for a route that fetches: the friendly "That didn't load" page appears with Try again, never a stack trace.
+- [ ] Throttle the network (DevTools, Slow 4G) and open `/recipes`, `/fridge`, `/shopping`, `/account`: a skeleton shows, then the page, without a jump.
+- [ ] `/me` (Preview): click through several days and the month arrows, then `/account` tabs. If navigation feels stuck after a hard reload, delete `src/app/(site)/me/loading.tsx` and `src/app/(site)/account/loading.tsx` (see LESSONS section 15).
+- [ ] Rate limits (after the migration is applied): 12 wrong passwords in a row does NOT lock you out (the per-address limit is 30 in 5 minutes); 11 sign-up attempts in 10 minutes from one address shows "Too many tries just now. Please wait a minute and try again." A real login still works afterwards.
+- [ ] Draft autosave (needs both flags, local or Preview): start a recipe, type a title: "Saved" appears and a draft exists in your account. Type an ingredient the app does not know: "Saved. 1 ingredient line is not saved yet." Close the tab right after typing a description, reopen the recipe: "We kept some changes from this device" offers them back.
+- [ ] Autosave never publishes: after typing in a draft it is still a draft in My recipes; an in-review recipe shows the explicit Save only.
+- [ ] `/accessibility` opens from the footer; a recipe page shows "Not medical advice" under the label and a "Report a problem" link.
+- [ ] Old hosts: `minced-app.vercel.app/recipes?q=pasta` and `mise-two-xi.vercel.app/about` land on `minced.kevinpham.page` with the path and query kept.
+- [ ] Phone 375: `/`, `/recipes`, `/recipes/new`, `/accessibility` and a 404 have no horizontal scroll.
+- [ ] Phase 6 owner items: real Lighthouse numbers in `docs/review/2026-10-23-lighthouse-w15.md`; a real-phone pass; three people using it while you watch.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

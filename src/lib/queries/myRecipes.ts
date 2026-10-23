@@ -72,7 +72,30 @@ export async function saveMyRecipe(recipeId: string | null, data: object, submit
   return { ok: true, id: row.id, slug: row.slug, status: row.status };
 }
 
-export type SlugResult = { ok: true; slug: string } | Extract<SaveResult, { ok: false }>;
+export type AutosaveFailure = "signed_out" | "gone" | "not_draft" | "invalid" | "transient";
+export type AutosaveSaved = { ok: true; id: string; slug: string; skipped: number };
+
+/**
+ * Draft autosave (autosave_my_recipe): only ever writes a draft, never submits, and leaves out ingredient
+ * lines that are not valid yet instead of failing. `transient` is the one worth retrying.
+ */
+export async function autosaveMyRecipe(
+  recipeId: string | null,
+  data: object,
+): Promise<AutosaveSaved | { ok: false; reason: AutosaveFailure; message?: string }> {
+  const res = await rpc("autosave_my_recipe", { p_recipe_id: recipeId, p_data: data });
+  if (res.error) {
+    const e = res.error;
+    if (e.code === "42501") return { ok: false, reason: "signed_out" };
+    if (e.code === "P0002") return { ok: false, reason: "gone" };
+    if (e.code === "22023") return { ok: false, reason: e.hint === "not_draft" ? "not_draft" : "invalid", message: e.message };
+    return { ok: false, reason: "transient" };
+  }
+  const row = res.data as { id: string; slug: string; skipped?: number };
+  return { ok: true, id: row.id, slug: row.slug, skipped: Number(row.skipped ?? 0) };
+}
+
+export type SlugResult ={ ok: true; slug: string } | Extract<SaveResult, { ok: false }>;
 
 export async function deleteMyRecipe(recipeId: string): Promise<SlugResult> {
   const res = await rpc("delete_my_recipe", { p_recipe_id: recipeId });
