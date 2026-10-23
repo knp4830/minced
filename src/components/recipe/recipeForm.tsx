@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
 import { Input } from "@/components/ui/input";
 import { FieldHint, Label } from "@/components/ui/label";
@@ -13,19 +13,36 @@ import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { FoodCombobox } from "@/components/food/foodCombobox";
 import { NutritionPreview } from "@/components/recipe/nutritionPreview";
-import { checkIngredientName, deleteRecipe, ingredientsWithoutNutrition, saveRecipe, withdrawRecipe } from "@/lib/actions/myRecipes";
+import {
+  autosaveRecipe,
+  checkIngredientName,
+  deleteRecipe,
+  ingredientsWithoutNutrition,
+  saveRecipe,
+  withdrawRecipe,
+  type AutosaveResult,
+} from "@/lib/actions/myRecipes";
 import type { FoodHit } from "@/lib/foodHit";
 import { foodTitle } from "@/lib/foodTitle";
 import {
+  AUTOSAVE,
   EMPTY_INGREDIENT,
   LIMITS,
   SPICE_LABELS,
+  autosaveReadiness,
+  autosaveText,
+  backupKey,
+  parseBackup,
+  valuesSignature,
+  type AutosaveState,
   type FormOptions,
   type IngredientRow,
+  type LocalBackup,
   type RecipeFormValues,
   type RecipeStatus,
 } from "@/lib/recipeForm";
 import { cn } from "@/lib/utils";
+import { SLUG_RE } from "@/lib/validate";
 
 /*
  * Create / edit a recipe (M5.1-M5.3).
@@ -62,6 +79,19 @@ type RecipeMeta = {
   returned: boolean;
   reviewNote: string | null;
 };
+
+/** Set in this tab when autosave opens a draft from /recipes/new, so a reload can offer to continue it. */
+const RESUME_KEY = "minced:new-draft";
+
+/** "just now", "5 minutes ago", "2 hours ago", "yesterday" - for the restore banner. */
+function agoText(at: number): string {
+  const min = Math.max(0, Math.round((Date.now() - at) / 60000));
+  if (min < 1) return "just now";
+  if (min < 60) return `${min} ${min === 1 ? "minute" : "minutes"} ago`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `${h} ${h === 1 ? "hour" : "hours"} ago`;
+  return `${Math.round(h / 24)} days ago`;
+}
 
 function fieldId(field: string | undefined): string | null {
   if (!field) return null;
@@ -190,9 +220,34 @@ export function RecipeForm({
     ingredients: ings.map(rowCore),
     steps: steps.map((s) => s.text),
   });
-  const snapshot = JSON.stringify(current());
-  const savedRef = useRef(JSON.stringify({ ...initial, ingredients: initial.ingredients.map(rowCore) }));
-  const dirty = snapshot !== savedRef.current;
+  const sig = valuesSignature(current());
+
+  // Draft autosave (M5.2) -------------------------------------------------------
+  // `savedSigRef` is the last state the database is known to hold. A recipe made by the first autosave gets
+  // its id before the page's props know it, so the id lives in a ref too (timers and queued saves read the
+  // ref, never a stale render).
+  const savedSigRef = useRef(valuesSignature(initial));
+  const dirty = sig !== savedSigRef.current;
+  const [rid, setRid] = useState<string | null>(recipe?.id ?? null);
+  const ridRef = useRef<string | null>(recipe?.id ?? null);
+  const status: RecipeStatus | "new" = recipe?.status ?? (rid ? "draft" : "new");
+  // Only a draft (or a recipe that does not exist yet) saves by itself. A published or in-review recipe keeps
+  // its explicit Save, because saving it changes what is public or queued.
+  const canAutosave = recipe === null || recipe.status === "draft";
+  const [auto, setAuto] = useState<AutosaveState>({ kind: "idle" });
+  const [skipped, setSkipped] = useState(0);
+  const [liveText, setLiveText] = useState("");
+  const [restorable, setRestorable] = useState<LocalBackup | null>(null);
+  const [resume, setResume] = useState<{ slug: string; title: string } | null>(null);
+  const latest = useRef({ values: current(), sig });
+  const queueRef = useRef<Promise<unknown>>(Promise.resolve());
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const maxTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const backupTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const failsRef = useRef(0);
+  const stoppedRef = useRef(false);
+  const skippedRef = useRef(0);
+  const autosaveRef = useRef<() => void>(() => {});
 
   // A reopened recipe: ask once which of its saved ingredients have no nutrition data, so the same hint a fresh
   // pick shows is there too. Rows with a chosen brand are skipped (they were picked for their data).
@@ -212,15 +267,231 @@ export function RecipeForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Warn before closing a tab with unsaved work.
+  // Warn before closing a tab with work the database does not have yet (including half-typed lines autosave left out).
+  const unsaved = dirty || skipped > 0;
   useEffect(() => {
-    if (!dirty) return;
+    if (!unsaved) return;
     const warn = (e: BeforeUnloadEvent) => {
       e.preventDefault();
     };
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
-  }, [dirty]);
+  }, [unsaved]);
+
+  useEffect(() => {
+    latest.current = { values: current(), sig };
+    // runs after every render so timers and queued saves always read the newest form
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+
+  function clearTimers() {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (maxTimerRef.current) clearTimeout(maxTimerRef.current);
+    timerRef.current = null;
+    maxTimerRef.current = null;
+  }
+
+  /** Quiet period after the last keystroke, but never longer than maxWaitMs for someone typing steadily. */
+  function schedule(ms: number) {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => autosaveRef.current(), ms);
+    if (!maxTimerRef.current) maxTimerRef.current = setTimeout(() => autosaveRef.current(), AUTOSAVE.maxWaitMs);
+  }
+
+  /** One save at a time, so a manual save and an autosave can never both create the same new recipe. */
+  function enqueue<T>(fn: () => Promise<T>): Promise<T> {
+    const next = queueRef.current.then(fn, fn);
+    queueRef.current = next.catch(() => undefined);
+    return next;
+  }
+
+  /**
+   * A copy of the whole form in this browser, kept while the database does not have everything: a save is
+   * pending, failed, or left out half-typed lines. A safety net only (storage can be blocked or cleared).
+   */
+  function syncBackup() {
+    try {
+      const key = backupKey(ridRef.current);
+      const { values, sig: now } = latest.current;
+      if (now !== savedSigRef.current || skippedRef.current > 0) {
+        window.localStorage.setItem(key, JSON.stringify({ at: Date.now(), values }));
+      } else {
+        window.localStorage.removeItem(key);
+      }
+    } catch {
+      /* storage blocked or full: autosave still works */
+    }
+  }
+
+  function retryLater() {
+    const wait = AUTOSAVE.retryMs[Math.min(failsRef.current, AUTOSAVE.retryMs.length - 1)];
+    failsRef.current += 1;
+    setAuto({ kind: "retrying" });
+    if (failsRef.current === 1) setLiveText(autosaveText({ kind: "retrying" }));
+    syncBackup();
+    schedule(wait);
+  }
+
+  async function autosaveNow() {
+    clearTimers();
+    if (!canAutosave || stoppedRef.current) return;
+    if (latest.current.sig === savedSigRef.current) return; // nothing changed since the last save
+    await enqueue(async () => {
+      const { values, sig: sent } = latest.current; // read late: an earlier save in the queue may have just finished
+      if (stoppedRef.current || sent === savedSigRef.current) return;
+      const ready = autosaveReadiness(values);
+      if (!ready.ready) {
+        setAuto({ kind: "waiting", waitingFor: ready.waitingFor });
+        return;
+      }
+      setNotice(null);
+      setAuto({ kind: "saving" });
+      let res: AutosaveResult | null = null;
+      try {
+        res = await autosaveRecipe(ridRef.current, values);
+      } catch {
+        res = null; // the request itself failed (offline, server restarting): try again
+      }
+      if (res === null || (!res.ok && res.reason === "transient")) return retryLater();
+      if (res.ok) {
+        failsRef.current = 0;
+        const wasNew = ridRef.current === null;
+        ridRef.current = res.id;
+        setRid(res.id);
+        if (wasNew) {
+          try {
+            window.localStorage.removeItem(backupKey(null));
+          } catch {
+            /* ignore */
+          }
+        }
+        // The address stays /recipes/new on purpose: moving it to the edit page would make the router render a
+        // different route and rebuild this form mid-sentence. A reload in this tab offers the draft back instead.
+        if (recipe === null) {
+          try {
+            window.sessionStorage.setItem(RESUME_KEY, JSON.stringify({ slug: res.slug, title: values.title.trim() }));
+          } catch {
+            /* ignore */
+          }
+        }
+        savedSigRef.current = sent;
+        skippedRef.current = res.skipped;
+        setSkipped(res.skipped);
+        setAuto({ kind: "saved", skipped: res.skipped });
+        setLiveText(res.skipped > 0 ? autosaveText({ kind: "saved", skipped: res.skipped }) : "Draft saved");
+        syncBackup();
+        // More was typed while this save was on its way: go again soon, nothing is dropped.
+        if (latest.current.sig !== sent) schedule(400);
+        return;
+      }
+      if (res.reason === "waiting") {
+        setAuto({ kind: "waiting", waitingFor: res.message === "servings" ? "servings" : "title" });
+        return;
+      }
+      // The database said no in words meant for a person, or the recipe changed under us. "invalid" is tried
+      // again at the next edit; signed-out, deleted, off or no-longer-a-draft stop the autosave for good.
+      if (res.reason !== "invalid") stoppedRef.current = true;
+      setAuto({ kind: "stopped", message: res.message });
+      setLiveText(res.message);
+      syncBackup();
+    });
+  }
+  useEffect(() => {
+    autosaveRef.current = () => void autosaveNow();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+
+  // Each change: save soon, and keep the device copy fresh.
+  useEffect(() => {
+    if (backupTimerRef.current) clearTimeout(backupTimerRef.current);
+    backupTimerRef.current = setTimeout(syncBackup, 400);
+    if (!canAutosave || stoppedRef.current) return;
+    if (sig === savedSigRef.current) return;
+    schedule(AUTOSAVE.quietMs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sig]);
+
+  // Leaving (another tab, a closed window, or a link inside the app): save what is pending right now.
+  useEffect(() => {
+    const flush = () => {
+      syncBackup();
+      autosaveRef.current();
+    };
+    const onHide = () => {
+      if (document.visibilityState === "hidden") flush();
+    };
+    const onOnline = () => {
+      if (latest.current.sig !== savedSigRef.current) autosaveRef.current();
+    };
+    document.addEventListener("visibilitychange", onHide);
+    window.addEventListener("pagehide", flush);
+    window.addEventListener("online", onOnline);
+    return () => {
+      document.removeEventListener("visibilitychange", onHide);
+      window.removeEventListener("pagehide", flush);
+      window.removeEventListener("online", onOnline);
+      clearTimers();
+      if (backupTimerRef.current) clearTimeout(backupTimerRef.current);
+      flush();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // A copy left on this device that the database does not have (a closed tab, a failed save): offer it back.
+  useEffect(() => {
+    try {
+      const b = parseBackup(window.localStorage.getItem(backupKey(recipe?.id ?? null)));
+      if (b && valuesSignature(b.values) !== valuesSignature(initial)) setRestorable(b);
+    } catch {
+      /* storage blocked */
+    }
+    // once per mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // /recipes/new reloaded after autosave made a draft in this tab: offer to continue it rather than start blank.
+  useEffect(() => {
+    if (recipe !== null) return;
+    try {
+      const raw = window.sessionStorage.getItem(RESUME_KEY);
+      const o = raw ? (JSON.parse(raw) as { slug?: unknown; title?: unknown }) : null;
+      if (o && typeof o.slug === "string" && SLUG_RE.test(o.slug)) {
+        setResume({ slug: o.slug, title: typeof o.title === "string" ? o.title : "" });
+      }
+    } catch {
+      /* storage blocked */
+    }
+    // once per mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  function startFresh() {
+    try {
+      window.sessionStorage.removeItem(RESUME_KEY);
+    } catch {
+      /* ignore */
+    }
+    setResume(null);
+    setFocusId("f-title");
+  }
+
+  function restoreBackup() {
+    if (!restorable) return;
+    const b = restorable.values;
+    setV({ ...b });
+    setIngs(b.ingredients.map((i) => ({ ...i, key: nextKey() })));
+    setSteps(b.steps.map((text) => ({ text, key: nextKey() })));
+    setRestorable(null);
+    setFocusId("f-title");
+  }
+  function discardBackup() {
+    try {
+      window.localStorage.removeItem(backupKey(recipe?.id ?? null));
+    } catch {
+      /* ignore */
+    }
+    setRestorable(null);
+    setFocusId("f-title");
+  }
 
   // Focus management: after adding a row, and when an error names a field.
   useEffect(() => {
@@ -324,27 +595,46 @@ export function RecipeForm({
     });
 
   // Save / submit / withdraw / delete -------------------------------------------
-  const status: RecipeStatus | "new" = recipe?.status ?? "new";
-
   function save(toReview: boolean) {
     setErr(null);
     setNotice(null);
+    clearTimers();
     startTransition(async () => {
       const values = current();
-      const res = await saveRecipe(recipe?.id ?? null, values, toReview);
+      const valuesSig = valuesSignature(values);
+      // Behind any autosave already on its way, so a brand new recipe is created once, not twice.
+      const res = await enqueue(() => saveRecipe(ridRef.current, values, toReview));
       if (!res.ok) {
         setErr({ message: res.message, field: res.field });
         return;
       }
-      savedRef.current = JSON.stringify({ ...values, rights: v.rights });
+      const wasNew = ridRef.current === null;
+      if (res.id) {
+        ridRef.current = res.id;
+        setRid(res.id);
+      }
+      savedSigRef.current = valuesSig;
+      skippedRef.current = 0;
+      setSkipped(0);
+      setAuto({ kind: "idle" });
+      try {
+        window.localStorage.removeItem(backupKey(null));
+        if (res.id) window.localStorage.removeItem(backupKey(res.id));
+        window.sessionStorage.removeItem(RESUME_KEY);
+      } catch {
+        /* ignore */
+      }
       if (res.warning) setNotice(res.warning);
       if (res.status === "in_review" && status !== "in_review" && status !== "published") {
+        stoppedRef.current = true; // submitted: it is no longer a draft, and this page is about to close
         router.push("/account?tab=book&notice=submitted");
-      } else if (status === "new") {
+      } else if (status === "new" && wasNew) {
+        stoppedRef.current = true; // the edit page takes over
         router.replace(`/recipes/${res.slug}/edit?saved=1`);
       } else {
         setNotice(res.status === "in_review" ? "Saved. Your recipe is waiting for review." : "Draft saved.");
-        router.refresh();
+        // A recipe the server rendered re-reads its saved state; a draft that autosave opened here has nothing new to read.
+        if (recipe) router.refresh();
       }
     });
   }
@@ -368,7 +658,14 @@ export function RecipeForm({
         setConfirmDelete(false);
         return setErr({ message: res.message });
       }
-      savedRef.current = snapshot; // nothing left to lose
+      stoppedRef.current = true;
+      savedSigRef.current = sig; // nothing left to lose
+      skippedRef.current = 0;
+      try {
+        window.localStorage.removeItem(backupKey(recipe.id));
+      } catch {
+        /* ignore */
+      }
       router.push("/account?tab=book&notice=deleted");
     });
   }
@@ -396,6 +693,43 @@ export function RecipeForm({
         Ingredients, amounts and numbered steps. No backstory needed. Only you can see it until we have reviewed it.
       </p>
 
+      {resume && !restorable && (
+        <div role="group" aria-labelledby="resume-q" className="mt-5 rounded-lg border border-herb bg-surface px-4 py-3 text-[0.9375rem]">
+          <p id="resume-q" className="font-semibold">
+            {resume.title ? `“${resume.title}” is saved as a draft.` : "Your recipe is saved as a draft."}
+          </p>
+          <p className="mt-1 text-ink-muted">Pick up where you left off, or start a new one.</p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Link
+              href={`/recipes/${resume.slug}/edit`}
+              className={buttonVariants()}
+            >
+              Continue editing
+            </Link>
+            <Button type="button" variant="secondary" onClick={startFresh}>
+              Start a new recipe
+            </Button>
+          </div>
+        </div>
+      )}
+      {restorable && (
+        <div role="group" aria-labelledby="restore-q" className="mt-5 rounded-lg border border-herb bg-surface px-4 py-3 text-[0.9375rem]">
+          <p id="restore-q" className="font-semibold">
+            We kept some changes from this device.
+          </p>
+          <p className="mt-1 text-ink-muted">
+            They were made {agoText(restorable.at)} and had not reached your draft. Bring them back?
+          </p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Button type="button" onClick={restoreBackup}>
+              Bring them back
+            </Button>
+            <Button type="button" variant="secondary" onClick={discardBackup}>
+              No thanks
+            </Button>
+          </div>
+        </div>
+      )}
       {recipe?.returned && (
         <div role="note" className="mt-5 rounded-lg border border-saffron bg-saffron-tint px-4 py-3 text-[0.9375rem] text-saffron-ink">
           <p className="font-semibold">We sent this back with a note.</p>
@@ -882,8 +1216,28 @@ export function RecipeForm({
               {err.message}
             </div>
           )}
-          <p role="status" aria-live="polite" className="mr-auto min-w-0 text-[0.8125rem] text-ink-muted">
-            {pending ? "Saving…" : (notice ?? (dirty ? "Unsaved changes" : ""))}
+          {/* Seen text: every state. Heard text: only the ones worth interrupting for (saved, trouble), never "Saving…". */}
+          <p
+            data-save-status
+            className={cn(
+              "mr-auto min-w-0 text-[0.8125rem]",
+              auto.kind === "retrying" || auto.kind === "stopped" ? "text-saffron-ink" : "text-ink-muted",
+            )}
+          >
+            {pending || auto.kind === "saving"
+              ? "Saving…"
+              : (notice ??
+                (canAutosave
+                  ? // "Saved" would be stale the moment someone types again; say nothing until the next save.
+                    auto.kind === "saved" && dirty
+                    ? ""
+                    : autosaveText(auto)
+                  : dirty
+                    ? "Unsaved changes"
+                    : ""))}
+          </p>
+          <p role="status" aria-live="polite" className="sr-only">
+            {liveText}
           </p>
           {(status === "new" || status === "draft") && (
             <>
