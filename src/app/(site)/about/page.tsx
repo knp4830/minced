@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { getPhotoCredits } from "@/lib/queries/landing";
+import { pageMeta } from "@/lib/seo/meta";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "How recipes are made",
-  alternates: { canonical: "/about" },
-  description:
-    "Where Minced's recipes, photos and nutrition numbers come from, and where they can be wrong.",
-};
+  path: "/about",
+  description: "Where Minced's recipes, photos and nutrition numbers come from, and where they can be wrong.",
+});
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (

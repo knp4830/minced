@@ -13,11 +13,12 @@ import { NutritionPanel } from "@/components/recipe/nutritionPanel";
 import { RecipePlaceholder } from "@/components/recipe/recipePlaceholder";
 import { ServingsScaler } from "@/components/recipe/servingsScaler";
 import { AI_SOURCE_NAME, USER_SOURCE_NAME } from "@/lib/queries/browse";
-import { getRecipeBySlug, type RecipeDetail } from "@/lib/queries/recipeDetail";
+import { getRecipeBySlug } from "@/lib/queries/recipeDetail";
 import { FDC, roundForLabel } from "@/lib/nutrients";
 import { getNutrients, getRecipeNutrients } from "@/lib/queries/recipeNutrients";
 import { needsAttribution } from "@/lib/photos";
-import { SITE_URL } from "@/lib/site";
+import { pageMeta } from "@/lib/seo/meta";
+import { recipeJsonLd } from "@/lib/seo/recipeJsonLd";
 
 /*
  * CACHING: incremental static regeneration, not build-time generation.
@@ -58,59 +59,16 @@ export async function generateMetadata({
 
   const image = recipe.photo?.url ?? recipe.imageUrl ?? undefined;
 
-  return {
+  return pageMeta({
     title: recipe.title,
     description: `${recipe.title}: ${bits.join(", ")}. Ingredients and steps, nothing else.`,
-    alternates: { canonical: `/recipes/${recipe.slug}` },
-    openGraph: {
-      title: recipe.title,
-      type: "article",
-      images: image ? [image] : undefined,
-    },
-    // The root layout says "summary"; a real photo earns the large card.
-    twitter: { card: image ? "summary_large_image" : "summary", title: recipe.title, images: image ? [image] : undefined },
-  };
+    path: `/recipes/${recipe.slug}`,
+    type: "article",
+    // The recipe's own photo when it has one; otherwise the branded card.
+    image,
+  });
 }
 
-
-const isoMinutes = (n: number | null) => (n ? `PT${Math.trunc(n)}M` : undefined);
-
-/** schema.org/Recipe, so search engines can show time, calories and a photo in results. */
-function recipeJsonLd(recipe: RecipeDetail) {
-  const image = recipe.photo?.url ?? recipe.imageUrl;
-  const n = recipe.nutrition;
-  return {
-    "@context": "https://schema.org",
-    "@type": "Recipe",
-    name: recipe.title,
-    url: `${SITE_URL}/recipes/${recipe.slug}`,
-    ...(image ? { image: [image] } : {}),
-    recipeYield: `${recipe.servings} servings`,
-    ...(recipe.cuisine ? { recipeCuisine: recipe.cuisine } : {}),
-    ...(recipe.totalTimeMin ? { totalTime: isoMinutes(recipe.totalTimeMin) } : {}),
-    ...(recipe.prepTimeMin ? { prepTime: isoMinutes(recipe.prepTimeMin) } : {}),
-    ...(recipe.cookTimeMin ? { cookTime: isoMinutes(recipe.cookTimeMin) } : {}),
-    recipeIngredient: recipe.ingredients.map((i) =>
-      [i.quantity != null ? String(Math.round(i.quantity * 100) / 100) : null, i.unit, i.name]
-        .filter(Boolean)
-        .join(" ") + (i.prepNote ? `, ${i.prepNote}` : ""),
-    ),
-    recipeInstructions: recipe.steps.map((text) => ({ "@type": "HowToStep", text })),
-    ...(n.calories != null
-      ? {
-          nutrition: {
-            "@type": "NutritionInformation",
-            calories: `${roundForLabel(n.calories, { unit: "kcal", fdcNumber: FDC.energy })} calories`,
-            ...(n.proteinG != null ? { proteinContent: `${Math.round(n.proteinG)} g` } : {}),
-            ...(n.carbsG != null ? { carbohydrateContent: `${Math.round(n.carbsG)} g` } : {}),
-            ...(n.fatG != null ? { fatContent: `${Math.round(n.fatG)} g` } : {}),
-            ...(n.fiberG != null ? { fiberContent: `${Math.round(n.fiberG)} g` } : {}),
-            ...(n.sodiumMg != null ? { sodiumContent: `${Math.round(n.sodiumMg)} mg` } : {}),
-          },
-        }
-      : {}),
-  };
-}
 
 export default async function RecipePage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
@@ -129,7 +87,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
 
   return (
     <article className="page-w pt-4 pb-6 md:pt-6">
-      <JsonLd data={recipeJsonLd(recipe)} />
+      <JsonLd data={recipeJsonLd(recipe, { nutritionStatus: nutritionData?.status ?? null })} />
       <div className="flex items-center justify-between gap-3">
         <BackToResults />
         {/* Client island: keeps this page cacheable; the saved state fills in after load. */}
