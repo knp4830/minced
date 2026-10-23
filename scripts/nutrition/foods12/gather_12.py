@@ -326,7 +326,7 @@ def main():
         if d["action"] == "relink" and d["target"].startswith("bm:"):
             out["evidence"][ing].append(out["targets"][ing])
     save_cache()
-    json.dump(out, open(os.path.join(HERE, "gathered.json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False, sort_keys=True)
+    json.dump(out, open(os.path.join(HERE, "gathered.json"), "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False, sort_keys=True)
     # a plain report of the branded picks, to read before running stage 2
     for ing, t in sorted(out["targets"].items()):
         if t["ref"].startswith("bm:"):

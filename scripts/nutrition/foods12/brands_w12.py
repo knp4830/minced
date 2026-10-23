@@ -17,7 +17,7 @@ A product is accepted for an ingredient only when ALL of these hold (each is a g
      the ingredient name lacks, or lacks one the name has, is a different food.
   5. Its energy and macronutrients sit near the ingredient's own default food (kcal within max(25 percent, 20); each macro within max(35 percent, 3 g)).
      A liquid sold by volume is converted with the ingredient's density (ingredients.density_g_per_ml) and skipped when it has none.
-Per ingredient and form at most six products and two per brand; identical labels are one product; outliers against the group median are dropped.
+Per ingredient and form at most eight products and two per brand; identical labels are one product; outliers against the group median are dropped.
 """
 import glob
 import hashlib
@@ -36,7 +36,7 @@ os.environ.setdefault("W10_CONTAINER", "w12foods-db")
 os.environ.setdefault("W10_REF_CONTAINER", os.environ["W10_CONTAINER"])
 sys.path.insert(0, os.path.join(ROOT, "scripts", "world-ingredients"))
 from fdcdb import rows  # noqa: E402
-from quality import plausible, label_rounded_zero, MIN_SERVING, GLOBAL_EXCL, sane_nutrients, ZERO_OK  # noqa: E402
+from quality import plausible, label_rounded_zero, MIN_SERVING, GLOBAL_EXCL, sane_nutrients, ZERO_OK, energy_exempt  # noqa: E402
 
 CACHE_DIR = os.environ.get("W12_CACHE") or os.path.join(os.environ.get("TEMP", "/tmp"), "w12-cache")
 SEARCH_DIR = os.path.join(CACHE_DIR, "brandsearch")
@@ -47,10 +47,14 @@ CATS_BAD = ["frozen dinners", "entrees", "pizza", "sandwiches", "candy", "ice cr
             "prepared soups", "other soups", "canned soup", "frozen bread", "pies", "vegetarian frozen", "sweet bakery", "croissants", "gum",
             "puddings", "gelatin", "baby", "supplement", "vitamins", "weight control", "energy", "frozen patties", "frozen bacon", "frozen poultry",
             "frozen sausages", "pet food", "alcohol", "beer", "wine", "liquor", "juice", "drinks", "coffee", "tea", "kombucha", "yogurt/yogurt substitutes"]
+BADTOK = __import__("collections").Counter()
+BADEX = []
+SAT = [0, 0]
+DIAG2 = bool(os.environ.get("W12_DIAG2"))
 DIAG = bool(os.environ.get("W12_DIAG"))  # keep products from brands that are not on the allowlist, to see which brands are being missed
-MAX_PER_GROUP = 6
+MAX_PER_GROUP = 8
 MAX_PER_BRAND = 2
-MAX_TOTAL = 9  # brand links per ingredient, counting the ones already in the database
+MAX_TOTAL = 12  # brand links per ingredient, counting the ones already in the database
 
 KNOWN_QUAL_WORDS = set()
 
@@ -71,7 +75,7 @@ product brand fresh homestyle style old fashioned family size pack can jar bottl
 grade fancy choice quality extra large small medium jumbo mini all purpose kosher non gmo gluten free vegan certified usa us american made pasteurized
 homogenized vitamin d fortified enriched unbleached bleached unenriched sliced diced shredded grated crushed chopped minced halves pieces whole kernel
 cut shaved ground fine coarse regular finely thin thick plain squeeze squeezable easy open lid ready serve sugar water salt""".split())
-ALLOW_ADJ = set("""skinless boneless bone wild caught farm raised fillet filet fillets loin portion pitted seedless ripe refined unrefined virgin cold pressed
+ALLOW_ADJ = set("""shelled lightly cane pulp chunk chunks salted skinless boneless bone wild caught farm raised fillet filet fillets loin portion pitted seedless ripe refined unrefined virgin cold pressed
 expeller extra thin thick sliced shredded freshly crumbled soft hard firm silken medium mild plain unflavored simple traditional old world""".split())
 EXTRA_OK = set("water salt sugar oil spring sea olive vegetable red white black green yellow brown golden dark light sweet hot mild extra virgin".split())
 
@@ -218,6 +222,19 @@ def do_search(queries, key):
     print("search done:", done, "new requests")
 
 
+def brand_queries():
+    """one search per national brand on the allowlist (store brands and regional chains are reached through their ingredient searches)."""
+    qs, skip = [], False
+    for line in open(os.path.join(HERE, "brand_allowlist.txt"), encoding="utf-8"):
+        t = line.strip()
+        if t.startswith("#"):
+            skip = ("Store brands" in t or "Regional and discount" in t) and "More national brands" not in t
+            continue
+        if t and not skip and t not in qs and len(t) >= 4:
+            qs.append(t)
+    return qs
+
+
 def eligible(refs):
     out = []
     for name, e in sorted(refs.items()):
@@ -271,22 +288,51 @@ def select():
     cands = []
     stats = {"products": 0, "gate_ref": 0, "gate_name": 0, "gate_extra": 0, "gate_qual": 0, "gate_band": 0, "gate_brand": 0, "gate_nutr": 0, "gate_cat": 0, "dup": 0}
     seen_id = set()
-    for name in names:
-        e = refs[name]
-        qpath = search_path(name, 1)
-        if not os.path.exists(qpath):
-            continue
-        res = json.load(open(qpath, encoding="utf-8"))
-        for pg in (2, 3):  # extra result pages fetched for ingredients that came up short (search2)
-            if os.path.exists(search_path(name, pg)):
-                res["foods"] = res["foods"] + json.load(open(search_path(name, pg), encoding="utf-8"))["foods"]
-        my_toks = tuple(norm_tokens(name))
-        my_quals = qualset(name)
-        for f in res["foods"]:
+    eligible_names = set(names)
+
+    def pool():
+        """(ingredient the search was for, product). Ingredient searches first; then the brand sweeps (search_brands), whose products
+        have no ingredient yet: the longest ingredient name in the description decides, and only when it is unambiguous."""
+        for name in names:
+            qpath = search_path(name, 1)
+            if not os.path.exists(qpath):
+                continue
+            foods = json.load(open(qpath, encoding="utf-8"))["foods"]
+            for pg in (2, 3):  # extra result pages fetched for ingredients that came up short (search2)
+                if os.path.exists(search_path(name, pg)):
+                    foods = foods + json.load(open(search_path(name, pg), encoding="utf-8"))["foods"]
+            for f in foods:
+                yield name, f
+        for q in brand_queries():
+            for pg in (1, 2, 3):
+                if os.path.exists(search_path(q, pg)):
+                    for f in json.load(open(search_path(q, pg), encoding="utf-8"))["foods"]:
+                        yield None, f
+
+    for name, f in pool():
+        if True:
             stats["products"] += 1
             if f["id"] in existing or f["id"] in seen_id:
                 stats["dup"] += 1
                 continue
+            toks = norm_tokens(f["d"])
+            best = None
+            for n in range(min(maxn, len(toks)), 0, -1):
+                for i in range(0, len(toks) - n + 1):
+                    key = tuple(toks[i:i + n])
+                    if key in phrase:
+                        best = (i, n, key)
+                        break
+                if best:
+                    break
+            if name is None:  # a brand-sweep product: its ingredient is the one its longest name says
+                if not best or len(phrase[best[2]]) != 1 or next(iter(phrase[best[2]])) not in eligible_names:
+                    stats["gate_name"] += 1
+                    continue
+                name = next(iter(phrase[best[2]]))
+            e = refs[name]
+            my_toks = tuple(norm_tokens(name))
+            my_quals = qualset(name)
             low = f["d"].lower()
             if any(re.search(r"" + re.escape(c), (f["cat"] or "").lower()) and c not in name.lower() for c in CATS_BAD):
                 stats["gate_cat"] += 1
@@ -312,17 +358,7 @@ def select():
                     continue
                 brand_display = string.capwords(tok)  # the description starts with the brand ("KIKKOMAN SOY SAUCE"), so the brand is known
             # name: the longest ingredient phrase in the description is THIS ingredient
-            toks = norm_tokens(f["d"])
-            best = None
-            for n in range(min(maxn, len(toks)), 0, -1):
-                for i in range(0, len(toks) - n + 1):
-                    key = tuple(toks[i:i + n])
-                    if key in phrase:
-                        best = (i, n, key)
-                        break
-                if best:
-                    break
-            if not best or name not in phrase[best[2]] or len(phrase[best[2]]) > 1 and name not in phrase[best[2]]:
+            if not best or phrase[best[2]] != {name}:
                 stats["gate_name"] += 1
                 continue
             i0, n0, _ = best
@@ -330,9 +366,12 @@ def select():
             btoks = set(norm_tokens(bt)) | set(norm_tokens(brand_display or ""))
             rest = [t for t in rest if t not in btoks and t not in FLUFF and t not in set(my_toks) and not t.replace("%", "").isdigit()]
             # every word left over must be harmless: another ingredient ("garlic"), or any word we do not know ("beans", "pancake", "sprouted"), is a different product
-            bad = [t for t in rest if t not in EXTRA_OK and t not in ALLOW_ADJ and t not in KNOWN_QUAL_WORDS]
+            bad = [t for t in rest if t not in EXTRA_OK and t not in ALLOW_ADJ and t not in KNOWN_QUAL_WORDS and not (t == "cheese" and e["aisle"] == "Dairy")]
             if bad:
                 stats["gate_extra"] += 1
+                BADTOK.update(bad)
+                if DIAG2 and rank != 9999:
+                    BADEX.append((name, f["d"][:70], tuple(bad)))
                 continue
             if qualset(f["d"]) != my_quals and not (qualset(f["d"]) <= {"organic_sweet", "whole", "raw", "concentrate"} and my_quals <= {"organic_sweet", "whole", "raw", "concentrate"}):
                 stats["gate_qual"] += 1
@@ -358,6 +397,11 @@ def select():
             if 902 < (m.get(1008) or 0) <= 1010:
                 m[1008] = 900.0
             m = sane_nutrients(m)
+            est = 4 * (m.get(1003) or 0) + 4 * (m.get(1005) or 0) + 9 * (m.get(1004) or 0)
+            dev = abs((m.get(1008) or 0) - est)
+            if not energy_exempt(name) and est > 0 and dev > (max(0.12 * est, 12) if ss < 8 else max(0.2 * est, 20)):
+                stats["gate_nutr"] += 1  # the label's own energy disagrees with its own macros (stricter than the default-food gate: these are extras, so we can afford to skip doubtful ones)
+                continue
             if any(m.get(k) is None for k in (1008, 1003, 1004, 1005, 1093)) or ss < MIN_SERVING or not plausible(m, ss, name) or label_rounded_zero(m, ss, name):
                 stats["gate_nutr"] += 1
                 continue
@@ -416,11 +460,19 @@ def select():
             per_brand[b] = per_brand.get(b, 0) + 1
             chosen.append(c)
         accepted += chosen
+        SAT[0] += len(uniq)
+        SAT[1] += len(chosen)
     if DIAG:
         from collections import Counter
         cc = Counter((c["f"]["brand"] or c["f"]["owner"] or "").lower() for c in cands if c["rank"] == 9999)
         print("unlisted brands among otherwise accepted products:", cc.most_common(120))
         return
+    if DIAG2:
+        print("top leftover words:", BADTOK.most_common(150))
+        import random
+        random.seed(5)
+        for x in random.sample(BADEX, 40):
+            print(x)
     out = []
     for c in sorted(accepted, key=lambda c: (c["ingredient"], c["form"], c["rank"], c["f"]["id"])):
         f = c["f"]
@@ -428,7 +480,7 @@ def select():
                     "brand_owner": f["owner"], "brand_token": c["brand_token"], "category": f["cat"], "serving_size": round(float(f["ss"]), 2), "serving_unit": f["su"],
                     "household": f["hh"], "published": f["pub"], "gtin": f["gtin"], "density_used": c["dens"], "kcal_dev_from_default": c["kdev"],
                     "nutrients_per_100g": {str(k): round(v, 4) for k, v in sorted(c["m"].items())}})
-    json.dump(out, open(os.path.join(HERE, "brands_accepted.json"), "w", encoding="utf-8"), indent=0, ensure_ascii=False)
+    json.dump(out, open(os.path.join(HERE, "brands_accepted.json"), "w", encoding="utf-8", newline="\n"), indent=0, ensure_ascii=False)
     import csv
     os.makedirs(os.path.join(ROOT, "scripts", "nutrition", "review"), exist_ok=True)
     with open(os.path.join(ROOT, "scripts", "nutrition", "review", "brands-w12.csv"), "w", encoding="utf-8", newline="") as fh:
@@ -441,6 +493,7 @@ def select():
             w.writerow([o["ingredient"], o["form"], o["fdc_id"], o["brand_name"], o["description"], o["category"], "%s %s" % (o["serving_size"], o["serving_unit"]),
                         n.get("1008"), n.get("1003"), n.get("1004"), n.get("1005"), n.get("1093"), round(rf["kcal"]), o["published"], o["density_used"] or ""])
     print("eligible ingredients:", len(names), "| searched:", sum(1 for n in names if os.path.exists(search_path(n, 1))))
+    print("candidates before the caps:", SAT[0], "after:", SAT[1])
     print("gates:", stats, "| outliers dropped:", dropped_outlier)
     print("accepted brand foods:", len(out), "for", len({o["ingredient"] for o in out}), "ingredients")
 
@@ -457,6 +510,12 @@ def main():
         if os.environ.get("W12_REVERSE"):  # a second worker can start from the other end; both skip what is cached
             qs = qs[::-1]
         print("queries:", len(qs), "| already cached:", sum(1 for q, p in qs if os.path.exists(search_path(q, p))), flush=True)
+        do_search(qs, api_key())
+    elif mode == "search_brands":
+        qs = [(q, pg) for q in brand_queries() for pg in (1, 2, 3)]
+        if os.environ.get("W12_REVERSE"):
+            qs = qs[::-1]
+        print("brand queries:", len(qs), "| already cached:", sum(1 for q, p in qs if os.path.exists(search_path(q, p))), flush=True)
         do_search(qs, api_key())
     elif mode == "search2":
         # second and third result pages, only for ingredients whose first page was full and which still have room for brand foods
