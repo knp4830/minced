@@ -11,6 +11,7 @@ import { RecipeCard } from "@/components/recipe/recipeCard";
 import { SelectFiltersDialog } from "@/components/recipe/selectFiltersDialog";
 import { getFilterOptions, getRecipePage } from "@/lib/queries/browse";
 import { parseFilters } from "@/lib/filters";
+import { pageMeta } from "@/lib/seo/meta";
 import { getIngredientCatalog } from "@/lib/queries/ingredientCatalog";
 import { countFilterGroups, getHeroSlides, getLandingPhotos, getRecipeCount } from "@/lib/queries/landing";
 
@@ -23,10 +24,13 @@ import { countFilterGroups, getHeroSlides, getLandingPhotos, getRecipeCount } fr
  */
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: { absolute: "Minced: recipes by name or by the ingredients you have" },
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = pageMeta({
+  title: "Minced: recipes by name or by the ingredients you have",
+  absoluteTitle: true,
+  path: "/",
+  description:
+    "Search for a dish, or choose the ingredients you have and see what you can make. Every recipe is ingredients, amounts and numbered steps, with nutrition and a shopping list. No essay.",
+});
 
 const GET = [
   {

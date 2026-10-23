@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { pageMeta } from "@/lib/seo/meta";
 import { CONTACT_URL, LegalPage, LegalSection, legalLink } from "@/components/shell/legalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Privacy policy",
-  alternates: { canonical: "/privacy" },
+  path: "/privacy",
   description: "What Minced stores about you, who processes it, and how to delete it.",
-};
+});
 
 export default function PrivacyPage() {
   return (
