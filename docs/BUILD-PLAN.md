@@ -1043,6 +1043,10 @@ We write these when the phase that needs them arrives — an agent written befor
 
 ---
 
+# WAVE 12 STATUS (2026-10-22)
+
+Wave 12 did not close a milestone, so no box changes: M1.5.7 (owner review) stays open and now also covers the 155 new `in_review` recipes in `/admin/review`; M5.2 (draft autosave) stays open; M3.7 stays post-MVP. Shipped on `w12/integration` (not live until the owner says go): landing "Select filters" pop-up, allergen override rules, recipe-form nutrition preview, stand-in audit and brands, 155 Asian and European originals, Me for any day. Open decisions: `docs/review/2026-10-22-wave12-questions.md`. Next: wave 13 redesign (`design/handoff-2026-10-22/README.md`).
+
 # NEXT UP (written 2026-10-14, end of wave 7)
 
 - **Paste-a-blog import** is next after the MVP basics. It needs the M5 tables (live once the wave 7 migrations are applied) and **a decision from the owner on AI rewriting** of steps (legal constraints in `docs/LEGAL-COMPLIANCE.md` section 1.4).

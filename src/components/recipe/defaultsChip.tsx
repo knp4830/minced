@@ -1,21 +1,29 @@
 import Link from "next/link";
 
+import { ShowAllergensButton } from "@/components/recipe/allergenConfirm";
+import { listNames } from "@/lib/listNames";
 import { prefsHash, prefsLabel } from "@/lib/prefs";
 import { filtersToQuery, withFilters, type DefaultsState, type RecipeFilters } from "@/lib/filters";
 import type { FilterOptions } from "@/lib/queries/browse";
 
 /*
- * "Your defaults: vegetarian, no nuts · Change · Turn off for this search".
+ * "Your defaults: vegetarian, no nuts · Change · Turn off diet for this search", plus a short, kind note about
+ * allergens.
  *
- * A Server Component with no client JavaScript. It keeps the saved diet / allergen defaults VISIBLE and
- * switchable at the point of use: a person should always be able to see why a list is shorter than they
- * expected, and to look past it in one tap. Used on both doors (/recipes and /pantry).
+ * A Server Component (only the confirm button is client code). It keeps the saved diet / allergen defaults
+ * VISIBLE at the point of use: a person should always be able to see why a list is shorter than they expected.
+ * Used on both doors (/recipes and /pantry).
+ *
+ * The two halves are not equal. A saved DIET is a preference, so one tap switches it off for this search. Saved
+ * ALLERGENS are a safety setting, so they stay hidden on every search and the only way past them is the explicit
+ * "Show recipes with my allergens" button, which asks first (allergenConfirm.tsx) and puts `showAllergens=1` in
+ * the URL for that search alone.
  *
  * It renders nothing for a signed-out visitor or someone with no defaults set (`state.saved` is null).
  */
 
 const LINK =
-  "inline-flex min-h-11 items-center rounded-md underline underline-offset-4 hover:text-herb focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-herb lg:min-h-0";
+  "inline-flex min-h-11 cursor-pointer items-center rounded-md underline underline-offset-4 hover:text-herb focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-herb lg:min-h-0";
 
 export function DefaultsChip({
   state,
@@ -31,48 +39,66 @@ export function DefaultsChip({
   base: "/recipes" | "/pantry";
   className?: string;
 }) {
-  if (!state.saved) return null;
+  const saved = state.saved;
+  if (!saved) return null;
   const href = (patch: Partial<RecipeFilters>) =>
     `${base}${filtersToQuery(withFilters(filters, patch)).replaceAll("%2C", ",")}`;
-
-  if (state.off) {
-    return (
-      <p
-        data-defaults-chip="off"
-        className={`flex flex-wrap items-center gap-x-3 gap-y-0 rounded-md bg-band px-3 py-1 text-[0.8125rem] text-ink-muted ${className ?? ""}`}
-      >
-        <span>Your defaults are off for this search.</span>
-        <Link href={href({ defaults: undefined })} scroll={false} prefetch={false} className={LINK}>
-          Use them
-        </Link>
-      </p>
-    );
-  }
 
   const names = {
     diets: new Map(options.diets.map((d) => [d.slug, d.name])),
     allergens: new Map(options.allergens.map((a) => [a.slug, a.name])),
   };
+  const allergenNames = saved.exclude.map((s) => (names.allergens.get(s) ?? s).toLowerCase());
   // Name what is really in force. When the URL picked its own diet, only the allergens are the defaults' doing.
-  const shown = state.applied ?? state.saved;
+  const inForce = state.applied ?? { diet: [], exclude: [] };
+  const label = prefsLabel(inForce, names);
+  const dietInForce = inForce.diet.length > 0;
+
   return (
-    <p
-      data-defaults-chip="on"
-      className={`flex flex-wrap items-center gap-x-3 gap-y-0 rounded-md bg-band px-3 py-1 text-[0.8125rem] text-ink-muted ${className ?? ""}`}
+    <div
+      data-defaults-chip={state.allergensShown ? "shown" : state.dietOff && !label ? "off" : "on"}
+      className={`rounded-md bg-band px-3 py-1 text-[0.8125rem] text-ink-muted ${className ?? ""}`}
     >
-      <span>
-        <span className="label-mono mr-1.5">Your defaults</span>
-        <span className="text-ink">{prefsLabel(shown, names)}</span>
-      </span>
-      <span className="flex flex-wrap items-center gap-x-3">
-        <Link href="/settings#food" className={LINK}>
-          Change
-        </Link>
-        <Link href={href({ defaults: "off" })} scroll={false} prefetch={false} className={LINK}>
-          Turn off for this search
-        </Link>
-      </span>
-    </p>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-0">
+        {label && (
+          <span>
+            <span className="label-mono mr-1.5">Your defaults</span>
+            <span className="text-ink">{label}</span>
+          </span>
+        )}
+        {state.dietOff && <span>Your diet is off for this search.</span>}
+        <span className="flex flex-wrap items-center gap-x-3">
+          <Link href="/settings#food" className={LINK}>
+            Change
+          </Link>
+          {dietInForce && (
+            <Link href={href({ defaults: "off" })} scroll={false} prefetch={false} className={LINK}>
+              Turn off diet for this search
+            </Link>
+          )}
+          {state.dietOff && (
+            <Link href={href({ defaults: undefined })} scroll={false} prefetch={false} className={LINK}>
+              Use my diet
+            </Link>
+          )}
+          {saved.exclude.length > 0 &&
+            (state.allergensShown ? (
+              <Link href={href({ showAllergens: undefined })} scroll={false} prefetch={false} className={LINK}>
+                Hide them again
+              </Link>
+            ) : (
+              <ShowAllergensButton href={href({ showAllergens: true })} names={allergenNames} className={LINK} />
+            ))}
+        </span>
+      </div>
+      {saved.exclude.length > 0 && (
+        <p data-allergen-note className="pb-1.5 leading-snug">
+          {state.allergensShown
+            ? `Showing recipes that may contain ${listNames(allergenNames)}, for this search only.`
+            : `Recipes with ${listNames(allergenNames)} stay hidden on every search, so nothing slips through while you browse. You can change this in Settings.`}
+        </p>
+      )}
+    </div>
   );
 }
 

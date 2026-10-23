@@ -582,7 +582,7 @@ spring roll wrappers,gluten:I;wheat:I,plant,wheat wrapper or dumpling skin,no an
 tostadas,,plant,no listed allergen,no animal ingredient,,1,grains
 gochugaru,,plant,no listed allergen,no animal ingredient,,3,spices
 berbere,,plant,no listed allergen,no animal ingredient,,3,spices
-asafoetida,,plant,no listed allergen,no animal ingredient,,3,spices
+asafoetida,gluten:V;wheat:V,plant,"commercial hing (asafoetida powder) is very often compounded with wheat flour; gluten-free brands exist, check the label",no animal ingredient,,3,spices
 dried mango powder,,plant,no listed allergen,no animal ingredient,,1,spices
 dried fenugreek leaves,,plant,no listed allergen,no animal ingredient,,3,spices
 pav bhaji masala,,plant,no listed allergen,no animal ingredient,,1,spices

@@ -1,0 +1,212 @@
+{
+ "nabulsi-cheese": {
+  "query": "nabulsi cheese",
+  "must": "nabulsi",
+  "excl": ""
+ },
+ "alligator-meat": {
+  "query": "alligator meat",
+  "must": "alligator",
+  "excl": ""
+ },
+ "arctic-char": {
+  "query": "arctic char",
+  "must": "arctic char",
+  "excl": ""
+ },
+ "banana-ketchup": {
+  "query": "banana ketchup",
+  "must": "banana (ketchup|catsup)",
+  "excl": ""
+ },
+ "beef-stew-meat": {
+  "query": "beef stew meat",
+  "must": "beef.*stew (meat|cubes)|stew (meat|beef)",
+  "excl": "soup|frozen meal|canned|gravy|dinner|seasoning"
+ },
+ "biltong": {
+  "query": "biltong",
+  "must": "biltong",
+  "excl": ""
+ },
+ "burrata": {
+  "query": "burrata",
+  "must": "burrata",
+  "excl": "pasta|ravioli|pizza|salad|sandwich|tortellini|flatbread|tomato|caprese|basil|truffle|filled|sauce|toast|cracker|dip"
+ },
+ "calamansi": {
+  "query": "calamansi",
+  "must": "calamansi",
+  "excl": ""
+ },
+ "carne-seca": {
+  "query": "carne seca",
+  "must": "carne seca",
+  "excl": ""
+ },
+ "chili-oil": {
+  "query": "chili oil",
+  "must": "chil(i|li|e)? ?oil",
+  "excl": "crisp|sauce|paste|crunch"
+ },
+ "comte": {
+  "query": "comte",
+  "must": "comt[e\u00e9]",
+  "excl": ""
+ },
+ "cuajada": {
+  "query": "cuajada",
+  "must": "cuajada",
+  "excl": ""
+ },
+ "date-sugar": {
+  "query": "date sugar",
+  "must": "date sugar",
+  "excl": "cookie|bar|cereal"
+ },
+ "freekeh": {
+  "query": "freekeh",
+  "must": "freekeh",
+  "excl": ""
+ },
+ "graviera": {
+  "query": "graviera",
+  "must": "graviera",
+  "excl": ""
+ },
+ "gravlax": {
+  "query": "gravlax",
+  "must": "gravlax|gravad",
+  "excl": "sandwich|bagel|spread|dip|sauce|mustard|dill sauce"
+ },
+ "jamon-serrano": {
+  "query": "jamon serrano",
+  "must": "(jamon|jam.n) serrano",
+  "excl": ""
+ },
+ "jarlsberg-cheese": {
+  "query": "jarlsberg cheese",
+  "must": "jarlsberg",
+  "excl": "dip|spread|crisps|chips|sandwich"
+ },
+ "kabocha-squash": {
+  "query": "kabocha squash",
+  "must": "kabocha",
+  "excl": ""
+ },
+ "kuzu": {
+  "query": "kuzu",
+  "must": "kuzu|kudzu",
+  "excl": ""
+ },
+ "mahon-cheese": {
+  "query": "mahon cheese",
+  "must": "mah[o\u00f3]n",
+  "excl": ""
+ },
+ "manchego-cheese": {
+  "query": "manchego cheese",
+  "must": "manchego",
+  "excl": "crackers|pizza|salad|dip|spread|sticks|croquet|sandwich|bites|sauce|grated|shred|quesad|empan"
+ },
+ "matzo-meal": {
+  "query": "matzo meal",
+  "must": "matzo meal",
+  "excl": ""
+ },
+ "mct-oil": {
+  "query": "mct oil",
+  "must": "mct oil",
+  "excl": ""
+ },
+ "crema": {
+  "query": "crema",
+  "must": "crema",
+  "excl": ""
+ },
+ "potato-starch": {
+  "query": "potato starch",
+  "must": "potato starch",
+  "excl": "noodle|chip|crisps|bread"
+ },
+ "mushroom-soy-sauce": {
+  "query": "mushroom soy sauce",
+  "must": "mushroom (flavou?red )?(dark )?soy",
+  "excl": ""
+ },
+ "panko-breadcrumbs": {
+  "query": "panko breadcrumbs",
+  "must": "panko",
+  "excl": "chicken|shrimp|fish|crusted|nugget|breaded|fried|season|italian|garlic|herb|parmesan|flavor|ranch|lemon|cheese|mix"
+ },
+ "pea-shoots": {
+  "query": "pea shoots",
+  "must": "pea (shoots|tendrils|sprouts)",
+  "excl": ""
+ },
+ "pepper-jack-cheese": {
+  "query": "pepper jack cheese",
+  "must": "pepper jack",
+  "excl": ""
+ },
+ "queso-panela": {
+  "query": "queso panela",
+  "must": "panela",
+  "excl": "sauce|dip|tray|snack"
+ },
+ "raclette-cheese": {
+  "query": "raclette cheese",
+  "must": "raclette",
+  "excl": ""
+ },
+ "ricotta-salata": {
+  "query": "ricotta salata",
+  "must": "ricotta salata",
+  "excl": "pasta|ravioli|norma|salad|sauce|lasagna|eggplant"
+ },
+ "scamorza": {
+  "query": "scamorza",
+  "must": "scamorza",
+  "excl": ""
+ },
+ "speck": {
+  "query": "speck",
+  "must": "\\bspeck\\b",
+  "excl": "pizza|sandwich|salad|wrap"
+ },
+ "sweet-potato-starch-noodles": {
+  "query": "sweet potato starch noodles",
+  "must": "starch noodle|dang ?myeon|japchae|glass noodle|korean (sweet potato )?(noodle|vermicelli)|sweet potato (starch|vermicelli)",
+  "excl": "veggie|spiral|fresh|cooked|ready|stir fry|frozen|salad"
+ },
+ "taleggio-cheese": {
+  "query": "taleggio cheese",
+  "must": "taleggio",
+  "excl": "pizza|sauce|sandwich|pasta|ravioli|risotto|tortelloni"
+ },
+ "tamarind-paste": {
+  "query": "tamarind paste",
+  "must": "tamarind (paste|concentrate|pulp)",
+  "excl": "candy|drink|chutney|sauce|soda|juice|nectar"
+ },
+ "tiger-nut-flour": {
+  "query": "tiger nut flour",
+  "must": "tiger ?nut flour",
+  "excl": ""
+ },
+ "walnut-paste": {
+  "query": "walnut paste",
+  "must": "walnut (paste|butter)",
+  "excl": ""
+ },
+ "weisswurst": {
+  "query": "weisswurst",
+  "must": "wei[s\u00df]+wurst",
+  "excl": ""
+ },
+ "yakisoba-noodles": {
+  "query": "yakisoba noodles",
+  "must": "yakisoba",
+  "excl": "sauce|kit|chicken|beef|pork|shrimp|bowl|meal|flavor|cup|ramen|whole wheat|seasoning|frozen dinner"
+ }
+}

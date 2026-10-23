@@ -169,7 +169,7 @@ begin
     raise exception 'GATE alias low-fat milk must point at 1%% milk (USDA lowfat)'; end if;
 end $$;
 
-\echo == a food's brand is never the barcode-prefix owner
+\echo == a food brand is never the barcode-prefix owner
 do $$
 begin
   if exists (select 1 from pg_proc where proname in ('search_foods', 'my_recipe_foods') and pronamespace = 'public'::regnamespace
@@ -183,15 +183,15 @@ do $$
 declare n int; t text[];
 begin
   select count(*) into n from ingredient_foods where is_proxy;
-  if n < 200 then raise exception 'GATE only % proxy flags, expected the declared stand-ins (about 300)', n; end if;
+  if n < 20 then raise exception 'GATE only % proxy flags, expected the close relatives kept by the wave 12 audit (about 33; there were about 300 before it)', n; end if;
   select count(*) into n from ingredient_foods where is_proxy and not is_default;
   if n > 0 then raise exception 'GATE % proxy flags on non-default links', n; end if;
-  if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where f.is_proxy and i.canonical_name in ('aleppo pepper', 'galangal', 'sumac')) then
-    raise exception 'GATE aleppo pepper / galangal / sumac must be flagged as stand-ins'; end if;
-  if exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where f.is_proxy and i.canonical_name in ('curry leaves', 'clotted cream', 'sambal')) then
+  if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where f.is_proxy and i.canonical_name in ('thai basil', 'pisco', 'mexican crema')) then
+    raise exception 'GATE thai basil / pisco / mexican crema must stay flagged as stand-ins (wave 12 kept them as close relatives)'; end if;
+  if exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where f.is_proxy and i.canonical_name in ('curry leaves', 'clotted cream', 'sambal', 'aleppo pepper', 'galangal', 'sumac', 'ube', 'pea shoots', 'pepper jack')) then
     raise exception 'GATE a replaced or unmapped ingredient is still flagged as a stand-in'; end if;
-  t := nutrition_assumptions(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'galangal'), 'quantity', 50, 'unit_id', (select id from units where name = 'g'))));
-  if t is null or cardinality(t) < 1 or t[1] not like 'nutrition for galangal uses %' then raise exception 'GATE the label assumption for a stand-in is missing: %', t; end if;
+  t := nutrition_assumptions(jsonb_build_array(jsonb_build_object('ingredient_id', (select id from ingredients where canonical_name = 'thai basil'), 'quantity', 50, 'unit_id', (select id from units where name = 'g'))));
+  if t is null or cardinality(t) < 1 or t[1] not like 'nutrition for thai basil uses %' then raise exception 'GATE the label assumption for a stand-in is missing: %', t; end if;
 end $$;
 
 \echo == a branded default whose energy disagrees with its macros lost the unreliable rows

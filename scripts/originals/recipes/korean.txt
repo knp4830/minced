@@ -1,0 +1,284 @@
+# Wave 12 originals. Format identical to scripts/content/recipes (see scripts/originals/build.py).
+#   @ slug | Title | Cuisine | prep_min | cook_min | servings | spice 0-4 | cookware,cookware | note
+#   - qty | unit | canonical ingredient | prep note        (use -? for optional)
+#   1. step text
+
+@ sundubu-jjigae | Sundubu Jjigae (Soft Tofu Stew) | Korean | 10 | 20 | 2 | 3 | Pot | Crack the egg in at the very end so the yolk stays soft.
+- 1 | tbsp | vegetable oil |
+- 3 | oz | pork belly | thinly sliced, cut in small pieces
+- 2 | | scallion | whites and greens separated, sliced
+- 2 | clove | garlic | minced
+- 1 | tbsp | gochugaru |
+- 1 | tbsp | soy sauce |
+- 1 | tsp | toasted sesame oil |
+- 1.5 | cup | water |
+- 4 | oz | clams | scrubbed, optional shellfish
+- 16 | oz | sundubu | one tube or tub of extra-soft tofu
+- 1 | | egg |
+- 0.5 | tsp | salt | or to taste
+1. Heat the vegetable oil in a small pot over medium heat. Cook the pork belly and scallion whites 3 min, until the fat turns translucent.
+2. Add garlic, gochugaru, soy sauce and sesame oil. Stir 30 sec, until the oil turns red and smells toasty.
+3. Pour in the water and bring to a boil. Add the clams and cook 3-4 min, until the shells open. Discard any that stay shut.
+4. Spoon in the tofu in large chunks without breaking them up much. Simmer 5 min, until the stew bubbles hard around the edges.
+5. Season with salt. Crack the egg into the center and sprinkle with scallion greens.
+6. Take the pot to the table still bubbling and serve with rice. The egg cooks in the heat of the pot.
+
+@ doenjang-jjigae | Doenjang Jjigae (Soybean Paste Stew) | Korean | 15 | 25 | 3 | 1 | Pot | Dissolve the paste through a sieve for a smooth broth with no grit.
+- 3 | cup | water |
+-  |  | dried anchovies | 8, heads and guts removed (they flavor the broth and are strained out)
+- 1 | piece | kombu | about 3 inches square
+- 3 | tbsp | doenjang |
+- 1 | tsp | gochugaru |
+- 6 | oz | potato | peeled, cut in 1/2-inch cubes
+- 6 | oz | zucchini | half-moons
+- 0.5 | | yellow onion | cut in chunks
+- 4 | oz | shiitake mushrooms | sliced
+- 7 | oz | firm tofu | cut in 3/4-inch cubes
+- 3 | clove | garlic | minced
+- 1 | | cheongyang pepper | sliced
+- 1 | | scallion | sliced
+1. Bring the water, anchovies and kombu to a boil in a pot. Remove the kombu after 5 min and simmer the anchovies another 5 min. Lift out the anchovies.
+2. Set a small sieve in the broth and stir the doenjang through it until dissolved. Add the gochugaru.
+3. Add the potato and cook 6 min, until the edges just turn tender.
+4. Add the onion, zucchini and mushrooms. Simmer 5 min, until the zucchini turns slightly translucent.
+5. Add the tofu, garlic and pepper. Simmer 3 min, until the tofu is hot through.
+6. Top with scallion and serve with rice.
+
+@ galbi-jjim | Galbi Jjim (Braised Short Ribs) | Korean | 30 | 120 | 4 | 0 | Pot | Parboil the ribs first; it keeps the sauce clear instead of murky.
+- 1.8 | lb | short ribs | edible meat weight; buy about 3 lb bone-in, cut Korean-style or in 2-inch pieces
+- 0.5 | cup | soy sauce |
+- 0.25 | cup | brown sugar |
+- 2 | tbsp | mirin |
+- 1 | | asian pear | grated
+- 0.5 | | yellow onion | grated
+- 6 | clove | garlic | minced
+- 1 | tbsp | ginger | grated
+- 1 | tbsp | toasted sesame oil |
+- 3 | cup | water |
+- 2 | | carrot | cut in chunks
+- 8 | oz | korean radish | cut in 1-inch chunks
+- 6 | | dried shiitake mushrooms | soaked, stems removed
+- 3 | oz | chestnuts | about 8, peeled
+- 2 | | red dates | optional, pitted
+- 2 | | scallion | sliced
+1. Soak the ribs in cold water 30 min, changing the water once. Drain.
+2. Cover the ribs with fresh water in a pot, boil 5 min, then drain and rinse. Scum and blood come off here.
+3. Mix the soy sauce, sugar, mirin, pear, onion, garlic, ginger and sesame oil. Add to the ribs with the 3 cups of water.
+4. Bring to a boil, then cover and simmer on low 1 hour, until the meat starts to loosen from the bone.
+5. Add the carrot, radish, mushrooms, chestnuts and red dates. Simmer uncovered 40 min, stirring now and then, until the vegetables are tender and the sauce coats a spoon.
+6. Skim the fat from the top. Serve garnished with scallion.
+
+@ dakgalbi | Dakgalbi (Spicy Stir-Fried Chicken) | Korean | 20 | 20 | 3 | 3 | Skillet | A little water in the pan keeps the sweet potato from scorching before it softens.
+- 1.5 | lb | chicken thighs | boneless, skinless, bite-size pieces
+- 3 | tbsp | gochujang |
+- 1 | tbsp | gochugaru |
+- 2 | tbsp | soy sauce |
+- 1 | tbsp | granulated sugar |
+- 1 | tbsp | toasted sesame oil |
+- 4 | clove | garlic | minced
+- 1 | tsp | ginger | grated
+- 8 | oz | sweet potato | cut in 1/2-inch half-moons
+- 0.25 | | green cabbage | cut in bite-size squares
+- 1 | | yellow onion | sliced
+- 8 | oz | korean rice cakes | soaked if hard
+-  |  | perilla leaves | 10, sliced
+- 1 | tbsp | vegetable oil |
+1. Stir the gochujang, gochugaru, soy sauce, sugar, sesame oil, garlic and ginger into a paste. Toss with the chicken and let it sit 15 min.
+2. Heat the vegetable oil in a large skillet over medium-high heat. Add the sweet potato and a splash of water. Cover and cook 5 min.
+3. Add the chicken, cabbage, onion and rice cakes. Stir-fry 10-12 min, until the chicken is cooked through and the rice cakes are soft.
+4. Add a spoonful of water if the sauce sticks to the pan.
+5. Fold in the perilla leaves and cook 1 min, until wilted. Serve straight from the pan.
+
+@ samgyetang | Samgyetang (Chicken and Rice Soup) | Korean | 20 | 70 | 2 | 0 | Pot | Soak the sweet rice for an hour first; it cooks through inside the bird.
+- 1.3 | lb | whole chicken | edible meat and skin weight of a small 2 lb young chicken or Cornish hen
+- 0.5 | cup | glutinous rice | soaked 1 hour, drained
+- 6 | clove | garlic | peeled
+- 0.75 | oz | red dates | about 4
+- 1.5 | oz | chestnuts | about 4, peeled
+- 1 | tbsp | ginger | sliced
+- 6 | cup | water |
+- 2 | | scallion | sliced
+- 1 | tsp | salt | plus more at the table
+- 0.5 | tsp | black pepper |
+1. Rinse the chicken inside and out and trim excess fat at the cavity.
+2. Pack the cavity with the rice, 3 garlic cloves, 2 red dates and the chestnuts. Cross the legs and tie them so nothing escapes.
+3. Place the chicken in a pot with the water, remaining garlic, red dates and ginger. Bring to a boil, skim the foam, then cover and simmer on low 50-60 min.
+4. Check that the thickest part of the thigh reads 165 F (74 C) and the rice is soft.
+5. Season the broth with salt and pepper. Serve each bowl with scallion on top, and let everyone add salt to taste.
+
+@ kimchi-bokkeumbap | Kimchi Bokkeumbap (Kimchi Fried Rice) | Korean | 10 | 10 | 2 | 2 | Skillet | Day-old rice fries up with separate grains; fresh rice turns mushy.
+- 1 | tbsp | vegetable oil |
+- 2 | oz | bacon | chopped
+- 1 | cup | kimchi | aged, chopped
+- 1 | tbsp | gochujang |
+- 3 | cup | white rice | cooked, cold, day-old
+- 1 | tsp | soy sauce |
+- 1 | tsp | toasted sesame oil |
+- 2 | | scallion | sliced
+- 2 | | egg |
+- 1 | tsp | sesame seeds |
+1. Heat the vegetable oil in a large skillet over medium-high heat. Cook the bacon 3 min, until the fat starts to render.
+2. Add the kimchi and a splash of its juice. Stir-fry 3 min, until the kimchi softens and darkens at the edges.
+3. Stir in the gochujang, then add the rice, breaking up clumps. Fry 3-4 min, until the rice is hot and sticks lightly to the pan.
+4. Add soy sauce, sesame oil and half the scallion. Toss and divide between two plates.
+5. Fry the eggs in a separate pan until the whites are set and the yolks still run. Top the rice with the eggs, remaining scallion and sesame seeds.
+
+@ jajangmyeon | Jajangmyeon (Noodles in Black Bean Sauce) | Korean | 20 | 30 | 4 | 0 | Skillet,Pot | Fry the black bean paste in oil first; raw paste tastes bitter.
+- 3 | tbsp | vegetable oil | divided
+- 0.5 | cup | chunjang | Korean roasted black bean paste
+- 8 | oz | pork belly | cut in 1/2-inch cubes
+- 2 | | yellow onion | cut in 1/2-inch pieces
+- 8 | oz | potato | peeled, 1/2-inch cubes
+- 8 | oz | zucchini | 1/2-inch cubes
+- 2 | tsp | granulated sugar |
+- 1 | tbsp | soy sauce |
+- 1.5 | cup | water |
+- 1 | tbsp | cornstarch | stirred into 3 tbsp water
+- 1 | lb | chinese wheat noodles | thick fresh noodles, or udon
+- 1 | | cucumber | cut in matchsticks, for serving
+1. Heat 2 tbsp oil in a skillet over medium heat. Fry the black bean paste 4-5 min, stirring, until it smells nutty and loosens. Scrape it into a bowl.
+2. Add the remaining oil and the pork. Cook 5 min, until browned. Add the onion and potato and cook 5 min.
+3. Stir in the zucchini, fried paste, sugar, soy sauce and water. Simmer 10 min, until the potato is tender.
+4. Stir the starch slurry and pour it in. Cook 1-2 min, until the sauce turns glossy and thick.
+5. Cook the noodles in boiling water per package directions, then drain and rinse.
+6. Divide the noodles among four bowls, spoon the sauce on top, and add cucumber.
+
+@ kimbap | Kimbap (Seaweed Rice Rolls) | Korean | 45 | 15 | 4 | 0 | Skillet | Season the rice while it is warm; cold rice will not roll tightly.
+- 3 | cup | short-grain rice | cooked, warm
+- 1 | tbsp | toasted sesame oil |
+- 1 | tsp | salt | divided
+- 4 | | egg | beaten with a pinch of salt
+- 2 | | carrot | cut in matchsticks
+- 8 | oz | spinach | blanched, squeezed, tossed with 1/2 tsp sesame oil
+- 4 | oz | takuan | cut in long strips
+- 1 | | cucumber | seeded, cut in long strips
+- 8 | oz | fish cakes | sliced in strips, pan-fried
+- 10 | g | nori | 4 whole sheets, about 2.5 g each
+- 1 | tbsp | vegetable oil |
+1. Mix the warm rice with sesame oil and half the salt. Spread it out to cool to room temperature.
+2. Heat a little vegetable oil in a skillet. Cook the beaten egg as a thin flat omelet, then slice into long strips.
+3. Saute the carrot in the same pan 2 min with the remaining salt, until barely tender.
+4. Lay a nori sheet shiny side down on a bamboo mat. Spread 3/4 cup rice over it, leaving 1 inch bare at the far edge.
+5. Lay a strip each of egg, carrot, spinach, takuan, cucumber and fish cake across the rice near you.
+6. Roll tightly, pressing as you go, and seal with a few grains of rice. Brush the roll with sesame oil.
+7. Slice into 1/2-inch rounds with a wet, sharp knife, wiping the blade between cuts.
+
+@ pajeon | Pajeon (Scallion Pancake) | Korean | 10 | 15 | 2 | 0 | Skillet | Ice-cold water makes the edges crisp instead of bready.
+- 1 | cup | all-purpose flour |
+- 2 | tbsp | cornstarch |
+- 0.5 | tsp | salt |
+- 1 | cup | water | ice-cold
+- 1 | | egg |
+- 8 | | scallion | cut in 3-inch lengths
+- 3 | tbsp | vegetable oil | divided
+- 2 | tbsp | soy sauce |
+- 1 | tbsp | rice vinegar |
+- 1 | tsp | gochugaru |
+- 1 | tsp | sesame seeds |
+1. Whisk the flour, cornstarch and salt. Add the water and egg and whisk to a thin batter, like crepe batter.
+2. Heat half the oil in a skillet over medium-high heat until it shimmers.
+3. Pour in half the batter and lay half the scallions across it, pressing them in lightly.
+4. Cook 3-4 min, until the bottom is golden and the edges lift. Flip and cook 3 min more, pressing down for crisp edges.
+5. Repeat with the rest of the batter.
+6. Mix the soy sauce, vinegar, gochugaru and sesame seeds into a dipping sauce. Cut the pancakes into squares and serve hot.
+
+@ miyeok-guk | Miyeok Guk (Seaweed Soup) | Korean | 15 | 30 | 4 | 0 | Pot | Soak the seaweed only 10 minutes; longer washes out its flavor.
+- 0.5 | oz | wakame | dried
+- 6 | oz | brisket | thinly sliced
+- 1 | tbsp | toasted sesame oil |
+- 4 | clove | garlic | minced
+- 2 | tbsp | korean soup soy sauce |
+- 7 | cup | water |
+- 1 | tsp | salt | or to taste
+1. Soak the wakame in cold water 10 min, until fully expanded. Drain, squeeze and cut into short pieces.
+2. Heat the sesame oil in a pot over medium heat. Cook the beef 3 min, until it loses its raw color.
+3. Add the seaweed, garlic and soup soy sauce. Stir-fry 3 min, until the seaweed turns glossy and dark.
+4. Pour in the water and bring to a boil. Reduce heat, cover and simmer 25 min, until the broth turns slightly milky.
+5. Season with salt and serve with rice.
+
+@ bibim-guksu | Bibim Guksu (Spicy Cold Noodles) | Korean | 15 | 5 | 2 | 3 | Pot | Rinse the noodles in ice water until they feel firm and bouncy.
+- 6 | oz | somen noodles |
+- 3 | tbsp | gochujang |
+- 1 | tbsp | gochugaru |
+- 2 | tbsp | rice vinegar |
+- 1 | tbsp | soy sauce |
+- 1 | tbsp | granulated sugar |
+- 1 | tbsp | toasted sesame oil |
+- 2 | clove | garlic | grated
+- 0.5 | cup | kimchi | chopped
+- 0.5 | | cucumber | cut in matchsticks
+- 2 | | egg | hard-boiled, halved
+- 1 | tsp | sesame seeds |
+1. Whisk the gochujang, gochugaru, vinegar, soy sauce, sugar, sesame oil and garlic into a smooth sauce.
+2. Boil the noodles 2-3 min, until tender. Drain and rinse under cold water, rubbing gently to remove starch. Drain well.
+3. Toss the noodles with the sauce until every strand is coated.
+4. Divide between two bowls. Top with kimchi, cucumber and eggs, and sprinkle with sesame seeds.
+
+@ tteokguk | Tteokguk (Rice Cake Soup) | Korean | 15 | 40 | 3 | 0 | Pot | Rinse sliced rice cakes under cold water so they do not clump.
+- 12 | oz | korean rice cakes | sliced ovals, soaked 20 min if hard
+- 6 | oz | brisket | thinly sliced
+- 1 | tbsp | toasted sesame oil |
+- 4 | clove | garlic | minced
+- 7 | cup | water |
+- 2 | tbsp | korean soup soy sauce |
+- 2 | | egg | separated, each cooked as a thin sheet and cut in strips
+- 2 | | scallion | sliced
+- 2.5 | g | nori | 1 sheet, toasted and crumbled
+- 0.25 | tsp | black pepper |
+1. Cook the beef in sesame oil in a pot over medium heat for 3 min, until browned.
+2. Add the garlic and water. Bring to a boil, skim, then simmer 25 min, until the broth is savory.
+3. Season with soup soy sauce. Add the drained rice cakes and cook 4-5 min, until they float and feel soft.
+4. Ladle into bowls and top with egg strips, scallion, nori and pepper.
+
+@ gamjatang | Gamjatang (Spicy Pork Bone and Potato Stew) | Korean | 30 | 120 | 4 | 3 | Pot | Soaking the bones draws out blood so the broth turns milky, not murky.
+- 1.8 | lb | pork spare ribs | edible meat weight; buy about 3 lb bone-in, or use neck bones, cut apart
+- 2 | tbsp | doenjang |
+- 3 | tbsp | gochugaru |
+- 2 | tbsp | gochujang |
+- 2 | tbsp | soy sauce |
+- 8 | clove | garlic | minced
+- 1 | tbsp | ginger | minced
+- 1 | tbsp | perilla seeds | ground
+- 1 | | yellow onion | quartered
+- 1 | lb | potato | peeled, halved
+- 4 | | scallion | cut in 2-inch lengths
+- 8 | | perilla leaves | optional
+- 12 | cup | water | divided
+1. Soak the bones in cold water 1 hour. Drain, cover with fresh water, boil 10 min, then drain and rinse.
+2. Return the bones to the pot with 10 cups water, the onion and half the garlic. Boil, then simmer covered 60 min.
+3. Mix the doenjang, gochugaru, gochujang, soy sauce, remaining garlic, ginger and perilla seeds into a paste.
+4. Stir the paste into the pot and add the potato. Simmer 30 min, until the potato is tender and the meat is falling off the bone.
+5. Add the scallion and perilla leaves. Cook 3 min, then serve with rice.
+
+@ dubu-jorim | Dubu Jorim (Braised Tofu) | Korean | 10 | 20 | 3 | 2 | Skillet | Pat the tofu very dry before frying so it browns instead of steaming.
+- 14 | oz | firm tofu | cut in 1/2-inch slabs
+- 2 | tbsp | vegetable oil |
+- 3 | tbsp | soy sauce |
+- 1 | tbsp | gochugaru |
+- 1 | tbsp | mirin |
+- 1 | tsp | granulated sugar |
+- 2 | clove | garlic | minced
+- 2 | tbsp | water |
+- 1 | tsp | toasted sesame oil |
+- 1 | | scallion | sliced
+- 1 | tsp | sesame seeds |
+1. Pat the tofu slices very dry with paper towels.
+2. Fry in the vegetable oil in a nonstick skillet over medium-high heat, 3-4 min per side, until deep golden.
+3. Stir the soy sauce, gochugaru, mirin, sugar, garlic, water and sesame oil together.
+4. Pour the sauce over the tofu and reduce the heat. Simmer 5 min, spooning sauce over the slices, until the sauce clings and thickens.
+5. Top with scallion and sesame seeds. Serve warm or at room temperature.
+
+@ oi-muchim | Oi Muchim (Spicy Cucumber Salad) | Korean | 15 | 0 | 4 | 2 | | Salt the cucumbers first; the dressing then clings instead of watering down.
+- 1.5 | lb | persian cucumber | sliced 1/4 inch thick
+- 1 | tsp | salt |
+- 1 | tbsp | gochugaru |
+- 1 | tbsp | rice vinegar |
+- 1 | tsp | granulated sugar |
+- 2 | clove | garlic | grated
+- 1 | tsp | toasted sesame oil |
+- 1 | | scallion | thinly sliced
+- 1 | tsp | sesame seeds |
+1. Toss the cucumbers with the salt and let sit 10 min. Squeeze gently and pour off the liquid.
+2. Mix the gochugaru, vinegar, sugar, garlic and sesame oil.
+3. Toss the cucumbers with the dressing and scallion until evenly red.
+4. Sprinkle with sesame seeds and serve within a day.

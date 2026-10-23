@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 const nf = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
 
-export function NutrientsPanel({ entries, nutrients, dris, person }: { entries: FoodEntry[]; nutrients: Nutrient[]; dris: Dri[]; person: Person }) {
+export function NutrientsPanel({ entries, nutrients, dris, person, isToday = true }: { entries: FoodEntry[]; nutrients: Nutrient[]; dris: Dri[]; person: Person; isToday?: boolean }) {
   const empty = entries.length === 0;
   const dvs = personalDailyValues(nutrients, dris, person);
   const lines = empty ? [] : dayNutrientLines(entries, nutrients, dvs);
@@ -36,7 +36,7 @@ export function NutrientsPanel({ entries, nutrients, dris, person }: { entries: 
         <div>
           <p className="label-mono">From logged meals</p>
           <h2 id="me-nutrients-h" className="mt-1.5 text-xl leading-tight font-medium">
-            All nutrients today
+            {isToday ? "All nutrients today" : "All nutrients that day"}
           </h2>
         </div>
         <span className="hidden pt-1 font-mono text-[0.6875rem] text-ink-muted sm:block">

@@ -12,7 +12,7 @@ const ITEMS = [
   {
     icon: Dumbbell,
     title: "Plan your workouts",
-    body: "Line your meals up with your training days: higher-protein dinners after leg day, something light on rest days.",
+    body: "Line your meals up with your training days: higher-protein meals on training days, something lighter on rest days.",
   },
   {
     icon: LineChart,
@@ -28,7 +28,8 @@ const ITEMS = [
 
 export function ComingSoon() {
   // Me is live: its two roadmap cards become one real card that links to it.
-  const items = ME_ENABLED ? ITEMS.filter((i) => i.title === "Share your own recipes") : ITEMS;
+  // The Me section above already says what Me is (live or coming soon), so "Track your nutrition" would repeat it.
+  const items = ITEMS.filter((i) => i.title !== "Track your nutrition" && (!ME_ENABLED || i.title === "Share your own recipes"));
   return (
     <section aria-labelledby="soon-h" className="px-(--gutter) py-14 md:py-20">
       <div className="mx-auto max-w-[var(--page-max)]">

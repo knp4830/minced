@@ -435,3 +435,25 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 **Nested parentheses defeat a `[^()]*` regex.** Gap reasons like "no gram weight for head (floret)" printed a second "(no nutrition data)". Test the trailing `)` instead.
 
 **Licence text before data.** Import government datasets only after reading the licence on the publisher's page; keep the text in `scripts/nutrition/national/LICENCES.md` and a visible attribution line.
+
+## 13. Wave 12 (2026-10-22)
+
+**An allergy is a safety setting, not a preference.** `defaults=off` used to drop saved diet and allergens together, and a chip tap materialised the effective lists with it, so one tap could lose a saved allergy. Now only `showAllergens=1`, reached through a confirm dialog and never stored, lifts them; chips for saved allergens are fixed. Anything that can widen results past a safety setting needs a deliberate step.
+
+**A stand-in is only as good as the figures it cites.** Five earlier "keep" decisions (chili oil, tamarind paste, walnut paste, calamansi, veal stock) had notes the evidence did not support, and eleven "no trusted record" unmaps were wrong. `build_w12.py` now refuses a keep outside 12 percent of every cited figure. Before unmapping, search SR, Foundation, FNDDS, CoFID and CNF.
+
+**Unmapping makes recipes partial by design.** 218 unmaps moved 50 MyPlate recipes from complete to partial and cut the 155 new originals from 127 complete to 77. That is honest, not a regression; the gaps are named per recipe.
+
+**Brand discovery: search ingredients, not brands.** FDC search results already carry full label nutrients; 800 brand-name queries gave about 50 foods, ingredient searches plus an allowlist and a longest-name match gave 1,901. The key allows 3,600 requests an hour.
+
+**Fresh worktrees lack older image caches.** `process_images.py` silently drops every `photos.json` row whose cached image is missing; run it only where the caches exist, and merge new rows by hand otherwise. `commons_w4.py build` writes `commons.json` only at the very end.
+
+**A native `<dialog>` needs its `open` state set false after confirm,** or a second click never reopens it. A click outside closes it, so drive it by ref, not by coordinate. A client module's exports cannot be called from a Server Component; shared helpers go in a plain module (`listNames.ts`).
+
+**A guard that outlives the thing it guards.** The Me time-zone refresh guard lived in `sessionStorage` while sign-out deleted the cookie, so the next sign-in in the same tab never reset the cookie and the page showed the UTC day. A once-only guard must be keyed to the state it protects.
+
+**Round for the preview the way you round for the write.** The Add dialog showed 271 kcal, the diary stored 405 for 1.5 servings (a different rounding), the recipe page said 270. Compute the number once and show what will be saved.
+
+**Never write a heredoc with a quoted apostrophe through the shell tool.** It is refused or silently skipped; use the Write tool for text and Edit for code, then grep to confirm.
+
+**Seeds that copy rows are not idempotent.** `seed-nutrition-zzzzz-math-10c.sql` adds a reasonless `soy` tag to `hot cocoa mix` when re-run on a database that already has allergen tags. Never re-run it on live.

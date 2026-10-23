@@ -48,7 +48,12 @@ export const SESSIONS = [
   { v: "full_body", label: "Full body" },
   { v: "cardio", label: "Cardio" },
   { v: "custom", label: "Custom" },
+  // The calendar's one-tap "I trained": no sets, no muscles. Not offered as a pill in the log sheet.
+  { v: "trained", label: "Trained" },
 ] as const;
+
+/** The session types the log sheet offers as pills (everything except the one-tap "trained" mark). */
+export const LOG_SESSIONS = SESSIONS.filter((s) => s.v !== "trained");
 
 export type Session = (typeof SESSIONS)[number]["v"];
 
@@ -72,6 +77,7 @@ export const SESSION_MUSCLES: Record<Exclude<Session, "custom">, readonly Share[
     ["quadriceps", 0.16], ["hamstring", 0.1], ["gluteal", 0.12], ["calves", 0.06], ["lower-back", 0.04],
   ],
   cardio: [],
+  trained: [],
 };
 
 export type MuscleSets = { muscle: MuscleSlug; sets: number }[];

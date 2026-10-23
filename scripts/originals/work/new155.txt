@@ -1,0 +1,155 @@
+aloo-gosht|Aloo Gosht (Lamb and Potato Curry)
+aloo-paratha|Aloo Paratha (Potato-Stuffed Flatbread)
+aloo-tama|Aloo Tama (Potato and Bamboo Shoot Curry)
+ambul-thiyal|Ambul Thiyal (Sour Fish Curry)
+asam-pedas-fish|Asam Pedas Fish (Sour and Spicy Fish Stew)
+banh-xeo|Bánh Xèo (Crispy Sizzling Crepes)
+beef-rendang|Beef Rendang
+bhindi-masala|Bhindi Masala (Spiced Okra)
+bibim-guksu|Bibim Guksu (Spicy Cold Noodles)
+bo-luc-lac|Bò Lúc Lắc (Shaking Beef)
+boeuf-bourguignon|Boeuf Bourguignon
+bucatini-all-amatriciana|Bucatini all'Amatriciana
+bulalo|Bulalo (Beef Shank and Marrow Soup)
+bun-bo-hue|Bún Bò Huế (Spicy Beef and Lemongrass Noodle Soup)
+ca-kho-to|Cá Kho Tộ (Caramelized Braised Catfish)
+cabbage-mallung|Cabbage Mallung
+caldo-verde|Caldo Verde (Portuguese Kale Soup)
+cha-gio|Chả Giò (Fried Spring Rolls)
+chapli-kebab|Chapli Kebab (Peshawari Beef Patties)
+char-kway-teow|Char Kway Teow
+char-siu|Char Siu (Cantonese Barbecue Pork)
+chawanmushi|Chawanmushi (Savory Steamed Egg Custard)
+chicken-afritada|Chicken Afritada (Chicken in Tomato Sauce)
+chicken-biryani|Hyderabadi Chicken Biryani
+chicken-karaage|Chicken Karaage (Japanese Fried Chicken)
+chicken-karahi|Chicken Karahi
+chicken-momo|Chicken Momo (Nepali Dumplings)
+chicken-paprikash|Chicken Paprikash (Csirkepaprikás)
+chicken-piccata|Chicken Piccata
+chicken-souvlaki|Chicken Souvlaki
+chicken-teriyaki|Chicken Teriyaki
+chicken-vindaloo|Goan Chicken Vindaloo
+chinese-tea-eggs|Chinese Tea Eggs
+com-tam-suon-nuong|Cơm Tấm Sườn Nướng (Grilled Lemongrass Pork Chops with Rice)
+cong-you-ban-mian|Cong You Ban Mian (Scallion Oil Noodles)
+cong-you-bing|Cong You Bing (Scallion Pancakes)
+coq-au-vin|Coq au Vin
+curry-laksa|Curry Laksa
+dakgalbi|Dakgalbi (Spicy Stir-Fried Chicken)
+dal-makhani|Dal Makhani
+dhokla|Khaman Dhokla (Steamed Chickpea Flour Cake)
+doenjang-jjigae|Doenjang Jjigae (Soybean Paste Stew)
+dubu-jorim|Dubu Jorim (Braised Tofu)
+egg-curry|Egg Curry (Anda Curry)
+egg-drop-soup|Egg Drop Soup (Dan Hua Tang)
+french-onion-soup|French Onion Soup
+gado-gado|Gado-Gado (Vegetables with Peanut Sauce)
+galbi-jjim|Galbi Jjim (Braised Short Ribs)
+gambas-al-ajillo|Gambas al Ajillo (Garlic Shrimp)
+gamjatang|Gamjatang (Spicy Pork Bone and Potato Stew)
+gan-bian-si-ji-dou|Gan Bian Si Ji Dou (Dry-Fried Green Beans)
+ginataang-kalabasa-at-sitaw|Ginataang Kalabasa at Sitaw (Squash and String Beans in Coconut Milk)
+goi-ga|Gỏi Gà (Vietnamese Chicken Cabbage Salad)
+gu-lao-rou|Gu Lao Rou (Cantonese Sweet and Sour Pork)
+gua-bao|Gua Bao (Pork Belly Buns)
+gyoza|Gyoza (Pan-Fried Dumplings)
+hainanese-chicken-rice|Hainanese Chicken Rice
+hong-shao-rou|Hong Shao Rou (Red-Braised Pork Belly)
+hui-guo-rou|Hui Guo Rou (Twice-Cooked Pork)
+jajangmyeon|Jajangmyeon (Noodles in Black Bean Sauce)
+kai-jeow|Kai Jeow (Thai Crispy Omelet)
+kangkung-belacan|Kangkung Belacan (Water Spinach with Shrimp Paste)
+kare-kare|Kare-Kare (Oxtail and Peanut Stew)
+katsudon|Katsudon (Pork Cutlet Rice Bowl)
+kerala-avial|Kerala Avial (Mixed Vegetables in Coconut and Yogurt)
+khao-man-gai|Khao Man Gai (Thai Chicken and Rice)
+khao-soi-gai|Khao Soi Gai (Northern Thai Curry Noodle Soup)
+kimbap|Kimbap (Seaweed Rice Rolls)
+kimchi-bokkeumbap|Kimchi Bokkeumbap (Kimchi Fried Rice)
+kinpira-gobo|Kinpira Gobo (Braised Burdock and Carrot)
+larb-gai|Larb Gai (Chicken Larb Salad)
+leche-flan|Leche Flan
+lu-rou-fan|Lu Rou Fan (Braised Pork Rice)
+malai-kofta|Malai Kofta
+mango-sticky-rice|Mango Sticky Rice (Khao Niao Mamuang)
+matar-paneer|Matar Paneer
+mee-goreng-mamak|Mee Goreng Mamak
+melanzane-alla-parmigiana|Melanzane alla Parmigiana (Eggplant Parmigiana)
+mie-goreng|Mie Goreng (Indonesian Fried Noodles)
+miyeok-guk|Miyeok Guk (Seaweed Soup)
+moo-ping|Moo Ping (Thai Grilled Pork Skewers)
+moussaka|Moussaka
+nasi-goreng|Nasi Goreng (Indonesian Fried Rice)
+nasi-lemak|Nasi Lemak (Coconut Rice with Sambal)
+nepali-dal-bhat|Nepali Dal Bhat (Lentil Soup with Rice)
+nepali-tomato-achar|Nepali Tomato Achar (Roasted Tomato Pickle)
+nihari|Nihari (Slow-Cooked Beef Stew)
+oi-muchim|Oi Muchim (Spicy Cucumber Salad)
+omurice|Omurice (Ketchup Rice Omelet)
+pad-kee-mao|Pad Kee Mao (Drunken Noodles)
+pad-see-ew|Pad See Ew (Wide Rice Noodles with Soy Sauce)
+pajeon|Pajeon (Scallion Pancake)
+panang-curry|Panang Curry with Pork
+pancit-canton|Pancit Canton
+paneer-butter-masala|Paneer Butter Masala
+panzanella|Panzanella (Tuscan Bread Salad)
+parippu|Parippu (Sri Lankan Red Lentil Curry)
+pasta-alla-puttanesca|Pasta alla Puttanesca
+pasta-e-fagioli|Pasta e Fagioli
+patatas-bravas|Patatas Bravas
+perkedel-kentang|Perkedel Kentang (Potato Fritters)
+pesto-alla-genovese|Pesto alla Genovese with Linguine
+pho-bo|Phở Bò (Beef Noodle Soup)
+pierogi-ruskie|Pierogi Ruskie (Potato and Cheese Dumplings)
+pinakbet|Pinakbet (Vegetables with Shrimp Paste)
+pol-sambol|Pol Sambol (Coconut Sambol)
+pork-menudo|Pork Menudo
+quiche-lorraine|Quiche Lorraine
+rau-muong-xao-toi|Rau Muống Xào Tỏi (Garlic Water Spinach)
+risotto-alla-milanese|Risotto alla Milanese (Saffron Risotto)
+rogan-josh|Rogan Josh (Kashmiri Lamb Curry)
+roti-canai|Roti Canai
+saba-shioyaki|Saba Shioyaki (Salt-Grilled Mackerel)
+salt-and-pepper-shrimp|Salt and Pepper Shrimp
+saltimbocca-alla-romana|Saltimbocca alla Romana
+samgyetang|Samgyetang (Chicken and Rice Soup)
+san-bei-ji|San Bei Ji (Three Cup Chicken)
+sate-ayam|Sate Ayam (Chicken Satay with Peanut Sauce)
+sayur-lodeh|Sayur Lodeh (Vegetables in Coconut Milk)
+seekh-kebab|Seekh Kebab (Spiced Lamb Skewers)
+shrimp-tempura|Shrimp Tempura
+sisig|Sisig (Sizzling Pork)
+soto-ayam|Soto Ayam (Turmeric Chicken Soup)
+spaghetti-aglio-e-olio|Spaghetti Aglio e Olio
+spaghetti-carbonara|Spaghetti alla Carbonara
+spanakopita|Spanakopita (Spinach and Feta Pie)
+sri-lankan-chicken-curry|Sri Lankan Chicken Curry
+steamed-fish-ginger-scallion|Steamed Fish with Ginger and Scallion
+suan-la-tang|Suan La Tang (Hot and Sour Soup)
+sukiyaki|Sukiyaki
+sundubu-jjigae|Sundubu Jjigae (Soft Tofu Stew)
+swedish-meatballs|Swedish Meatballs (Köttbullar)
+tagliatelle-al-ragu|Tagliatelle al Ragù (Bolognese)
+taiwanese-beef-noodle-soup|Taiwanese Beef Noodle Soup
+taiwanese-popcorn-chicken|Taiwanese Popcorn Chicken (Yan Su Ji)
+tandoori-chicken|Tandoori Chicken (Oven)
+tempe-orek|Tempe Orek (Sweet and Spicy Tempeh)
+thai-cashew-chicken|Thai Cashew Chicken (Gai Pad Med Mamuang)
+thai-red-curry-chicken|Thai Red Curry with Chicken (Gaeng Phet Gai)
+thai-yellow-curry-chicken|Thai Yellow Curry with Chicken and Potato (Gaeng Garee Gai)
+tinola|Tinola (Chicken Ginger Soup)
+tiramisu|Tiramisu
+tomato-rasam|Tomato Rasam
+tonjiru|Tonjiru (Pork and Vegetable Miso Soup)
+tonkatsu|Tonkatsu (Pork Cutlet)
+tortilla-espanola|Tortilla Española (Spanish Potato Omelet)
+tteokguk|Tteokguk (Rice Cake Soup)
+upma|Rava Upma
+vegetable-khichdi|Vegetable Khichdi
+wiener-schnitzel|Wiener Schnitzel
+wonton-soup|Cantonese Wonton Soup
+yakhni-pulao|Yakhni Pulao (Chicken Broth Pulao)
+yu-xiang-qiezi|Yu Xiang Qiezi (Fish-Fragrant Eggplant)
+zaru-soba|Zaru Soba (Cold Buckwheat Noodles)
+zha-jiang-mian|Zha Jiang Mian (Noodles with Fried Bean Sauce)

@@ -1,0 +1,496 @@
+# Brands people actually buy (wave 12). One token per line, lower case; a product qualifies when a token appears as whole words
+# in its FDC brand_name or brand_owner. Order is rank: earlier lines win when a food has too many products. A token that
+# matches nothing in FoodData Central does no harm. Store brands are listed last (widely bought, often the only label for a staple).
+# Dairy and eggs
+kraft
+philadelphia
+land o lakes
+tillamook
+sargento
+cabot
+organic valley
+horizon
+kerrygold
+challenge
+president
+galbani
+polly-o
+boar's head
+daisy
+breakstone's
+knudsen
+hood
+fairlife
+chobani
+fage
+oikos
+dannon
+yoplait
+stonyfield
+siggi's
+noosa
+lactaid
+eagle brand
+carnation
+borden
+land o'lakes
+darigold
+lucerne
+cacique
+el mexicano
+la vaquita
+cotija
+egglands best
+pete and gerry's
+vital farms
+nellie's
+# Plant milks, tofu, meat alternatives
+silk
+almond breeze
+blue diamond
+so delicious
+oatly
+califia
+pacific foods
+ripple
+planet oat
+elmhurst
+house foods
+nasoya
+mori-nu
+pulmuone
+wildwood
+tofurky
+lightlife
+gardein
+morningstar
+beyond meat
+impossible
+# Baking, flour, sugar, sweeteners
+bob's red mill
+king arthur
+gold medal
+pillsbury
+red star
+fleischmann's
+rumford
+arm & hammer
+clabber girl
+domino
+c&h
+imperial
+sugar in the raw
+zulka
+nielsen-massey
+wholesome
+swerve
+lakanto
+truvia
+splenda
+sun-maid
+sunmaid
+ocean spray
+dole
+# Spices and seasonings
+mccormick
+simply organic
+spice islands
+badia
+frontier
+morton
+diamond crystal
+maldon
+lawry's
+tony chachere's
+old bay
+slap ya mama
+goya
+sazon
+adobo
+knorr
+maggi
+better than bouillon
+swanson
+college inn
+kitchen basics
+pacific
+imagine
+herb-ox
+wyler's
+# Condiments, sauces, oils
+hellmann's
+best foods
+duke's
+miracle whip
+blue plate
+heinz
+french's
+gulden's
+grey poupon
+maille
+annie's
+sir kensington's
+sweet baby ray's
+kc masterpiece
+stubb's
+bull's-eye
+frank's redhot
+tabasco
+texas pete
+cholula
+huy fong
+tapatio
+valentina
+crystal
+louisiana
+trappey's
+ken's
+wish-bone
+newman's own
+hidden valley
+marie's
+wesson
+crisco
+mazola
+pompeian
+bertolli
+filippo berio
+colavita
+california olive ranch
+spectrum
+la tourangelle
+carapelli
+lucini
+unilever
+conagra
+hormel
+mizkan
+vlasic
+mt. olive
+bubbies
+claussen
+mezzetta
+peloponnese
+gaea
+# Pasta, rice, grains, canned goods
+barilla
+de cecco
+ronzoni
+mueller's
+san giorgio
+creamette
+dreamfields
+banza
+tinkyada
+jovial
+rummo
+divella
+la molisana
+delallo
+rao's
+prego
+ragu
+classico
+victoria
+muir glen
+hunt's
+del monte
+contadina
+cento
+pastene
+mutti
+la valle
+redpack
+tuttorosso
+progresso
+campbell's
+uncle ben's
+ben's original
+minute
+riceselect
+mahatma
+carolina
+lundberg
+nishiki
+kokuho rose
+botan
+tilda
+royal
+zatarain's
+near east
+rice-a-roni
+success
+bush's
+eden
+la costena
+rosarita
+old el paso
+ortega
+herdez
+embasa
+green giant
+libby's
+le sueur
+seneca
+pictsweet
+birds eye
+cascadian farm
+mann's
+starkist
+bumble bee
+chicken of the sea
+wild planet
+safe catch
+season
+king oscar
+ortiz
+quaker
+general mills
+kellogg's
+post
+nature's path
+arrowhead mills
+bob's red mill
+anson mills
+# Bread, tortillas, crumbs
+wonder
+pepperidge farm
+dave's killer bread
+sara lee
+nature's own
+arnold
+thomas'
+mission
+guerrero
+la tortilla factory
+toufayan
+kontos
+joseph's
+ian's
+4c
+kikkoman
+# Nuts, seeds, spreads, preserves
+planters
+wonderful
+diamond of california
+jif
+skippy
+peter pan
+smucker's
+justin's
+maranatha
+crazy richard's
+soom
+sadaf
+ziyad
+al wadi
+joyva
+baron
+krinos
+bonne maman
+welch's
+# Asian
+lee kum kee
+yamasa
+san-j
+pearl river bridge
+healthy boy
+koon chun
+kim lan
+sun luck
+wei-chuan
+kadoya
+ottogi
+sempio
+chung jung one
+haechandle
+cj
+bibigo
+jongga
+nongshim
+mizkan
+marukan
+hikari
+shirakiku
+hime
+ito en
+maruchan
+nissin
+indomie
+mae ploy
+maesri
+thai kitchen
+aroy-d
+chaokoh
+lobo
+squid brand
+three crabs
+red boat
+megachef
+por kwan
+tiparos
+cock brand
+lao gan ma
+ayam
+kara
+bango
+abc
+dynasty
+joyce chen
+la choy
+taste of asia
+amoy
+pagoda
+koon chun
+lotus foods
+# Latin American
+goya
+la preferida
+iberia
+mexene
+maseca
+gruma
+la banderita
+el yucateco
+lizano
+rico
+# South Asian, Middle Eastern, African
+patak's
+tasty bite
+deep
+swad
+laxmi
+shan
+mtr
+haldiram's
+aashirvaad
+sher
+cortas
+tamek
+haddar
+maazah
+dodoni
+karoun
+tropical sun
+maggi
+ola ola
+# Store brands
+great value
+kroger
+365
+whole foods
+trader joe's
+good & gather
+market pantry
+kirkland
+member's mark
+o organics
+signature select
+simple truth
+publix
+wegmans
+h-e-b
+simply nature
+happy harvest
+specially selected
+food club
+meijer
+harris teeter
+giant
+stop & shop
+wholesome pantry
+shoprite
+albertsons
+safeway
+# Regional and discount grocery chains with their own labels (each is sold in hundreds of stores); ranked last so national brands win ties
+hy-vee
+raley's
+ahold
+schnucks
+essential everyday
+best choice
+first street
+our family
+tops
+hannaford
+archer farms
+big y
+roundy's
+weis
+food lion
+simply balanced
+clover valley
+se grocers
+brookshire's
+nature's promise
+stater bros
+spartan
+wellsley farms
+private selection
+always save
+wild harvest
+sunny select
+lowes foods
+marketside
+iga
+ht traders
+greenwise
+market district
+price chopper
+fareway
+chestnut hill
+open nature
+winn-dixie
+market basket
+best yet
+gold emblem
+sam's choice
+southern home
+winco
+field day
+shoppers value
+freshness guaranteed
+signature farms
+laura lynn
+amy's
+gefen
+manischewitz
+melissa's
+stonewall kitchen
+roland
+taylor farms
+brandless
+# More national brands found in the first pass (poultry, deli, bakery, dairy, health-food staples)
+tyson
+butterball
+jennie-o
+belgioioso
+hodgson mill
+sabra
+nutiva
+navitas organics
+natural delights
+aunt millie's
+franz
+bimbo
+dean's
+prairie farms
+kemps
+shamrock farms
+garelick farms
+alta dena
+oak farms
+dairy pure
+haolam
+stella
+carando
+farmer john
+lidl
+piggly wiggly
+key food
+nice!
+western family
+price rite
+white rose
+the fresh market
+freedom's choice

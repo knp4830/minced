@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
+import { ConfirmDialog } from "@/components/recipe/allergenConfirm";
 import { Chip } from "@/components/ui/chip";
 import { saveFoodDefaults } from "@/lib/actions/settings";
 import { prefsLabel } from "@/lib/prefs";
@@ -39,6 +40,9 @@ export function FoodDefaultsForm({
   // Keep the radio order the nesting reads in: pescatarian, vegetarian, vegan.
   styles.sort((a, b) => NESTED_DIETS.indexOf(a.slug) - NESTED_DIETS.indexOf(b.slug));
   const style = value.diet.find((d) => NESTED_DIETS.includes(d)) ?? "";
+  /** The saved allergen the person just tapped to remove, waiting for a yes. */
+  const [confirmOff, setConfirmOff] = useState<string | null>(null);
+  const offName = (allergens.find((a) => a.slug === confirmOff)?.name ?? confirmOff ?? "").toLowerCase();
 
   const preview = useMemo(
     () =>
@@ -55,6 +59,11 @@ export function FoodDefaultsForm({
   }
   function toggle(key: "diet" | "allergens", slug: string) {
     const cur = value[key];
+    // Taking an allergen OFF the list is the one change that can put it in front of someone, so it asks first.
+    if (key === "allergens" && cur.includes(slug)) {
+      setConfirmOff(slug);
+      return;
+    }
     setValue({ ...value, [key]: cur.includes(slug) ? cur.filter((s) => s !== slug) : [...cur, slug] });
   }
 
@@ -105,6 +114,10 @@ export function FoodDefaultsForm({
             </Chip>
           ))}
         </div>
+        <p className="mt-3 max-w-[34em] text-[0.8125rem] leading-snug text-ink-muted" data-testid="allergen-always-hidden">
+          Recipes with these stay hidden on every search, so nothing slips through while you browse. If you ever need
+          to look past them, you can do that for one search at a time, and we will ask first.
+        </p>
         <p className="mt-3 max-w-[34em] text-[0.8125rem] leading-snug text-ink-muted" data-testid="allergen-definitions">
           Peanuts and tree nuts are separate, and coconut is not counted as a tree nut. Wheat is separate from gluten
           (gluten also covers barley and rye). Shellfish means crab, shrimp and lobster; mollusks means clams, oysters,
@@ -116,6 +129,23 @@ export function FoodDefaultsForm({
           cross-contact. Always read labels. If you have a serious allergy, don&rsquo;t rely on Minced.
         </p>
       </fieldset>
+
+      <ConfirmDialog
+        open={confirmOff !== null}
+        title={`Stop hiding recipes with ${offName}?`}
+        confirmLabel="Stop hiding them"
+        cancelLabel="Keep hiding them"
+        onConfirm={() => {
+          if (confirmOff) setValue({ ...value, allergens: value.allergens.filter((s) => s !== confirmOff) });
+          setConfirmOff(null);
+        }}
+        onCancel={() => setConfirmOff(null)}
+      >
+        <p>
+          Recipes with {offName} will start showing up in your browse, search and fridge results. You can switch it
+          back on whenever you like.
+        </p>
+      </ConfirmDialog>
 
       <div>
         <p className="rounded-md bg-band px-3 py-2 text-[0.875rem]" data-testid="defaults-preview">

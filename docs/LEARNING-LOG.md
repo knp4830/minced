@@ -1665,4 +1665,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 41 - [next entry goes here]
+## Entry 41 - Wave 12: a filter pop-up, safer allergens, stand-ins you can defend, and Me for any day
+
+**What we built.** Five things on one branch. (1) The landing page's fridge button became "Select filters", a pop-up that sets ingredient, aisle, diet, allergens, time, calories and protein and sends you to `/recipes` with the usual URL parameters; the fridge section was rewritten warmly with a real photo. (2) Allergens became a safety setting: saved allergens stay hidden on every search, and the only way past them is a confirm dialog that applies to that one search. The recipe form now shows a live per-serving calorie and macro estimate. (3) The stand-in audit re-checked 326 decisions against trusted records: stand-ins fell from 305 to 33, and 1,901 brand foods were linked to 503 ingredients. (4) 155 new recipes (Asian first, then European) were written by hand with two source URLs each, loaded as `in_review`, and given nutrition by the database. (5) Me can log food on any day, edit and remove entries, mark "I trained", and shows a goal verdict per day.
+
+**Key files.** Migration `20261022140000_me_day_log.sql`; `src/components/recipe/selectFiltersDialog.tsx`, `allergenConfirm.tsx`, `nutritionPreview.tsx`; `src/lib/filters.ts`; `src/components/me/*` (calendar, day card, edit dialog); `scripts/nutrition/foods12/` and `supabase/seed-nutrition-w12-foods.sql`; `scripts/originals/` and `supabase/seed-originals-w12.sql`; `scripts/nutrition/LIVE-STEPS.md` (ordered live steps).
+
+**How it works and why.** The pop-up builds the same `RecipeFilters` object everything else uses and serialises it with `filtersToQuery`, so a second filter contract never exists. The allergen override lives only in the URL (`showAllergens=1`), is not part of the cache key and is never stored, so a bookmark or a shared link cannot silently undo a safety choice for someone else. The preview calls the database functions the recipe page uses, so the two cannot disagree. Stand-ins follow one rule: a kept stand-in must be within 12 percent of every trusted figure it cites or it is unmapped; an honest gap beats a wrong number. Me scales a logged entry by one factor in one SQL statement (`me_update_food`) because nutrition is linear in the amount and the row must never be half edited. Rejected: storing the override, adding a count endpoint just for the pop-up, brand-name sweeps, and replacing the foods lane's gaps with guesses to keep recipes "complete".
+
+**Concepts.** Safety settings versus preferences; idempotent seeds; SECURITY INVOKER with an explicit owner filter; linear scaling; a once-only guard tied to the state it protects.
+
+**Gotchas.** Unmapping stand-ins made 78 of the 155 new recipes partial (the gaps are named). The time filter keeps recipes with no stated time (652 of 957), which makes the pop-up's time chips look wrong; the owner decides. The Me time-zone guard outlived the cookie after sign-out (fixed). `seed-nutrition-zzzzz-math-10c.sql` must not be re-run on live. Photos for the new recipes are not uploaded until the live steps.
+
+---
+
+## Entry 42 - [next entry goes here]

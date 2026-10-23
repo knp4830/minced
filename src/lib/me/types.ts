@@ -48,6 +48,9 @@ export type FoodEntry = {
    * before nutrient data existed.
    */
   nutrients: Record<string, number> | null;
+  /** The amount typed when an ingredient or brand was logged ("150" and "g"); null for recipes, quick adds and older rows. */
+  amount: number | null;
+  amountUnit: string | null;
   /** What the entry is: a Minced recipe, an ingredient or brand with an amount, or a hand-typed quick add. */
   source: "recipe" | "food" | "quick";
   recipe: { slug: string; imageUrl: string | null } | null;

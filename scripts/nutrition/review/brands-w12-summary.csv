@@ -1,0 +1,486 @@
+kind,name,brand_foods
+category,Cheese,151
+category,Breads & Buns,105
+category,Wholesome Snacks,96
+category,"Popcorn, Peanuts, Seeds & Related Snacks",91
+category,Flours & Corn Meal,79
+category,Pasta by Shape & Type,69
+category,Frozen Fish & Seafood,61
+category,Salad Dressing & Mayonnaise,60
+category,"Pickles, Olives, Peppers & Relishes",54
+category,Milk,52
+category,Vegetable & Cooking Oils,45
+category,"Oriental, Mexican & Ethnic Sauces",42
+category,Rice,42
+category,Canned Vegetables,42
+category,Canned & Bottled Beans,42
+category,"Pepperoni, Salami & Cold Cuts",42
+category,Other Meats,35
+category,"Fruit & Vegetable Juice, Nectars & Fruit Drinks",33
+category,Vegetable and Lentil Mixes,31
+category,"Jam, Jelly & Fruit Spreads",29
+category,Cereal,28
+category,Dips & Salsa,28
+category,"Poultry, Chicken & Turkey",27
+category,Mexican Dinner Mixes,27
+category,"Seasoning Mixes, Salts, Marinades & Tenderizers",25
+category,Other Grains & Seeds,25
+category,Cream,25
+category,"Ketchup, Mustard, BBQ & Cheese Sauce",24
+category,"Sausages, Hotdogs & Brats",23
+category,Nut & Seed Butters,20
+category,"Granulated, Brown & Powdered Sugar",20
+category,Tomatoes,19
+category,Crackers & Biscotti,19
+category,Prepared Pasta & Pizza Sauces,17
+category,"Cake, Cookie & Cupcake Mixes",16
+category,Canned Fruit,15
+category,Syrups & Molasses,14
+category,Canned Seafood,14
+category,"Chips, Pretzels & Snacks",14
+category,Canned Soup,12
+category,Butter & Spread,12
+category,Chocolate,12
+category,Milk/Milk Substitutes,11
+category,Frozen Vegetables,11
+category,All Noodles,11
+category,Crusts & Dough,11
+category,Eggs & Egg Substitutes,11
+category,Fish & Seafood,11
+category,Candy,10
+category,Other Condiments,9
+category,"Bacon, Sausages & Ribs",9
+category,Baking Decorations & Dessert Toppings,9
+category,"Croissants, Sweet Rolls, Muffins & Other Pastries",9
+category,Other Cooking Sauces,9
+category,Bread & Muffin Mixes,8
+category,Frozen Appetizers & Hors D'oeuvres,8
+category,"Frozen Poultry, Chicken & Turkey",8
+category,Cookies & Biscuits,8
+category,Frozen Bread & Dough,7
+category,Canned Meat,7
+category,Other Soups,6
+category,Other Drinks,6
+category,Baking Additives & Extracts,6
+category,Yogurt,6
+category,Stuffing,6
+category,Canned Condensed Soup,5
+category,Grains/Flour,4
+category,Prepared Soups,4
+category,Honey,4
+category,Powdered Drinks,4
+category,Plant Based Milk,3
+category,Baking/Cooking Mixes/Supplies,3
+category,Chili & Stew,3
+category,Sauces/Spreads/Dips/Condiments,3
+category,Herbs & Spices,3
+category,Tea Bags,2
+category,Other Snacks,2
+category,Other Deli,2
+category,Cooked & Prepared,2
+category,Vegetable Based Products / Meals,2
+category,Other Frozen Meats,2
+category,"Frozen Sausages, Hotdogs & Brats",2
+category,Vegetables - Prepared/Processed,2
+category,Water,2
+category,Non Alcoholic Beverages  Ready to Drink,2
+category,Frozen Fruit & Fruit Juice Concentrates,1
+category,Vegetables  Prepared/Processed,1
+category,Pizza Mixes & Other Dry Dinners,1
+category,Pre-Packaged Fruit & Vegetables,1
+category,Bread,1
+category,Ice Cream & Frozen Yogurt,1
+category,Biscuits/Cookies,1
+category,Fish  Unprepared/Unprocessed,1
+category,"Entrees, Sides & Small Meals",1
+category,Flavored Rice Dishes,1
+category,Meat/Poultry/Other Animals - Prepared/Processed,1
+brand,GREAT VALUE,71
+brand,WEGMANS,57
+brand,KROGER,57
+brand,GOYA,50
+brand,GIANT EAGLE,44
+brand,MEIJER,43
+brand,BOB'S RED MILL,39
+brand,MARKET PANTRY,37
+brand,GOOD & GATHER,36
+brand,365 WHOLE FOODS MARKET,33
+brand,SHOPRITE,32
+brand,WHOLE FOODS MARKET,28
+brand,RALEY'S,26
+brand,HARRIS TEETER,25
+brand,SIGNATURE SELECT,25
+brand,AHOLD,24
+brand,365 EVERYDAY VALUE,23
+brand,KRAFT,22
+brand,HANNAFORD,22
+brand,O ORGANICS,21
+brand,SCHNUCKS,20
+brand,HY-VEE,18
+brand,ARROWHEAD MILLS,17
+brand,TOPS,17
+brand,LAND O LAKES,16
+brand,BEST CHOICE,16
+brand,ORGANIC VALLEY,14
+brand,DELALLO,14
+brand,BOAR'S HEAD,14
+brand,FIRST STREET,14
+brand,LUCERNE,13
+brand,SIMPLE TRUTH,13
+brand,SARA LEE,13
+brand,ROUNDY'S,12
+brand,BORDEN,12
+brand,MEMBER'S MARK,12
+brand,FOOD LION,11
+brand,PACIFIC,11
+brand,CRYSTAL FARMS,11
+brand,WONDER,11
+brand,SADAF,10
+brand,ESSENTIAL EVERYDAY,10
+brand,ROLAND,10
+brand,PLANTERS,9
+brand,CENTO,9
+brand,ARCHER FARMS,9
+brand,IBERIA,9
+brand,BADIA,9
+brand,HOOD,8
+brand,WELLSLEY FARMS,8
+brand,HEINZ,8
+brand,NEWMAN'S OWN,8
+brand,GIANT,8
+brand,HORIZON ORGANIC,8
+brand,HORMEL,8
+brand,LA PREFERIDA,8
+brand,SIMPLY BALANCED,7
+brand,DEL MONTE,7
+brand,COLAVITA,7
+brand,OUR FAMILY,7
+brand,DIAMOND OF CALIFORNIA,7
+brand,CLOVER VALLEY,7
+brand,PUBLIX,7
+brand,BIG Y,7
+brand,VICTORIA,6
+brand,SPECTRUM CULINARY,6
+brand,MELISSA'S,6
+brand,GREENWISE,6
+brand,SPECTRUM,6
+brand,CABOT,6
+brand,IGA,6
+brand,MISSION,6
+brand,WISH-BONE,6
+brand,STONYFIELD,5
+brand,DARIGOLD,5
+brand,LA TOURANGELLE,5
+brand,R.W. KNUDSEN FAMILY,5
+brand,SARGENTO,5
+brand,GALBANI,5
+brand,THOMAS',5
+brand,PILLSBURY,5
+brand,SIMPLE TRUTH ORGANIC,5
+brand,RICESELECT,5
+brand,KING ARTHUR FLOUR,5
+brand,MARKETSIDE,5
+brand,ALWAYS SAVE,5
+brand,NEW SEASONS,5
+brand,SIGNATURE FARMS,5
+brand,TYSON,5
+brand,BRANDLESS,5
+brand,WEIS,5
+brand,PRICE CHOPPER,5
+brand,SUN-MAID,5
+brand,SE GROCERS,5
+brand,NATURE'S PROMISE,5
+brand,WEIS QUALITY,5
+brand,RONZONI,5
+brand,TILLAMOOK,5
+brand,KIKKOMAN,5
+brand,BUTTERBALL,5
+brand,Gold Medal,4
+brand,STONEWALL KITCHEN,4
+brand,PASTENE,4
+brand,GEFEN,4
+brand,LUCERNE DAIRY FARMS,4
+brand,DOMINO,4
+brand,NAVITAS ORGANICS,4
+brand,SAN GIORGIO,4
+brand,BUMBLE BEE,4
+brand,CAMPBELL'S,4
+brand,GUERRERO,4
+brand,TRADER JOE'S,4
+brand,CHICKEN OF THE SEA,4
+brand,BIMBO,4
+brand,PACIFIC COAST,4
+brand,PEPPERIDGE FARM,4
+brand,EDEN,4
+brand,MUELLER'S,4
+brand,LA VICTORIA,4
+brand,PACIFIC SEAFOOD,4
+brand,KEN'S STEAK HOUSE,4
+brand,LEE KUM KEE,4
+brand,MANISCHEWITZ,4
+brand,HT TRADERS,4
+brand,OPEN NATURE,3
+brand,H-E-B,3
+brand,FAREWAY,3
+brand,BROOKSHIRE'S,3
+brand,MARTINELLI'S GOLD MEDAL,3
+brand,POLLY-O,3
+brand,NEW FRENCH BAKERY,3
+brand,LOWES FOODS,3
+brand,WINN-DIXIE,3
+brand,BUSH'S BEST,3
+brand,THE FRESH MARKET,3
+brand,MINUTE,3
+brand,COLLEGE INN,3
+brand,PRIVATE SELECTION,3
+brand,CAROLINA,3
+brand,LUNDBERG FAMILY FARMS,3
+brand,NISHIKI,3
+brand,BELGIOIOSO,3
+brand,HODGSON MILL,3
+brand,NATURE'S PATH ORGANIC,3
+brand,EL MEXICANO,3
+brand,NUTIVA,3
+brand,WILD HARVEST,3
+brand,LA TORTILLA FACTORY,3
+brand,OCEAN SPRAY,3
+brand,FRESHNESS GUARANTEED,3
+brand,DE CECCO,3
+brand,Rosarita,3
+brand,GOLD MEDAL BAKERY,3
+brand,HOUSE FOODS,3
+brand,SOUTHERN HOME,3
+brand,PACIFIC COAST SELECTIONS,3
+brand,STATER BROS.,3
+brand,LA COSTENA,3
+brand,QUAKER,3
+brand,HERDEZ,3
+brand,NICE!,3
+brand,DUKE'S,3
+brand,DEEP,3
+brand,HELLMANN'S,3
+brand,BONNE MAMAN,3
+brand,SUN LUCK,3
+brand,MAMA MARY'S,3
+brand,KIRKLAND SIGNATURE,3
+brand,BARILLA,3
+brand,ORTEGA,3
+brand,JUSTIN'S,2
+brand,Silk,2
+brand,BLUE DIAMOND,2
+brand,HAOLAM,2
+brand,SPARTAN,2
+brand,POMPEIAN,2
+brand,SWANSON,2
+brand,JOVIAL,2
+brand,CONTADINA,2
+brand,Progresso,2
+brand,FARMER JOHN,2
+brand,WEGMANS ORGANIC,2
+brand,CRISCO,2
+brand,IMPERIAL NUTS,2
+brand,KELLOGG'S CORN FLAKES,2
+brand,KELLOGG'S RAISIN BRAN,2
+brand,SEASON,2
+brand,STARKIST,2
+brand,PROGRESSO,2
+brand,Giant,2
+brand,Ahold,2
+brand,SAM'S CHOICE,2
+brand,SWAD,2
+brand,WHOLESOME,2
+brand,LA BANDERITA,2
+brand,SIMPLY KRAFT,2
+brand,PHILADELPHIA,2
+brand,PRESIDENT,2
+brand,ANNIE'S,2
+brand,FRENCH'S,2
+brand,LAXMI,2
+brand,KERRYGOLD,2
+brand,SUNNY SELECT,2
+brand,Key Food,2
+brand,LUCERNE FARMS,2
+brand,FRONTIER,2
+brand,DAVE'S KILLER BREAD,2
+brand,EAGLE BRAND,2
+brand,CARNATION,2
+brand,NASOYA,2
+brand,WESTERN FAMILY,2
+brand,C&H,2
+brand,NATURE'S OWN,2
+brand,WELCH'S,2
+brand,Chobani,2
+brand,CRYSTAL RIVER MEATS,2
+brand,JENNIE-O,2
+brand,GOLD MEDAL,2
+brand,MARY JANE,2
+brand,ARNOLD,2
+brand,BIBIGO,2
+brand,STATER BROS. MARKETS,2
+brand,DREAMFIELDS,2
+brand,ROYAL,2
+brand,NATURAL DELIGHTS,2
+brand,BARON CHOCOLATIER,2
+brand,BARON,2
+brand,Sargento,2
+brand,FREEDOM'S CHOICE,2
+brand,AUNT NELLIE'S,2
+brand,Pillsbury,2
+brand,WONDERFUL,2
+brand,DYNASTY,2
+brand,HADDAR,2
+brand,Organic Valley,2
+brand,LUNDBERG,2
+brand,WILD PLANET,2
+brand,SPICE ISLANDS,2
+brand,DANNON,2
+brand,SAN-J,2
+brand,KING ARTHUR,1
+brand,PETER PAN,1
+brand,MARANATHA,1
+brand,PUBLIX GREENWISE,1
+brand,EARTH HOUSE FOODS,1
+brand,R.W. KNUDSEN,1
+brand,MINUTE MAID,1
+brand,MAHATMA,1
+brand,BIRDS EYE,1
+brand,KC MASTERPIECE,1
+brand,Bush's,1
+brand,BUSH'S,1
+brand,EDEN ORGANIC,1
+brand,KEN'S,1
+brand,RAO'S,1
+brand,PIGGLY WIGGLY,1
+brand,President,1
+brand,MARIN FRENCH CHEESE CO.,1
+brand,AUNT MILLIE'S BAKEHOUSE,1
+brand,LOTUS FOODS,1
+brand,KELLOGG'S FROSTED FLAKES,1
+brand,PRICE RITE,1
+brand,ANNIES HOMEGROWN ORGANIC,1
+brand,Annie's,1
+brand,MUIR GLEN,1
+brand,Weis,1
+brand,MCCORMICK,1
+brand,NISSIN,1
+brand,IMPERIAL DRAGON,1
+brand,LOBO,1
+brand,SHOPPERS VALUE,1
+brand,Daisy,1
+brand,WHOLESOME FOOD COMMODITIES,1
+brand,DOLE,1
+brand,TOPS MARKET,1
+brand,GOLD EMBLEM,1
+brand,MARY'S DUCK,1
+brand,WEI-CHUAN,1
+brand,CREAMETTE,1
+brand,PETE AND GERRY'S,1
+brand,Carnation,1
+brand,DODONI,1
+brand,MORI-NU SILKEN TOFU,1
+brand,PULMUONE,1
+brand,HY-VEE FISH MARKET,1
+brand,STELLA,1
+brand,KEMPS,1
+brand,SEASON'S PICK,1
+brand,LA MOLISANA,1
+brand,HORMEL FOODS,1
+brand,Kellogg's,1
+brand,DIAMOND CRYSTAL BRANDS,1
+brand,SEMPIO,1
+brand,RICOS,1
+brand,SABRA,1
+brand,KNUDSEN,1
+brand,AL WADI AL AKHDAR,1
+brand,CAROLINA PRIDE,1
+brand,ALBERTSONS,1
+brand,ELMHURST DAIRY,1
+brand,WHOLESOME!,1
+brand,ANNY'S BREAD FACTORY,1
+brand,MARY JANE AND FRIENDS,1
+brand,WILDWOOD,1
+brand,GREEN GIANT,1
+brand,LAXMI BRAND,1
+brand,Badia,1
+brand,Horizon Organic,1
+brand,LACTAID,1
+brand,DAIRY PURE,1
+brand,Bush's Best,1
+brand,LIBBY'S,1
+brand,Harris Teeter,1
+brand,"365 WHOLE FOODS MARKET,",1
+brand,RUMMO,1
+brand,DIVELLA,1
+brand,RAO'S HOMEMADE,1
+brand,PATAK'S,1
+brand,WANISH SUGAR BUSH,1
+brand,KARA CHOCOLATES,1
+brand,BEST FOODS,1
+brand,EXCELLENT BARON,1
+brand,TOUFAYAN BAKERIES,1
+brand,FRONTIER CO-OP,1
+brand,BADIA A COLTIBUONO,1
+brand,COCK BRAND,1
+brand,SAFEWAY KITCHENS,1
+brand,Tillamook,1
+brand,CABOT CREAMERY,1
+brand,OTTOGI,1
+brand,MS. MARY'S,1
+brand,ZIYAD,1
+brand,PACIFIC COAST FRUIT,1
+brand,Whole Foods,1
+brand,TOUFAYAN,1
+brand,JOSEPH'S,1
+brand,KOON CHUN SAUCE FACTORY,1
+brand,Hormel,1
+brand,FLEISCHMANN'S,1
+brand,DEEP ORIGINAL KHARI,1
+brand,MARKET BASKET,1
+brand,MARKET DISTRICT,1
+brand,LA VAQUITA,1
+brand,LAURA LYNN,1
+brand,SIR KENSINGTON'S,1
+brand,BERTOLLI,1
+brand,THAI KITCHEN,1
+brand,MIZKAN,1
+brand,CRYSTAL WEDDING OATS,1
+brand,POST,1
+brand,SAFEWAY,1
+brand,MORTON,1
+brand,WHOLESOME HARVEST,1
+brand,EXCELLENT BARON CHOCOLATIER,1
+brand,MARIE'S,1
+brand,BOTAN,1
+brand,PACIFIC SURF,1
+brand,ARNOLD'S,1
+brand,DEEP SOUTH,1
+brand,Kroger,1
+brand,BLACK TOP,1
+brand,CARANDO,1
+brand,DAISY,1
+brand,BREAKSTONE'S,1
+brand,WEGMANS FOOD MKTS,1
+brand,CRYSTAL,1
+brand,Trader Joe's,1
+brand,KEY FOOD,1
+brand,HORIZON,1
+brand,JOSEPH XAVIER FINE FOODS,1
+brand,GIANTS,1
+brand,La Choy,1
+brand,FRANK'S REDHOT,1
+brand,TRAPPEY'S,1
+brand,OLD EL PASO,1
+brand,KRINOS,1
+brand,HIDDEN VALLEY,1
+brand,Muir Glen,1
+brand,Hunt's,1
+brand,REDPACK,1
+brand,TUTTOROSSO,1
+brand,RICO,1
+brand,GRUMA,1
+brand,Boar's Head,1
+brand,PACIFIC FOODS,1
+brand,IMAGINE,1
+brand,CRYSTAL LAKE,1
+brand,Simple Truth,1
+brand,ROYAL CARIBBEAN BAKERY,1

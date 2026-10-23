@@ -33,6 +33,14 @@ export function isIsoDate(v: unknown): v is string {
   return t.getUTCFullYear() === y && t.getUTCMonth() === mo - 1 && t.getUTCDate() === d;
 }
 
+/**
+ * The day the dashboard is showing, from `?d=`: a real date that is not after `today`. Anything else (missing,
+ * malformed, in the future) is null, which means "today".
+ */
+export function parseDayParam(v: string | undefined | null, today: string): string | null {
+  return isIsoDate(v) && v <= today ? v : null;
+}
+
 export function addDays(iso: string, n: number): string {
   return fromUtc(toUtc(iso) + n * 86_400_000);
 }

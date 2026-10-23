@@ -28,7 +28,8 @@ export function TimezoneSync({ serverToday }: { serverToday: string }) {
 
     const marker = `${zone}|${localToday}`;
     try {
-      if (window.sessionStorage.getItem("minced.me.tz-refresh") === marker) return;
+      // The guard only applies while the cookie exists; sign-out deletes the cookie, so a missing one must be set again.
+      if (have !== undefined && window.sessionStorage.getItem("minced.me.tz-refresh") === marker) return;
       window.sessionStorage.setItem("minced.me.tz-refresh", marker);
     } catch {
       // no sessionStorage: refresh at most once per mount anyway

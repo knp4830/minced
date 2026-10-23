@@ -71,7 +71,7 @@ export default async function SettingsPage() {
           id="food"
           eyebrow="Food defaults"
           title="What you eat"
-          lead="Recipes and the fridge matcher leave out anything that doesn’t fit, until you turn your defaults off for a search."
+          lead="Recipes and the fridge matcher leave out anything that doesn’t fit. You can set your diet aside for a single search; your allergens stay hidden unless you choose to look past them, and we will ask first."
         >
           <FoodDefaultsForm
             diets={options.diets}
