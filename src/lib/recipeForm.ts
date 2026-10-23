@@ -163,14 +163,18 @@ export function valuesFromDetail(d: MyRecipeDetail): RecipeFormValues {
     servings: String(d.servings),
     spice: d.spice_level,
     cost: d.cost_per_serving === null ? "" : String(d.cost_per_serving),
-    ingredients: d.ingredients.map((i) => ({
-      quantity: formatQuantity(i.quantity),
-      unit: i.unit ?? "",
-      name: i.name,
-      note: i.prep_note ?? "",
-      optional: i.is_optional,
-    })),
-    steps: d.steps.length > 0 ? d.steps : [""],
+    // A draft autosave opened before any ingredient was valid has none yet: show empty rows, like a new recipe.
+    ingredients:
+      d.ingredients.length > 0
+        ? d.ingredients.map((i) => ({
+            quantity: formatQuantity(i.quantity),
+            unit: i.unit ?? "",
+            name: i.name,
+            note: i.prep_note ?? "",
+            optional: i.is_optional,
+          }))
+        : emptyValues().ingredients,
+    steps: d.steps.length > 0 ? d.steps : emptyValues().steps,
     diets: d.diets,
     cookware: d.cookware,
     rights: false,
@@ -257,7 +261,7 @@ export function autosaveText(s: AutosaveState): string {
       return "Saving…";
     case "saved":
       return s.skipped > 0
-        ? `Saved. ${s.skipped} ingredient ${s.skipped === 1 ? "line is" : "lines are"} not saved yet: pick a suggestion and check the amount.`
+        ? `Saved. ${s.skipped} ingredient ${s.skipped === 1 ? "line is" : "lines are"} not saved yet. Choose a name from the suggestions and check the amount.`
         : "Saved";
     case "retrying":
       return "Couldn't save just now. We will keep trying, and nothing you typed is lost.";

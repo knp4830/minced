@@ -44,6 +44,9 @@ function describe(r: Extract<SaveResult, { ok: false }>): ActionResult {
     case "not_found":
       return { ok: false, message: "That recipe no longer exists (or it is not yours)." };
     case "invalid":
+      // The database words these for people, but two of them read like a form error; say them the way we talk.
+      if (r.field === "title") return { ok: false, message: "Give your recipe a title, between 3 and 120 characters.", field: r.field };
+      if (r.field === "servings") return { ok: false, message: "Add how many servings this makes, from 1 to 100.", field: r.field };
       return { ok: false, message: r.message ?? "Some of the recipe is not valid.", field: r.field };
     default:
       return { ok: false, message: GENERIC };

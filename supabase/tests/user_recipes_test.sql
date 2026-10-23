@@ -93,7 +93,7 @@ insert into admins (user_id) values ('00000000-0000-4000-8000-0000000000ad') on 
 create temp table ids (k text primary key, v uuid);
 grant all on ids to public;
 create temp table before_counts as select count(*) as n from recipes;
-select count(*) as imported_recipes from recipes \gset
+select count(*) as imported_recipes from recipes where author_id is null \gset
 -- The feature switch ships OFF (section 14 tests that); everything below runs with it on.
 update feature_flags set enabled = true where name = 'user_recipes';
 

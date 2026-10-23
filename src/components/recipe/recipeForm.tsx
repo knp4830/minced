@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
 import { Input } from "@/components/ui/input";
 import { FieldHint, Label } from "@/components/ui/label";
@@ -42,6 +42,7 @@ import {
   type RecipeStatus,
 } from "@/lib/recipeForm";
 import { cn } from "@/lib/utils";
+import { SLUG_RE } from "@/lib/validate";
 
 /*
  * Create / edit a recipe (M5.1-M5.3).
@@ -78,6 +79,9 @@ type RecipeMeta = {
   returned: boolean;
   reviewNote: string | null;
 };
+
+/** Set in this tab when autosave opens a draft from /recipes/new, so a reload can offer to continue it. */
+const RESUME_KEY = "minced:new-draft";
 
 /** "just now", "5 minutes ago", "2 hours ago", "yesterday" - for the restore banner. */
 function agoText(at: number): string {
@@ -234,6 +238,7 @@ export function RecipeForm({
   const [skipped, setSkipped] = useState(0);
   const [liveText, setLiveText] = useState("");
   const [restorable, setRestorable] = useState<LocalBackup | null>(null);
+  const [resume, setResume] = useState<{ slug: string; title: string } | null>(null);
   const latest = useRef({ values: current(), sig });
   const queueRef = useRef<Promise<unknown>>(Promise.resolve());
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -354,10 +359,17 @@ export function RecipeForm({
         ridRef.current = res.id;
         setRid(res.id);
         if (wasNew) {
-          // The draft exists now. The address bar follows without a navigation, which would remount the form.
           try {
             window.localStorage.removeItem(backupKey(null));
-            window.history.replaceState(null, "", `/recipes/${res.slug}/edit`);
+          } catch {
+            /* ignore */
+          }
+        }
+        // The address stays /recipes/new on purpose: moving it to the edit page would make the router render a
+        // different route and rebuild this form mid-sentence. A reload in this tab offers the draft back instead.
+        if (recipe === null) {
+          try {
+            window.sessionStorage.setItem(RESUME_KEY, JSON.stringify({ slug: res.slug, title: values.title.trim() }));
           } catch {
             /* ignore */
           }
@@ -436,6 +448,31 @@ export function RecipeForm({
     // once per mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // /recipes/new reloaded after autosave made a draft in this tab: offer to continue it rather than start blank.
+  useEffect(() => {
+    if (recipe !== null) return;
+    try {
+      const raw = window.sessionStorage.getItem(RESUME_KEY);
+      const o = raw ? (JSON.parse(raw) as { slug?: unknown; title?: unknown }) : null;
+      if (o && typeof o.slug === "string" && SLUG_RE.test(o.slug)) {
+        setResume({ slug: o.slug, title: typeof o.title === "string" ? o.title : "" });
+      }
+    } catch {
+      /* storage blocked */
+    }
+    // once per mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  function startFresh() {
+    try {
+      window.sessionStorage.removeItem(RESUME_KEY);
+    } catch {
+      /* ignore */
+    }
+    setResume(null);
+    setFocusId("f-title");
+  }
 
   function restoreBackup() {
     if (!restorable) return;
@@ -583,6 +620,7 @@ export function RecipeForm({
       try {
         window.localStorage.removeItem(backupKey(null));
         if (res.id) window.localStorage.removeItem(backupKey(res.id));
+        window.sessionStorage.removeItem(RESUME_KEY);
       } catch {
         /* ignore */
       }
@@ -655,6 +693,25 @@ export function RecipeForm({
         Ingredients, amounts and numbered steps. No backstory needed. Only you can see it until we have reviewed it.
       </p>
 
+      {resume && !restorable && (
+        <div role="group" aria-labelledby="resume-q" className="mt-5 rounded-lg border border-herb bg-surface px-4 py-3 text-[0.9375rem]">
+          <p id="resume-q" className="font-semibold">
+            {resume.title ? `“${resume.title}” is saved as a draft.` : "Your recipe is saved as a draft."}
+          </p>
+          <p className="mt-1 text-ink-muted">Pick up where you left off, or start a new one.</p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Link
+              href={`/recipes/${resume.slug}/edit`}
+              className={buttonVariants()}
+            >
+              Continue editing
+            </Link>
+            <Button type="button" variant="secondary" onClick={startFresh}>
+              Start a new recipe
+            </Button>
+          </div>
+        </div>
+      )}
       {restorable && (
         <div role="group" aria-labelledby="restore-q" className="mt-5 rounded-lg border border-herb bg-surface px-4 py-3 text-[0.9375rem]">
           <p id="restore-q" className="font-semibold">
