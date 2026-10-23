@@ -275,6 +275,8 @@ export default async function RecipesPage({ searchParams }: Props) {
             <FilterControls filters={url} options={options} defaults={defaults} />
           </FilterSheet>
 
+          {/* Card titles are h3; this keeps the heading order h1 > h2 > h3 for screen readers (Lighthouse heading-order). */}
+          <h2 className="sr-only">Recipe results</h2>
           <div data-results>
             <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
               <Results filters={filters} urlFilters={url} defaults={defaults} />
