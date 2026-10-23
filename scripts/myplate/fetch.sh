@@ -29,7 +29,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
-SLUGS="scripts/myplate/slugs.txt"
+SLUGS="${SLUGS_FILE:-scripts/myplate/slugs.txt}"
 CACHE="scripts/myplate/cache"
 DELAY="${FETCH_DELAY:-0.5}"
 JOBS="${JOBS:-2}"
