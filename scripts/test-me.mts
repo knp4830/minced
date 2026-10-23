@@ -248,6 +248,12 @@ assert.equal(dayFoodStatus({ calories: 2200, proteinG: 160, entries: 4 }, bulk).
 assert.equal(dayFoodStatus({ calories: 2650, proteinG: 160, entries: 4 }, bulk).status, "hit"); // 115%
 assert.equal(dayFoodStatus({ calories: 2670, proteinG: 160, entries: 4 }, bulk).status, "part"); // 116%
 assert.equal(dayFoodStatus({ calories: 2300, proteinG: 144, entries: 4 }, lose).status, "hit"); // protein exactly 90%
+// Today is still going: breakfast alone is "open" (shown, not judged), never "part"; no entries stays "none".
+assert.equal(dayFoodStatus({ calories: 370, proteinG: 9, entries: 1 }, lose, { open: true }).status, "open");
+assert.equal(dayFoodStatus({ calories: 2300, proteinG: 160, entries: 4 }, lose, { open: true }).status, "open");
+assert.equal(dayFoodStatus({ calories: 0, proteinG: 0, entries: 0 }, lose, { open: true }).status, "none");
+assert.equal(dayFoodStatus({ calories: 370, proteinG: 9, entries: 1 }, null, { open: true }).status, "logged");
+assert.match(dayFoodStatus({ calories: 370, proteinG: 9, entries: 1 }, lose, { open: true }).detail ?? "", /So far: 370 of /);
 assert.equal(dayFoodStatus({ calories: 2300, proteinG: 143, entries: 4 }, lose).status, "part"); // 89%
 assert.equal(dayFoodStatus({ calories: 920, proteinG: 80, entries: 2 }, lose).note, "Protein 50%, under 90%; calories 40%, under 85%");
 assert.equal(dayFoodStatus({ calories: 540, proteinG: 170, entries: 1 }, lose).status, "part"); // one meal is not a goal hit

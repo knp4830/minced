@@ -59,7 +59,7 @@ export function MealsPanel({ food, totals, isToday = true }: { food: FoodEntry[]
                         )}
                         <div className="min-w-0 flex-1">
                           {e.recipe ? (
-                            <Link href={`/recipes/${e.recipe.slug}`} className="block truncate text-[0.8125rem] hover:text-herb hover:underline md:text-sm">
+                            <Link href={`/recipes/${e.recipe.slug}`} className="-my-1.5 block truncate py-1.5 text-[0.8125rem] hover:text-herb hover:underline md:text-sm">
                               {e.name}
                             </Link>
                           ) : (
@@ -71,7 +71,7 @@ export function MealsPanel({ food, totals, isToday = true }: { food: FoodEntry[]
                         </div>
                         <span className="font-mono text-xs md:text-[0.8125rem]">{nf.format(Math.round(e.calories))}<span className="hidden sm:inline"> kcal</span></span>
                         <EditFoodButton entry={e} />
-                        <RemoveFoodButton id={e.id} name={e.name} />
+                        <RemoveFoodButton id={e.id} name={e.name} meal={e.meal} />
                       </li>
                     );
                   })}

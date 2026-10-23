@@ -112,10 +112,12 @@ export function WeightCard({
         <div>
           <dt className="label-mono">To goal</dt>
           <dd className="mt-1.5 font-mono text-[1.0625rem] leading-none font-medium md:text-[1.375rem]">
-            {!losingOrGaining ? "Maintaining" : goalKg === null ? "—" : toGo !== null && toGo <= 0 ? "Reached" : toGo !== null ? diffText(toGo, units) : "—"}
+            {targets === null ? "—" : !losingOrGaining ? "Maintaining" : goalKg === null ? "—" : toGo !== null && toGo <= 0 ? "Reached" : toGo !== null ? diffText(toGo, units) : "—"}
           </dd>
           <dd className="mt-1 text-[0.6875rem] leading-tight text-ink-muted">
-            {!losingOrGaining ? (
+            {targets === null ? (
+              <TargetsButton variant="link">Set your targets to follow a goal</TargetsButton>
+            ) : !losingOrGaining ? (
               "Goal weight is for losing or gaining."
             ) : goalKg === null ? (
               <TargetsButton variant="link">Add a goal weight</TargetsButton>

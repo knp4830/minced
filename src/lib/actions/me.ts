@@ -70,9 +70,10 @@ export async function saveTargets(input: unknown): Promise<ActionResult> {
   const t = targetsInput(input);
   if (!t.ok) return fail(t.error);
 
-  // Sex, units and birth year live in Settings. When Settings already holds a birth year, the age stored with the
-  // targets comes from it and anything the browser sent is ignored; when it holds none and the wizard asked for one,
-  // that year is saved to Settings once, here.
+  // Sex, units and birth year live in Settings (the single source). Units are never taken from the browser.
+  // Sex and birth year are saved to Settings only when Settings holds none and the wizard asked for them.
+  // When Settings already holds a birth year, the age stored with the targets comes from it and anything the
+  // browser sent is ignored.
   const settings = await getMySettings();
   let birthYear: number | undefined;
   let value = t.value;
@@ -86,7 +87,10 @@ export async function saveTargets(input: unknown): Promise<ActionResult> {
       value = { ...value, age: ageFromBirthYear(y.value) };
     }
   }
-  const r = await writeTargets(value, birthYear);
+  const sex = settings.sex ?? value.sex;
+  const { sex: _sex, ...rest } = value;
+  void _sex;
+  const r = await writeTargets(rest, { sex: settings.sex === null ? sex : undefined, birthYear });
   if (r.ok) refresh();
   return r;
 }

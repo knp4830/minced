@@ -148,7 +148,6 @@ export function TargetsWizard({
         age: body.age,
         heightCm: body.heightCm,
         weightKg: body.weightKg,
-        units,
         activity,
         goal,
         paceKg: goal === "maintain" ? 0 : pace,
@@ -174,7 +173,7 @@ export function TargetsWizard({
   const wUnit = units === "metric" ? "kg" : "lb";
 
   return (
-    <MeDialog eyebrow={`Step ${step} of ${STEPS}`} title={["Let’s set your targets", "How active are you?", "What’s the goal?", "Your daily targets"][step - 1]} onClose={onClose} widthRem={34}>
+    <MeDialog eyebrow={`Step ${step} of ${STEPS}`} title={[initial ? "Update your targets" : "Let’s set your targets", "How active are you?", "What’s the goal?", "Your daily targets"][step - 1]} onClose={onClose} widthRem={34}>
       <div className="mt-3 flex items-center gap-2" role="progressbar" aria-valuemin={1} aria-valuemax={STEPS} aria-valuenow={step} aria-label="Setup progress">
         {Array.from({ length: STEPS }, (_, i) => (
           <span key={i} className={cn("size-2 rounded-full", i < step ? "bg-herb" : "bg-line-strong")} />
@@ -184,7 +183,9 @@ export function TargetsWizard({
       {step === 1 && (
         <div>
           <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-muted">
-            A few questions for the calorie formula. Anything you have already told us in Settings is used as it is, so you are only ever asked once.
+            {initial
+              ? "Check your height and weight, then your activity and goal. Everything else carries over from last time and from Settings."
+              : "A few questions for the calorie formula. Anything you have already told us in Settings is used as it is, so you are only ever asked once."}
           </p>
           {sexFromSettings && yearFromSettings && (
             <p className="mt-5 rounded-md bg-band px-3 py-2 text-[0.875rem] text-ink-muted" data-testid="wizard-using">
@@ -198,7 +199,7 @@ export function TargetsWizard({
             <>
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <span className="text-[0.8125rem] font-semibold">
-                  Sex <span className="font-normal text-ink-subtle">(the calorie formula has one constant for each; saved to Settings)</span>
+                  Sex <span className="font-normal text-ink-subtle">(the calorie formula uses a different constant for each; this is saved to Settings)</span>
                 </span>
               </div>
               <div className="mt-2">
@@ -256,7 +257,7 @@ export function TargetsWizard({
             </div>
           </div>
           {fromAverage && <p className="mt-3 text-[0.8125rem] text-ink-muted">Weight starts from your 7-day average, so the new targets fit where you are now. Change it if that is not right.</p>}
-          <p className="mt-3 text-[0.8125rem] text-ink-muted">Height, weight, activity and goal are kept with your targets. To change them later, press Edit beside your goal on Me.</p>
+          {!initial && <p className="mt-3 text-[0.8125rem] text-ink-muted">Height, weight, activity and goal are kept with your targets. To change them later, press Edit beside your goal on Me.</p>}
         </div>
       )}
 

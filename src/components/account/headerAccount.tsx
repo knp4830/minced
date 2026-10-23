@@ -140,15 +140,12 @@ function AccountMenu({
             <BookOpen aria-hidden className="size-4 text-ink-muted" />
             My recipes
           </Link>
-          <Link href="/me" className={ITEM}>
-            <CalendarDays aria-hidden className="size-4 text-ink-muted" />
-            Me
-            {!ME_ENABLED && (
-              <span className="ml-auto rounded-full border border-line-strong px-2 py-0.5 font-mono text-[0.625rem] text-ink-muted">
-                soon
-              </span>
-            )}
-          </Link>
+          {ME_ENABLED && (
+            <Link href="/me" className={ITEM}>
+              <CalendarDays aria-hidden className="size-4 text-ink-muted" />
+              Me
+            </Link>
+          )}
           <Link href="/settings" className={ITEM}>
             <Settings aria-hidden className="size-4 text-ink-muted" />
             Settings

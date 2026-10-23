@@ -124,52 +124,28 @@ select pg_temp.check((select display_name from profiles where id = 'aaaaaaaa-000
 select pg_temp.check((select count(*) from user_settings where user_id = 'bbbbbbbb-0000-0000-0000-0000000000b2') = 1, 'B has exactly one row');
 select pg_temp.check((select count(*) from user_settings where user_id = 'aaaaaaaa-0000-0000-0000-0000000000a1') = 1, 'A has exactly one row');
 
--- ================= mirror: user_settings <-> me_targets =================
--- A has settings (sex female, units metric). A target row inserted with different values takes Settings'.
+-- ================= me_targets no longer holds sex or units (wave 14) =================
+-- Settings is the single source: the duplicate columns and the two-way sync are gone.
+select pg_temp.check(not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'me_targets' and column_name in ('sex', 'units')),
+  'me_targets has no sex or units column');
+select pg_temp.check(not exists (select 1 from pg_trigger where tgname in ('me_targets_take_settings', 'user_settings_mirror')), 'the sync triggers are gone');
+select pg_temp.check(not exists (select 1 from pg_proc where proname in ('me_targets_take_settings', 'user_settings_mirror_to_targets')), 'the sync functions are gone');
+
 set role authenticated;
 select set_config('request.jwt.claim.sub', 'aaaaaaaa-0000-0000-0000-0000000000a1', false);
-select pg_temp.succeeds($q$ insert into me_targets (user_id, sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
-  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 'male', 34, 182, 84, 'imperial', 2, 'maintain', 0, 2500, 150, 300, 70) $q$, 'A saves targets with other sex and units');
-select pg_temp.check((select sex from me_targets) = 'female', 'targets took sex from Settings');
-select pg_temp.check((select units from me_targets) = 'metric', 'targets took units from Settings');
+select pg_temp.succeeds($q$ insert into me_targets (user_id, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 34, 182, 84, 2, 'maintain', 0, 2500, 150, 300, 70) $q$, 'A saves targets without sex or units');
 reset role;
-
--- Make the targets look old, to see that changing units / sex does not make them look "just updated".
 alter table me_targets disable trigger me_targets_touch;
 update me_targets set updated_at = now() - interval '30 days' where user_id = 'aaaaaaaa-0000-0000-0000-0000000000a1';
 alter table me_targets enable trigger me_targets_touch;
-
 set role authenticated;
 select set_config('request.jwt.claim.sub', 'aaaaaaaa-0000-0000-0000-0000000000a1', false);
 select pg_temp.succeeds($q$ update user_settings set units = 'imperial', sex = 'male' $q$, 'A changes units and sex in Settings');
-select pg_temp.check((select units from me_targets) = 'imperial', 'the change reached me_targets.units');
-select pg_temp.check((select sex from me_targets) = 'male', 'the change reached me_targets.sex');
-select pg_temp.check((select updated_at from me_targets) < now() - interval '29 days', 'changing units / sex did not reset me_targets.updated_at');
-select pg_temp.succeeds($q$ update me_targets set sex = 'female', kcal = 2400 $q$, 'A edits targets directly');
-select pg_temp.check((select sex from me_targets) = 'male', 'me_targets.sex cannot diverge from Settings');
+select pg_temp.check((select updated_at from me_targets) < now() - interval '29 days', 'changing units / sex does not touch me_targets.updated_at');
+select pg_temp.succeeds($q$ update me_targets set kcal = 2400 $q$, 'A edits targets directly');
 select pg_temp.check((select updated_at from me_targets) > now() - interval '1 minute', 'a real targets edit still stamps updated_at');
-select pg_temp.check((select current_setting('minced.settings_mirror', true)) is distinct from '1', 'the mirror flag is not left switched on');
 reset role;
-
--- A person whose targets were written by code that does not know Settings: the settings row is created from them.
-set role authenticated;
-select set_config('request.jwt.claim.sub', 'dddddddd-0000-0000-0000-0000000000d4', false);
-select pg_temp.succeeds($q$ insert into me_targets (user_id, sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
-  values ('dddddddd-0000-0000-0000-0000000000d4', 'female', 29, 165, 62, 'imperial', 1, 'maintain', 0, 1900, 110, 230, 60) $q$, 'D saves targets with no settings row');
-select pg_temp.check((select sex from user_settings) = 'female' and (select units from user_settings) = 'imperial', 'a settings row was created from D''s targets');
-reset role;
-
--- Backfill: the migration's one-time statement, re-run, copies sex and units for someone with targets and no settings.
-alter table me_targets disable trigger me_targets_take_settings;
-insert into me_targets (user_id, sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
-  values ('cccccccc-0000-0000-0000-0000000000c3', 'male', 41, 178, 90, 'imperial', 3, 'maintain', 0, 2800, 160, 330, 90);
-alter table me_targets enable trigger me_targets_take_settings;
-select pg_temp.check((select count(*) from user_settings where user_id = 'cccccccc-0000-0000-0000-0000000000c3') = 0, 'C starts with targets and no settings');
-insert into public.user_settings (user_id, units, sex)
-select user_id, units, sex from public.me_targets
-on conflict (user_id) do nothing;
-select pg_temp.check((select sex || '/' || units from user_settings where user_id = 'cccccccc-0000-0000-0000-0000000000c3') = 'male/imperial', 'the backfill copied C''s sex and units');
-select pg_temp.check((select count(*) from user_settings where user_id = 'aaaaaaaa-0000-0000-0000-0000000000a1' and sex = 'male' and units = 'imperial') = 1, 'the backfill left A''s existing row alone');
 
 -- ================= diet equivalence (the path the saved defaults take) =================
 select pg_temp.check(

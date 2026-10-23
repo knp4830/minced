@@ -21,7 +21,8 @@ export const GOAL_BANDS: Record<Goal, { min: number; max: number; word: string }
 };
 export const PROTEIN_FLOOR_PCT = 90;
 
-export type FoodStatus = "none" | "logged" | "hit" | "part";
+/** "open" is today with food logged: the day is not over, so it is not judged yet. */
+export type FoodStatus = "none" | "logged" | "open" | "hit" | "part";
 
 export type FoodVerdict = {
   status: FoodStatus;
@@ -39,9 +40,23 @@ const pct = (got: number, target: number) => (target > 0 ? Math.round((got / tar
 export function dayFoodStatus(
   day: { calories: number; proteinG: number; entries: number },
   targets: Pick<MeTargets, "kcal" | "proteinG" | "goal"> | null,
+  /** `open`: the day is still going (today). Breakfast alone is 25% of the day, so it is shown, not marked "partly". */
+  opts: { open?: boolean } = {},
 ): FoodVerdict {
   if (day.entries <= 0) return { status: "none", note: "No meals logged", detail: null, kcalPct: null, proteinPct: null };
   if (!targets) return { status: "logged", note: "Set targets to see how the day went", detail: null, kcalPct: null, proteinPct: null };
+
+  if (opts.open) {
+    const k = pct(day.calories, targets.kcal);
+    const p = pct(day.proteinG, targets.proteinG);
+    return {
+      status: "open",
+      note: "So far today",
+      detail: `So far: ${nf.format(day.calories)} of ${nf.format(targets.kcal)} kcal (${k}%) · protein ${nf.format(day.proteinG)} of ${nf.format(targets.proteinG)} g (${p}%). The day is marked once it is over, so there is still time.`,
+      kcalPct: k,
+      proteinPct: p,
+    };
+  }
 
   const band = GOAL_BANDS[targets.goal];
   const kcalPct = pct(day.calories, targets.kcal);

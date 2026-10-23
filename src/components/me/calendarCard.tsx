@@ -29,10 +29,15 @@ export type CalDay = {
 
 function dayLabel(iso: string, d: CalDay | undefined, selected: boolean): string {
   const bits: string[] = [];
-  if (d?.trained.length) bits.push(`trained ${d.trained.map(prettySession).join(", ")}`);
+  if (d?.trained.length) {
+    // "Trained" alone is the one-tap marker; once a real session is logged the marker is not repeated.
+    const real = d.trained.filter((t) => t !== "trained");
+    bits.push(real.length ? `trained ${real.map(prettySession).join(", ")}` : "trained");
+  }
   if (d?.food === "hit") bits.push("nutrition goal hit");
   else if (d?.food === "part") bits.push(`nutrition partly: ${d.foodNote.toLowerCase()}`);
   else if (d?.food === "logged") bits.push("food logged");
+  else if (d?.food === "open") bits.push("food logged so far today");
   if (d?.sleep != null) bits.push(`slept ${d.sleep} hours`);
   if (d?.weight != null) bits.push("weighed in");
   return `${shortDate(iso)}${bits.length ? `, ${bits.join(", ")}` : ", nothing logged"}${selected ? ", showing" : ""}`;
@@ -160,7 +165,7 @@ export function CalendarCard({
               {num}
               <span aria-hidden className="mt-0.5 flex min-h-3 flex-wrap items-center justify-center gap-x-[3px] gap-y-[2px] px-0.5 md:mt-[3px] md:gap-x-[5px]">
                 {d?.trained.length ? <Dumbbell /> : null}
-                {d && d.food !== "none" ? <Plate hit={d.food === "hit"} /> : null}
+                {d && d.food !== "none" ? <Plate hit={d.food === "hit"} dim={d.food === "open"} /> : null}
                 {d?.sleep != null ? (
                   <span className="flex items-center gap-[2px] font-mono text-[0.5625rem] text-ink-muted md:text-[0.625rem]">
                     <Moon />
