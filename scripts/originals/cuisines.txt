@@ -1,0 +1,13 @@
+# New cuisine vocabulary for wave 12 (existing ones are not repeated)
+Indonesian
+Malaysian
+Singaporean
+Taiwanese
+Pakistani
+Sri Lankan
+Nepali
+Austrian
+Hungarian
+Polish
+Swedish
+Portuguese
