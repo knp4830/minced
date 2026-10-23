@@ -158,7 +158,8 @@ begin
      or (i.canonical_name::text in ('ramen noodles', 'vegetable juice', 'spaghetti') and f.fdc_id in
           (2621853, 2288303, 2059595, 1867578, 414561, 400229, 400224, 386269, 372237, 2082895, 2568584, 1849736));
   if bad is not null then raise exception 'GATE round 2 wrong links still present: %', bad; end if;
-  select count(*) into n from ingredients i where i.canonical_name::text in ('lemon myrtle', 'pickling spice', 'sea vegetables', 'sambal', 'hard cider')
+  -- wave 14: 'hard cider' left this list; USDA FNDDS has a real "Hard cider" record (scripts/nutrition/foods14/decisions_w14.psv), the gap here was about a wrong link
+  select count(*) into n from ingredients i where i.canonical_name::text in ('lemon myrtle', 'pickling spice', 'sea vegetables', 'sambal')
     and exists (select 1 from ingredient_foods f where f.ingredient_id = i.id);
   if n > 0 then raise exception 'GATE % ingredients that must be a gap still have a food', n; end if;
   if not exists (select 1 from ingredient_foods f join ingredients i on i.id = f.ingredient_id where i.canonical_name = 'cider' and f.is_default and f.fdc_id = 173933) then

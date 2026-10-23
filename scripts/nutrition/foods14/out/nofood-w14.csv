@@ -1,0 +1,459 @@
+id,canonical_name,aisle_category,is_pantry_staple,pub,rev,total,aliases
+414,italian seasoning,Spices,f,19,0,19,italian herb blend; italian herb mix; italian herbs
+2955,shaoxing wine,Pantry,f,2,12,14,chinese cooking wine; shaoxing; shaoxing rice wine
+2964,tamarind paste,Pantry,f,6,7,13,tamarind; tamarind concentrate
+2945,dashi,Pantry,f,6,6,12,dashi granules; dashi stock; hondashi
+253,dijon mustard,Pantry,f,11,0,11,dijon
+2993,gochugaru,Spices,f,3,8,11,korean chile flakes; korean chili flakes; korean red pepper flakes
+401,star anise,Spices,f,2,7,9,
+2936,scotch bonnet,Produce,f,8,0,8,scotch bonnet chile; scotch bonnet pepper
+1831,seasoning mix,Spices,f,8,0,8,
+5055,shrimp paste,Pantry,f,0,8,8,belacan; belachan; kapi; mam ruoc; terasi; trassi
+2929,kaffir lime leaves,Produce,f,3,4,7,lime leaves; makrut lime leaves
+3005,sichuan peppercorns,Spices,f,3,4,7,sichuan pepper; szechuan peppercorns
+2997,dried fenugreek leaves,Spices,f,3,3,6,kasuri methi; methi leaves
+5065,fried shallots,Pantry,f,0,6,6,bawang goreng; crispy shallots; hanh phi
+1830,lemon pepper,Spices,f,6,0,6,
+2995,asafoetida,Spices,f,3,2,5,asafetida; hing
+2953,black vinegar,Pantry,f,2,2,4,chinkiang black vinegar; chinkiang vinegar; zhenjiang vinegar
+2370,dried fruit,Pantry,f,4,0,4,
+5078,pandan leaves,Produce,f,0,4,4,bai toey; daun pandan; pandanus; screwpine leaves
+5081,vietnamese coriander,Produce,f,0,4,4,daun kesum; laksa leaf; polygonum; rau ram
+2994,berbere,Spices,f,3,0,3,berbere seasoning; berbere spice
+5086,calamansi,Produce,f,0,3,3,calamondin; kalamansi; philippine lime
+421,chinese five spice,Spices,f,0,3,3,five spice; five spice powder
+2996,dried mango powder,Spices,f,1,2,3,amchoor; amchur
+2928,galangal,Produce,f,2,1,3,blue ginger; thai ginger
+5063,nuoc cham,Pantry,f,0,3,3,nuoc mam cham; vietnamese dipping sauce
+1783,salad dressing,Pantry,f,3,0,3,mayonnaise-type dressing
+2949,aonori,Pantry,f,2,0,2,ao nori; green seaweed flakes
+5121,candlenuts,Pantry,f,0,2,2,buah keras; kemiri
+2958,chili oil,Pantry,f,2,0,2,chile oil; sichuan chili oil
+4991,chinese sausage,Protein,f,0,2,2,chinese pork sausage; lap cheong; lap chong; waxed sausage
+5021,doenjang,Pantry,f,0,2,2,deonjang; korean miso; korean soybean paste
+4996,dried anchovies,Protein,f,0,2,2,dried sardines; ikan bilis; iriko; myeolchi; niboshi
+2957,fermented black beans,Pantry,f,1,1,2,douchi; salted black beans
+2942,fish cakes,Protein,f,1,1,2,eomuk; odeng
+1832,fruit juice,Pantry,f,2,0,2,
+3011,guajillo chile,Spices,f,2,0,2,dried guajillo chiles; guajillo
+5535,guanciale,Protein,f,0,2,2,cured pork jowl; pork cheek
+1819,ham hocks,Protein,f,2,0,2,
+2931,holy basil,Produce,f,1,1,2,gaprao; thai holy basil; tulsi
+4957,kabocha squash,Produce,f,0,2,2,hokkaido squash; japanese pumpkin; kabocha
+278,kalamata olives,Pantry,f,2,0,2,
+5028,perilla leaves,Produce,f,0,2,2,kkaennip; ohba; perilla; sesame leaves; shiso
+5080,salam leaf,Spices,f,0,2,2,daun salam; indonesian bay leaf
+4890,sweet bean sauce,Pantry,f,0,2,2,sweet flour sauce; tianmianjiang
+4891,yellow bean sauce,Pantry,f,0,2,2,ground bean sauce; mian shi jiang
+3008,aleppo pepper,Spices,f,1,0,1,aleppo chile flakes; pul biber
+5610,alioli,Pantry,f,0,1,1,aioli; garlic mayonnaise
+83,anaheim chile,Produce,f,1,0,1,
+5190,anardana,Spices,f,0,1,1,dried pomegranate seeds; pomegranate powder
+1827,apple pie spice,Spices,f,1,0,1,
+2961,banana ketchup,Pantry,f,1,0,1,banana sauce
+3013,chile de arbol,Spices,f,1,0,1,arbol chile; chiles de arbol
+5124,chili paste in oil,Pantry,f,0,1,1,nam prik pao oil; thai chili jam
+5635,chourico,Protein,f,0,1,1,portuguese chorizo
+5748,farmer cheese,Dairy,f,0,1,1,pot cheese
+118,fresh oregano,Produce,f,1,0,1,
+82,habanero,Produce,f,1,0,1,
+5059,laksa paste,Pantry,f,0,1,1,laksa curry paste
+5258,maldive fish,Protein,f,0,1,1,dried bonito sri lanka; umbalakada
+5029,mitsuba,Produce,f,0,1,1,japanese honewort; japanese parsley
+2950,okonomiyaki sauce,Pantry,f,1,0,1,
+5053,panang curry paste,Pantry,f,0,1,1,penang curry paste; phanaeng curry paste
+2998,pav bhaji masala,Spices,f,1,0,1,
+6158,perilla seeds,Pantry,f,0,1,1,deulkkae; tree sesame
+2972,preserved lemon,Pantry,f,1,0,1,salt-preserved lemon
+5178,rasam powder,Spices,f,0,1,1,
+5166,raw banana,Produce,f,0,1,1,green banana; kachcha kela; plantain raw
+2999,sambar powder,Spices,f,1,0,1,sambar masala
+423,sumac,Spices,f,1,0,1,
+6194,abacha,Pantry,f,0,0,0,african salad cassava; ugba cassava flakes
+5338,adjika,Pantry,f,0,0,0,abkhazian chili paste; adjika paste
+5116,adobo sauce,Pantry,f,0,0,0,filipino adobo sauce
+5261,advieh,Spices,f,0,0,0,persian advieh; persian spice mix
+6186,afang leaves,Produce,f,0,0,0,okazi; ukazi
+5402,aji dulce,Produce,f,0,0,0,ajicito; ají gustoso; cachucha pepper
+5400,aji limo,Pantry,f,0,0,0,aji lemon drop; aji limon
+5184,ajwain,Spices,f,0,0,0,ajowan; bishop's weed; carom seeds; trachyspermum
+6244,ají charapita,Spices,f,0,0,0,peruvian pearl chile
+6245,ají mirasol,Spices,f,0,0,0,aji mirasol; dried aji amarillo
+5284,akkawi cheese,Dairy,f,0,0,0,akawi; nabulsi cheese; syrian white cheese
+5948,almond extract,Pantry,f,0,0,0,
+5568,amaretti cookies,Pantry,f,0,0,0,amaretti biscuits
+5558,amaretto,Other,f,0,0,0,amaretto liqueur
+5270,amba,Pantry,f,0,0,0,amba sauce; iraqi mango pickle sauce
+5386,amlou,Pantry,f,0,0,0,moroccan almond dip
+6223,angostura bitters,Other,f,0,0,0,aromatic bitters
+5801,arctic char,Protein,f,0,0,0,
+5482,arracacha,Produce,f,0,0,0,apio criollo; peruvian carrot
+5346,awaze,Pantry,f,0,0,0,ethiopian hot sauce
+5259,baharat,Spices,f,0,0,0,arabic seven spice; bahārāt; lebanese seven spice
+5219,bajra flour,Pantry,f,0,0,0,bajri; pearl millet flour
+5120,bakso,Protein,f,0,0,0,beef meatballs; indonesian meatballs
+6178,bambara groundnut,Pantry,f,0,0,0,bambara beans; jugo beans; nyimo; okpa flour
+5100,banana leaves,Produce,f,0,0,0,hoja de platano; plantain leaves
+5167,banana stem,Produce,f,0,0,0,banana pith; thor; vazhaithandu
+5496,barbacoa,Protein,f,0,0,0,
+6119,barramundi,Protein,f,0,0,0,asian sea bass
+6100,basil seeds,Pantry,f,0,0,0,falooda seeds; sabja; tukmaria
+5923,bbq rub,Spices,f,0,0,0,barbecue rub; dry rub
+5687,bearnaise sauce,Pantry,f,0,0,0,
+6112,beef cheeks,Protein,f,0,0,0,cachete; ox cheek
+5846,bergamot,Produce,f,0,0,0,
+5170,bhut jolokia,Produce,f,0,0,0,ghost pepper; naga jolokia
+5276,biber salcasi,Pantry,f,0,0,0,hot pepper paste; red pepper paste turkish; turkish pepper paste
+5374,biltong,Protein,f,0,0,0,droewors; south african dried beef
+5852,bitter orange,Produce,f,0,0,0,naranja agria; seville orange; sour orange
+5366,bitterleaf,Produce,f,0,0,0,bitter leaf; ewuro; onugbu; vernonia
+5884,black garlic,Produce,f,0,0,0,fermented garlic
+5273,black lime,Spices,f,0,0,0,dried lime; loomi; noomi basra; omani lime
+5582,black truffle,Produce,f,0,0,0,perigord truffle; truffle
+5375,boerewors,Protein,f,0,0,0,south african sausage
+5906,borage,Produce,f,0,0,0,
+5543,bottarga,Protein,f,0,0,0,botarga; cured mullet roe
+5676,bouquet garni,Spices,f,0,0,0,
+5814,breadfruit flour,Pantry,f,0,0,0,ulu flour
+5445,browning sauce,Pantry,f,0,0,0,caribbean browning; kitchen bouquet
+6211,buchu,Spices,f,0,0,0,
+6238,buffaloberries,Produce,f,0,0,0,
+5822,bush tomato,Spices,f,0,0,0,akudjura
+5530,caciocavallo,Dairy,f,0,0,0,
+5919,cajun seasoning,Spices,f,0,0,0,blackened seasoning; creole seasoning; tony chachere's
+5362,calabash nutmeg,Spices,f,0,0,0,african nutmeg; ariwo; ehuru
+6236,camas root,Produce,f,0,0,0,camassia
+6249,camu camu,Pantry,f,0,0,0,camu camu powder
+6246,cancha,Pantry,f,0,0,0,maiz tostado; peruvian toasted corn
+6210,cape malay curry powder,Spices,f,0,0,0,
+5468,carne seca,Protein,f,0,0,0,carne de sol; cecina; charque; jerked beef; tasajo
+5495,carnitas,Protein,f,0,0,0,mexican pulled pork
+5292,carob molasses,Pantry,f,0,0,0,carob syrup; dibs il kharroub; harnup pekmezi
+5394,cascabel chile,Spices,f,0,0,0,chile cascabel; rattle chile
+5461,cashew fruit,Produce,f,0,0,0,caju; marañon
+6221,cassava bammy,Pantry,f,0,0,0,bami; bammy
+5104,cassava leaves,Produce,f,0,0,0,kasava leaves; manioc leaves; pondu; saka saka
+5129,cassia leaves,Spices,f,0,0,0,
+4987,century egg,Protein,f,0,0,0,pidan; preserved egg; thousand year egg
+5133,cha lua,Protein,f,0,0,0,gio lua; vietnamese ham; vietnamese pork roll
+5376,chakalaka,Pantry,f,0,0,0,south african relish
+5433,chamoy,Pantry,f,0,0,0,chamoy sauce; mexican plum sauce
+6239,chaya,Produce,f,0,0,0,mayan spinach; tree spinach
+5983,cheese powder,Dairy,f,0,0,0,mac and cheese powder
+5266,chermoula,Pantry,f,0,0,0,charmoula; moroccan marinade
+5896,cherry peppers,Produce,f,0,0,0,peppadew
+5205,chhena,Dairy,f,0,0,0,chenna; paneer fresh
+5045,chinese ham,Protein,f,0,0,0,jinhua ham; yunnan ham
+6152,chinese rice cake,Pantry,f,0,0,0,nian gao; shanghai rice cake
+5405,chipotle powder,Spices,f,0,0,0,chipotle chile powder; ground chipotle
+5436,chipotle sauce,Pantry,f,0,0,0,chipotle hot sauce
+5474,choclo,Produce,f,0,0,0,cuzco corn; giant white corn; peruvian corn
+5827,cholla buds,Pantry,f,0,0,0,cactus buds
+5479,chuno,Pantry,f,0,0,0,freeze-dried potato; papa seca; tunta
+5847,citron,Produce,f,0,0,0,buddha's hand; etrog
+6227,coconut bread,Pantry,f,0,0,0,bakes; festival
+5545,colatura di alici,Pantry,f,0,0,0,garum; italian anchovy sauce
+5408,corn husks,Pantry,f,0,0,0,hojas de maiz; tamale husks
+5542,cotechino,Protein,f,0,0,0,
+5364,crayfish ground,Pantry,f,0,0,0,crayfish powder; dried crayfish; ground crayfish
+5693,creme de cassis,Other,f,0,0,0,cassis
+5192,cubeb pepper,Spices,f,0,0,0,cubebs; tailed pepper
+5082,culantro,Produce,f,0,0,0,chadon beni; long coriander; ngo gai; recao; sawtooth coriander
+6248,cupuacu,Produce,f,0,0,0,cupuaçu
+5171,degi mirch,Spices,f,0,0,0,deghi mirch
+5236,dosa batter,Pantry,f,0,0,0,dosa mix; idli batter
+6143,dried galangal,Spices,f,0,0,0,
+5913,dried lemon peel,Spices,f,0,0,0,
+5318,dried mulberries,Pantry,f,0,0,0,tut; white mulberries
+5195,dried rose petals,Spices,f,0,0,0,edible rose petals; gulab
+4994,dried scallops,Protein,f,0,0,0,conpoy; dried conpoy; yao zhu
+5317,dried sour cherries,Pantry,f,0,0,0,albaloo; tart cherries dried
+4921,dried tofu,Pantry,f,0,0,0,baked tofu; five spice tofu; pressed tofu; tofu gan
+5664,duck confit,Protein,f,0,0,0,confit de canard
+5263,dukkah,Spices,f,0,0,0,duqqa; egyptian nut spice mix
+5168,elephant foot yam,Produce,f,0,0,0,jimikand; ol; senai kizhangu; suran
+5473,empanada dough,Pantry,f,0,0,0,empanada discs; empanada wrappers; tapas para empanadas
+425,everything bagel seasoning,Spices,f,0,0,0,
+6140,facing heaven chili,Spices,f,0,0,0,chao tian jiao; sichuan dried chilies
+5463,farofa,Pantry,f,0,0,0,manioc farofa; toasted cassava flour
+5591,fennel pollen,Spices,f,0,0,0,wild fennel pollen
+5677,fines herbes,Spices,f,0,0,0,
+5820,finger lime,Produce,f,0,0,0,australian caviar lime
+5076,fingerroot,Produce,f,0,0,0,chinese keys; kencur; krachai; temu kunci
+6096,fonio,Pantry,f,0,0,0,acha; digitaria
+5951,food coloring,Pantry,f,0,0,0,gel food coloring
+5903,fresh bay leaves,Produce,f,0,0,0,
+5322,fresh chickpeas,Produce,f,0,0,0,green chickpeas; hara chana; hummus balila
+5895,fresno chile,Produce,f,0,0,0,red jalapeno
+5067,fried garlic,Pantry,f,0,0,0,bawang putih goreng; crispy garlic
+5637,fromage blanc,Dairy,f,0,0,0,faisselle; fromage frais
+6206,ful medames,Pantry,f,0,0,0,fava bean stew; foul
+6192,fura,Pantry,f,0,0,0,fura da nono; millet balls
+5127,galangal powder,Spices,f,0,0,0,kha powder; laos powder
+6182,garden egg,Produce,f,0,0,0,african eggplant; nakati; ngwa; nsukka garden egg
+5883,garlic scapes,Produce,f,0,0,0,
+5797,geoduck,Protein,f,0,0,0,
+6222,ginger beer,Other,f,0,0,0,jamaican ginger beer
+5038,gochugaru flakes coarse,Spices,f,0,0,0,
+5179,goda masala,Spices,f,0,0,0,kala masala
+6226,grace browning,Pantry,f,0,0,0,caribbean caramel seasoning
+5360,grains of paradise,Spices,f,0,0,0,alligator pepper; guinea pepper; melegueta pepper
+6142,grains of selim,Spices,f,0,0,0,djar; kimba
+5293,grape molasses,Pantry,f,0,0,0,dibs enab; mosto cotto; pekmez; petimezi; sapa
+5321,green almonds,Produce,f,0,0,0,badam sabz; fresh green almonds; jajeh
+5937,green peppercorns,Spices,f,0,0,0,pink peppercorns
+3622,ground meat,Protein,f,0,0,0,mince; minced meat
+6250,guarana,Pantry,f,0,0,0,guaraná powder
+5483,guasca,Spices,f,0,0,0,gallant soldier
+6153,hand-pulled noodles,Pantry,f,0,0,0,la mian; lamian
+6258,hard cider,Other,f,0,0,0,apple cider alcoholic; hard cider
+6231,haupia,Pantry,f,0,0,0,coconut pudding
+5262,hawaij,Spices,f,0,0,0,hawayej; yemenite spice mix
+415,herbes de provence,Spices,f,0,0,0,
+5382,hibiscus flowers,Pantry,f,0,0,0,bissap; flor de jamaica; roselle; sorrel flowers
+4980,hijiki,Pantry,f,0,0,0,dried hijiki; hiziki
+5011,hojicha,Pantry,f,0,0,0,roasted green tea
+5688,hollandaise sauce,Pantry,f,0,0,0,
+5155,horse gram,Pantry,f,0,0,0,kollu; kulthi; ulavalu
+5019,huangjiu,Other,f,0,0,0,chinese yellow wine
+6234,huauzontle,Produce,f,0,0,0,aztec broccoli
+5413,huitlacoche,Pantry,f,0,0,0,corn smut; cuitlacoche; mexican truffle
+5187,indian bay leaf,Spices,f,0,0,0,malabar leaf; tej patta; tejpat
+5344,injera,Pantry,f,0,0,0,enjera; ethiopian flatbread
+6176,iru,Pantry,f,0,0,0,fermented locust bean cake; ogiri
+5163,ivy gourd,Produce,f,0,0,0,coccinia; kundru; tindora; tondli
+6138,jabuticaba,Produce,f,0,0,0,
+5605,jamon iberico,Protein,f,0,0,0,iberico ham; jamon de bellota; pata negra
+5014,jasmine tea,Pantry,f,0,0,0,
+5025,jocheong,Pantry,f,0,0,0,korean rice syrup; mulyeot; rice syrup
+5765,juniper berries,Spices,f,0,0,0,
+5265,kabsa spice,Spices,f,0,0,0,bokhoor spices; saudi spice mix
+5142,kaffir lime,Produce,f,0,0,0,kaffir lime fruit; makrut lime; makrut lime zest
+5750,kajmak,Dairy,f,0,0,0,kaymak balkan
+5810,kalua pork,Protein,f,0,0,0,
+5821,kangaroo meat,Protein,f,0,0,0,kangaroo
+4910,karashi,Pantry,f,0,0,0,hot japanese mustard; japanese mustard
+6233,kava,Pantry,f,0,0,0,awa; yaqona
+5283,kaymak,Dairy,f,0,0,0,ashta; qaimar
+5370,kenkey,Pantry,f,0,0,0,banku; ghanaian fermented corn dough
+5111,kesong puti,Dairy,f,0,0,0,filipino white cheese; white carabao cheese
+5194,kewra water,Pantry,f,0,0,0,kewda water; pandanus flower water
+5336,khmeli suneli,Spices,f,0,0,0,georgian spice blend; svaneti salt
+5204,khoya,Dairy,f,0,0,0,khoa; mawa; milk solids
+5176,kitchen king masala,Spices,f,0,0,0,
+5189,kokum,Spices,f,0,0,0,amsul; garcinia indica; kokam
+5347,korarima,Spices,f,0,0,0,aframomum; ethiopian cardamom; false cardamom
+5138,kroeung,Pantry,f,0,0,0,khmer curry paste; kroeung paste
+5813,kukui nuts,Pantry,f,0,0,0,inamona
+6191,kuli kuli,Pantry,f,0,0,0,kulikuli; peanut snack
+6213,lagman noodles,Pantry,f,0,0,0,laghman; uyghur noodles
+5314,lamb fat,Protein,f,0,0,0,dumba; sheep tail fat; tail fat
+5690,lavender,Spices,f,0,0,0,culinary lavender; dried lavender
+5778,lebkuchen spice,Spices,f,0,0,0,gingerbread spice; speculoos spice
+5114,lechon kawali,Protein,f,0,0,0,crispy pork belly
+5768,lecso,Pantry,f,0,0,0,lecho; letcho
+5904,lemon balm,Produce,f,0,0,0,melissa
+5085,lemon basil,Produce,f,0,0,0,hoary basil; thai lemon basil
+5949,lemon extract,Pantry,f,0,0,0,
+5819,lemon myrtle,Spices,f,0,0,0,
+5905,lemon verbena,Produce,f,0,0,0,
+6144,lemongrass dried,Spices,f,0,0,0,
+5141,lemongrass paste,Pantry,f,0,0,0,lemongrass puree; tubed lemongrass
+5126,lime leaves dried,Spices,f,0,0,0,dried kaffir lime leaves
+5559,limoncello,Other,f,0,0,0,
+6229,limu,Pantry,f,0,0,0,hawaiian seaweed; ogo
+5359,locust beans,Pantry,f,0,0,0,dawadawa; fermented locust bean; soumbala
+5191,long pepper,Spices,f,0,0,0,piper longum; pipli; pippali
+5112,longganisa,Protein,f,0,0,0,filipino sausage; lucanica
+5590,lovage,Produce,f,0,0,0,
+5754,lutefisk,Protein,f,0,0,0,
+6195,maafe sauce,Pantry,f,0,0,0,mafe; senegalese peanut sauce
+5817,macadamia oil,Pantry,f,0,0,0,
+5271,mahleb,Spices,f,0,0,0,mahlab; mahlepi; st lucie cherry kernels
+5017,makgeolli,Other,f,0,0,0,korean rice wine; nongju
+6141,mala seasoning,Spices,f,0,0,0,mala powder; mala spice mix
+5206,malai,Dairy,f,0,0,0,cream skimmings; indian clotted cream
+6139,mango ginger,Produce,f,0,0,0,amba haldi
+5334,manti wrappers,Pantry,f,0,0,0,manti dough; turkish dumpling dough
+5784,maple butter,Pantry,f,0,0,0,maple cream
+5275,maras biber,Spices,f,0,0,0,marash pepper; turkish red pepper flakes
+6212,marula,Produce,f,0,0,0,marula fruit
+5272,mastic,Spices,f,0,0,0,masticha; mastiha; mastika
+6224,mauby bark,Spices,f,0,0,0,mauby
+6057,mct oil,Pantry,f,0,0,0,
+5181,meat masala,Spices,f,0,0,0,
+4904,mentsuyu,Pantry,f,0,0,0,noodle soup base; soba tsuyu; tsuyu
+5828,mesquite flour,Pantry,f,0,0,0,mesquite meal
+5412,mexican oregano,Spices,f,0,0,0,oregano de monte; oregano mexican
+5877,microgreens,Produce,f,0,0,0,
+6015,miso soup mix,Pantry,f,0,0,0,instant miso soup
+5340,mitmita,Spices,f,0,0,0,ethiopian chili powder
+5631,mizithra,Dairy,f,0,0,0,myzithra
+5873,mizuna,Produce,f,0,0,0,japanese mustard greens
+4969,mochi,Pantry,f,0,0,0,rice cake japanese
+5046,mongolian hot pot broth,Pantry,f,0,0,0,hot pot base; hot pot soup base
+5938,monosodium glutamate,Spices,f,0,0,0,accent; ajinomoto; msg
+5384,moringa powder,Pantry,f,0,0,0,
+5395,morita chile,Spices,f,0,0,0,chile morita; dried chipotle
+6207,morogo,Produce,f,0,0,0,African wild greens; imifino; wild spinach
+5387,msemen,Pantry,f,0,0,0,moroccan layered flatbread; rghaif
+6200,mukimo,Pantry,f,0,0,0,irio; kenyan mashed greens
+5393,mulato chile,Spices,f,0,0,0,chile mulato
+4889,mushroom soy sauce,Pantry,f,0,0,0,mushroom dark soy sauce
+5030,myoga,Produce,f,0,0,0,japanese ginger; myoga ginger
+5034,naengmyeon noodles,Pantry,f,0,0,0,cold noodles; korean buckwheat noodles
+4932,nameko mushrooms,Produce,f,0,0,0,nameko
+6218,narsharab,Pantry,f,0,0,0,pomegranate reduction; pomegranate sauce
+5907,nasturtium,Produce,f,0,0,0,edible flowers
+5134,nem nuong,Protein,f,0,0,0,grilled pork sausage
+5397,new mexico chile,Spices,f,0,0,0,california chile; chile colorado; dried new mexico red chile; hatch chile dried
+5136,ngapi,Pantry,f,0,0,0,burmese fish paste; fermented fish paste; nga pi
+5185,nigella seeds,Spices,f,0,0,0,black cumin; black seed; charnushka; kalonji
+6230,noni,Produce,f,0,0,0,indian mulberry; noni fruit
+5480,oca,Produce,f,0,0,0,new zealand yam; yam oxalis
+5358,ogbono,Pantry,f,0,0,0,apon; ogbono seeds; wild mango seeds
+5049,okonomiyaki flour,Pantry,f,0,0,0,okonomiyaki mix
+417,old bay seasoning,Spices,f,0,0,0,old bay
+6102,ostrich,Protein,f,0,0,0,ostrich meat
+5139,padaek,Pantry,f,0,0,0,lao fermented fish sauce; pla der; pla ra
+5350,palm nut cream,Pantry,f,0,0,0,noix de palme; palm nut soup base; sauce graine
+6189,palm wine,Other,f,0,0,0,emu; nsafufuo
+5177,panch phoron,Spices,f,0,0,0,bengali five spice; panch phoran
+5079,pandan extract,Pantry,f,0,0,0,pandan essence; pandan paste
+5117,pandesal,Pantry,f,0,0,0,filipino bread rolls
+5465,pao de queijo mix,Pantry,f,0,0,0,brazilian cheese bread mix
+5767,paprika paste,Pantry,f,0,0,0,goulash paste
+6104,partridge,Protein,f,0,0,0,
+5309,pastirma,Protein,f,0,0,0,basterma; basturma; pastrami turkish
+5695,pastis,Other,f,0,0,0,anise liqueur; arak; ouzo; pernod; ricard; sambuca
+5103,pea eggplant,Produce,f,0,0,0,makhuea phuang; thai pea eggplant
+1812,peanut butter chips,Pantry,f,0,0,0,
+5599,peperoncino,Spices,f,0,0,0,italian red pepper flakes
+6190,pepper soup spice,Spices,f,0,0,0,nigerian pepper soup mix
+5950,peppermint extract,Pantry,f,0,0,0,mint extract
+5396,pequin chile,Spices,f,0,0,0,bird pepper; chiltepin; piquin
+6116,periwinkles,Protein,f,0,0,0,winkles
+5572,piadina,Pantry,f,0,0,0,italian flatbread
+5446,pickapeppa sauce,Pantry,f,0,0,0,pickapeppa
+5926,pickling spice,Spices,f,0,0,0,
+6197,pilau masala,Spices,f,0,0,0,pilau spice; swahili pilau spice
+6147,plum wine,Other,f,0,0,0,umeshu
+5164,pointed gourd,Produce,f,0,0,0,parwal; patal; potol
+6181,ponmo,Protein,f,0,0,0,cow skin; cowhide; kpomo; pomo
+5541,porchetta,Protein,f,0,0,0,
+5584,porcini mushrooms,Produce,f,0,0,0,boletus; cepes; penny buns
+5250,pork blood,Protein,f,0,0,0,blood sausage blood; duck blood
+4992,pork floss,Protein,f,0,0,0,meat floss; rousong; yuk sung
+6240,pozole corn,Pantry,f,0,0,0,hominy corn dried; maiz cacahuazintle
+5137,prahok,Pantry,f,0,0,0,cambodian fermented fish paste
+5692,praline paste,Pantry,f,0,0,0,gianduja; hazelnut praline
+6151,preserved radish,Pantry,f,0,0,0,cai pu; chai poh; chye poh
+6044,protein powder,Pantry,f,0,0,0,pea protein; whey protein
+6099,psyllium husk,Pantry,f,0,0,0,isabgol; psyllium
+5638,quark,Dairy,f,0,0,0,topfen
+5466,queijo minas,Dairy,f,0,0,0,minas cheese; minas frescal
+6235,quelites,Produce,f,0,0,0,lamb's quarters; pigweed; wild greens mexican
+5218,ragi flour,Pantry,f,0,0,0,finger millet flour; kurakkan; mandua; nachni
+6016,ramen seasoning,Pantry,f,0,0,0,ramen flavor packet
+5774,ramps,Produce,f,0,0,0,wild leeks
+5924,ranch seasoning,Spices,f,0,0,0,ranch dip mix
+5260,ras el hanout,Spices,f,0,0,0,moroccan spice blend; rass el hanout
+6033,red beans,Pantry,f,0,0,0,small red beans
+5467,requeijao,Dairy,f,0,0,0,brazilian cream cheese; catupiry
+5140,rice paddy herb,Produce,f,0,0,0,limnophila; ngo om; rau om
+6148,rice wine vinegar seasoned,Pantry,f,0,0,0,sushi vinegar; sushi-zu
+5532,robiola,Dairy,f,0,0,0,
+5401,rocoto pepper,Produce,f,0,0,0,locoto; manzano pepper; rocoto
+5101,saba banana,Produce,f,0,0,0,cardava; cooking banana; plantain banana
+5327,sabzi khordan,Produce,f,0,0,0,herb platter; persian fresh herbs
+5036,saeujeot,Pantry,f,0,0,0,korean salted shrimp; salted shrimp
+6137,salak,Produce,f,0,0,0,snake fruit
+5058,sambal,Pantry,f,0,0,0,indonesian chili sauce; sambal terasi; sambal tumis
+4945,sand ginger,Spices,f,0,0,0,kaempferia; sha jiang
+4911,sansho pepper,Spices,f,0,0,0,japanese pepper; sansho
+5833,saskatoon berries,Produce,f,0,0,0,juneberries; serviceberries
+6183,scent leaf,Produce,f,0,0,0,african basil; clove basil; efirin; nchanwu
+6228,sea grapes,Produce,f,0,0,0,caulerpa; latok; umibudo
+4986,sea vegetables,Pantry,f,0,0,0,mixed sea vegetables
+4984,seaweed snack,Pantry,f,0,0,0,roasted seaweed snack; seasoned laver
+5211,sev,Pantry,f,0,0,0,besan sev; chickpea noodles snack; nylon sev
+4895,sha cha sauce,Pantry,f,0,0,0,bull head bbq sauce; chinese bbq sauce; shacha sauce
+6146,shaoxing cooking wine,Other,f,0,0,0,
+5264,shawarma spice,Spices,f,0,0,0,shawarma seasoning
+6188,shea butter,Pantry,f,0,0,0,karite butter; nkuto
+5285,sheep cheese,Dairy,f,0,0,0,pecorino pepato; sheep's milk cheese
+4907,shichimi togarashi,Spices,f,0,0,0,japanese seven spice; nanami togarashi
+5050,shio koji,Pantry,f,0,0,0,salt koji; shiokoji
+5371,shito,Pantry,f,0,0,0,ghanaian black pepper sauce; shito sauce
+5307,simit,Pantry,f,0,0,0,turkish sesame bagel
+5967,simple syrup,Pantry,f,0,0,0,sugar syrup
+5225,singhara flour,Pantry,f,0,0,0,singhare ka atta; water chestnut flour
+5115,sinigang mix,Pantry,f,0,0,0,sinigang sa sampalok; tamarind soup base
+6084,smoked trout,Protein,f,0,0,0,smoked mackerel; smoked whitefish
+5606,sobrasada,Protein,f,0,0,0,
+5018,soju,Other,f,0,0,0,
+5329,sorrel,Produce,f,0,0,0,dock; garden sorrel; roselle leaves; sourgrass
+5414,squash blossoms,Produce,f,0,0,0,flor de calabaza; pumpkin flowers; zucchini flowers
+5615,squid ink,Pantry,f,0,0,0,cuttlefish ink; nero di seppia
+6179,stockfish,Protein,f,0,0,0,dried cod; okporoko; titus
+5528,stracciatella,Dairy,f,0,0,0,
+5963,sucralose,Pantry,f,0,0,0,splenda
+5308,sucuk,Protein,f,0,0,0,soujouk; sudjuk; sujuk; turkish sausage
+6217,suluguni,Dairy,f,0,0,0,georgian string cheese; imeruli
+6220,sumalak,Pantry,f,0,0,0,wheat sprout pudding
+5348,suya spice,Spices,f,0,0,0,kuli kuli powder; suya pepper; yaji; yaji spice
+5267,tabil,Spices,f,0,0,0,tabel; tunisian spice mix
+6203,tagine spice,Spices,f,0,0,0,moroccan spice mix; tangia spices
+5432,tajin,Spices,f,0,0,0,chile lime seasoning; tajin seasoning
+5048,takoyaki flour,Pantry,f,0,0,0,takoyaki mix
+6241,tamale dough,Pantry,f,0,0,0,masa para tamales
+5135,tea leaves fermented,Pantry,f,0,0,0,burmese pickled tea; lahpet; laphet
+5119,tempeh chips,Pantry,f,0,0,0,keripik tempe
+5826,tepary beans,Pantry,f,0,0,0,
+6041,textured vegetable protein,Pantry,f,0,0,0,soy curls; textured soy protein; tvp
+6196,thieb spice,Spices,f,0,0,0,nokoss; senegalese fish seasoning
+6150,tianjin preserved vegetable,Pantry,f,0,0,0,dong cai; tung choi
+5337,tkemali,Pantry,f,0,0,0,georgian plum sauce; sour plum sauce
+5691,tonka bean,Spices,f,0,0,0,
+5077,torch ginger,Produce,f,0,0,0,bunga kantan; ginger flower; kecombrang
+5279,toum,Pantry,f,0,0,0,garlic paste lebanese; lebanese garlic sauce
+5629,trahana,Pantry,f,0,0,0,tarhana; xinochondros
+5694,triple sec,Other,f,0,0,0,cointreau; grand marnier; orange liqueur
+6256,tucupi,Pantry,f,0,0,0,brazilian cassava juice
+6204,tunisian brik pastry,Pantry,f,0,0,0,brik sheets; feuilles de brik
+5075,turmeric root,Produce,f,0,0,0,fresh turmeric; haldi root; kunyit
+5614,turron,Pantry,f,0,0,0,spanish nougat; torrone
+5747,tvorog,Dairy,f,0,0,0,russian cottage cheese
+5109,ube,Produce,f,0,0,0,dioscorea alata; purple yam
+5110,ube halaya,Pantry,f,0,0,0,purple yam jam
+218,udon noodles,Pantry,f,0,0,0,
+6177,ugba,Pantry,f,0,0,0,oil bean seed; ugba oil bean; ukpaka
+4915,umeboshi,Pantry,f,0,0,0,japanese salted plum; pickled plum
+4999,unagi,Protein,f,0,0,0,freshwater eel; grilled eel; kabayaki
+5002,uni,Protein,f,0,0,0,sea urchin; sea urchin roe
+5274,urfa biber,Spices,f,0,0,0,isot pepper; urfa chili; urfa pepper
+6184,utazi,Produce,f,0,0,0,gongronema latifolium
+6219,utskho suneli,Spices,f,0,0,0,blue fenugreek
+5361,uziza,Spices,f,0,0,0,ashanti pepper; benin pepper; uziza seeds
+5421,vanilla bean,Spices,f,0,0,0,mexican vanilla; vanilla pod
+5674,veal stock,Pantry,f,0,0,0,brown stock; demi-glace; veal demi-glace
+5083,vietnamese mint,Produce,f,0,0,0,hung cay; rau hung lui
+5806,wahoo,Protein,f,0,0,0,ono
+5339,walnut paste,Pantry,f,0,0,0,bazhe; georgian walnut sauce
+5388,warqa,Pantry,f,0,0,0,brik pastry; malsouka; tunisian brik
+5145,water mimosa,Produce,f,0,0,0,phak krachet
+6185,waterleaf,Produce,f,0,0,0,gbure; talinum
+5818,wattleseed,Spices,f,0,0,0,australian wattleseed
+4973,wheat starch,Pantry,f,0,0,0,cheng mian; dumpling flour
+3623,white fish,Protein,f,0,0,0,
+5331,wild thyme,Spices,f,0,0,0,thyme wild; zahtar
+6198,xawaash,Spices,f,0,0,0,hawaash; somali spice mix
+5481,yacon,Produce,f,0,0,0,
+5353,yam flour,Pantry,f,0,0,0,elubo
+5471,yerba mate,Pantry,f,0,0,0,mate; mate tea; yerba
+5305,yufka,Pantry,f,0,0,0,turkish flatbread dough; yufka sheets
+5039,yuja tea,Pantry,f,0,0,0,citron tea; yuja cheong; yuzu tea
+4906,yuzu kosho,Pantry,f,0,0,0,yuzu pepper paste
+422,za'atar,Spices,f,0,0,0,zaatar
+5316,zereshk,Pantry,f,0,0,0,barberries; berberis; dried barberries
+5268,zhug,Pantry,f,0,0,0,schug; skhug; yemenite hot sauce; zhoug

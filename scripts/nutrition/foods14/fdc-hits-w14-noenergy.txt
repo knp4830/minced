@@ -1,0 +1,271 @@
+### aji amarillo paste | id 2965
+   2707535    fndds    Almond paste                                                   k 458 p 9.0 f 28 c 48
+   2710307    fndds    Guava paste                                                    k 292 p 0.1 f 0.3 c 73
+   2710103    fndds    Wasabi paste                                                   k 292 p 2.2 f 11 c 46
+   2710309    fndds    Bean paste, sweetened                                          k 226 p 6.2 f 0.5 c 50
+   2706155    fndds    Liver, paste or pate                                           k 201 p 13 f 13 c 6.5
+   170160     sr       Nuts, almond paste                                             k 458 p 9.0 f 28 c 48
+   2710308    fndds    Sweet potato paste                                             k 305 p 0.5 f 0.3 c 75
+   170191     sr       Seeds, sesame butter, paste                                    k 586 p 18 f 51 c 24
+   BRANDED q='aji amarillo paste': 2 labels, median k 43 p 0.0 f 0.0 c 3.6, kcal range [36, 50]
+      2603039   AJI AMARILLO YELLOW HOT PEPPER PASTE                         INCA'S FOOD            k 36 p 0.0 f 0.0 c 0.0
+      2603012   AJI AMARILLO YELLOW HOT PEPPER PASTE                         DOA ISABEL             k 50 p 0.0 f 0.0 c 7.1
+   BRANDED q='aji amarillo': 7 labels, median k 132 p 5.9 f 4.9 c 17, kcal range [36, 400]
+      2127940   CHIMICHURRI CHICKEN WITH ROASTED PEPPERS, RED POTATOES AND F WILDSCAPE              k 132 p 7.4 f 4.9 c 17
+      1947862   FARRO AJI AMARILLO PUREE, ROASTED PEPPERS & RED POTATOES CHI WILDSCAPE              k 144 p 8.2 f 5.9 c 14
+      2139838   AJI AMARILLO KETCHUP, AJI AMARILLO                           365 EVERYDAY VALUE     k 118 p 0.0 f 0.0 c 29
+### caribbean hot sauce | id 5447
+   2710093    fndds    Hot pepper sauce                                               k 12 p 1.3 f 0.8 c 0.8
+   2709744    fndds    Hot Thai sauce                                                 k 74 p 1.0 f 0.7 c 17
+   171186     sr       Sauce, hot chile, sriracha                                     k 93 p 1.9 f 0.9 c 19
+   174527     sr       Sauce, ready-to-serve, pepper or hot                           k 11 p 0.5 f 0.4 c 1.8
+   2706410    fndds    Frankfurters or hot dogs with tomato-based sauce               k 223 p 8.5 f 20 c 3.6
+   2706073    fndds    Chicken "wings" with hot sauce, from precooked                 k 254 p 18 f 19 c 2.5
+   2706076    fndds    Chicken "wings" with hot sauce, from other sources             k 267 p 17 f 20 c 5.1
+   171605     sr       Sauce, chili, peppers, hot, immature green, canned             k 20 p 0.7 f 0.1 c 5.0
+   2710701    fndds    Scotch                                                         k 231 p 0.0 f 0.0 c 0.0   (q: scotch bonnet hot sauce)
+   2706776    fndds    Sausage and peppers, no sauce                                  k 247 p 14 f 20 c 3.3   (q: pepper sauce)
+   174528     sr       Sauce, ready-to-serve, pepper, TABASCO                         k 12 p 1.3 f 0.8 c 0.8   (q: pepper sauce)
+   171604     sr       Sauce, peppers, hot, chili, mature red, canned                 k 21 p 0.9 f 0.6 c 3.9   (q: pepper sauce)
+   170462     sr       Tomato products, canned, sauce, with onions, green peppers, an k 41 p 0.9 f 0.7 c 8.8   (q: pepper sauce)
+   2706747    fndds    Pepper steak                                                   k 145 p 12 f 9.1 c 4.3   (q: pepper sauce)
+   BRANDED q='caribbean hot sauce': 2 labels, median k 0.0 p 0.0 f 0.0 c 0.0, kcal range [0, 0]
+      2009643   CARIBBEAN HOT SAUCE                                          EI YUCATECO            k 0.0 p 0.0 f 0.0 c 0.0
+      2014600   GRACE, CARIBBEAN STYLE HOT PEPPER SAUCE                      GRACE                  k 0.0 p 0.0 f 0.0 c 0.0
+   BRANDED q='scotch bonnet hot sauce': 9 labels, median k 71 p 0.0 f 0.0 c 7.0, kcal range [0, 282]
+      2679941   SCOTCH BONNET CURRY HOT SAUCE, SCOTCH BONNET CURRY           TATTOO                 k 71 p 0.0 f 0.0 c 14
+      2678734   SCOTCH BONNET HOT PEPPER SAUCE, SCOTCH BONNET                GRACE                  k 100 p 0.0 f 0.0 c 20
+      2171574   SCOTCH BONNET MUSTARD HOT SAUCE, SCOTCH BONNET MUSTARD       DOUBLE TAKE SALSA CO.  k 100 p 0.0 f 0.0 c 20
+### celery salt | id 5918
+   169342     sr       Celery, cooked, boiled, drained, with salt                     k 18 p 0.8 f 0.2 c 4.0
+   169989     sr       Celery, cooked, boiled, drained, without salt                  k 18 p 0.8 f 0.2 c 4.0
+   2709778    fndds    Celery, raw                                                    k 17 p 0.5 f 0.2 c 3.3
+   2709811    fndds    Celery juice                                                   k 17 p 0.5 f 0.2 c 3.3
+   2709906    fndds    Celery, cooked                                                 k 42 p 0.5 f 2.9 c 3.5
+   2710072    fndds    Celery, pickled                                                k 35 p 0.4 f 0.1 c 7.6
+   2346405    found    Celery, raw                                                    k 15 p 0.5 f 0.2 c 3.3
+   169988     sr       Celery, raw                                                    k 14 p 0.7 f 0.2 c 3.0
+   BRANDED q='celery salt': 2 labels, median k 12 p 0.4 f 0.0 c 2.8, kcal range [0, 24]
+      2660175   CELERY SALT, CELERY                                          ARCHER FARMS           k 0.0 p 0.0 f 0.0 c 0.0
+      1860962   NO SALT ADDED STEWED TOMATOES WITH ONIONS, CELERY E GREEN PE SCHNUCKS               k 24 p 0.8 f 0.0 c 5.7
+### chili garlic sauce | id 5064
+   2710169    fndds    Garlic sauce                                                   k 683 p 1.4 f 74 c 2.9
+   2709735    fndds    Tomato chili sauce                                             k 92 p 2.5 f 0.3 c 20
+   171595     sr       Sauce, tomato chili sauce, bottled, with salt                  k 92 p 2.5 f 0.3 c 20
+   171605     sr       Sauce, chili, peppers, hot, immature green, canned             k 20 p 0.7 f 0.1 c 5.0
+   171604     sr       Sauce, peppers, hot, chili, mature red, canned                 k 21 p 0.9 f 0.6 c 3.9
+   2706465    fndds    Shrimp in garlic sauce, Puerto Rican style                     k 281 p 12 f 25 c 2.5
+   2706483    fndds    Chili with macaroni                                            k 126 p 9.0 f 3.6 c 14
+   169018     sr       APPLEBEE'S, chili                                              k 157 p 13 f 9.8 c 4.6
+   171188     sr       Sauce, hot chile, sriracha, TUONG OT SRIRACHA                  k 79 p 1.9 f 0.9 c 16   (q: tuong ot toi)
+   BRANDED q='chili garlic sauce': 19 labels, median k 111 p 0.0 f 0.0 c 18, kcal range [0, 600]
+      2017194   GARLIC CHILI PEPPER SAUCE, SRIRACHA SAUCE                    A TASTE OF THAI        k 111 p 0.0 f 0.0 c 33
+      2582334   VEGAN CHILI GARLIC SAUCE, CHILI; GARLIC                      OXYGEN                 k 112 p 2.5 f 0.0 c 32
+      2564745   GARLIC CHILI SAUCE                                           ROLAND                 k 118 p 0.0 f 0.0 c 29
+   BRANDED q='tuong ot toi': 0 usable labels (146 hits)
+### fufu flour | id 5351
+   2709568    fndds    Fufu                                                           k 166 p 1.5 f 3.0 c 34
+   170684     sr       Arrowroot flour                                                k 357 p 0.3 f 0.1 c 88
+   173755     sr       Carob flour                                                    k 222 p 4.6 f 0.7 c 89
+   2003586    found    Flour, 00                                                      k 366 p 11 f 1.5 c 74
+   2261420    found    Flour, almond                                                  k 578 p 26 f 50 c 16
+   2512371    found    Flour, amaranth                                                k 378 p 13 f 6.2 c 69
+   2512376    found    Flour, barley                                                  k 357 p 8.7 f 2.5 c 77
+   2512374    found    Flour, buckwheat                                               k 334 p 8.9 f 2.5 c 75
+   170071     sr       Yam, raw                                                       k 118 p 1.5 f 0.2 c 28   (q: pounded yam flour)
+   168432     sr       Mountain yam, hawaii, raw                                      k 67 p 1.3 f 0.1 c 16   (q: pounded yam flour)
+   168552     sr       Mountain yam, hawaii, cooked, steamed, with salt               k 82 p 1.7 f 0.1 c 20   (q: pounded yam flour)
+   170551     sr       Yam, cooked, boiled, drained, or baked, with salt              k 114 p 1.5 f 0.1 c 27   (q: pounded yam flour)
+   168433     sr       Mountain yam, hawaii, cooked, steamed, without salt            k 82 p 1.7 f 0.1 c 20   (q: pounded yam flour)
+   170072     sr       Yam, cooked, boiled, drained, or baked, without salt           k 116 p 1.5 f 0.1 c 28   (q: pounded yam flour)
+   BRANDED q='fufu flour': 2 labels, median k 267 p 2.0 f 0.1 c 84, kcal range [267, 267]
+      2036876   GOLDEN TROPICS, COCOYAM FUFU FLOUR                           GOLDEN TROPICS         k 267 p 2.0 f 0.1 c 84
+      2626508   GOLDEN TROPICS, PLANTAIN FUFU FLOUR                          GOLDEN TROPICS         k 267 p 2.0 f 0.1 c 84
+   BRANDED q='fufu': 2 labels, median k 267 p 2.0 f 0.1 c 84, kcal range [267, 267]
+      2036876   GOLDEN TROPICS, COCOYAM FUFU FLOUR                           GOLDEN TROPICS         k 267 p 2.0 f 0.1 c 84
+      2626508   GOLDEN TROPICS, PLANTAIN FUFU FLOUR                          GOLDEN TROPICS         k 267 p 2.0 f 0.1 c 84
+### garlic salt | id 5916
+   2710169    fndds    Garlic sauce                                                   k 683 p 1.4 f 74 c 2.9
+   2709932    fndds    Garlic, cooked                                                 k 142 p 6.6 f 0.4 c 28
+   2709786    fndds    Garlic, raw                                                    k 143 p 6.6 f 0.4 c 28
+   1104647    found    Garlic, raw                                                    k 143 p 6.6 f 0.4 c 28
+   169230     sr       Garlic, raw                                                    k 149 p 6.4 f 0.5 c 33
+   2707662    fndds    Roll, garlic                                                   k 309 p 11 f 6.4 c 52
+   167939     sr       Garlic bread, frozen                                           k 350 p 8.4 f 17 c 42
+   2707626    fndds    Garlic bread, NFS                                              k 349 p 8.3 f 17 c 42
+   BRANDED q='garlic salt': 8 labels, median k 0.0 p 0.0 f 0.0 c 0.0, kcal range [0, 714]
+      2129176   GARLIC SALT                                                  CAIN'S                 k 0.0 p 0.0 f 0.0 c 0.0
+      2091422   GARLIC SALT                                                  ARCHER FARMS           k 0.0 p 0.0 f 0.0 c 0.0
+      2493479   GARLIC SALT, GARLIC                                          BIG WIN                k 0.0 p 0.0 f 0.0 c 0.0
+### huacatay paste | id 5403
+   2707535    fndds    Almond paste                                                   k 458 p 9.0 f 28 c 48
+   2710307    fndds    Guava paste                                                    k 292 p 0.1 f 0.3 c 73
+   2710103    fndds    Wasabi paste                                                   k 292 p 2.2 f 11 c 46
+   2710309    fndds    Bean paste, sweetened                                          k 226 p 6.2 f 0.5 c 50
+   2706155    fndds    Liver, paste or pate                                           k 201 p 13 f 13 c 6.5
+   170160     sr       Nuts, almond paste                                             k 458 p 9.0 f 28 c 48
+   2710308    fndds    Sweet potato paste                                             k 305 p 0.5 f 0.3 c 75
+   170191     sr       Seeds, sesame butter, paste                                    k 586 p 18 f 51 c 24
+   2710358    fndds    Candy, mint                                                    k 394 p 0.0 f 0.1 c 98   (q: black mint paste)
+   2707387    fndds    Peruvian beans, from dried                                     k 192 p 8.5 f 7.5 c 23   (q: peruvian black mint)
+   2710643    fndds    Mint julep                                                     k 187 p 0.0 f 0.0 c 5.8   (q: peruvian black mint)
+   2710672    fndds    Black Russian                                                  k 279 p 0.0 f 0.1 c 21   (q: peruvian black mint)
+   2707764    fndds    Bread, black                                                   k 250 p 8.7 f 3.1 c 48   (q: peruvian black mint)
+   2710090    fndds    Olives, black                                                  k 116 p 0.8 f 11 c 6.0   (q: peruvian black mint)
+   168766     sr       Candies, NESTLE, AFTER EIGHT Mints                             k 432 p 1.7 f 12 c 80   (q: peruvian black mint)
+   2707395    fndds    Black bean salad                                               k 94 p 3.1 f 3.9 c 13   (q: peruvian black mint)
+   BRANDED q='huacatay paste': 3 labels, median k 0.0 p 0.0 f 0.0 c 0.0, kcal range [0, 20]
+      2669225   HUACATAY BLACK MINT PASTE                                    INCA'S FOOD            k 0.0 p 0.0 f 0.0 c 0.0
+      2015018   DONA ISABEL, HUACATAY BLACK MINT PASTE                       DONA ISABEL            k 0.0 p 0.0 f 0.0 c 0.0
+      2427088   HUACATAY PASTE, BLACK MINT                                   YAPE! GOURMET          k 20 p 0.0 f 0.0 c 4.0
+   BRANDED q='black mint paste': 6 labels, median k 30 p 0.0 f 0.0 c 6.3, kcal range [0, 80]
+      1855255   BLACK MINT PASTE                                             GOYA                   k 40 p 0.0 f 0.0 c 10
+      2427088   HUACATAY PASTE, BLACK MINT                                   YAPE! GOURMET          k 20 p 0.0 f 0.0 c 4.0
+      2671028   BLACK MINT PASTE, BLACK MINT                                 TRADICIONES ANDINAS    k 50 p 5.0 f 0.0 c 8.6
+### mulling spices | id 5927
+   171332     sr       Spices, pumpkin pie spice                                      k 342 p 5.8 f 13 c 69
+   170919     sr       Spices, cardamom                                               k 311 p 11 f 6.7 c 68
+   171329     sr       Spices, paprika                                                k 282 p 14 f 13 c 54
+   170934     sr       Spices, saffron                                                k 310 p 11 f 5.8 c 65
+   171315     sr       Spices, allspice, ground                                       k 263 p 6.1 f 8.7 c 72
+   171316     sr       Spices, anise seed                                             k 337 p 18 f 16 c 50
+   171317     sr       Spices, basil, dried                                           k 233 p 23 f 4.1 c 48
+   2710697    fndds    Wine spritzer                                                  k 49 p 0.0 f 0.0 c 1.6   (q: mulled wine spices)
+   2710609    fndds    Wine, nonalcoholic                                             k 6.0 p 0.5 f 0.0 c 1.1   (q: mulled wine spices)
+   2710694    fndds    Wine cooler                                                    k 68 p 0.0 f 0.0 c 10   (q: mulled wine spices)
+   2710693    fndds    Wine, light                                                    k 49 p 0.1 f 0.0 c 1.2   (q: mulled wine spices)
+   2710688    fndds    Wine, red                                                      k 85 p 0.1 f 0.0 c 2.6   (q: mulled wine spices)
+   2710691    fndds    Wine, rice                                                     k 134 p 0.5 f 0.0 c 5.0   (q: mulled wine spices)
+   2710690    fndds    Wine, rose                                                     k 83 p 0.4 f 0.0 c 3.8   (q: mulled wine spices)
+   2710687    fndds    Wine, sparkling                                                k 75 p 0.1 f 0.0 c 2.3   (q: mulled wine spices)
+   BRANDED q='mulling spices': 1 labels, median k 250 p 0.0 f 0.0 c 75, kcal range [250, 250]
+      2660180   MULLING SPICES                                               ARCHER FARMS           k 250 p 0.0 f 0.0 c 75
+   BRANDED q='mulled wine spices': 0 usable labels (86896 hits)
+### onion salt | id 5917
+   170100     sr       Onions, cooked, boiled, drained, with salt                     k 42 p 1.4 f 0.2 c 9.6
+   170001     sr       Onions, cooked, boiled, drained, without salt                  k 44 p 1.4 f 0.2 c 10
+   170101     sr       Onions, frozen, chopped, cooked, boiled, drained, with salt    k 26 p 0.8 f 0.1 c 6.0
+   170507     sr       Onions, frozen, whole, cooked, boiled, drained, with salt      k 26 p 0.7 f 0.1 c 6.1
+   170514     sr       Peas and onions, frozen, cooked, boiled, drained, with salt    k 45 p 2.5 f 0.2 c 8.6
+   170411     sr       Onions, frozen, chopped, cooked, boiled, drained, without salt k 28 p 0.8 f 0.1 c 6.6
+   170413     sr       Onions, frozen, whole, cooked, boiled, drained, without salt   k 28 p 0.7 f 0.1 c 6.7
+   170021     sr       Peas and onions, frozen, cooked, boiled, drained, without salt k 45 p 2.5 f 0.2 c 8.6
+   BRANDED q='onion salt': 24 labels, median k 433 p 3.5 f 17 c 43, kcal range [0, 643]
+      2162707   POPPY SALT ONION GARLIC EVERYTHING! CRACKERS, POPPY SALT ONI GEFEN                  k 433 p 10 f 17 c 63
+      2500945   ORIGINAL WITH CREAMY ONION & SEA SALT CRISP & THINS POTATO A RITZ                   k 433 p 6.7 f 15 c 70
+      2500867   ORIGINAL WITH CREAMY ONION & SEA SALT CRISP & THINS POTATO A RITZ                   k 433 p 6.7 f 15 c 70
+### peri-peri sauce | id 5377
+   2706475    fndds    Beef and potatoes with cream sauce, white sauce or mushroom sa k 100 p 8.0 f 3.8 c 8.7
+   171584     sr       Sauce, cheese sauce mix, dry                                   k 438 p 7.7 f 18 c 60
+   2707445    fndds    Teriyaki sauce                                                 k 89 p 5.9 f 0.0 c 16
+   2709745    fndds    Spaghetti sauce                                                k 51 p 1.4 f 1.5 c 8.1
+   2705809    fndds    Alfredo sauce                                                  k 150 p 2.1 f 15 c 1.8
+   2709750    fndds    Barbecue sauce                                                 k 172 p 0.8 f 0.6 c 41
+   2709740    fndds    Taco sauce                                                     k 11 p 1.2 f 0.7 c 0.7
+   2710298    fndds    Duck sauce                                                     k 245 p 0.4 f 0.1 c 61
+   BRANDED q='peri-peri sauce': 9 labels, median k 100 p 0.0 f 0.0 c 0.0, kcal range [0, 132]
+      2153518   HOT PERI-PERI SAUCE, HOT PERI-PERI                           NANDO'S                k 100 p 0.0 f 0.0 c 0.0
+      2578621   MEDIUM PERI-PERI SAUCE                                       NANDO'S                k 100 p 0.0 f 0.0 c 0.0
+      2279152   HOT PERI-PERI SAUCE, HOT                                     NANDO'S                k 100 p 0.0 f 0.0 c 0.0
+   BRANDED q='piri piri sauce': 2 labels, median k 50 p 1.7 f 1.7 c 8.3, kcal range [0, 100]
+      414557    PIRI PIRI HOT SAUCE                                          MACARICO               k 0.0 p 0.0 f 0.0 c 0.0
+      1865521   SAUCE, PIRI PIRI RED CHILI                                   VICTORIA AMORY         k 100 p 3.3 f 3.3 c 17
+### pickled onions | id 5707
+   2710071    fndds    Beets, pickled                                                 k 65 p 0.8 f 0.1 c 16
+   2710074    fndds    Cauliflower, pickled                                           k 41 p 1.6 f 0.2 c 9.0
+   2710072    fndds    Celery, pickled                                                k 35 p 0.4 f 0.1 c 7.6
+   169892     sr       Eggplant, pickled                                              k 49 p 0.9 f 0.7 c 9.8
+   2710081    fndds    Eggplant, pickled                                              k 41 p 0.8 f 0.2 c 9.7
+   2706262    fndds    Fish, pickled                                                  k 262 p 14 f 18 c 9.6
+   2709795    fndds    Onions, raw                                                    k 38 p 0.9 f 0.1 c 8.5   (q: silverskin onions)
+   170000     sr       Onions, raw                                                    k 40 p 1.1 f 0.1 c 9.3   (q: silverskin onions)
+   2709794    fndds    Onions, green, raw                                             k 32 p 1.8 f 0.2 c 7.3   (q: silverskin onions)
+   2709953    fndds    Onions, green, cooked                                          k 63 p 2.1 f 3.2 c 8.4   (q: silverskin onions)
+   2709952    fndds    Onions, pearl, cooked                                          k 50 p 0.7 f 2.6 c 6.5   (q: silverskin onions)
+   2706449    fndds    Shrimp cocktail                                                k 99 p 13 f 1.2 c 7.9   (q: cocktail onions)
+   2710626    fndds    Cocktail, NFS                                                  k 89 p 0.0 f 0.2 c 7.8   (q: cocktail onions)
+   2709753    fndds    Cocktail sauce                                                 k 128 p 1.4 f 1.1 c 28   (q: cocktail onions)
+   2709730    fndds    Tomato juice cocktail                                          k 22 p 0.9 f 0.3 c 3.9   (q: cocktail onions)
+   2709289    fndds    Fruit cocktail, canned, NFS                                    k 55 p 0.4 f 0.1 c 14   (q: cocktail onions)
+   173214     sr       Beverages, Cranberry juice cocktail                            k 52 p 0.0 f 0.3 c 12   (q: cocktail onions)
+   171903     sr       Cranberry juice cocktail, bottled                              k 54 p 0.0 f 0.1 c 14   (q: cocktail onions)
+   BRANDED q='pickled onions': 11 labels, median k 54 p 0.0 f 0.0 c 13, kcal range [36, 71]
+      2511217   PICKLED ONIONS                                               VEGGIE CONFETTI        k 54 p 0.0 f 0.0 c 11
+      2655469   SPICY PICKLED ONIONS, SPICY                                  MEZZETTA               k 54 p 0.0 f 3.6 c 3.6
+      2193157   HOT & SPICY PICKLED RED ONIONS, HOT & SPICY                  LA CEBOLLA ROJA        k 54 p 0.0 f 0.0 c 14
+   BRANDED q='silverskin onions': 1 labels, median k 10 p 0.4 f 0.1 c 1.8, kcal range [10, 10]
+      484096    SILVERSKIN ONIONS                                            HAYWARDS               k 10 p 0.4 f 0.1 c 1.8
+### sambal oelek | id 5057
+   167903     sr       Pork, fresh, ground, cooked                                    k 297 p 26 f 21 c 0.0   (q: ground fresh chili paste)
+   167902     sr       Pork, fresh, ground, raw                                       k 263 p 17 f 21 c 0.0   (q: ground fresh chili paste)
+   2707535    fndds    Almond paste                                                   k 458 p 9.0 f 28 c 48   (q: ground fresh chili paste)
+   2710307    fndds    Guava paste                                                    k 292 p 0.1 f 0.3 c 73   (q: ground fresh chili paste)
+   2710103    fndds    Wasabi paste                                                   k 292 p 2.2 f 11 c 46   (q: ground fresh chili paste)
+   2710309    fndds    Bean paste, sweetened                                          k 226 p 6.2 f 0.5 c 50   (q: ground fresh chili paste)
+   2706155    fndds    Liver, paste or pate                                           k 201 p 13 f 13 c 6.5   (q: ground fresh chili paste)
+   170160     sr       Nuts, almond paste                                             k 458 p 9.0 f 28 c 48   (q: ground fresh chili paste)
+   BRANDED q='sambal oelek': 3 labels, median k 263 p 3.3 f 0.0 c 47, kcal range [0, 300]
+      2032351   CHNG KEE'S, SAMBAL OELEK                                     CHNG KEE'S             k 263 p 3.3 f 6.7 c 47
+      1045775   SPICY RED CHILES, RED BELL PEPPERS, & VINEGAR SAMBAL OELEK S Woodland Foods         k 300 p 13 f 0.0 c 73
+      2016176   SAMBAL OELEK                                                 HUY FONG FOODS, INC.   k 0.0 p 0.0 f 0.0 c 0.0
+   BRANDED q='ground fresh chili paste': 3 labels, median k 83 p 0.0 f 0.0 c 17, kcal range [0, 83]
+      2025091   UNCLE CHEN, FRESH GROUND CHILI PASTE                         UNCLE CHEN             k 83 p 0.0 f 0.0 c 17
+      1867533   UNCLE CHEN, FRESH GROUND CHILI PASTE, CHILICIOUSLY HOT, CHIL UNCLE CHEN             k 83 p 0.0 f 0.0 c 17
+      2595019   GROUND FRESH CHILI PASTE                                     SAMBAL OELEK           k 0.0 p 0.0 f 0.0 c 0.0
+### shatta | id 5269
+   171981     sr       Mollusks, oyster, eastern, canned                              k 68 p 7.1 f 2.5 c 3.9   (q: middle eastern hot sauce)
+   175172     sr       Mollusks, oyster, eastern, farmed, raw                         k 59 p 5.2 f 1.6 c 5.5   (q: middle eastern hot sauce)
+   171978     sr       Mollusks, oyster, eastern, wild, raw                           k 51 p 5.7 f 1.7 c 2.7   (q: middle eastern hot sauce)
+   2710093    fndds    Hot pepper sauce                                               k 12 p 1.3 f 0.8 c 0.8   (q: middle eastern hot sauce)
+   171979     sr       Mollusks, oyster, eastern, cooked, breaded and fried           k 199 p 8.8 f 13 c 12   (q: middle eastern hot sauce)
+   2709744    fndds    Hot Thai sauce                                                 k 74 p 1.0 f 0.7 c 17   (q: middle eastern hot sauce)
+   175173     sr       Mollusks, oyster, eastern, farmed, cooked, dry heat            k 79 p 7.0 f 2.1 c 7.3   (q: middle eastern hot sauce)
+   175171     sr       Mollusks, oyster, eastern, wild, cooked, dry heat              k 79 p 8.9 f 2.6 c 4.2   (q: middle eastern hot sauce)
+   2706475    fndds    Beef and potatoes with cream sauce, white sauce or mushroom sa k 100 p 8.0 f 3.8 c 8.7   (q: shatta sauce)
+   171584     sr       Sauce, cheese sauce mix, dry                                   k 438 p 7.7 f 18 c 60   (q: shatta sauce)
+   2707445    fndds    Teriyaki sauce                                                 k 89 p 5.9 f 0.0 c 16   (q: shatta sauce)
+   2709745    fndds    Spaghetti sauce                                                k 51 p 1.4 f 1.5 c 8.1   (q: shatta sauce)
+   2705809    fndds    Alfredo sauce                                                  k 150 p 2.1 f 15 c 1.8   (q: shatta sauce)
+   2709750    fndds    Barbecue sauce                                                 k 172 p 0.8 f 0.6 c 41   (q: shatta sauce)
+   2709740    fndds    Taco sauce                                                     k 11 p 1.2 f 0.7 c 0.7   (q: shatta sauce)
+   2710298    fndds    Duck sauce                                                     k 245 p 0.4 f 0.1 c 61   (q: shatta sauce)
+   BRANDED q='shatta': 1 labels, median k 33 p 0.0 f 0.0 c 13, kcal range [33, 33]
+      2411111   SHATTA HOT PEPPER SAUCE, SHATTA HOT PEPPER                   SERA                   k 33 p 0.0 f 0.0 c 13
+   BRANDED q='middle eastern hot sauce': 2 labels, median k 250 p 0.0 f 28 c 1.7, kcal range [0, 500]
+      2409538   HOT WHITE SAUCE MEDITERRANEAN & MIDDLE EASTERN DRESSING, HOT SPIN SAUCE             k 500 p 0.0 f 57 c 3.3
+      2384891   MEDIUM RED ZHUG MIDDLE EASTERN HOT SAUCE, MEDIUM RED ZHUG    SUN LION               k 0.0 p 0.0 f 0.0 c 0.0
+### steak seasoning | id 5922
+   2706747    fndds    Pepper steak                                                   k 145 p 12 f 9.1 c 4.3
+   2709752    fndds    Steak sauce                                                    k 95 p 1.2 f 0.2 c 22
+   2706394    fndds    Steak tartare                                                  k 216 p 17 f 16 c 0.3
+   2706387    fndds    Steak teriyaki                                                 k 198 p 29 f 8.2 c 1.9
+   2706732    fndds    Swiss steak                                                    k 115 p 15 f 4.4 c 3.7
+   2705914    fndds    Venison, steak                                                 k 149 p 30 f 2.4 c 0.0
+   2706380    fndds    Salisbury steak with gravy                                     k 149 p 7.0 f 10 c 6.8
+   2705852    fndds    Beef, sandwich steak                                           k 326 p 18 f 28 c 0.0
+   2706357    fndds    Scallops, grilled                                              k 108 p 15 f 2.9 c 4.0   (q: grill seasoning)
+   2706362    fndds    Shrimp, grilled                                                k 110 p 17 f 3.5 c 1.2   (q: grill seasoning)
+   2706090    fndds    Chicken fillet, grilled                                        k 151 p 22 f 5.8 c 2.4   (q: grill seasoning)
+   2707031    fndds    Fish sandwich, grilled                                         k 180 p 16 f 3.3 c 21   (q: grill seasoning)
+   2706296    fndds    Fish, bass, grilled                                            k 143 p 23 f 4.8 c 0.0   (q: grill seasoning)
+   2706236    fndds    Fish, catfish, grilled                                         k 171 p 19 f 9.8 c 0.0   (q: grill seasoning)
+   2706242    fndds    Fish, cod, grilled                                             k 108 p 19 f 2.8 c 0.0   (q: grill seasoning)
+   2706250    fndds    Fish, flounder, grilled                                        k 109 p 16 f 4.7 c 0.0   (q: grill seasoning)
+   BRANDED q='steak seasoning': 9 labels, median k 133 p 6.7 f 0.0 c 12, kcal range [0, 312]
+      2411965   STEAK SEASONING, STEAK                                       BEST CHOICE            k 133 p 6.7 f 0.0 c 27
+      2402387   STEAK SEASONING                                              DALE'S                 k 84 p 11 f 0.0 c 5.6
+      2433976   STEAK SEASONING                                              DALE'S                 k 84 p 11 f 0.0 c 5.6
+   BRANDED q='montreal steak seasoning': 0 usable labels (31835 hits)
+### wasabi powder | id 4909
+   171831     sr       Wasabi                                                         k 292 p 2.2 f 11 c 46
+   2710103    fndds    Wasabi paste                                                   k 292 p 2.2 f 11 c 46
+   2707422    fndds    Wasabi peas                                                    k 432 p 14 f 14 c 62
+   168583     sr       Wasabi, root, raw                                              k 109 p 4.8 f 0.6 c 24
+   173157     sr       Snacks, peas, roasted, wasabi-flavored                         k 432 p 14 f 14 c 62
+   167806     sr       Baobab powder                                                  k 250 p 3.7 f 0.5 c 80
+   169656     sr       Sugars, powdered                                               k 389 p 0.0 f 0.0 c 100
+   170461     sr       Tomato powder                                                  k 302 p 13 f 0.4 c 75
+   BRANDED q='wasabi powder': 3 labels, median k 353 p 0.0 f 0.0 c 59, kcal range [353, 353]
+      1863407   KONA WASABI POWDERED HORSERADISH                             KINJIRUSHI             k 353 p 0.0 f 0.0 c 59
+      958287    KONA WASABI, POWDERED HORSERADISH                            KONA WASABI            k 353 p 0.0 f 0.0 c 59
+      395447    KINJIRUSHI BRAND, KONA WASABI POWDERED HORSERADISH           KINJIRUSHI BRAND       k 353 p 0.0 f 0.0 c 59

@@ -1,0 +1,413 @@
+### garam masala | recipes 18 | now brand 2525305 GARAM MASALA | k 390 p 11 f 13 c 56 | panel 12
+     cofid:13-829   Garam masala [Literature sources]                            k 379  p 16   f 15   c -    n22
+### paneer | recipes 4 | now brand 2429587 PANEER | k 321 p 25 f 25 c 3.6 | panel 13
+     fndds:2705740  Cheese, paneer                                               k 299  p 16   f 16   c 22   n65
+     fndds:2709631  Palak Paneer                                                 k 101  p 5.4  f 7.0  c 4.3  n65
+     cofid:12-495   Cheese, Paneer [9 samples, sampled in spring and autumn]     k 328  p 26   f 24   c 0.9  n25
+### jaggery | recipes 3 | now brand 2432940 JAGGERY (GUR) | k 375 p 0.0 f 0.0 c 100 | panel 6
+     cnf:7865       Cookie, tea biscuit, wheat, Indian style (includes Punjabi,  k 495  p 7.2  f 23   c 64   n32
+### nori | recipes 3 | now brand 2380011 ROASTED YAKI NORI SEAWEED, ROASTED | k 400 p 40 f 0.0 c 40 | panel 13
+     cnf:2205       Seaweed, dulse (laver, nori), raw                            k 35   p 5.8  f 0.3  c 5.1  n34
+     cnf:2499       Seaweed, dulse (laver, nori), dried                          k 217  p 36   f 1.7  c 24   n31
+     cofid:13-340   Seaweed, nori, dried, raw [Analysis and literature sources]  k 136  p 31   f 1.5  c 0.0  n26
+### pickled ginger | recipes 3 | now brand 2622783 PICKLED GINGER JAPANESE SLICED SUSHI GAR | k 71 p 0.0 f 0.0 c 14 | panel 13
+     fndds:2710082  Ginger root, pickled                                         k 20   p 0.3  f 0.1  c 4.8  n65
+     sr:169765      Ginger root, pickled, canned, with artificial sweetener      k 20   p 0.3  f 0.1  c 4.8  n114
+     cnf:7693       Ginger root, pickled, canned, with artificial sweetener      k 20   p 0.3  f 0.1  c 4.8  n34
+### potato starch | recipes 3 | now brand 1857472 POTATO STARCH | k 333 p 0.0 f 0.0 c 83 | panel 13
+     sr:174099      Bread, gluten-free, white, made with potato extract, rice st k 320  p 3.1  f 11   c 53   n76
+     sr:171861      Rolls, gluten-free, white, made with brown rice flour, tapio k 310  p 8.0  f 6.4  c 55   n26
+### taco seasoning | recipes 3 | now brand 362900 TACO SEASONING MIX | k 333 p 17 f 0.0 c 67 | panel 6
+     sr:172243      Seasoning mix, dry, taco, original                           k 322  p 4.5  f 0.0  c 58   n20
+     cnf:6312       Seasoning mix, taco, dry mix                                 k 322  p 4.5  f 0.0  c 58   n17
+### cereal | recipes 2 | now brand 1747324 CEREAL | k 357 p 7.1 f 0.0 c 86 | panel 21
+     fndds:2708360  Cereal, cooked, NFS                                          k 64   p 2.2  f 1.1  c 11   n65
+     fndds:2708447  Cereal, crunch                                               k 398  p 4.3  f 5.5  c 82   n65
+     fndds:2708461  Cereal, granola                                              k 420  p 9.8  f 13   c 67   n65
+     fndds:2708465  Cereal, multigrain                                           k 373  p 12   f 3.6  c 74   n65
+### dried shrimp | recipes 2 | now brand 2027664 DRIED SHRIMP | k 267 p 60 f 3.3 c 0.0 | panel 12
+     fndds:2706366  Shrimp, dried                                                k 250  p 51   f 3.4  c 0.0  n65
+     cofid:16-249   Shrimps, dried [5 packets from Chinese supermarkets. Shrimps k 245  p 56   f 2.4  c 0.0  n25
+     cofid:16-482   Prawns, standard, dried [Calculated from 16-384]             k 377  p 83   f 4.9  c 0.0  n32
+### rice paper | recipes 2 | now brand 2455388 RICE PAPER. | k 317 p 0.0 f 0.0 c 77 | panel 11
+     fndds:2708166  Rice paper                                                   k 323  p 5.9  f 1.1  c 72   n65
+     fndds:2708704  Roll with meat and/or shrimp, vegetables and rice paper, not k 112  p 5.7  f 2.6  c 17   n65
+### kerupuk | recipes 1 | now brand 358453 TOASTED PRAWN CRACKERS | k 500 p 6.2 f 25 c 66 | panel 12
+     fndds:2708246  Shrimp chips                                                 k 426  p 7.1  f 18   c 59   n65
+     cofid:11-1023  Prawn crackers, takeaway [10 samples from different outlets] k 570  p 0.3  f 39   c -    n31
+### mascarpone | recipes 1 | now brand 2387359 MASCARPONE ITALIAN-STYLE CREAM CHEESE, M | k 429 p 3.6 f 43 c 11 | panel 12
+     cofid:12-490   Cheese, Mascarpone [8 samples, sampled in spring and autumn] k 435  p 4.6  f 44   c -    n31
+### prosciutto | recipes 1 | now brand 1989624 PROSCIUTTO | k 250 p 32 f 11 c 0.0 | panel 14
+     fndds:2705879  Ham, prosciutto                                              k 195  p 28   f 8.3  c 0.3  n65
+     cnf:6306       Deli-meat, prosciutto (parma ham) dry-cured                  k 306  p 27   f 16   c 12   n33
+     cnf:7152       Deli-meat, prosciutto (cotto ham), extra lean                k 126  p 19   f 4.2  c 1.8  n29
+### taco sauce | recipes 1 | now brand 1629511 MILD TACO SAUCE, MILD | k 31 p 0.0 f 0.0 c 6.2 | panel 6
+     fndds:2709740  Taco sauce                                                   k 11   p 1.2  f 0.7  c 0.7  n65
+     fndds:2706750  Beef taco filling: beef, cheese, tomato, taco sauce          k 181  p 13   f 11   c 6.4  n65
+### tzatziki | recipes 1 | now brand 396131 OPEN NATURE, TZATZIKI YOGURT DIP | k 133 p 3.3 f 12 c 6.7 | panel 13
+     fndds:2705448  Tzatziki dip                                                 k 91   p 5.2  f 6.0  c 4.1  n65
+     cofid:12-547   Tzatziki [Yogurt-based Greek starter. Recipe]                k 76   p 3.4  f 5.5  c -    n30
+### wasabi paste | recipes 1 | now brand 396884 ROLAND, WASABI PASTE, READY-TO-USE | k 200 p 0.0 f 0.0 c 40 | panel 13
+     fndds:2710103  Wasabi paste                                                 k 292  p 2.2  f 11   c 46   n65
+     sr:171831      Wasabi                                                       k 292  p 2.2  f 11   c 46   n116
+     sr:168583      Wasabi, root, raw                                            k 109  p 4.8  f 0.6  c 24   n38
+     fndds:2707422  Wasabi peas                                                  k 432  p 14   f 14   c 62   n65
+### whole grain mustard | recipes 1 | now brand 2037607 OLD STYLE MUSTARD | k 200 p 0.0 f 10 c 20 | panel 5
+     cofid:17-365   Mustard, wholegrain [9 samples, 5 brands]                    k 140  p 8.2  f 10   c -    n21
+### acai puree | recipes 0 | now brand 2432436 ORGANIC ACAI PUREE, UNSWEETENED | k 70 p 0.0 f 5.0 c 4.0 | panel 13
+     fndds:2710777  Fruit juice, acai blend                                      k 62   p 0.8  f 0.8  c 13   n65
+     sr:173175      Beverages, Acai berry drink, fortified                       k 62   p 0.8  f 0.8  c 13   n84
+     sr:174170      Beverages, V8 V- FUSION Juices, Acai Berry                   k 45   p 0.0  f 0.0  c 11   n21
+     cnf:6844       Cereal, ready to eat, Acai Plus Granola, Nature's Path       k 445  p 9.0  f 15   c 71   n20
+### ackee | recipes 0 | now brand 464309 ACKEE IN SALT WATER | k 140 p 4.0 f 9.0 c 11 | panel 13
+     cofid:13-145   Ackee, canned, drained [8 cans]                              k 151  p 2.9  f 15   c 0.8  n23
+### agave syrup | recipes 0 | now brand 358995 AGAVE NECTAR | k 286 p 0.0 f 0.0 c 76 | panel 7
+     sr:170277      Sweetener, syrup, agave                                      k 310  p 0.1  f 0.5  c 76   n76
+     cnf:7129       Sweets, syrup, agave                                         k 310  p 0.1  f 0.5  c 76   n32
+### alfredo sauce | recipes 0 | now brand 359487 ALFREDO SAUCE | k 144 p 3.2 f 11 c 7.2 | panel 13
+     fndds:2705809  Alfredo sauce                                                k 150  p 2.1  f 15   c 1.8  n65
+     fndds:2705811  Alfredo sauce with meat                                      k 171  p 6.5  f 15   c 1.4  n65
+     fndds:2705813  Alfredo sauce with poultry                                   k 156  p 6.9  f 14   c 1.4  n65
+     fndds:2705815  Alfredo sauce with seafood                                   k 145  p 5.9  f 12   c 2.0  n65
+### almond paste | recipes 0 | now brand 772584 ALMOND PASTE | k 462 p 10 f 23 c 54 | panel 14
+     fndds:2707535  Almond paste                                                 k 458  p 9.0  f 28   c 48   n65
+     sr:170160      Nuts, almond paste                                           k 458  p 9.0  f 28   c 48   n71
+     cnf:2540       Nuts, almond paste, sweetened                                k 458  p 9.0  f 28   c 48   n34
+### amla | recipes 0 | now brand 806521 AMLA POWDER ORGANIC SPICES | k 45 p 1.0 f 0.5 c 10 | panel 13
+     cofid:14-001   Amla [Literature sources]                                    k 58   p 0.5  f 0.1  c -    n19
+### artichoke hearts | recipes 0 | now brand 465093 ARTICHOKE HEARTS | k 27 p 1.5 f 0.0 c 5.4 | panel 13
+     cofid:13-155   Artichoke, globe, base of leaves and heart, boiled in unsalt k 18   p 2.9  f 0.2  c -    n29
+### asiago | recipes 0 | now brand 358713 ASIAGO FRESH CHEESE | k 393 p 21 f 32 c 3.6 | panel 13
+     cnf:7732       Cheese, asiago                                               k 405  p 25   f 32   c 3.5  n30
+     cnf:7077       Cracker, cheese, Asiago                                      k 420  p 13   f 14   c 66   n26
+### baba ganoush | recipes 0 | now brand 2553823 BABA GANOUSH SMOKED EGGPLANT DIP, BABA G | k 89 p 3.6 f 7.1 c 7.1 | panel 13
+     cnf:7713       Dip, eggplant (Baba ganoush)                                 k 159  p 4.2  f 12   c 12   n32
+     fndds:2710049  Eggplant dip                                                 k 183  p 4.8  f 15   c 8.2  n65
+### black bean sauce | recipes 0 | now brand 379366 KIKKOMAN, BLACK BEAN SAUCE WITH GARLIC | k 129 p 8.6 f 2.9 c 17 | panel 13
+     fndds:2707404  Black bean sauce                                             k 168  p 6.3  f 8.4  c 17   n65
+     cofid:19-570   Chicken, stir-fried with peppers in black bean sauce, homema k 124  p 19   f 4.2  c -    n25
+     cofid:19-672   Pork, spare ribs, in black bean sauce, meat and sauce only,  k 216  p 14   f 14   c -    n24
+     cofid:17-629   Sauce, Chinese stir fry [10 samples, 10 products, including  k 92   p 1.4  f 1.3  c -    n31
+### black rice | recipes 0 | now brand 356561 BLACK RICE | k 356 p 8.9 f 3.3 c 76 | panel 13
+     found:2710825  Rice, black, unenriched, raw                                 k 361  p 7.6  f 3.4  c 77   n23
+     fndds:2708994  Black beans and white rice                                   k 160  p 6.0  f 4.3  c 24   n65
+     fndds:2709035  Black beans and brown rice                                   k 158  p 5.9  f 4.7  c 24   n65
+     fndds:2708988  Black beans and rice, from fast food / restaurant            k 182  p 5.8  f 7.1  c 24   n65
+### bolognese sauce | recipes 0 | now brand 370107 ITALIAN STYLE BOLOGNESE MEAT SAUCE | k 102 p 4.2 f 6.8 c 5.9 | panel 13
+     cofid:19-476   Bolognese sauce (with meat), homemade [Recipe]               k 161  p 12   f 12   c -    n31
+     fndds:2705811  Alfredo sauce with meat                                      k 171  p 6.5  f 15   c 1.4  n65
+     fndds:2706470  Spaghetti sauce with meat                                    k 90   p 5.9  f 4.4  c 6.5  n65
+     cnf:6767       Spaghetti with meat sauce                                    k 162  p 8.2  f 5.7  c 20   n31
+### bread dough | recipes 0 | now brand 2735403 Pillsbury Original French Bread Dough | k 237 p 7.4 f 2.2 c 48 | panel 15
+     fndds:2707646  Bread, sour dough                                            k 272  p 11   f 2.4  c 52   n65
+     fndds:2707653  Bread, dough, fried                                          k 384  p 9.4  f 19   c 45   n65
+     fndds:2707647  Bread, sour dough, toasted                                   k 299  p 12   f 2.7  c 57   n65
+### brioche | recipes 0 | now brand 548609 BRIOCHE | k 303 p 9.1 f 8.1 c 51 | panel 19
+     fndds:2707682  Brioche                                                      k 427  p 9.0  f 27   c 36   n65
+### brown sauce | recipes 0 | now brand 1042019 BROWN SAUCE | k 78 p 3.1 f 6.2 c 6.2 | panel 13
+     cnf:1135       Sauce, mustard, brown, ready-to-serve                        k 91   p 5.9  f 6.3  c 5.3  n22
+     fndds:2709107  Rice, brown, with soy-based sauce, NS as to fat              k 114  p 2.1  f 2.4  c 21   n65
+     sr:170045      Potatoes, hash brown, frozen, with butter sauce, unprepared  k 135  p 1.9  f 6.7  c 18   n49
+     sr:170046      Potatoes, hash brown, frozen, with butter sauce, prepared    k 178  p 2.5  f 8.8  c 24   n50
+### buffalo sauce | recipes 0 | now brand 461149 BUFFALO SAUCE | k 94 p 0.0 f 9.4 c 6.2 | panel 13
+     fndds:2709751  Buffalo sauce                                                k 11   p 1.2  f 0.7  c 0.8  n65
+     fndds:2706062  Chicken wing, grilled without sauce                          k 265  p 23   f 18   c 0.0  n65
+     fndds:2706063  Chicken wing, grilled with sauce                             k 250  p 19   f 15   c 7.3  n65
+     fndds:2706073  Chicken "wings" with hot sauce, from precooked               k 254  p 18   f 19   c 2.5  n65
+### candied ginger | recipes 0 | now brand 504727 CRYSTALLIZED GINGER | k 375 p 0.0 f 0.0 c 90 | panel 13
+     cnf:4400       Candied foods, ginger root, crystallized                     k 340  p 0.3  f 0.2  c 87   n30
+### caribbean hot sauce | recipes 0 | now brand 1162470 HOT PEPPER SCOTCH BONNET SAUCE, HOT PEPP | k - p - f - c - | panel 4
+     fndds:2710093  Hot pepper sauce                                             k 12   p 1.3  f 0.8  c 0.8  n65
+     fndds:2706776  Sausage and peppers, no sauce                                k 247  p 14   f 20   c 3.3  n65
+     sr:174527      Sauce, ready-to-serve, pepper or hot                         k 11   p 0.5  f 0.4  c 1.8  n69
+     sr:174528      Sauce, ready-to-serve, pepper, TABASCO                       k 12   p 1.3  f 0.8  c 0.8  n89
+### cassava flour | recipes 0 | now brand 2505943 CASSAVA FLOUR | k 343 p 0.0 f 0.0 c 89 | panel 13
+     found:2512377  Flour, cassava                                               k 359  p 0.9  f 0.5  c 87   n30
+     cnf:6184       Cassava (manioc), flour                                      k 349  p 3.0  f 0.6  c 83   n33
+     cofid:11-899   Flour, gari (cassava flour) [4 samples, 2 products]          k 361  p 0.7  f 0.2  c -    n31
+### celery salt | recipes 0 | now brand 534141 CELERY SALT | k - p - f - c - | panel 2
+     cnf:2481       Celery, boiled, drained, with salt                           k 18   p 0.8  f 0.2  c 4.0  n34
+     sr:169342      Celery, cooked, boiled, drained, with salt                   k 18   p 0.8  f 0.2  c 4.0  n84
+     sr:169989      Celery, cooked, boiled, drained, without salt                k 18   p 0.8  f 0.2  c 4.0  n100
+### chili seasoning mix | recipes 0 | now brand 2451889 CHILI SEASONING MIX, CHILI | k 333 p 11 f 5.6 c 56 | panel 13
+     sr:173476      Seasoning mix, dry, chili, original                          k 335  p 11   f 7.3  c 57   n18
+     cnf:7203       Seasoning mix, chili, dry mix                                k 335  p 11   f 7.3  c 57   n14
+### chivda | recipes 0 | now brand 434400 AURORA NATURAL, BOMBAY MIX | k 533 p 13 f 33 c 40 | panel 13
+     cofid:17-782   Chevda/chevra/chewra, homemade [Recipe]                      k 487  p 19   f 32   c -    n24
+     cofid:17-764   Bombay mix [20 samples; savoury mix of gram flour, assorted  k 503  p 19   f 33   c -    n29
+### coconut flour | recipes 0 | now brand 2542211 ORGANIC COCONUT FLOUR | k 400 p 20 f 13 c 60 | panel 13
+     found:2515382  Flour, coconut                                               k 424  p 16   f 15   c 59   n22
+### coconut sugar | recipes 0 | now brand 482085 ORGANIC COCONUT SUGAR | k 375 p 0.0 f 0.0 c 100 | panel 13
+     cnf:7861       Cookie, sugar, coconut, commercial                           k 467  p 5.2  f 18   c 71   n30
+     sr:171575      Sauce, peanut, made from coconut, water, sugar, peanuts      k 179  p 2.0  f 6.3  c 28   n114
+     cnf:7206       Sauce, peanut (made from coconut, water, sugar, peanuts)     k 179  p 2.0  f 6.3  c 28   n34
+     sr:169063      Breakfast bars, oats, sugar, raisins, coconut (include grano k 464  p 9.8  f 18   c 67   n69
+### conchas | recipes 0 | now brand 470814 CONCHAS | k 367 p 14 f 8.6 c 57 | panel 13
+     fndds:2707669  Pan dulce, NFS                                               k 371  p 9.1  f 12   c 56   n65
+     fndds:2707674  Pan Dulce, no topping                                        k 367  p 9.4  f 12   c 56   n65
+     fndds:2707675  Pan Dulce, with sugar topping                                k 374  p 8.7  f 13   c 56   n65
+     fndds:2707676  Pan Dulce, with raisins and icing                            k 368  p 8.3  f 11   c 59   n65
+### crumpets | recipes 0 | now brand 440436 SHARROCK'S, CRUMPETS | k 212 p 7.7 f 0.0 c 46 | panel 13
+     cnf:7910       Crumpets, plain                                              k 214  p 6.3  f 0.7  c 46   n27
+     cofid:11-989   Crumpets, toasted [9 samples]                                k 207  p 6.9  f 1.0  c -    n31
+### cuajada | recipes 0 | now brand 2595214 CENTROAMERICANA CUAJADA EGG  | k 286 p 18 f 18 c 7.1 | panel 15
+     fndds:2707435  Soybean curd                                                 k 61   p 7.2  f 3.7  c 1.2  n65
+     cnf:7745       Cheese, curds                                                k 375  p 23   f 31   c 2.5  n29
+     fndds:2705749  Cottage cheese, farmer's                                     k 148  p 11   f 9.7  c 4.3  n65
+     sr:169083      Soybean, curd cheese                                         k 151  p 12   f 8.1  c 6.9  n72
+### custard powder | recipes 0 | now brand 483218 CUSTARD POWDER | k 358 p 10 f 10 c 48 | panel 13
+     cofid:11-1138  Custard powder [Taken as cornflour (11-1045) except Na, Cl a k 354  p 0.6  f 0.7  c -    n29
+### digestive biscuits | recipes 0 | now brand 475624 DIGESTIVE BISCUIT | k 500 p 6.7 f 23 c 67 | panel 10
+     cofid:11-799   Biscuits, digestive, plain [10 samples, 7 products]          k 463  p 6.2  f 21   c -    n32
+     cofid:11-801   Biscuits, plain, reduced fat [10 samples, 5 products, includ k 432  p 6.6  f 14   c -    n31
+     cofid:11-803   Biscuits, digestive, with oats, plain [9 samples, 4 products k 480  p 6.4  f 23   c -    n31
+     cofid:11-807   Biscuits, digestive, half coated in chocolate [10 samples, 6 k 488  p 6.3  f 26   c -    n31
+### dried blueberries | recipes 0 | now brand 440922 BOB'S RED MILL, DRIED BLUEBERRIES | k 350 p 2.5 f 0.0 c 82 | panel 13
+     fndds:2709198  Blueberries, dried                                           k 317  p 2.5  f 2.5  c 80   n65
+     sr:168158      Blueberries, dried, sweetened                                k 317  p 2.5  f 2.5  c 80   n70
+     cnf:7209       Blueberry, dried, sweetened                                  k 317  p 2.5  f 2.5  c 80   n32
+### dried cherries | recipes 0 | now brand 359006 DRIED CHERRIES | k 325 p 2.5 f 0.0 c 80 | panel 16
+     fndds:2709199  Cherries, dried                                              k 333  p 1.2  f 0.7  c 80   n65
+     cnf:7208       Cherries, tart, dried, sweetened                             k 333  p 1.2  f 0.7  c 80   n32
+     sr:171708      Cherries, tart, dried, sweetened (Includes foods for USDA's  k 333  p 1.2  f 0.7  c 80   n70
+### dried papaya | recipes 0 | now brand 398929 DRIED PAPAYA CHUNKS | k 350 p 0.0 f 0.0 c 85 | panel 13
+     fndds:2709206  Papaya, dried                                                k 302  p 1.2  f 0.8  c 75   n65
+### dried pineapple | recipes 0 | now brand 2614215 Zee Zees Dried Pineapple, 1.45oz | k 341 p 0.0 f 0.0 c 85 | panel 16
+     fndds:2709210  Pineapple, dried                                             k 347  p 1.2  f 0.7  c 84   n65
+     cofid:14-396   Pineapple, dried [Calculated from 14-376]                    k 303  p 3.3  f 0.7  c -    n28
+### duck fat | recipes 0 | now brand 2274404 DUCK FAT | k 900 p 0.0 f 100 c 0.0 | panel 8
+     cnf:447        Animal fat, duck                                             k 883  p 0.0  f 100  c 0.0  n33
+     cofid:19-578   Duck a l'orange, excluding fat and skin, homemade [Recipe]   k 122  p 11   f 6.5  c -    n28
+     cofid:19-579   Duck a l'orange, including fat and skin, homemade [Recipe]   k 236  p 9.8  f 20   c -    n27
+     cofid:18-495   Duck, raw, meat only, weighed with fat, skin and bone [Calcu k 38   p 5.5  f 1.8  c 0.0  n30
+### dulce de leche | recipes 0 | now brand 2688154 LA LECHERA Dulce de Leche 11.5 oz. Bottl | k 316 p 5.3 f 7.9 c 55 | panel 15
+     sr:173461      Dulce de Leche                                               k 315  p 6.8  f 7.3  c 55   n115
+     fndds:2705699  Dulce de leche                                               k 315  p 6.8  f 7.3  c 55   n65
+     cnf:6789       Dulce de leche (caramelized milk)                            k 315  p 6.8  f 7.3  c 55   n34
+### egg roll wrappers | recipes 0 | now brand 2210471 EGG ROLL WRAPPERS | k 269 p 12 f 0.0 c 58 | panel 14
+     cnf:4001       Wonton wrapper (egg roll wrapper)                            k 291  p 9.8  f 1.5  c 58   n29
+     sr:172802      Wonton wrappers (includes egg roll wrappers)                 k 291  p 9.8  f 1.5  c 58   n74
+### einkorn | recipes 0 | now brand 365151 100% ORGANIC EINKORN ALL-PURPOSE FLOUR | k 333 p 13 f 1.7 c 67 | panel 16
+     found:2710827  Einkorn, grain, dry, raw                                     k 346  p 15   f 3.8  c 69   n23
+### enchilada sauce | recipes 0 | now brand 386547 RED ENCHILADA SAUCE | k 42 p 0.0 f 1.7 c 6.7 | panel 11
+     fndds:2709741  Enchilada sauce, red                                         k 30   p 0.6  f 0.9  c 4.9  n65
+     fndds:2709742  Enchilada sauce, green                                       k 38   p 1.1  f 0.9  c 6.4  n65
+     sr:174074      Sauce, enchilada, red, mild, ready to serve                  k 30   p 0.6  f 0.9  c 4.9  n114
+     cnf:7659       Sauce, enchilada, red, mild, ready-to-serve                  k 30   p 0.6  f 0.9  c 4.9  n34
+### fish stock | recipes 0 | now brand 541827 WILD-CAUGHT FISH STOCK | k 31 p 4.4 f 0.9 c 0.9 | panel 13
+     cnf:4728       Soup, stock, fish, homemade                                  k 16   p 2.3  f 0.8  c 0.0  n33
+     sr:171606      Fish broth                                                   k 16   p 2.0  f 0.6  c 0.4  n69
+     sr:172885      Soup, stock, fish, home-prepared                             k 16   p 2.3  f 0.8  c 0.0  n71
+     cnf:5356       Soup, broth, fish                                            k 16   p 2.0  f 0.6  c 0.4  n31
+### fufu flour | recipes 0 | now brand 2036876 GOLDEN TROPICS, COCOYAM FUFU FLOUR | k - p - f - c - | panel 5
+     fndds:2709568  Fufu                                                         k 166  p 1.5  f 3.0  c 34   n65
+### garri | recipes 0 | now brand 2288168 GARI | k 357 p 0.0 f 0.0 c 89 | panel 13
+     cofid:11-899   Flour, gari (cassava flour) [4 samples, 2 products]          k 361  p 0.7  f 0.2  c -    n31
+### gnocchi | recipes 0 | now brand 957513 POTATO GNOCCHI | k 164 p 4.3 f 0.0 c 36 | panel 13
+     fndds:2708721  Gnocchi, cheese                                              k 178  p 8.5  f 12   c 9.4  n65
+     fndds:2708722  Gnocchi, potato                                              k 135  p 2.4  f 6.3  c 17   n65
+### gravlax | recipes 0 | now brand 2464669 GRAVLAX STYLE COLD-SMOKED ATLANTIC SALMO | k 211 p 23 f 12 c 0.0 | panel 13
+     cofid:16-412   Salmon, smoked (cold-smoked) [11 samples, 11 products. Salmo k 184  p 23   f 10   c 0.5  n32
+### greek dressing | recipes 0 | now brand 2499819 GREEK DRESSING, GREEK | k 433 p 0.0 f 47 c 3.3 | panel 13
+     fndds:2709830  Greek Salad, no dressing                                     k 48   p 2.8  f 2.3  c 4.3  n65
+### green goddess dressing | recipes 0 | now brand 2238184 Annie's Organic Green Goddess Dressing | k 339 p 0.8 f 35 c 4.1 | panel 14
+     sr:169057      Salad dressing, green goddess, regular                       k 427  p 1.9  f 43   c 7.4  n69
+     cnf:5517       Salad dressing, green goddess, regular                       k 427  p 1.9  f 43   c 7.4  n31
+### grissini | recipes 0 | now brand 521914 CRISPY WHEAT BREADSTICKS | k 433 p 13 f 10 c 67 | panel 13
+     fndds:2707689  Breadsticks, NFS                                             k 342  p 12   f 13   c 44   n65
+     fndds:2707690  Breadsticks, hard, NFS                                       k 412  p 12   f 9.5  c 68   n65
+     fndds:2707692  Breadsticks, soft, NFS                                       k 342  p 12   f 13   c 44   n65
+     fndds:2707694  Breadsticks, soft, frozen                                    k 313  p 11   f 9.2  c 46   n65
+### guacamole | recipes 0 | now brand 473713 GUACAMOLE | k 140 p 1.8 f 12 c 8.8 | panel 16
+     fndds:2709307  Guacamole, NFS                                               k 155  p 1.9  f 14   c 8.4  n65
+     fndds:2709308  Guacamole with tomatoes                                      k 145  p 1.9  f 13   c 8.1  n65
+     cofid:17-797   Guacamole, homemade [Recipe]                                 k 128  p 1.4  f 13   c -    n30
+### guava paste | recipes 0 | now brand 1747165 GUAVA PASTE, GUAVA | k 316 p 0.0 f 0.0 c 79 | panel 14
+     fndds:2710307  Guava paste                                                  k 292  p 0.1  f 0.3  c 73   n65
+### halloumi | recipes 0 | now brand 2624366 HALLOUMI CHEESE | k 321 p 21 f 25 c - | panel 9
+     cofid:12-496   Cheese, Halloumi [9 samples, sampled in spring and autumn]   k 313  p 24   f 24   c -    n31
+### halva | recipes 0 | now brand 1881873 HODJA, PLAIN HALVA | k 530 p 15 f 35 c 47 | panel 13
+     cofid:17-798   Halva, carrot, homemade [Recipe]                             k 354  p 4.8  f 17   c -    n31
+     cofid:17-799   Halva, semolina, homemade [Recipe]                           k 342  p 2.2  f 17   c -    n30
+     cnf:4829       Candies, halavah (halvah), plain                             k 469  p 12   f 22   c 60   n30
+### havarti | recipes 0 | now brand 494750 HAVARTI CHEESE | k 393 p 21 f 36 c 0.0 | panel 13
+     cnf:7757       Cheese, havarti                                              k 396  p 22   f 33   c 2.6  n29
+     cnf:7758       Cheese, havarti, light                                       k 338  p 25   f 22   c 9.2  n29
+### hawaiian rolls | recipes 0 | now brand 2182201 SWEET HAWAIIAN ROLLS, SWEET HAWAIIAN | k 281 p 9.4 f 4.7 c 47 | panel 14
+     sr:174107      Rolls, dinner, sweet                                         k 321  p 10   f 7.4  c 54   n135
+     sr:175033      Sweet rolls, cheese                                          k 360  p 7.1  f 18   c 44   n71
+     fndds:2707673  Roll, sweet, frosted                                         k 404  p 5.5  f 20   c 51   n65
+     cnf:4059       Sweet roll, cheese                                           k 360  p 7.1  f 18   c 44   n29
+### hazelnut spread | recipes 0 | now brand 395254 CHOCOLATE HAZELNUT SPREAD | k 541 p 5.4 f 32 c 59 | panel 13
+     fndds:2710289  Chocolate hazelnut spread                                    k 539  p 5.4  f 30   c 62   n65
+     sr:168000      Chocolate-flavored hazelnut spread                           k 539  p 5.4  f 30   c 62   n81
+     cnf:5736       Sweets, topping, chocolate flavour hazelnut spread           k 539  p 5.4  f 30   c 62   n34
+     fndds:2707566  Nutella sandwich on white bread                              k 362  p 8.0  f 13   c 54   n65
+### jellyfish | recipes 0 | now brand 396504 LAM SHENG KEE, JELLYFISH PIECE | k 33 p 6.7 f 0.0 c 3.3 | panel 13
+     sr:168129      Jellyfish, dried, salted                                     k 36   p 5.5  f 1.4  c 0.0  n70
+     cnf:5612       Jellyfish, dried, salt added                                 k 36   p 5.5  f 1.4  c 0.0  n32
+### kefir | recipes 0 | now brand 389745 KEFIR, CULTURED WHOLE MILK | k 82 p 3.7 f 4.5 c 7.4 | panel 13
+     fndds:2705394  Kefir                                                        k 52   p 3.6  f 1.0  c 7.5  n65
+     sr:170904      Kefir, lowfat, plain, LIFEWAY                                k 43   p 3.8  f 1.0  c 4.8  n108
+     sr:171301      Kefir, lowfat, strawberry, LIFEWAY                           k 62   p 3.4  f 0.9  c 10   n108
+     cnf:6291       Kefir, 2-3.9% M.F.                                           k 63   p 3.5  f 3.6  c 4.2  n33
+### knackwurst | recipes 0 | now brand 378479 SCHALLER & WEBER, KNACKWURST | k 389 p 10 f 37 c 1.9 | panel 13
+     cnf:1153       Sausage, Knackwurst (knockwurst), raw                        k 277  p 14   f 20   c 9.7  n34
+     fndds:2706181  Knockwurst                                                   k 307  p 11   f 28   c 3.2  n65
+     sr:173867      Knackwurst, knockwurst, pork, beef                           k 307  p 11   f 28   c 3.2  n91
+     cnf:7344       Sausage, Knackwurst (Knockwurst), cooked                     k 282  p 15   f 21   c 6.9  n34
+### korma sauce | recipes 0 | now brand 538649 KORMA MILD & CREAMY CURRY SAUCE | k 153 p 1.2 f 11 c 13 | panel 13
+     cofid:15-262   Quorn korma [Quorn in korma curry sauce. Recipe from manufac k 140  p 3.7  f 7.0  c -    n27
+     cofid:17-626   Sauce, Indian cook in, korma/tikka masala [10 samples, 10 pr k 133  p 1.7  f 9.5  c -    n31
+### labneh | recipes 0 | now brand 447134 LABNEH MIDDLE EASTERN STYLE SPREADABLE C | k 161 p 11 f 11 c 7.1 | panel 13
+     sr:167690      Babyfood, apple yogurt dessert, strained                     k 93   p 0.8  f 1.6  c 20   n70
+     sr:167726      Babyfood, mixed fruit yogurt, strained                       k 75   p 0.8  f 0.8  c 16   n70
+     sr:168134      Babyfood, dessert, blueberry yogurt, strained                k 77   p 0.5  f 0.7  c 17   n70
+     sr:168135      Babyfood, dessert, banana yogurt, strained                   k 78   p 1.1  f 0.5  c 17   n70
+### lemon curd | recipes 0 | now brand 555629 LEMON CURD | k 345 p 1.5 f 13 c 55 | panel 6
+     cofid:17-806   Lemon curd, homemade [Recipe]                                k 350  p 4.2  f 16   c -    n30
+     cofid:17-762   Lemon curd [10 jars, 4 brands]                               k 266  p 0.6  f 4.9  c -    n27
+### lo mein noodles | recipes 0 | now brand 378891 ROLAND, LO MEIN NOODLES | k 339 p 8.9 f 1.8 c 71 | panel 13
+     fndds:2708798  Lo mein, NFS                                                 k 121  p 4.8  f 2.4  c 20   n65
+     fndds:2708799  Lo mein, meatless                                            k 121  p 4.8  f 2.4  c 20   n65
+     fndds:2708800  Lo mein, with shrimp                                         k 121  p 8.6  f 2.2  c 16   n65
+     fndds:2708801  Lo mein, with pork                                           k 138  p 9.5  f 3.8  c 16   n65
+### mango chutney | recipes 0 | now brand 457067 MANGO CHUTNEY SWEET | k 235 p 0.0 f 0.0 c 53 | panel 13
+     cofid:17-343   Chutney, mango, sweet [10 samples, 5 brands]                 k 189  p 0.7  f 0.1  c -    n23
+### maple sugar | recipes 0 | now brand 959611 ORGANIC MAPLE SUGAR | k 367 p 0.0 f 0.0 c 100 | panel 12
+     sr:169658      Sugars, maple                                                k 354  p 0.1  f 0.2  c 91   n71
+     cnf:4320       Sweets, sugars, maple, hard                                  k 354  p 0.1  f 0.3  c 88   n34
+     cnf:6176       Sweets, sugars, maple, granulated                            k 391  p 0.0  f 0.3  c 97   n28
+     sr:173907      Cereals, QUAKER, Instant Oatmeal, maple and brown sugar, dry k 368  p 9.2  f 4.6  c 77   n105
+### merguez | recipes 0 | now brand 778592 LAMB MERGUEZ SAUSAGE | k 286 p 12 f 25 c 0.0 | panel 12
+     cnf:7342       Sausage, Merguez, lamb, raw                                  k 230  p 15   f 15   c 7.5  n29
+     cnf:7343       Sausage, Merguez, lamb, cooked                               k 233  p 17   f 14   c 8.6  n29
+### mexican chocolate | recipes 0 | now brand 387609 MEXICAN CHOCOLATE | k 450 p 5.0 f 12 c 75 | panel 10
+     sr:167999      Baking chocolate, mexican, squares                           k 426  p 3.6  f 16   c 77   n71
+### mincemeat | recipes 0 | now brand 384648 BORDEN, NONE SUCH, MINCEMEAT WITH RAISIN | k 190 p 1.0 f 0.0 c 48 | panel 13
+     cofid:17-852   Mincemeat, vegetarian, homemade [Recipe]                     k 306  p 1.7  f 9.5  c -    n22
+     cofid:17-765   Mincemeat [10 samples of the same brand]                     k 274  p 0.6  f 4.3  c -    n24
+     cnf:3960       Pie, mincemeat, homemade, 2 crust                            k 289  p 2.6  f 11   c 48   n33
+     cofid:11-1093  Tart, mincemeat, one crust, homemade [Recipe]                k 385  p 3.1  f 18   c -    n24
+### mint sauce | recipes 0 | now brand 570445 TRADITIONAL ENGLISH MINT SAUCE | k 20 p 0.0 f 0.0 c 6.7 | panel 10
+     cofid:17-811   Mint sauce, homemade [Recipe]                                k 85   p 0.8  f 0.1  c -    n24
+     cofid:17-707   Mint sauce [8 samples, 4 brands]                             k 101  p 1.6  f 0.0  c -    n30
+### olive tapenade | recipes 0 | now brand 1153229 BLACK OLIVE TAPENADE | k 233 p 0.0 f 23 c 6.7 | panel 13
+     fndds:2710092  Olive tapenade                                               k 282  p 0.7  f 30   c 4.2  n65
+### onion salt | recipes 0 | now brand 474368 ONION SALT | k - p - f - c - | panel 1
+     cnf:2483       Onion, boiled, drained, with salt                            k 42   p 1.4  f 0.2  c 9.6  n34
+     sr:170001      Onions, cooked, boiled, drained, without salt                k 44   p 1.4  f 0.2  c 10   n100
+     sr:170100      Onions, cooked, boiled, drained, with salt                   k 42   p 1.4  f 0.2  c 9.6  n91
+     cnf:6468       Onion, frozen, chopped, boiled, drained, with salt           k 26   p 0.8  f 0.1  c 6.0  n34
+### onion soup mix | recipes 0 | now brand 590313 ONION SOUP MIX | k 286 p 14 f 0.0 c 57 | panel 14
+     sr:171165      Soup, onion, dry, mix                                        k 293  p 7.5  f 0.3  c 65   n85
+     sr:174568      Soup, onion, dry, mix, prepared with water                   k 12   p 0.3  f 0.0  c 2.8  n81
+### orange sauce | recipes 0 | now brand 386756 YING'S, ORANGE SAUCE | k 167 p 0.0 f 0.0 c 43 | panel 13
+     cofid:19-577   Sauce, duck a l'orange [Used for duck a l'orange recipe calc k 66   p 0.5  f 3.7  c -    n31
+### oyster crackers | recipes 0 | now brand 411456 OYSTER CRACKERS | k 400 p 6.7 f 10 c 73 | panel 16
+     fndds:2708160  Crackers, oyster                                             k 418  p 9.5  f 8.6  c 74   n65
+     sr:172746      Crackers, saltines (includes oyster, soda, soup)             k 418  p 9.5  f 8.6  c 74   n134
+     cnf:3872       Cracker, saltine (also oyster, soda, soup), plain            k 416  p 10   f 9.3  c 73   n34
+     sr:175056      Crackers, saltines, low salt (includes oyster, soda, soup)   k 421  p 9.5  f 8.8  c 74   n134
+### peanut sauce | recipes 0 | now brand 2532523 THAI PEANUT SAUCE | k 212 p 6.1 f 11 c 27 | panel 14
+     fndds:2707546  Peanut sauce                                                 k 257  p 6.3  f 16   c 22   n65
+     sr:171575      Sauce, peanut, made from coconut, water, sugar, peanuts      k 179  p 2.0  f 6.3  c 28   n114
+     cnf:7206       Sauce, peanut (made from coconut, water, sugar, peanuts)     k 179  p 2.0  f 6.3  c 28   n34
+     sr:174070      Sauce, peanut, made from peanut butter, water, soy sauce     k 257  p 6.3  f 16   c 22   n115
+### piccalilli | recipes 0 | now brand 360911 HOWARD'S, GREEN TOMATO PICCALILLI | k 100 p 0.0 f 0.0 c 27 | panel 13
+     cofid:17-702   Piccalilli [9 samples, 4 brands; mild, saucy and sweet varie k 84   p 1.0  f 0.5  c -    n24
+### pickled onions | recipes 0 | now brand 386444 COCKTAIL ONIONS | k - p - f - c - | panel 1
+     cofid:13-309   Onions, pickled, drained [10 samples, 7 brands]              k 24   p 0.9  f 0.2  c -    n30
+### pickled turnips | recipes 0 | now brand 583192 SLICED PICKLED TURNIPS | k 18 p 0.0 f 0.0 c 3.6 | panel 13
+     fndds:2710102  Turnip, pickled                                              k 44   p 0.8  f 0.1  c 10   n65
+### pico de gallo | recipes 0 | now brand 2270493 HOT PICO DE GALLO, HOT | k 22 p 0.9 f 0.0 c 5.3 | panel 13
+     fndds:2709737  Salsa, pico de gallo                                         k 17   p 0.7  f 0.1  c 3.7  n65
+### pierogi | recipes 0 | now brand 584628 PIEROGI | k 248 p 8.6 f 13 c 23 | panel 13
+     fndds:2708720  Pierogi                                                      k 195  p 5.3  f 6.1  c 30   n65
+     cnf:7697       Dumpling, potato- or cheese-filled (pierogi), frozen         k 195  p 5.3  f 6.1  c 30   n32
+### plum sauce | recipes 0 | now brand 387290 PLUM SAUCE | k 206 p 0.0 f 0.0 c 53 | panel 13
+     sr:172879      Sauce, plum, ready-to-serve                                  k 184  p 0.9  f 1.0  c 43   n59
+     cnf:4727       Sauce, plum, ready-to-serve                                  k 184  p 0.9  f 1.0  c 43   n29
+     fndds:2710298  Duck sauce                                                   k 245  p 0.4  f 0.1  c 61   n65
+     sr:171823      Sauce, duck, ready-to-serve                                  k 245  p 0.4  f 0.1  c 61   n72
+### raita | recipes 0 | now brand 523083 INDIAN SAVORY YOGURT RAITA | k 89 p 6.7 f 3.3 c 8.9 | panel 13
+     cofid:17-832   Raita, homemade [Recipe, spiced curd/yoghurt]                k 57   p 4.4  f 2.4  c -    n29
+     cofid:12-595   Raita, yogurt and gram flour, homemade [Recipe]              k 103  p 3.3  f 6.6  c -    n31
+### ravioli | recipes 0 | now brand 571629 RAVIOLI | k 226 p 11 f 6.1 c 31 | panel 13
+     sr:173328      Ravioli, cheese-filled, canned                               k 77   p 2.5  f 1.4  c 14   n77
+     fndds:2708760  Ravioli, NS as to filling, no sauce                          k 185  p 10   f 7.0  c 20   n65
+     fndds:2708761  Ravioli, NS as to filling, with tomato sauce                 k 138  p 6.9  f 5.9  c 15   n65
+     fndds:2708762  Ravioli, NS as to filling, with cream sauce                  k 169  p 8.1  f 8.4  c 15   n65
+### saag | recipes 0 | now brand 1748586 MEDIUM SAAG SPINACH CURRY SIMMER SAUCE,  | k 50 p 2.0 f 2.0 c 6.0 | panel 13
+     fndds:2709632  Channa Saag                                                  k 89   p 4.1  f 4.3  c 8.8  n65
+     cofid:15-629   Saag, homemade [5 samples, spinach curry]                    k 111  p 3.3  f 8.8  c -    n28
+### salad cream | recipes 0 | now brand 2188622 ORIGINAL SALAD CREAM, ORIGINAL | k 300 p 0.0 f 23 c 20 | panel 14
+     sr:171407      Salad dressing, mayonnaise, imitation, milk cream            k 97   p 2.1  f 5.1  c 11   n78
+     fndds:2708511  Taco or tostada salad with meat and sour cream               k 181  p 6.9  f 10   c 15   n65
+     fndds:2708512  Taco or tostada salad with chicken and sour cream            k 171  p 7.2  f 9.3  c 15   n65
+     fndds:2708513  Taco or tostada salad, meatless with sour cream              k 167  p 5.0  f 8.7  c 18   n65
+### salsa verde | recipes 0 | now brand 566084 SALSA VERDE | k 33 p 0.0 f 0.0 c 6.7 | panel 13
+     fndds:2709743  Salsa verde or salsa, green                                  k 38   p 1.1  f 0.9  c 6.4  n65
+     sr:171824      Sauce, salsa, verde, ready-to-serve                          k 38   p 1.1  f 0.9  c 6.4  n71
+     cnf:7044       Sauce, salsa, verde, ready-to-serve                          k 38   p 1.1  f 0.9  c 6.4  n33
+### sazon | recipes 0 | now brand 372006 RICO, SAZON LIQUID, ORIGINAL | k 36 p 0.0 f 0.0 c 7.1 | panel 12
+     sr:172242      Seasoning mix, dry, sazon, coriander & annatto               k 0.0  p 0.0  f 0.0  c 0.0  n17
+### sesame ginger dressing | recipes 0 | now brand 371989 SESAME GINGER DRESSING | k 312 p 0.0 f 25 c 22 | panel 13
+     fndds:2706816  Asian chicken or turkey garden salad, chicken and/or turkey, k 130  p 11   f 5.5  c 9.5  n65
+     fndds:2706817  Asian chicken or turkey garden salad with crispy noodles, ch k 116  p 10   f 5.3  c 8.1  n65
+### soda bread | recipes 0 | now brand 919038 IRISH SODA BREAD WITH CARAWAY SEEDS, CAR | k 333 p 8.8 f 7.0 c 63 | panel 13
+     fndds:2707852  Bread, Irish soda                                            k 301  p 6.5  f 9.0  c 51   n65
+     cnf:6384       Bread, Irish soda, homemade                                  k 290  p 6.6  f 5.0  c 56   n28
+     sr:174912      Bread, irish soda, prepared from recipe                      k 290  p 6.6  f 5.0  c 56   n75
+     cofid:11-1117  Bread, soda, made with white flour, homemade [Recipe]        k 261  p 7.6  f 1.6  c -    n31
+### sofrito | recipes 0 | now brand 2303337 SOFRITO CRIOLLO | k 36 p 0.0 f 0.0 c 7.2 | panel 13
+     sr:171174      Sauce, sofrito, prepared from recipe                         k 237  p 13   f 18   c 5.5  n27
+### spatzle | recipes 0 | now brand 374546 BECHTLE, TRADITIONAL GERMAN EGG PASTA SP | k 357 p 12 f 2.7 c 70 | panel 9
+     fndds:2707104  Beef with spaetzle or rice, vegetable, frozen meal           k 118  p 6.9  f 4.4  c 12   n65
+### speculoos spread | recipes 0 | now brand 395966 CREAMY SPECULOOS COOKIE BUTTER | k 568 p 2.7 f 38 c 57 | panel 13
+     fndds:2707952  Cookie, peanut butter                                        k 473  p 8.9  f 24   c 58   n65
+     fndds:2707970  Cookie, butter or sugar                                      k 464  p 5.3  f 20   c 67   n65
+     cnf:3808       Cookie, butter, commercial                                   k 467  p 6.1  f 19   c 69   n33
+     fndds:2707953  Cookie, peanut butter, with chocolate                        k 475  p 7.8  f 25   c 60   n65
+### sprinkles | recipes 0 | now brand 1177340 SPRINKLES | k 375 p 0.0 f 0.0 c 100 | panel 6
+     fndds:2710334  Candy, sprinkles                                             k 473  p 0.0  f 15   c 85   n65
+     sr:169784      JIMMY DEAN, Sausage, Egg, and Cheese Breakfast Biscuit, froz k 328  p 9.3  f 23   c 21   n86
+### steak sauce | recipes 0 | now brand 381363 STEAK SAUCE | k 88 p 0.0 f 0.0 c 18 | panel 6
+     fndds:2709752  Steak sauce                                                  k 95   p 1.2  f 0.2  c 22   n65
+     sr:171825      Sauce, steak, tomato based                                   k 95   p 1.2  f 0.2  c 22   n70
+     cnf:1130       Sauce, steak, tomato based, ready-to-serve                   k 95   p 1.2  f 0.2  c 22   n33
+### stevia | recipes 0 | now brand 372176 STEVIA EXTRACT | k 0.0 p 0.0 f 0.0 c 86 | panel 15
+     fndds:2710264  Sugar substitute, stevia, powder                             k 0.0  p 0.0  f 0.0  c 100  n65
+     fndds:2710265  Sugar substitute, stevia, liquid                             k 51   p 0.8  f 0.0  c 12   n65
+     sr:170679      Sweetener, herbal extract powder from Stevia leaf            k 0.0  p 0.0  f 0.0  c 100  n72
+     cnf:7245       Sweetener, herbal extract powder from Stevia leaves          k 0.0  p 0.0  f 0.0  c 100  n34
+### stuffed grape leaves | recipes 0 | now brand 588091 CREAMY & TENDER STUFFED GRAPE LEAVES | k 133 p 1.7 f 6.7 c 17 | panel 13
+     fndds:2709064  Grape leaves stuffed with rice                               k 168  p 2.3  f 12   c 14   n65
+     fndds:2706621  Stuffed grape leaves with beef and rice                      k 228  p 8.2  f 17   c 11   n65
+     fndds:2706659  Stuffed grape leaves with lamb and rice                      k 271  p 8.2  f 22   c 12   n65
+### sweet and sour sauce | recipes 0 | now brand 2691304 LA CHOY Sweet and Sour Sauce 1/1 GAL | k 167 p 0.0 f 0.0 c 42 | panel 19
+     fndds:2710296  Sweet and sour sauce                                         k 154  p 0.3  f 0.0  c 38   n65
+     fndds:2706392  Beef with sweet and sour sauce                               k 211  p 9.3  f 13   c 14   n65
+     cnf:6199       Sauce, sweet and sour, homemade                              k 79   p 1.8  f 0.6  c 17   n33
+     sr:174066      Sauce, sweet and sour, ready-to-serve                        k 154  p 0.3  f 0.0  c 38   n71
+### tamarind chutney | recipes 0 | now brand 389671 TAMARIND CHUTNEY | k 250 p 0.0 f 0.0 c 65 | panel 13
+     cofid:17-343   Chutney, mango, sweet [10 samples, 5 brands]                 k 189  p 0.7  f 0.1  c -    n23
+### tarama | recipes 0 | now brand 462948 TARAMA | k 133 p 20 f 3.3 c 0.0 | panel 13
+     cofid:16-449   Taramasalata [10 assorted samples. Greek dish based on cod's k 517  p 3.2  f 53   c -    n24
+### thai fish ball | recipes 0 | now brand 508313 FISH BALL | k 70 p 7.0 f 0.5 c 8.0 | panel 13
+     cofid:16-279   Fish balls, steamed [7 varieties from different Chinese shop k 74   p 12   f 0.5  c -    n19
+### tikka masala sauce | recipes 0 | now brand 1063733 TIKKA MASALA SAUCE, TIKKA MASALA | k 137 p 2.0 f 9.8 c 12 | panel 14
+     cofid:17-626   Sauce, Indian cook in, korma/tikka masala [10 samples, 10 pr k 133  p 1.7  f 9.5  c -    n31
+### tortellini | recipes 0 | now brand 476679 CHEESE TORTELLINI | k 216 p 7.2 f 4.8 c 36 | panel 13
+     fndds:2708785  Tortellini, meat-filled, with tomato sauce                   k 134  p 6.6  f 4.9  c 16   n65
+     fndds:2708790  Tortellini, meat-filled, no sauce                            k 190  p 12   f 7.5  c 18   n65
+     fndds:2708791  Tortellini, cheese-filled, with cream sauce                  k 153  p 5.8  f 7.0  c 17   n65
+     fndds:2708792  Tortellini, cheese-filled, no sauce                          k 236  p 10   f 5.6  c 36   n65
+### turkish delight | recipes 0 | now brand 520109 TRADITIONAL TURKISH DELIGHT ORIGINAL | k 419 p 3.2 f 1.0 c 94 | panel 12
+     cofid:17-593   Turkish delight, with nuts, homemade [Recipe]                k 348  p 4.1  f 2.6  c -    n30
+     cofid:17-122   Turkish delight, without nuts [7 assorted samples]           k 295  p 0.6  f 0.0  c -    n25
+### weisswurst | recipes 0 | now brand 1969595 WEISSWURST | k 283 p 11 f 27 c 1.8 | panel 13
+     sr:171619      Bockwurst, pork, veal, raw                                   k 301  p 14   f 26   c 3.0  n106
+     fndds:2706513  Sausage and noodles with cream or white sauce                k 153  p 5.9  f 7.8  c 15   n65
+     fndds:2707053  Italian sausage sandwich on white                            k 300  p 14   f 16   c 23   n65
+     cnf:1140       Sausage, Bockwurst, pork/veal, with milk and eggs, raw       k 301  p 14   f 26   c 3.0  n34
