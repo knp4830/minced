@@ -60,16 +60,19 @@
  * -- NULL SEMANTICS (both RPCs, every range filter) -----------------------------
  * Most of the catalog is USDA MyPlate, which publishes no cook time, often no
  * spice level and sometimes no calories. A range filter must therefore NOT drop
- * unknowns: a recipe whose time / spice / calories is unknown PASSES the filter,
+ * unknowns: a recipe whose spice / calories / protein is unknown PASSES the filter,
  * and in ordering sorts AFTER recipes whose value is known and in range.
+ * TIME IS THE EXCEPTION (owner decision, wave 14): once a time filter is set (chips,
+ * From/To, anywhere: browse, search, pantry, fridge, landing pop-up) a recipe with no
+ * stated time is EXCLUDED. With no time filter, untimed recipes show as always.
  *   - time:     total_time_min IS NULL or = 0 means unknown (0 is how the
- *               importer stored "no time"; match_recipes already maps it to
- *               time_key = 2147483647).  Pass if unknown OR <= max_total_min.
+ *               importer stored "no time"; match_recipes maps it to
+ *               time_key = 2147483647).  Pass only if known (> 0) AND within
+ *               min_total_min / max_total_min.
  *   - spice:    spice_level IS NULL passes max_spice.
  *   - calories: calories IS NULL passes min_calories / max_calories.
  *   - protein:  protein_g IS NULL passes min_protein_g.
- * Today search_recipes uses a bare `col <= x`, which silently drops NULLs; the
- * matcher-quality lane fixes that in a new migration. Allergen and diet filters
+ * Allergen and diet filters
  * are NOT range filters; they keep their own ANY/ALL/NONE rules.
  */
 
@@ -84,9 +87,9 @@ export type RecipeFilters = {
   use?: number[];
   /** Matcher only: show recipes missing at most this many. */
   maxMissing?: number;
-  /** Total minutes, lower bound (with `maxTime`: a range). Unknown-time recipes pass. */
+  /** Total minutes, lower bound (with `maxTime`: a range). Unknown-time recipes are excluded. */
   minTime?: number;
-  /** Total minutes, upper bound. Unknown-time recipes pass. */
+  /** Total minutes, upper bound. Unknown-time recipes are excluded. */
   maxTime?: number;
   /** Canonical ingredient ids the recipe must contain (ALL of them; families count). */
   include?: number[];

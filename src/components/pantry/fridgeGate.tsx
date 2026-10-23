@@ -42,8 +42,8 @@ export function FridgeGate({
           first.
         </p>
         <p className="mt-3 max-w-[34em] text-base leading-relaxed text-ink-muted">
-          A fridge is yours, so it lives in your account and follows you from your laptop to your phone. Minced
-          doesn’t keep it in your browser.
+          Your fridge is saved to your account, so it’s there waiting whenever you’re deciding what to cook,
+          whether you’re on your phone or your laptop.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">

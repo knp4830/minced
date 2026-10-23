@@ -1,6 +1,5 @@
 /*
- * Landing copy shared by the live page and the /lab/hero options, so the owner
- * compares fonts and layouts on the same words.
+ * Landing copy for the live page, kept in one place so wording changes happen here.
  *
  * Purpose, in the owner's words: find recipes quickly, search or use what you
  * already have, track your nutrients, document your own recipes and diets. For
