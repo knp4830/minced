@@ -42,9 +42,12 @@ type Draft = RecipeFilters;
 export function SelectFiltersDialog({
   catalog,
   options,
+  variant = "secondary",
 }: {
   catalog: IngredientCatalog;
   options: Pick<FilterOptions, "diets" | "allergens">;
+  /** The landing's floating search card draws it as the green primary button. */
+  variant?: "primary" | "secondary";
 }) {
   const router = useRouter();
   const uid = useId();
@@ -121,7 +124,7 @@ export function SelectFiltersDialog({
     <>
       <Button
         ref={openerRef}
-        variant="secondary"
+        variant={variant}
         size="lg"
         aria-haspopup="dialog"
         onClick={open}

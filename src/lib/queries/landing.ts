@@ -1,5 +1,5 @@
 
-import { photoPublicUrl } from "@/lib/photos";
+import { needsAttribution, photoPublicUrl } from "@/lib/photos";
 import { createStaticClient } from "@/lib/supabase/static";
 import type { FilterOptions } from "@/lib/queries/browse";
 
@@ -88,12 +88,11 @@ function dishKinds(title: string): string[] {
 }
 
 /**
- * Slot 0 is the big hero tile; slots 6-8 are the "Why we built this" collage (a 553 px-tall tile and two
- * 242-270 px ones). They get the 1200 px `storage_path` file, which stays sharp on a 2x screen; the five
- * small hero tiles (about 183-206 px) get the 640 px `thumb_path`. Wave 8: the hero used the 400 px thumb
- * in a 379 px tile, so on a retina screen it was stretched 2x.
+ * Slots 3-5 are the landing's feature tiles (about 360 x 380 CSS px, so 720+ px on a 2x screen) and slots 0
+ * and 6-8 are larger tiles: they get the 1200 px `storage_path` file. The rest get the 640 px `thumb_path`.
+ * Wave 8: the hero used the 400 px thumb in a 379 px tile, so on a retina screen it was stretched 2x.
  */
-const LARGE_SLOTS = new Set([0, 6, 7, 8]);
+const LARGE_SLOTS = new Set([0, 3, 4, 5, 6, 7, 8]);
 
 /**
  * The landing photos are curated, not sampled: every one was checked at full size (source at least 1920 px
@@ -179,6 +178,69 @@ export async function getLandingPhotos(count = 9): Promise<LandingPhoto[]> {
   }
 
   return [...curated, ...picked].slice(0, count).map((r, i) => toLandingPhoto(r, i));
+}
+
+export type HeroSlide = {
+  slug: string;
+  title: string;
+  url: string;
+  alt: string;
+  totalTimeMin: number | null;
+  calories: number;
+  proteinG: number;
+  /** "Name · CC BY-SA 4.0" when the licence requires attribution, else null. */
+  credit: string | null;
+};
+
+/** The hero rotates through at most this many photos. */
+const HERO_SLIDES = 5;
+
+/**
+ * The full-bleed hero: curated photos (checked at full size, see CURATED_SLUGS) whose recipes have COMPLETE
+ * nutrition, because the caption states that recipe's calories and protein as fact. A partial recipe would
+ * show an undercount, so it is skipped rather than labelled. Curated order is kept.
+ */
+export async function getHeroSlides(): Promise<HeroSlide[]> {
+  const sb = createStaticClient();
+  const { data, error } = await sb
+    .from("recipe_photos")
+    .select(
+      "storage_path, alt_text, credit, license, recipes!inner(slug, title, total_time_min, calories, protein_g, nutrition_status)",
+    )
+    .in("recipes.slug", [...CURATED_SLUGS])
+    .eq("recipes.nutrition_status", "complete");
+  if (error || !data) return [];
+  type Row = {
+    storage_path: string;
+    alt_text: string | null;
+    credit: string | null;
+    license: string;
+    recipes: {
+      slug: string;
+      title: string;
+      total_time_min: number | null;
+      calories: number | null;
+      protein_g: number | null;
+    } | null;
+  };
+  const bySlug = new Map(
+    (data as unknown as Row[])
+      .filter((r) => r.recipes && r.recipes.calories != null && r.recipes.protein_g != null)
+      .map((r) => [r.recipes!.slug, r]),
+  );
+  return CURATED_SLUGS.map((s) => bySlug.get(s))
+    .filter((r): r is Row => Boolean(r))
+    .slice(0, HERO_SLIDES)
+    .map((r) => ({
+      slug: r.recipes!.slug,
+      title: r.recipes!.title,
+      url: photoPublicUrl(r.storage_path),
+      alt: r.alt_text ?? r.recipes!.title,
+      totalTimeMin: r.recipes!.total_time_min,
+      calories: Math.round(r.recipes!.calories!),
+      proteinG: Math.round(r.recipes!.protein_g!),
+      credit: needsAttribution(r.license) && r.credit ? `${r.credit} · ${r.license}` : null,
+    }));
 }
 
 /** Every photo that carries a credit, for the /about credits list. */

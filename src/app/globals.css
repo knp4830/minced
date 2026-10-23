@@ -67,6 +67,12 @@
   --color-outline: rgb(28 36 32 / 0.25); /* secondary button outline, 3:1 */
   --color-scrim: rgb(28 36 32 / 0.4);
 
+  /* ── Dark band: landing hero text over photos, footer ───────── */
+  --color-night: #1c2420;
+  --color-night-line: rgb(247 247 243 / 0.16);
+  --color-on-night: #f7f7f3;
+  --color-on-night-muted: rgb(247 247 243 / 0.78); /* 9:1 on night */
+
   /* ── State ─────────────────────────────────────────────────── */
   --color-ring: var(--color-herb);
 
@@ -89,6 +95,7 @@
   --shadow-lift: 0 10px 24px -12px rgb(28 36 32 / 0.35); /* card hover */
   --shadow-sheet: 0 -12px 40px -12px rgb(28 36 32 / 0.35);
   --shadow-frame: 0 24px 60px -24px rgb(28 36 32 / 0.4);
+  --shadow-float: 0 24px 48px -16px rgb(0 0 0 / 0.45); /* search card floating on the hero photo */
 
   /* ── Motion ────────────────────────────────────────────────── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -101,6 +108,10 @@
   /* Widest the page content (header, footer, every page) ever gets. */
   --page-max: 90rem;
   --measure: 68ch;
+  /* Landing hero: darkens toward the bottom where the headline and search card sit. */
+  --hero-overlay: linear-gradient(180deg, rgb(0 0 0 / 0.18), rgb(0 0 0 / 0.62));
+  /* Under the hero text only: keeps white body copy AA on a bright plate (white rice, a pale bowl). */
+  --hero-overlay-side: linear-gradient(90deg, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0.3) 45%, transparent 75%);
   --header-h: 3.75rem;
   /* Google's official "G" mark colours. Brand-mandated, not part of Minced's palette: used only
      by the sign-in mark; the button around it stays neutral per Google's branding rules. */
