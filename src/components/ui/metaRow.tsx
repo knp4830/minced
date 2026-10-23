@@ -86,9 +86,11 @@ export function MetaRow({
       {parts.map((part, i) => (
         <React.Fragment key={i}>
           {i > 0 && (
-            <span aria-hidden className={cn("text-stone-line", size === "sm" && "max-sm:hidden")}>
-              ·
-            </span>
+            // A drawn dot, not the "·" character: decorative, so it must not be scored as low-contrast text.
+            <span
+              aria-hidden
+              className={cn("size-[3px] shrink-0 rounded-full bg-stone-line", size === "sm" && "max-sm:hidden")}
+            />
           )}
           {part}
         </React.Fragment>
