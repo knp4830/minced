@@ -8,8 +8,8 @@ Checked read-only on 2026-10-23 (Vercel MCP, real HTTPS requests in the built-in
 |---|---|---|
 | Production domain | Vercel project `minced` (team `minced`) | `minced.kevinpham.page`, verified |
 | DNS | Porkbun (nameservers `*.ns.porkbun.com`) | CNAME to `cname.vercel-dns.com.`; Vercel reports `misconfigured: false`, no conflicts |
-| Certificate | Vercel (automatic, http-01) | Valid: TLS verifies cleanly, HSTS on |
-| Old hostnames | Vercel domains `minced-app.vercel.app`, `mise-two-xi.vercel.app` | Still attached to the project; `next.config.ts` `redirects()` sends them to the new domain with a 308 (path and query kept) |
+| Certificate | Vercel (automatic, http-01) | Valid: TLS verifies cleanly; HSTS not yet confirmed in dev tools |
+| Old hostnames | Vercel domains `minced-app.vercel.app`, `mise-two-xi.vercel.app` | Still attached to the project; `next.config.ts` `redirects()` sends them to the new domain with a 308 (path and query kept; set in config, not yet seen as a raw status header because the security checkpoint blocks curl, so confirm once in browser dev tools) |
 | Canonical origin in code | `src/lib/site.ts` (`SITE_URL`) | `NEXT_PUBLIC_SITE_URL`, falling back to `https://minced.kevinpham.page` |
 | Redirect hosts | `next.config.ts` (`CANONICAL_ORIGIN`, `CANONICAL_REDIRECT_HOSTS`) | Exact host match, so previews and localhost are never redirected |
 | Auth email links | `src/lib/actions/auth.ts` `siteOrigin()` | `NEXT_PUBLIC_SITE_URL`, else the request host (previews, local) |

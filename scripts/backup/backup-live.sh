@@ -41,8 +41,10 @@ if [ "$MODE" = live ]; then
   DB_URL="${DATABASE_URL:?DATABASE_URL missing in .env.local}"
 else
   DB_URL="${DB_URL_ARG:?--dry-run needs --db-url (a throwaway local database)}"
-  case "$DB_URL" in
-    *@localhost:*|*@127.0.0.1:*|*@host.docker.internal:*) ;;
+  # Parse the real host (text after the LAST "@" in the authority, before any path or query), not a substring.
+  AUTH="${DB_URL#*://}"; AUTH="${AUTH%%[/?#]*}"; HOSTPORT="${AUTH##*@}"; HOST="${HOSTPORT%%:*}"
+  case "$HOST" in
+    localhost|127.0.0.1|host.docker.internal) ;;
     *) echo "Refusing: a dry run only works against a local database."; exit 2 ;;
   esac
 fi

@@ -1,5 +1,7 @@
 import { headers } from "next/headers";
 
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+
 import { createClient } from "@/lib/supabase/server";
 
 /*
@@ -19,7 +21,10 @@ export const TOO_MANY = "Too many tries just now. Please wait a minute and try a
 
 type Rule = { limit: number; windowSeconds: number };
 
-/** Attempts allowed per window. IP rules are looser than email rules because many people share an IP (a school, a household). */
+/** Per-email counters can be abused to lock a person out, so they run only with the server-only secret key (see allow()). */
+const EMAIL_KINDS: LimitKind[] = ["login_email", "reset_email"];
+
+/** Attempts allowed per window. The database holds the same numbers and ignores what the caller sends (migration 20261023220000), so keep both in step. IP rules are looser than email rules because many people share an IP (a school, a household). */
 export const LIMITS: Record<LimitKind, Rule> = {
   signup: { limit: 10, windowSeconds: 600 },
   login: { limit: 30, windowSeconds: 300 },
@@ -49,13 +54,23 @@ export async function allow(kind: LimitKind, subject: string | null | undefined)
   if (!subject) return true;
   const rule = LIMITS[kind];
   try {
-    const supabase = await createClient();
+    let supabase;
+    if (EMAIL_KINDS.includes(kind)) {
+      // Needs SUPABASE_SECRET_KEY (server-only). Without it the email limit is skipped: the IP limit and Supabase Auth's own limits still apply.
+      const secret = process.env.SUPABASE_SECRET_KEY;
+      if (!secret) return true;
+      supabase = createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, secret, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+    } else {
+      supabase = await createClient();
+    }
     // Typed loosely on purpose: src/types/database.ts predates this function until the integrator runs db:types.
-    const rpc = supabase.rpc as unknown as (
+    const rpc = supabase.rpc.bind(supabase) as unknown as (
       fn: string,
       args: Record<string, unknown>,
     ) => PromiseLike<{ data: boolean | null; error: { message: string } | null }>;
-    const call = rpc.call(supabase, "check_rate_limit", {
+    const call = rpc("check_rate_limit", {
       p_kind: kind,
       p_subject: subject,
       p_limit: rule.limit,
@@ -85,7 +100,9 @@ export async function allowIpAndEmail(
   email?: string,
 ): Promise<boolean> {
   const ip = await clientIp();
-  const okIp = await allow(ipKind, ip);
-  const okEmail = emailKind && email ? await allow(emailKind, email) : true;
+  const [okIp, okEmail] = await Promise.all([
+    allow(ipKind, ip),
+    emailKind && email ? allow(emailKind, email) : Promise.resolve(true),
+  ]);
   return okIp && okEmail;
 }
