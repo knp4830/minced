@@ -60,6 +60,7 @@ Back up live first (CLAUDE.md procedure; `auth.users` and Storage are not in the
 
 1. **Migration first, BEFORE merging the code:** `pnpm exec supabase db push --db-url "$DATABASE_URL" --dry-run`, read the list (expect exactly `20261022140000_me_day_log`), then without `--dry-run`. Then `pnpm db:types` (the committed `src/types/database.ts` already matches, additions only; re-run only if live differs).
 2. Seeds, one `psql -v ON_ERROR_STOP=1 -f` each, in this order (each is idempotent):
+   0. `supabase/seed-allergen-tags.sql` (re-run; the asafoetida wheat/gluten fix, see "Wave 12 audit fix" below; it must run BEFORE 2.2 because it refuses to run once `chunjang` exists)
    1. `supabase/seed-nutrition-w12-foods.sql` (stand-in audit and brand foods; after `seed-nutrition-10c-foods.sql`, before `zzzzz`)
    2. `supabase/seed-ingredients-w12.sql` (1 ingredient, `chunjang`)
    3. `supabase/seed-originals-w12.sql` (155 originals, `in_review`, 12 cuisines; expect `in_payload 155, inserted 155`)

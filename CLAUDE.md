@@ -251,6 +251,15 @@ Owner's 19-item desktop review. **Before merging:** back up live, apply `supabas
 - **Open defects (fixes listed in `docs/review/2026-10-18-wave10c-questions.md`):** black beans should default to SR 175188 canned, CoFID/CNF import unfinished (245 ingredients still without a food), 5 gluten-free pasta links to wheat pasta, potato each-weight 230 g vs USDA 213 g, "uncooked" read as cooked on 3 pasta recipes, cauliflower "florets" counted as one floret, canned "drained and rinsed" weights.
 - **Security glance:** no high findings. New tables have RLS on and reference tables are select-only; new functions are SECURITY INVOKER except `refresh_recipe_nutrients` (revoked from public) and `my_recipe_foods` (checks `auth.uid()` and ownership).
 
+### Wave 12 (2026-10-22): integrated on `w12/integration`, PR open, NOT applied to live
+
+**Not on live yet. One new migration must be applied BEFORE merging:** `20261022140000_me_day_log` (live goes 59 to 60), then the Wave 12 seeds, jit-off refresh, `ANALYZE`, `VACUUM (FULL, ANALYZE) recipes`, and the photo upload and seed, in the order in `scripts/nutrition/LIVE-STEPS.md` ("Wave 12: ORDERED LIVE STEPS"). Back up first. Never re-run `seed-nutrition-zzzzz-math-10c.sql` on live.
+
+- **Shipped in the PR:** landing "Select filters" pop-up and warm fridge section; saved allergens always applied (only `showAllergens=1`, via a confirm dialog and for one search, lifts them); live nutrition preview in the recipe form; stand-in audit (declared stand-ins 305 to 33) and 1,901 brand foods; 155 new Minced originals (`in_review`, 12 new cuisines, 130 photos staged but not uploaded); Me for any day (edit, remove, "I trained", month tally).
+- **Numbers after applying:** 1,112 recipes (published 619 complete / 335 partial / 3 unavailable; in review 77 / 78), 44 cuisines, 1,984 ingredients, 12,034 foods. MyPlate accuracy unchanged (median kcal error 6.0 percent on complete recipes).
+- **Open:** time filters keep recipes with no time (652 of 957), M1.5.7 review plus the 155 new recipes, owner questions in `docs/review/2026-10-22-wave12-questions.md`, `NEXT_PUBLIC_ENABLE_ME` still off on live.
+- **Next:** wave 13 redesign (`design/handoff-2026-10-22/README.md`), then domain, Google sign-in, custom SMTP and launch. Handoff for a new chat: `docs/HANDOFF.md`.
+
 ### Next up
 
 1. **You:** read `docs/review/2026-10-18-wave10c-questions.md`, say "go" so Claude backs up live and applies migrations, seeds and refresh, then merge PR #58.

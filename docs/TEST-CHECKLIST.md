@@ -210,5 +210,20 @@ Live site: https://minced-app.vercel.app
 - [ ] Phone 375: landing, `/pantry`, `/settings` have no horizontal scroll.
 - [ ] Known open (see `docs/review/2026-10-18-wave10c-questions.md`): black beans still default to the boiled record, 245 ingredients have no food, 5 gluten-free pasta brand links are wrong.
 
+## 19. Wave 12 (2026-10-22), check after the migration, seeds, photos and refresh are live
+
+- [ ] Landing: the hero button says "Select filters" and opens a pop-up; Tab stays inside it, Esc closes it and focus returns to the button; Enter in the find box does not submit. Pick vegetarian, peanuts, a time and an ingredient, press Show recipes: `/recipes` loads with matching chips. On a phone it is a bottom sheet.
+- [ ] Landing order: hero, fridge, Settings, Shopping list, Me, "What you actually get", "Why we built this", on the way, closing CTA. The fridge section has a real photo and a warm sign-up line; no "evening" wording.
+- [ ] Allergens: save peanuts in Settings. `/recipes` shows the chip "no peanuts" with the note that they stay hidden. "Show recipes with my allergens" opens a confirm dialog (focus on "Keep them hidden"); Esc keeps them hidden; confirming shows them for this search only with "Hide them again". `defaults=off` in a URL does NOT bring them back.
+- [ ] Settings: unticking a saved allergen asks "Stop hiding recipes with peanuts?" and Esc keeps it ticked.
+- [ ] Recipe form (flag on): type 2 cups rolled oats, 4 servings; a per-serving calories, protein, carbs and fat estimate appears within about a second and equals the recipe page after saving. An unknown ingredient makes every number "at least" and appears under "Not counted".
+- [ ] Me (flag on): pick a past day from the calendar or the arrows; log a recipe and an ingredient or brand on it; edit an entry's amount and meal (figures scale together); remove one. "I trained" marks the day and can be undone. The month line reads "Trained N of M days". Sign out and in in the same tab: the date is still your local day.
+- [ ] Me wizard asks sex and birth year only when Settings has none, and never asks age.
+- [ ] 155 new recipes appear in `/admin/review` and NOT on `/recipes` or in search. Approve one with a photo: it shows an AI-drafted label, a cuisine, and nutrition (complete or a named gap).
+- [ ] Stand-ins: a recipe with a declared stand-in names it under the label; Italian seasoning, Dijon mustard and scotch bonnet now show as named gaps.
+- [ ] Counts on live: 1,112 recipes (published 619 complete / 335 partial / 3 unavailable), 44 cuisines, 1,984 ingredients, 12,034 foods.
+- [ ] Phone 375: `/`, the pop-up, `/recipes`, `/me`, `/recipes/new` have no horizontal scroll.
+- [ ] Known open: time filters keep recipes with no time (652 of 957); signed-out `/pantry` gate wording; Me edited-entry name keeps the old amount. See `docs/review/2026-10-22-wave12-questions.md`.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

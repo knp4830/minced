@@ -462,6 +462,14 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-19 | `python script.py` via a bash heredoc with apostrophes | Write docs from a heredoc | FAILED: the shell refuses heredocs it cannot verify; write the script to a file and run it |
 | 2026-10-19 | `git push origin w10c/integration:w10/integration` | Fast-forward PR #58's branch to carry wave 10c | Must be a fast-forward; merge origin first if it is not |
 | 2026-10-19 | `gh pr edit 58 --body-file <file>` | Rewrite the PR body for waves 10, 11 and 10c | Body starts with a MERGE ORDER WARNING |
+| 2026-10-22 | `bash .snapshot/restore.sh <name>` then `psql -v ON_ERROR_STOP=1 -f supabase/seed-nutrition-w12-foods.sql` (then ingredients-w12, originals-w12, cuisine-backfill-w12) | Wave 12 seeds on a fresh copy of live | Idempotent; order is in LIVE-STEPS "Wave 12: ORDERED LIVE STEPS". Run `seed-allergen-tags.sql` first (step 2.0). Do NOT re-run `zzzzz` |
+| 2026-10-22 | `SET jit = off; SELECT refresh_all_recipe_nutrients();` | Compute nutrition for all 1,112 recipes | Returns 1112 in about 4 minutes; `sql-checks.sql` runs it with jit on and takes 10+ minutes |
+| 2026-10-22 | `python -I scripts/nutrition/foods12/build_w12.py` / `brands_w12.py` | Rebuild the stand-in audit seed and the brand links | `build_w12.py` stops if a kept stand-in breaks the 12 percent rule. Python on Windows: use the TEMP path in code, pass `newline` to `open` for committed JSON |
+| 2026-10-22 | `python scripts/originals/build.py` | Compile hand-written originals into `seed-originals-w12.sql` | Sets `is_optional` from prep notes; new slugs only |
+| 2026-10-22 | `python scripts/photos/process_images.py` | Rebuild photo manifests | FAILED in a fresh worktree: silently dropped every row whose cached image was missing (`photos.json` shrank to 130 rows). Restore with git and merge new rows only |
+| 2026-10-22 | `python - <<'EOF' ... EOF` with apostrophes in the text | Write docs from a heredoc | FAILED: "unexpected EOF"; the shell refuses or skips it. Use the Write tool for text and a script file for edits |
+| 2026-10-22 | `npx tsx scripts/test-filters-defaults.mts`, `test-me.mts`, `test-recipe-form.mts`, `test-allergens.mts` | Wave 12 unit tests | All pass on w12/integration |
+| 2026-10-22 | `gh pr create --base main --head w12/integration --body-file <file>` | Open the wave 12 PR | Body starts with a MERGE ORDER WARNING |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*
