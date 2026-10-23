@@ -54,6 +54,35 @@ UI/site fixer (round 1): `src/app/(site)/pantry/loading.tsx` was deleted. With i
 
 Final audit round (2026-10-19, HEAD b8bb115 plus the close-out commit): counts above re-verified by three independent rebuilds (1,983 ingredients, 10,092 foods, 3,514 links, 1,738 ingredients with a food). Vegetarian recipes are 630 of 957 (vegan 238, pescatarian-or-better 687) when counted as "this diet or stricter". Known open items are in `docs/review/2026-10-18-wave10c-questions.md`; none blocks applying the migrations or seeds.
 
+## Wave 12: ORDERED LIVE STEPS (integrator; verified end to end on a fresh restore of the 2026-10-21 snapshot, nothing here has been run against live)
+
+Back up live first (CLAUDE.md procedure; `auth.users` and Storage are not in the backup). Then, in this order:
+
+1. **Migration first, BEFORE merging the code:** `pnpm exec supabase db push --db-url "$DATABASE_URL" --dry-run`, read the list (expect exactly `20261022140000_me_day_log`), then without `--dry-run`. Then `pnpm db:types` (the committed `src/types/database.ts` already matches, additions only; re-run only if live differs).
+2. Seeds, one `psql -v ON_ERROR_STOP=1 -f` each, in this order (each is idempotent):
+   1. `supabase/seed-nutrition-w12-foods.sql` (stand-in audit and brand foods; after `seed-nutrition-10c-foods.sql`, before `zzzzz`)
+   2. `supabase/seed-ingredients-w12.sql` (1 ingredient, `chunjang`)
+   3. `supabase/seed-originals-w12.sql` (155 originals, `in_review`, 12 cuisines; expect `in_payload 155, inserted 155`)
+   4. `supabase/seed-cuisine-backfill-w12.sql` (`UPDATE 4`)
+   **Do NOT re-run `seed-nutrition-zzzzz-math-10c.sql` on live.** It already ran there. Re-running it on a database that has the allergen tags adds an unexplained `soy` tag to `hot cocoa mix` (it copies `milk chocolate`'s tags without a reason), which fails `supabase/tests/allergens_test.sql` "every tag has a reason". This is an existing idempotency flaw, reproduced on the unchanged snapshot, not a wave 12 regression. (If it was run by mistake: `delete from ingredient_allergens where reason is null or reason = ''`.)
+3. `SET jit = off; SELECT refresh_all_recipe_nutrients();` (about 4 minutes; returns 1112), then `ANALYZE;` and `VACUUM (FULL, ANALYZE) recipes;`.
+4. Photos for the 130 new recipes (they stay hidden until a recipe is approved in `/admin/review`): copy `.snapshot/w12-cuisine-photos/out` and `cache` into `scripts/photos/` (see "Photos" in `scripts/originals/README.md`), `python scripts/photos/upload_photos.py --apply` (live Storage), then `python scripts/photos/apply_manifest.py > supabase/seed-photos.sql` and run that seed (it raises on a slug with no recipe, so step 2.3 must come first). Do not run `process_images.py` from a checkout that lacks the older caches.
+5. Merge the PR, wait for the deploy, revalidate recipe pages. `NEXT_PUBLIC_ENABLE_ME` stays off on live until the owner turns it on (Me is built and tested).
+6. Verify by counting on live (the same numbers came out of the integration restore):
+   - recipes: published complete 619 / partial 335 / unavailable 3; `in_review` complete 77 / partial 78 (the 155 originals; 130 non-original rows excluded); total 1,112
+   - cuisines 44 (32 + 12); published recipes without a cuisine 725 (was 729)
+   - ingredients 1,984; with a food 1,526; declared stand-ins (`ingredient_foods.is_proxy`) 33; usda_foods 12,033 (branded 3,739); non-default branded links 3,420
+   - database about 60 MB on the snapshot (live was 62 MB; expect about 70 MB, budget 150)
+   - `scripts/nutrition/sql-checks.sql` (slow: it runs a full refresh with jit on, allow 10+ minutes or run with `SET jit = off`), `check_usda_seeds.sql`, `test_recipe_audit.sql`, `test_10c.sql`, `test_search_ranking.sql`, `test_w12_foods.sql` return no failures; label coherence 957 labels, 0 problems; `supabase/tests/me_rls_test.sql` 124 checks, 0 failures (on a bare snapshot first replay every `grant`/`revoke` from the migrations plus `grant select on diets, allergens to authenticated`)
+   - `scripts/nutrition/validate_myplate.sql`: 848 recipes counted from 90%+ of their mass: median kcal error 8.4%, 67.6% within 15% (unchanged by wave 12)
+7. Smoke on live: `/`, the "Select filters" pop-up on the landing page, `/recipes?q=shakshuka`, a recipe page label, `/settings` (untick a saved allergen shows a confirm dialog), `/pantry`, and (if Me is on) `/me` with a past day.
+
+Known test notes (not regressions): `supabase/tests/matcher_quality_test.sql` "search maxTime keeps unknown-time recipes" fails when run as superuser on a database holding `in_review` recipes (RLS is bypassed, so the 24-row page fills with them); it passes with only published recipes present. `admin_review_test.sql`, `nutrition_rls_test.sql`, `perf_rls_equivalence_test.sql`, `security_hardening_test.sql`, `recipe_ingredient_foods_test.sql`, `user_*_test.sql` and `shopping_list_test.sql` fail on the bare snapshot with `permission denied` the same way on the untouched snapshot (the snapshot lacks Supabase's grants and the private schema); run them on a local Supabase stack (LESSONS section 10).
+
+Lane interaction to know about: the foods lane unmapped 218 stand-ins, so some of the 155 originals lost a number they had in the cuisines lane's own run (originals complete 127 -> 77, partial 28 -> 78). The gaps are honest and named (shaoxing wine 12 recipes, gochugaru 8, shrimp paste 8, tamarind paste 7, star anise 7, dashi 6, fried shallots 6). See the open questions in the PR.
+
+The lane sections that follow are the lanes' own notes.
+
 ## Wave 12: trusted stand-ins and more brands (lane w12/foods; nothing here has been run against live)
 
 One new generated seed, `supabase/seed-nutrition-w12-foods.sql` (idempotent, no migration, no new package). Sources of truth: `scripts/nutrition/foods12/proxy_decisions.psv`, `brand_allowlist.txt`, `brands_accepted.json` (rebuild with `python -I scripts/nutrition/foods12/build_w12.py`, no key needed; method in `scripts/nutrition/foods12/README.md`).
@@ -76,7 +105,7 @@ Order: `seed-allergen-tags.sql` (wave 10c, above) must already have run, because
 1. `supabase/seed-ingredients-w12.sql` (1 new canonical ingredient, `chunjang`, with its USDA FoodData Central food 2010198, allergens, density and aliases; idempotent).
 2. `supabase/seed-originals-w12.sql` (155 "Minced original" recipes, status `in_review`, 12 new cuisines; new slugs only, strict gates; allergens, diets and nutrition computed in the same transaction). Nothing here is public until approved in `/admin/review`. Expect `in_payload 155, inserted 155` on a first run and `inserted 0` on a re-run.
 3. `supabase/seed-cuisine-backfill-w12.sql` (4 USDA MyPlate recipes get a cuisine; the review sheet is `docs/content/CUISINE-BACKFILL-w12.csv`; guarded by `cuisine_id is null`).
-4. Verify by counting: `select count(*) from recipes where source_name='Minced original' and status='in_review'` = 155 (plus any already approved); `select nutrition_status, count(*) ...` on those = complete 127 / partial 28 (partial ones are named gaps, listed in the recipe's `nutrition_gaps`); `select count(*) from recipes where cuisine_id is null and status='published'` = 725.
+4. Verify by counting: `select count(*) from recipes where source_name='Minced original' and status='in_review'` = 155 (plus any already approved); `select nutrition_status, count(*) ...` on those = complete 127 / partial 28 when run without the foods lane seed (77 / 78 on the integrated order above, because the foods lane unmapped stand-ins); partial ones are named gaps, listed in the recipe's `nutrition_gaps`); `select count(*) from recipes where cuisine_id is null and status='published'` = 725.
 5. Regenerate with `python -I scripts/originals/build_ingredients.py && python -I scripts/originals/build.py`; both rewrite the seed files and `docs/content/RECIPE-REVIEW-w12.md` (the review sheet with two verification URLs per dish). Reload into a snapshot container with `bash scripts/originals/reload.sh <container>`.
 6. Photos for the new recipes: 130 prepared (see "Photos" in `scripts/originals/README.md`; manifests merged, processed files in `.snapshot/w12-cuisine-photos/`, nothing uploaded). After the integrator's upload step, run `apply_manifest.py > supabase/seed-photos.sql`; the seed raises on a manifest slug with no recipe, so seed-originals-w12.sql must run first.
 

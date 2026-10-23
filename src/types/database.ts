@@ -330,18 +330,21 @@ export type Database = {
           form: string
           ingredient_id: number
           is_default: boolean
+          is_proxy: boolean
         }
         Insert: {
           fdc_id: number
           form?: string
           ingredient_id: number
           is_default?: boolean
+          is_proxy?: boolean
         }
         Update: {
           fdc_id?: number
           form?: string
           ingredient_id?: number
           is_default?: boolean
+          is_proxy?: boolean
         }
         Relationships: [
           {
@@ -519,6 +522,8 @@ export type Database = {
       }
       me_food_log: {
         Row: {
+          amount: number | null
+          amount_unit: string | null
           calories: number
           carbs_g: number
           created_at: string
@@ -537,6 +542,8 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          amount?: number | null
+          amount_unit?: string | null
           calories: number
           carbs_g?: number
           created_at?: string
@@ -555,6 +562,8 @@ export type Database = {
           user_id: string
         }
         Update: {
+          amount?: number | null
+          amount_unit?: string | null
           calories?: number
           carbs_g?: number
           created_at?: string
@@ -1788,6 +1797,7 @@ export type Database = {
       user_settings: {
         Row: {
           allergen_slugs: string[]
+          birth_year: number | null
           diet_slugs: string[]
           sex: string | null
           units: string
@@ -1797,6 +1807,7 @@ export type Database = {
         }
         Insert: {
           allergen_slugs?: string[]
+          birth_year?: number | null
           diet_slugs?: string[]
           sex?: string | null
           units?: string
@@ -1806,6 +1817,7 @@ export type Database = {
         }
         Update: {
           allergen_slugs?: string[]
+          birth_year?: number | null
           diet_slugs?: string[]
           sex?: string | null
           units?: string
@@ -2148,6 +2160,10 @@ export type Database = {
           trained: string[]
           weight_kg: number
         }[]
+      }
+      me_update_food: {
+        Args: { p_amount?: number; p_id: string; p_meal: string }
+        Returns: number
       }
       me_week_muscles: {
         Args: { p_from: string; p_to: string }

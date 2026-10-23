@@ -43,7 +43,7 @@ create temp table _l on commit drop as
 select
   r->>'slug' as slug, (l->>'sort_order')::int as sort_order, l->>'name' as raw_name,
   (l->>'quantity')::numeric as quantity, nullif(l->>'unit','') as raw_unit,
-  nullif(l->>'prep_note','') as prep_note, (l->>'is_optional')::boolean as is_optional
+  nullif(l->>'prep_note','') as prep_note, (coalesce((l->>'is_optional')::boolean, false) or coalesce(l->>'prep_note', '') ~* '\moptional\M') as is_optional
 from _payload p, jsonb_array_elements(p.doc) r, jsonb_array_elements(r->'ingredients') l;
 
 create temp table _res on commit drop as
