@@ -1,9 +1,9 @@
-import { Search } from "lucide-react";
 import Link from "next/link";
+import { RecoverySearch } from "@/components/shell/recoverySearch";
 import { buttonVariants } from "@/components/ui/button";
 
 /*
- * The body of every "not found" screen: say what happened in one line, then give
+ * The body of every "not found" screen: say what happened in one warm line, then give
  * three ways forward (search, browse, home). A server component with a plain GET
  * search form, so it works without JavaScript. The site shell (header/footer)
  * comes from the layout, or from app/not-found.tsx where there is no layout.
@@ -27,26 +27,7 @@ export function NotFoundView({
         {message}
       </p>
 
-      <form
-        role="search"
-        action="/recipes"
-        method="get"
-        className="mx-auto mt-7 flex min-h-12 max-w-[26rem] items-center gap-2 rounded-field border border-line bg-sunken px-3 transition-[border-color,box-shadow] duration-150 focus-within:border-herb focus-within:ring-[3px] focus-within:ring-herb/20"
-      >
-        <Search aria-hidden className="size-4 shrink-0 text-stone" />
-        <label htmlFor="not-found-search" className="sr-only">
-          Search recipes
-        </label>
-        <input
-          id="not-found-search"
-          name="q"
-          type="search"
-          enterKeyHint="search"
-          autoComplete="off"
-          placeholder={searchPlaceholder}
-          className="w-full min-w-0 bg-transparent py-2 text-base outline-none placeholder:text-ink-subtle sm:text-sm"
-        />
-      </form>
+      <RecoverySearch id="not-found-search" placeholder={searchPlaceholder} />
 
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <Link href={primary.href} className={buttonVariants({ variant: "primary", size: "md" })}>
@@ -65,7 +46,7 @@ export function RecipeNotFoundView() {
   return (
     <NotFoundView
       title="That recipe isn't here"
-      message="It may have been renamed, or merged with a duplicate. Search for it by name, or browse the whole catalog."
+      message="It may have been renamed, or merged with a duplicate. Try searching for it by name, or browse the whole catalog."
       searchPlaceholder="Search for a recipe"
       primary={{ href: "/recipes", label: "Back to recipes" }}
     />

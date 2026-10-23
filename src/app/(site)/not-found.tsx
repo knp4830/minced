@@ -11,8 +11,8 @@ export default function SiteNotFound() {
     <>
       <title>{TITLE}</title>
       <NotFoundView
-        title="Page not found"
-        message="That address doesn't lead anywhere. The link may be old, or mistyped."
+        title="That page isn't here"
+        message="The link may be old, or mistyped. Search for what you were after, or browse what is cooking."
       />
     </>
   );

@@ -6,15 +6,16 @@ import { cn } from "@/lib/utils";
  * who have not asked for reduced motion. Server components, no JS.
  */
 
-function Bar({ className }: { className?: string }) {
+export function Bar({ className }: { className?: string }) {
   return <div aria-hidden className={cn("rounded-xs bg-sunken motion-safe:animate-pulse", className)} />;
 }
 
 /** Same grid as RecipeList, same card proportions (4:3 media, title, spec strip). */
-export function RecipeGridSkeleton({ count = 8 }: { count?: number }) {
+export function RecipeGridSkeleton({ count = 8, nested = false }: { count?: number; nested?: boolean }) {
+  // `nested`: sits inside a page skeleton that already announces itself, so it stays silent.
   return (
-    <div role="status" aria-label="Loading recipes">
-      <span className="sr-only">Loading recipes…</span>
+    <div {...(nested ? {} : { role: "status", "aria-label": "Loading recipes" })}>
+      {!nested && <span className="sr-only">Loading recipes…</span>}
       <ul
         aria-hidden
         className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(232px,1fr))] sm:gap-[18px]"

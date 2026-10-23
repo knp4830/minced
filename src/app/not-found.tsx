@@ -19,8 +19,8 @@ export default function GlobalNotFound() {
       <SiteHeader />
       <main id="main" className="flex-1">
         <NotFoundView
-          title="Page not found"
-          message="That address doesn't lead anywhere. The link may be old, or mistyped."
+          title="That page isn't here"
+          message="The link may be old, or mistyped. Search for what you were after, or browse what is cooking."
         />
       </main>
       <SiteFooter />
