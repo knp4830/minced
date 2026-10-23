@@ -36,7 +36,7 @@ export type RecipePlaceholderProps = {
 
 /**
  * The tile shown when a recipe has no photo. It is a designed state, not a gap:
- * the dish name set in Fraunces on a tinted ground, with two faint concentric
+ * the dish name set in the display face on a tinted ground, with two faint concentric
  * rings that read as the rim of a plate and nothing more.
  *
  * Fills its positioned parent (`absolute inset-0`), so it drops into

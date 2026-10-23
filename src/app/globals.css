@@ -71,9 +71,9 @@
   --color-ring: var(--color-herb);
 
   /* ── Type ──────────────────────────────────────────────────── */
-  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-public-sans), system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-young-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-nunito-sans), system-ui, sans-serif;
+  --font-mono: var(--font-overpass-mono), ui-monospace, "SFMono-Regular", monospace;
 
   /* ── Radii ─────────────────────────────────────────────────── */
   --radius-xs: 4px;
@@ -136,9 +136,19 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    letter-spacing: -0.01em;
     text-wrap: balance;
+  }
+
+  /* Young Serif has one weight. A font-semibold beside font-display would make the
+     browser smear a fake bold; this keeps the real face everywhere it is used. */
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-synthesis-weight: none;
   }
 
   p {

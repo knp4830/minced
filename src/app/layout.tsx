@@ -1,27 +1,30 @@
 import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
-import { Fraunces, IBM_Plex_Mono, Public_Sans } from "next/font/google";
+import { Nunito_Sans, Overpass_Mono, Young_Serif } from "next/font/google";
 import { AccountProvider } from "@/components/account/accountProvider";
 import { Suspense } from "react";
 import { NavProgress } from "@/components/shell/navProgress";
 import "./globals.css";
 import "./polish.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+// Display: Young Serif ships a single weight (400). Bold is never faked; see globals.css.
+const youngSerif = Young_Serif({
+  variable: "--font-young-serif",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+const nunitoSans = Nunito_Sans({
+  variable: "--font-nunito-sans",
   subsets: ["latin"],
   axes: ["opsz"],
   display: "swap",
 });
 
-const publicSans = Public_Sans({
-  variable: "--font-public-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+// Every measured number (min, kcal, g, servings, counts) and the uppercase eyebrow labels.
+const overpassMono = Overpass_Mono({
+  variable: "--font-overpass-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
@@ -50,7 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${publicSans.variable} ${plexMono.variable}`}
+      className={`${youngSerif.variable} ${nunitoSans.variable} ${overpassMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col">
         <a
