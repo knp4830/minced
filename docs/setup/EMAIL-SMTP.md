@@ -68,14 +68,21 @@ The four templates live in `supabase/templates/`. Production does not read the r
 
 Supabase dashboard -> **Authentication** -> **Emails** -> **Templates**:
 
-| Dashboard tab | File | Subject |
+| Dashboard tab | File | Subject (paste exactly) |
 | --- | --- | --- |
-| Confirm sign up | `confirmation.html` | Confirm your email for Minced |
-| Reset password | `recovery.html` | Reset your Minced password |
-| Magic link | `magic_link.html` | Your Minced log-in link |
-| Change email address | `email_change.html` | Confirm your new email for Minced |
+| Confirm sign up | `confirmation.html` | Welcome to Minced. Please confirm your email |
+| Reset password | `recovery.html` | Let's get you back into Minced |
+| Magic link | `magic_link.html` | Your way back into Minced |
+| Change email address | `email_change.html` | Please confirm your new email for Minced |
 
-Open the file, copy everything (including the leading comment is fine), paste into the **Message body (source)** editor, set the Subject, **Save**.
+For each of the four rows (nothing here touches the live project until you do it yourself):
+
+1. Open the Supabase dashboard, then **Authentication** -> **Emails** -> **Templates**, and pick the tab named in the first column.
+2. Set **Subject** to the text in the last column.
+3. Open the file from `supabase/templates/` in your editor, select all, copy.
+4. In the tab's **Message body (source)** editor, select all, paste over what is there. The leading comment and the `{{ .SiteURL }}`, `{{ .TokenHash }}`, `{{ .Email }}` and `{{ .NewEmail }}` variables must stay exactly as written.
+5. Click **Save changes**. Repeat for the next tab.
+6. Send yourself one real sign-up and one password reset (section 7) and check both in Gmail and on your phone.
 
 These links go to `{{ .SiteURL }}/auth/callback?token_hash=…`, so **Authentication -> URL Configuration -> Site URL must be exactly `https://minced.kevinpham.page`** (no trailing slash). The benefit: the link works even if the email is opened on a different device from the one that signed up. Behaviour to know: a sign-up confirmation always lands on `/account`, because the email cannot carry the page you started on.
 

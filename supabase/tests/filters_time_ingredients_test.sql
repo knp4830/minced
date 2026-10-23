@@ -15,14 +15,14 @@ begin
   select id into egg     from ingredients where canonical_name = 'egg';
   select array_agg(id) into pantry from ingredients where canonical_name in ('chicken','onion','rice','garlic','tomato');
 
-  -- 1. TIME RANGE, search: every known-time row is inside [15, 30]; unknown time passes.
+  -- 1. TIME RANGE, search: every known-time row is inside [15, 30]; unknown time is EXCLUDED (wave 14).
   select count(*) into v from search_recipes('chicken', min_total_min => 15, max_total_min => 30, result_limit => 100) r
    where r.total_time_min > 0 and (r.total_time_min < 15 or r.total_time_min > 30);
   if v <> 0 then raise exception 'search: % rows outside the 15-30 range', v; end if;
   n := n + 1;
   select count(*) into v from search_recipes('chicken', min_total_min => 15, max_total_min => 30, result_limit => 100) r
    where coalesce(r.total_time_min, 0) = 0;
-  if v = 0 then raise exception 'search: unknown-time rows must pass a time range'; end if;
+  if v <> 0 then raise exception 'search: % unknown-time rows passed a time range', v; end if;
   n := n + 1;
 
   -- 2. TIME RANGE, matcher: same two properties.
@@ -33,12 +33,15 @@ begin
   select count(*) into v from match_recipes(pantry, 8, page_size => 100, min_total_min => 30, max_total_min => 60) r
    where coalesce(r.total_time_min, 0) = 0;
   select count(*) into w from match_recipes(pantry, 8, page_size => 100) r where coalesce(r.total_time_min, 0) = 0;
-  if w > 0 and v = 0 then raise exception 'match: unknown-time rows were dropped by the range'; end if;
+  if v <> 0 then raise exception 'match: % unknown-time rows passed a time range', v; end if;
+  if w = 0 then raise exception 'match: with no time filter untimed recipes must still show'; end if;
   n := n + 1;
 
   -- 3. Open-ended ranges and a min above everything behave.
   select count(*) into v from search_recipes('chicken', min_total_min => 600, result_limit => 100) r where r.total_time_min > 0;
-  if v <> 0 then raise exception 'min 600 should leave only unknown-time rows, got % known', v; end if;
+  if v <> 0 then raise exception 'min 600 should leave nothing known, got % known', v; end if;
+  select count(*) into v from search_recipes('chicken', min_total_min => 600, result_limit => 100);
+  if v <> 0 then raise exception 'min 600 must not let unknown-time rows through, got %', v; end if;
   n := n + 1;
 
   -- 4. INCLUDE, search: every row has BOTH ingredients (family-expanded, non-optional).
