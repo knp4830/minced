@@ -14,6 +14,7 @@ import { TZ_COOKIE } from "@/lib/me/dates";
 import { PREFS_COOKIE } from "@/lib/prefs";
 import { syncPrefsCookie } from "@/lib/prefsCookie";
 import { deleteMyAccount } from "@/lib/queries/account";
+import { TOO_MANY, allowIpAndEmail } from "@/lib/rateLimit";
 import { createClient } from "@/lib/supabase/server";
 
 /*
@@ -61,6 +62,7 @@ export async function logIn(_prev: FormState, form: FormData): Promise<FormState
   const emailError = validateEmail(email);
   if (emailError) return { email, fieldErrors: { email: emailError } };
   if (!password) return { email, fieldErrors: { password: "Enter your password." } };
+  if (!(await allowIpAndEmail("login", "login_email", email))) return { email, error: TOO_MANY };
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -124,6 +126,7 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
     fieldErrors.agree = "Please tick the box to agree to the Terms and Privacy Policy.";
   }
   if (Object.keys(fieldErrors).length) return { email, fieldErrors };
+  if (!(await allowIpAndEmail("signup", null))) return { email, error: TOO_MANY };
 
   const supabase = await createClient();
   const origin = await siteOrigin();
@@ -169,6 +172,7 @@ export async function requestPasswordReset(
   const email = cleanEmail(form.get("email"));
   const emailError = validateEmail(email);
   if (emailError) return { email, fieldErrors: { email: emailError } };
+  if (!(await allowIpAndEmail("reset", "reset_email", email))) return { email, error: TOO_MANY };
 
   const supabase = await createClient();
   const origin = await siteOrigin();
