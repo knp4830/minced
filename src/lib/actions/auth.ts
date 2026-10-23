@@ -68,13 +68,14 @@ export async function logIn(_prev: FormState, form: FormData): Promise<FormState
     if (error.code === "email_not_confirmed") {
       return {
         email,
-        error: "Confirm your email first. The link we sent is in your inbox (check spam too).",
+        error:
+          "Your email isn't confirmed yet. Open the link we sent when you signed up (it sometimes lands in spam or promotions).",
       };
     }
     if (error.status && error.status >= 500) {
-      return { email, error: "Couldn't reach the server. Try again in a moment." };
+      return { email, error: "We couldn't connect just now. Please try again in a moment." };
     }
-    return { email, error: "That email and password don't match." };
+    return { email, error: "That email and password don't match. Try again, or reset your password below." };
   }
   // Their saved diet / allergen defaults must apply from the very first list they open.
   await syncPrefsCookie(supabase);
@@ -120,7 +121,7 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
   const passwordError = validateNewPassword(password);
   if (passwordError) fieldErrors.password = passwordError;
   if (form.get("agree") !== "on") {
-    fieldErrors.agree = "Tick the box to agree to the Terms and Privacy Policy.";
+    fieldErrors.agree = "Please tick the box to agree to the Terms and Privacy Policy.";
   }
   if (Object.keys(fieldErrors).length) return { email, fieldErrors };
 
@@ -135,17 +136,17 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
   // An already-confirmed address: some GoTrue versions answer 422 user_already_exists
   // instead of a silent success. Show the same neutral screen as a new address.
   if (error && (error.code === "user_already_exists" || error.code === "email_exists")) {
-    return { email, done: "Check your email to continue." };
+    return { email, done: "Look for an email from us to finish setting up your account." };
   }
 
   if (error) {
     if (error.code === "weak_password") {
-      return { email, fieldErrors: { password: "Pick a stronger password." } };
+      return { email, fieldErrors: { password: "That password is easy to guess. Try a longer one, or a few words strung together." } };
     }
     if (error.code === "over_email_send_rate_limit" || error.status === 429) {
-      return { email, error: "Too many emails sent just now. Wait a few minutes and try again." };
+      return { email, error: "We've sent a lot of emails in the last few minutes. Please wait a little and try again." };
     }
-    return { email, error: "Couldn't create the account. Try again in a moment." };
+    return { email, error: "Something went wrong creating your account. Please try again in a moment." };
   }
 
   // Confirmations off (local dev): a session came back, so the person is signed in.
@@ -158,7 +159,7 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
   // answers a repeat sign-up with success and sends no confirmation, so any
   // wording that says "we sent a link" would be false for an existing account
   // and a tell for someone probing which emails are registered.
-  return { email, done: "Check your email to continue." };
+  return { email, done: "Look for an email from us to finish setting up your account." };
 }
 
 export async function requestPasswordReset(
@@ -175,11 +176,11 @@ export async function requestPasswordReset(
     redirectTo: `${origin}/auth/callback?next=${encodeURIComponent("/reset-password")}`,
   });
   if (error && (error.code === "over_email_send_rate_limit" || error.status === 429)) {
-    return { email, error: "Too many emails sent just now. Wait a few minutes and try again." };
+    return { email, error: "We've sent a lot of emails in the last few minutes. Please wait a little and try again." };
   }
   return {
     email,
-    done: `If ${email} has an account, a reset link is on its way.`,
+    done: `If there's an account for ${email}, a link to reset your password is on its way.`,
   };
 }
 
@@ -196,17 +197,17 @@ export async function updatePassword(_prev: FormState, form: FormData): Promise<
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    return { error: "That reset link has expired. Request a new one." };
+    return { error: "That reset link has expired. You can ask for a fresh one below." };
   }
   const { error } = await supabase.auth.updateUser({ password });
   if (error) {
     if (error.code === "same_password") {
-      return { fieldErrors: { password: "Pick a password you haven't used here before." } };
+      return { fieldErrors: { password: "That's your current password. Pick a new one." } };
     }
     if (error.code === "weak_password") {
-      return { fieldErrors: { password: "Pick a stronger password." } };
+      return { fieldErrors: { password: "That password is easy to guess. Try a longer one, or a few words strung together." } };
     }
-    return { error: "Couldn't change the password. Try again in a moment." };
+    return { error: "We couldn't save your new password just now. Please try again in a moment." };
   }
   redirect("/account?notice=password");
 }
@@ -237,7 +238,7 @@ export async function deleteAccount(_prev: FormState, form: FormData): Promise<F
     return { fieldErrors: { confirm: "Type DELETE to confirm." } };
   }
   const ok = await deleteMyAccount();
-  if (!ok) return { error: "Couldn't delete the account. Try again, or open an issue and we'll do it." };
+  if (!ok) return { error: "We couldn't delete your account just now. Please try again, or open an issue and we'll do it for you." };
 
   const supabase = await createClient();
   // The user row is gone, so the refresh token is dead; this just clears the cookies.
