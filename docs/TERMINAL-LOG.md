@@ -482,6 +482,9 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-23 | `taskkill /IM python3.11.exe` | Stop my own background scripts | Also kills other agents' Python; kill by PID instead |
 | 2026-10-23 | `pnpm exec next build` on the integrated tree | Compile, lint, type check | Compiles; fails at prerender of /sitemap.xml without a database (known limit) |
 | 2026-10-23 | `git push -u origin w14/integration` then `gh pr create --base main --head w14/integration --body-file <file>` | Open the wave 14 PR | Body starts with a MERGE ORDER WARNING; no `Closes` lines |
+| 2026-10-23 | `docker run --rm -e DATABASE_URL postgres:17-alpine sh -c 'pg_dump "$DATABASE_URL" --schema=public --schema=supabase_migrations --no-owner --no-privileges' > .snapshot/backup-pre-wave14.sql` | Back up live before the wave 14 steps | 14.4 MB, 49 tables; auth user list saved separately as CSV |
+| 2026-10-23 | `psql "$DATABASE_URL" -v ON_ERROR_STOP=1 --single-transaction -f -` with the migration file plus an `insert into supabase_migrations.schema_migrations (version, name, statements)` | Apply ONE migration (20261023140000) without `db push`, which would also have applied 20261023110000 that must wait until after the merge | Live 60 -> 61 migrations; checked with pg_get_functiondef that the old filter predicate is gone |
+| 2026-10-23 | `psql ... -c "set statement_timeout = 0" -c "set jit = off" -c "select refresh_all_recipe_nutrients()" -c "analyze" -c "vacuum (full, analyze) recipes"` | Wave 14 refresh on live | ANALYZE warns about system catalogs it cannot touch: harmless |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*
