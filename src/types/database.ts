@@ -628,8 +628,6 @@ export type Database = {
           kcal: number
           pace_kg: number
           protein_g: number
-          sex: string
-          units: string
           updated_at: string
           user_id: string
           weight_kg: number
@@ -645,8 +643,6 @@ export type Database = {
           kcal: number
           pace_kg?: number
           protein_g: number
-          sex: string
-          units?: string
           updated_at?: string
           user_id: string
           weight_kg: number
@@ -662,8 +658,6 @@ export type Database = {
           kcal?: number
           pace_kg?: number
           protein_g?: number
-          sex?: string
-          units?: string
           updated_at?: string
           user_id?: string
           weight_kg?: number

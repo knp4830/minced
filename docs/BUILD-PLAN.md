@@ -1049,6 +1049,8 @@ Wave 12 did not close a milestone, so no box changes: M1.5.7 (owner review) stay
 
 Wave 13 (redesign) did not close a milestone either, so no box changes. Shipped on `w13/redesign`: warmer auth messages; fonts Young Serif / Nunito Sans / Overpass Mono site-wide; the photo-led landing (rotating full-bleed hero of nutrition-complete dishes, headline "Narrow it down. Start cooking.", green nav bar, two-column fridge section with an example fridge, feature tiles, live recipe strip, dark coming-soon band and footer). No database changes. Open: a "how the fridge works" scroll story (owner idea, needs art direction), dark mode (not built), deleting the stale `/lab/hero` page.
 
+Wave 14 did not close a milestone, so no box changes: no verifier passed a BUILD-PLAN DoD. M1.5.7 stays open and now covers 26 more `in_review` recipes (20 NHS, blocked on a licence answer; 6 MyPlate rescues); M4.1 stays open (Google login not yet real on live); M5.2 and M3.7 unchanged. Shipped on `w14/integration` (not live until the owner says go): Me fixes and the `sex`/`units` column drop, the time filter excluding untimed recipes, 22 new foods linked, the NHS and MyPlate-rescue seeds, warm fridge gate and auth emails, `/lab/hero` removed, a cooking-effects research brief. No `Closes #N` lines.
+
 # NEXT UP (written 2026-10-14, end of wave 7)
 
 - **Paste-a-blog import** is next after the MVP basics. It needs the M5 tables (live once the wave 7 migrations are applied) and **a decision from the owner on AI rewriting** of steps (legal constraints in `docs/LEGAL-COMPLIANCE.md` section 1.4).

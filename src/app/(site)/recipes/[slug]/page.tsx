@@ -120,6 +120,8 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const photoSrc = recipe.photo?.url ?? recipe.imageUrl;
   const isUsda = recipe.sourceName?.includes("MyPlate") ?? false;
   const isAi = recipe.sourceName === AI_SOURCE_NAME;
+  // UK Open Government Licence recipes (NHS Healthier Families): the licence sentence is the credit line.
+  const isOgl = recipe.sourceLicense?.startsWith("Contains public sector information") ?? false;
   const isUser = recipe.sourceName === USER_SOURCE_NAME;
   // Computed nutrients and the vocabulary are cookie-free reads, safe inside ISR. Both return empty
   // (never throw) until the nutrition tables are loaded, and the panel then shows the published columns.
@@ -295,6 +297,23 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             </a>{" "}
             (U.S. Department of Agriculture, public domain). The original site has been retired, so
             the link opens its archived copy.
+          </p>
+        ) : isOgl ? (
+          <p>
+            {recipe.sourceLicense}{" "}
+            {recipe.sourceUrl?.startsWith("https://") ? (
+              <>
+                Adapted from the{" "}
+                <a
+                  href={recipe.sourceUrl}
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-herb"
+                >
+                  original recipe
+                </a>
+                .
+              </>
+            ) : null}
           </p>
         ) : isAi ? (
           <p>

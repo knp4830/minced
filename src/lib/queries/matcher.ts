@@ -160,8 +160,8 @@ function cleanIds(ids: number[] | undefined): number[] {
  * Ingredient families apply in SQL: a parent in the pantry ("onion") covers its
  * variants ("yellow onion") and a variant covers a recipe that names the parent;
  * a sibling does not. The M3.4 filters (time, cuisine, diet, allergens, spice,
- * calories, protein) are ANDed in the same query; unknown time/spice/calories/
- * protein pass range filters.
+ * calories, protein) are ANDed in the same query; unknown spice/calories/
+ * protein pass range filters. Unknown TIME does not: a time filter excludes untimed recipes.
  *
  * An empty pantry returns nothing rather than the whole catalog: "what can I
  * make with nothing" has no useful answer, and the browse page is for that.

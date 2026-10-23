@@ -214,7 +214,7 @@ Live has **29 migrations**, **959 recipes**, **352 photos** (607 placeholders), 
 
 ### Review wave (2026-10-15): merged in PR #55, live has 34 migrations
 
-Owner's 19-item desktop review. **Before merging:** back up live, apply `supabase/migrations/20261015120000_filters_time_ingredients.sql` (live then has **34** migrations; code merged first breaks the landing page and filtered `/recipes`), run `pnpm db:types`, run `scripts/dedupe-near-duplicates.sql` (dry run first; deletes 2 recipes, 959 to 957), apply `scripts/cleanup/prep-notes-cleanup.sql` after reviewing the CSV, then photo upload and `seed-photos.sql`. Live is currently 33 migrations, 959 recipes, 352 photos. Status per item: `docs/review/2026-10-15-feedback.md`. Open: mac and cheese search, unknown-time recipes in ranges, 5 mismatched photos, 3 rejected picks that can return, `useFridgeIds` localStorage read, font choice at `/lab/hero`; domain and Google sign-in next.
+Owner's 19-item desktop review. **Before merging:** back up live, apply `supabase/migrations/20261015120000_filters_time_ingredients.sql` (live then has **34** migrations; code merged first breaks the landing page and filtered `/recipes`), run `pnpm db:types`, run `scripts/dedupe-near-duplicates.sql` (dry run first; deletes 2 recipes, 959 to 957), apply `scripts/cleanup/prep-notes-cleanup.sql` after reviewing the CSV, then photo upload and `seed-photos.sql`. Live is currently 33 migrations, 959 recipes, 352 photos. Status per item: `docs/review/2026-10-15-feedback.md`. Open: mac and cheese search, unknown-time recipes in ranges, 5 mismatched photos, 3 rejected picks that can return, `useFridgeIds` localStorage read, font choice at domain and Google sign-in next.
 
 ### Wave 8 (2026-10-16): integrated on `wave8/integration`, PR open, NOT applied to live
 
@@ -271,5 +271,14 @@ Owner's 19-item desktop review. **Before merging:** back up live, apply `supabas
 ### Wave 13 (2026-10-22): PR open on `w13/redesign`, no DB changes
 
 Warmer auth copy, new fonts site-wide, and the photo-led landing (rotating hero of nutrition-complete dishes with static 1280/2560 px photos, green nav bar, two-column fridge section, tiles, recipe strip, dark coming-soon band and footer). **Next:** owner merges; owner runs the admin SQL for kevinpham4830@gmail.com (live DB access is blocked for Claude in auto mode); open decisions in `docs/review/2026-10-22-wave12-questions.md`; scroll-world "how the fridge works" is an idea awaiting art direction.
+
+### Wave 14 (2026-10-23): integrated on `w14/integration`, PR open, NOT applied to live
+
+**Not on live yet. Back up first, then follow "Wave 14: ORDERED LIVE STEPS" in `scripts/nutrition/LIVE-STEPS.md`: migration `20261023140000` (any time), the three seeds, the jit-off refresh, THEN merge, THEN `20261023110000_me_targets_drop_sex_units` (applying it before the merge hides saved Me targets on main). Live goes 60 to 62 migrations. `20261022140000_me_day_log` must already be on any database a flag-on Preview uses. Then push an empty commit to re-run the preview.**
+
+- **Shipped:** Me fixes (eleven bugs, today shows "So far", `me_targets.sex`/`units` dropped, Settings is the single source), the time filter now hides recipes with no stated time, 22 more foods (1,548 of 1,984 ingredients have one; 436 named gaps), 26 new `in_review` recipes (20 NHS, 6 MyPlate rescues), warm fridge gate and auth emails, `/lab/hero` removed, cooking-effects research brief (proposal only). Me is on for Preview builds only.
+- **Numbers after applying:** 1,138 recipes; published 625 complete / 329 partial / 3 unavailable; in review 91 / 90; MyPlate median calorie error 5.9 percent.
+- **Checked boxes: none.** **Blocked:** do not approve the 20 NHS recipes until DHSC permission or a lawyer ruling (Healthier Families terms reserve all rights). Questions and review files: `docs/review/2026-10-23-wave14-questions.md`.
+- **Next:** owner review, then domain, Google sign-in, custom SMTP and launch.
 
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

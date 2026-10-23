@@ -473,6 +473,18 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-22 | `python -I -c "import hires; hires.WIDTH=2560; hires.HI=<scratch dir>; hires.fetch([...slugs])"` (from `scripts/photos`) | Fetch 2560 px Wikimedia renditions of the 5 hero photos into a scratch folder | Some came back as the original (smaller than the request); sopa-de-tortilla's original is 2448 px |
 | 2026-10-22 | Python + Pillow: `ImageOps.exif_transpose`, resize with LANCZOS, `save(..., "WEBP", quality=78, method=6)` | Make `public/landing/hero/<slug>-{1280,2560}.webp` | 75-351 KB each |
 | 2026-10-22 | `git push -u origin w13/redesign` then `gh pr create --base main --head w13/redesign --body-file <file>` | Open the wave 13 PR | No `Closes` lines: no milestone covers wave 13 |
+| 2026-10-23 | `bash .snapshot/restore.sh <name>` then wave 12 steps, then wave 14 steps | Throwaway copy for every lane and the integrator | Counts match LIVE-STEPS "Wave 14"; refresh returns 1,138 |
+| 2026-10-23 | `python -I scripts/nutrition/foods14/build_w14.py` / `audit_panel.py` / `audit_branded.py` | Build the wave 14 foods seed and check panels against the publishers and the FDC API | `build_w14.py` refuses a record without energy and an upgrade that moves macros over 12 percent |
+| 2026-10-23 | `bash scripts/nhs/fetch.sh` (1 request per 3 s) then `python -I scripts/myplate/w14_build.py` | Fetch NHS pages and build the NHS and MyPlate-rescue seeds | Idempotent; 20 and 6 inserted, second run 0 |
+| 2026-10-23 | `SLUGS_FILE=<file> bash scripts/myplate/fetch.sh` (JOBS=1, FETCH_DELAY=2) | Re-fetch only the missing MyPlate slugs from the Internet Archive | Some pages refuse at JOBS=2; slugs.txt contains junk slugs that 404 |
+| 2026-10-23 | `docker exec` without `timeout` | Run SQL in a lane container | HUNG when Docker Desktop wedged host-wide; always wrap in `timeout N` |
+| 2026-10-23 | Docker Desktop restart after a wedge | Recover the engine | Restarts every container; `docker start` brings throwaway ones back with data intact |
+| 2026-10-23 | `taskkill /IM python3.11.exe` | Stop my own background scripts | Also kills other agents' Python; kill by PID instead |
+| 2026-10-23 | `pnpm exec next build` on the integrated tree | Compile, lint, type check | Compiles; fails at prerender of /sitemap.xml without a database (known limit) |
+| 2026-10-23 | `git push -u origin w14/integration` then `gh pr create --base main --head w14/integration --body-file <file>` | Open the wave 14 PR | Body starts with a MERGE ORDER WARNING; no `Closes` lines |
+| 2026-10-23 | `docker run --rm -e DATABASE_URL postgres:17-alpine sh -c 'pg_dump "$DATABASE_URL" --schema=public --schema=supabase_migrations --no-owner --no-privileges' > .snapshot/backup-pre-wave14.sql` | Back up live before the wave 14 steps | 14.4 MB, 49 tables; auth user list saved separately as CSV |
+| 2026-10-23 | `psql "$DATABASE_URL" -v ON_ERROR_STOP=1 --single-transaction -f -` with the migration file plus an `insert into supabase_migrations.schema_migrations (version, name, statements)` | Apply ONE migration (20261023140000) without `db push`, which would also have applied 20261023110000 that must wait until after the merge | Live 60 -> 61 migrations; checked with pg_get_functiondef that the old filter predicate is gone |
+| 2026-10-23 | `psql ... -c "set statement_timeout = 0" -c "set jit = off" -c "select refresh_all_recipe_nutrients()" -c "analyze" -c "vacuum (full, analyze) recipes"` | Wave 14 refresh on live | ANALYZE warns about system catalogs it cannot touch: harmless |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

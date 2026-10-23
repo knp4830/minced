@@ -235,5 +235,20 @@ Live site: https://minced-app.vercel.app
 - [ ] Sign-up done screen: "You're almost in", names your email, never says "we sent". Expired link and deleted-account notices read warmly.
 - [ ] Phone 375 and 900 px: no horizontal scroll; the hero caption never overlaps the search card.
 
+### Wave 14 (Me, time filter, foods, new recipes)
+
+- [ ] Time filter: `/recipes?maxTime=30`, a search with `maxTime`, the fridge and the landing pop-up "Under 15" return NO recipe without a stated time; with no time filter untimed recipes still appear. Expect far fewer results (about 652 of 957 have no time).
+- [ ] Signed-out `/pantry` shows the warm gate ("saved to your account ... on your phone or your laptop") and the "Not ready for an account?" path still works.
+- [ ] Me (Preview, flag on): sign in as a new user, set targets (the edit wizard asks only height and weight; sex and birth year come from Settings), log a recipe, an ingredient and a brand today and on a past day, edit an ingredient amount (the name follows: "banana, 150 g"), remove with two taps ("Remove?"), tap "I trained", log a weight.
+- [ ] Me today reads "So far: N of M kcal" with no red marks; a finished past day shows its goal-hit or partly maths.
+- [ ] Me Add-food dialog: the cursor starts in the search field. A recipe with no calories points to Quick add.
+- [ ] Flag off: no Me link in header, account menu, footer or landing tile; `/me` shows coming soon; `/me/how-goal-days` is 404.
+- [ ] Foods: `/recipes/overnight-oatmeal`, `/recipes/very-berry-muesli`, `/recipes/fruit-smoothie`, `/recipes/collard-green-gumbo-ham-hock` show a full label; type-ahead for borage, injera, haupia, mizithra shows the source (USDA, UK CoFID, Canadian CNF); a recipe with Italian seasoning still says "at least" and names it.
+- [ ] `/admin/review` lists 26 new recipes (20 NHS, 6 rescues) in addition to the 155 originals; none appears on `/recipes` or in search. An NHS recipe shows the OGL sentence and a link to the original (DO NOT approve until the licence question is answered).
+- [ ] Four auth emails pasted into Supabase: sign up, reset, magic link and email change each arrive warm, and each link works.
+- [ ] `/lab/hero` is 404.
+- [ ] Counts on live: published complete 625 / partial 329 / unavailable 3; 1,138 recipes; 1,548 of 1,984 ingredients have a food; 12,060 foods.
+- [ ] Phone 375: `/`, `/recipes?maxTime=30`, `/me`, `/me/how-goal-days`, `/pantry` have no horizontal scroll.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { HowCalculated } from "@/components/me/howCalculated";
 import { TargetsButton } from "@/components/me/meButtons";
 import { KCAL_PER_G } from "@/lib/me/targets";
@@ -35,7 +37,7 @@ function segments(totals: DayTotals, goal: number): Seg[] {
   });
 }
 
-export function TodayFood({ dateLabel, totals, targets, isToday = true }: { dateLabel: string; totals: DayTotals; targets: MeTargets | null; isToday?: boolean }) {
+export function TodayFood({ dateLabel, totals, targets, isToday = true, needsSex = false }: { dateLabel: string; totals: DayTotals; targets: MeTargets | null; isToday?: boolean; needsSex?: boolean }) {
   const kcal = Math.round(totals.calories);
   const goal = targets?.kcal ?? null;
   const left = goal === null ? null : goal - kcal;
@@ -67,7 +69,9 @@ export function TodayFood({ dateLabel, totals, targets, isToday = true }: { date
           ) : (
             <>
               Goal {nf.format(goal)} kcal
-              <TargetsButton variant="link">Edit</TargetsButton>
+              <TargetsButton variant="link" ariaLabel="Edit your daily targets">
+                Edit
+              </TargetsButton>
             </>
           )}
         </span>
@@ -96,10 +100,22 @@ export function TodayFood({ dateLabel, totals, targets, isToday = true }: { date
 
         {goal === null ? (
           <div className="min-w-0 flex-1">
-            <p className="font-display text-lg leading-snug font-medium">Set your daily targets</p>
-            <p className="mt-1.5 max-w-[26em] text-[0.875rem] leading-relaxed text-ink-muted">Four questions give you a calorie goal and protein, carb and fat targets. Takes about a minute.</p>
+            <p className="font-display text-lg leading-snug font-medium">{needsSex ? "Your targets are waiting" : "Set your daily targets"}</p>
+            <p className="mt-1.5 max-w-[26em] text-[0.875rem] leading-relaxed text-ink-muted">
+              {needsSex ? (
+                <>
+                  We still have your goal, but the calorie formula needs your sex to show it. Add it in{" "}
+                  <Link href="/settings#body" className="underline underline-offset-4 hover:text-herb">
+                    Settings
+                  </Link>{" "}
+                  and your targets come back just as they were.
+                </>
+              ) : (
+                "Four questions give you a calorie goal and protein, carb and fat targets. Takes about a minute."
+              )}
+            </p>
             <div className="mt-3">
-              <TargetsButton>Set your targets</TargetsButton>
+              <TargetsButton>{needsSex ? "Or set them again" : "Set your targets"}</TargetsButton>
             </div>
           </div>
         ) : (

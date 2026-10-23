@@ -1693,4 +1693,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 43 - [next entry goes here]
+## Entry 43 - Wave 14: Me made trustworthy, a time filter that tells the truth, 22 more real foods, and 26 candidate recipes
+
+**What we built.** Five lanes plus a research brief. (1) Me was walked end to end as a new user: eleven bugs fixed (editing an ingredient amount left the old amount in its name; today looked failed after breakfast; the Add dialog focused Close instead of the search field; remove deleted in one tap; and more), and the duplicate `me_targets.sex` / `units` columns were dropped so Settings is the single source. (2) The time filter now hides recipes with no stated time whenever a time bound is set. (3) Foods: 22 ingredients linked to a record that IS that food, 17 label defaults upgraded to fuller trusted records, 436 stay named gaps. (4) Recipes: 20 NHS Healthier Families and 6 federal-credited MyPlate rescues, all `in_review`. (5) Warmer signed-out fridge gate and four rewritten auth emails; `/lab/hero` deleted. Research: `docs/research/prep-effects-nutrition.md` (proposal only).
+
+**Key files.** Migrations `20261023110000_me_targets_drop_sex_units`, `20261023140000_time_filter_excludes_unknown`; `src/lib/queries/me.ts`, `src/components/me/*`; `src/lib/queries/browse.ts`; `supabase/seed-nutrition-w14-foods.sql`, `scripts/nutrition/foods14/`, `scripts/nutrition/review/foods-w14.csv`; `supabase/seed-recipes-w14-nhs.sql`, `seed-recipes-w14-myplate-rescue.sql`, `scripts/nhs/`, `scripts/myplate/w14_*.py`; OGL credit branch in the recipe page.
+
+**How it works and why.** Dropping a duplicate column is done code first: the code stops reading it, and the old trigger still fills it, so the migration can land after the merge. The time filter migration rewrites the stored function text (`pg_get_functiondef` plus a strict regex that aborts unless exactly two old predicates are found), the same technique as the allergen predicate helper. Foods follow one rule: a record must be the food itself, must carry energy (`food_has_nutrition` needs it, so a record without energy is worse than a gap), and a label default is replaced only when energy stays within 12 percent and the panel is fuller. A day on Me is judged only when it is over; today shows "So far". The MyPlate rescue needed an authorship gate: only pages whose Source field names a federal body are public domain; 174 of 260 leftovers are credited to universities or states, so the realistic ceiling was about 14 recipes, not 247.
+
+**Concepts.** True retention versus per-100 g (USDA retention factors); dependency-ordered migrations (code first, then drop); public domain by authorship, not by host; open licences and their exceptions (OGL clause 3.3 "except where specified").
+
+**Gotchas.** The NHS licence is NOT shown: the Healthier Families terms reserve all rights, so the 20 stay in review until written permission. A native `<dialog>` ignores React `autoFocus`. `regexp_replace` needs three backslashes plus 1 to escape a captured character. FNDDS portions are text, not codes. FDC search and food records can disagree. Docker Desktop hung host-wide twice and the disk reached 97 percent; give every `docker exec` a timeout and free space before a wave.
+
+---
+
+## Entry 44 - [next entry goes here]

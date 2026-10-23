@@ -8,7 +8,7 @@
 import { isIsoDate } from "@/lib/me/dates";
 import { UUID_RE } from "@/lib/validate";
 import { MEAL_VALUES, type Meal } from "@/lib/me/types";
-import { ACTIVITY, PACES_KG, type Goal, type Sex, type Units } from "@/lib/me/targets";
+import { ACTIVITY, PACES_KG, type Goal, type Sex } from "@/lib/me/targets";
 import { MUSCLE_SLUGS, SESSION_VALUES, type MuscleSlug, type Session } from "@/lib/me/muscles";
 
 export type Parsed<T> = { ok: true; value: T } | { ok: false; error: string };
@@ -72,7 +72,6 @@ export type TargetsInput = {
   age: number;
   heightCm: number;
   weightKg: number;
-  units: Units;
   activity: number;
   goal: Goal;
   paceKg: number;
@@ -88,8 +87,6 @@ export function targetsInput(v: unknown): Parsed<TargetsInput> {
   const o = v as Record<string, unknown>;
   const sex = oneOf<Sex>(o.sex, ["female", "male"], "Sex");
   if (!sex.ok) return sex;
-  const units = oneOf<Units>(o.units, ["metric", "imperial"], "Units");
-  if (!units.ok) return units;
   const goal = oneOf<Goal>(o.goal, ["lose", "maintain", "gain"], "Goal");
   if (!goal.ok) return goal;
   const age = intIn(o.age, 13, 110, "Age");
@@ -128,7 +125,6 @@ export function targetsInput(v: unknown): Parsed<TargetsInput> {
     age: age.value,
     heightCm: r1(height.value),
     weightKg: r1(weight.value),
-    units: units.value,
     activity: activity.value,
     goal: goal.value,
     paceKg: pace.value,

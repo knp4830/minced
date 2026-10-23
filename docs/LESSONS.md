@@ -457,3 +457,31 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 **Never write a heredoc with a quoted apostrophe through the shell tool.** It is refused or silently skipped; use the Write tool for text and Edit for code, then grep to confirm.
 
 **Seeds that copy rows are not idempotent.** `seed-nutrition-zzzzz-math-10c.sql` adds a reasonless `soy` tag to `hot cocoa mix` when re-run on a database that already has allergen tags. Never re-run it on live.
+## 14. Wave 14 (2026-10-23)
+
+**Judge a day only when it is over.** Today with one meal logged is not a failed day; show "So far" and keep the verdict (and the red marks) for finished days.
+
+**A native `<dialog>` ignores React `autoFocus`.** It opens after React mounts, so focus the field in an effect after `showModal()`.
+
+**Drop a duplicate column code first.** Stop reading and writing it, keep the old trigger filling it, merge, then drop. The reverse order hides data on the old build.
+
+**A food record without energy is worse than a gap.** `food_has_nutrition()` needs energy, so linking one only turns "no USDA food linked" into "food has no nutrient data". Query energy with `food_nutrient_amount()` (Foundation reports it only as Atwater), not `nutrient_id = 1`.
+
+**FNDDS portions are text.** Parse `portion_description`, not `modifier`, or recipes stay partial with "no gram weight for cup/each".
+
+**FDC search and food endpoints can disagree,** and 429s count against the hourly key limit. Use append-only jsonl caches and one worker for food records.
+
+**When a later wave legitimately links an earlier gap, update the earlier wave generator and test** (`build_w12.py`, `test_10c.sql`); never weaken the gate.
+
+**The time filter is the one range filter that excludes unknowns.** A bound on time requires `total_time_min > 0`; spice, calories and protein still pass unknowns. The importer still stores unknown time as 0 (make it NULL).
+
+**Public domain is decided by authorship, not by host.** A MyPlate page is federal only if its Source field names a federal body; 174 of 260 leftovers credit universities or states. An open licence can carry an exception: the NHS Healthier Families terms reserve all rights, so "OGL on nhs.uk" is not enough. Read the section-specific terms before importing.
+
+**`resolve_ingredient` fuzzy at confidence 0.9 is the modifier-stripping pass and can be wrong** ("yellow pepper" became black pepper). Accept a stripped match only when every dropped word is on a safe list, and keep qualifiers (low sodium, skinless) in `prep_note` because the nutrition rules read it.
+
+**Regex escapes in SQL strings.** A `regexp_replace` replacement that must put a backslash before a captured character needs three backslashes plus 1; two silently escape nothing.
+
+**Never trust one source's own totals.** NHS JSON-LD fat was 79 g for a jalfrezi (typo); the NHS sweet-potato pasta kcal was for a different portion. Compare ours to theirs, but treat neither as ground truth.
+
+**Tooling on this machine.** Give every `docker exec` a `timeout`; Docker Desktop can wedge for every lane at once and a restart restarts all containers. Disk reached 97 percent with old worktrees under `.claude/worktrees`; free space before a wave. Do not `taskkill` by image name (it kills other agents). Python heredocs in bash eat backslashes; write regex files with the Write tool.
+

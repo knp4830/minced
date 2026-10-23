@@ -56,11 +56,11 @@ export function LogFab() {
   );
 }
 
-export function TargetsButton({ children, variant = "primary" }: { children: ReactNode; variant?: "primary" | "link" }) {
+export function TargetsButton({ children, variant = "primary", ariaLabel }: { children: ReactNode; variant?: "primary" | "link"; ariaLabel?: string }) {
   const ui = useMeUi();
   if (variant === "link") {
     return (
-      <button type="button" onClick={() => ui.openTargets()} className="inline-flex min-h-11 items-center font-mono text-xs text-herb underline-offset-2 hover:underline sm:min-h-8">
+      <button type="button" aria-label={ariaLabel} onClick={() => ui.openTargets()} className="inline-flex min-h-11 items-center font-mono text-xs text-herb underline-offset-2 hover:underline sm:min-h-8">
         {children}
       </button>
     );
@@ -91,7 +91,7 @@ export function EditFoodButton({ entry }: { entry: FoodEntry }) {
   return (
     <button
       type="button"
-      aria-label={`Edit ${entry.name}`}
+      aria-label={`Edit ${entry.name}, ${entry.meal}`}
       onClick={() => ui.openEditFood(entry)}
       className="inline-flex size-11 shrink-0 items-center justify-center rounded-md text-ink-subtle transition-colors hover:bg-band hover:text-herb sm:size-8"
     >
@@ -100,17 +100,29 @@ export function EditFoodButton({ entry }: { entry: FoodEntry }) {
   );
 }
 
-export function RemoveFoodButton({ id, name }: { id: string; name: string }) {
+export function RemoveFoodButton({ id, name, meal }: { id: string; name: string; meal?: string }) {
   const [pending, start] = useTransition();
+  // Two taps, so a thumb that meant "edit" does not lose a logged meal: the first tap asks, the second removes.
+  const [armed, setArmed] = useState(false);
+  useEffect(() => {
+    if (!armed) return;
+    const t = setTimeout(() => setArmed(false), 4000);
+    return () => clearTimeout(t);
+  }, [armed]);
+  const what = meal ? `${name}, ${meal}` : name;
   return (
     <button
       type="button"
-      aria-label={`Remove ${name}`}
+      aria-label={armed ? `Confirm: remove ${what}` : `Remove ${what}`}
       disabled={pending}
-      onClick={() => start(async () => void (await deleteFood(id)))}
-      className="inline-flex size-11 shrink-0 items-center justify-center rounded-md text-ink-subtle transition-colors hover:bg-band hover:text-paprika-deep disabled:opacity-40 sm:size-8"
+      onClick={() => (armed ? start(async () => void (await deleteFood(id))) : setArmed(true))}
+      className={
+        armed
+          ? "inline-flex h-11 shrink-0 items-center justify-center rounded-md bg-paprika-deep px-2.5 text-xs font-medium text-on-herb transition-colors disabled:opacity-40 sm:h-8"
+          : "inline-flex size-11 shrink-0 items-center justify-center rounded-md text-ink-subtle transition-colors hover:bg-band hover:text-paprika-deep disabled:opacity-40 sm:size-8"
+      }
     >
-      <X aria-hidden className="size-4" />
+      {armed ? "Remove?" : <X aria-hidden className="size-4" />}
     </button>
   );
 }

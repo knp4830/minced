@@ -149,9 +149,8 @@ function decodeBrowseCursor(
 
 /**
  * All of the filters, expressed for PostgREST. Range filters follow the NULL
- * rule from the filter contract: unknown time / spice / calories / protein PASS.
- * Most of the catalog is USDA MyPlate with no cook time; dropping unknowns would
- * make "under 30 min" hide nearly everything.
+ * rule from the filter contract: unknown spice / calories / protein PASS, but an
+ * unknown TIME does not (a recipe with no stated time is left out once a time filter is set).
  */
 // The builder's generic type changes with every call; the filters only chain
 // methods that exist on every PostgREST builder, so it is typed loosely here.
@@ -159,12 +158,10 @@ function decodeBrowseCursor(
 function applyFilters<T extends Record<string, any>>(query: T, f: RecipeFilters): T {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let q: any = query;
-  if (f.minTime !== undefined) {
-    q = q.or(`total_time_min.is.null,total_time_min.eq.0,total_time_min.gte.${f.minTime}`);
-  }
-  if (f.maxTime !== undefined) {
-    q = q.or(`total_time_min.is.null,total_time_min.eq.0,total_time_min.lte.${f.maxTime}`);
-  }
+  // TIME is the one range filter that EXCLUDES unknowns (owner decision, wave 14): once a time is asked for, a
+  // recipe with no stated time (NULL, or 0 which is how the importer stored "none") is not an answer to it.
+  if (f.minTime !== undefined) q = q.gt("total_time_min", 0).gte("total_time_min", f.minTime);
+  if (f.maxTime !== undefined) q = q.gt("total_time_min", 0).lte("total_time_min", f.maxTime);
   if (f.spiceMax !== undefined) q = q.or(`spice_level.is.null,spice_level.lte.${f.spiceMax}`);
   if (f.calMin !== undefined) q = q.or(`calories.is.null,calories.gte.${f.calMin}`);
   if (f.calMax !== undefined) q = q.or(`calories.is.null,calories.lte.${f.calMax}`);

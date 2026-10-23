@@ -269,7 +269,15 @@ update recipe_ingredients ri set fdc_id = null
 
     # ---- the checks that go with it (run after the seed on a throwaway copy; every gate raises with the offenders)
     un = sorted(a[0] for a in acts if a[1] == "unmap")
-    rl = sorted((a[0], a[3]) for a in acts if a[1] == "relink")
+    # wave 14 gives some of these a trusted record (scripts/nutrition/foods14/decisions_w14.psv); this wave-12 gate is about the state right after the wave 12 seed,
+    # so it skips them (test_w14_foods.sql checks them after wave 14)
+    w14 = os.path.join(ROOT, "scripts", "nutrition", "foods14", "decisions_w14.psv")
+    later_w14 = set()
+    if os.path.exists(w14):
+        later = {d["ingredient"] for d in csv.DictReader(open(w14, encoding="utf-8", newline=""), delimiter="|") if d["action"] in ("link", "relink", "upgrade")}
+        un = [x for x in un if x not in later]
+        later_w14 = later
+    rl = sorted((a[0], a[3]) for a in acts if a[1] == "relink" and a[0] not in later_w14)
     kc = sorted(a[0] for a in acts if a[1] == "keep" and a[4])
     ks = sorted(a[0] for a in acts if a[1] == "keep" and not a[4])
     bids = sorted(b["fdc_id"] for b in brands)

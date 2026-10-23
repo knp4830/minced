@@ -130,11 +130,11 @@ begin
   end;
 
   -- ===== FILTERS in match_recipes =====
-  -- max_total_min: known-too-slow excluded; fast, mid, and unknown-time pass
+  -- max_total_min: known-too-slow excluded; fast and mid pass; unknown-time is EXCLUDED (wave 14)
   select array_agg(recipe_id) into ids from match_recipes(array[garlic], 3, '{}', 1, 100, null, null, null, null, 30);
   perform pg_temp.ok(not (pg_temp.rid('slow') = any (ids)), 'maxTime 30 excludes a 90-minute recipe');
-  perform pg_temp.ok(pg_temp.rid('fast') = any (ids) and pg_temp.rid('notime') = any (ids),
-    'maxTime 30 keeps a 10-minute recipe AND the unknown-time recipe (NULL semantics)');
+  perform pg_temp.ok(pg_temp.rid('fast') = any (ids), 'maxTime 30 keeps a 10-minute recipe');
+  perform pg_temp.ok(not (pg_temp.rid('notime') = any (ids)), 'maxTime 30 excludes the unknown-time recipe (wave 14)');
 
   -- allergen exclusion
   select array_agg(recipe_id) into ids
@@ -195,15 +195,14 @@ begin
   prev := null; seen_unknown := false; cnt := 0;
   for s in select * from search_recipes('chicken', 30) loop
     cnt := cnt + 1;
-    perform pg_temp.ok(coalesce(s.total_time_min, 0) = 0 or s.total_time_min <= 30,
-      'search maxTime 30 returned a recipe known to exceed 30 minutes: ' || s.title);
-    if coalesce(s.total_time_min, 0) = 0 then seen_unknown := true;
-    else perform pg_temp.ok(not seen_unknown, 'known-time result ranked after an unknown-time one: ' || s.title);
-    end if;
+    perform pg_temp.ok(coalesce(s.total_time_min, 0) > 0 and s.total_time_min <= 30,
+      'search maxTime 30 returned a recipe with no time or over 30 minutes: ' || s.title);
   end loop;
   perform pg_temp.ok(cnt > 0, 'search chicken under 30 min returns rows');
-  perform pg_temp.ok(exists (select 1 from search_recipes('chicken', 30) where coalesce(total_time_min, 0) = 0),
-    'search maxTime keeps unknown-time recipes (they used to be dropped / treated as instant)');
+  perform pg_temp.ok(not exists (select 1 from search_recipes('chicken', 30) where coalesce(total_time_min, 0) = 0),
+    'search maxTime excludes unknown-time recipes (wave 14 owner decision)');
+  perform pg_temp.ok(exists (select 1 from search_recipes('chicken') where coalesce(total_time_min, 0) = 0),
+    'search with no time filter still shows unknown-time recipes');
 
   -- Without any range filter nothing is offset: scores in [0,1).
   perform pg_temp.ok(not exists (select 1 from search_recipes('chicken') where score < 0 or score >= 1),
@@ -213,7 +212,7 @@ begin
   -- reproduce the single big page exactly (the cursor compares offset scores).
   select array_agg(sq.id order by sq.score desc, sq.has_photo desc, sq.id desc) into page1
     from (select x.*, r.has_photo from search_recipes('soup', 60, result_limit => 100) x join recipes r on r.id = x.id) sq;
-  perform pg_temp.ok(exists (select 1 from search_recipes('soup', 60) where coalesce(total_time_min,0) = 0) and exists (select 1 from search_recipes('soup', 60) where total_time_min > 0), 'test premise: soup has both known and unknown times');
+  perform pg_temp.ok(exists (select 1 from search_recipes('soup', 60) where total_time_min > 0), 'test premise: soup has known times');
   perform pg_temp.ok(cardinality(page1) < 100, 'test premise: fewer than 100 soup results (single page holds all)');
   page2 := '{}';
   c_score := null; c_id := null;
@@ -227,7 +226,7 @@ begin
       from search_recipes('soup', 60, result_limit => 100) s2
      where s2.id = chunk[cardinality(chunk)];
   end loop;
-  perform pg_temp.ok(page1 = page2, 'chunked cursor paging reproduces the single-page order, crossing the unknown boundary');
+  perform pg_temp.ok(page1 = page2, 'chunked cursor paging reproduces the single-page order, under a time filter');
 end $$;
 
 select format('matcher quality tests passed: %s assertions', n) as result from t_n;

@@ -128,9 +128,9 @@ begin
   end if;
 
   -- 9. The diary snapshot column: object only, size-capped, and owner-only like the rest of the row.
-  insert into me_targets (user_id, sex, age_years, height_cm, weight_kg, units, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
-  values (a, 'male', 30, 180, 80, 'metric', 2, 'maintain', 0, 2400, 150, 270, 80),
-         (b, 'male', 30, 180, 80, 'metric', 2, 'maintain', 0, 2400, 150, 270, 80);
+  insert into me_targets (user_id, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
+  values (a, 30, 180, 80, 2, 'maintain', 0, 2400, 150, 270, 80),
+         (b, 30, 180, 80, 2, 'maintain', 0, 2400, 150, 270, 80);
   perform pg_temp.as_user(a);
   insert into me_food_log (user_id, log_date, meal, name, calories, nutrients)
   values (a, current_date, 'lunch', 'ok', 100, '{"calcium_mg": 12.5}'::jsonb);

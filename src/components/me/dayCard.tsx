@@ -33,8 +33,8 @@ export function DayCard({ detail, targets, today }: { detail: DayDetail; targets
   const marked = detail.workouts.some((w) => w.session === "trained");
   const serverTrained = detail.workouts.length > 0;
   const [trained, setTrained] = useOptimistic(serverTrained);
-  const status = dayFoodStatus(detail.totals, targets);
   const isToday = detail.date === today;
+  const status = dayFoodStatus(detail.totals, targets, { open: isToday });
 
   function toggleTrained() {
     setError(null);
@@ -113,7 +113,7 @@ export function DayCard({ detail, targets, today }: { detail: DayDetail; targets
           )}
         </Row>
 
-        <Row icon={<Plate hit={status.status === "hit"} dim={status.status === "none"} />} label="Nutrition" action={{ label: "Add food", aria: `Add food on ${longDate(detail.date)}`, onClick: () => ui.openFood(undefined, detail.date) }}>
+        <Row icon={<Plate hit={status.status === "hit"} dim={status.status === "none" || status.status === "open"} />} label="Nutrition" action={{ label: "Add food", aria: `Add food on ${longDate(detail.date)}`, onClick: () => ui.openFood(undefined, detail.date) }}>
           <p className="mt-1 text-[0.8125rem] leading-snug" data-testid="day-kcal">
             {detail.totals.entries === 0
               ? "Nothing logged yet"

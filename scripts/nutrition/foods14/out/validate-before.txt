@@ -1,0 +1,46 @@
+== status of the 872 MyPlate recipes
+ nutrition_status | count 
+------------------+-------
+ complete         |   565
+ partial          |   283
+ unavailable      |     3
+(3 rows)
+
+CREATE VIEW
+== median absolute percent error, status complete
+  n  | kcal | protein | carbs | fat | sodium | fiber | pct_kcal_within_15 | gt20 | gt50 
+-----+------+---------+-------+-----+--------+-------+--------------------+------+------
+ 565 |  6.0 |     6.5 |   6.9 | 7.7 |   11.3 |  11.0 |               81.9 |   67 |    9
+(1 row)
+
+== same, every recipe whose calories are computed from at least 90 percent of the counted mass (partial included)
+  n  | kcal | protein | carbs | fat  | sodium | fiber | pct_kcal_within_15 | gt20 | gt50 
+-----+------+---------+-------+------+--------+-------+--------------------+------+------
+ 848 |  8.4 |     9.2 |   9.4 | 10.6 |   18.0 |  15.1 |               67.6 |  210 |   49
+(1 row)
+
+== the 20 recipes (status complete) furthest from the published calories
+                 title                 |    st    | published | computed | pct 
+---------------------------------------+----------+-----------+----------+-----
+ Popping Pomegranate Salsa             | complete |        77 |      153 |  99
+ Tuscan Potato Skillet                 | complete |       331 |      595 |  80
+ Basic Quiche                          | complete |       130 |      226 |  74
+ Simmered Beans                        | complete |       113 |       37 | -68
+ Cooked Beans                          | complete |       101 |       33 | -68
+ Corn Tortillas                        | complete |        56 |       91 |  62
+ Refried Beans                         | complete |       189 |       75 | -60
+ Spicy Southern Barbecued Chicken      | complete |       103 |      161 |  56
+ Mango Salsa                           | complete |        17 |       27 |  56
+ Caribbean Pink Beans                  | complete |       129 |       67 | -48
+ Glazed Meatloaf                       | complete |       259 |      383 |  48
+ Marinated Beef                        | complete |       232 |      340 |  47
+ Magic Mix                             | complete |       397 |      574 |  45
+ Eggs over Kale and Sweet Potato Grits | complete |       182 |      262 |  44
+ Soft Chicken Taco                     | complete |       173 |      248 |  43
+ Eating Smart Seasoning Mix            | complete |        69 |       96 |  40
+ Baked Fish with Creole Sauce          | complete |        93 |      129 |  39
+ Spicy Oven-Baked Chicken              | complete |       183 |      254 |  39
+ Baked Fish                            | complete |        97 |      134 |  39
+ Sunshine Salad                        | complete |        90 |      124 |  38
+(20 rows)
+

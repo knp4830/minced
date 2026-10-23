@@ -32,6 +32,7 @@ import {
   getMonthSummary,
   getSleepForDate,
   getTargets,
+  hasTargetsRow,
   getWeekMuscles,
   getWeights,
   monthRange,
@@ -124,12 +125,15 @@ export default async function MePage({ searchParams }: Props) {
         : null,
   };
 
+  // Saved targets stay hidden while Settings has no sex (the formula needs one). Say so rather than looking like they were lost.
+  const targetsNeedSex = targets === null && settings.sex === null && (await hasTargetsRow());
+
   const food = detail.food;
   const totals = detail.totals;
   const isToday = selected === today;
   const days: Record<string, CalDay> = {};
   for (const s of summaries) {
-    const f = dayFoodStatus({ calories: s.calories, proteinG: s.proteinG, entries: s.foodEntries }, targets);
+    const f = dayFoodStatus({ calories: s.calories, proteinG: s.proteinG, entries: s.foodEntries }, targets, { open: s.date === today });
     days[s.date] = { trained: s.trained, food: f.status, foodNote: f.note, sleep: s.sleepHours, weight: s.weightKg };
   }
   const tally = monthTally(days, ym, today, targets !== null);
@@ -220,7 +224,7 @@ export default async function MePage({ searchParams }: Props) {
           </div>
           <div className="contents lg:col-span-7 lg:flex lg:flex-col lg:gap-6">
             <div className="max-lg:order-1">
-              <TodayFood dateLabel={longDate(selected).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} isToday={isToday} />
+              <TodayFood dateLabel={longDate(selected).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} isToday={isToday} needsSex={targetsNeedSex} />
             </div>
             <div className="max-lg:order-8">
               <NutrientsPanel entries={food} nutrients={nutrientList} dris={dris} person={person} isToday={isToday} />

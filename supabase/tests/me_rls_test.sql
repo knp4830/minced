@@ -49,8 +49,8 @@ grant execute on function pg_temp.raises(text, text), pg_temp.succeeds(text, tex
 set role authenticated;
 select set_config('request.jwt.claim.sub', 'aaaaaaaa-0000-0000-0000-0000000000a1', false);
 
-select pg_temp.succeeds($q$ insert into me_targets (user_id, sex, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
-  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 'male', 34, 182, 84, 2, 'lose', 0.5, 2300, 160, 245, 75) $q$, 'A inserts own targets');
+select pg_temp.succeeds($q$ insert into me_targets (user_id, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 34, 182, 84, 2, 'lose', 0.5, 2300, 160, 245, 75) $q$, 'A inserts own targets');
 select pg_temp.succeeds($q$ insert into me_food_log (user_id, log_date, meal, name, calories, protein_g, carbs_g, fat_g)
   values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date, 'breakfast', 'Oats', 420, 14, 70, 9) $q$, 'A logs food');
 select pg_temp.succeeds($q$ insert into me_food_log (user_id, log_date, meal, name, calories, protein_g, carbs_g, fat_g)
@@ -100,8 +100,8 @@ select pg_temp.raises($q$ select me_log_workout(current_date, 'yoga', null, 30, 
 select pg_temp.raises($q$ select me_log_workout(current_date, 'push', null, 30, '[{"m":"wings","s":3}]'::jsonb) $q$, 'unknown muscle rejected');
 select pg_temp.raises($q$ select me_log_workout(current_date, 'push', null, 30, '[{"m":"chest","s":0}]'::jsonb) $q$, 'zero sets on a muscle rejected');
 select pg_temp.raises($q$ select me_log_workout(current_date, 'push', null, 0, '[{"m":"chest","s":3}]'::jsonb) $q$, 'zero minutes rejected');
-select pg_temp.raises($q$ insert into me_targets (user_id, sex, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
-  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 'male', 34, 182, 84, 9, 'lose', 0.5, 2300, 160, 245, 75) $q$, 'activity 9 rejected (and duplicate key)');
+select pg_temp.raises($q$ insert into me_targets (user_id, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 34, 182, 84, 9, 'lose', 0.5, 2300, 160, 245, 75) $q$, 'activity 9 rejected (and duplicate key)');
 
 -- Day cap: 60 food rows per day (A has 2 today).
 select pg_temp.succeeds($q$ insert into me_food_log (user_id, log_date, meal, name, calories)
@@ -146,6 +146,18 @@ select pg_temp.check((select me_update_food(:'stew', 'lunch', null)) = 1, 'a mea
 select pg_temp.check((select meal = 'lunch' and servings = 3 and calories = 750 and (nutrients ->> 'calcium')::numeric = 300 from me_food_log where id = :'stew'), 'a meal-only move changes nothing else');
 select pg_temp.check((select me_update_food(:'rice', null, 150)) = 1, 'me_update_food: an ingredient entry takes a new amount');
 select pg_temp.check((select amount = 150 and amount_unit = 'g' and servings is null and calories = 300 and protein_g = 6 and fat_g = 0.6 and fiber_g is null and (nutrients ->> 'iron')::numeric = 1.8 from me_food_log where id = :'rice'), '100 g to 150 g scales by 1.5, keeps the unit, and a missing fibre stays missing (not zero)');
+-- Wave 14: the amount in the saved name follows the edit ("..., 100 g" -> "..., 150 g"); other names are left alone.
+select pg_temp.succeeds($q$ insert into me_food_log (user_id, log_date, meal, name, calories, protein_g, carbs_g, fat_g, source, amount, amount_unit)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date - 5, 'snack', 'Test oats (dry), 100 g', 380, 13, 66, 7, 'food', 100, 'g'),
+         ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date - 5, 'snack', 'Test juice, 2 fl oz', 30, 0, 7, 0, 'food', 2, 'fl oz') $q$, 'A logs two ingredient entries whose names carry the amount');
+select id as oats from me_food_log where name like 'Test oats%' \gset
+select id as juice from me_food_log where name like 'Test juice%' \gset
+select pg_temp.check((select me_update_food(:'oats', null, 150) + me_update_food(:'juice', null, 3)) = 2, 'me_update_food: both amount edits applied');
+select pg_temp.check((select name from me_food_log where id = :'oats') = 'Test oats (dry), 150 g', 'the saved name follows the new amount (150 g)');
+select pg_temp.check((select name from me_food_log where id = :'juice') = 'Test juice, 3 fl oz', 'a unit with a space keeps working (3 fl oz)');
+select pg_temp.check((select name from me_food_log where id = :'rice') = 'Test rice', 'a name with no amount in it is left exactly as it was');
+select pg_temp.check((select name from me_food_log where id = :'stew') = 'Test stew', 'a recipe entry keeps its name');
+select pg_temp.succeeds($q$ delete from me_food_log where name like 'Test oats%' or name like 'Test juice%' $q$, 'A removes the two rename-test entries');
 select pg_temp.check((select me_update_food(:'quick', null, 0.5)) = 1, 'me_update_food: a quick add takes a portion');
 select pg_temp.check((select calories = 150 and protein_g = 5 and amount is null and nutrients is null from me_food_log where id = :'quick'), 'half a portion halves the figures and invents no amount');
 select pg_temp.check((select me_update_food('00000000-0000-0000-0000-000000000000', 'lunch', 1)) = 0, 'an entry that does not exist changes 0 rows');
@@ -177,8 +189,8 @@ select pg_temp.check((select count(*) from me_month_summary(current_date - 6, cu
 
 select pg_temp.raises($q$ insert into me_food_log (user_id, log_date, meal, name, calories) values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date, 'lunch', 'forged', 5) $q$, 'B cannot insert a row owned by A');
 select pg_temp.raises($q$ insert into me_sleep (user_id, log_date, hours) values ('aaaaaaaa-0000-0000-0000-0000000000a1', current_date - 4, 5) $q$, 'B cannot write A sleep');
-select pg_temp.raises($q$ insert into me_targets (user_id, sex, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
-  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 'male', 30, 180, 80, 1, 'maintain', 0, 2000, 120, 250, 60) $q$, 'B cannot write A targets');
+select pg_temp.raises($q$ insert into me_targets (user_id, age_years, height_cm, weight_kg, activity, goal, pace_kg, kcal, protein_g, carbs_g, fat_g)
+  values ('aaaaaaaa-0000-0000-0000-0000000000a1', 30, 180, 80, 1, 'maintain', 0, 2000, 120, 250, 60) $q$, 'B cannot write A targets');
 -- attach B's muscle row to A's workout id
 reset role;
 select id as a_workout from me_workouts where session = 'push' \gset

@@ -1,0 +1,23 @@
+fetching 2019 of 3711 foods with 1 worker
+branded foods checked 3711 of 3711 {'missing_in_db': 208, 'mismatch': 18, 'extra_in_db': 23}
+  added_sugars_g         missing_in_db  7
+  calcium_mg             missing_in_db  2
+  carbs_g                missing_in_db  26
+  cholesterol_mg         missing_in_db  2
+  copper_mg              extra_in_db    1
+  energy_kcal            mismatch       18
+  energy_kcal            missing_in_db  26
+  fat_g                  missing_in_db  26
+  fiber_g                missing_in_db  23
+  iron_mg                missing_in_db  2
+  magnesium_mg           missing_in_db  1
+  niacin_mg              extra_in_db    8
+  poly_fat_g             missing_in_db  1
+  protein_g              missing_in_db  26
+  riboflavin_mg          extra_in_db    13
+  sat_fat_g              missing_in_db  20
+  sugars_g               missing_in_db  27
+  trans_fat_g            missing_in_db  14
+  vitamin_b12_mcg        missing_in_db  4
+  vitamin_b6_mg          extra_in_db    1
+  vitamin_c_mg           missing_in_db  1
