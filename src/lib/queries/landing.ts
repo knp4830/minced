@@ -190,7 +190,16 @@ export type HeroSlide = {
   proteinG: number;
   /** "Name · CC BY-SA 4.0" when the licence requires attribution, else null. */
   credit: string | null;
+  /** Full-bleed sizes from /public when we ship them (see HERO_FILES), else undefined. */
+  srcSet?: string;
 };
+
+/**
+ * Hero photos shipped as static files at 1280 and 2560 px (Storage keeps 1200 px, soft on a full-bleed
+ * 1440 px hero at 2x). Same Commons files, licences and credits as the Storage copies, fetched at a larger
+ * rendition with scripts/photos/hires.py (WIDTH=2560). sopa-de-tortilla's original is 2448 px.
+ */
+const HERO_FILES = new Set(["japanese-curry-rice", "shakshuka", "som-tam", "sopa-de-tortilla", "tabbouleh"]);
 
 /** The hero rotates through at most this many photos. */
 const HERO_SLIDES = 5;
@@ -234,7 +243,12 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
     .map((r) => ({
       slug: r.recipes!.slug,
       title: r.recipes!.title,
-      url: photoPublicUrl(r.storage_path),
+      url: HERO_FILES.has(r.recipes!.slug)
+        ? `/landing/hero/${r.recipes!.slug}-1280.webp`
+        : photoPublicUrl(r.storage_path),
+      srcSet: HERO_FILES.has(r.recipes!.slug)
+        ? `/landing/hero/${r.recipes!.slug}-1280.webp 1280w, /landing/hero/${r.recipes!.slug}-2560.webp 2560w`
+        : undefined,
       alt: r.alt_text ?? r.recipes!.title,
       totalTimeMin: r.recipes!.total_time_min,
       calories: Math.round(r.recipes!.calories!),

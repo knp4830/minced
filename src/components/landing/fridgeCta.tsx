@@ -11,9 +11,6 @@ import { cn } from "@/lib/utils";
 
 const SHOWN = 8;
 
-/** Signed out: a few everyday things, so "what's in my fridge" reads as a picture, not a form. */
-const EXAMPLE = ["eggs", "spinach", "feta", "tomatoes", "onion", "rice"] as const;
-
 /**
  * The call to action under "Cook from what you have". The landing page is cached for everyone, so the
  * server HTML offers "Create an account" and "Log in"; a signed-in visitor gets their own fridge instead,
@@ -37,21 +34,6 @@ export function FridgeCta() {
 
   if (!signedIn) {
     return (
-      <>
-        <p className="label-mono mb-2">For example</p>
-        <ul aria-label="An example fridge" className="mb-6 flex flex-wrap items-center gap-1.5">
-          {EXAMPLE.map((name) => (
-            <li
-              key={name}
-              className="rounded-md border border-line-strong bg-surface px-2.5 py-1 text-[0.8125rem] text-ink"
-            >
-              {name}
-            </li>
-          ))}
-          <li className="rounded-md bg-saffron-tint px-2.5 py-1 font-mono text-[0.75rem] text-saffron-ink">
-            Make now
-          </li>
-        </ul>
       <div className="flex flex-wrap gap-3">
         <Link
           href="/signup?next=%2Fpantry"
@@ -66,7 +48,6 @@ export function FridgeCta() {
           Log in
         </Link>
       </div>
-      </>
     );
   }
 

@@ -66,12 +66,12 @@ export default async function Home() {
 
   return (
     <>
+      <LandingNav />
       <section
         aria-labelledby="hero-h"
-        className="relative isolate flex min-h-[620px] flex-col overflow-hidden bg-night pb-8 text-on-night md:min-h-[800px] md:pb-12"
+        className="relative isolate flex min-h-[620px] flex-col overflow-hidden bg-night pb-8 text-on-night md:min-h-[min(740px,calc(100svh-4.5rem))] md:pb-12"
       >
-        <LandingNav />
-        <div className="mt-auto pt-24">
+        <div className="mt-auto pt-16">
           <HeroPhotos slides={slides}>
             <p className="mb-4 font-mono text-[0.8125rem] tracking-[0.12em] text-on-night uppercase">{HERO.eyebrow}</p>
             <h1

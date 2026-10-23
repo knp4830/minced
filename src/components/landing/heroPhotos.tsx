@@ -42,11 +42,13 @@ export function HeroPhotos({ slides, children }: { slides: HeroSlide[]; children
     <>
       <div aria-hidden className="absolute inset-0 bg-night">
         {slides.map((s, i) => (
-          // Remote Storage host, already resized: no next/image.
+          // Already sized (static 1280/2560 files or the 1200 px Storage copy): no next/image.
           // eslint-disable-next-line @next/next/no-img-element
           <img
             key={s.slug}
             src={s.url}
+            srcSet={s.srcSet}
+            sizes="100vw"
             alt=""
             width={1200}
             height={900}
