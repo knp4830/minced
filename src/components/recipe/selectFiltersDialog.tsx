@@ -160,7 +160,7 @@ export function SelectFiltersDialog({
 
           <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-(--gutter) pt-4 pb-3">
             <p className="mb-4 text-[0.875rem] leading-snug text-ink-muted">
-              Choose as much or as little as you like. You’ll see recipes that fit, and nothing here is saved.
+              Choose as much or as little as you like. You’ll see recipes that fit, and nothing here is saved. If you have allergens saved in Settings, they still apply on the results page.
             </p>
 
             <fieldset className="mb-6 min-w-0">
@@ -195,8 +195,14 @@ export function SelectFiltersDialog({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={(e) => {
-                    // Enter in the find box must not submit the whole form: it picks nothing, it only searches.
-                    if (e.key === "Enter") e.preventDefault();
+                    // Enter in the find box must not submit the whole form. It picks the first match, if any.
+                    if (e.key !== "Enter") return;
+                    e.preventDefault();
+                    const first = finding ? found[0] : undefined;
+                    if (first && !picked.includes(first.id)) {
+                      toggleIngredient(first);
+                      setQuery("");
+                    }
                   }}
                   placeholder="Find an ingredient"
                   autoComplete="off"

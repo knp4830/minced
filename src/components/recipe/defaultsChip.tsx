@@ -59,7 +59,7 @@ export function DefaultsChip({
       data-defaults-chip={state.allergensShown ? "shown" : state.dietOff && !label ? "off" : "on"}
       className={`rounded-md bg-band px-3 py-1 text-[0.8125rem] text-ink-muted ${className ?? ""}`}
     >
-      <p className="flex flex-wrap items-center gap-x-3 gap-y-0">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-0">
         {label && (
           <span>
             <span className="label-mono mr-1.5">Your defaults</span>
@@ -90,7 +90,7 @@ export function DefaultsChip({
               <ShowAllergensButton href={href({ showAllergens: true })} names={allergenNames} className={LINK} />
             ))}
         </span>
-      </p>
+      </div>
       {saved.exclude.length > 0 && (
         <p data-allergen-note className="pb-1.5 leading-snug">
           {state.allergensShown

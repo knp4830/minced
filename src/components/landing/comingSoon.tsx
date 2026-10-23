@@ -12,7 +12,7 @@ const ITEMS = [
   {
     icon: Dumbbell,
     title: "Plan your workouts",
-    body: "Line your meals up with your training days: higher-protein dinners after leg day, something light on rest days.",
+    body: "Line your meals up with your training days: higher-protein meals on training days, something lighter on rest days.",
   },
   {
     icon: LineChart,

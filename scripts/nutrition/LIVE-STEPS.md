@@ -71,7 +71,7 @@ Back up live first (CLAUDE.md procedure; `auth.users` and Storage are not in the
 6. Verify by counting on live (the same numbers came out of the integration restore):
    - recipes: published complete 619 / partial 335 / unavailable 3; `in_review` complete 77 / partial 78 (the 155 originals; 130 non-original rows excluded); total 1,112
    - cuisines 44 (32 + 12); published recipes without a cuisine 725 (was 729)
-   - ingredients 1,984; with a food 1,526; declared stand-ins (`ingredient_foods.is_proxy`) 33; usda_foods 12,033 (branded 3,739); non-default branded links 3,420
+   - ingredients 1,984; with a food 1,526; declared stand-ins (`ingredient_foods.is_proxy`) 33; usda_foods 12,034 (branded 3,739; the extra food over step 3's 12,033 is chunjang's FDC food, added by `seed-ingredients-w12.sql`); non-default branded links 3,420
    - database about 60 MB on the snapshot (live was 62 MB; expect about 70 MB, budget 150)
    - `scripts/nutrition/sql-checks.sql` (slow: it runs a full refresh with jit on, allow 10+ minutes or run with `SET jit = off`), `check_usda_seeds.sql`, `test_recipe_audit.sql`, `test_10c.sql`, `test_search_ranking.sql`, `test_w12_foods.sql` return no failures; label coherence 957 labels, 0 problems; `supabase/tests/me_rls_test.sql` 124 checks, 0 failures (on a bare snapshot first replay every `grant`/`revoke` from the migrations plus `grant select on diets, allergens to authenticated`)
    - `scripts/nutrition/validate_myplate.sql`: 848 recipes counted from 90%+ of their mass: median kcal error 8.4%, 67.6% within 15% (unchanged by wave 12)

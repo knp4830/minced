@@ -60,7 +60,7 @@ export function CookFromWhatYouHave() {
             Photo: USDA Food Safety and Inspection Service, public domain, via{" "}
             <a
               href="https://commons.wikimedia.org/wiki/File:Food_Safety_-_Cut_Waste_in_Refrigerators_(20200605-FSIS-LSC-0059).jpg"
-              className="text-ink underline underline-offset-4 hover:text-herb"
+              className="-my-3 inline-block py-3 text-ink underline underline-offset-4 hover:text-herb"
               rel="noopener"
             >
               Wikimedia Commons

@@ -9,6 +9,6 @@
  */
 export const HERO = {
   eyebrow: "Quick recipes, built around you",
-  headline: "Know what to cook tonight.",
+  headline: "Know what to cook.",
   sub: "Search for a dish, or choose ingredients and see everything that uses them. Every recipe opens with time, calories and protein, then clear ingredients and numbered steps. Made for busy days, training days and eating a little better.",
 } as const;
