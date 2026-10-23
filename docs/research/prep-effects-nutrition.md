@@ -35,7 +35,7 @@ Three buckets, as the owner asked.
 | Carotenoid / lycopene absorption with fat and heat | **(b) bioavailability** | Several human trials, up to several-fold differences | moderate | **Note only** |
 | Garlic allicin when crushed, rested, then heated | (b) | Real chemistry; human evidence thin | moderate (chemistry), weak (health) | **Note only** |
 | Broccoli sulforaphane: chopping, cooking, mustard | (b) | Cooking time changes yield about 3-fold in people | moderate | **Note only** |
-| Resistant starch from cooled rice and potato | (b) | Real, small (about 1 g per 100 g) | moderate | Note only |
+| Resistant starch from cooled rice (and chilled, not reheated, potato) | (b) | Real, small (rice: about 1 g per 100 g, part 1 study; potato: no number in Raatz 2016) | moderate | Note only |
 | Starch gelatinisation (al dente vs soft pasta, glycaemic response) | (b) | Direction supported, no label number | weak to moderate | Do not claim |
 | Soaking, sprouting, fermenting (phytate, folate, vitamin C) | (b), partly (a) | Sprouting raises some vitamins measurably; absorption effects separate | moderate | Note only |
 | Chopping, shredding and standing: vitamin C oxidation | (a) in principle | Large in one small study; no standard factor | weak | Do not compute; at most a tip |
@@ -165,7 +165,7 @@ Part 1 section 2 holds. Two additions:
 ### 3.7 Safety items that touch our own step text (not nutrition)
 
 - **Acrylamide**: forms above about 120 C in starchy foods with low moisture (EFSA CONTAM Panel 2015, *EFSA Journal* 13(6):4104). The Panel found current exposure not of concern for non-cancer effects; for cancer the animal evidence gives a margin of exposure that "indicates a concern", while human epidemiology has not shown it to be a human carcinogen. Potato fried products are the main contributor, and home cooking choices matter. **[strong, abstract via secondary]**. A short, calm note ("golden, not dark brown") is defensible; a number or health claim is not.
-- **Red kidney beans**: undercooked beans contain the lectin PHA, and four or five beans can make a person ill. Guidance repeated by university extension sources and attributed to the FDA's Bad Bug Book: boil vigorously for 10-30 minutes (30 for margin), and avoid slow cookers for raw dried beans. I did not open the Bad Bug Book. **[moderate, secondary only]**. **Action for the owner's review queue, independent of this feature**: scan our recipes for dried kidney beans in a slow-cooker step.
+- **Red kidney beans**: undercooked beans contain the lectin PHA, and four or five beans can make a person ill. Guidance repeated by university extension sources and attributed to the FDA's Bad Bug Book: boil vigorously for 30 minutes (the FDA figure; some sources say 10), and avoid slow cookers for raw dried beans. I did not open the Bad Bug Book. **[moderate, secondary only]**. **Action for the owner's review queue, independent of this feature**: scan our recipes for dried kidney beans in a slow-cooker step.
 
 ## 4. Myths and weak claims to keep off the site
 
@@ -208,9 +208,9 @@ Short, hedged, linkable to a source, shown on the relevant recipe step or ingred
 - Tomatoes: *"A splash of olive oil makes the tomato's colourful carotenoids easier for the body to take in."*
 - Carrots, leafy greens and other carotenoid foods eaten with a salad: *"Add a little healthy fat, such as olive oil or avocado, and your body absorbs more of the carotenoids."*
 - Boiled vegetables, beans and pasta: *"Using the cooking liquid in the dish keeps more of the vitamins that dissolve into the water."*
-- Rice and potatoes: *"Cooling then reheating gives a little more resistant starch."*
+- Rice: *"Cooling cooked rice, even if you reheat it, gives a little more resistant starch."* (Potatoes only gain it when eaten chilled: Raatz 2016 found chilled > hot or reheated, so the note is not used for potatoes.)
 - Pan-frying and pasta water: *"Some of the oil (or salt) stays in the pan or the water, so the numbers here may run slightly high."*
-- Dried kidney beans: *"Boil kidney beans hard for at least ten minutes (thirty to be safe) before simmering; never in a slow cooker from raw."* (A safety note, shown prominently.)
+- Dried kidney beans: *"Soak, then boil kidney beans hard for 30 minutes before simmering; never cook them from raw in a slow cooker."* (Uses the FDA 30-minute figure, per the fact-check.) (A safety note, shown prominently.)
 - Roasting/frying starchy foods: *"Golden is lovely; very dark brown adds nothing."* (acrylamide, no numbers).
 
 None says "healthier", "cures", "boosts immunity" or anything about disease.
