@@ -17,6 +17,7 @@ import { getRecipeBySlug } from "@/lib/queries/recipeDetail";
 import { FDC, roundForLabel } from "@/lib/nutrients";
 import { getNutrients, getRecipeNutrients } from "@/lib/queries/recipeNutrients";
 import { needsAttribution } from "@/lib/photos";
+import { CONTACT_URL } from "@/components/shell/legalPage";
 import { pageMeta } from "@/lib/seo/meta";
 import { recipeJsonLd } from "@/lib/seo/recipeJsonLd";
 
@@ -293,6 +294,15 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
         ) : (
           <p>Original recipe by Minced.</p>
         )}
+        <p>
+          <a
+            href={`${CONTACT_URL}?title=${encodeURIComponent(`Problem with recipe: ${recipe.slug}`)}`}
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-herb"
+          >
+            Report a problem with this recipe
+          </a>
+        </p>
       </footer>
     </article>
   );

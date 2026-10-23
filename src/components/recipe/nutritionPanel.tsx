@@ -114,6 +114,8 @@ export function NutritionPanel({
       )}
       {unavailableNote && <p className="mt-2 text-[0.75rem] leading-snug text-ink-muted">{unavailableNote}</p>}
 
+      <p className="mt-3 text-[0.75rem] leading-snug text-ink-muted">Estimated from USDA data. Not medical advice.</p>
+
       {(m.top.length > 0 || m.calories) && (
         <details className="group mt-3 border-t border-line pt-2.5">
           <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 rounded-xs text-[0.8125rem] font-semibold text-herb focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden">
