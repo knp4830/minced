@@ -53,3 +53,7 @@ scripts/photos/out/
 # wave 10c scratch
 .w10c/
 scripts/nutrition/national/cache/
+
+# Wave 14 NHS pilot: downloaded pages and intermediate artifacts (reproducible with scripts/nhs/fetch.sh)
+scripts/nhs/cache/
+scripts/nhs/artifacts/
