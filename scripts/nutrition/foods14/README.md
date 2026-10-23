@@ -41,8 +41,11 @@ Files
 * `audit_panel.py <container>` compares the per-100 g panel we store for every linked SR Legacy / Foundation / FNDDS / CoFID / CNF food with the publisher's own file.
   Kinds: `missing_in_db` (a trimmed load), `extra_in_db` (stored where the publisher reports nothing), `mismatch`. Result before and after wave 14: `differences: {}`.
 * `audit_branded.py <container>` does the same for FoodData Central Branded foods through the API (`GET /v1/food/<id>`, cached outside the repo, one request about every
-  1.1 s). On the 292 branded foods that are a default, the only differences are values the load dropped on purpose (label-rounded zeros on tiny servings, an impossible
-  unit in the source, a child larger than its parent): see `out/branded-defaults-diff-before.csv`.
+  1.1 s). On all 3,711 linked branded foods (`out/branded-all-audit.txt`, `out/branded-all-diff.csv`, explained by `branded_diff_summary.py`): nothing was trimmed by accident.
+  26 labels carry no energy because the load rejected them on purpose (values rounded to zero on a tiny serving); 29 non-zero values were dropped on purpose (cholesterol
+  214,286 mg, magnesium 4,600 mg, a sub-nutrient larger than its parent ...); 18 pure fats are capped at 900 kcal (labels say 917 to 929); 23 values (riboflavin, niacin, copper,
+  B6 of enriched flours and breads) are stored although FDC's food record shows no amount, because FDC's search view lists them as "calculated from value per serving size
+  measure". Those 23 are left as they are and listed as an open question.
 * `coverage_w14.sql` prints, per nutrient, how many default foods (and recipe lines) carry it, read the way the app reads it (`food_nutrient_amount`);
   `coverage_table.py` joins before and after into `review/panel-coverage-w14.csv`. A nutrient a source does not report has no row: NULL, never 0. Added sugars read 100 percent
   by design (the schema returns 0 for an ingredient that is not a sweetener), so that line is not a coverage figure.
