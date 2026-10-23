@@ -61,8 +61,12 @@ export default async function Home() {
   const filterCount = countFilterGroups(options);
   const recipes = recipeCount.toLocaleString("en-US");
   const strip = firstPage.recipes.slice(0, 4);
-  // Tiles take full-size curated photos (slots 3+) that the hero is not already showing.
-  const tilePhotos = photos.slice(3).filter((p) => !slides.some((s) => s.slug === p.slug)).slice(0, 3);
+  // Tiles take full-size curated photos (slots 3+) that the hero is not already showing; if the hero has
+  // claimed too many, any curated photo fills the gap rather than leaving a tile bare.
+  const notInHero = (p: { slug: string }) => !slides.some((s) => s.slug === p.slug);
+  const tilePhotos = [...photos.slice(3).filter(notInHero), ...photos.slice(0, 3).filter(notInHero), ...photos.slice(3)]
+    .filter((p, i, all) => all.findIndex((q) => q.slug === p.slug) === i)
+    .slice(0, 3);
 
   return (
     <>

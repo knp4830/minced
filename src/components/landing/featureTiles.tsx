@@ -21,11 +21,14 @@ function tiles(): Tile[] {
   ];
 }
 
-const tileBase = "relative flex h-[150px] flex-col justify-end overflow-hidden p-4 md:h-[380px] md:p-7";
+const tileBase = "relative flex h-[170px] flex-col justify-end overflow-hidden p-4 md:h-[380px] md:p-7";
 
 export function FeatureTiles({ photos }: { photos: LandingPhoto[] }) {
   return (
-    <section aria-label="What else Minced does" className="on-herb bg-night">
+    <section aria-labelledby="tiles-h" className="on-herb bg-night">
+      <h2 id="tiles-h" className="sr-only">
+        What else Minced does
+      </h2>
       <ul className="grid grid-cols-2 gap-1 md:grid-cols-4">
         {tiles().map((t, i) => {
           const photo = photos[i];
@@ -51,7 +54,7 @@ export function FeatureTiles({ photos }: { photos: LandingPhoto[] }) {
                 </span>
               )}
               <h3 className="text-[1.25rem] leading-tight text-on-night md:text-[1.875rem]">{t.title}</h3>
-              <p className="mt-1 hidden text-[0.9375rem] leading-snug text-on-night-muted sm:block">{t.body}</p>
+              <p className="mt-1 line-clamp-2 text-[0.8125rem] leading-snug text-on-night md:text-[0.9375rem]">{t.body}</p>
             </>
           );
           return (
@@ -71,7 +74,7 @@ export function FeatureTiles({ photos }: { photos: LandingPhoto[] }) {
             Later
           </span>
           <h3 className="text-[1.25rem] leading-tight md:text-[1.875rem]">Your recipes</h3>
-          <p className="mt-1 hidden text-[0.9375rem] leading-snug text-ink-muted sm:block">
+          <p className="mt-1 line-clamp-2 text-[0.8125rem] leading-snug text-ink-muted md:text-[0.9375rem]">
             Keep the dishes you actually cook, right next to ours.
           </p>
         </li>
