@@ -59,6 +59,9 @@ def main() -> int:
             if r.get("notes"):
                 import re as _re
                 r["notes"] = _re.sub(r"^field--[^>]*>\s*", "", r["notes"]).strip() or None
+                # scraped page furniture ("Source: USDA ... Show Full Display ... Nutrients Amount") is not a note
+                if r["notes"] and _re.search(r"Show Full Display|Nutrients Amount|^Source: USDA", r["notes"]):
+                    r["notes"] = None
     flat, idx = [], []
     for ri, r in enumerate(recipes):
         for li, ing in enumerate(r.get("ingredients") or []):
@@ -86,13 +89,23 @@ def main() -> int:
             note = pr["prep_note"]
             if optional and not (note and "optional" in note.lower()):
                 note = (note + ", optional") if note else "optional"
-            for nm in names:
+            low = ing["line"].lower()
+            # "A or B" (or "cheese, mozzarella"): the first name carries the FULL amount and the others go into its
+            # prep_note. They stay in the payload as is_alt rows so the resolution gate still checks them, but are
+            # never inserted (the matcher has no either/or: a second row would be a second required ingredient).
+            # Only an "A and B" line with no amount ("salt and pepper") keeps one row per name; nothing is lost there.
+            keep_all = multi and pr["quantity"] is None and " and " in low and " or " not in low
+            if multi and not keep_all:
+                alts = [a for a in names[1:] if a]
+                phrase = ("or " if " or " in low else "") + ", ".join(alts)
+                note = ", ".join(x for x in (note, phrase) if x)
+            for i, nm in enumerate(names):
                 lines.append({
                     "raw": ing["line"], "name": nm,
-                    # a line naming several ingredients cannot be split into amounts honestly
-                    "quantity": None if multi else pr["quantity"],
-                    "unit": None if multi else pr["unit"],
-                    "prep_note": note, "is_optional": optional,
+                    "quantity": pr["quantity"] if (i == 0 or keep_all) else None,
+                    "unit": pr["unit"] if (i == 0 or keep_all) else None,
+                    "prep_note": note if (i == 0 or keep_all) else None, "is_optional": optional,
+                    "is_alt": bool(multi and not keep_all and i > 0),
                 })
         payload.append({
             "slug": r["slug"], "title": r["title"], "servings": r.get("servings"),
@@ -134,7 +147,7 @@ from _payload p, jsonb_array_elements(p.doc) r;
 create temp table _l on commit drop as
 select r->>'slug' as slug, (ord - 1)::int as sort_order, l->>'raw' as raw_line, nullif(l->>'name','') as raw_name,
   (l->>'quantity')::numeric as quantity, nullif(l->>'unit','') as raw_unit, nullif(l->>'prep_note','') as prep_note,
-  coalesce((l->>'is_optional')::boolean, false) as is_optional
+  coalesce((l->>'is_optional')::boolean, false) as is_optional, coalesce((l->>'is_alt')::boolean, false) as is_alt
 from _payload p, jsonb_array_elements(p.doc) r, jsonb_array_elements(r->'lines') with ordinality t(l, ord);
 
 create temp table _res0 on commit drop as
@@ -214,7 +227,8 @@ select rc.id, x.ingredient_id,
        nullif(concat_ws(', ', x.prep_note, (select string_agg(replace(q, '-', ' '), ', ') from unnest(x.removed) q
                 where x.strip_ok and q in ('frozen','dried','canned','low-sodium','reduced-sodium','fat-free','non-fat','nonfat','low-fat','reduced-fat','lean','extra-lean','unsweetened','unsalted','part-skim','skim','whole-grain','whole-wheat','no-salt-added'))), ''),
        x.is_optional, x.sort_order
-from _res x join _new n using (slug) join recipes rc on rc.slug = x.slug;
+from _res x join _new n using (slug) join recipes rc on rc.slug = x.slug
+where not x.is_alt;
 
 insert into recipe_steps (recipe_id, sort_order, instruction)
 select rc.id, (ord - 1)::int, t

@@ -61,6 +61,11 @@ def node(src: str) -> dict:
     return {}
 
 
+# Serving suggestions that contradict a diet tag the database computes from the ingredients. The tag is right
+# (the recipe's ingredients are gluten-free), so the sentence goes, not the badge. Reviewed one by one.
+STEP_CUTS = {"easy-carrot-soup": [" Enjoy with a slice of wholemeal bread."]}
+
+
 def one(path: Path) -> dict | None:
     src = path.read_text(encoding="utf-8", errors="strict")
     n = node(src)
@@ -75,6 +80,8 @@ def one(path: Path) -> dict | None:
             t = clean(li)
             if t:
                 steps.append(t)
+    for cut in STEP_CUTS.get(path.stem, []):
+        steps = [x.replace(cut, "") for x in steps]
     ings = []
     for x in n.get("recipeIngredient", []):
         orig = clean(x)

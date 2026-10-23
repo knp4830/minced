@@ -11,6 +11,11 @@ RULES = [
     (r"\blow-sodium (?:dark red )?(?:red )?kidney beans\b", "kidney beans", "low sodium"),
     (r"\blow-sodium garbanzo beans\b", "chickpeas", "low sodium"),
     (r"\bno salt added diced tomatoes\b", "diced tomatoes", "no salt added"),
+    # "cheese, part-skim mozzarella": one cheese (mozzarella) with a qualifier, not two ingredients
+    (r"\bcheese, part[- ]skim mozzarella\b", "mozzarella", "part skim"),
+    (r"\blow-fat vanilla yogurt\b", "vanilla yogurt", "low fat"),
+    # the source accepts either; keep the words in prep_note rather than dropping them
+    (r"[, ]+(fresh or frozen)$", "", "fresh or frozen"),
     (r"\blow-fat cottage cheese\b", "cottage cheese", "low fat"),
     (r"\blow-fat strawberry yogurt\b", "strawberry yogurt", "low fat"),
     (r"\bpart[- ]skim mozzarella cheese\b", "mozzarella", "part skim"),

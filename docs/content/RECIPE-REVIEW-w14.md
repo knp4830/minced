@@ -25,11 +25,11 @@ Everything below lands as `in_review`; nothing is public until you approve it in
 | [Panjabi keema](https://www.nhs.uk/healthier-families/recipes/panjabi-keema/) | 4 | 429 | 451 | 39 / 22 / 22 | complete | none | Gluten-free |
 | [Perfect pasta and tomato sauce](https://www.nhs.uk/healthier-families/recipes/perfect-pasta-and-tomato-sauce/) | 4 | n/a | 343 | - / - / - | partial | Gluten, Wheat | Vegan |
 | [Roast chicken breast with peppers](https://www.nhs.uk/healthier-families/recipes/roast-chicken-breast-with-peppers/) | 4 | n/a | 384 | - / - / - | partial | Gluten, Wheat | - |
-| [Bang-tasty chicken drumsticks](https://www.nhs.uk/healthier-families/recipes/roast-chicken-drumsticks/) | 4 | 518 | 404 | 51 / 59 / 9 | complete | Dairy, Gluten, Soy, Wheat | - |
+| [Bang-tasty chicken drumsticks](https://www.nhs.uk/healthier-families/recipes/roast-chicken-drumsticks/) | 4 | 520 | 404 | 51 / 59 / 9 | complete | Dairy, Gluten, Soy, Wheat | - |
 | [Roasted veg and couscous](https://www.nhs.uk/healthier-families/recipes/roasted-veg-and-couscous/) | 4 | n/a | 385 | - / - / - | partial | Gluten, Wheat | Vegan |
 | [Salmon and broccoli pasta](https://www.nhs.uk/healthier-families/recipes/salmon-and-broccoli-pasta/) | 4 | n/a | 465 | - / - / - | partial | Dairy, Fish, Gluten, Wheat | Pescatarian |
 | [Salmon with spring onion mash](https://www.nhs.uk/healthier-families/recipes/salmon-with-spring-onion-mash/) | 4 | n/a | 445 | - / - / - | partial | Dairy, Fish | Gluten-free, Pescatarian |
-| [Sweet and sour chicken](https://www.nhs.uk/healthier-families/recipes/sweet-and-sour-chicken/) | 4 | n/a | 295 | - / - / - | partial | Gluten, Soy, Wheat | - |
+| [Sweet and sour chicken](https://www.nhs.uk/healthier-families/recipes/sweet-and-sour-chicken/) | 4 | 323 | 295 | 22 / 47 / 6 | complete | Gluten, Soy, Wheat | - |
 | [Sweet potato pasta](https://www.nhs.uk/healthier-families/recipes/sweet-potato-pea-pasta/) | 4 | 421 | 198 | 17 / 78 / 4 | complete | Dairy, Gluten, Wheat | Vegetarian |
 
 ### Chicken jalfrezi  (`chicken-jalfrezi`)
@@ -41,7 +41,7 @@ Times: prep 15 min, cook 25 min.
 Ingredients as stored:
 
 - 30 ml canola oil
-- 700 g chicken, cut into cubes
+- 700 g chicken, boneless, cut into cubes
 - 3 onion, chopped
 - 2 bell pepper, chopped
 - 4 chili peppers, green, sliced
@@ -50,8 +50,8 @@ Ingredients as stored:
 - 1 can diced tomatoes
 - 1 tsp salt, optional (optional)
 - 1 tsp ground turmeric
-- 1 tsp cumin seeds
-- 1 tsp chili powder
+- 1 tsp cumin seeds, heaped
+- 1 tsp red chili powder
 - 1 tsp garam masala
 - 1.5 tsp ground coriander
 - 250 ml water
@@ -59,10 +59,10 @@ Ingredients as stored:
 
 Wording changed before matching (page text -> catalog name):
 
-- `700g boneless chicken, cut into cubes` -> `700g chicken, cut into cubes`
+- `700g boneless chicken, cut into cubes` -> `700g chicken, cut into cubes` [boneless]
 - `4 green chillies, sliced` -> `4 chili peppers, sliced` [green]
 - `400g tin of chopped tomatoes` -> `1 (400 g) can diced tomatoes`
-- `1 teaspoon red chilli powder` -> `1 teaspoon chili powder`
+- `1 heaped teaspoon cumin seeds` -> `1 teaspoon cumin seeds` [heaped]
 - `1.5 teaspoon coriander powder` -> `1.5 teaspoon ground coriander`
 - `fresh coriander to serve, finely chopped (optional)` -> `fresh cilantro to serve, finely chopped (optional)`
 
@@ -209,7 +209,7 @@ Method:
 1. Put the onion and carrots into a large saucepan with the stock, and bring to a boil.
 2. Reduce the heat and simmer, partially covered, for 20 to 25 minutes, or until the vegetables are tender.
 3. Blend the soup to a purée using a handheld stick blender – or transfer to a food processor or blender and whizz until smooth. Add most of the soft cheese and blend again until it is thoroughly mixed in.
-4. Reheat gently, then serve, garnished with the remaining cheese, a little black pepper and some scattered coriander (if using). Enjoy with a slice of wholemeal bread.
+4. Reheat gently, then serve, garnished with the remaining cheese, a little black pepper and some scattered coriander (if using).
 
 ### Easy overnight oats  (`easy-overnight-oats`)
 
@@ -249,7 +249,7 @@ Source: https://www.nhs.uk/healthier-families/recipes/easy-vegetable-soup/
 Credit: Contains public sector information licensed under the Open Government Licence v3.0.  
 Times: prep 15 min, cook 25 min.
 
-Named gaps: green beans (no amount given); italian seasoning (no USDA food linked); leek (no gram weight for each); snap peas (no amount given); vegetable broth (no low sodium food linked)
+Named gaps: italian seasoning (no USDA food linked); leek (no gram weight for each); vegetable broth (no low sodium food linked)
 
 Ingredients as stored:
 
@@ -258,11 +258,10 @@ Ingredients as stored:
 - 2 carrot, chopped
 - 1 leek, sliced
 - 2 stalk celery, sliced
-- 1 can diced tomatoes
+- 1 can diced tomatoes, or 400 g passata
 - 1 l vegetable broth, low sodium
-- 1 tbsp tomato puree
-- snap peas, sliced
-- green beans, sliced
+- 1 tbsp tomato paste
+- 50 g snap peas, or green beans, sliced
 - 50 g peas
 - 40 g pasta, dried
 - 1.5 tsp italian seasoning
@@ -271,9 +270,10 @@ Ingredients as stored:
 Wording changed before matching (page text -> catalog name):
 
 - `2 celery sticks, sliced` -> `2 stalks celery, sliced`
-- `1 tin chopped tomatoes or 400g passata` -> `1 can diced tomatoes, or 400 g passata`
+- `1 tin chopped tomatoes or 400g passata` -> `1 can diced tomatoes` [or 400 g passata]
 - `1L reduced-salt vegetable stock` -> `1L vegetable broth` [low sodium]
-- `50g sugar snap peas or green beans, sliced` -> `50g sugar snap peas, or green beans, sliced`
+- `1 tablespoon tomato purée` -> `1 tablespoon tomato paste`
+- `50g sugar snap peas or green beans, sliced` -> `50g sugar snap peas, sliced` [or green beans]
 - `40g dried pasta shapes` -> `40g pasta` [dried]
 - `1.5 teaspoon dried mixed herbs` -> `1.5 teaspoon italian seasoning`
 
@@ -428,8 +428,8 @@ Ingredients as stored:
 - 1 tsp olive oil
 - 1 onion, finely chopped
 - 1 clove garlic, crushed or finely chopped
-- 400 g tomato, chopped
-- 2 tbsp tomato puree
+- 1 can diced tomatoes
+- 2 tbsp tomato paste
 - 2 tsp italian seasoning
 - black pepper, ground
 - 350 g spaghetti, dried
@@ -437,6 +437,8 @@ Ingredients as stored:
 
 Wording changed before matching (page text -> catalog name):
 
+- `400g chopped tomatoes` -> `1 (400 g) can diced tomatoes`
+- `2 tablespoons tomato purée` -> `2 tablespoons tomato paste`
 - `2 teaspoons dried mixed herbs` -> `2 teaspoons italian seasoning`
 - `350g dried spaghetti` -> `350g spaghetti` [dried]
 
@@ -453,7 +455,7 @@ Source: https://www.nhs.uk/healthier-families/recipes/roast-chicken-breast-with-
 Credit: Contains public sector information licensed under the Open Government Licence v3.0.  
 Times: prep 15 min, cook 65 min.
 
-Named gaps: chicken broth (no amount given); vegetable broth (no amount given)
+Named gaps: vegetable broth (no low sodium food linked)
 
 Ingredients as stored:
 
@@ -463,13 +465,11 @@ Ingredients as stored:
 - 1 red bell pepper, deseeded and cut into strips
 - 1 yellow bell pepper, deseeded and cut into strips
 - 3 tsp paprika
-- dried oregano
-- italian seasoning
+- 2 tsp dried oregano, or mixed herbs
 - 30 g all-purpose flour
 - black pepper, ground
-- 4 chicken breast, skinless, uncooked
-- vegetable broth, low sodium
-- chicken broth, low sodium
+- 4 chicken breast, skinless, boneless, uncooked
+- 300 ml vegetable broth, or chicken stock, low sodium
 - 500 g broccoli
 
 Wording changed before matching (page text -> catalog name):
@@ -477,9 +477,9 @@ Wording changed before matching (page text -> catalog name):
 - `1 red pepper, deseeded and cut into strips` -> `1 red bell pepper, deseeded and cut into strips`
 - `1 yellow pepper, deseeded and cut into strips` -> `1 yellow bell pepper, deseeded and cut into strips`
 - `3 teaspoons mild paprika` -> `3 teaspoons paprika`
-- `2 teaspoons dried oregano or mixed herbs` -> `2 teaspoons dried oregano, or italian seasoning`
-- `4 skinless, boneless uncooked chicken breasts` -> `4 uncooked chicken breasts` [skinless]
-- `300ml reduced-salt vegetable or chicken stock` -> `300ml vegetable broth, or chicken broth` [low sodium]
+- `2 teaspoons dried oregano or mixed herbs` -> `2 teaspoons dried oregano` [or mixed herbs]
+- `4 skinless, boneless uncooked chicken breasts` -> `4 uncooked chicken breasts` [skinless, boneless]
+- `300ml reduced-salt vegetable or chicken stock` -> `300ml vegetable broth` [or chicken stock, low sodium]
 
 Method:
 
@@ -497,7 +497,7 @@ Times: prep 20 min, cook 30 min.
 
 Ingredients as stored:
 
-- 2 tsp tomato puree
+- 2 tsp tomato paste
 - 2 tsp soy sauce, low sodium
 - 2 tbsp lemon
 - 8 chicken drumsticks, skinless
@@ -509,6 +509,7 @@ Ingredients as stored:
 
 Wording changed before matching (page text -> catalog name):
 
+- `2 teaspoons tomato purée` -> `2 teaspoons tomato paste`
 - `2 teaspoons reduced-salt soy sauce` -> `2 teaspoons soy sauce` [low sodium]
 - `8 skinless chicken drumsticks` -> `8 chicken drumsticks` [skinless]
 - `4 tablespoons 1%-fat milk` -> `4 tablespoons 1% milk`
@@ -573,10 +574,9 @@ Ingredients as stored:
 - 150 g cream cheese, low fat
 - 150 ml skim milk
 - 1 lemon, zest of
-- fresh parsley, chopped
-- chives, chopped
+- 2 tbsp fresh parsley, or chives, chopped
 - black pepper, ground
-- 4 tsp cheddar cheese, reduced fat, finely grated
+- 4 tsp shredded cheese, reduced fat, hard, finely grated
 
 Wording changed before matching (page text -> catalog name):
 
@@ -584,8 +584,8 @@ Wording changed before matching (page text -> catalog name):
 - `250g wholemeal pasta (any shape is fine, but penne works well)` -> `250g whole wheat pasta (any shape is fine, but penne works well)`
 - `100g peas (fresh or frozen)` -> `100g peas`
 - `150g lower-fat soft cheese` -> `150g cream cheese` [low fat]
-- `2 tablespoons fresh parsley or chives, chopped` -> `2 tablespoons fresh parsley, or chives, chopped`
-- `4 teaspoons reduced-fat hard cheese, finely grated` -> `4 teaspoons cheddar cheese, finely grated` [reduced fat]
+- `2 tablespoons fresh parsley or chives, chopped` -> `2 tablespoons fresh parsley, chopped` [or chives]
+- `4 teaspoons reduced-fat hard cheese, finely grated` -> `4 teaspoons cheese, finely grated` [reduced fat, hard]
 
 Method:
 
@@ -634,18 +634,15 @@ Source: https://www.nhs.uk/healthier-families/recipes/sweet-and-sour-chicken/
 Credit: Contains public sector information licensed under the Open Government Licence v3.0.  
 Times: prep 20 min, cook 30 min.
 
-Named gaps: brown rice (no amount given); white rice (no amount given)
-
 Ingredients as stored:
 
-- brown rice
-- white rice
+- 150 g brown rice, or white rice
 - 227 g pineapple
 - 1 tbsp cornstarch
-- 2 tbsp tomato puree
+- 2 tbsp tomato paste
 - 1 tsp soy sauce, low sodium
 - 2 tsp vegetable oil
-- 300 g chicken breast, skinless, cut into chunks
+- 300 g chicken breast, or thigh, skinless, cut into chunks
 - 1 onion, thinly sliced
 - 1 bell pepper, deseeded and cut into chunks
 - 3 stalk celery, sliced
@@ -654,10 +651,11 @@ Ingredients as stored:
 
 Wording changed before matching (page text -> catalog name):
 
-- `150g easy-cook brown or white rice` -> `150g brown rice, or white rice`
+- `150g easy-cook brown or white rice` -> `150g brown rice` [or white rice]
 - `227g pineapple pieces, in natural juice` -> `227g pineapple, in natural juice`
+- `2 tablespoons tomato purée` -> `2 tablespoons tomato paste`
 - `1 teaspoon reduced-salt soy sauce` -> `1 teaspoon soy sauce` [low sodium]
-- `300g skinless chicken breast or thigh, cut into chunks` -> `300g chicken breast, or thigh, cut into chunks` [skinless]
+- `300g skinless chicken breast or thigh, cut into chunks` -> `300g chicken breast, cut into chunks` [or thigh, skinless]
 - `1 pepper (any colour), deseeded and cut into chunks` -> `1 bell pepper, deseeded and cut into chunks`
 - `3 celery sticks, sliced` -> `3 stalks celery, sliced`
 
@@ -682,7 +680,7 @@ Ingredients as stored:
 - 100 g peas
 - 2 tbsp 1% milk
 - 150 g plain yogurt, low fat
-- 40 g cheddar cheese, reduced fat, grated
+- 40 g shredded cheese, reduced fat, hard, grated
 - black pepper, ground
 
 Wording changed before matching (page text -> catalog name):
@@ -691,7 +689,7 @@ Wording changed before matching (page text -> catalog name):
 - `100g peas (fresh or frozen)` -> `100g peas`
 - `2 tablespoons 1%-fat milk` -> `2 tablespoons 1% milk`
 - `150g low-fat natural yoghurt` -> `150g plain yogurt` [low fat]
-- `40g reduced-fat hard cheese, grated` -> `40g cheddar cheese, grated` [reduced fat]
+- `40g reduced-fat hard cheese, grated` -> `40g cheese, grated` [reduced fat, hard]
 
 Method:
 
@@ -718,7 +716,7 @@ Times: prep 15 min, cook None min.
 
 Ingredients as stored:
 
-- 1 cup vanilla yogurt
+- 1 cup vanilla yogurt, low fat
 - 1 banana
 - 2 tsp cocoa powder
 
@@ -768,14 +766,13 @@ Source: https://www.myplate.gov/recipes/pupusas-revueltas
 Credit: Public domain (US federal government work)  
 Times: prep None min, cook None min.
 
-Named gaps: masa harina (no gram weight for cup); mozzarella (no amount given); shredded cheese (no amount given)
+Named gaps: masa harina (no gram weight for cup)
 
 Ingredients as stored:
 
 - 16 oz chicken breast, ground
 - 1 tbsp vegetable oil
-- shredded cheese, part skim, grated
-- mozzarella, part skim, grated
+- 0.5 lb mozzarella, part skim, grated
 - 0.5 onion, small, finely diced
 - 1 clove garlic, minced
 - 1 green bell pepper, medium, seeded and minced
@@ -803,7 +800,7 @@ Times: prep 15 min, cook None min.
 
 Ingredients as stored:
 
-- 1 cup vanilla yogurt
+- 1 cup vanilla yogurt, low fat
 - 1 kiwi
 - 4 strawberries, about 1/2 cup chopped
 
@@ -824,7 +821,7 @@ Times: prep 15 min, cook None min.
 Ingredients as stored:
 
 - 1 cup strawberry yogurt, low fat
-- 6 strawberries
+- 6 strawberries, fresh or frozen
 
 Method:
 

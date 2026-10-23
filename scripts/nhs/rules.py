@@ -11,22 +11,33 @@ from __future__ import annotations
 import re
 
 RULES = [
-    # "A or B" lines: the first alternative carries the amount; the other goes in prep_note (never a split amount)
-    (r"\beasy[- ]cook brown or white rice\b", "brown rice, or white rice", None),
-    (r"\bsugar snap peas or green beans\b", "sugar snap peas, or green beans", None),
-    (r"\bchicken breast or thigh\b", "chicken breast, or thigh", None),
-    (r"\bdried oregano or mixed herbs\b", "dried oregano, or mixed herbs", None),
-    (r"\bfresh parsley or chives\b", "fresh parsley, or chives", None),
-    (r"\b(vegetable) or chicken stock\b", r"\1 stock, or chicken stock", None),
-    (r"\bdiced tomatoes or 400g passata\b", "diced tomatoes, or 400 g passata", None),
-    (r"\bchopped tomatoes or 400g passata\b", "diced tomatoes, or 400 g passata", None),
-    # skin matters for poultry nutrition: keep it as a qualifier (a form where we have one, else a named gap)
-    (r"\bskinless,? (?:boneless )?(?=(?:uncooked )?(?:chicken|turkey|duck))", "", "skinless"),
+    # "A or B" lines: the first alternative carries the full amount; the other goes in prep_note ("or B") and is never
+    # a second required row (the matcher has no either/or, and a split line loses the amount)
+    (r"\beasy[- ]cook brown or white rice\b", "brown rice", "or white rice"),
+    (r"\bsugar snap peas or green beans\b", "sugar snap peas", "or green beans"),
+    (r"\bchicken breast or thigh\b", "chicken breast", "or thigh"),
+    (r"\bdried oregano or mixed herbs\b", "dried oregano", "or mixed herbs"),
+    (r"\bfresh parsley or chives\b", "fresh parsley", "or chives"),
+    (r"\b(vegetable) or chicken stock\b", r"\1 stock", "or chicken stock"),
+    (r"\b(?:diced|chopped) tomatoes or 400 ?g passata\b", "diced tomatoes", "or 400 g passata"),
+    # UK "400g chopped tomatoes" is the tin (same product as the tinned lines below), not fresh tomatoes
+    (r"^(\d+) ?g chopped tomatoes\b", r"1 (\1 g) can diced tomatoes", None),
+    # UK tomato puree is the concentrated paste (US tomato paste), not the thin US puree
+    (r"\btomato pur\S?e\b", "tomato paste", None),
+    # a heaped spoon is more than a level one: keep the word (the parser drops it)
+    (r"\bheaped (teaspoons?|tablespoons?)", r"\1", "heaped"),
+    # skin and bones matter for poultry nutrition: keep them as qualifiers (a form where we have one, else a named gap)
+    (r"\bskinless,? boneless (?=(?:uncooked )?(?:chicken|turkey|duck))", "", "skinless, boneless"),
+    (r"\bboneless,? skinless (?=(?:uncooked )?(?:chicken|turkey|duck))", "", "skinless, boneless"),
+    (r"\bskinless,? (?=(?:uncooked )?(?:chicken|turkey|duck))", "", "skinless"),
+    (r"\bboneless (?=(?:uncooked )?(?:chicken|turkey|duck))", "", "boneless"),
     (r"\bpepper,? any colou?r\b", "bell pepper", None),
     (r"^quarter of an? (small |medium |large )?", r"1/4 \1", None),
     (r"\b(?:lower|low|reduced)-fat spread\b", "margarine", "low fat"),
     (r"\b(?:lower|low|medium|reduced)-fat soft cheese\b(?: with garlic and herbs)?", "cream cheese", "low fat"),
-    (r"\breduced-fat (?:mature )?(?:hard cheese|cheddar(?: cheese)?)\b", "cheddar cheese", "reduced fat"),
+    (r"\breduced-fat (?:mature )?cheddar(?: cheese)?\b", "cheddar cheese", "reduced fat"),
+    # the source names no type of hard cheese: do not make it cheddar
+    (r"\breduced-fat (?:mature )?hard cheese\b", "cheese", "reduced fat, hard"),
     (r"\b(?:low-fat|zero-fat|0%-fat) greek[- ]style (?:plain )?yogh?urt\b", "greek yogurt", "low fat"),
     (r"\b(?:low-fat|0%-fat) greek yogh?urt\b", "greek yogurt", "low fat"),
     (r"\breduced-(?:fat|calorie) mayonnaise\b", "mayonnaise", "reduced fat"),
@@ -52,7 +63,9 @@ RULES = [
     (r"\(fresh or frozen\)", "", None),
     (r"chopped canned tomatoes", "canned diced tomatoes", None),
     (r"\b(\d+) celery sticks\b", r"\1 stalks celery", None),
-    (r"\b(?:red |mild )?(?:chilli|chili) powder\b", "chili powder", None),
+    # "red chilli powder" is the ground red chilli (the catalog alias), not the US chili-powder spice blend
+    (r"\bred (?:chilli|chili) powder\b", "red chilli powder", None),
+    (r"\b(?:mild )?(?:chilli|chili) powder\b", "chilli powder", None),
     (r"\bmild paprika powder\b", "paprika", None),
     (r"\b(red|green|yellow|orange) peppers?\b(?! (?:flakes|powder))", r"\1 bell pepper", None),
     (r"\bpepper \(any colou?r\)", "bell pepper", None),
@@ -89,7 +102,7 @@ RULES = [
     (r"\bground garam masala\b", "garam masala", None),
     (r"\bcoriander powder\b", "ground coriander", None),
     (r"\b(?:fresh )?green chillies\b", "chili peppers", "green"),
-    (r"\bred chilli\b", "chili peppers", "red"),
+    (r"\bred chilli\b(?! powder)", "chili peppers", "red"),
     (r"\bred kidney beans\b", "kidney beans", None),
     (r"\bdried red lentils\b", "red lentils", "dried"),
     (r"\bred split lentils\b", "red lentils", None),
