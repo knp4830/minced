@@ -417,5 +417,109 @@ select t_assert((select not has_table_privilege('anon', 'feature_flags', 'select
 select t_assert(user_recipe_text('a' || chr(8203) || chr(8238) || chr(65279) || 'b', 't', 1, 10) = 'ab', 'zero-width and bidi characters stripped');
 do $$ begin raise notice 'ok: 14 feature switch'; end $$;
 
+-- ===== 15. draft autosave (M5.2): autosave_my_recipe ===================================================
+-- Needs 20261023200000_autosave_my_recipe. Two more people: e (the author) and b (another signed-in user).
+insert into auth.users (id, email) values ('00000000-0000-4000-8000-0000000000e5', 'e@test.invalid') on conflict do nothing;
+insert into profiles (id) values ('00000000-0000-4000-8000-0000000000e5') on conflict do nothing;
+
+-- 15a. closed to anon and while the switch is off
+set local role anon;
+select t_expect($q$select autosave_my_recipe(null, t_data())$q$, '42501');
+reset role;
+update feature_flags set enabled = false where name = 'user_recipes';
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000e5', true);
+set local role authenticated;
+select t_expect($q$select autosave_my_recipe(null, t_data())$q$, '42501');
+reset role;
+update feature_flags set enabled = true where name = 'user_recipes';
+
+-- 15b. the first autosave creates the draft; later ones update the same row
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000e5', true);
+set local role authenticated;
+insert into ids select 'e_auto', (autosave_my_recipe(null, jsonb_build_object('title', 'Auto soup', 'servings', '4')) ->> 'id')::uuid;
+select t_assert((autosave_my_recipe((select v from ids where k = 'e_auto'), jsonb_build_object('title', 'Auto soup two', 'servings', '4')) ->> 'id')::uuid
+                = (select v from ids where k = 'e_auto'), 'second autosave updates the same recipe');
+reset role;
+select t_assert((select status = 'draft' and title = 'Auto soup two' and author_id = '00000000-0000-4000-8000-0000000000e5'
+                   from recipes where id = (select v from ids where k = 'e_auto')), 'autosaved draft shape');
+select t_assert((select count(*) = 1 from recipes where author_id = '00000000-0000-4000-8000-0000000000e5'), 'still one recipe after two autosaves');
+select t_assert((select count(*) = 0 from recipe_ingredients where recipe_id = (select v from ids where k = 'e_auto')), 'an empty draft has no lines');
+
+-- 15c. half-typed lines are left out and counted, never stored unresolved; the rest is kept
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000e5', true);
+set local role authenticated;
+select t_assert((autosave_my_recipe((select v from ids where k = 'e_auto'), t_data() || jsonb_build_object('title', 'Auto soup three',
+  'ingredients', jsonb_build_array(
+    jsonb_build_object('quantity', '2', 'unit', 'Tablespoons', 'name', 'green onion'),          -- valid
+    jsonb_build_object('quantity', 1, 'unit', '', 'name', 'zzqx not a food'),                    -- unknown ingredient
+    jsonb_build_object('quantity', 'not a number', 'unit', '', 'name', 'egg'),                   -- bad amount
+    jsonb_build_object('quantity', 1, 'unit', 'blorps', 'name', 'egg'),                          -- unknown unit
+    jsonb_build_object('quantity', '3', 'unit', '', 'name', ''),                                 -- amount but no name yet
+    jsonb_build_object('quantity', '', 'unit', '', 'name', ''))))                                -- fully blank: nothing
+  ->> 'skipped')::int = 4, 'four half-typed lines reported as skipped');
+reset role;
+select t_assert((select count(*) = 1 from recipe_ingredients where recipe_id = (select v from ids where k = 'e_auto')), 'only the valid line was stored');
+select t_assert((select ingredient_id = (select ingredient_id from resolve_ingredient('scallion') limit 1)
+                   from recipe_ingredients where recipe_id = (select v from ids where k = 'e_auto')), 'valid line resolved to the canonical ingredient');
+select t_assert((select count(*) = 2 from recipe_steps where recipe_id = (select v from ids where k = 'e_auto')), 'steps stored');
+
+-- 15d. autosave never submits, even when the payload says the rights were confirmed
+select t_assert((select status = 'draft' from recipes where id = (select v from ids where k = 'e_auto')), 'still a draft after autosave with rights_confirmed true');
+
+-- 15e. a title and servings are still required (nothing to open a draft on)
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000e5', true);
+set local role authenticated;
+select t_expect($q$select autosave_my_recipe(null, jsonb_build_object('title', 'ab', 'servings', '4'))$q$, '22023', 'title');
+select t_expect($q$select autosave_my_recipe(null, jsonb_build_object('title', '', 'servings', '4'))$q$, '22023', 'title');
+select t_expect($q$select autosave_my_recipe(null, jsonb_build_object('title', 'Fine title', 'servings', ''))$q$, '22023', 'servings');
+reset role;
+select t_assert((select count(*) = 1 from recipes where author_id = '00000000-0000-4000-8000-0000000000e5'), 'refused autosaves created nothing');
+
+-- 15f. another signed-in user can neither write nor see the draft
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000b2', true);
+set local role authenticated;
+select t_expect(format($q$select autosave_my_recipe(%L, t_data())$q$, (select v from ids where k = 'e_auto')), 'P0002');
+select t_assert(my_recipe_for_edit((select v from ids where k = 'e_auto')) is null, 'another author cannot open the draft for edit');
+select t_assert((select count(*) = 0 from my_recipes() where id = (select v from ids where k = 'e_auto')), 'the draft is not in another author''s list');
+select t_assert((select count(*) = 0 from recipes where id = (select v from ids where k = 'e_auto')), 'the draft is invisible to another author by direct select');
+reset role;
+set local role anon;
+select t_assert((select count(*) = 0 from recipes where id = (select v from ids where k = 'e_auto')), 'the draft is invisible to anon');
+reset role;
+select t_assert((select title = 'Auto soup three' from recipes where id = (select v from ids where k = 'e_auto')), 'the refused write changed nothing');
+
+-- 15g. nothing but a draft autosaves: in review, published and imported recipes are refused and left alone
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000e5', true);
+set local role authenticated;
+insert into ids select 'e_rev', (save_my_recipe(null, t_data() || jsonb_build_object('title', 'Waiting for review'), true) ->> 'id')::uuid;
+select t_expect(format($q$select autosave_my_recipe(%L, t_data() || jsonb_build_object('title', 'Changed by autosave'))$q$, (select v from ids where k = 'e_rev')),
+                '22023', 'not_draft');
+reset role;
+select t_assert((select status = 'in_review' and title = 'Waiting for review' from recipes where id = (select v from ids where k = 'e_rev')),
+                'an in-review recipe is untouched by a refused autosave');
+update recipes set status = 'published', published_at = now() where id = (select v from ids where k = 'e_rev');
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000e5', true);
+set local role authenticated;
+select t_expect(format($q$select autosave_my_recipe(%L, t_data() || jsonb_build_object('title', 'Changed by autosave'))$q$, (select v from ids where k = 'e_rev')),
+                '22023', 'not_draft');
+select t_expect(format($q$select autosave_my_recipe(%L, t_data())$q$, (select id from recipes where author_id is null limit 1)), 'P0002');
+reset role;
+select t_assert((select status = 'published' and title = 'Waiting for review' from recipes where id = (select v from ids where k = 'e_rev')),
+                'a published recipe is not demoted or edited by autosave');
+
+-- 15h. caps still hold (autosave goes through save_my_recipe)
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-0000000000e5', true);
+set local role authenticated;
+do $$
+begin
+  for i in 1..48 loop
+    perform autosave_my_recipe(null, jsonb_build_object('title', 'Cap draft ' || i, 'servings', 2));
+  end loop;
+end $$;
+select t_assert((select count(*) = 50 from my_recipes()), '50 recipes held');
+select t_expect($q$select autosave_my_recipe(null, jsonb_build_object('title', 'One too many', 'servings', 2))$q$, '22023');
+reset role;
+do $$ begin raise notice 'ok: 15 draft autosave'; end $$;
+
 do $$ begin raise notice 'ALL PASSED'; end $$;
 rollback;

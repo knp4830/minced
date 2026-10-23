@@ -186,3 +186,108 @@ export type FormOptions = {
   cookware: { id: number; name: string }[];
   units: string[];
 };
+
+// ---------------------------------------------------------------------------
+// Draft autosave (M5.2). Pure helpers shared by the form and the tests.
+// ---------------------------------------------------------------------------
+
+/** How long to wait after the last keystroke, and the longest a steady typist goes without a save. */
+export const AUTOSAVE = { quietMs: 1500, maxWaitMs: 8000, retryMs: [3000, 6000, 12000, 30000] } as const;
+
+/**
+ * What the form edits, as a string that changes only when something a save would store changes. The rights
+ * tick is left out on purpose: a draft save never stores it, so ticking it must not look like an edit.
+ */
+export function valuesSignature(v: RecipeFormValues): string {
+  return JSON.stringify({
+    title: v.title,
+    description: v.description,
+    cuisineId: v.cuisineId,
+    prep: v.prep,
+    cook: v.cook,
+    servings: v.servings,
+    spice: v.spice,
+    cost: v.cost,
+    diets: v.diets,
+    cookware: v.cookware,
+    steps: v.steps,
+    ingredients: v.ingredients.map((r) => ({
+      quantity: r.quantity,
+      unit: r.unit,
+      name: r.name,
+      note: r.note,
+      optional: r.optional,
+      fdcId: typeof r.fdcId === "number" ? r.fdcId : null,
+    })),
+  });
+}
+
+export type AutosaveReadiness = { ready: true } | { ready: false; waitingFor: "title" | "servings" };
+
+/**
+ * Whether there is enough to open a draft. A recipe needs a title and a serving count to exist at all (the
+ * same two things the database insists on); everything else can be half done. Until then nothing is sent.
+ */
+export function autosaveReadiness(v: Pick<RecipeFormValues, "title" | "servings">): AutosaveReadiness {
+  if (v.title.replace(/\s+/g, " ").trim().length < LIMITS.titleMin) return { ready: false, waitingFor: "title" };
+  const s = v.servings.trim();
+  const n = Number(s);
+  if (!/^\d{1,3}$/.test(s) || n < 1 || n > LIMITS.servingsMax) return { ready: false, waitingFor: "servings" };
+  return { ready: true };
+}
+
+export type AutosaveState =
+  | { kind: "idle" }
+  | { kind: "waiting"; waitingFor: "title" | "servings" }
+  | { kind: "saving" }
+  | { kind: "saved"; skipped: number }
+  | { kind: "retrying" }
+  | { kind: "stopped"; message: string };
+
+/** The calm sentence for the status line. Kept here so the wording is tested. */
+export function autosaveText(s: AutosaveState): string {
+  switch (s.kind) {
+    case "idle":
+      return "";
+    case "waiting":
+      return s.waitingFor === "title"
+        ? "Give it a title (at least 3 letters) and we will start saving your draft."
+        : "Add how many servings and we will start saving your draft.";
+    case "saving":
+      return "Saving…";
+    case "saved":
+      return s.skipped > 0
+        ? `Saved. ${s.skipped} ingredient ${s.skipped === 1 ? "line is" : "lines are"} not saved yet: pick a suggestion and check the amount.`
+        : "Saved";
+    case "retrying":
+      return "Couldn't save just now. We will keep trying, and nothing you typed is lost.";
+    case "stopped":
+      return s.message;
+  }
+}
+
+/** A device-local copy of the form, so a closed tab or a failed save never costs typing. */
+export type LocalBackup = { at: number; values: RecipeFormValues };
+
+export function backupKey(recipeId: string | null): string {
+  return `minced:recipe-backup:${recipeId ?? "new"}`;
+}
+
+/** Reads a stored backup defensively: anything that is not the right shape is treated as no backup. */
+export function parseBackup(raw: string | null): LocalBackup | null {
+  if (!raw) return null;
+  try {
+    const o = JSON.parse(raw) as Partial<LocalBackup> | null;
+    const v = o?.values as Partial<RecipeFormValues> | undefined;
+    if (!o || typeof o.at !== "number" || !v) return null;
+    if (typeof v.title !== "string" || typeof v.description !== "string" || typeof v.servings !== "string") return null;
+    if (!Array.isArray(v.ingredients) || !Array.isArray(v.steps) || !Array.isArray(v.diets) || !Array.isArray(v.cookware)) return null;
+    if (!v.ingredients.every((r) => r && typeof r.name === "string" && typeof r.quantity === "string" && typeof r.unit === "string")) return null;
+    if (!v.steps.every((s) => typeof s === "string")) return null;
+    const merged = { ...emptyValues(), ...(v as RecipeFormValues), rights: false };
+    merged.ingredients = (v.ingredients as IngredientRow[]).map((r) => ({ ...EMPTY_INGREDIENT, ...r }));
+    return { at: o.at, values: merged };
+  } catch {
+    return null;
+  }
+}

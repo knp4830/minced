@@ -7,6 +7,8 @@ import { stripControlChars } from "@/lib/filters";
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
 import { searchFoods } from "@/lib/queries/foods";
 import {
+  autosaveMyRecipe,
+  type AutosaveFailure,
   deleteMyRecipe,
   previewNutrition,
   resolveIngredientName,
@@ -17,7 +19,7 @@ import {
   withdrawMyRecipe,
   type SaveResult,
 } from "@/lib/queries/myRecipes";
-import { LIMITS, parseQuantity, type RecipeFormValues } from "@/lib/recipeForm";
+import { autosaveReadiness, LIMITS, parseQuantity, type RecipeFormValues } from "@/lib/recipeForm";
 import { UUID_RE } from "@/lib/validate";
 
 /*
@@ -183,6 +185,60 @@ export async function saveRecipe(id: string | null, values: RecipeFormValues, su
     status: res.status,
     ...(foodsSaved ? {} : { warning: "Saved, but the brand choices could not be stored. Open the recipe and pick them again." }),
   };
+}
+
+export type AutosaveResult =
+  | { ok: true; id: string; slug: string; skipped: number }
+  | { ok: false; reason: AutosaveFailure | "waiting" | "off"; message: string };
+
+const AUTOSAVE_MESSAGES: Record<AutosaveFailure, string> = {
+  signed_out: "You have been signed out. Your recipe is kept on this device; sign in again and it will keep saving.",
+  gone: "This recipe could not be found any more (it may have been deleted in another tab).",
+  not_draft: "This recipe is no longer a draft (maybe it was submitted in another tab), so it is not saved automatically.",
+  invalid: "Some of the recipe could not be saved yet.",
+  transient: "Something went wrong saving.",
+};
+
+/**
+ * Draft autosave. Never submits and never touches anything that is not a draft: that is enforced by
+ * autosave_my_recipe in SQL, not here. Lines that are not valid yet are left out by the database and counted
+ * in `skipped`; the form keeps them on the page (and in a device-local backup) so nothing typed is lost.
+ */
+export async function autosaveRecipe(id: string | null, values: RecipeFormValues): Promise<AutosaveResult> {
+  if (!USER_RECIPES_ENABLED) return { ok: false, reason: "off", message: OFF };
+  if (id !== null && (typeof id !== "string" || !UUID_RE.test(id))) return { ok: false, reason: "gone", message: AUTOSAVE_MESSAGES.gone };
+  if (!shapeOk(values)) return { ok: false, reason: "invalid", message: "That was not understood. Reload the page and try again." };
+  const ready = autosaveReadiness(values);
+  if (!ready.ready) return { ok: false, reason: "waiting", message: ready.waitingFor };
+
+  const ingredients = values.ingredients.map((row) => {
+    const q = parseQuantity(row.quantity);
+    return {
+      // A non-number is sent as text the database refuses, so that one line is left out rather than guessed at.
+      quantity: q.ok ? q.value : "not a number",
+      unit: row.unit,
+      name: row.name,
+      prep_note: row.note,
+      is_optional: row.optional,
+      fdc_id: typeof row.fdcId === "number" ? row.fdcId : null,
+    };
+  });
+  const res = await autosaveMyRecipe(id, {
+    title: values.title,
+    description: values.description,
+    cuisine_id: num(values.cuisineId),
+    prep_time_min: num(values.prep),
+    cook_time_min: num(values.cook),
+    servings: num(values.servings),
+    spice_level: values.spice,
+    cost_per_serving: num(values.cost),
+    diets: values.diets,
+    cookware: values.cookware,
+    ingredients,
+    steps: values.steps,
+  });
+  if (res.ok) return res;
+  return { ok: false, reason: res.reason, message: res.reason === "invalid" && res.message ? res.message : AUTOSAVE_MESSAGES[res.reason] };
 }
 
 export async function deleteRecipe(id: string): Promise<ActionResult> {
