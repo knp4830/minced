@@ -281,7 +281,7 @@ export function RecipeForm({
   useEffect(() => {
     latest.current = { values: current(), sig };
     // runs after every render so timers and queued saves always read the newest form
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   });
 
   function clearTimers() {
@@ -398,7 +398,7 @@ export function RecipeForm({
   }
   useEffect(() => {
     autosaveRef.current = () => void autosaveNow();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   });
 
   // Each change: save soon, and keep the device copy fresh.
@@ -434,7 +434,7 @@ export function RecipeForm({
       if (backupTimerRef.current) clearTimeout(backupTimerRef.current);
       flush();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
 
   // A copy left on this device that the database does not have (a closed tab, a failed save): offer it back.
