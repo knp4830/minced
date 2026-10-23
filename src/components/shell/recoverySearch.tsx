@@ -24,7 +24,7 @@ export function RecoverySearch({ id, placeholder = "Search recipes" }: { id: str
         enterKeyHint="search"
         autoComplete="off"
         placeholder={placeholder}
-        className="w-full min-w-0 bg-transparent py-2 text-base outline-none placeholder:text-ink-subtle sm:text-sm"
+        className="w-full min-w-0 bg-transparent py-3 text-base outline-none placeholder:text-ink-subtle sm:text-sm"
       />
     </form>
   );

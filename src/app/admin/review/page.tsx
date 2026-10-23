@@ -14,6 +14,11 @@ import {
 } from "@/lib/queries/adminReview";
 import { photoPublicUrl } from "@/lib/photos";
 
+export const metadata = {
+  title: "Recipe review",
+  description: "Review one recipe at a time before it is published.",
+};
+
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
 export default async function ReviewPage({ searchParams }: Props) {

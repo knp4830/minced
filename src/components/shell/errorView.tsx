@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { startTransition, useEffect, useRef } from "react";
 
 import { RecoverySearch } from "@/components/shell/recoverySearch";
 import { Wordmark } from "@/components/shell/wordmark";
@@ -29,6 +30,15 @@ export function ErrorView({
   brand?: boolean;
 }) {
   const heading = useRef<HTMLHeadingElement>(null);
+  const router = useRouter();
+
+  // reset() alone re-renders with the cached failed payload; the refresh refetches it first.
+  function retry() {
+    startTransition(() => {
+      router.refresh();
+      reset();
+    });
+  }
 
   useEffect(() => {
     console.error(error);
@@ -57,7 +67,7 @@ export function ErrorView({
       </p>
 
       <div className="mt-6 flex flex-wrap justify-center gap-3">
-        <Button variant="primary" size="md" onClick={() => reset()}>
+        <Button variant="primary" size="md" onClick={retry}>
           Try again
         </Button>
         <Link href="/recipes" className={buttonVariants({ variant: "secondary", size: "md" })}>
