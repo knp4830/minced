@@ -29,6 +29,7 @@ import {
   type Units,
 } from "@/lib/me/targets";
 import type { MeTargets } from "@/lib/me/types";
+import { ageFromBirthYear, validateBirthYear } from "@/lib/settingsValidate";
 import { cn } from "@/lib/utils";
 
 /*
@@ -52,8 +53,11 @@ export function TargetsWizard({
   onClose,
 }: {
   initial: MeTargets | null;
-  /** Settings owns units and sex. Units are shown, not asked; sex is asked here only while Settings has none. */
-  settings: { units: Units; sex: Sex | null };
+  /**
+   * Settings owns units, sex and birth year. Units are shown, not asked; sex and birth year are asked here only while
+   * Settings has none, and saved to Settings so they are never asked again (here or anywhere).
+   */
+  settings: { units: Units; sex: Sex | null; birthYear: number | null };
   today: string;
   avgWeightKg: number | null;
   onClose: () => void;
@@ -63,15 +67,21 @@ export function TargetsWizard({
   const units: Units = settings.units;
   const sexFromSettings = settings.sex !== null;
   const [sex, setSex] = useState<Sex | null>(settings.sex ?? initial?.sex ?? null);
-  const [age, setAge] = useState(initial ? String(initial.age) : "");
+  // Birth year: from Settings when it has one. Otherwise asked here; a person with old targets sees a year worked
+  // out from the age saved with them, marked as a guess, because the birthday is not known.
+  const yearFromSettings = settings.birthYear !== null;
+  const guessedYear = !yearFromSettings && initial ? String(new Date().getFullYear() - initial.age) : "";
+  const [birthYear, setBirthYear] = useState(guessedYear);
+  const askedYear = yearFromSettings ? { ok: true as const, value: settings.birthYear } : validateBirthYear(birthYear.trim() === "" ? null : birthYear);
+  const age = askedYear.ok && askedYear.value !== null ? String(ageFromBirthYear(askedYear.value)) : "";
 
   const initFt = initial ? cmToFtIn(initial.heightCm) : null;
   const [heightCm, setHeightCm] = useState(initial && initial.units === "metric" ? String(initial.heightCm) : "");
   const [ft, setFt] = useState(initFt && initial?.units === "imperial" ? String(initFt.ft) : "");
   const [inch, setInch] = useState(initFt && initial?.units === "imperial" ? String(initFt.inch) : "");
   // When there is a 7-day average from daily weigh-ins, start from it: it is where the person is now.
-  const fromAverage = initial !== null && avgWeightKg !== null;
-  const [weight, setWeight] = useState(initial ? showWeight(avgWeightKg ?? initial.weightKg, initial.units) : "");
+  const fromAverage = avgWeightKg !== null;
+  const [weight, setWeight] = useState(avgWeightKg !== null ? showWeight(avgWeightKg, units) : initial ? showWeight(initial.weightKg, units) : "");
   const [goalWeight, setGoalWeight] = useState(initial?.goalWeightKg ? showWeight(initial.goalWeightKg, initial.units) : "");
 
   const [activity, setActivity] = useState<number>(initial?.activity ?? 2);
@@ -147,6 +157,8 @@ export function TargetsWizard({
         carbsG: Number(edit.carbsG),
         fatG: Number(edit.fatG),
         goalWeightKg: goal === "maintain" ? body.weightKg : goalKg === null || Number.isNaN(goalKg) ? null : goalKg,
+        // Only sent when Settings had none: the server saves it to Settings, once.
+        ...(!yearFromSettings && askedYear.ok && askedYear.value !== null ? { birthYear: askedYear.value } : {}),
       });
       if (r.ok) onClose();
       else setMessage(r.error);
@@ -171,15 +183,18 @@ export function TargetsWizard({
 
       {step === 1 && (
         <div>
-          <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-muted">Four quick questions. These feed the calorie formula and you can change them any time.</p>
-          {sexFromSettings ? (
+          <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-muted">
+            A few questions for the calorie formula. Anything you have already told us in Settings is used as it is, so you are only ever asked once.
+          </p>
+          {sexFromSettings && yearFromSettings && (
             <p className="mt-5 rounded-md bg-band px-3 py-2 text-[0.875rem] text-ink-muted" data-testid="wizard-using">
-              Using: <span className="text-ink">{sex}</span>, <span className="text-ink">{units}</span>.{" "}
+              From your Settings: <span className="text-ink">{sex}</span>, <span className="text-ink">{age} years old</span> (born {settings.birthYear}), <span className="text-ink">{units}</span> units.{" "}
               <Link href="/settings#body" className="underline underline-offset-4 hover:text-herb">
                 Change in Settings
               </Link>
             </p>
-          ) : (
+          )}
+          {!sexFromSettings && (
             <>
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <span className="text-[0.8125rem] font-semibold">
@@ -189,19 +204,38 @@ export function TargetsWizard({
               <div className="mt-2">
                 <Seg label="Sex for the formula" value={sex ?? ""} options={[["female", "Female"], ["male", "Male"]]} onChange={(v) => setSex(v as Sex)} />
               </div>
-              <p className="mt-2 text-[0.8125rem] text-ink-muted">
-                Using <span className="text-ink">{units}</span> units.{" "}
-                <Link href="/settings#units" className="underline underline-offset-4 hover:text-herb">
-                  Change in Settings
-                </Link>
-              </p>
             </>
           )}
-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            <div>
-              <Label htmlFor={`${id}-age`}>Age</Label>
-              <Input id={`${id}-age`} mono inputMode="numeric" value={age} onChange={(e) => setAge(e.target.value.replace(/\D/g, "").slice(0, 3))} placeholder="years" />
+          {sexFromSettings && !yearFromSettings && (
+            <p className="mt-5 rounded-md bg-band px-3 py-2 text-[0.875rem] text-ink-muted" data-testid="wizard-using">
+              From your Settings: <span className="text-ink">{sex}</span>.{" "}
+              <Link href="/settings#body" className="underline underline-offset-4 hover:text-herb">
+                Change in Settings
+              </Link>
+            </p>
+          )}
+          {!yearFromSettings && (
+            <div className="mt-4 max-w-56">
+              <Label htmlFor={`${id}-by`}>Year you were born</Label>
+              <Input id={`${id}-by`} mono inputMode="numeric" value={birthYear} onChange={(e) => setBirthYear(e.target.value.replace(/\D/g, "").slice(0, 4))} placeholder="1990" aria-invalid={!askedYear.ok} aria-describedby={`${id}-by-note`} />
+              <p id={`${id}-by-note`} className={cn("mt-1.5 text-[0.8125rem]", askedYear.ok ? "text-ink-muted" : "text-paprika-deep")}>
+                {!askedYear.ok
+                  ? askedYear.reason
+                  : guessedYear !== "" && birthYear === guessedYear
+                    ? `Worked out from the age saved with your targets (${initial?.age}), so it may be a year out. Correct it if needed.`
+                    : "Saved to Settings, so nothing else asks again."}
+              </p>
             </div>
+          )}
+          {!sexFromSettings && (
+            <p className="mt-3 text-[0.8125rem] text-ink-muted">
+              Using <span className="text-ink">{units}</span> units.{" "}
+              <Link href="/settings#units" className="underline underline-offset-4 hover:text-herb">
+                Change in Settings
+              </Link>
+            </p>
+          )}
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {units === "metric" ? (
               <div>
                 <Label htmlFor={`${id}-h`}>Height (cm)</Label>
@@ -222,6 +256,7 @@ export function TargetsWizard({
             </div>
           </div>
           {fromAverage && <p className="mt-3 text-[0.8125rem] text-ink-muted">Weight starts from your 7-day average, so the new targets fit where you are now. Change it if that is not right.</p>}
+          <p className="mt-3 text-[0.8125rem] text-ink-muted">Height, weight, activity and goal are kept with your targets. To change them later, press Edit beside your goal on Me.</p>
         </div>
       )}
 

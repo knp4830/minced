@@ -10,7 +10,7 @@ import { useMeUi } from "@/components/me/meUi";
 import { logSleep, logWeight, logWorkout } from "@/lib/actions/me";
 import { lbToKg } from "@/lib/me/targets";
 import { longDate } from "@/lib/me/dates";
-import { DEFAULT_MINUTES, DEFAULT_SETS, MUSCLES, SESSIONS, type Session } from "@/lib/me/muscles";
+import { DEFAULT_MINUTES, DEFAULT_SETS, LOG_SESSIONS, MUSCLES, type Session } from "@/lib/me/muscles";
 import { cn } from "@/lib/utils";
 
 /*
@@ -95,7 +95,7 @@ export function LogSheet({
             <p className="mt-1 text-xs leading-snug text-ink-muted">Pick a session type &mdash; it fills this week&rsquo;s muscle map.</p>
           </div>
           <div role="radiogroup" aria-label="Session type" className="flex flex-wrap gap-1.5">
-            {SESSIONS.map((s) => (
+            {LOG_SESSIONS.map((s) => (
               <button
                 key={s.v}
                 type="button"

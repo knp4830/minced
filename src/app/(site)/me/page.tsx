@@ -6,6 +6,8 @@ import "@/components/me/me.css";
 
 import { CalendarCard, type CalDay } from "@/components/me/calendarCard";
 import { CheckInCard } from "@/components/me/checkInCard";
+import { DayCard } from "@/components/me/dayCard";
+import { DayNav } from "@/components/me/dayNav";
 import { LogButton, LogFab } from "@/components/me/meButtons";
 import { MeUiProvider } from "@/components/me/meUi";
 import { MealsPanel } from "@/components/me/mealsPanel";
@@ -24,8 +26,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/queries/account";
 import {
   getDismissedCheckIns,
+  getDayDetail,
   getDris,
-  getFoodForDate,
   getLoggedDays,
   getMonthSummary,
   getSleepForDate,
@@ -36,11 +38,11 @@ import {
 } from "@/lib/queries/me";
 import { getMySettings } from "@/lib/queries/settings";
 import { pickCheckIn } from "@/lib/me/checkin";
-import { TZ_COOKIE, addDays, longDate, monthGrid, monthLabel, monthParam, parseMonthParam, shiftMonth, todayInZone, weekLabel } from "@/lib/me/dates";
+import { TZ_COOKIE, addDays, longDate, monthGrid, monthLabel, monthParam, parseDayParam, parseMonthParam, shiftMonth, todayInZone, weekLabel } from "@/lib/me/dates";
 import { dayFoodStatus } from "@/lib/me/foodStatus";
 import { ME_ENABLED } from "@/lib/me/flag";
+import { monthTally } from "@/lib/me/monthTally";
 import { computeStreaks } from "@/lib/me/streaks";
-import { sumFood } from "@/lib/me/types";
 import { averageOn } from "@/lib/me/weight";
 import { ageFromBirthYear } from "@/lib/settingsValidate";
 
@@ -77,8 +79,11 @@ export default async function MePage({ searchParams }: Props) {
 
   const sp = await searchParams;
   const rawMonth = Array.isArray(sp.m) ? sp.m[0] : sp.m;
-  const todayYm = { year: Number(today.slice(0, 4)), month: Number(today.slice(5, 7)) };
-  const ym = parseMonthParam(rawMonth) ?? todayYm;
+  const rawDay = Array.isArray(sp.d) ? sp.d[0] : sp.d;
+  // The day the page shows (?d=): today unless a real, past date was picked in the calendar or the day arrows.
+  const selected = parseDayParam(rawDay, today) ?? today;
+  const selectedYm = { year: Number(selected.slice(0, 4)), month: Number(selected.slice(5, 7)) };
+  const ym = parseMonthParam(rawMonth) ?? selectedYm;
   const range = monthRange(ym.year, ym.month);
 
   const rawRange = Array.isArray(sp.wr) ? sp.wr[0] : sp.wr;
@@ -88,9 +93,9 @@ export default async function MePage({ searchParams }: Props) {
   const settings = await getMySettings();
   const { weekStart } = settings;
 
-  const [targets, food, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList, dris] = await Promise.all([
+  const [targets, detail, sleepToday, week, summaries, weights, loggedDays, dismissed, nutrientList, dris] = await Promise.all([
     getTargets(zone),
-    getFoodForDate(today),
+    getDayDetail(selected),
     getSleepForDate(today),
     getWeekMuscles(today, weekStart),
     getMonthSummary(range.from, range.to),
@@ -107,7 +112,8 @@ export default async function MePage({ searchParams }: Props) {
   const avgWeightKg = averageOn(weights, today);
   const baselineWeightKg = avgWeightKg ?? [...weights].sort((x, y) => y.date.localeCompare(x.date))[0]?.kg ?? null;
   const sex = settings.sex ?? targets?.sex ?? null;
-  const age = targets?.age ?? (settings.birthYear !== null ? ageFromBirthYear(settings.birthYear) : null);
+  // Settings holds the birth year, so it wins; the age saved with the targets is only the fallback.
+  const age = settings.birthYear !== null ? ageFromBirthYear(settings.birthYear) : (targets?.age ?? null);
   const person: Person = {
     sex,
     age,
@@ -118,41 +124,51 @@ export default async function MePage({ searchParams }: Props) {
         : null,
   };
 
-  const totals = sumFood(food);
+  const food = detail.food;
+  const totals = detail.totals;
+  const isToday = selected === today;
   const days: Record<string, CalDay> = {};
   for (const s of summaries) {
     const f = dayFoodStatus({ calories: s.calories, proteinG: s.proteinG, entries: s.foodEntries }, targets);
     days[s.date] = { trained: s.trained, food: f.status, foodNote: f.note, sleep: s.sleepHours, weight: s.weightKg };
   }
+  const tally = monthTally(days, ym, today, targets !== null);
   const weekMap = Object.fromEntries(week.muscles.map((m) => [m.muscle, { sets: m.sets, days: m.days }]));
 
   const weightToday = weights.some((w) => w.date === today);
   const checkin = pickCheckIn({ targets, avgKg: avgWeightKg, today, dismissed });
   const streaks = computeStreaks(loggedDays, today);
 
-  // Month and weight-range links keep each other's choice in the URL.
-  const link = (m: { year: number; month: number } | null, wr: WeightRange) => {
+  // Month, day and weight-range links keep each other's choice in the URL. A month is written only when it is not
+  // the month of the day being shown, and a day only when it is not today, so the plain /me stays plain.
+  const link = (o: { month?: { year: number; month: number }; day?: string; wr?: WeightRange }) => {
     const q = new URLSearchParams();
-    const month = m ?? ym;
-    if (!(month.year === todayYm.year && month.month === todayYm.month)) q.set("m", monthParam(month.year, month.month));
+    const day = o.day ?? selected;
+    const dayYm = { year: Number(day.slice(0, 4)), month: Number(day.slice(5, 7)) };
+    // Stepping to another day follows that day's month; the month arrows and weight links keep the one shown.
+    const month = o.month ?? (o.day ? dayYm : ym);
+    if (day !== today) q.set("d", day);
+    if (!(month.year === dayYm.year && month.month === dayYm.month)) q.set("m", monthParam(month.year, month.month));
+    const wr = o.wr ?? wRange;
     if (wr !== "30") q.set("wr", wr);
     const s = q.toString();
     return s ? `/me?${s}` : "/me";
   };
   const prev = shiftMonth(ym.year, ym.month, -1);
   const next = shiftMonth(ym.year, ym.month, 1);
-  const href = (m: { year: number; month: number }) => link(m, wRange);
-  const wrHrefs: Record<WeightRange, string> = { "30": link(null, "30"), "90": link(null, "90"), weekly: link(null, "weekly") };
+  const wrHrefs: Record<WeightRange, string> = { "30": link({ wr: "30" }), "90": link({ wr: "90" }), weekly: link({ wr: "weekly" }) };
+  const dayHrefs: Record<string, string> = {};
+  for (const c of monthGrid(ym.year, ym.month, weekStart)) if (c.iso) dayHrefs[c.iso] = link({ day: c.iso, month: ym });
 
   return (
     <div className="me-scope page-w py-6 md:py-8">
       <TimezoneSync serverToday={today} />
-      <MeUiProvider today={today} targets={targets} avgWeightKg={avgWeightKg} settings={{ units: settings.units, sex: settings.sex }}>
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+      <MeUiProvider today={today} viewDate={selected} targets={targets} avgWeightKg={avgWeightKg} settings={{ units: settings.units, sex: settings.sex, birthYear: settings.birthYear }}>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <h1 id="me-title" tabIndex={-1} className="text-[1.75rem] leading-none font-medium outline-none md:text-[2rem]">
             Me
           </h1>
-          <p className="font-mono text-[0.8125rem] text-ink-muted">{longDate(today)}</p>
+          <DayNav selected={selected} today={today} prevHref={link({ day: addDays(selected, -1) })} nextHref={link({ day: addDays(selected, 1) })} todayHref={link({ day: today })} />
           <div className="hidden flex-1 md:block" />
           <LogButton className="hidden self-center md:inline-flex" />
         </div>
@@ -187,25 +203,30 @@ export default async function MePage({ searchParams }: Props) {
             <div className="max-lg:order-6">
               <CalendarCard
                 monthLabel={monthLabel(ym.year, ym.month)}
-                prevHref={href(prev)}
-                nextHref={href(next)}
+                prevHref={link({ month: prev })}
+                nextHref={link({ month: next })}
                 cells={monthGrid(ym.year, ym.month, weekStart)}
                 days={days}
                 today={today}
-                targets={targets}
+                selected={selected}
+                dayHrefs={dayHrefs}
+                tally={tally.line}
                 weekStart={weekStart}
               />
+            </div>
+            <div className="max-lg:order-7">
+              <DayCard key={selected} detail={detail} targets={targets} today={today} />
             </div>
           </div>
           <div className="contents lg:col-span-7 lg:flex lg:flex-col lg:gap-6">
             <div className="max-lg:order-1">
-              <TodayFood dateLabel={longDate(today).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} />
+              <TodayFood dateLabel={longDate(selected).split(" ").slice(0, 3).join(" ")} totals={totals} targets={targets} isToday={isToday} />
             </div>
-            <div className="max-lg:order-7">
-              <NutrientsPanel entries={food} nutrients={nutrientList} dris={dris} person={person} />
+            <div className="max-lg:order-8">
+              <NutrientsPanel entries={food} nutrients={nutrientList} dris={dris} person={person} isToday={isToday} />
             </div>
             <div className="max-lg:order-2">
-              <MealsPanel food={food} totals={totals} />
+              <MealsPanel food={food} totals={totals} isToday={isToday} />
             </div>
             <div className="max-lg:order-3">
               <WeightCard weights={weights} today={today} range={wRange} hrefs={wrHrefs} targets={targets} units={settings.units} weekStart={weekStart} />
