@@ -51,7 +51,8 @@ Every `process.env` read in `src/` and `next.config.ts`, against the Vercel vari
 Findings:
 - **Nothing the code needs is missing in production.** The two required variables (Supabase URL and publishable key) and the site URL are set. The three flags are unset by design, and an unset flag means off.
 - **No extra variables.** Vercel holds exactly the four app variables above.
-- Not in Vercel, correctly: `DATABASE_URL` and `SUPABASE_SECRET_KEY` are used only by local scripts (`pnpm db:seed`, imports) and must never be added to the app's environment. The code in `src/` does not read them.
+- Not in Vercel, correctly: `DATABASE_URL` is used only by local scripts (`pnpm db:seed`, imports) and must never be added to the app's environment.
+- **`SUPABASE_SECRET_KEY` is a deliberate gap (decision for the owner).** The app reads it in one place, `src/lib/rateLimit.ts`, for the per-email rate limits (log-in 10 per 5 minutes, password reset 3 per 10 minutes). It is NOT set on Vercel, so in production those two limits are silently off; the per-address limits (sign-up 10, log-in 30, reset 10, type-ahead 120) are active and Supabase Auth has its own limits underneath. Adding it as a server-only (not `NEXT_PUBLIC_`) Production variable turns the email limits on. It is a powerful key: set it only if you accept that, and never expose it to the browser.
 - `NEXT_PUBLIC_` values are inlined at build time: changing one needs a redeploy.
 - When the owner is ready: set `NEXT_PUBLIC_ENABLE_ME=true` for Production and redeploy (after the Me checks); same for Google sign-in once `GOOGLE-SIGNIN.md` is done.
 
