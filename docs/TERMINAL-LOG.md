@@ -470,6 +470,9 @@ history | grep mkdir     # find a command you ran before but can't remember
 | 2026-10-22 | `python - <<'EOF' ... EOF` with apostrophes in the text | Write docs from a heredoc | FAILED: "unexpected EOF"; the shell refuses or skips it. Use the Write tool for text and a script file for edits |
 | 2026-10-22 | `npx tsx scripts/test-filters-defaults.mts`, `test-me.mts`, `test-recipe-form.mts`, `test-allergens.mts` | Wave 12 unit tests | All pass on w12/integration |
 | 2026-10-22 | `gh pr create --base main --head w12/integration --body-file <file>` | Open the wave 12 PR | Body starts with a MERGE ORDER WARNING |
+| 2026-10-22 | `python -I -c "import hires; hires.WIDTH=2560; hires.HI=<scratch dir>; hires.fetch([...slugs])"` (from `scripts/photos`) | Fetch 2560 px Wikimedia renditions of the 5 hero photos into a scratch folder | Some came back as the original (smaller than the request); sopa-de-tortilla's original is 2448 px |
+| 2026-10-22 | Python + Pillow: `ImageOps.exif_transpose`, resize with LANCZOS, `save(..., "WEBP", quality=78, method=6)` | Make `public/landing/hero/<slug>-{1280,2560}.webp` | 75-351 KB each |
+| 2026-10-22 | `git push -u origin w13/redesign` then `gh pr create --base main --head w13/redesign --body-file <file>` | Open the wave 13 PR | No `Closes` lines: no milestone covers wave 13 |
 | | | | |
 
 *Append a row every time you run something new. Keep the failures — those are the rows you'll actually come back and read.*

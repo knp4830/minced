@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  * footer is the place they look for "where is the fridge thing" and "who made this",
  * so it carries the five places people ask for plus the legal and source pages, and
  * stays two columns small. Attribution stays a single mono line. `flush` drops the top
- * margin where a coloured band sits above.
+ * margin where a coloured band sits above. `tone="night"` continues the landing's dark coming-soon band.
  */
 const GROUPS = [
   {
@@ -33,28 +33,47 @@ const GROUPS = [
   },
 ] as const;
 
-const linkClass =
-  "inline-flex min-h-11 items-center text-[0.8125rem] text-ink-muted underline underline-offset-4 hover:text-herb";
+const linkClass = "inline-flex min-h-11 items-center text-[0.8125rem] underline underline-offset-4";
 
-export function SiteFooter({ flush = false }: { flush?: boolean }) {
+export function SiteFooter({ flush = false, tone = "default" }: { flush?: boolean; tone?: "default" | "night" }) {
+  const night = tone === "night";
+  const muted = night ? "text-on-night-muted" : "text-ink-muted";
   return (
-    <footer className={cn("border-t border-line bg-band", !flush && "mt-16")}>
+    <footer
+      className={cn(
+        night ? "on-herb border-t border-night-line bg-night text-on-night" : "border-t border-line bg-band",
+        !flush && "mt-16",
+      )}
+    >
       <div className="grid page-w gap-x-12 gap-y-4 py-6 md:grid-cols-[1fr_auto] md:py-8">
         <div>
-          <Wordmark className="self-start text-[1.0625rem]" />
-          <p className="max-w-[28em] text-sm leading-normal text-ink-muted">
+          <Wordmark className={cn("self-start text-[1.0625rem]", night && "text-on-night")} />
+          <p className={cn("max-w-[28em] text-sm leading-normal", muted)}>
             Recipes you can search by name or by what’s in your fridge, with the numbers up front.
           </p>
-          <p className="mt-3 font-mono text-[0.6875rem] leading-relaxed text-ink-subtle">
+          <p className={cn("mt-3 font-mono text-[0.6875rem] leading-relaxed", night ? "text-on-night-muted" : "text-ink-subtle")}>
             Recipes: USDA MyPlate Kitchen &middot; Nutrition: USDA FoodData Central
           </p>
         </div>
         <div className="grid grid-cols-2 gap-x-12">
           {GROUPS.map((g) => (
             <nav key={g.label} aria-label={g.label} className="flex flex-col">
-              <span className="label-mono mb-1">{g.label}</span>
+              <span
+                className={cn(
+                  "mb-1",
+                  night
+                    ? "font-mono text-[0.625rem] tracking-[0.1em] text-on-night-muted uppercase"
+                    : "label-mono",
+                )}
+              >
+                {g.label}
+              </span>
               {g.links.map(([href, label]) => (
-                <Link key={href} href={href} className={linkClass}>
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(linkClass, night ? "text-on-night-muted hover:text-saffron" : "text-ink-muted hover:text-herb")}
+                >
                   {label}
                 </Link>
               ))}

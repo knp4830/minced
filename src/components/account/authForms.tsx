@@ -194,9 +194,25 @@ export function SignupForm({ next }: { next?: string }) {
 
   if (state.done) {
     return (
-      <DonePanel title="Almost there">
-        <p>{state.done}</p>
-        <p className="mt-2">It can take a minute. Check spam if it doesn&apos;t show up.</p>
+      // Never "we've sent a link": this screen must read the same for an address that already
+      // has an account (see signUp), so it asks them to look rather than promising a send.
+      <DonePanel title="You're almost in">
+        {state.email ? (
+          <p>
+            Look for an email from us at <strong className="text-ink">{state.email}</strong>. Open the link
+            inside to finish setting up your account.
+          </p>
+        ) : (
+          <p>{state.done}</p>
+        )}
+        <p className="mt-2">
+          Not there yet? It can take a minute or two, and sometimes it lands in spam or promotions. Already have
+          an account?{" "}
+          <Link href="/login" className="underline underline-offset-2 hover:text-herb">
+            Log in here
+          </Link>
+          .
+        </p>
       </DonePanel>
     );
   }
@@ -266,9 +282,12 @@ export function ForgotPasswordForm() {
 
   if (state.done) {
     return (
-      <DonePanel title="Check your email">
+      <DonePanel title="Check your inbox">
         <p>{state.done}</p>
-        <p className="mt-2">The link works once and expires in an hour.</p>
+        <p className="mt-2">
+          It works once and stays good for an hour. If it hasn&apos;t arrived in a few minutes, look in spam or
+          promotions.
+        </p>
       </DonePanel>
     );
   }

@@ -225,5 +225,15 @@ Live site: https://minced-app.vercel.app
 - [ ] Phone 375: `/`, the pop-up, `/recipes`, `/me`, `/recipes/new` have no horizontal scroll.
 - [ ] Known open: time filters keep recipes with no time (652 of 957); signed-out `/pantry` gate wording; Me edited-entry name keeps the old amount. See `docs/review/2026-10-22-wave12-questions.md`.
 
+### Wave 13 (redesign)
+
+- [ ] Fonts everywhere: headings in Young Serif (no smeared bold), text in Nunito Sans, numbers and small labels in Overpass Mono.
+- [ ] Landing: solid green nav bar (Recipes, Fridge, Log in / Sign up). Hero photo rotates every 7 s; the caption names the dish with its time, kcal and protein and links to it; CC photos show "Photo: name · licence". Pause stops it. With reduced motion on, nothing rotates and there is no pause button.
+- [ ] Hero headline "Narrow it down. Start cooking.", eyebrow "Recipes built around you"; search card with Select filters; stats line "957 recipes · 8 filters · no sign-up to search". Hero photos are crisp on a retina screen.
+- [ ] Fridge section: two columns on desktop (text and three steps left, example fridge marked "Example" right), stacked on a phone; signed out offers Create account / Log in; signed in shows your fridge.
+- [ ] Tiles (Me coming soon, Saved filters, Shopping list, Your recipes LATER), four recipe cards, What you get, Why we built this, dark Coming soon band and dark footer.
+- [ ] Sign-up done screen: "You're almost in", names your email, never says "we sent". Expired link and deleted-account notices read warmly.
+- [ ] Phone 375 and 900 px: no horizontal scroll; the hero caption never overlaps the search card.
+
 ---
 When something fails, tell Claude the section number, the URL, and what you saw.

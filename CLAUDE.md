@@ -268,4 +268,8 @@ Owner's 19-item desktop review. **Before merging:** back up live, apply `supabas
 4. Owner setup: Google Cloud, Resend plus Porkbun DNS, Vercel env vars; then turn the flags on. Paste-a-blog import.
 5. Post-MVP (end of BUILD-PLAN): workout plans and exercise library, SEO combo pages, food-science follow-ups.
 
+### Wave 13 (2026-10-22): PR open on `w13/redesign`, no DB changes
+
+Warmer auth copy, new fonts site-wide, and the photo-led landing (rotating hero of nutrition-complete dishes with static 1280/2560 px photos, green nav bar, two-column fridge section, tiles, recipe strip, dark coming-soon band and footer). **Next:** owner merges; owner runs the admin SQL for kevinpham4830@gmail.com (live DB access is blocked for Claude in auto mode); open decisions in `docs/review/2026-10-22-wave12-questions.md`; scroll-world "how the fridge works" is an idea awaiting art direction.
+
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

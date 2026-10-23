@@ -20,8 +20,19 @@ import { cn } from "@/lib/utils";
  * for everyone). If an auth cookie exists we hide it until /api/me answers, so
  * a signed-in person doesn't see the wrong control flash.
  */
-/** `onHerb`: drawn on the green landing header, where a herb avatar would vanish. */
-export function HeaderAccount({ className, tone = "default" }: { className?: string; tone?: "default" | "onHerb" }) {
+/**
+ * `onHerb`: drawn on a dark header (the landing photo), where a herb avatar would vanish.
+ * `loginClassName` styles only the signed-out link (the landing draws it as an outlined pill).
+ */
+export function HeaderAccount({
+  className,
+  loginClassName,
+  tone = "default",
+}: {
+  className?: string;
+  loginClassName?: string;
+  tone?: "default" | "onHerb";
+}) {
   const { status, me } = useAccount();
   const router = useRouter();
 
@@ -41,6 +52,7 @@ export function HeaderAccount({ className, tone = "default" }: { className?: str
         "inline-flex min-h-11 items-center rounded-md px-2 text-[0.84375rem] font-medium whitespace-nowrap text-ink transition-colors hover:text-herb",
         status === "loading" && "opacity-0",
         className,
+        loginClassName,
       )}
     >
       <span className="sm:hidden">Log in</span>

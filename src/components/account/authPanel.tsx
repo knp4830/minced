@@ -58,12 +58,12 @@ export function AuthPanel({ view, searchParams, headingTag = "h1" }: { view: Aut
 
   const notice =
     view === "login" && one(searchParams.notice) === "deleted"
-      ? "Your account is deleted. Your login and saved recipes are gone."
+      ? "Your account has been deleted, along with your saved recipes. Thanks for cooking with us."
       : null;
   const errorCode = view === "login" ? one(searchParams.error) : undefined;
   const linkError =
     errorCode === "link"
-      ? "That link has expired or was already used. Log in, or request a new one."
+      ? "That link has already been used or has expired. You can log in below, or ask for a fresh one."
       : errorCode === "oauth_cancelled"
         ? "Google sign-in was cancelled, so nothing changed. You can try again, or use your email."
         : errorCode === "oauth"

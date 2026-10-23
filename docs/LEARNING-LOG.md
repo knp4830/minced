@@ -1679,4 +1679,18 @@ The flag was not a switch (see LESSONS section 7). The snapshot hides privilege 
 
 ---
 
-## Entry 42 - [next entry goes here]
+## Entry 42 - Wave 13: new fonts and a photo-led landing page
+
+**What we built.** Three things on one branch. (1) Sign-up, log-in, reset and delete messages rewritten warmly. (2) Fonts: Young Serif for headings, Nunito Sans for text, Overpass Mono for numbers and small labels, replacing Fraunces / Public Sans / IBM Plex Mono. (3) A new landing page: a green nav bar, a full-width hero photo that rotates through five dishes with a caption of that recipe's real time, calories and protein, a floating search card with "Select filters", a shorter two-column fridge section (explanation and steps on the left, a labelled example fridge on the right), four feature tiles, four live recipe cards, "What you actually get", "Why we built this", and a dark coming-soon band that runs into a dark footer.
+
+**Key files.** `src/app/layout.tsx` and `globals.css` (fonts, new `night` colour tokens, hero overlays); `src/app/(landing)/page.tsx`; `src/components/landing/heroPhotos.tsx`, `featureTiles.tsx`, `cookFromWhatYouHave.tsx`, `comingSoon.tsx`, `landingNav.tsx`; `src/lib/queries/landing.ts` (`getHeroSlides`); `public/landing/hero/*.webp`.
+
+**How it works and why.** The hero only uses curated photos whose recipes have `nutrition_status = 'complete'`, because the caption states calories and protein as fact; a partial recipe would undercount. Storage keeps photos at 1200 px, which is soft across a 1440 px screen at 2x, so the five hero photos ship as static 1280 and 2560 px files fetched from Wikimedia (same files, licences and credits) and chosen by `srcset`. Only the photo on screen and the next one are mounted: every slide sits in the viewport, so `loading="lazy"` would not have deferred anything. Rotation has a pause button (anything that moves by itself for over five seconds needs one) and stops entirely for reduced motion. The sign-up screen still never says "we sent you a link": it must read the same for an email that already has an account. We tried the nav floating see-through over the photo (the mockup); the owner found the photos drowned it, so it is a solid green bar again. The fridge photo band was too long, so it became an example fridge drawn in the app's own words, naming no recipes so it promises nothing the matcher would not do.
+
+**Concepts.** Single-weight fonts and `font-synthesis-weight: none` (no fake bold); `srcset` with width descriptors; Largest Contentful Paint; WCAG 2.2.2 pause, stop, hide; scrims for text on photos.
+
+**Gotchas.** Young Serif has one weight, so every `font-semibold` next to `font-display` would have been smeared into a fake bold. `.label-mono` sets its own colour, so a colour utility beside it may not win; use plain utilities instead. The dev server can get stuck on stale chunks (404s, "Invalid or unexpected token"): restart it. `tsc --noEmit` errors in stale `.next/types` files are not from `src/`; filter them out.
+
+---
+
+## Entry 43 - [next entry goes here]
