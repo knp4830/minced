@@ -28,7 +28,8 @@ const ITEMS = [
 
 export function ComingSoon() {
   // Me is live: its two roadmap cards become one real card that links to it.
-  const items = ME_ENABLED ? ITEMS.filter((i) => i.title === "Share your own recipes") : ITEMS;
+  // The Me section above already says what Me is (live or coming soon), so "Track your nutrition" would repeat it.
+  const items = ITEMS.filter((i) => i.title !== "Track your nutrition" && (!ME_ENABLED || i.title === "Share your own recipes"));
   return (
     <section aria-labelledby="soon-h" className="px-(--gutter) py-14 md:py-20">
       <div className="mx-auto max-w-[var(--page-max)]">
