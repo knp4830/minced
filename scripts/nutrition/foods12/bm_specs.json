@@ -51,7 +51,7 @@
  },
  "comte": {
   "query": "comte",
-  "must": "comt[eé]",
+  "must": "comt[e\u00e9]",
   "excl": ""
  },
  "cuajada": {
@@ -101,7 +101,7 @@
  },
  "mahon-cheese": {
   "query": "mahon cheese",
-  "must": "mah[oó]n",
+  "must": "mah[o\u00f3]n",
   "excl": ""
  },
  "manchego-cheese": {
@@ -137,7 +137,7 @@
  "panko-breadcrumbs": {
   "query": "panko breadcrumbs",
   "must": "panko",
-  "excl": "chicken|shrimp|fish|crusted|nugget|breaded|fried"
+  "excl": "chicken|shrimp|fish|crusted|nugget|breaded|fried|season|italian|garlic|herb|parmesan|flavor|ranch|lemon|cheese|mix"
  },
  "pea-shoots": {
   "query": "pea shoots",
@@ -176,8 +176,8 @@
  },
  "sweet-potato-starch-noodles": {
   "query": "sweet potato starch noodles",
-  "must": "sweet potato.*(noodle|vermicelli)|glass noodle|dangmyeon",
-  "excl": ""
+  "must": "starch noodle|dang ?myeon|japchae|glass noodle|korean (sweet potato )?(noodle|vermicelli)|sweet potato (starch|vermicelli)",
+  "excl": "veggie|spiral|fresh|cooked|ready|stir fry|frozen|salad"
  },
  "taleggio-cheese": {
   "query": "taleggio cheese",
@@ -201,12 +201,12 @@
  },
  "weisswurst": {
   "query": "weisswurst",
-  "must": "wei[sß]+wurst",
+  "must": "wei[s\u00df]+wurst",
   "excl": ""
  },
  "yakisoba-noodles": {
   "query": "yakisoba noodles",
   "must": "yakisoba",
-  "excl": "sauce|kit|chicken|beef|shrimp|bowl|meal|flavor|cup|ramen"
+  "excl": "sauce|kit|chicken|beef|pork|shrimp|bowl|meal|flavor|cup|ramen|whole wheat|seasoning|frozen dinner"
  }
 }

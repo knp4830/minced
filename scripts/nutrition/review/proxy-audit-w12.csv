@@ -1,0 +1,327 @@
+ingredient,recipes_using,decision,old_food,old_kcal,old_protein,old_fat,old_carbs,new_food,new_kcal,new_protein,new_fat,new_carbs,kcal_diff_pct,source,reason
+aquavit,0,"keep (close relative, declared stand-in)","174815 Alcoholic beverage, distilled, all (gin, rum, vodka, whiskey) 80 proof",231,0,0,0,evidence: sr:174815: 231 kcal 0/0/0; cofid:17-247: 222 kcal 0/0/0; fndds:2710699: 231 kcal 0/0/0,,,,,,UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),unsweetened distilled spirit; energy follows alcohol strength (typically 40 percent)
+argan oil,0,"keep (close relative, declared stand-in)","171413 Oil, olive, salad or cooking",884,0,100,0,evidence: sr:171030: 884 kcal 0/100/0; sr:171413: 884 kcal 0/100/0; sr:167702: 884 kcal 0.1/100/0; sr:171016: 884 kcal 0/100/0; sr:172336: 884 kcal 0/100/0; sr:171025: 884 kcal 0/100/0,,,,,,USDA FDC (public domain),"pure edible oil, 100 g fat per 100 g"
+cachaca,0,"keep (close relative, declared stand-in)","174815 Alcoholic beverage, distilled, all (gin, rum, vodka, whiskey) 80 proof",231,0,0,0,evidence: sr:174815: 231 kcal 0/0/0; cofid:17-247: 222 kcal 0/0/0; fndds:2710699: 231 kcal 0/0/0,,,,,,UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),"unsweetened distilled spirit, 38 to 48 percent alcohol"
+cane vinegar,1,"keep (close relative, declared stand-in)","172237 Vinegar, distilled",18,0,0,0,evidence: cofid:17-339: 22 kcal 0.4/0/0.6; cnf:13: 22 kcal 0/0/0.9; fndds:2709351: 21 kcal 0/0/0.9; sr:172237: 18 kcal 0/0/0,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada); UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),"vinegar, a few kcal per 100 g"
+choy sum,0,"keep (close relative, declared stand-in)","170390 Cabbage, chinese (pak-choi), raw",13,1.5,0.2,2.2,evidence: sci:170390: Brassica rapa (Chinensis Group),,,,,,,Brassica rapa like the pak choi record
+dalia,0,"keep (close relative, declared stand-in)","170688 Bulgur, dry",342,12.3,1.3,75.9,evidence: sr:168890: 327 kcal 12.6/1.5/71.2; sr:170688: 342 kcal 12.3/1.3/75.9,,,,,,USDA FDC (public domain),cracked wheat is the same grain as bulgur
+egusi,0,"keep (close relative, declared stand-in)","169407 Seeds, watermelon seed kernels, dried",557,28.3,47.4,15.3,evidence: cofid:14-826: 583 kcal 28.5/47.7/,,,,,,UK CoFID 2021 (Open Government Licence v3.0),seeds of a Citrullus melon; CoFID's melon seeds record agrees with SR watermelon seeds
+flattened rice,1,"keep (close relative, declared stand-in)","168879 Rice, white, medium-grain, raw, enriched",360,6.6,0.6,79.3,evidence: sr:169707: 374 kcal 7.5/1/80.9,,,,,,USDA FDC (public domain),flattened parboiled rice is the same grain as dry rice
+freekeh,0,"keep (close relative, declared stand-in)","170688 Bulgur, dry",342,12.3,1.3,75.9,evidence: bm:freekeh: 351 kcal 13.3/2.4/70.5,,,,,,USDA FDC Branded (CC0 1.0),"roasted cracked green wheat, the same grain as bulgur"
+grappa,0,"keep (close relative, declared stand-in)","174815 Alcoholic beverage, distilled, all (gin, rum, vodka, whiskey) 80 proof",231,0,0,0,evidence: sr:174815: 231 kcal 0/0/0; cofid:17-247: 222 kcal 0/0/0; fndds:2710699: 231 kcal 0/0/0,,,,,,UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),"unsweetened distilled spirit, typically 40 percent"
+graviera,0,"keep (close relative, declared stand-in)","171251 Cheese, swiss",393,27,31,1.4,evidence: bm:graviera: 388 kcal 24.7/31.8/0,,,,,,USDA FDC Branded (CC0 1.0),Swiss-type cheese; the one graviera label is within 3 percent
+kuzu,0,"keep (close relative, declared stand-in)",170684 Arrowroot flour,357,0.3,0.1,88.2,evidence: bm:kuzu: 341.5 kcal 0/0/84.5,,,,,,USDA FDC Branded (CC0 1.0),starch; the two kuzu labels (341 kcal) are within 5 percent of arrowroot flour (357)
+langoustine,0,"keep (close relative, declared stand-in)","175179 Crustaceans, shrimp, raw",85,20.1,0.5,0,evidence: cofid:16-425: 86 kcal 19.7/0.8/0,,,,,,UK CoFID 2021 (Open Government Licence v3.0),"boiled langoustine (CoFID 86 kcal, 19.7 g protein) matches raw shrimp (85 kcal, 20.1 g)"
+mahon cheese,0,"keep (close relative, declared stand-in)","171251 Cheese, swiss",393,27,31,1.4,evidence: bm:mahon-cheese: 393 kcal 25/32.1/0,,,,,,USDA FDC Branded (CC0 1.0),"Swiss-type cow cheese; the one Mahon label (393 kcal, 25 g protein, 32 g fat) matches within 8 percent"
+matzo meal,2,"keep (close relative, declared stand-in)","172740 Crackers, matzo, plain",395,10,1.4,83.7,evidence: bm:matzo-meal: 379 kcal 10/0/81.2,,,,,,USDA FDC Branded (CC0 1.0),ground matzo; the labels (379 kcal) are within 4 percent of matzo crackers (395)
+mexican crema,3,"keep (close relative, declared stand-in)","171257 Cream, sour, cultured",198,2.4,19.4,4.6,evidence: bm:crema: 200 kcal 3.3/17.9/6.7,,,,,,USDA FDC Branded (CC0 1.0),"Mexican crema labels (200 kcal, 17.9 g fat) are within 3 percent of sour cream (198 kcal)"
+mezcal,0,"keep (close relative, declared stand-in)","174815 Alcoholic beverage, distilled, all (gin, rum, vodka, whiskey) 80 proof",231,0,0,0,evidence: sr:174815: 231 kcal 0/0/0; cofid:17-247: 222 kcal 0/0/0; fndds:2710699: 231 kcal 0/0/0,,,,,,UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),"unsweetened distilled spirit, typically 40 to 45 percent"
+mung bean starch,0,"keep (close relative, declared stand-in)","169717 Tapioca, pearl, dry",358,0.2,0,88.7,evidence: bm:potato-starch: 333 kcal 0/0/83.3; sr:170684: 357 kcal 0.3/0.1/88.2,,,,,,USDA FDC (public domain); USDA FDC Branded (CC0 1.0),pure starch; moisture only varies 333 to 358 kcal
+nigella oil,0,"keep (close relative, declared stand-in)","171016 Oil, sesame, salad or cooking",884,0,100,0,evidence: sr:171030: 884 kcal 0/100/0; sr:171413: 884 kcal 0/100/0; sr:167702: 884 kcal 0.1/100/0; sr:171016: 884 kcal 0/100/0; sr:172336: 884 kcal 0/100/0; sr:171025: 884 kcal 0/100/0,,,,,,USDA FDC (public domain),"pure edible oil, 100 g fat per 100 g"
+perilla oil,0,"keep (close relative, declared stand-in)","167702 Oil, flaxseed, cold pressed",884,0.1,100,0,evidence: sr:171030: 884 kcal 0/100/0; sr:171413: 884 kcal 0/100/0; sr:167702: 884 kcal 0.1/100/0; sr:171016: 884 kcal 0/100/0; sr:172336: 884 kcal 0/100/0; sr:171025: 884 kcal 0/100/0,,,,,,USDA FDC (public domain),"pure edible oil, 100 g fat per 100 g"
+pisco,0,"keep (close relative, declared stand-in)","174815 Alcoholic beverage, distilled, all (gin, rum, vodka, whiskey) 80 proof",231,0,0,0,evidence: sr:174815: 231 kcal 0/0/0; cofid:17-247: 222 kcal 0/0/0; fndds:2710699: 231 kcal 0/0/0,,,,,,UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),"unsweetened distilled spirit, typically 40 percent"
+pumpkin seed oil,0,"keep (close relative, declared stand-in)","171025 Oil, sunflower, linoleic, (approx. 65%)",884,0,100,0,evidence: sr:171030: 884 kcal 0/100/0; sr:171413: 884 kcal 0/100/0; sr:167702: 884 kcal 0.1/100/0; sr:171016: 884 kcal 0/100/0; sr:172336: 884 kcal 0/100/0; sr:171025: 884 kcal 0/100/0,,,,,,USDA FDC (public domain),"pure edible oil, 100 g fat per 100 g"
+raclette cheese,0,"keep (close relative, declared stand-in)","171251 Cheese, swiss",393,27,31,1.4,evidence: bm:raclette-cheese: 358.5 kcal 24.5/28/0,,,,,,USDA FDC Branded (CC0 1.0),Swiss-type cheese; labels (357 kcal) within 10 percent of Swiss (393)
+rice vinegar,44,"keep (close relative, declared stand-in)","172237 Vinegar, distilled",18,0,0,0,evidence: cofid:17-339: 22 kcal 0.4/0/0.6; cnf:13: 22 kcal 0/0/0.9; fndds:2709351: 21 kcal 0/0/0.9; sr:172237: 18 kcal 0/0/0,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada); UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),"vinegar, a few kcal per 100 g"
+romanesco,0,"keep (close relative, declared stand-in)","169986 Cauliflower, raw",25,1.9,0.3,5,evidence: sci:169986: Brassica oleracea (Botrytis Group),,,,,,,Brassica oleracea (cauliflower group)
+sichuan pepper oil,0,"keep (close relative, declared stand-in)","171016 Oil, sesame, salad or cooking",884,0,100,0,evidence: sr:171030: 884 kcal 0/100/0; sr:171413: 884 kcal 0/100/0; sr:167702: 884 kcal 0.1/100/0; sr:171016: 884 kcal 0/100/0; sr:172336: 884 kcal 0/100/0; sr:171025: 884 kcal 0/100/0,,,,,,USDA FDC (public domain),"pure edible oil, 100 g fat per 100 g"
+smoked fish,0,"keep (close relative, declared stand-in)","174199 Fish, haddock, smoked",116,25.2,1,0,evidence: fndds:2706230: 116 kcal 25.2/1/0,,,,,,USDA FNDDS (public domain),FNDDS lists generic smoked fish with the same values as smoked haddock
+sweet potato starch noodles,1,"keep (close relative, declared stand-in)","174258 Noodles, chinese, cellophane or long rice (mung beans), dehydrated",351,0.2,0.1,86.1,evidence: bm:sweet-potato-starch-noodles: 360 kcal 0/0/88,,,,,,USDA FDC Branded (CC0 1.0),starch noodles; the labels (333 kcal) within 5 percent of mung bean noodles
+tatsoi,0,"keep (close relative, declared stand-in)","170390 Cabbage, chinese (pak-choi), raw",13,1.5,0.2,2.2,evidence: sci:170390: Brassica rapa (Chinensis Group),,,,,,,Brassica rapa like the pak choi record
+thai basil,4,"keep (close relative, declared stand-in)","172232 Basil, fresh",23,3.1,0.6,2.6,evidence: fndds:2709780: 23 kcal 3.1/0.6/2.6; sci:172232: Ocimum basilicum,,,,,,USDA FNDDS (public domain),"Ocimum basilicum var. thyrsiflora, the same species as sweet basil"
+thai chile,8,"keep (close relative, declared stand-in)","170106 Peppers, hot chili, red, raw",40,1.9,0.4,8.8,evidence: sr:170106: 40 kcal 1.9/0.4/8.8; sci:170497: Capsicum frutescens,,,,,,USDA FDC (public domain),Capsicum frutescens (the bird chile); SR hot chili green raw is that species and the red record agrees (40 kcal both)
+white wine vinegar,2,"keep (close relative, declared stand-in)","172240 Vinegar, red wine",19,0,0,0.3,evidence: cofid:17-339: 22 kcal 0.4/0/0.6; cnf:13: 22 kcal 0/0/0.9; fndds:2709351: 21 kcal 0/0/0.9; sr:172237: 18 kcal 0/0/0,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada); UK CoFID 2021 (Open Government Licence v3.0); USDA FDC (public domain); USDA FNDDS (public domain),"vinegar, a few kcal per 100 g"
+white yam,0,"keep (close relative, declared stand-in)","170071 Yam, raw",118,1.5,0.2,27.9,evidence: sci:170071: Dioscorea spp.,,,,,,,"SR 'Yam, raw' is Dioscorea spp. and white yam is a Dioscorea"
+amadumbe,0,"keep (same food, not a stand-in)","169308 Taro, raw",112,1.5,0.2,26.5,evidence: sci:169308: Colocasia esculenta,,,,,,,amadumbe is the South African name of taro (Colocasia esculenta); SR Taro raw is that species
+ancho chile,0,"keep (same food, not a stand-in)","169396 Peppers, ancho, dried",281,11.9,8.2,51.4,evidence: cnf:4859: 281 kcal 11.9/8.2/51.4,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada),"SR 'Peppers, ancho, dried' is this food; it was flagged as a stand-in by mistake"
+ancho chile powder,0,"keep (same food, not a stand-in)","169396 Peppers, ancho, dried",281,11.9,8.2,51.4,evidence: cnf:4859: 281 kcal 11.9/8.2/51.4,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada),ground ancho is the same dried chile in another form
+brandy,0,"keep (same food, not a stand-in)","174815 Alcoholic beverage, distilled, all (gin, rum, vodka, whiskey) 80 proof",231,0,0,0,evidence: fndds:2710699: 231 kcal 0/0/0; cofid:17-247: 222 kcal 0/0/0,,,,,,UK CoFID 2021 (Open Government Licence v3.0); USDA FNDDS (public domain),"FNDDS lists Brandy at 231 kcal, the same as the SR 80 proof spirit"
+christophene,0,"keep (same food, not a stand-in)","170402 Chayote, fruit, raw",19,0.8,0.1,4.5,evidence: sci:170402: Sechium edule,,,,,,,christophene is the Caribbean name of chayote (Sechium edule)
+crushed red pepper,16,"keep (same food, not a stand-in)","170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,evidence: cnf:199: 318 kcal 12/17.3/56.6,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada),"SR's 'Spices, pepper, red or cayenne' is red pepper; crushed flakes are the same chile in a coarser grind"
+dried cilantro,1,"keep (same food, not a stand-in)","170921 Spices, coriander leaf, dried",279,21.9,4.8,52.1,evidence: sr:170921: 279 kcal 21.9/4.8/52.1,,,,,,USDA FDC (public domain),"SR 'Spices, coriander leaf, dried' is dried cilantro"
+hake,0,"keep (same food, not a stand-in)","173713 Fish, whiting, mixed species, raw",90,18.3,1.3,0,evidence: cnf:3089: 90 kcal 18.3/1.3/0; cofid:16-070: 92 kcal 18/2.2/0,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada); UK CoFID 2021 (Open Government Licence v3.0),"SR's whiting (hake) record: CNF lists hake as 'Fish, hake (whiting)' with the same values"
+ikura,0,"keep (same food, not a stand-in)","174188 Fish, caviar, black and red, granular",264,24.6,17.9,4,evidence: cnf:2995: 264 kcal 24.6/17.9/4,,,,,,Canadian Nutrient File 2026 (Open Government Licence - Canada),"SR's caviar record covers black and red; red caviar is salmon roe, which is ikura"
+kosher salt,8,"keep (same food, not a stand-in)","173468 Salt, table",0,0,0,0,evidence: sr:173468: 0 kcal 0/0/0,,,,,,USDA FDC (public domain),"sodium chloride, the same compound as table salt"
+lactose-free milk,0,"keep (same food, not a stand-in)","171267 Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D",50,3.3,2,4.8,evidence: fndds:2705391: 50 kcal 3.4/1.9/4.9,,,,,,USDA FNDDS (public domain),FNDDS lists lactose-free reduced-fat milk with the same values as the 2 percent record
+tofu puffs,0,"keep (same food, not a stand-in)","172451 Tofu, fried",270,18.8,20.2,8.9,evidence: sr:172451: 270 kcal 18.8/20.2/8.9,,,,,,USDA FDC (public domain),SR's fried tofu is what tofu puffs are
+chervil,0,reform (record is a different form),"171318 Spices, chervil, dried",237,23.2,3.9,49.1,"sr:171318 Spices, chervil, dried",237,23.2,3.9,49.1,+0,USDA FDC (public domain),"the SR record is DRIED chervil; the ingredient is the fresh herb, so the record moves to the dried form"
+alligator meat,0,relink to a trusted record,2303932 WILD ALLIGATOR FILET,105,15.8,5.3,0,brand:1457730 RETAIL ALLIGATOR MEAT,97,21.2,1.8,0,-8,USDA FDC Branded (CC0 1.0),"three FDC alligator-meat labels agree (97 kcal); the old link (105 kcal, 15.8 g protein) was a single odd label"
+baobab powder,0,relink to a trusted record,565812 ORGANIC BAOBAB SUPERFRUIT POWDER,300,0,0,60,sr:167806 Baobab powder,250,3.7,0.5,79.7,-17,USDA FDC (public domain),"SR has Baobab powder (250 kcal, 79.7 g carbs); the old link was a branded superfruit powder with 0 g protein"
+beef stew meat,1,relink to a trusted record,"168668 Beef, chuck, arm pot roast, separable lean and fat, trimmed to 1/8"" fat, choice, raw",249,19.1,18.6,0,bm:beef-stew-meat ORGANIC STEW MEAT (SUNFED RANCH; 11 labels agree near 125 kcal),125,22.3,4,0,-50,USDA FDC Branded (CC0 1.0),raw packaged stew meat labels (116 to 195 kcal) are far below the old pot-roast stand-in (249 kcal)
+burrata,0,relink to a trusted record,"170845 Cheese, mozzarella, whole milk",299,22.2,22.1,2.4,"bm:burrata BUF CREAMERY, BURRATA MOZZARELLA WITH MOZZARELLA AND CREAM FILLING (BUF CREAMERY; 16 labels agree near 279.5 kcal)",278,17.5,22.2,0,-7,USDA FDC Branded (CC0 1.0),burrata labels are 250 to 321 kcal with 14 to 18 g protein; whole-milk mozzarella is 299 kcal with 22 g protein
+celtuce,0,relink to a trusted record,"169249 Lettuce, green leaf, raw",15,1.4,0.1,2.9,"sr:169990 Celtuce, raw",18,0.8,0.3,3.6,+20,USDA FDC (public domain),"SR has Celtuce, raw (18 kcal); the old link was green leaf lettuce"
+chapati,0,relink to a trusted record,"174916 Bread, pita, whole-wheat",262,9.8,1.7,55.9,"sr:174075 Bread, chapati or roti, whole wheat, commercially prepared, frozen",299,7.8,9.2,46.1,+14,USDA FDC (public domain),"SR has chapati or roti, whole wheat (299 kcal); the old link was whole-wheat pita (262 kcal)"
+chestnut flour,0,relink to a trusted record,"170576 Nuts, chestnuts, european, dried, unpeeled",374,6.4,4.5,77.3,"sr:2515377 Flour, chestnut",,5.3,4.6,80.5,,USDA FDC (public domain),"Foundation Foods has Flour, chestnut; the old link was dried whole chestnuts"
+chinese broccoli,0,relink to a trusted record,"170381 Broccoli raab, raw",22,3.2,0.5,2.9,"fndds:2709657 Broccoli, chinese, raw",26,1.2,0.8,4.7,+18,USDA FNDDS (public domain),"FNDDS has Broccoli, Chinese, raw (26 kcal, 1.2 g protein); broccoli raab has 3.2 g"
+cluster beans,0,relink to a trusted record,"169961 Beans, snap, green, raw",31,1.8,0.2,7,"cofid:13-080 Beans, cluster, raw [5 samples. Ends trimmed]",23,2.6,0.1,,-26,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Beans, cluster, raw (23 kcal)"
+cockles,0,relink to a trusted record,"174214 Mollusks, clam, mixed species, raw",86,14.7,1,3.6,"sr:169803 Cockles, raw (Alaska Native)",79,13.5,0.7,4.7,-8,USDA FDC (public domain),"SR has cockles, raw (79 kcal); the old link was mixed clams (86 kcal)"
+comte,0,relink to a trusted record,"171242 Cheese, gruyere",413,29.8,32.3,0.4,bm:comte COMTE CHEESE (JURAFLORE FORT DES ROUSSES; 4 labels agree near 429 kcal),429,25,35.7,0,+4,USDA FDC Branded (CC0 1.0),four comte labels (419 to 429 kcal) agree; gruyere is 413 kcal with 29.8 g protein vs 26.8
+cuajada,0,relink to a trusted record,"172223 Cheese, fresh, queso fresco",299,18.1,23.8,3,bm:cuajada CENTROAMERICANA CUAJADA EGG  (TROPICAL; 5 labels agree near 286 kcal),286,17.9,17.9,7.1,-4,USDA FDC Branded (CC0 1.0),labels carry 7 g carbohydrate vs 3 g for queso fresco
+date sugar,0,relink to a trusted record,"171726 Dates, deglet noor",282,2.5,0.4,75,bm:date-sugar ORGANIC DATE SUGAR (LET'S DATE; 9 labels agree near 365 kcal),375,0,0,87.5,+33,USDA FDC Branded (CC0 1.0),date sugar labels are 333 to 365 kcal with 83 g carbs; deglet noor dates are 282 kcal
+dried chilies whole,0,relink to a trusted record,"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,"sr:168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,+2,USDA FDC (public domain),"SR has Peppers, hot chile, sun-dried (324 kcal, 5.8 g fat); the old link was ground cayenne with 17 g fat"
+fiddleheads,0,relink to a trusted record,"168389 Asparagus, raw",20,2.2,0.1,3.9,"sr:169405 Fiddlehead ferns, raw",34,4.5,0.4,5.5,+70,USDA FDC (public domain),"SR has Fiddlehead ferns, raw (34 kcal, 4.6 g protein); the old link was asparagus"
+foxtail millet,0,relink to a trusted record,"169702 Millet, raw",378,11,4.2,72.8,"cofid:11-016 Flour, millet, foxtail [Literature sources]",354,5.8,1.7,,-6,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has foxtail millet flour (354 kcal, 5.8 g protein); SR millet is proso millet (11 g protein)"
+fresh fenugreek,0,relink to a trusted record,"168462 Spinach, raw",23,2.9,0.4,3.6,"cofid:13-243 Fenugreek leaves, raw [Literature sources]",35,4.6,0.2,,+52,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has fenugreek leaves, raw (35 kcal, 4.6 g protein); the old link was spinach"
+gravlax,0,relink to a trusted record,"175167 Fish, salmon, Atlantic, farmed, raw",208,20.4,13.4,0,"bm:gravlax GRAVLAX STYLE COLD-SMOKED ATLANTIC SALMON, GRAVLAX STYLE (WHOLE FOODS MARKET; 11 labels agree near 193 kcal)",211,22.8,12.3,0,+1,USDA FDC Branded (CC0 1.0),cured salmon carries salt (the raw salmon stand-in has 59 mg sodium)
+green papaya,1,relink to a trusted record,"169926 Papayas, raw",43,0.5,0.3,10.8,"cofid:13-311 Papaya, unripe, green flesh, raw [Literature sources]",27,0.9,0.1,,-37,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Papaya, unripe, green flesh, raw (27 kcal)"
+guinea fowl,0,relink to a trusted record,"171447 Chicken, broilers or fryers, meat and skin, raw",215,18.6,15.1,0,"cnf:674 Guinea, meat and skin, raw",158,23.4,6.5,0,-27,Canadian Nutrient File 2026 (Open Government Licence - Canada),"CNF has Guinea fowl, meat and skin, raw (158 kcal); chicken is a different bird"
+horseradish,0,relink to a trusted record,"173472 Horseradish, prepared",48,1.2,0.7,11.3,"cofid:13-258 Horseradish, raw [Flesh of root]",62,4.5,0.3,,+29,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has horseradish, raw root (62 kcal, 4.5 g protein); the old link was prepared horseradish in vinegar"
+jamon serrano,0,relink to a trusted record,1989624 PROSCIUTTO,250,32.1,10.7,0,bm:jamon-serrano JAMON SERRANO (DON JUAN; 11 labels agree near 250 kcal),250,28.6,16.1,0,+0,USDA FDC Branded (CC0 1.0),serrano labels range 214 to 321 kcal with 10 to 25 g fat; prosciutto has 10.7 g fat
+jarlsberg,0,relink to a trusted record,"171251 Cheese, swiss",393,27,31,1.4,"bm:jarlsberg-cheese JARLSBERG, SEMI SOFT PART-SKIM CHEESE (JARLSBERG; 15 labels agree near 331 kcal)",357,28.6,21.4,0,-9,USDA FDC Branded (CC0 1.0),Jarlsberg labels are 341 kcal against Swiss 393
+kinako,0,relink to a trusted record,"174273 Soy flour, full-fat, raw",434,37.8,20.6,31.9,"sr:174274 Soy flour, full-fat, roasted",439,38.1,21.9,30.4,+1,USDA FDC (public domain),"kinako is roasted soybean flour; SR has Soy flour, full-fat, roasted (439 kcal); the old link was raw"
+lambs lettuce,0,relink to a trusted record,"169249 Lettuce, green leaf, raw",15,1.4,0.1,2.9,"cnf:2073 Cornsalad (lamb's lettuce), raw",21,2,0.4,3.6,+40,Canadian Nutrient File 2026 (Open Government Licence - Canada),"CNF has Cornsalad (lamb's lettuce), raw (21 kcal)"
+manchego,0,relink to a trusted record,"171251 Cheese, swiss",393,27,31,1.4,bm:manchego-cheese MANCHEGO (PONCE DE LEON; 41 labels agree near 429 kcal),429,25,35.7,0,+9,USDA FDC Branded (CC0 1.0),Manchego labels are 429 kcal with 35.7 g fat; Swiss is 393 with 31
+matoke,0,relink to a trusted record,"169130 Plantains, yellow, raw",122,1.3,0.3,31.9,"cofid:13-279 Matoki, raw [5 samples. Flesh only]",90,1.2,0.2,,-26,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Matoki, raw (90 kcal), the East African cooking banana"
+moose,0,relink to a trusted record,"172602 Game meat, deer, ground, raw",157,21.8,7.1,0,"sr:174344 Game meat, moose, raw",102,22.2,0.7,0,-35,USDA FDC (public domain),"SR has Game meat, moose, raw (102 kcal, 0.7 g fat); deer ground has 7 g fat"
+moth beans,0,relink to a trusted record,"172420 Lentils, raw",352,24.6,1.1,63.4,"sr:172425 Mothbeans, mature seeds, raw",343,22.9,1.6,61.5,-3,USDA FDC (public domain),"SR has Mothbeans, mature seeds, raw"
+mustard oil,0,relink to a trusted record,"172336 Oil, canola",884,0,100,0,"sr:172337 Oil, mustard",884,0,100,0,+0,USDA FDC (public domain),"SR has Oil, mustard; the old link was canola"
+oaxaca cheese,0,relink to a trusted record,"170845 Cheese, mozzarella, whole milk",299,22.2,22.1,2.4,"sr:2647441 Cheese, oaxaca, solid",,22.1,22.1,2.4,,USDA FDC (public domain),"Foundation Foods has Cheese, oaxaca, solid; the old link was whole-milk mozzarella"
+pangasius,0,relink to a trusted record,"175165 Fish, catfish, channel, farmed, raw",119,15.2,5.9,0,"cofid:16-382 Pangasius, flesh only, raw [6 samples, 6 products, frozen and chilled. Also known as Vie]",74,14.9,1.6,0,-38,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Pangasius, flesh only, raw (74 kcal)"
+panko breadcrumbs,1,relink to a trusted record,"174928 Bread, crumbs, dry, grated, plain",395,13.3,5.3,72,"bm:panko-breadcrumbs PANKO JAPANESE STYLE BREAD CRUMBS, PANKO JAPANESE STYLE (KIKKOMAN; 81 labels agree near 367 kcal)",367,10,1.7,80,-7,USDA FDC Branded (CC0 1.0),panko labels (350 to 367 kcal) are 8 percent below dry breadcrumbs (395)
+pea shoots,0,relink to a trusted record,"170010 Peas, edible-podded, raw",42,2.8,0.2,7.5,bm:pea-shoots PEA SHOOTS (WEGMANS; 3 labels agree near 35 kcal),35,2.4,0,7.1,-17,USDA FDC Branded (CC0 1.0),"the 2 matching shoot labels (35 kcal, 2.4 g protein) are 17 percent below the pod stand-in (42 kcal)"
+pepper jack,1,relink to a trusted record,"170844 Cheese, monterey",373,24.5,30.3,0.7,bm:pepper-jack-cheese PEPPER JACK CHEESE (CENTRELLA; 195 labels agree near 357 kcal),357,25,28.6,3.6,-4,USDA FDC Branded (CC0 1.0),"195 pepper jack labels agree (357 kcal, 3.6 g carbs); Monterey jack has 0.7 g carbs"
+poblano pepper,2,relink to a trusted record,"170427 Peppers, sweet, green, raw",20,0.9,0.2,4.6,"sr:2747662 Peppers, poblano, seeded, raw",,1.4,0.2,5.1,,USDA FDC (public domain),"Foundation Foods has Peppers, poblano, seeded, raw; the old link was a sweet green bell pepper"
+pomfret,0,relink to a trusted record,"173682 Fish, pompano, florida, raw",164,18.5,9.5,0,"cofid:16-125 Pomfret, white, raw [Literature sources]",92,18.3,2.1,0,-44,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Pomfret, white, raw (92 kcal); black pomfret is 99"
+potato starch,1,relink to a trusted record,168446 Potato flour,357,6.9,0.3,83.1,bm:potato-starch POTATO STARCH (HODGSON MILL; 7 labels agree near 333 kcal),333,0,0,83.3,-7,USDA FDC Branded (CC0 1.0),"potato starch labels (333 kcal, 0 g protein) vs potato flour (357 kcal, 6.9 g protein)"
+queso panela,0,relink to a trusted record,"172223 Cheese, fresh, queso fresco",299,18.1,23.8,3,"bm:queso-panela PANELA FRESH CHEESE, PANELA (LA VAQUITA; 33 labels agree near 321 kcal)",286,17.9,21.4,7.1,-4,USDA FDC Branded (CC0 1.0),panela labels carry 19.5 g fat vs 23.8 for queso fresco
+raw mango,0,relink to a trusted record,"169910 Mangos, raw",60,0.8,0.4,15,"cofid:13-273 Mango, unripe, green flesh, raw [Literature sources.]",46,0.5,0.2,,-23,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Mango, unripe, green flesh, raw (46 kcal)"
+rice crackers,0,relink to a trusted record,"168855 Snacks, rice cakes, brown rice, rye",386,8.1,3.8,79.9,sr:173161 Rice crackers,416,10,5,82.6,+8,USDA FDC (public domain),SR has Rice crackers (416 kcal); the old link was brown rice cakes (386 kcal)
+ricotta salata,0,relink to a trusted record,"171249 Cheese, romano",387,31.8,26.9,3.6,bm:ricotta-salata FRESHLY CRUMBLED RICOTTA SALATA CHEESE (BELGIOIOSO; 6 labels agree near 250 kcal),250,17.9,21.4,3.6,-35,USDA FDC Branded (CC0 1.0),labels are 250 kcal with 17.9 g protein; Romano is 387 kcal with 31.8 g
+roasted soybean powder,0,relink to a trusted record,"174273 Soy flour, full-fat, raw",434,37.8,20.6,31.9,"sr:174274 Soy flour, full-fat, roasted",439,38.1,21.9,30.4,+1,USDA FDC (public domain),"roasted soybean flour; SR has Soy flour, full-fat, roasted (439 kcal); the old link was raw"
+rohu,0,relink to a trusted record,"171952 Fish, carp, raw",127,17.8,5.6,0,"cofid:16-132 Rohu, raw [Literature sources. Imported frozen from Bangladesh]",79,16.6,1.4,0,-38,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Rohu, raw (79 kcal)"
+salted duck egg,0,relink to a trusted record,"172189 Egg, duck, whole, fresh, raw",185,12.8,13.8,1.4,"cofid:12-814 Eggs, duck, boiled and salted [20 eggs from 7 different Chinese shops]",198,14.6,15.5,0,+7,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has 'Eggs, duck, boiled and salted' from Chinese shops (198 kcal); the stand-in was raw duck egg"
+samp,0,relink to a trusted record,"2710835 Corn flour, masa harina, white or yellow, dry, raw",,7.6,4.3,76.7,"sr:168920 Corn grain, white",365,9.4,4.7,74.3,,USDA FDC (public domain),"samp is cracked dried maize; SR has Corn grain, white (365 kcal); the old link was masa harina"
+scamorza,0,relink to a trusted record,"171244 Cheese, mozzarella, low moisture, part-skim",295,23.8,19.8,5.6,"bm:scamorza BEL GIOIOSO, SCAMORZA-RELLA CHEESE (BELGIOIOSO; 5 labels agree near 321 kcal)",321,21.4,25,3.6,+9,USDA FDC Branded (CC0 1.0),labels are 321 kcal with 25 g fat; low-moisture mozzarella has 19.8 g
+sea bream,0,relink to a trusted record,"175141 Fish, scup, raw",105,18.9,2.7,0,"cofid:16-006 Bream, Sea, raw [Literature sources]",96,17.5,2.9,0,-9,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has 'Bream, Sea, raw' (96 kcal); the old link was scup"
+skate,0,relink to a trusted record,"175125 Fish, ocean perch, Atlantic, raw",79,15.3,1.5,0,"cofid:16-143 Skate, raw [Data from Seafish Industry Authority and literature sources]",64,15.1,0.4,0,-19,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has 'Skate, raw' (64 kcal); the old link was ocean perch (79 kcal)"
+skate wing,0,relink to a trusted record,"175125 Fish, ocean perch, Atlantic, raw",79,15.3,1.5,0,"cofid:16-143 Skate, raw [Data from Seafish Industry Authority and literature sources]",64,15.1,0.4,0,-19,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has 'Skate, raw' (64 kcal); the old link was ocean perch (79 kcal)"
+snake gourd,0,relink to a trusted record,"168414 Gourd, dishcloth (towelgourd), raw",20,1.2,0.2,4.3,"cofid:13-255 Gourd, snake, raw [Literature sources]",21,0.5,0.3,,+5,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Gourd, snake, raw (21 kcal)"
+sorrel leaves,0,relink to a trusted record,"168462 Spinach, raw",23,2.9,0.4,3.6,"cnf:2290 Dock (sorrel), raw",22,2,0.7,3.2,-4,Canadian Nutrient File 2026 (Open Government Licence - Canada),"CNF has Dock (sorrel), raw (22 kcal), Rumex leaves"
+speck,0,relink to a trusted record,"168282 Pork, cured, ham, center slice, country-style, separable lean only, raw",195,27.8,8.3,0.3,bm:speck SPECK ITALIANO DRY-CURED SMOKED  HAM (MAESTRI; 7 labels agree near 300 kcal),286,28.6,21.4,0,+47,USDA FDC Branded (CC0 1.0),speck labels carry 21 g fat vs 8 for country ham
+stilton,0,relink to a trusted record,"172175 Cheese, blue",353,21.4,28.7,2.3,"cofid:12-367 Cheese, Stilton, blue [20 samples]",410,23.7,35,0.1,+16,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Stilton, blue (410 kcal, 35 g fat); the old link was generic blue cheese (353 kcal)"
+taleggio,0,relink to a trusted record,"170849 Cheese, port de salut",352,23.8,28.2,0.6,bm:taleggio-cheese TALEGGIO D.O.P. CHEESE (AURICCHIO; 2 labels agree near 321 kcal),321,17.9,25,3.6,-9,USDA FDC Branded (CC0 1.0),"two taleggio labels (321 kcal) are 9 percent below the port salut stand-in (352 kcal, fat 12 percent apart)"
+tiger nuts,0,relink to a trusted record,1836579 EXTRA FINE TIGER NUT FLOUR,500,3.6,25,64.3,cofid:14-848 Tigernuts [Literature sources],403,4.3,23.8,,-19,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Tigernuts (403 kcal, 4.3 g protein, 23.8 g fat); the old link was a branded tiger nut flour (500 kcal)"
+urad dal,1,relink to a trusted record,"172420 Lentils, raw",352,24.6,1.1,63.4,"sr:174259 Mungo beans, mature seeds, raw",341,25.2,1.6,59,-3,USDA FDC (public domain),"SR calls black gram Mungo beans (341 kcal, 25.2 g protein); lentils differ"
+weisswurst,0,relink to a trusted record,558150 BISTRO STYLE BOCKWURST,250,11.9,21.4,0,bm:weisswurst WEISSWURST (WEGMANS; 3 labels agree near 283 kcal),283,10.6,26.6,1.8,+13,USDA FDC Branded (CC0 1.0),"three weisswurst labels (248 to 314 kcal, 20 to 29 g fat) vs bockwurst (250 kcal, 21 g)"
+wensleydale,0,relink to a trusted record,"173415 Cheese, cheshire",387,23.4,30.6,4.8,"cofid:12-489 Cheese, Wensleydale [9 samples, sampled in spring and autumn]",381,23.7,31.8,0.1,-2,UK CoFID 2021 (Open Government Licence v3.0),"CoFID has Wensleydale (381 kcal, 31.8 g fat); the old link was Cheshire"
+whole urad,0,relink to a trusted record,"172420 Lentils, raw",352,24.6,1.1,63.4,"sr:174259 Mungo beans, mature seeds, raw",341,25.2,1.6,59,-3,USDA FDC (public domain),"SR calls black gram Mungo beans (341 kcal, 25.2 g protein); lentils differ"
+winter melon,0,relink to a trusted record,"169232 Gourd, white-flowered (calabash), raw",14,0.6,0,3.4,"sr:170069 Waxgourd, (chinese preserving melon), raw",13,0.4,0.2,3,-7,USDA FDC (public domain),"SR has Waxgourd (Chinese preserving melon), raw (13 kcal); the old link was bottle gourd"
+yakisoba noodles,1,relink to a trusted record,"169732 Noodles, egg, enriched, cooked",138,4.5,2.1,25.2,brand:2027673 YAKISOBA NOODLES,196,7.1,1.8,37.9,+42,USDA FDC Branded (CC0 1.0),"the one plain yakisoba noodle label in FDC (Wan Hua Foods, 196 kcal, 7.1 g protein) is a real record of the food; cooked egg noodles are 138 kcal"
+advieh,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+aji dulce,0,unmap (honest gap: no nutrition data),"170108 Peppers, sweet, red, raw",26,1,0.3,6,,,,,,,,"sweet chile pepper; no record, fresh chile varieties differ by 20 to 40 percent in SR"
+aji limo,0,unmap (honest gap: no nutrition data),"170106 Peppers, hot chili, red, raw",40,1.9,0.4,8.8,,,,,,,,Capsicum chinense; 2 brand labels (57 and 43 kcal) disagree with each other
+ajwain,0,unmap (honest gap: no nutrition data),"170938 Spices, thyme, dried",276,9.1,7.4,63.9,,,,,,,,seed; thyme leaf is a different plant part and species
+ají charapita,0,unmap (honest gap: no nutrition data),"170106 Peppers, hot chili, red, raw",40,1.9,0.4,8.8,,,,,,,,Capsicum chinense; no record
+ají mirasol,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,dried chile; cayenne is a different cultivar
+akkawi cheese,0,unmap (honest gap: no nutrition data),446994 NABULSI CHEESE,250,14.3,21.4,0,closest evidence (not used): bm:nabulsi-cheese,285.5,17.9,25,1.8,+14,,no akkawi record; the two nabulsi labels in FDC are 250 and 321 kcal
+aleppo pepper,1,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,semi-dried flakes with oil and salt; cayenne is a different product
+almond extract,0,unmap (honest gap: no nutrition data),173471 Vanilla extract,288,0.1,0.1,12.7,,,,,,,,vanilla extract is a different flavouring; brand labels round to 0
+amaretto,0,unmap (honest gap: no nutrition data),"175097 Alcoholic beverage, liqueur, coffee, 53 proof",336,0.1,0.3,46.8,,,,,,,,liqueur sugar content varies by maker
+angostura bitters,0,unmap (honest gap: no nutrition data),"174815 Alcoholic beverage, distilled, all (gin, rum, vodka, whiskey) 80 proof",231,0,0,0,,,,,,,,bitters carry sugar and botanical extracts; spirit alone is not the same food
+apple pie spice,1,unmap (honest gap: no nutrition data),"171332 Spices, pumpkin pie spice",342,5.8,12.6,69.3,,,,,,,,blend; ratio of nutmeg to cinnamon varies by maker
+arctic char,0,unmap (honest gap: no nutrition data),"173717 Fish, trout, rainbow, farmed, raw",141,19.9,6.2,0,closest evidence (not used): bm:arctic-char,163,19.4,8.1,1.9,+16,,"farmed char labels (186 kcal, 12.4 g fat) are far above rainbow trout (141 kcal)"
+asafoetida,3,unmap (honest gap: no nutrition data),"171325 Spices, garlic powder",331,16.6,0.7,72.7,,,,,,,,"resin, usually compounded with flour; garlic powder is a different spice"
+baharat,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+bajra flour,0,unmap (honest gap: no nutrition data),"169702 Millet, raw",378,11,4.2,72.8,,,,,,,,pearl millet; SR millet is proso millet (a different species)
+banana ketchup,1,unmap (honest gap: no nutrition data),168556 Catsup,101,1,0.1,27.4,closest evidence (not used): bm:banana-ketchup,79.5,0,0,19.2,-21,,two brand labels disagree (100 and 59 kcal)
+barramundi,0,unmap (honest gap: no nutrition data),"175142 Fish, sea bass, mixed species, raw",97,18.4,2,0,,,,,,,,sea bass mixed species is a different fish; the one barramundi label (80 kcal) is 18 percent lower
+beef cheeks,0,unmap (honest gap: no nutrition data),"170809 Beef, chuck for stew, separable lean and fat, select, raw",124,21.9,4,0.2,,,,,,,,head meat is much fattier than lean chuck
+berbere,3,unmap (honest gap: no nutrition data),"171319 Spices, chili powder",282,13.5,14.3,49.7,,,,,,,,blend
+bergamot,0,unmap (honest gap: no nutrition data),"167746 Lemons, raw, without peel",29,1.1,0.3,9.3,,,,,,,,fruit not eaten raw; lemon is a different fruit
+bhut jolokia,0,unmap (honest gap: no nutrition data),"170106 Peppers, hot chili, red, raw",40,1.9,0.4,8.8,,,,,,,,Capsicum chinense; SR hot chili is Capsicum frutescens
+biber salcasi,0,unmap (honest gap: no nutrition data),"1465885 MAMA TINA'S, YELLOW HOT PEPPER PASTE",71,0,0,14.3,,,,,,,,the old link was a yellow hot pepper paste of another culture
+biltong,0,unmap (honest gap: no nutrition data),"167536 Snacks, beef jerky, chopped and formed",410,33.2,25.6,11,closest evidence (not used): bm:biltong,316,55.8,7.1,1.8,-23,,"biltong labels carry 55 g protein per 100 g, jerky 33 g"
+bitter orange,0,unmap (honest gap: no nutrition data),"169097 Oranges, raw, all commercial varieties",47,0.9,0.1,11.8,,,,,,,,Seville orange; sweet orange is a different fruit
+bitterleaf,0,unmap (honest gap: no nutrition data),"168462 Spinach, raw",23,2.9,0.4,3.6,,,,,,,,Vernonia leaf; spinach is a different plant
+black garlic,0,unmap (honest gap: no nutrition data),"169230 Garlic, raw",149,6.4,0.5,33.1,,,,,,,,aged garlic is lower in water; raw garlic is a different state
+black vinegar,2,unmap (honest gap: no nutrition data),"172241 Vinegar, balsamic",88,0.5,0,17,,,,,,,,Chinese black vinegar carries grain sugars; balsamic is a different vinegar
+bouquet garni,0,unmap (honest gap: no nutrition data),"170938 Spices, thyme, dried",276,9.1,7.4,63.9,,,,,,,,blend
+caciocavallo,0,unmap (honest gap: no nutrition data),"170850 Cheese, provolone",351,25.6,26.6,2.1,,,,,,,,no record or labels
+calabash nutmeg,0,unmap (honest gap: no nutrition data),"171326 Spices, nutmeg, ground",525,5.8,36.3,49.3,,,,,,,,a different seed from true nutmeg
+calamansi,0,unmap (honest gap: no nutrition data),"168156 Lime juice, raw",25,0.4,0.1,8.4,,,,,,,,"Citrus x microcarpa; no record, and lime is a different fruit"
+candlenuts,0,unmap (honest gap: no nutrition data),"170178 Nuts, macadamia nuts, raw",718,7.9,75.8,13.8,,,,,,,,a different nut from macadamia
+cape malay curry powder,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+carne seca,0,unmap (honest gap: no nutrition data),"167536 Snacks, beef jerky, chopped and formed",410,33.2,25.6,11,closest evidence (not used): bm:carne-seca,321,53.6,8.9,0,-22,,"dried beef labels carry 55 g protein per 100 g, jerky 33 g"
+carob molasses,0,unmap (honest gap: no nutrition data),168820 Molasses,290,0,0.1,74.7,,,,,,,,carob syrup differs from cane molasses
+cascabel chile,0,unmap (honest gap: no nutrition data),"168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,,,,,,,,dried cultivar; the SR sun-dried chile record is generic
+cassia leaves,0,unmap (honest gap: no nutrition data),"170917 Spices, bay leaf",313,7.6,8.4,75,,,,,,,,dried tej patta; bay laurel is a different leaf
+chaya,0,unmap (honest gap: no nutrition data),"168462 Spinach, raw",23,2.9,0.4,3.6,,,,,,,,Cnidoscolus leaf; spinach is a different plant
+cherry peppers,0,unmap (honest gap: no nutrition data),"170108 Peppers, sweet, red, raw",26,1,0.3,6,,,,,,,,"mild or hot cherry pepper, pickled or fresh; sweet red bell pepper is a different pepper"
+chhena,0,unmap (honest gap: no nutrition data),"172179 Cheese, cottage, creamed, large or small curd",98,11.1,4.3,3.4,,,,,,,,fresh curd cheese; cottage cheese is a different product
+chile de arbol,1,unmap (honest gap: no nutrition data),"168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,,,,,,,,dried cultivar
+chili oil,2,unmap (honest gap: no nutrition data),"172370 Oil, vegetable, soybean, refined",884,0,100,0,closest evidence (not used): bm:chili-oil,650,0,75,0,-26,,"home and brand chili oils run 600 to 900 kcal (14 labels, 188 to 900) depending on how much chili sediment is in the jar; plain oil is 884"
+chinese ham,0,unmap (honest gap: no nutrition data),"168282 Pork, cured, ham, center slice, country-style, separable lean only, raw",195,27.8,8.3,0.3,,,,,,,,Jinhua ham is a dry-cured ham of its own; US country ham is a different cure
+chipotle powder,0,unmap (honest gap: no nutrition data),"168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,,,,,,,,smoked jalapeno; SR sun-dried chile is another cultivar
+choclo,0,unmap (honest gap: no nutrition data),"168538 Corn, sweet, white, raw",86,3.2,1.2,19,,,,,,,,starchy large-kernel corn; sweet corn is a different food
+citron,0,unmap (honest gap: no nutrition data),"167746 Lemons, raw, without peel",29,1.1,0.3,9.3,,,,,,,,thick-pith fruit; lemon pulp is a different part
+colatura di alici,0,unmap (honest gap: no nutrition data),"174531 Sauce, fish, ready-to-serve",35,5.1,0,3.6,,,,,,,,Italian anchovy sauce; Thai-style fish sauce is a different product
+creme de cassis,0,unmap (honest gap: no nutrition data),"175097 Alcoholic beverage, liqueur, coffee, 53 proof",336,0.1,0.3,46.8,,,,,,,,liqueur sugar content varies
+cubeb pepper,0,unmap (honest gap: no nutrition data),"170931 Spices, pepper, black",251,10.4,3.3,64,,,,,,,,a different pepper
+culantro,0,unmap (honest gap: no nutrition data),"169997 Coriander (cilantro) leaves, raw",23,2.1,0.5,3.7,,,,,,,,"Eryngium, a different plant from cilantro"
+degi mirch,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,Kashmiri chile powder
+dijon mustard,11,unmap (honest gap: no nutrition data),"172234 Mustard, prepared, yellow",60,3.7,3.3,5.8,,,,,,,,no trusted Dijon record; brand labels round to 0 g and cannot be used; prepared yellow mustard is 60 kcal and FNDDS generic mustard is 69
+doenjang,0,unmap (honest gap: no nutrition data),172442 Miso,198,12.8,6,25.4,,,,,,,,the one doenjang label (167 kcal) is 16 percent below miso
+dried fenugreek leaves,3,unmap (honest gap: no nutrition data),"171324 Spices, fenugreek seed",323,23,6.4,58.4,,,,,,,,the old link was fenugreek SEED; the leaf is a different part
+dried galangal,0,unmap (honest gap: no nutrition data),"170926 Spices, ginger, ground",335,9,4.2,71.6,,,,,,,,ginger is a different rhizome
+elephant foot yam,0,unmap (honest gap: no nutrition data),"170071 Yam, raw",118,1.5,0.2,27.9,,,,,,,,"Amorphophallus, a different plant from Dioscorea"
+facing heaven chili,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,dried cultivar
+farmer cheese,0,unmap (honest gap: no nutrition data),"172179 Cheese, cottage, creamed, large or small curd",98,11.1,4.3,3.4,,,,,,,,fat level varies from 0 to 10 percent
+fennel pollen,0,unmap (honest gap: no nutrition data),"171323 Spices, fennel seed",345,15.8,14.9,52.3,,,,,,,,"pollen, not seed"
+fermented black beans,1,unmap (honest gap: no nutrition data),172442 Miso,198,12.8,6,25.4,,,,,,,,salted fermented soybeans; miso is a different ferment
+fines herbes,0,unmap (honest gap: no nutrition data),"170930 Spices, parsley, dried",292,26.6,5.5,50.6,,,,,,,,blend
+finger lime,0,unmap (honest gap: no nutrition data),"168155 Limes, raw",30,0.7,0.2,10.5,,,,,,,,different fruit
+fingerroot,0,unmap (honest gap: no nutrition data),"169231 Ginger root, raw",80,1.8,0.8,17.8,,,,,,,,a different rhizome from ginger
+fish cakes,1,unmap (honest gap: no nutrition data),"173702 Fish, surimi",99,15.2,0.9,6.8,,,,,,,,"Japanese kamaboko, Thai fried cakes and Western fish cakes are different foods"
+fresh bay leaves,0,unmap (honest gap: no nutrition data),"170917 Spices, bay leaf",313,7.6,8.4,75,,,,,,,,the SR record is dried bay leaf
+fresno chile,0,unmap (honest gap: no nutrition data),"168576 Peppers, jalapeno, raw",29,0.9,0.4,6.5,,,,,,,,"fresh chile varieties differ by 20 to 40 percent in SR (jalapeno 29, hot chili 40)"
+fried shallots,0,unmap (honest gap: no nutrition data),359419 FRENCH FRIED ONIONS,643,0,50,42.9,,,,,,,,French fried onions are a different product
+fromage blanc,0,unmap (honest gap: no nutrition data),"172179 Cheese, cottage, creamed, large or small curd",98,11.1,4.3,3.4,,,,,,,,fat level varies
+fura,0,unmap (honest gap: no nutrition data),"169702 Millet, raw",378,11,4.2,72.8,,,,,,,,millet dough ball
+galangal,2,unmap (honest gap: no nutrition data),"169231 Ginger root, raw",80,1.8,0.8,17.8,,,,,,,,a different rhizome from ginger
+galangal powder,0,unmap (honest gap: no nutrition data),"170926 Spices, ginger, ground",335,9,4.2,71.6,,,,,,,,ginger is a different rhizome
+garden egg,0,unmap (honest gap: no nutrition data),"169228 Eggplant, raw",25,1,0.2,5.9,,,,,,,,"Solanum aethiopicum or macrocarpon, a different species from eggplant"
+geoduck,0,unmap (honest gap: no nutrition data),"174214 Mollusks, clam, mixed species, raw",86,14.7,1,3.6,,,,,,,,no geoduck record
+gochugaru,3,unmap (honest gap: no nutrition data),"171319 Spices, chili powder",282,13.5,14.3,49.7,,,,,,,,"pure Korean chile powder, not the cumin-and-spice US chili powder blend"
+gochugaru flakes coarse,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,the old link was cayenne
+goda masala,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+grains of paradise,0,unmap (honest gap: no nutrition data),"170931 Spices, pepper, black",251,10.4,3.3,64,,,,,,,,a different spice from black pepper
+grains of selim,0,unmap (honest gap: no nutrition data),"170931 Spices, pepper, black",251,10.4,3.3,64,,,,,,,,a different spice from black pepper
+grape molasses,0,unmap (honest gap: no nutrition data),168820 Molasses,290,0,0.1,74.7,,,,,,,,grape syrup differs from cane molasses
+green peppercorns,0,unmap (honest gap: no nutrition data),"170931 Spices, pepper, black",251,10.4,3.3,64,,,,,,,,"fresh or brined peppercorns, not dried"
+guajillo chile,2,unmap (honest gap: no nutrition data),"168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,,,,,,,,dried cultivar
+guasca,0,unmap (honest gap: no nutrition data),"171328 Spices, oregano, dried",265,9,4.3,68.9,,,,,,,,Galinsoga leaf; oregano is a different herb
+habanero,1,unmap (honest gap: no nutrition data),"170106 Peppers, hot chili, red, raw",40,1.9,0.4,8.8,,,,,,,,Capsicum chinense; SR hot red chile is a different cultivar
+hawaij,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+herbes de provence,0,unmap (honest gap: no nutrition data),"170938 Spices, thyme, dried",276,9.1,7.4,63.9,,,,,,,,blend
+holy basil,1,unmap (honest gap: no nutrition data),"172232 Basil, fresh",23,3.1,0.6,2.6,,,,,,,,"Ocimum tenuiflorum, a different species from sweet basil"
+huauzontle,0,unmap (honest gap: no nutrition data),"170379 Broccoli, raw",34,2.8,0.4,6.6,,,,,,,,Chenopodium; broccoli is a different plant
+indian bay leaf,0,unmap (honest gap: no nutrition data),"170917 Spices, bay leaf",313,7.6,8.4,75,,,,,,,,"Cinnamomum tamala, not Laurus nobilis"
+italian seasoning,19,unmap (honest gap: no nutrition data),"171328 Spices, oregano, dried",265,9,4.3,68.9,,,,,,,,blend
+ivy gourd,0,unmap (honest gap: no nutrition data),"168393 Balsam-pear (bitter gourd), pods, raw",17,1,0.2,3.7,,,,,,,,"Coccinia, a different gourd"
+jamon iberico,0,unmap (honest gap: no nutrition data),1989624 PROSCIUTTO,250,32.1,10.7,0,,,,,,,,Iberico labels are 25 g fat; prosciutto is 10 g
+jocheong,0,unmap (honest gap: no nutrition data),"169660 Syrups, malt",318,6.2,0,71.3,,,,,,,,rice syrup; barley malt syrup is a different syrup
+kabocha squash,0,unmap (honest gap: no nutrition data),"170489 Squash, winter, all varieties, raw",34,0.9,0.1,8.6,closest evidence (not used): bm:kabocha-squash,53,3.1,0.5,8.9,+56,,labels (47 kcal) are 28 percent above the generic winter squash record (34 kcal)
+kabsa spice,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+kaffir lime,0,unmap (honest gap: no nutrition data),"168156 Lime juice, raw",25,0.4,0.1,8.4,,,,,,,,"the ingredient is the leaf or zest, not lime juice"
+kalamata olives,2,unmap (honest gap: no nutrition data),"169094 Olives, ripe, canned (small-extra large)",116,0.8,10.9,6,,,,,,,,brine-cured vs lye-cured black olives; labels vary 107 to 300 kcal
+kangaroo meat,0,unmap (honest gap: no nutrition data),"173855 Game meat, deer, raw",120,23,2.4,0,,,,,,,,venison is a different meat
+kesong puti,0,unmap (honest gap: no nutrition data),"172179 Cheese, cottage, creamed, large or small curd",98,11.1,4.3,3.4,,,,,,,,no record
+khmeli suneli,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+kitchen king masala,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+kokum,0,unmap (honest gap: no nutrition data),"167763 Tamarinds, raw",239,2.8,0.6,62.5,,,,,,,,a different fruit from tamarind
+korarima,0,unmap (honest gap: no nutrition data),"170919 Spices, cardamom",311,10.8,6.7,68.5,,,,,,,,a different spice from cardamom
+kukui nuts,0,unmap (honest gap: no nutrition data),"170178 Nuts, macadamia nuts, raw",718,7.9,75.8,13.8,,,,,,,,"candlenut, a different nut"
+lavender,0,unmap (honest gap: no nutrition data),"170938 Spices, thyme, dried",276,9.1,7.4,63.9,,,,,,,,a different herb from thyme
+lebkuchen spice,0,unmap (honest gap: no nutrition data),"170926 Spices, ginger, ground",335,9,4.2,71.6,,,,,,,,blend
+lechon kawali,0,unmap (honest gap: no nutrition data),"167812 Pork, fresh, belly, raw",518,9.3,53,0,,,,,,,,fried pork belly; raw belly is a different state
+lemon balm,0,unmap (honest gap: no nutrition data),"173474 Peppermint, fresh",70,3.8,0.9,14.9,,,,,,,,a different herb from peppermint
+lemon basil,0,unmap (honest gap: no nutrition data),"172232 Basil, fresh",23,3.1,0.6,2.6,,,,,,,,a hybrid basil
+lemon extract,0,unmap (honest gap: no nutrition data),173471 Vanilla extract,288,0.1,0.1,12.7,,,,,,,,a flavouring; vanilla extract is another
+lemon verbena,0,unmap (honest gap: no nutrition data),"173474 Peppermint, fresh",70,3.8,0.9,14.9,,,,,,,,a different herb from peppermint
+limoncello,0,unmap (honest gap: no nutrition data),"175097 Alcoholic beverage, liqueur, coffee, 53 proof",336,0.1,0.3,46.8,,,,,,,,liqueur sugar content varies
+limu,0,unmap (honest gap: no nutrition data),"168458 Seaweed, laver, raw",35,5.8,0.3,5.1,,,,,,,,many Hawaiian seaweeds; laver is one of them
+long pepper,0,unmap (honest gap: no nutrition data),"170931 Spices, pepper, black",251,10.4,3.3,64,,,,,,,,a different pepper
+lovage,0,unmap (honest gap: no nutrition data),"169988 Celery, raw",14,0.7,0.2,3,,,,,,,,a different herb from celery
+lutefisk,0,unmap (honest gap: no nutrition data),"171955 Fish, cod, Atlantic, raw",82,17.8,0.7,0,,,,,,,,lye-cured dried cod
+mala seasoning,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+malai,0,unmap (honest gap: no nutrition data),"170859 Cream, fluid, heavy whipping",340,2.8,36.1,2.8,,,,,,,,Indian clotted cream is not heavy cream
+mango ginger,0,unmap (honest gap: no nutrition data),"169231 Ginger root, raw",80,1.8,0.8,17.8,,,,,,,,a different rhizome from ginger
+maras biber,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,semi-dried flakes with oil and salt
+mct oil,0,unmap (honest gap: no nutrition data),"171412 Oil, coconut",892,0,99.1,0,closest evidence (not used): bm:mct-oil,470,15.6,33.8,17.1,-47,,"MCT labels are 800 kcal, coconut oil 892"
+meat masala,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+mexican oregano,0,unmap (honest gap: no nutrition data),"171328 Spices, oregano, dried",265,9,4.3,68.9,,,,,,,,"Lippia graveolens, a different plant from Mediterranean oregano"
+microgreens,0,unmap (honest gap: no nutrition data),"169249 Lettuce, green leaf, raw",15,1.4,0.1,2.9,,,,,,,,many different plants
+mitmita,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,blend
+mitsuba,0,unmap (honest gap: no nutrition data),"170416 Parsley, fresh",36,3,0.8,6.3,,,,,,,,a different herb from parsley
+mizithra,0,unmap (honest gap: no nutrition data),"170851 Cheese, ricotta, whole milk",150,7.5,10.2,7.3,,,,,,,,no cheese record; the one label is a cheese blend
+mizuna,0,unmap (honest gap: no nutrition data),"169256 Mustard greens, raw",27,2.9,0.4,4.7,,,,,,,,Brassica rapa; SR mustard greens are Brassica juncea
+morita chile,0,unmap (honest gap: no nutrition data),"168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,,,,,,,,dried smoked cultivar
+morogo,0,unmap (honest gap: no nutrition data),"168462 Spinach, raw",23,2.9,0.4,3.6,,,,,,,,wild African greens
+mulato chile,0,unmap (honest gap: no nutrition data),"169396 Peppers, ancho, dried",281,11.9,8.2,51.4,,,,,,,,dried cultivar
+mushroom soy sauce,0,unmap (honest gap: no nutrition data),174277 Soy sauce made from soy and wheat (shoyu),53,8.1,0.6,4.9,,,,,,,,dark soy sauce carries molasses sugar; labels 33 to 167 kcal
+nameko mushrooms,0,unmap (honest gap: no nutrition data),"169382 Mushrooms, enoki, raw",37,2.7,0.3,7.8,,,,,,,,a different mushroom from enoki
+narsharab,0,unmap (honest gap: no nutrition data),168820 Molasses,290,0,0.1,74.7,,,,,,,,pomegranate syrup
+nasturtium,0,unmap (honest gap: no nutrition data),"170068 Watercress, raw",11,2.3,0.1,1.3,,,,,,,,a different plant from watercress
+new mexico chile,0,unmap (honest gap: no nutrition data),"168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,,,,,,,,dried cultivar
+nigella seeds,0,unmap (honest gap: no nutrition data),"170923 Spices, cumin seed",375,17.8,22.3,44.2,,,,,,,,labels carry 33 g fat vs 22 for cumin
+okonomiyaki sauce,1,unmap (honest gap: no nutrition data),"174523 Sauce, barbecue",172,0.8,0.6,40.8,,,,,,,,no trusted record; barbecue sauce is a different sauce
+panch phoron,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+partridge,0,unmap (honest gap: no nutrition data),"172418 Quail, meat and skin, raw",192,19.6,12.1,0,,,,,,,,no trusted record
+pastis,0,unmap (honest gap: no nutrition data),"175097 Alcoholic beverage, liqueur, coffee, 53 proof",336,0.1,0.3,46.8,,,,,,,,anise spirit with added sugar
+pav bhaji masala,1,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+pea eggplant,0,unmap (honest gap: no nutrition data),"169228 Eggplant, raw",25,1,0.2,5.9,,,,,,,,a different species
+peperoncino,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,may be fresh or dried
+peppermint extract,0,unmap (honest gap: no nutrition data),173471 Vanilla extract,288,0.1,0.1,12.7,,,,,,,,a flavouring
+pequin chile,0,unmap (honest gap: no nutrition data),"168570 Peppers, hot chile, sun-dried",324,10.6,5.8,69.9,,,,,,,,dried cultivar
+perilla seeds,0,unmap (honest gap: no nutrition data),"170150 Seeds, sesame seeds, whole, dried",573,17.7,49.7,23.4,,,,,,,,a different seed from sesame
+periwinkles,0,unmap (honest gap: no nutrition data),"171983 Mollusks, whelk, unspecified, raw",137,23.8,0.4,7.8,,,,,,,,a different snail from whelk
+pilau masala,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+plum wine,0,unmap (honest gap: no nutrition data),"173176 Alcoholic beverage, wine, dessert, sweet",160,0.2,0,13.7,,,,,,,,umeshu sugar content varies
+pointed gourd,0,unmap (honest gap: no nutrition data),"168414 Gourd, dishcloth (towelgourd), raw",20,1.2,0.2,4.3,,,,,,,,a different gourd from towel gourd
+porchetta,0,unmap (honest gap: no nutrition data),"167843 Pork, fresh, shoulder, whole, separable lean and fat, raw",236,17.2,18,0,,,,,,,,roasted seasoned pork; raw shoulder is a different state
+porcini mushrooms,0,unmap (honest gap: no nutrition data),"169251 Mushrooms, white, raw",22,3.1,0.3,3.3,,,,,,,,fresh porcini and dried porcini are very different
+preserved lemon,1,unmap (honest gap: no nutrition data),"167749 Lemon peel, raw",47,1.5,0.3,16,,,,,,,,a salt-cured product
+preserved radish,0,unmap (honest gap: no nutrition data),"169891 Cabbage, mustard, salted",28,1.1,0.1,5.6,,,,,,,,a salt-cured product
+quark,0,unmap (honest gap: no nutrition data),"172179 Cheese, cottage, creamed, large or small curd",98,11.1,4.3,3.4,,,,,,,,fat level varies from 0 to 10 percent
+queijo minas,0,unmap (honest gap: no nutrition data),"172223 Cheese, fresh, queso fresco",299,18.1,23.8,3,,,,,,,,no record
+quelites,0,unmap (honest gap: no nutrition data),"168385 Amaranth leaves, raw",23,2.5,0.3,4,,,,,,,,wild greens
+ragi flour,0,unmap (honest gap: no nutrition data),"169702 Millet, raw",378,11,4.2,72.8,,,,,,,,finger millet; SR millet is proso millet
+ramps,0,unmap (honest gap: no nutrition data),"169246 Leeks, (bulb and lower leaf-portion), raw",61,1.5,0.3,14.2,,,,,,,,a wild leek
+ras el hanout,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+rasam powder,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+raw banana,0,unmap (honest gap: no nutrition data),"169130 Plantains, yellow, raw",122,1.3,0.3,31.9,,,,,,,,cooking banana
+red beans,0,unmap (honest gap: no nutrition data),"173744 Beans, kidney, red, mature seeds, raw",337,22.5,1.1,61.3,,,,,,,,"red kidney or adzuki, ambiguous"
+requeijao,0,unmap (honest gap: no nutrition data),"173418 Cheese, cream",350,6.2,34.4,5.5,,,,,,,,no record
+rice paddy herb,0,unmap (honest gap: no nutrition data),"169997 Coriander (cilantro) leaves, raw",23,2.1,0.5,3.7,,,,,,,,a different herb from cilantro
+robiola,0,unmap (honest gap: no nutrition data),"171246 Cheese, neufchatel",253,9.2,22.8,3.6,,,,,,,,no record
+rocoto pepper,0,unmap (honest gap: no nutrition data),"170106 Peppers, hot chili, red, raw",40,1.9,0.4,8.8,,,,,,,,"Capsicum pubescens, a different species from the SR hot chili"
+saba banana,0,unmap (honest gap: no nutrition data),"169130 Plantains, yellow, raw",122,1.3,0.3,31.9,,,,,,,,a different banana
+sabzi khordan,0,unmap (honest gap: no nutrition data),"170416 Parsley, fresh",36,3,0.8,6.3,,,,,,,,a mix of herbs
+saeujeot,0,unmap (honest gap: no nutrition data),399930 BAGOONG ALAMANG SALTED SHRIMP FRY,67,13.3,0,0,,,,,,,,the old link was a Filipino shrimp fry
+salam leaf,0,unmap (honest gap: no nutrition data),"170917 Spices, bay leaf",313,7.6,8.4,75,,,,,,,,"Syzygium polyanthum, not Laurus nobilis"
+sambar powder,1,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+sand ginger,0,unmap (honest gap: no nutrition data),"170926 Spices, ginger, ground",335,9,4.2,71.6,,,,,,,,a different rhizome from ginger
+sansho pepper,0,unmap (honest gap: no nutrition data),571905 SPRINKLING SANSHO PEPPER,571,14.3,42.9,28.6,,,,,,,,the one label (571 kcal) is a blend
+scent leaf,0,unmap (honest gap: no nutrition data),"172232 Basil, fresh",23,3.1,0.6,2.6,,,,,,,,"Ocimum gratissimum, a different species"
+scotch bonnet,8,unmap (honest gap: no nutrition data),"170106 Peppers, hot chili, red, raw",40,1.9,0.4,8.8,,,,,,,,Capsicum chinense; SR hot red chile is a different cultivar
+shaoxing cooking wine,0,unmap (honest gap: no nutrition data),"167723 Alcoholic beverage, rice (sake)",134,0.5,0,5,,,,,,,,the one label (117 kcal) is 13 percent below sake
+shaoxing wine,2,unmap (honest gap: no nutrition data),"167723 Alcoholic beverage, rice (sake)",134,0.5,0,5,,,,,,,,the one label (117 kcal) is 13 percent below sake
+shawarma spice,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+sheep cheese,0,unmap (honest gap: no nutrition data),"171249 Cheese, romano",387,31.8,26.9,3.6,,,,,,,,"too generic (feta, manchego and romano are 265 to 429 kcal)"
+shichimi togarashi,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+shrimp paste,0,unmap (honest gap: no nutrition data),"400146 BARRIO FIESTA, SAUTEED SHRIMP PASTE",300,13.3,20,20,,,,,,,,the old link was a sauteed Filipino shrimp paste
+sichuan peppercorns,3,unmap (honest gap: no nutrition data),"170931 Spices, pepper, black",251,10.4,3.3,64,,,,,,,,a different plant from black pepper
+simit,0,unmap (honest gap: no nutrition data),"174899 Bagels, plain, enriched, with calcium propionate (includes onion, poppy, sesame)",264,10.6,1.3,52.4,,,,,,,,sesame and molasses coating
+sorrel,0,unmap (honest gap: no nutrition data),"168462 Spinach, raw",23,2.9,0.4,3.6,,,,,,,,"Rumex or hibiscus, not spinach"
+squid ink,0,unmap (honest gap: no nutrition data),"174223 Mollusks, squid, mixed species, raw",92,15.6,1.4,3.1,,,,,,,,"a sauce or ink, not squid flesh"
+star anise,2,unmap (honest gap: no nutrition data),"171316 Spices, anise seed",337,17.6,15.9,50,,,,,,,,a different plant from anise seed
+stockfish,0,unmap (honest gap: no nutrition data),"174190 Fish, cod, Atlantic, dried and salted",290,62.8,2.4,0,,,,,,,,unsalted air-dried cod; the old link was salted dried cod
+stracciatella,0,unmap (honest gap: no nutrition data),"170845 Cheese, mozzarella, whole milk",299,22.2,22.1,2.4,,,,,,,,labels in FDC are gelato; no cheese record
+suluguni,0,unmap (honest gap: no nutrition data),"171244 Cheese, mozzarella, low moisture, part-skim",295,23.8,19.8,5.6,,,,,,,,no record
+sumac,1,unmap (honest gap: no nutrition data),"171329 Spices, paprika",282,14.1,12.9,54,,,,,,,,a different spice from paprika
+sweet bean sauce,0,unmap (honest gap: no nutrition data),"172886 Sauce, hoisin, ready-to-serve",220,3.3,3.4,44.1,,,,,,,,no trusted record
+tabil,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+tagine spice,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+tamarind paste,6,unmap (honest gap: no nutrition data),"167763 Tamarinds, raw",239,2.8,0.6,62.5,closest evidence (not used): bm:tamarind-paste,200,0,0,58.3,-16,,concentrates and pastes vary 100 to 248 kcal in the labels; raw pulp (239) is a different state
+tepary beans,0,unmap (honest gap: no nutrition data),"175199 Beans, pinto, mature seeds, raw (Includes foods for USDA's Food Distribution Program)",347,21.4,1.2,62.5,,,,,,,,a different bean species
+tianjin preserved vegetable,0,unmap (honest gap: no nutrition data),"169891 Cabbage, mustard, salted",28,1.1,0.1,5.6,,,,,,,,a salt-cured product
+torch ginger,0,unmap (honest gap: no nutrition data),"169231 Ginger root, raw",80,1.8,0.8,17.8,,,,,,,,a different plant from ginger
+triple sec,0,unmap (honest gap: no nutrition data),"175097 Alcoholic beverage, liqueur, coffee, 53 proof",336,0.1,0.3,46.8,,,,,,,,liqueur sugar content varies
+tvorog,0,unmap (honest gap: no nutrition data),"172179 Cheese, cottage, creamed, large or small curd",98,11.1,4.3,3.4,,,,,,,,fat level varies
+ube,0,unmap (honest gap: no nutrition data),"170071 Yam, raw",118,1.5,0.2,27.9,,,,,,,,"SR 'Yam, raw' is genus Dioscorea spp. and the Hawaiian mountain yam is Dioscorea pentaphylla; neither is ube (Dioscorea alata), and the owner measured about 20 percent difference"
+unagi,0,unmap (honest gap: no nutrition data),"174193 Fish, eel, mixed species, raw",184,18.4,11.7,0,,,,,,,,"grilled eel with sauce, not raw eel"
+uni,0,unmap (honest gap: no nutrition data),"175132 Fish, roe, mixed species, raw",143,22.3,6.4,1.5,,,,,,,,"sea urchin gonads, not fish roe"
+urfa biber,0,unmap (honest gap: no nutrition data),"170932 Spices, pepper, red or cayenne",318,12,17.3,56.6,,,,,,,,semi-dried flakes with oil and salt
+utskho suneli,0,unmap (honest gap: no nutrition data),"171324 Spices, fenugreek seed",323,23,6.4,58.4,,,,,,,,a different herb from fenugreek seed
+uziza,0,unmap (honest gap: no nutrition data),"170931 Spices, pepper, black",251,10.4,3.3,64,,,,,,,,a different spice from black pepper
+veal stock,0,unmap (honest gap: no nutrition data),"171538 Soup, beef broth or bouillon canned, ready-to-serve",7,1.1,0.2,0,closest evidence (not used): sr:172883,13,2,0.1,1.2,+86,,"no veal stock record; beef stock is 13 kcal, canned beef broth 7"
+vietnamese coriander,0,unmap (honest gap: no nutrition data),"169997 Coriander (cilantro) leaves, raw",23,2.1,0.5,3.7,,,,,,,,a different herb from cilantro
+vietnamese mint,0,unmap (honest gap: no nutrition data),"173474 Peppermint, fresh",70,3.8,0.9,14.9,,,,,,,,a different herb from peppermint
+wahoo,0,unmap (honest gap: no nutrition data),"175122 Fish, mackerel, king, raw",105,20.3,2,0,,,,,,,,no trusted record
+walnut paste,0,unmap (honest gap: no nutrition data),"170187 Nuts, walnuts, english",654,15.2,65.2,13.7,,,,,,,,no walnut paste record in FDC Branded or any trusted table
+water mimosa,0,unmap (honest gap: no nutrition data),"168462 Spinach, raw",23,2.9,0.4,3.6,,,,,,,,a different plant from spinach
+waterleaf,0,unmap (honest gap: no nutrition data),"168462 Spinach, raw",23,2.9,0.4,3.6,,,,,,,,a different plant from spinach
+wheat starch,0,unmap (honest gap: no nutrition data),"169761 Wheat flour, white, all-purpose, unenriched",364,10.3,1,76.3,,,,,,,,starch has almost no protein; all-purpose flour has 10 g
+wild thyme,0,unmap (honest gap: no nutrition data),"170938 Spices, thyme, dried",276,9.1,7.4,63.9,,,,,,,,a different species from garden thyme
+xawaash,0,unmap (honest gap: no nutrition data),"170924 Spices, curry powder",325,14.3,14,55.8,,,,,,,,blend
+yellow bean sauce,0,unmap (honest gap: no nutrition data),172442 Miso,198,12.8,6,25.4,,,,,,,,no trusted record

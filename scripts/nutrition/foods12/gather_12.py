@@ -68,7 +68,10 @@ def _call(url, body=None):
 
 
 def save_cache():
-    json.dump(cache, open(CACHE_PATH, "w", encoding="utf-8"))
+    tmp = CACHE_PATH + ".tmp"  # atomic: an interrupted write must never leave a half-written cache
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(cache, fh)
+    os.replace(tmp, CACHE_PATH)
 
 
 def fdc_food(fid):
