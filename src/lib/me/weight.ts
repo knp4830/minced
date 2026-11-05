@@ -7,7 +7,7 @@
  * Weeks run Monday to Sunday (the weekly view), like the rest of the dashboard.
  */
 
-import { addDays, dayDiff, weekRange, type WeekStart } from "@/lib/me/dates";
+import { addDays, weekRange, type WeekStart } from "@/lib/me/dates";
 
 export type WeightPoint = { date: string; kg: number };
 export type WeightAvgPoint = WeightPoint & { avg: number };
@@ -54,5 +54,3 @@ export function toGoal(avgKg: number, goalKg: number, goal: "lose" | "gain"): nu
   return r2(goal === "lose" ? avgKg - goalKg : goalKg - avgKg);
 }
 
-/** Convenience for the chart: whole days between two dates. */
-export const spanDays = dayDiff;

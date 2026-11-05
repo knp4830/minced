@@ -93,37 +93,3 @@ export async function getFridgeIds(): Promise<{
   return { items, coverIds };
 }
 
-/**
- * For "Use these first" results: the soonest days-until-expiry per recipe,
- * from the signed-in user's dated items, and how many of them each recipe uses. Recipes that use no dated item are absent.
- */
-export async function getRecipeExpiryDays(
-  recipeIds: string[],
-  today: string,
-): Promise<Map<string, { days: number; items: number }>> {
-  if (recipeIds.length === 0) return new Map();
-  const supabase = await db();
-  const { data: items } = await supabase
-    .from("fridge_items")
-    .select("ingredient_id, expires_on")
-    .not("expires_on", "is", null);
-  const dated = ((items ?? []) as { ingredient_id: number; expires_on: string }[]).map((i) => ({
-    id: i.ingredient_id,
-    days: Math.round(
-      (Date.parse(`${i.expires_on}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86_400_000,
-    ),
-  }));
-  if (dated.length === 0) return new Map();
-  const { data, error } = await supabase.rpc("recipe_expiry_days", {
-    recipe_ids: recipeIds,
-    item_ids: dated.map((d) => d.id),
-    item_days: dated.map((d) => d.days),
-  });
-  if (error) throw error;
-  return new Map(
-    ((data ?? []) as { recipe_id: string; days: number; items: number }[]).map((r) => [
-      r.recipe_id,
-      { days: r.days, items: r.items },
-    ]),
-  );
-}

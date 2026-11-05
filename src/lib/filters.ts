@@ -77,6 +77,7 @@
  */
 
 import { expandLegacyAllergens } from "@/lib/allergenSlugs";
+import { TAG_SLUG_RE } from "@/lib/validate";
 
 export type RecipeFilters = {
   /** Search text (door 2). */
@@ -167,7 +168,6 @@ const MAX_LIST = 50;
 const MAX_Q = 200;
 /** Postgres int4 ceiling: a larger id would make the RPC throw instead of match nothing. */
 export const MAX_INT4 = 2_147_483_647;
-const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 function first(sp: SearchParamsInput, key: string): string | undefined {
   if (sp instanceof URLSearchParams) return sp.get(key) ?? undefined;
@@ -207,7 +207,7 @@ function slugList(raw: string | undefined): string[] | undefined {
       raw
         .split(",")
         .map((s) => s.trim().toLowerCase())
-        .filter((s) => SLUG.test(s)),
+        .filter((s) => TAG_SLUG_RE.test(s)),
     ),
   ].slice(0, MAX_LIST);
   return slugs.length ? slugs : undefined;
