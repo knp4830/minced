@@ -9,6 +9,7 @@ import { RecipeList } from "@/components/recipe/recipeList";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { SignOutForm } from "@/components/account/signOutForm";
 import { getCurrentUser } from "@/lib/queries/account";
+import { PageNarrow } from "@/components/shell/pageNarrow";
 import { getFavoriteCards } from "@/lib/queries/favorites";
 import { listMyRecipes } from "@/lib/queries/myRecipes";
 import { cn } from "@/lib/utils";
@@ -47,7 +48,7 @@ export default async function AccountPage({ searchParams }: Props) {
   const flash = tab === "book" && rawFlash ? rawFlash : null;
 
   return (
-    <div className="page-w py-6 md:py-10">
+    <PageNarrow width="wide" className="py-6 md:py-10">
       <header className="flex flex-wrap items-center gap-x-5 gap-y-4">
         <span
           aria-hidden
@@ -131,6 +132,6 @@ export default async function AccountPage({ searchParams }: Props) {
           ))}
 
       </section>
-    </div>
+    </PageNarrow>
   );
 }

@@ -1,3 +1,4 @@
+import { narrowColumn } from "@/components/shell/pageNarrow";
 import { Bar, RecipeGridSkeleton } from "@/components/shell/skeletons";
 import { cn } from "@/lib/utils";
 
@@ -11,11 +12,24 @@ import { cn } from "@/lib/utils";
  * inside are hidden from screen readers.
  */
 
-function Frame({ label, className, children }: { label: string; className?: string; children: React.ReactNode }) {
+function Frame({
+  label,
+  className,
+  innerClassName,
+  children,
+}: {
+  label: string;
+  className?: string;
+  /** Classes for the inner box (a centred narrow column, say). */
+  innerClassName?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div role="status" aria-busy="true" aria-label={label} className={className}>
       <span className="sr-only">{label}…</span>
-      <div aria-hidden>{children}</div>
+      <div aria-hidden className={innerClassName}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -37,7 +51,7 @@ function CardShape({ className, lines = 3 }: { className?: string; lines?: numbe
 /** /account: avatar and name, the section tabs, then the saved-recipes grid. */
 export function AccountSkeleton() {
   return (
-    <Frame label="Loading your account" className="page-w py-6 md:py-10">
+    <Frame label="Loading your account" className="page-w py-6 md:py-10" innerClassName={narrowColumn("wide")}>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-4">
         <div className="size-[60px] shrink-0 rounded-full bg-sunken motion-safe:animate-pulse" />
         <div className="min-w-0 flex-1 space-y-2">
@@ -145,7 +159,11 @@ export function ShoppingSkeleton() {
 /** /about: a title rail, then readable sections (the same frame /privacy and /terms use). */
 export function ArticleSkeleton({ label = "Loading the page" }: { label?: string }) {
   return (
-    <Frame label={label} className="page-w py-8 md:py-14 lg:grid lg:grid-cols-[minmax(0,22rem)_minmax(0,46rem)] lg:gap-x-20">
+    <Frame
+      label={label}
+      className="page-w py-8 md:py-14"
+      innerClassName={cn(narrowColumn("article"), "lg:grid lg:grid-cols-[minmax(0,22rem)_minmax(0,46rem)] lg:gap-x-20")}
+    >
       <div>
         <Bar className="h-[2.1rem] w-4/5 md:h-[2.89rem]" />
         <Bar className="mt-4 h-4 w-full" />

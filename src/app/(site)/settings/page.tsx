@@ -11,6 +11,7 @@ import { SettingsSection } from "@/components/settings/settingsSection";
 import { UnitsWeekForm } from "@/components/settings/unitsWeekForm";
 import { getCurrentUser } from "@/lib/queries/account";
 import { getFilterOptions } from "@/lib/queries/browse";
+import { PageNarrow } from "@/components/shell/pageNarrow";
 import { getMySettings, getProfileName } from "@/lib/queries/settings";
 import { getMyCookwareSlugs } from "@/lib/queries/userCookware";
 
@@ -37,8 +38,8 @@ export default async function SettingsPage() {
   ]);
 
   return (
-    <div className="page-w py-6 md:py-10">
-      <div className="max-w-xl">
+    <PageNarrow width="form" className="py-6 md:py-10">
+      <div>
         <h1 className="text-[1.75rem] leading-tight md:text-[2rem]">Settings</h1>
         <p className="mt-1.5 mb-8 text-[0.9375rem] leading-relaxed text-ink-muted">
           Set these once and Minced uses them everywhere.{" "}
@@ -123,6 +124,6 @@ export default async function SettingsPage() {
           <DeleteAccountForm />
         </SettingsSection>
       </div>
-    </div>
+    </PageNarrow>
   );
 }
