@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { PageNarrow } from "@/components/shell/pageNarrow";
 import { getPhotoCredits } from "@/lib/queries/landing";
 import { pageMeta } from "@/lib/seo/meta";
 
@@ -31,7 +32,7 @@ export const revalidate = 3600;
 export default async function AboutPage() {
   const credits = await getPhotoCredits();
   return (
-    <div className="page-w py-8 md:py-14 lg:grid lg:grid-cols-[minmax(0,22rem)_minmax(0,46rem)] lg:gap-x-20">
+    <PageNarrow width="article" className="py-8 md:py-14" innerClassName="lg:grid lg:grid-cols-[minmax(0,22rem)_minmax(0,46rem)] lg:gap-x-20">
       <header className="lg:sticky lg:top-24 lg:self-start">
         <h1 className="text-[2rem] leading-[1.05] md:text-[2.75rem]">How recipes are made</h1>
         <p className="mt-3 text-base leading-relaxed text-ink-soft md:text-[1.0625rem]">
@@ -214,6 +215,6 @@ export default async function AboutPage() {
         </p>
       </Section>
       </div>
-    </div>
+    </PageNarrow>
   );
 }

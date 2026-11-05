@@ -1,8 +1,10 @@
+import { PageNarrow } from "@/components/shell/pageNarrow";
+
 /* Section skeletons while Settings loads. No text spinner. */
 export default function Loading() {
   return (
-    <div className="page-w py-6 md:py-10" aria-busy="true">
-      <div className="max-w-xl">
+    <PageNarrow width="form" className="py-6 md:py-10">
+      <div aria-busy="true">
         <div className="mb-8 h-9 w-40 rounded-md bg-sunken" />
         {[0, 1, 2, 3].map((i) => (
           <div key={i} className="border-t border-line py-7 first:border-t-0 first:pt-0">
@@ -16,6 +18,6 @@ export default function Loading() {
           </div>
         ))}
       </div>
-    </div>
+    </PageNarrow>
   );
 }
