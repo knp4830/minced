@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { USER_RECIPES_ENABLED } from "@/lib/flags";
+import { pageMeta } from "@/lib/seo/meta";
 import {
   CONTACT_URL,
   LegalPage,
@@ -9,11 +10,11 @@ import {
   legalLink,
 } from "@/components/shell/legalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Terms of use",
-  alternates: { canonical: "/terms" },
+  path: "/terms",
   description: "The rules for using Minced, in plain language.",
-};
+});
 
 export default function TermsPage() {
   return (

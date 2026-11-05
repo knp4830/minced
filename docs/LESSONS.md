@@ -485,3 +485,35 @@ Map of the codebase: `docs/ARCHITECTURE.md`.
 
 **Tooling on this machine.** Give every `docker exec` a `timeout`; Docker Desktop can wedge for every lane at once and a restart restarts all containers. Disk reached 97 percent with old worktrees under `.claude/worktrees`; free space before a wave. Do not `taskkill` by image name (it kills other agents). Python heredocs in bash eat backslashes; write regex files with the Write tool.
 
+## 15. Wave 15 (2026-10-23)
+
+**The `opengraph-image` file convention overrides every page's own `openGraph.images`.** A root-level file would have replaced every recipe photo in share previews. Use a plain route handler (`/og`) and name it explicitly in `pageMeta`; recipes with a photo pass their own.
+
+**Next merges metadata per top-level key.** A page's `openGraph` replaces the layout's whole object, so `pageMeta` restates siteName, title, description, url and image every time.
+
+**robots `Disallow` is prefix matching.** `/recipes/new` would block any slug beginning with "new". Use `/recipes/new$`.
+
+**Never move the address bar between `/recipes/new` and `/recipes/[slug]/edit` with `history.replaceState` while a form holds state.** Next syncs its router to the new URL and the next server-action response renders the other route, remounting the form and losing typing. Keep the URL and offer a resume banner.
+
+**Timers and queued saves read refs, never render state, and saves go through one queue.** Otherwise a save fired from a timeout uses a stale id and creates a second draft.
+
+**A limiter must not trust the caller.** `check_rate_limit` first took limit and window as arguments, so anyone with the public key could lock a known email out. Fix the numbers inside the function, let only `service_role` drive per-email counters, cap distinct subjects per window, and fail open.
+
+**Per-email limits are off until `SUPABASE_SECRET_KEY` is on Vercel.** Without it `allow()` skips the email kinds (IP limits still apply). That is the owner's setting; do not add it from a lane.
+
+**A `loading.tsx` can stall same-route navigation.** `/pantry` has none on purpose. `/me` (day and month links) and `/account` (tab links) got one in wave 15 and were not click-tested signed in: if they feel stuck after a hard load, delete their `loading.tsx` first. A `loading.tsx` also covers child segments, so `/recipes/[slug]/edit` and `/admin/review/list` need their own.
+
+**An `error.tsx` never catches its own segment's layout.** The root `error.tsx` catches failing group layouts and the `@modal` slot; `global-error.tsx` catches the root layout, so it brings its own html and body, uses plain `<a>` (no router) and imports `globals.css` for tokens.
+
+**Recipe rich results need an `image`.** JSON-LD omits it when a recipe has no photo (580 of 957), so those pages are valid but not eligible. Nutrition is emitted only when `nutrition_status = complete`.
+
+**Decorative text glyphs fail contrast audits.** Draw the separator dot as an `aria-hidden` shape in a token colour.
+
+**Vercel's bot challenge returns 429 to curl, PageSpeed Insights and any headless client.** Redirects and canonicals are checked in the browser; Lighthouse is run in a real Chrome (or after the owner allows it). A hidden built-in browser pane does not paint, so it reports no LCP, FCP or CLS and leaves `div#S:n[hidden]` templates that look like duplicate ids.
+
+**`next build` queries the database, so a build is never offline.** With the real `NEXT_PUBLIC_SUPABASE_URL` it prerenders and builds the sitemap by reading live through the public key (read-only). To honour a no-live-reads rule, point that variable at a throwaway PostgREST or a mock before building.
+
+**Local stack recipe for author-RPC tests.** The snapshot dumps schema `public` only, so `private.*` implementations are missing: rebuild them from `20261014120000_user_recipes.sql` renamed to `private.`, then re-apply the grant revokes, or user_recipes_test sections 1 and 14 fail for environment reasons. Use a separate `--workdir` with its own `config.toml` (unique project id and ports).
+
+**`user_recipes_test.sql` counted every recipe as imported.** It now counts `author_id is null`, so existing user recipes do not break section 7.
+

@@ -4,7 +4,10 @@ import { BatchTable } from "@/components/admin/batchTable";
 import { ReviewHeader } from "@/components/admin/reviewFilters";
 import { getProgress, getReviewList, parseSlug, parseSource, parseState, summarize } from "@/lib/queries/adminReview";
 
-export const metadata = { title: "Batch review" };
+export const metadata = {
+  title: "Batch review",
+  description: "Approve many reviewed recipes at once.",
+};
 
 const PAGE = 50;
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };

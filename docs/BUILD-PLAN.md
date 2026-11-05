@@ -39,7 +39,7 @@ The address in this file (`M3.5`) maps to a GitHub issue number. Put `Closes #<n
 | #27 | **M4.2** Favorites with optimistic updates | ☑ |
 | #28 | **M4.3** Account page: Library / My Recipes / Settings | ☑ |
 | #29 | **M5.1** Recipe form with dynamic ingredient and step rows | ☑ (wave 7, hidden behind a flag) |
-| #30 | **M5.2** Draft autosave and publish validation | ☐ (save, submit and validation done; autosave not built) |
+| #30 | **M5.2** Draft autosave and publish validation | ☑ (wave 15, hidden behind a flag; migration `20261023200000` applied to live before merge) |
 | #31 | **M5.3** Edit and delete own recipes | ☑ (wave 7, hidden behind a flag) |
 | #32 | **M6.1** Error boundaries, not-found page, loading states | ☐ |
 | #33 | **M6.2** Sentry error monitoring | ☐ |
@@ -808,8 +808,10 @@ The heart button on cards and detail pages. Use an **optimistic update** — the
 ### ☑ M5.1 — Recipe form (done 2026-10-14, wave 7; hidden behind `NEXT_PUBLIC_ENABLE_USER_RECIPES`)
 Plain server-action forms (React Hook Form and Zod are not installed). Dynamic ingredient rows (add/remove/reorder), dynamic step rows, all the metadata fields. React Hook Form + Zod for validation.
 
-### ☐ M5.2 — Draft / publish (mostly done in wave 7; autosave is the open part)
-Save draft, submit for review (rights confirmation, at least one ingredient and one step, enforced in SQL) and admin approval work. **Draft autosave is not built**, so this box stays open. Autosave to draft. Publishing runs validation: at minimum a title, one ingredient, one step.
+### ☑ M5.2 — Draft / publish (done 2026-10-23, wave 15; hidden behind the flags)
+Save draft, submit for review (rights confirmation, at least one ingredient and one step, enforced in SQL) and admin approval work (wave 7). **Draft autosave** landed in wave 15: `autosave_my_recipe()` (drafts only, never submits, skips half-typed ingredient lines and counts them), a debounced form with a calm status line, retry with back-off, and a device-local backup offered back on reopen. Publishing runs validation: a title, one ingredient, one step, rights confirmation, all in SQL.
+
+Wave 15 verifier (local stack, flags on, two real users): typing creates one draft and updates it in place; a failed network keeps typing and retries; submit validation messages still fire; another user and anon get nothing; non-drafts are refused and unchanged; autosave cannot submit or publish whatever the payload says. Minor items are in `docs/review/2026-10-23-wave15-questions.md`.
 
 ### ☑ M5.3 — Edit and delete (done 2026-10-14, wave 7; hidden behind the flag)
 Same form, prefilled. Delete with a confirm dialog.
@@ -824,17 +826,17 @@ Same form, prefilled. Delete with a confirm dialog.
 
 > **Time:** 2–3 days.
 
-- [ ] Error boundaries + a `not-found.tsx` that matches the design
-- [ ] Loading states (`loading.tsx`, skeletons) on every route that fetches
+- [x] Error boundaries + a `not-found.tsx` that matches the design (wave 15: shared `ErrorView`, five `error.tsx`, rebuilt `global-error.tsx`, warm 404; verified with forced throws, DB down, at 1440 and 375)
+- [ ] Loading states (`loading.tsx`, skeletons) on every route that fetches (wave 15: built everywhere except `/pantry`, which has a keyed Suspense on purpose; browse skeleton verified, signed-in skeletons and the ISR recipe page not demonstrated; click through `/me` days and `/account` tabs on a preview)
 - [ ] Sentry installed, error verified in the dashboard
 - [ ] PostHog installed, tracking: filter usage, recipe views, signups, recipe creations
-- [ ] Metadata + Open Graph tags + `sitemap.ts` + `robots.ts`
-- [ ] **JSON-LD `Recipe` structured data** on every detail page — this is what puts you in Google's recipe carousel with the photo and star rating. It's a competitive advantage most small recipe sites skip.
-- [ ] Lighthouse ≥ 90 on performance and accessibility
+- [ ] Metadata + Open Graph tags + `sitemap.ts` + `robots.ts` (wave 15: built and verified on 26 routes, sitemap 963 URLs, robots correct; open: a few noindex routes lack their own description or canonical)
+- [ ] (wave 15: built, but `image` is omitted on photo-less recipes, 9 of 15 sampled, so those are not rich-result eligible; decision in the wave 15 questions) **JSON-LD `Recipe` structured data** on every detail page — this is what puts you in Google's recipe carousel with the photo and star rating. It's a competitive advantage most small recipe sites skip.
+- [ ] Lighthouse ≥ 90 on performance and accessibility (wave 15: no real Lighthouse run without an owner step; a proxy audit scored 91 to 100 on performance and near-clean axe; fill in `docs/review/2026-10-23-lighthouse-w15.md`)
 - [ ] Every env var set in Vercel production, not just `.env.local`
 - [ ] `/kitchen-sink` route deleted
 - [ ] **Compliance** (see `docs/LEGAL-COMPLIANCE.md` section 11, the "Blocks launch" list): privacy policy and terms pages (header links already point at `/privacy` and `/terms`); USDA/FDC attribution; nutrition and allergen disclaimers ("estimated"); AI-assisted recipe label and `/about/how-recipes-are-made`; Vercel Pro if any monetisation (Hobby is non-commercial only); Google OAuth consent screen needs a real homepage and privacy link; account deletion path (M4.3); accessibility pass
-- [ ] Custom domain
+- [ ] Custom domain (wave 15: `minced.kevinpham.page` verified on Vercel, TLS valid, old hosts redirect; open: confirm Supabase Auth Site URL and Redirect URLs, a throwaway signup, HSTS; see `docs/setup/DOMAIN.md`)
 - [ ] Tested on a real phone, not just devtools
 - [ ] 3 real people used it while you watched silently
 
@@ -931,6 +933,9 @@ The price data is the real blocker, and it is a *data acquisition* problem, not 
 ---
 
 ### v2 — Workout plans
+
+> **Owner idea (2026-10-23), an idea and not a milestone:** "A separate workouts page that connects to Me, where people log which workout they did that day. Or, if they choose a workout plan, they follow it for a set number of weeks; every workout in the plan is shown with which muscles it hits and how effectively, plus substitutions and other exercises they can use instead."
+
 Genuinely a second product: `exercises`, `workout_plans`, `plan_days`, `plan_exercises`, equipment-based substitution. Scope it as its own build plan when you get there. Don't let it creep into v1.
 
 **Fitness scope the user listed (2026-10-12), so the v2 plan starts from it:**
@@ -1050,6 +1055,8 @@ Wave 12 did not close a milestone, so no box changes: M1.5.7 (owner review) stay
 Wave 13 (redesign) did not close a milestone either, so no box changes. Shipped on `w13/redesign`: warmer auth messages; fonts Young Serif / Nunito Sans / Overpass Mono site-wide; the photo-led landing (rotating full-bleed hero of nutrition-complete dishes, headline "Narrow it down. Start cooking.", green nav bar, two-column fridge section with an example fridge, feature tiles, live recipe strip, dark coming-soon band and footer). No database changes. Open: a "how the fridge works" scroll story (owner idea, needs art direction), dark mode (not built), deleting the stale `/lab/hero` page.
 
 Wave 14 did not close a milestone, so no box changes: no verifier passed a BUILD-PLAN DoD. M1.5.7 stays open and now covers 26 more `in_review` recipes (20 NHS, blocked on a licence answer; 6 MyPlate rescues); M4.1 stays open (Google login not yet real on live); M5.2 and M3.7 unchanged. Shipped on `w14/integration` (not live until the owner says go): Me fixes and the `sex`/`units` column drop, the time filter excluding untimed recipes, 22 new foods linked, the NHS and MyPlate-rescue seeds, warm fridge gate and auth emails, `/lab/hero` removed, a cooking-effects research brief. No `Closes #N` lines.
+
+Wave 15 (launch readiness, behind the scenes): M5.2 (#30) is checked because its verifier passed on a local stack with the flags on. M6.1 (#32), M6.4 (#35) and M6.6 (#37) are built but their verifiers found gaps, so they stay open with the remainder in the Phase 6 checklist above and in `docs/review/2026-10-23-wave15-questions.md`. M6.5 (#36) stays open: it needs the owner's real Lighthouse run, a real-phone test and three watched users. M6.2 (Sentry) and M6.3 (PostHog) are not started (new packages, owner go-ahead). Three migrations (`20261023200000`, `210000`, `220000`; live goes 62 to 65) must be applied before merging.
 
 # NEXT UP (written 2026-10-14, end of wave 7)
 

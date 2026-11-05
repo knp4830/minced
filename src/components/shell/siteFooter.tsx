@@ -29,6 +29,7 @@ const GROUPS = [
       ["/about#usda", "Data sources"],
       ["/privacy", "Privacy"],
       ["/terms", "Terms"],
+      ["/accessibility", "Accessibility"],
     ],
   },
 ] as const;

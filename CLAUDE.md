@@ -281,4 +281,13 @@ Warmer auth copy, new fonts site-wide, and the photo-led landing (rotating hero 
 - **Checked boxes: none.** **Blocked:** do not approve the 20 NHS recipes until DHSC permission or a lawyer ruling (Healthier Families terms reserve all rights). Questions and review files: `docs/review/2026-10-23-wave14-questions.md`.
 - **Next:** owner review, then domain, Google sign-in, custom SMTP and launch.
 
+### Wave 15 (2026-10-23): launch readiness, PR open on `w15/integration`, NOT applied to live
+
+**Three migrations must be applied BEFORE merging, in order:** `20261023200000_autosave_my_recipe`, `210000_rate_limit`, `220000_rate_limit_hardening` (live goes 62 to 65). Back up first with `bash scripts/backup/backup-live.sh --live pre-wave15`, then follow `scripts/nutrition/LIVE-STEPS.md` "Wave 15". Types are already regenerated. Code merged first is safe (autosave shows a retry message, the limiter fails open) but there is no limiting until the migrations are applied.
+
+- **Shipped (no product features):** shared error boundaries and a warm 404, loading skeletons on every fetching route (not `/pantry`), per-page metadata and share cards (`/og`), Recipe JSON-LD, tighter robots, the domain check (`docs/setup/DOMAIN.md`), draft autosave for user recipes, Postgres rate limits on sign-up, log-in, reset and type-ahead, a live backup script, an `/accessibility` page, "Not medical advice" and "Report a problem" on recipes.
+- **Checked box: M5.2 (#30) only** (its verifier passed). M6.1, M6.4, M6.6 are built but their verifiers found gaps, so they stay open. M6.5 stays open (real Lighthouse, real-phone pass, three watched users). M6.2 Sentry and M6.3 PostHog not started (new packages).
+- **Open:** per-email rate limits are off until `SUPABASE_SECRET_KEY` is set on Vercel (owner call); recipe JSON-LD has no `image` on photo-less recipes; click through `/me` days and `/account` tabs on a preview (delete their `loading.tsx` if navigation sticks). Questions and owner steps: `docs/review/2026-10-23-wave15-questions.md`.
+- **Idea logged:** workouts page connected to Me (log the day's workout, follow a multi-week plan with muscles hit and substitutions), under "v2 — Workout plans" in BUILD-PLAN.
+
 **Operational note:** the Supabase project pauses after inactivity. Restore it and wait for `ACTIVE_HEALTHY` before pushing migrations, and before any deploy (the build queries the database).

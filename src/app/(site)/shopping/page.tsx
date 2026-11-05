@@ -6,6 +6,7 @@ import { getShoppingLines } from "@/lib/queries/shopping";
 
 export const metadata: Metadata = {
   title: "Shopping list",
+  description: "Your shopping list: the ingredients you still need for the recipes you picked, grouped so the shop is quick.",
   robots: { index: false },
 };
 

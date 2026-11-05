@@ -4,6 +4,7 @@ import { AuthPanel } from "@/components/account/authPanel";
 
 export const metadata: Metadata = {
   title: "Create an account",
+  description: "Make a free Minced account to save a fridge, favourite recipes and keep a shopping list wherever you cook.",
   robots: { index: false },
 };
 

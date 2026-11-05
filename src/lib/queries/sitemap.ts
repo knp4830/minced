@@ -9,6 +9,8 @@ export async function getSitemapRecipes(): Promise<{ slug: string; updatedAt: st
     const { data, error } = await supabase
       .from("recipes")
       .select("slug, updated_at")
+      // The anon key already sees published rows only (RLS); say so here too so a policy change cannot leak drafts into the sitemap.
+      .eq("status", "published")
       .order("slug", { ascending: true })
       .range(from, from + PAGE - 1);
     if (error) throw error;

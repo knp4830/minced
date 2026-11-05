@@ -110,11 +110,11 @@ export function HeroPhotos({ slides, children }: { slides: HeroSlide[]; children
                 {paused ? <Play aria-hidden className="size-4" /> : <Pause aria-hidden className="size-4" />}
               </button>
             )}
-            {current.credit && (
-              <span className="order-last w-full pb-1 font-mono text-[0.6875rem] text-on-night">
-                Photo: {current.credit}
-              </span>
-            )}
+            {/* Always rendered (blank when the photo needs no credit), so the caption keeps one height as the
+                slides rotate: a credit line appearing and disappearing shifted the page below (CLS 0.11 at 7 s). */}
+            <span className="order-last w-full pb-1 font-mono text-[0.6875rem] text-on-night" aria-hidden={current.credit ? undefined : true}>
+              {current.credit ? `Photo: ${current.credit}` : " "}
+            </span>
           </div>
         )}
       </div>

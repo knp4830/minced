@@ -32,8 +32,8 @@ const overpassMono = Overpass_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  openGraph: { siteName: "Minced", type: "website", locale: "en_US" },
-  twitter: { card: "summary" },
+  openGraph: { siteName: "Minced", type: "website", locale: "en_US", images: ["/og"] },
+  twitter: { card: "summary_large_image", images: ["/og"] },
   title: {
     default: "Minced",
     template: "%s · Minced",

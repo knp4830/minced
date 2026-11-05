@@ -72,9 +72,12 @@ export type RecipeDetail = {
   sourceName: string | null;
   sourceUrl: string | null;
   sourceLicense: string | null;
+  /** ISO timestamps, for JSON-LD datePublished / dateModified. */
+  publishedAt: string | null;
+  updatedAt: string | null;
 };
 
-type Row = {
+export type Row = {
   id: string;
   slug: string;
   title: string;
@@ -93,6 +96,8 @@ type Row = {
   source_name: string | null;
   source_url: string | null;
   source_license: string | null;
+  published_at: string | null;
+  updated_at: string | null;
   cuisines: { name: string } | null;
   recipe_ingredients: {
     quantity: number | null;
@@ -155,7 +160,7 @@ export function cookwareLabels(
 const SELECT = `
   id, slug, title, servings, total_time_min, prep_time_min, cook_time_min,
   spice_level, image_url, calories, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
-  source_name, source_url, source_license,
+  source_name, source_url, source_license, published_at, updated_at,
   cuisines(name),
   recipe_ingredients(quantity, prep_note, is_optional, sort_order, units(name, kind, to_base_factor), ingredients(id, canonical_name, aisle_category, family_id, is_pantry_staple, ingredient_allergens(allergens(slug)))),
   recipe_steps(sort_order, instruction),
@@ -181,8 +186,11 @@ export const getRecipeBySlug = cache(async function getRecipeBySlug(
     .maybeSingle();
   if (error) throw error;
   if (!data) return null;
-  const r = data as unknown as Row;
+  return mapRecipeRow(data as unknown as Row);
+});
 
+/** Pure row-to-page-model mapping, exported so scripts can test what a page (and its JSON-LD) would show. */
+export function mapRecipeRow(r: Row): RecipeDetail {
   // The photo rides along in the same query (one round trip, not two).
   let photo: RecipePhotoCredit | null = null;
   const p = Array.isArray(r.recipe_photos) ? r.recipe_photos[0] : r.recipe_photos;
@@ -253,5 +261,7 @@ export const getRecipeBySlug = cache(async function getRecipeBySlug(
     sourceName: r.source_name,
     sourceUrl: r.source_url,
     sourceLicense: r.source_license,
+    publishedAt: r.published_at,
+    updatedAt: r.updated_at,
   };
-});
+}

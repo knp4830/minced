@@ -49,6 +49,7 @@ import { ageFromBirthYear } from "@/lib/settingsValidate";
 
 export const metadata: Metadata = {
   title: "Me",
+  description: "Your own page: what you ate, how you trained and how the week is going, all in one place.",
   robots: { index: false },
 };
 

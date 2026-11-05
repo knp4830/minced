@@ -23,6 +23,7 @@ import {
   type SearchParamsInput,
 } from "@/lib/filters";
 import { DefaultsChip, PrefsMarker } from "@/components/recipe/defaultsChip";
+import { pageMeta } from "@/lib/seo/meta";
 import { resolveDefaults } from "@/lib/prefsCookie";
 import { getFilterOptions, getRecipePage } from "@/lib/queries/browse";
 import { RecipeGridSkeleton } from "@/components/shell/skeletons";
@@ -33,10 +34,12 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const f = parseFilters((await searchParams) as SearchParamsInput);
   const filtered = !!f.q || hasActiveFilters(f) || !!f.cursor;
   return {
-    title: f.q ? `“${f.q}”` : "Recipes",
-    description:
-      "Every recipe is ingredients, amounts and numbered steps. Filter by time, ingredients, diet, allergens, calories, protein or the cookware you own.",
-    alternates: { canonical: "/recipes" },
+    ...pageMeta({
+      title: f.q ? `“${f.q}”` : "Recipes",
+      path: "/recipes",
+      description:
+        "Every recipe is ingredients, amounts and numbered steps. Filter by time, ingredients, diet, allergens, calories, protein or the cookware you own.",
+    }),
     // Search and filter URLs are infinite and thin; only the plain listing is indexable.
     robots: filtered ? { index: false, follow: true } : undefined,
   };
@@ -272,6 +275,8 @@ export default async function RecipesPage({ searchParams }: Props) {
             <FilterControls filters={url} options={options} defaults={defaults} />
           </FilterSheet>
 
+          {/* Card titles are h3; this keeps the heading order h1 > h2 > h3 for screen readers (Lighthouse heading-order). */}
+          <h2 className="sr-only">Recipe results</h2>
           <div data-results>
             <Suspense key={resultsKey} fallback={<RecipeGridSkeleton count={8} />}>
               <Results filters={filters} urlFilters={url} defaults={defaults} />

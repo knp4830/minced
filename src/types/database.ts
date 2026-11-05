@@ -931,6 +931,27 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limit_hits: {
+        Row: {
+          hits: number
+          kind: string
+          subject_hash: string
+          window_start: string
+        }
+        Insert: {
+          hits?: number
+          kind: string
+          subject_hash: string
+          window_start: string
+        }
+        Update: {
+          hits?: number
+          kind?: string
+          subject_hash?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
       recipe_allergens: {
         Row: {
           allergen_id: number
@@ -1902,7 +1923,20 @@ export type Database = {
         }
         Returns: undefined
       }
+      autosave_my_recipe: {
+        Args: { p_data: Json; p_recipe_id: string }
+        Returns: Json
+      }
       can_read_recipe: { Args: { p_recipe_id: string }; Returns: boolean }
+      check_rate_limit: {
+        Args: {
+          p_kind: string
+          p_limit: number
+          p_subject: string
+          p_window_seconds: number
+        }
+        Returns: boolean
+      }
       compute_nutrients: {
         Args: { lines: Json; servings: number }
         Returns: {

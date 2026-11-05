@@ -21,13 +21,13 @@ Folders in parentheses are route groups: they share a layout and do not appear i
 | Group | Layout gives | Routes |
 |---|---|---|
 | `(landing)` | landing nav + footer | `/` |
-| `(site)` | `SiteHeader`, `SiteFooter`, `ShoppingSync`, error boundary | `/recipes`, `/recipes/[slug]`, `/pantry`, `/fridge`, `/shopping`, `/account`, `/about`, `/privacy`, `/terms`, `/recipes/new` and `/recipes/[slug]/edit` (user recipes: built, **flag-gated**, 404 while `NEXT_PUBLIC_ENABLE_USER_RECIPES` is off, noindex, not in the sitemap), `/recipe-not-found` (internal 404 target). `/kitchen-sink` was deleted in wave 7. |
+| `(site)` | `SiteHeader`, `SiteFooter`, `ShoppingSync`, error boundary | `/recipes`, `/recipes/[slug]`, `/pantry`, `/fridge`, `/shopping`, `/account`, `/about`, `/privacy`, `/terms`, `/accessibility`, `/recipes/new` and `/recipes/[slug]/edit` (user recipes: built, **flag-gated**, 404 while `NEXT_PUBLIC_ENABLE_USER_RECIPES` is off, noindex, not in the sitemap), `/recipe-not-found` (internal 404 target). `/kitchen-sink` was deleted in wave 7. |
 | `(auth)` | centred auth card | `/login`, `/signup`, `/forgot-password`, `/reset-password` |
 | `admin` | `is_admin()` gate, 404 for everyone else | `/admin/review`, `/admin/review/list` |
 | `api` | none | `/api/me`, `/api/me/export`, `/api/fridge` (`/api/ingredients/suggest` was deleted in wave 7) |
 | `auth/callback` | none | email-link code exchange |
 
-Top level: `layout.tsx` (html, body, `NavProgress`), `not-found.tsx` (global 404, brings its own header and footer), `global-error.tsx`, `sitemap.ts`, `robots.ts`, `polish.css` (scroll lock, nav progress), `globals.css` (all colour tokens; **no raw hex anywhere else**).
+Top level: `og/route.tsx` (default share card at `/og`, static), `layout.tsx` (html, body, `NavProgress`), `not-found.tsx` (global 404, brings its own header and footer), `global-error.tsx`, `sitemap.ts`, `robots.ts`, `polish.css` (scroll lock, nav progress), `globals.css` (all colour tokens; **no raw hex anywhere else**).
 
 `src/middleware.ts` runs on only these: `/recipes/<slug>` (real HTTP 404 for unknown slugs via `lib/recipeGate.ts`; `new` is exempt, and `/recipes/new` plus `/recipes/<slug>/edit` redirect signed-out visitors to login), `/account` and `/fridge` (redirect to login), and the auth routes (session refresh). It does no work on `/`, `/recipes`, `/pantry`.
 
@@ -308,4 +308,15 @@ Email + password (Google waits for a domain). Sign-up/log-in are Server Actions 
 - **Auth email:** templates in `supabase/templates/` are warm; subjects and paste steps in `docs/setup/EMAIL-SMTP.md` section 6 (the production copy lives in the Supabase dashboard).
 - **Research:** `docs/research/prep-effects-nutrition.md`; no code.
 - **Where do I change:** a time rule, `browse.ts` plus a new migration for the three RPCs; a food decision, `decisions_w14.psv` then rebuild; a UK-to-catalog ingredient rewrite, `scripts/nhs/rules.py`; how a day is judged on Me, `src/lib/me/foodStatus.ts`.
+
+## 17. Wave 15 additions (2026-10-23)
+
+- **Migrations:** 65 on the branch (live 62 until the owner says go): `20261023200000_autosave_my_recipe` (RPC `autosave_my_recipe`), `20261023210000_rate_limit` (private table `rate_limit_hits`, RPC `check_rate_limit`), `20261023220000_rate_limit_hardening` (limits fixed inside the function; per-email kinds only for `service_role`). Current definition of `check_rate_limit` is the newest file.
+- **Error and loading:** `src/components/shell/errorView.tsx` (one client view, used by `error.tsx` in app root, `(site)`, `(landing)`, `(auth)`, `admin`; shows only Next's digest, never the message), `src/app/global-error.tsx` (own html and body), `notFoundView.tsx` plus `recoverySearch.tsx`. Skeletons: `pageSkeletons.tsx` (per page), `skeletons.tsx` (shared pieces); `loading.tsx` on every fetching route except `/pantry` (deliberate). Add Sentry where `ErrorView` calls `console.error`.
+- **SEO:** `src/lib/seo/meta.ts` (`pageMeta`: canonical, Open Graph, Twitter), `recipeJsonLd.ts` (pure; `scripts/test-seo.mts` validates it against Google's required fields), `ogCard.tsx` (reads colours from `globals.css` at build) behind `src/app/og/route.tsx`. `robots.ts` disallows `/admin`, `/lab`, `/recipes/new$`, `/recipes/*/edit`; `sitemap` queries filter `status = published`.
+- **Autosave (M5.2):** `src/components/recipe/recipeForm.tsx` (debounce 1.5 s, max wait 8 s, one save queue, back-off 3/6/12/30 s, device backup in localStorage), `src/lib/recipeForm.ts` (`autosaveReadiness`, signature, backup parsing), `autosaveRecipe` in `src/lib/actions/myRecipes.ts`. Drafts only; in-review and published recipes keep the explicit Save.
+- **Rate limiting:** `src/lib/rateLimit.ts` (`allow`, `allowIpAndEmail`, `clientIp`; fails open; email kinds need `SUPABASE_SECRET_KEY`), wired in `src/lib/actions/auth.ts` (log-in, sign-up, reset) and `foods.ts` (type-ahead). Numbers live in `LIMITS` AND in the SQL function: change both.
+- **Backups:** `scripts/backup/backup-live.sh` (`--dry-run --db-url <local>` or `--live <label>`), `storage_backup.py`, `README.md`. Output in `.snapshot/backups/` (git-ignored).
+- **Docs:** `docs/setup/DOMAIN.md` (what is set where, env table), `docs/review/2026-10-23-lighthouse-w15.md` (compliance walk, Lighthouse fill-in table), `/accessibility` page.
+- **Where do I change:** a share-card look, `ogCard.tsx`; a page's title or description, its `pageMeta` call; a rate limit, `LIMITS` plus a new migration redefining `check_rate_limit`; how autosave decides a line is "not yet", `autosave_my_recipe` in SQL (and a new migration).
 

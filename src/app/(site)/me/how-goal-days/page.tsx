@@ -7,6 +7,7 @@ import { ME_ENABLED } from "@/lib/me/flag";
 
 export const metadata: Metadata = {
   title: "How goal days work",
+  description: "How Minced decides whether a day counts as a goal day, with the numbers shown.",
   robots: { index: false },
 };
 
