@@ -15,6 +15,7 @@
  */
 
 import { expandLegacyAllergens, expandPreSplitAllergens } from "@/lib/allergenSlugs";
+import { TAG_SLUG_RE } from "@/lib/validate";
 import { MAX_ALLERGENS, MAX_DIETS, type FoodDefaults } from "@/lib/settingsValidate";
 
 export const PREFS_COOKIE = "minced_prefs";
