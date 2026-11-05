@@ -1,3 +1,4 @@
+import { TAG_SLUG_RE } from "@/lib/validate";
 /**
  * Browser-side memory for "My cookware", the twin of fridgeStorage.ts.
  * Client-only: every function touches `window.localStorage` and swallows the
@@ -13,7 +14,6 @@ export type StoredCookware = { slugs: string[]; only: boolean };
 
 const KEY = "minced.cookware.v1";
 const MAX_ITEMS = 50;
-const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 export function readCookware(): StoredCookware {
   try {
@@ -21,7 +21,7 @@ export function readCookware(): StoredCookware {
     if (!raw) return { slugs: [], only: false };
     const p = JSON.parse(raw) as { slugs?: unknown; only?: unknown } | null;
     const slugs = Array.isArray(p?.slugs)
-      ? [...new Set((p.slugs as unknown[]).filter((s): s is string => typeof s === "string" && SLUG.test(s)))].slice(
+      ? [...new Set((p.slugs as unknown[]).filter((s): s is string => typeof s === "string" && TAG_SLUG_RE.test(s)))].slice(
           0,
           MAX_ITEMS,
         )

@@ -1,3 +1,4 @@
+import { TAG_SLUG_RE } from "@/lib/validate";
 /*
  * Settings: shared types and validators. Pure (no Next, no Supabase) so the server actions, the query layer and
  * the unit tests all use the same rules. A server action is a public endpoint: every argument is re-validated
@@ -45,7 +46,6 @@ export const NESTED_DIETS: readonly string[] = ["pescatarian", "vegetarian", "ve
 export const MAX_DIETS = 8;
 export const MAX_ALLERGENS = 16;
 export const MAX_NAME = 60;
-export const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 type Ok<T> = { ok: true; value: T };
 type Bad = { ok: false; reason: string };
@@ -88,7 +88,7 @@ function slugs(raw: unknown, max: number, label: string): Checked<string[]> {
   if (raw.length > max * 4) return { ok: false, reason: `Too many ${label.toLowerCase()}.` };
   const out: string[] = [];
   for (const s of raw) {
-    if (typeof s !== "string" || !SLUG.test(s)) return { ok: false, reason: `${label} has an invalid entry.` };
+    if (typeof s !== "string" || !TAG_SLUG_RE.test(s)) return { ok: false, reason: `${label} has an invalid entry.` };
     if (!out.includes(s)) out.push(s);
   }
   if (out.length > max) return { ok: false, reason: `Too many ${label.toLowerCase()}.` };
@@ -139,8 +139,8 @@ export function settingsFromRow(
     weekStart: oneOf(row.week_start, WEEK_STARTS) ? row.week_start : "monday",
     sex: oneOf(row.sex, SEXES) ? row.sex : null,
     birthYear: typeof row.birth_year === "number" && Number.isInteger(row.birth_year) ? row.birth_year : null,
-    diet: Array.isArray(row.diet_slugs) ? row.diet_slugs.filter((s) => SLUG.test(s)) : [],
-    allergens: Array.isArray(row.allergen_slugs) ? row.allergen_slugs.filter((s) => SLUG.test(s)) : [],
+    diet: Array.isArray(row.diet_slugs) ? row.diet_slugs.filter((s) => TAG_SLUG_RE.test(s)) : [],
+    allergens: Array.isArray(row.allergen_slugs) ? row.allergen_slugs.filter((s) => TAG_SLUG_RE.test(s)) : [],
   };
 }
 

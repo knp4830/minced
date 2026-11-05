@@ -9,9 +9,6 @@ import type { FridgeItem } from "@/lib/fridgeStorage";
 
 export type SavedFridge = { items: FridgeItem[]; coverIds: number[] };
 
-/** Fired on `window` after the saved fridge changes elsewhere on the page (an import, a dated edit). */
-export const FRIDGE_CHANGED = "minced:fridge-changed";
-
 /** The signed-in user's saved fridge, or null when the request failed (keep what you had). */
 export async function fetchSavedFridge(): Promise<SavedFridge | null> {
   try {
@@ -25,10 +22,3 @@ export async function fetchSavedFridge(): Promise<SavedFridge | null> {
   }
 }
 
-export function announceFridgeChanged() {
-  try {
-    window.dispatchEvent(new Event(FRIDGE_CHANGED));
-  } catch {
-    /* no window: nothing is listening */
-  }
-}
