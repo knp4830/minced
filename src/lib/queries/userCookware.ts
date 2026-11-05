@@ -1,5 +1,6 @@
 
 import { createClient } from "@/lib/supabase/server";
+import { TAG_SLUG_RE } from "@/lib/validate";
 
 /*
  * The cookware a signed-in cook owns (`user_cookware`, private: RLS lets a user
@@ -11,7 +12,6 @@ import { createClient } from "@/lib/supabase/server";
  */
 
 export const MAX_OWNED_COOKWARE = 50;
-const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 type Row = { cookware: { slug: string } | null };
 
@@ -33,7 +33,7 @@ export type SetCookwareResult =
  * less than they had.
  */
 export async function setMyCookware(slugs: string[]): Promise<SetCookwareResult> {
-  const clean = [...new Set(slugs.filter((s) => typeof s === "string" && SLUG_RE.test(s)))].slice(
+  const clean = [...new Set(slugs.filter((s) => typeof s === "string" && TAG_SLUG_RE.test(s)))].slice(
     0,
     MAX_OWNED_COOKWARE,
   );

@@ -1,4 +1,5 @@
 import { MAX_INT4 } from "@/lib/filters";
+import { daysUntil } from "@/lib/fridgeDates";
 import { createClient } from "@/lib/supabase/server";
 
 /*
@@ -109,9 +110,7 @@ export async function getRecipeExpiryDays(
     .not("expires_on", "is", null);
   const dated = ((items ?? []) as { ingredient_id: number; expires_on: string }[]).map((i) => ({
     id: i.ingredient_id,
-    days: Math.round(
-      (Date.parse(`${i.expires_on}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86_400_000,
-    ),
+    days: daysUntil(i.expires_on, today),
   }));
   if (dated.length === 0) return new Map();
   const { data, error } = await supabase.rpc("recipe_expiry_days", {

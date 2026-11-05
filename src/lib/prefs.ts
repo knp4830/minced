@@ -15,7 +15,7 @@
  */
 
 import { expandLegacyAllergens, expandPreSplitAllergens } from "@/lib/allergenSlugs";
-import { MAX_ALLERGENS, MAX_DIETS, SLUG, type FoodDefaults } from "@/lib/settingsValidate";
+import { MAX_ALLERGENS, MAX_DIETS, type FoodDefaults } from "@/lib/settingsValidate";
 
 export const PREFS_COOKIE = "minced_prefs";
 export const PREFS_MAX_AGE_S = 7 * 24 * 60 * 60;
@@ -49,7 +49,7 @@ function cleanSlugs(raw: unknown, max: number): string[] | null {
   if (!Array.isArray(raw) || raw.length > max * 4) return null;
   const out: string[] = [];
   for (const s of raw) {
-    if (typeof s !== "string" || !SLUG.test(s)) return null;
+    if (typeof s !== "string" || !TAG_SLUG_RE.test(s)) return null;
     if (!out.includes(s)) out.push(s);
   }
   return out.length > max ? null : out.sort();
