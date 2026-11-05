@@ -21,6 +21,9 @@ const eslintConfig = [
       // Not application code: the design mockup runtime and repo shell scripts.
       "design/**",
       "scripts/**",
+      // Agent worktrees and local snapshots: other checkouts, not this one.
+      ".claude/**",
+      ".snapshot/**",
     ],
   },
 ];
