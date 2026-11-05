@@ -5,7 +5,6 @@ import { revalidatePath } from "next/cache";
 import { isIsoDate, todayIso } from "@/lib/fridgeDates";
 import { MAX_INT4 } from "@/lib/filters";
 import {
-  addToFridge,
   deleteFridgeRow,
   replaceFridge,
   updateFridgeRow,
@@ -50,13 +49,6 @@ export async function saveFridge(ids: number[], today?: string): Promise<FridgeW
   const clean = cleanIds(ids);
   if (!clean) return { ok: false, reason: "failed" };
   return done(await replaceFridge(clean, cleanToday(today)));
-}
-
-/** Add ids to the saved fridge, keeping what is there (importing a browser's local fridge). */
-export async function importToFridge(ids: number[], today?: string): Promise<FridgeWriteResult> {
-  const clean = cleanIds(ids);
-  if (!clean) return { ok: false, reason: "failed" };
-  return done(await addToFridge(clean, cleanToday(today)));
 }
 
 function dateOrNull(v: unknown): string | null | undefined {

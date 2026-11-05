@@ -78,20 +78,6 @@ export async function replaceFridge(ids: number[], today: string): Promise<Fridg
   return ok ? { ok: true } : { ok: false, reason: "failed" };
 }
 
-/** Add `ids` to the fridge without removing anything (the local-fridge import). */
-export async function addToFridge(ids: number[], today: string): Promise<FridgeWriteResult> {
-  const s = await session();
-  if (!s) return { ok: false, reason: "signed-out" };
-  const have = await currentIds(s);
-  if (!have) return { ok: false, reason: "failed" };
-  const ok = await insertMissing(
-    s,
-    ids.filter((id) => !have.includes(id)),
-    today,
-  );
-  return ok ? { ok: true } : { ok: false, reason: "failed" };
-}
-
 export type FridgePatch = {
   purchasedOn?: string | null;
   expiresOn?: string | null;
